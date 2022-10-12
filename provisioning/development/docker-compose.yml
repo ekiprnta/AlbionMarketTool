@@ -1,0 +1,106 @@
+version: '3.7'
+
+services:
+
+  php-fpm:
+    tty: true # Enables debugging capabilities when attached to this container.
+    image: registry.mehrkanal.com/docker/phpx/fpm:8.0-dev-workspace
+    volumes:
+      - ../../:/app
+      - $SSH_AUTH_SOCK:$SSH_AUTH_SOCK
+    restart: always
+    environment:
+      SSH_AUTH_SOCK: $SSH_AUTH_SOCK
+      SSH_AGENT_PID: $SSH_AGENT_PID
+      APPLICATION_ENV: development
+    depends_on:
+      - db_local
+      - db_test
+    working_dir: /app
+
+  node:
+    build: ./node
+    volumes:
+      - ../../:/app
+    ports:
+      - '3000:3000'
+      - '3001:3001'
+    links:
+      - nginx
+    working_dir: /app
+    entrypoint: [ 'tail', '-f', '/dev/null' ]
+    extra_hosts:
+      - 'packageserver-mehrkanal.testmk2.com:192.168.8.30'
+
+  phpmyadmin_local:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    depends_on:
+      - db_local
+    environment:
+      PMA_HOSTS: db_local
+      PMA_PORT: 3307
+    ports:
+      - 8081:80
+
+  phpmyadmin_test:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    depends_on:
+      - db_test
+    environment:
+      PMA_HOSTS: db_test
+      PMA_PORT: 3308
+    ports:
+      - 8082:80
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - '8080:80'
+    volumes:
+      - ../../:/app/:ro
+      - ./nginx/vhost.conf:/etc/nginx/conf.d/default.conf:ro
+    environment:
+      - NGINX_HOST=foobar.com
+      - NGINX_PORT=80
+    depends_on:
+      - php-fpm
+    links:
+      - php-fpm
+    restart: always
+
+  db_local:
+    #    https://hub.docker.com/_/mariadb
+    image: mariadb:10.7
+    ports:
+      - '3307:3306'
+    volumes:
+      - db_data_local:/var/lib/mysql
+      - ./dealership_db.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      - MYSQL_ROOT_PASSWORD=zuiop
+      - MYSQL_PASSWORD=qwert
+      - MYSQL_USER=flyka
+      - MYSQL_DATABASE=dealership_db
+
+  db_test:
+    #    https://hub.docker.com/_/mariadb
+    image: mariadb:10.7
+    ports:
+      - '3308:3306'
+    volumes:
+      - db_data_test:/var/lib/mysql
+      - ./dealership_db_test.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      - MYSQL_ROOT_PASSWORD=zuiop
+      - MYSQL_PASSWORD=qwert
+      - MYSQL_USER=flyka
+      - MYSQL_DATABASE=dealership_db
+
+
+volumes:
+  db_data_local:
+  db_data_test:
+
+

@@ -1,0 +1,49 @@
+{
+    "name": "m-zierdt/albion",
+    "autoload": {
+        "psr-4": {
+            "MZierdt\\Albion\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Max Zierdt",
+            "email": "zierdt@mehrkanal.com"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "league/csv": "^9.8",
+        "symfony/console": "^6.0",
+        "webmozart/assert": "^1.10",
+        "ext-pdo": "*",
+        "twig/twig": "^3.4",
+        "nikic/fast-route": "^1.3",
+        "laminas/laminas-diactoros": "^2.13",
+        "laminas/laminas-servicemanager": "^3.16",
+        "monolog/monolog": "2.5",
+        "ext-curl": "*"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^1.8",
+        "phpunit/phpunit": "^9",
+        "phpspec/prophecy-phpunit": "^2.0",
+        "infection/infection": "^0.26.10",
+        "symfony/var-dumper": "^6.0",
+        "symplify/easy-coding-standard": "^10.2.3",
+        "rector/rector": "^0.13.8"
+    },
+    "scripts": {
+        "stan-pipeline": "phpstan analyse -c phpstan.neon --no-progress -n --error-format=junit --ansi",
+        "stan5": "vendor/bin/phpstan analyze -l 5 src",
+        "stan4": "vendor/bin/phpstan analyze -l 4 src",
+        "stan6": "vendor/bin/phpstan analyze -l 6 src",
+        "ecs": "vendor/bin/ecs --fix"
+    },
+    "config": {
+        "allow-plugins": {
+            "infection/extension-installer": true
+        }
+    }
+}
+

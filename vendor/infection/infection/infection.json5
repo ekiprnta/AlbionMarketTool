@@ -1,0 +1,20 @@
+{
+    "$schema": "./resources/schema.json",
+    "timeout": 25,
+    "source": {
+        "directories": [
+            "src"
+        ]
+    },
+    "logs": {
+        "stryker": {
+            "report": "master"
+        }
+    },
+    "mutators": {
+        "global-ignoreSourceCodeByRegex": [
+            "Assert::.*"
+        ],
+        "@default": true
+    }
+}
