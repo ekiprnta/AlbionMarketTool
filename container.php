@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Laminas\ServiceManager\AbstractFactory\ConfigAbstractFactory;
 use Laminas\ServiceManager\ServiceManager;
 use MZierdt\Albion\factories\TwigEnvironmentFactory;
+use MZierdt\Albion\Handler\BlackMarketHandler;
 use MZierdt\Albion\Handler\CalculateInfoHandler;
 use MZierdt\Albion\Handler\ShowResourcePriceHandler;
 use MZierdt\Albion\HttpClient;
@@ -26,6 +27,9 @@ $serviceManager = new ServiceManager([
                 CalculateInfoHandler::class => [
                   Environment::class
                 ],
+                BlackMarketHandler::class => [
+                    Environment::class
+                ]
             ]
         ],
     ],

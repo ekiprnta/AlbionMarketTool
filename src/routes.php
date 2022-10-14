@@ -1,6 +1,7 @@
 <?php
 
 
+use MZierdt\Albion\Handler\BlackMarketHandler;
 use MZierdt\Albion\Handler\CalculateInfoHandler;
 use MZierdt\Albion\Handler\ShowResourcePriceHandler;
 use Twig\Environment;

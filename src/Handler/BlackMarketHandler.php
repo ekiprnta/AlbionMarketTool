@@ -7,7 +7,7 @@ namespace MZierdt\Albion\Handler;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Twig\Environment;
 
-class CalculateInfoHandler
+class BlackMarketHandler
 {
     public function __construct(
         private Environment $twigEnvironment
