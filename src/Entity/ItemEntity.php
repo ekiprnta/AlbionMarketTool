@@ -37,7 +37,7 @@ class ItemEntity
 
     private int $tier;
     private string $name;
-    private int $sellPrice;
+    private int $sellPriceBlackMarket;
     private int $primaryResourceAmount;
     private int $secondaryResourceAmount;
 }
