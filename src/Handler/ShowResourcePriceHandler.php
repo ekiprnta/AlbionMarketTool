@@ -18,8 +18,6 @@ class ShowResourcePriceHandler
 
     public function handler(): HtmlResponse
     {
-        echo $this->apiService->getResource('planks');
-
         $htmlContent = $this->twigEnvironment->render('test.html.twig');
         return new HtmlResponse($htmlContent);
     }

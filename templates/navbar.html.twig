@@ -1,7 +1,7 @@
 <div class="row">
     <nav class="navbar navbar-expand-md navbar-dark bg-primary nav-fill w-100">
         <span class="mk mk-car-fav text-light"></span>
-        <a class="navbar-brand" href="#">Car Dealership Tool</a>
+        <a class="navbar-brand" href="#">Albion Market Flyka</a>
         <button class="btn btn-primary d-md-none" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" align="right" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -9,45 +9,13 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto ">
                 <li class="nav-item active">
-                    <a class="nav-link btn btn-primary" href="/database">Database </a>
+                    <a class="nav-link btn btn-primary" href="/info">Info</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <div class="btn-group">
-                        <button class="nav-link dropdown-toggle btn btn-primary" href="#" id="customerDropdown" role="button"
-                           data-toggle="dropdown"
-                           aria-expanded="false">
-                            Customers
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="customerDropdown">
-                            <a class="dropdown-item" href="/customers">Customers</a>
-                            <a class="dropdown-item" href="/all">Show all</a>
-                        </div>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <div class="btn-group">
-                        <button class="nav-link dropdown-toggle btn btn-primary" href="#" id="vehicleDropdown" role="button"
-                           data-toggle="dropdown"
-                           aria-expanded="false">
-                            Vehicles
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="vehicleDropdown">
-                            <a class="dropdown-item" href="/age">age</a>
-                            <a class="dropdown-item" href="/brand">brand</a>
-                            <a class="dropdown-item" href="/model">model</a>
-                            <a class="dropdown-item" href="/vehicle">vehicle</a>
-                        </div>
-                    </div>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-primary" href="/calculate">Black Market</a>
                 </li>
             </ul>
-            {# @var user \Mehrkanal\Dealership\Entity\UserEntity #}
-            {% if user.id %}
-            <a href="/user" class="btn-primary btn nav-link" > <i>{{ user.getUserName() }} </i></a>
-            <a href="/logout" class="btn btn-primary nav-link">logout</a>
-            {% else %}
-            <a href="/login" class="btn btn-primary nav-link">login</a>
-            {% endif %}
-
+            <p> #BreakTheEconomy</p>
         </div>
     </nav>
 </div>
