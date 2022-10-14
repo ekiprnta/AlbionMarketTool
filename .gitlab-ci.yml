@@ -25,24 +25,24 @@ Composer dependencies:
   tags:
     - dind
 
-StaticCodeAnalyse:
-  stage: tests
-  needs: [ "Composer dependencies" ]
-  image: registry.mehrkanal.com/docker/phpx/cli:8.0-build
-  dependencies: [ "Composer dependencies" ]
-  before_script:
-    - mkdir -p ./data/phpstan_reports
-  script:
-    - composer run stan-pipeline > data/phpstan_reports/junit-phpstan.xml
-  artifacts:
-    expire_in: 3 days
-    paths:
-      - data/phpstan_reports/junit-phpstan.xml
-    reports:
-      junit: data/phpstan_reports/junit-phpstan.xml
-    when: always
-  tags:
-    - dind
+#StaticCodeAnalyse:
+#  stage: tests
+#  needs: [ "Composer dependencies" ]
+#  image: registry.mehrkanal.com/docker/phpx/cli:8.0-build
+#  dependencies: [ "Composer dependencies" ]
+#  before_script:
+#    - mkdir -p ./data/phpstan_reports
+#  script:
+#    - composer run stan-pipeline > data/phpstan_reports/junit-phpstan.xml
+#  artifacts:
+#    expire_in: 3 days
+#    paths:
+#      - data/phpstan_reports/junit-phpstan.xml
+#    reports:
+#      junit: data/phpstan_reports/junit-phpstan.xml
+#    when: always
+#  tags:
+#    - dind
 
 CodeStyles:
   stage: tests

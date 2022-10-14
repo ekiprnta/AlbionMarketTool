@@ -53,7 +53,7 @@ final class HttpClient
 
     private function getUrl(string $baseUrl, array $parameters = []): string
     {
-        if (!empty($parameters)) {
+        if (! empty($parameters)) {
             $baseUrl .= '?';
             foreach ($parameters as $property => $parameter) {
                 $baseUrl .= http_build_query([$property => $parameter]);
@@ -61,7 +61,6 @@ final class HttpClient
                 if (current($parameters)) {
                     $baseUrl .= '&';
                 }
-
             }
         }
         return $baseUrl;

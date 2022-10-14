@@ -41,6 +41,8 @@ class ApiService // Buy Order ist buy_price_max
             'leather' => self::BASE_URL . self::BASE_LEATHER,
         };
 
-        return $this->httpClient->get($baseURL, ['location' => ['Lymhurst,Caerleon']]);
+        return $this->httpClient->get($baseURL, [
+            'location' => ['Lymhurst,Caerleon'],
+        ]);
     }
 }
