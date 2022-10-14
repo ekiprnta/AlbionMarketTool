@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mehrkanal\Dealership\Factories;
+namespace MZierdt\Albion\factories;
 
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
