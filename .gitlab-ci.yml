@@ -1,0 +1,65 @@
+stages:
+    - build-dependencies
+    - tests
+
+Composer dependencies:
+  stage: build-dependencies
+  dependencies: [ ]
+  image: registry.mehrkanal.com/docker/phpx/cli:8.0-build
+  script:
+    - mkdir -p ~/.ssh
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    - composer config gitlab-token.gitlab.mehrkanal.com J_DFidY4-kJSf-caikPC
+    - composer config github-oauth.github.com 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
+    - composer install --prefer-dist --no-progress
+  artifacts:
+    expire_in: 3 days
+    paths:
+      - vendor/
+      - composer.lock
+  cache:
+    paths:
+      - vendor/
+  variables:
+    GIT_DEPTH: 10
+  tags:
+    - dind
+
+#StaticCodeAnalyse:
+#  stage: tests
+#  needs: [ "Composer dependencies" ]
+#  image: registry.mehrkanal.com/docker/phpx/cli:8.0-build
+#  dependencies: [ "Composer dependencies" ]
+#  before_script:
+#    - mkdir -p ./data/phpstan_reports
+#  script:
+#    - composer run stan-pipeline > data/phpstan_reports/junit-phpstan.xml
+#  artifacts:
+#    expire_in: 3 days
+#    paths:
+#      - data/phpstan_reports/junit-phpstan.xml
+#    reports:
+#      junit: data/phpstan_reports/junit-phpstan.xml
+#    when: always
+#  tags:
+#    - dind
+
+CodeStyles:
+  stage: tests
+  needs: [ "Composer dependencies" ]
+  image: registry.mehrkanal.com/docker/phpx/cli:8.0-build
+  dependencies: [ "Composer dependencies" ]
+  script:
+    - vendor/bin/ecs --fix
+  tags:
+    - dind
+
+CodeUpgrade:
+  stage: tests
+  needs: [ "Composer dependencies" ]
+  image: registry.mehrkanal.com/docker/phpx/cli:8.0-build
+  dependencies: [ "Composer dependencies" ]
+  script:
+    - vendor/bin/rector process src
+  tags:
+    - dind
