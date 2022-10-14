@@ -5,18 +5,16 @@ declare(strict_types=1);
 namespace MZierdt\Albion\Handler;
 
 use Laminas\Diactoros\Response\HtmlResponse;
-use MZierdt\Albion\Service\ApiService;
 use Twig\Environment;
 
-class ShowResourcePriceHandler
+class BlackMarketHandler
 {
     public function __construct(
-        private Environment $twigEnvironment,
-        private ApiService $apiService
+        private Environment $twigEnvironment
     ) {
     }
 
-    public function handler(): HtmlResponse
+    public function handler()
     {
         $htmlContent = $this->twigEnvironment->render('test.html.twig');
         return new HtmlResponse($htmlContent);
