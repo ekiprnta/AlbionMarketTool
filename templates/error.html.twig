@@ -1,0 +1,15 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+    <div class="row">
+        <div>
+            <h1> Whoops... something went wrong</h1>
+        </div>
+    </div>
+    <div class="row">
+        {{ alertMessage }}
+    </div>
+    <div class="row">
+        <a class="btn btn-primary" href="javascript:history.back()">Go Back</a>
+    </div>
+{% endblock %}
