@@ -7,9 +7,11 @@
 -- Server-Version: 10.7.4-MariaDB-1:10.7.4+maria~focal
 -- PHP-Version: 8.0.19
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET
+SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
-SET time_zone = "+00:00";
+SET
+time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT = @@CHARACTER_SET_CLIENT */;
@@ -17,9 +19,47 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION = @@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
-CREATE TABLE `test`
+CREATE TABLE `Warrior`
 (
-    `id`         int(10) UNSIGNED NOT NULL,
-    `first_name` varchar(64) DEFAULT NULL,
-    `last_name`  varchar(64) DEFAULT NULL,
+    `id`               varchar(64) UNSIGNED NOT NULL,
+    `city`             varchar(64) DEFAULT NULL,
+    `quality`          int(1) DEFAULT NULL,
+    `sellPriceMin`     int(11) DEFAULT NULL,
+    `sellPriceMinDate` varchar(64) DEFAULT NULL,
+    `buyPriceMin`      int (11) DEFAULT NULL,
+    `buyPriceMinDate`  varchar(64) DEFAULT NULL,
 )
+
+CREATE TABLE `Mage`
+(
+    `id`               varchar(64) UNSIGNED NOT NULL,
+    `city`             varchar(64) DEFAULT NULL,
+    `quality`          int(1) DEFAULT NULL,
+    `sellPriceMin`     int(11) DEFAULT NULL,
+    `sellPriceMinDate` varchar(64) DEFAULT NULL,
+    `buyPriceMin`      int (11) DEFAULT NULL,
+    `buyPriceMinDate`  varchar(64) DEFAULT NULL,
+)
+
+CREATE TABLE `Hunter`
+(
+    `id`               varchar(64) UNSIGNED NOT NULL,
+    `city`             varchar(64) DEFAULT NULL,
+    `quality`          int(1) DEFAULT NULL,
+    `sellPriceMin`     int(11) DEFAULT NULL,
+    `sellPriceMinDate` varchar(64) DEFAULT NULL,
+    `buyPriceMin`      int (11) DEFAULT NULL,
+    `buyPriceMinDate`  varchar(64) DEFAULT NULL,
+)
+
+ALTER TABLE `Warrior`
+    ADD PRIMARY KEY (`id`),
+    ADD UNIQUE KEY `id_UNIQUE` (`id`);
+
+ALTER TABLE `Mage`
+    ADD PRIMARY KEY (`id`),
+    ADD UNIQUE KEY `id_UNIQUE` (`id`);
+
+ALTER TABLE `Hunter`
+    ADD PRIMARY KEY (`id`),
+    ADD UNIQUE KEY `id_UNIQUE` (`id`);
