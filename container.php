@@ -9,6 +9,7 @@ use MZierdt\Albion\Handler\BlackMarketHandler;
 use MZierdt\Albion\Handler\CalculateInfoHandler;
 use MZierdt\Albion\Handler\ShowResourcePriceHandler;
 use MZierdt\Albion\HttpClient;
+use MZierdt\Albion\repositories\ResourceRepositoryUpload;
 use MZierdt\Albion\Service\ApiService;
 use Twig\Environment;
 
@@ -20,16 +21,19 @@ $serviceManager = new ServiceManager([
                 ApiService::class => [
                     HttpClient::class
                 ],
+                ResourceRepositoryUpload::class => [
+                    ApiService::class
+                ],
                 ShowResourcePriceHandler::class => [
                     Environment::class,
-                    ApiService::class
+                    ResourceRepositoryUpload::class
                 ],
                 CalculateInfoHandler::class => [
                   Environment::class
                 ],
                 BlackMarketHandler::class => [
                     Environment::class
-                ]
+                ],
             ]
         ],
     ],
