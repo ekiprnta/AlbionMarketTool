@@ -90,55 +90,149 @@ class ApiService // Buy Order ist buy_price_max
     public function getBlackMarketItem(string $itemName)
     {
         $apiUrl = match ($itemName) {
-            self::ITEM_WARRIOR_HELMET => $this->apiUrlAssembler(self::ITEM_WARRIOR_HELMET, self::ITEM_TIERS_WITH_PLACEHOLDER),
-            self::ITEM_WARRIOR_ARMOR => $this->apiUrlAssembler(self::ITEM_WARRIOR_ARMOR, self::ITEM_TIERS_WITH_PLACEHOLDER),
-            self::ITEM_WARRIOR_BOOTS => $this->apiUrlAssembler(self::ITEM_WARRIOR_BOOTS, self::ITEM_TIERS_WITH_PLACEHOLDER),
-            self::ITEM_WARRIOR_SWORD => $this->apiUrlAssembler(self::ITEM_WARRIOR_SWORD, self::ITEM_TIERS_WITH_PLACEHOLDER),
+            self::ITEM_WARRIOR_HELMET => $this->apiUrlAssembler(
+                self::ITEM_WARRIOR_HELMET,
+                self::ITEM_TIERS_WITH_PLACEHOLDER
+            ),
+            self::ITEM_WARRIOR_ARMOR => $this->apiUrlAssembler(
+                self::ITEM_WARRIOR_ARMOR,
+                self::ITEM_TIERS_WITH_PLACEHOLDER
+            ),
+            self::ITEM_WARRIOR_BOOTS => $this->apiUrlAssembler(
+                self::ITEM_WARRIOR_BOOTS,
+                self::ITEM_TIERS_WITH_PLACEHOLDER
+            ),
+            self::ITEM_WARRIOR_SWORD => $this->apiUrlAssembler(
+                self::ITEM_WARRIOR_SWORD,
+                self::ITEM_TIERS_WITH_PLACEHOLDER
+            ),
             self::ITEM_WARRIOR_AXE => $this->apiUrlAssembler(self::ITEM_WARRIOR_AXE, self::ITEM_TIERS_WITH_PLACEHOLDER),
-            self::ITEM_WARRIOR_MACE => $this->apiUrlAssembler(self::ITEM_WARRIOR_MACE, self::ITEM_TIERS_WITH_PLACEHOLDER),
-            self::ITEM_WARRIOR_HAMMER => $this->apiUrlAssembler(self::ITEM_WARRIOR_HAMMER, self::ITEM_TIERS_WITH_PLACEHOLDER),
-            self::ITEM_WARRIOR_WAR_GLOVE => $this->apiUrlAssembler(self::ITEM_WARRIOR_WAR_GLOVE, self::ITEM_TIERS_WITH_PLACEHOLDER),
-            self::ITEM_WARRIOR_CROSSBOW => $this->apiUrlAssembler(self::ITEM_WARRIOR_CROSSBOW, self::ITEM_TIERS_WITH_PLACEHOLDER),
-            self::ITEM_WARRIOR_SHIELD => $this->apiUrlAssembler(self::ITEM_WARRIOR_SHIELD, self::ITEM_TIERS_WITH_PLACEHOLDER),
+            self::ITEM_WARRIOR_MACE => $this->apiUrlAssembler(
+                self::ITEM_WARRIOR_MACE,
+                self::ITEM_TIERS_WITH_PLACEHOLDER
+            ),
+            self::ITEM_WARRIOR_HAMMER => $this->apiUrlAssembler(
+                self::ITEM_WARRIOR_HAMMER,
+                self::ITEM_TIERS_WITH_PLACEHOLDER
+            ),
+            self::ITEM_WARRIOR_WAR_GLOVE => $this->apiUrlAssembler(
+                self::ITEM_WARRIOR_WAR_GLOVE,
+                self::ITEM_TIERS_WITH_PLACEHOLDER
+            ),
+            self::ITEM_WARRIOR_CROSSBOW => $this->apiUrlAssembler(
+                self::ITEM_WARRIOR_CROSSBOW,
+                self::ITEM_TIERS_WITH_PLACEHOLDER
+            ),
+            self::ITEM_WARRIOR_SHIELD => $this->apiUrlAssembler(
+                self::ITEM_WARRIOR_SHIELD,
+                self::ITEM_TIERS_WITH_PLACEHOLDER
+            ),
             self::ITEM_MAGE_HELMET => $this->apiUrlAssembler(self::ITEM_MAGE_HELMET, self::ITEM_TIERS_WITH_PLACEHOLDER),
             self::ITEM_MAGE_ARMOR => $this->apiUrlAssembler(self::ITEM_MAGE_ARMOR, self::ITEM_TIERS_WITH_PLACEHOLDER),
             self::ITEM_MAGE_BOOTS => $this->apiUrlAssembler(self::ITEM_MAGE_BOOTS, self::ITEM_TIERS_WITH_PLACEHOLDER),
-            self::ITEM_MAGE_FIRE_STAFF => $this->apiUrlAssembler(self::ITEM_MAGE_FIRE_STAFF, self::ITEM_TIERS_WITH_PLACEHOLDER),
-            self::ITEM_MAGE_HOLY_STAFF => $this->apiUrlAssembler(self::ITEM_MAGE_HOLY_STAFF, self::ITEM_TIERS_WITH_PLACEHOLDER),
-            self::ITEM_MAGE_ARCANE_STAFF => $this->apiUrlAssembler(self::ITEM_MAGE_ARCANE_STAFF, self::ITEM_TIERS_WITH_PLACEHOLDER),
-            self::ITEM_MAGE_FROST_STAFF => $this->apiUrlAssembler(self::ITEM_MAGE_FROST_STAFF, self::ITEM_TIERS_WITH_PLACEHOLDER),
-            self::ITEM_MAGE_CURSE_STAFF => $this->apiUrlAssembler(self::ITEM_MAGE_CURSE_STAFF, self::ITEM_TIERS_WITH_PLACEHOLDER),
-            self::ITEM_MAGE_TOME_STAFF => $this->apiUrlAssembler(self::ITEM_MAGE_TOME_STAFF, self::ITEM_TIERS_WITH_PLACEHOLDER),
-            self::ITEM_HUNTER_HELMET => $this->apiUrlAssembler(self::ITEM_HUNTER_HELMET, self::ITEM_TIERS_WITH_PLACEHOLDER),
-            self::ITEM_HUNTER_ARMOR => $this->apiUrlAssembler(self::ITEM_HUNTER_ARMOR, self::ITEM_TIERS_WITH_PLACEHOLDER),
-            self::ITEM_HUNTER_BOOTS => $this->apiUrlAssembler(self::ITEM_HUNTER_BOOTS, self::ITEM_TIERS_WITH_PLACEHOLDER),
+            self::ITEM_MAGE_FIRE_STAFF => $this->apiUrlAssembler(
+                self::ITEM_MAGE_FIRE_STAFF,
+                self::ITEM_TIERS_WITH_PLACEHOLDER
+            ),
+            self::ITEM_MAGE_HOLY_STAFF => $this->apiUrlAssembler(
+                self::ITEM_MAGE_HOLY_STAFF,
+                self::ITEM_TIERS_WITH_PLACEHOLDER
+            ),
+            self::ITEM_MAGE_ARCANE_STAFF => $this->apiUrlAssembler(
+                self::ITEM_MAGE_ARCANE_STAFF,
+                self::ITEM_TIERS_WITH_PLACEHOLDER
+            ),
+            self::ITEM_MAGE_FROST_STAFF => $this->apiUrlAssembler(
+                self::ITEM_MAGE_FROST_STAFF,
+                self::ITEM_TIERS_WITH_PLACEHOLDER
+            ),
+            self::ITEM_MAGE_CURSE_STAFF => $this->apiUrlAssembler(
+                self::ITEM_MAGE_CURSE_STAFF,
+                self::ITEM_TIERS_WITH_PLACEHOLDER
+            ),
+            self::ITEM_MAGE_TOME_STAFF => $this->apiUrlAssembler(
+                self::ITEM_MAGE_TOME_STAFF,
+                self::ITEM_TIERS_WITH_PLACEHOLDER
+            ),
+            self::ITEM_HUNTER_HELMET => $this->apiUrlAssembler(
+                self::ITEM_HUNTER_HELMET,
+                self::ITEM_TIERS_WITH_PLACEHOLDER
+            ),
+            self::ITEM_HUNTER_ARMOR => $this->apiUrlAssembler(
+                self::ITEM_HUNTER_ARMOR,
+                self::ITEM_TIERS_WITH_PLACEHOLDER
+            ),
+            self::ITEM_HUNTER_BOOTS => $this->apiUrlAssembler(
+                self::ITEM_HUNTER_BOOTS,
+                self::ITEM_TIERS_WITH_PLACEHOLDER
+            ),
             self::ITEM_HUNTER_BOW => $this->apiUrlAssembler(self::ITEM_HUNTER_BOW, self::ITEM_TIERS_WITH_PLACEHOLDER),
-            self::ITEM_HUNTER_SPEAR => $this->apiUrlAssembler(self::ITEM_HUNTER_SPEAR, self::ITEM_TIERS_WITH_PLACEHOLDER),
-            self::ITEM_HUNTER_NATURE_STAFF => $this->apiUrlAssembler(self::ITEM_HUNTER_NATURE_STAFF, self::ITEM_TIERS_WITH_PLACEHOLDER),
-            self::ITEM_HUNTER_DAGGER => $this->apiUrlAssembler(self::ITEM_HUNTER_DAGGER, self::ITEM_TIERS_WITH_PLACEHOLDER),
-            self::ITEM_HUNTER_QUARTERSTAFF => $this->apiUrlAssembler(self::ITEM_HUNTER_QUARTERSTAFF, self::ITEM_TIERS_WITH_PLACEHOLDER),
-            self::ITEM_HUNTER_TORCH => $this->apiUrlAssembler(self::ITEM_HUNTER_TORCH, self::ITEM_TIERS_WITH_PLACEHOLDER),
+            self::ITEM_HUNTER_SPEAR => $this->apiUrlAssembler(
+                self::ITEM_HUNTER_SPEAR,
+                self::ITEM_TIERS_WITH_PLACEHOLDER
+            ),
+            self::ITEM_HUNTER_NATURE_STAFF => $this->apiUrlAssembler(
+                self::ITEM_HUNTER_NATURE_STAFF,
+                self::ITEM_TIERS_WITH_PLACEHOLDER
+            ),
+            self::ITEM_HUNTER_DAGGER => $this->apiUrlAssembler(
+                self::ITEM_HUNTER_DAGGER,
+                self::ITEM_TIERS_WITH_PLACEHOLDER
+            ),
+            self::ITEM_HUNTER_QUARTERSTAFF => $this->apiUrlAssembler(
+                self::ITEM_HUNTER_QUARTERSTAFF,
+                self::ITEM_TIERS_WITH_PLACEHOLDER
+            ),
+            self::ITEM_HUNTER_TORCH => $this->apiUrlAssembler(
+                self::ITEM_HUNTER_TORCH,
+                self::ITEM_TIERS_WITH_PLACEHOLDER
+            ),
         };
 
-        return $this->jsonDecode($this->httpClient->get($apiUrl, ['locations' => self::CITY_BLACKMARKET]));
+        if (is_array($apiUrl)) {
+            $apiData = [];
+            foreach ($apiUrl as $url) {
+                $jsonFromArray = $this->httpClient->get(
+                    $url,
+                    [
+                        'locations' => self::CITY_BLACKMARKET,
+                        'qualities' => self::QUALITY_GOOD
+                    ]
+                );
+                $apiData[] = $this->jsonDecode($jsonFromArray);
+            }
+            return $apiData;
+        }
+
+        $json = $this->httpClient->get(
+            $apiUrl,
+            [
+                'locations' => self::CITY_BLACKMARKET,
+                'qualities' => self::QUALITY_GOOD
+            ]
+        );
+        return $this->jsonDecode($json);
     }
 
 
-    private function apiUrlAssembler(string $replacement, string $stringWithPlaceholders = self::RESOURCE_TIERS_WITH_PLACEHOLDER): string
-    {
+    private function apiUrlAssembler(
+        string $replacement,
+        string $stringWithPlaceholders = self::RESOURCE_TIERS_WITH_PLACEHOLDER
+    ): string|array {
         $completeUrl = self::BASE_URL;
         if ($stringWithPlaceholders === self::RESOURCE_TIERS_WITH_PLACEHOLDER) {
             return $completeUrl . str_replace('%s', $replacement, $stringWithPlaceholders);
         }
         $nameData = NameDataService::getNameDataArray();
+        $urlArray = [];
         foreach ($nameData as $itemCategory) {
-            if (array_key_exists($replacement,$itemCategory)) {
+            if (array_key_exists($replacement, $itemCategory)) {
                 foreach ($itemCategory[$replacement] as $item) {
-                    $completeUrl .= str_replace('%s', $item['id_snippet'], $stringWithPlaceholders);
+                    $urlArray[] = $completeUrl . str_replace('%s', $item['id_snippet'], $stringWithPlaceholders);
                 }
             }
         }
-        return $completeUrl;
+        return $urlArray;
     }
 
     private function jsonDecode(string $json)

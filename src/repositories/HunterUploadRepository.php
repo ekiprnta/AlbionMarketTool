@@ -59,7 +59,7 @@ class HunterUploadRepository implements UploadInterface
 
     private function getCsvConnection(): Writer
     {
-        return Writer::createFromPath(self::PATH_TO_CSV, 'wb');
+        return Writer::createFromPath(self::PATH_TO_CSV, 'ab');
     }
 
     private function filterArrays(array $data): array

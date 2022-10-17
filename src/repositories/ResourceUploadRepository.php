@@ -19,8 +19,7 @@ class ResourceUploadRepository implements UploadInterface
 
     public function uploadIntoCsv(): void
     {
-        $header = ['itemId', 'city', 'sellOrderPrice', 'sellOrderPriceDate', 'buyOrderPrice', 'buyOrderPriceDate'];
-
+        $this->emptyCsv();
         $metalBarArray = $this->apiService->getResource('metalBar');
         $planksArray = $this->apiService->getResource('planks');
         $clothArray = $this->apiService->getResource('cloth');
@@ -30,13 +29,19 @@ class ResourceUploadRepository implements UploadInterface
         $resourceArray = $this->filterArrays($resourceArray);
 
         $csv = $this->getCsvConnection();
-        $csv->insertOne($header);
         $csv->insertAll($resourceArray);
     }
 
     private function getCsvConnection(): Writer
     {
-        return Writer::createFromPath(self::PATH_TO_CSV, 'wb');
+        return Writer::createFromPath(self::PATH_TO_CSV, 'ab');
+    }
+
+    private function emptyCsv(): void
+    {
+        $header = ['itemId', 'city', 'sellOrderPrice', 'sellOrderPriceDate', 'buyOrderPrice', 'buyOrderPriceDate'];
+        $csv = Writer::createFromPath(self::PATH_TO_CSV,'wb');
+        $csv->insertOne($header);
     }
 
     private function filterArrays(array $resourceArray): array
