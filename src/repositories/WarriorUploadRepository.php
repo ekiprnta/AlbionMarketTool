@@ -28,16 +28,16 @@ class WarriorUploadRepository implements UploadInterface
             'buyOrderPriceDate'
         ];
 
-        $helmetArray = $this->apiService->getBlackMarketItem('plateHelmet');
-        $armorArray = $this->apiService->getBlackMarketItem('plateArmor');
-        $bootsArray = $this->apiService->getBlackMarketItem('plateBoots');
-        $swordArray = $this->apiService->getBlackMarketItem('sword');
-        $axeArray = $this->apiService->getBlackMarketItem('axe');
-        $maceArray = $this->apiService->getBlackMarketItem('mace');
-        $hammerArray = $this->apiService->getBlackMarketItem('hammer');
-        $warGloveArray = $this->apiService->getBlackMarketItem('warGlove');
-        $crossbowArray = $this->apiService->getBlackMarketItem('crossbow');
-        $shieldArray = $this->apiService->getBlackMarketItem('shield');
+        $helmetArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_WARRIOR_HELMET);
+        $armorArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_WARRIOR_ARMOR);
+        $bootsArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_WARRIOR_BOOTS);
+        $swordArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_WARRIOR_SWORD);
+        $axeArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_WARRIOR_AXE);
+        $maceArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_WARRIOR_MACE);
+        $hammerArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_WARRIOR_HAMMER);
+        $warGloveArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_WARRIOR_WAR_GLOVE);
+        $crossbowArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_WARRIOR_CROSSBOW);
+        $shieldArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_WARRIOR_SHIELD);
 
         $warriorArray = array_merge(
             $helmetArray,

@@ -28,15 +28,15 @@ class HunterUploadRepository implements UploadInterface
             'buyOrderPriceDate'
         ];
 
-        $helmetArray = $this->apiService->getBlackMarketItem('leatherHelmet');
-        $armorArray = $this->apiService->getBlackMarketItem('leatherArmor');
-        $bootsArray = $this->apiService->getBlackMarketItem('leatherBoots');
-        $bowArray = $this->apiService->getBlackMarketItem('bow');
-        $spearArray = $this->apiService->getBlackMarketItem('spear');
-        $natureArray = $this->apiService->getBlackMarketItem('nature');
-        $daggerArray = $this->apiService->getBlackMarketItem('dagger');
-        $quarterstaffArray = $this->apiService->getBlackMarketItem('quarterstaff');
-        $torchArray = $this->apiService->getBlackMarketItem('torch');
+        $helmetArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_HUNTER_HELMET);
+        $armorArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_HUNTER_ARMOR);
+        $bootsArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_HUNTER_BOOTS);
+        $bowArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_HUNTER_BOW);
+        $spearArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_HUNTER_SPEAR);
+        $natureArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_HUNTER_NATURE_STAFF);
+        $daggerArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_HUNTER_DAGGER);
+        $quarterstaffArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_HUNTER_QUARTERSTAFF);
+        $torchArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_HUNTER_TORCH);
 
         $hunterArray = array_merge(
             $helmetArray,

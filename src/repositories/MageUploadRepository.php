@@ -28,15 +28,15 @@ class MageUploadRepository implements UploadInterface
             'buyOrderPriceDate'
         ];
 
-        $helmetArray = $this->apiService->getBlackMarketItem('clothHelmet');
-        $armorArray = $this->apiService->getBlackMarketItem('clothArmor');
-        $bootsArray = $this->apiService->getBlackMarketItem('clothBoots');
-        $fireArray = $this->apiService->getBlackMarketItem('fire');
-        $holyArray = $this->apiService->getBlackMarketItem('holy');
-        $arcaneArray = $this->apiService->getBlackMarketItem('arcane');
-        $frostArray = $this->apiService->getBlackMarketItem('frost');
-        $curseArray = $this->apiService->getBlackMarketItem('curse');
-        $tomeArray = $this->apiService->getBlackMarketItem('tome');
+        $helmetArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_MAGE_HELMET);
+        $armorArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_MAGE_ARMOR);
+        $bootsArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_MAGE_BOOTS);
+        $fireArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_MAGE_FIRE_STAFF);
+        $holyArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_MAGE_HOLY_STAFF);
+        $arcaneArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_MAGE_ARCANE_STAFF);
+        $frostArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_MAGE_FROST_STAFF);
+        $curseArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_MAGE_CURSE_STAFF);
+        $tomeArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_MAGE_TOME_STAFF);
 
         $mageArray = array_merge(
             $helmetArray,

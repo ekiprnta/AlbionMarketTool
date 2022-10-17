@@ -22,6 +22,37 @@ class ApiService // Buy Order ist buy_price_max
     private const CITY_THETFORD = 'Thetford';
     private const CITY_Caerleon = 'Caerleon';
 
+    public const ITEM_WARRIOR_HELMET = 'plateHelmet';
+    public const ITEM_WARRIOR_ARMOR = 'plateAmor';
+    public const ITEM_WARRIOR_BOOTS = 'plateBoots';
+    public const ITEM_WARRIOR_SWORD = 'sword';
+    public const ITEM_WARRIOR_AXE = 'axe';
+    public const ITEM_WARRIOR_MACE = 'mace';
+    public const ITEM_WARRIOR_HAMMER = 'hammer';
+    public const ITEM_WARRIOR_WAR_GLOVE = 'warGlove';
+    public const ITEM_WARRIOR_CROSSBOW = 'crossbow';
+    public const ITEM_WARRIOR_SHIELD = 'shield';
+
+    public const ITEM_MAGE_HELMET = 'clothHelmet';
+    public const ITEM_MAGE_ARMOR = 'clothAmor';
+    public const ITEM_MAGE_BOOTS = 'clothBoots';
+    public const ITEM_MAGE_FIRE_STAFF = 'fire';
+    public const ITEM_MAGE_HOLY_STAFF = 'holy';
+    public const ITEM_MAGE_ARCANE_STAFF = 'arcane';
+    public const ITEM_MAGE_FROST_STAFF = 'frost';
+    public const ITEM_MAGE_CURSE_STAFF = 'curse';
+    public const ITEM_MAGE_TOME_STAFF = 'tome';
+
+    public const ITEM_HUNTER_HELMET = 'leatherHelmet';
+    public const ITEM_HUNTER_ARMOR = 'leatherAmor';
+    public const ITEM_HUNTER_BOOTS = 'leatherBoots';
+    public const ITEM_HUNTER_BOW = 'bow';
+    public const ITEM_HUNTER_SPEAR = 'spear';
+    public const ITEM_HUNTER_NATURE_STAFF = 'nature';
+    public const ITEM_HUNTER_DAGGER = 'dagger';
+    public const ITEM_HUNTER_QUARTERSTAFF = 'quarterstaff';
+    public const ITEM_HUNTER_TORCH = 'torch';
+
     private const QUALITY_NORMAL = 1;
     private const QUALITY_GOOD = 2;
     private const QUALITY_OUTSTANDING = 3;
@@ -32,7 +63,10 @@ class ApiService // Buy Order ist buy_price_max
     {
     }
 
-    public function getResource(string $resourceType)
+    /**
+     * @throws \JsonException
+     */
+    public function getResource(string $resourceType): array
     {
         $baseURL = match ($resourceType) {
             'metalBar' => self::BASE_URL . self::BASE_METALBAR,
@@ -50,11 +84,16 @@ class ApiService // Buy Order ist buy_price_max
             self::CITY_THETFORD
         );
 
-        return json_decode(
-            $this->httpClient->get($baseURL, ['locations' => $cities]),
-            true,
-            512,
-            JSON_THROW_ON_ERROR
-        );
+        return $this->jsonDecode($this->httpClient->get($baseURL, ['locations' => $cities]));
+    }
+
+    public function getBlackMarketItem(string $itemName)
+    {
+
+    }
+
+    private function jsonDecode(string $json): array
+    {
+        return json_decode($json, true, 512, JSON_THROW_ON_ERROR);
     }
 }
