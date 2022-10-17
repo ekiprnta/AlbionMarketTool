@@ -1,198 +1,610 @@
 {
   "warrior": {
-    "plateHelmet": [
-      {
-        "soldierHelmet": "HEAD_PLATE_SET1",
-        "knightHelmet": "HEAD_PLATE_SET2",
-        "guardianHelmet": "HEAD_PLATE_SET3"
+    "plateHelmet": {
+      "soldierHelmet": {
+        "id_snippet": "HEAD_PLATE_SET1",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
+      },
+      "knightHelmet": {
+        "id_snippet": "HEAD_PLATE_SET2",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
+      },
+      "guardianHelmet": {
+        "id_snippet": "HEAD_PLATE_SET3",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
       }
-    ],
-    "plateArmor": [
-      {
-        "soldierArmor": "ARMOR_PLATE_SET1",
-        "knightArmor": "ARMOR_PLATE_SET2",
-        "guardianArmor": "ARMOR_PLATE_SET3"
+    },
+    "plateArmor": {
+      "soldierArmor": {
+        "id_snippet": "ARMOR_PLATE_SET1",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
+      },
+      "knightArmor": {
+        "id_snippet": "ARMOR_PLATE_SET2",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
+      },
+      "guardianArmor": {
+        "id_snippet": "ARMOR_PLATE_SET3",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
       }
-    ],
-    "plateBoots": [
-      {
-        "soldierBoots": "SHOES_PLATE_SET1",
-        "knightBoots": "SHOES_PLATE_SET2",
-        "guardianBoots": "SHOES_PLATE_SET3"
+    },
+    "plateBoots": {
+      "soldierBoots": {
+        "id_snippet": "SHOES_PLATE_SET1",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
+      },
+      "knightBoots": {
+        "id_snippet": "SHOES_PLATE_SET2",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
+      },
+      "guardianBoots": {
+        "id_snippet": "SHOES_PLATE_SET3",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
       }
-    ],
-    "sword": [
-      {
-        "broadsword": "MAIN_SWORD",
-        "claymore": "2H_CLAYMORE",
-        "dualSwords": "2h_DUALSWORD"
+    },
+    "sword": {
+      "broadsword": {
+        "id_snippet": "MAIN_SWORD",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
+      },
+      "claymore": {
+        "id_snippet": "2H_CLAYMORE",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
+      },
+      "dualSwords": {
+        "id_snippet": "2h_DUALSWORD",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
       }
-    ],
-    "axe": [
-      {
-        "battleAxe": "MAIN_AXE",
-        "greatAxe": "2H_AXE",
-        "halberd": "2h_HALBERD"
+    },
+    "ae": {
+      "battleAe": {
+        "id_snippet": "MAIN_AE",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
+      },
+      "greatAe": {
+        "id_snippet": "2H_AE",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
+      },
+      "halberd": {
+        "id_snippet": "2h_HALBERD",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
       }
-    ],
-    "mace": [
-      {
-        "mace": "MAIN_MACE",
-        "heavyMace": "2H_MACE",
-        "morningStar": "2h_FLAIL"
+    },
+    "mace": {
+      "mace": {
+        "id_snippet": "MAIN_MACE",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
+      },
+      "heavyMace": {
+        "id_snippet": "2H_MACE",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
+      },
+      "morningStar": {
+        "id_snippet": "2h_FLAIL",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
       }
-    ],
-    "hammer": [
-      {
-        "hammer": "MAIN_SWORD",
-        "poleHammer": "2H_POLEHAMMER",
-        "greatHammer": "2h_HAMMER"
+    },
+    "hammer": {
+      "hammer": {
+        "id_snippet": "MAIN_SWORD",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
+      },
+      "poleHammer": {
+        "id_snippet": "2H_POLEHAMMER",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
+      },
+      "greatHammer": {
+        "id_snippet": "2h_HAMMER",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
       }
-    ],
-    "warGlove": [
-      {
-        "brawlerGloves": "2H_KNUCKLES_SET1",
-        "battleBracers": "2H_KNUCKLES_SET2",
-        "spikedGauntlet": "2H_KNUCKLES_SET3"
+    },
+    "warGlove": {
+      "brawlerGloves": {
+        "id_snippet": "2H_KNUCKLES_SET1",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
+      },
+      "battleBracers": {
+        "id_snippet": "2H_KNUCKLES_SET2",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
+      },
+      "spikedGauntlet": {
+        "id_snippet": "2H_KNUCKLES_SET3",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
       }
-    ],
-    "crossbow": [
-      {
-        "crossbow": "2H_CROSSBOW",
-        "heavyCrossbow": "2H_CROSSBOWLARGE",
-        "lightCrossbow": "MAIN_1HCROSSBOW"
+    },
+    "crossbow": {
+      "crossbow": {
+        "id_snippet": "2H_CROSSBOW",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
+      },
+      "heavyCrossbow": {
+        "id_snippet": "2H_CROSSBOWLARGE",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
+      },
+      "lightCrossbow": {
+        "id_snippet": "MAIN_1HCROSSBOW",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
       }
-    ],
-    "shield": [
-      {
-        "shield": "OFF_SHIELD"
+    },
+    "shield": {
+      "shield": {
+        "id_snippet": "OFF_SHIELD",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
       }
-    ]
+    }
   },
   "mage": {
-    "clothCowl": [
-      {
-        "scholarCowl": "HEAD_CLOTH_SET1",
-        "clericCowl": "HEAD_CLOTH_SET2",
-        "mageCowl": "HEAD_CLOTH_SET3"
+    "clothCowl": {
+      "scholarCowl": {
+        "id_snippet": "HEAD_CLOTH_SET1",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
+      },
+      "clericCowl": {
+        "id_snippet": "HEAD_CLOTH_SET2",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
+      },
+      "mageCowl": {
+        "id_snippet": "HEAD_CLOTH_SET3",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
       }
-    ],
-    "clothRobe": [
-      {
-        "scholarRobe": "ARMOR_CLOTH_SET1",
-        "clericRobe": "ARMOR_CLOTH_SET2",
-        "mageRobe": "ARMOR_CLOTH_SET3"
+    },
+    "clothRobe": {
+      "scholarRobe": {
+        "id_snippet": "ARMOR_CLOTH_SET1",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
+      },
+      "clericRobe": {
+        "id_snippet": "ARMOR_CLOTH_SET2",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
+      },
+      "mageRobe": {
+        "id_snippet": "ARMOR_CLOTH_SET3",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
       }
-    ],
-    "clothSandals": [
-      {
-        "scholarSandals": "SHOES_CLOTH_SET1",
-        "clericSandals": "SHOES_CLOTH_SET2",
-        "mageSandals": "SHOES_CLOTH_SET3"
+    },
+    "clothSandals": {
+      "scholarSandals": {
+        "id_snippet": "SHOES_CLOTH_SET1",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
+      },
+      "clericSandals": {
+        "id_snippet": "SHOES_CLOTH_SET2",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
+      },
+      "mageSandals": {
+        "id_snippet": "SHOES_CLOTH_SET3",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
       }
-    ],
-    "fireStaff": [
-      {
-        "fireStaff": "MAIN_FIRESTAFF",
-        "greatFireStaff": "2H_FIRESTAFF",
-        "infernoStaff": "2H_INFERNOSTAFF"
+    },
+    "fireStaff": {
+      "fireStaff": {
+        "id_snippet": "MAIN_FIRESTAFF",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
+      },
+      "greatFireStaff": {
+        "id_snippet": "2H_FIRESTAFF",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
+      },
+      "infernoStaff": {
+        "id_snippet": "2H_INFERNOSTAFF",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
       }
-    ],
-    "holyStaff": [
-      {
-        "holyStaff": "MAIN_HOLYSTAFF",
-        "greatHolyStaff": "2H_HOLYSTAFF",
-        "divineStaff": "2H_DIVINESTAFF"
+    },
+    "holyStaff": {
+      "holyStaff": {
+        "id_snippet": "MAIN_HOLYSTAFF",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
+      },
+      "greatHolyStaff": {
+        "id_snippet": "2H_HOLYSTAFF",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
+      },
+      "divineStaff": {
+        "id_snippet": "2H_DIVINESTAFF",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
       }
-    ],
-    "arcaneStaff": [
-      {
-        "arcaneStaff": "MAIN_ARCANESTAFF",
-        "greatArcaneStaff": "2H_ARCANESTAFF",
-        "enigmaticStaff": "2H_ENIGMATICSTAFF"
+    },
+    "arcaneStaff": {
+      "arcaneStaff": {
+        "id_snippet": "MAIN_ARCANESTAFF",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
+      },
+      "greatArcaneStaff": {
+        "id_snippet": "2H_ARCANESTAFF",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
+      },
+      "enigmaticStaff": {
+        "id_snippet": "2H_ENIGMATICSTAFF",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
       }
-    ],
-    "frostStaff": [
-      {
-        "frostStaff": "MAIN_FROSTSTAFF",
-        "greatFrostStaff": "2H_FROSTSTAFF",
-        "glacialStaff": "2H_GLACIALSTAFF"
+    },
+    "frostStaff": {
+      "frostStaff": {
+        "id_snippet": "MAIN_FROSTSTAFF",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
+      },
+      "greatFrostStaff": {
+        "id_snippet": "2H_FROSTSTAFF",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
+      },
+      "glacialStaff": {
+        "id_snippet": "2H_GLACIALSTAFF",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
       }
-    ],
-    "curseStaff": [
-      {
-        "cursedStaff": "MAIN_CURSEDSTAFF",
-        "greatCursedStaff": "2H_CURSEDSTAFF",
-        "demonicStaff": "2H_DEMONICSTAFF"
+    },
+    "curseStaff": {
+      "cursedStaff": {
+        "id_snippet": "MAIN_CURSEDSTAFF",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
+      },
+      "greatCursedStaff": {
+        "id_snippet": "2H_CURSEDSTAFF",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
+      },
+      "demonicStaff": {
+        "id_snippet": "2H_DEMONICSTAFF",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
       }
-    ],
-    "tome": [
-      {
-        "tomeOfSpells": "OFF_BOOK"
+    },
+    "tome": {
+      "tomeOfSpells": {
+        "id_snippet": "OFF_BOOK",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
       }
-    ]
+    }
   },
   "hunter": {
-    "leatherHood": [
-      {
-        "mercenaryHood": "HEAD_LEATHER_SET1",
-        "hunterHood": "HEAD_LEATHER_SET2",
-        "assassinHood": "HEAD_LEATHER_SET3"
+    "leatherHood": {
+      "mercenaryHood": {
+        "id_snippet": "HEAD_LEATHER_SET1",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
+      },
+      "hunterHood": {
+        "id_snippet": "HEAD_LEATHER_SET2",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
+      },
+      "assassinHood": {
+        "id_snippet": "HEAD_LEATHER_SET3",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
       }
-    ],
-    "leatherJacket": [
-      {
-        "mercenaryJacket": "ARMOR_LEATHER_SET1",
-        "hunterJacket": "ARMOR_LEATHER_SET2",
-        "assassinJacket": "ARMOR_LEATHER_SET3"
+    },
+    "leatherJacket": {
+      "mercenaryJacket": {
+        "id_snippet": "ARMOR_LEATHER_SET1",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
+      },
+      "hunterJacket": {
+        "id_snippet": "ARMOR_LEATHER_SET2",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
+      },
+      "assassinJacket": {
+        "id_snippet": "ARMOR_LEATHER_SET3",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
       }
-    ],
-    "leatherShoes": [
-      {
-        "mercenaryShoes": "SHOES_LEATHER_SET1",
-        "hunterShoes": "SHOES_LEATHER_SET2",
-        "assassinShoes": "SHOES_LEATHER_SET3"
+    },
+    "leatherShoes": {
+      "mercenaryShoes": {
+        "id_snippet": "SHOES_LEATHER_SET1",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
+      },
+      "hunterShoes": {
+        "id_snippet": "SHOES_LEATHER_SET2",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
+      },
+      "assassinShoes": {
+        "id_snippet": "SHOES_LEATHER_SET3",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
       }
-    ],
-    "bow": [
-      {
-        "bow": "2H_BOW",
-        "warbow": "2H_WARBOW",
-        "longbow": "2H_LONGBOW"
+    },
+    "bow": {
+      "bow": {
+        "id_snippet": "2H_BOW",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
+      },
+      "warbow": {
+        "id_snippet": "2H_WARBOW",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
+      },
+      "longbow": {
+        "id_snippet": "2H_LONGBOW",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
       }
-    ],
-    "spear": [
-      {
-        "spear": "MAIN_SPEAR",
-        "pike": "2H_SPEAR",
-        "glaive": "2H_GLAIVE"
+    },
+    "spear": {
+      "spear": {
+        "id_snippet": "MAIN_SPEAR",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
+      },
+      "pike": {
+        "id_snippet": "2H_SPEAR",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
+      },
+      "glaive": {
+        "id_snippet": "2H_GLAIVE",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
       }
-    ],
-    "nature": [
-      {
-        "natureStaff": "MAIN_NATURESTAFF",
-        "greatNatureStaff": "2H_NATURESTAFF",
-        "wildStaff": "2H_WILDSTAFF"
+    },
+    "nature": {
+      "natureStaff": {
+        "id_snippet": "MAIN_NATURESTAFF",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
+      },
+      "greatNatureStaff": {
+        "id_snippet": "2H_NATURESTAFF",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
+      },
+      "wildStaff": {
+        "id_snippet": "2H_WILDSTAFF",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
       }
-    ],
-    "dagger": [
-      {
-        "dagger": "MAIN_DAGGER",
-        "daggerPair": "2H_DAGGERPAIR",
-        "claws": "2H_CLAWPAIR"
+    },
+    "dagger": {
+      "dagger": {
+        "id_snippet": "MAIN_DAGGER",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
+      },
+      "daggerPair": {
+        "id_snippet": "2H_DAGGERPAIR",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
+      },
+      "claws": {
+        "id_snippet": "2H_CLAWPAIR",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
       }
-    ],
-    "quarterstaff": [
-      {
-        "quarterstaff": "2H_QUARTERSTAFF",
-        "ironcladStaff": "2H_IRONCLADEDSTAFF",
-        "doubleBladedStaff": "2H_DOUBLEBLADEDSTAFF"
+    },
+    "quarterstaff": {
+      "quarterstaff": {
+        "id_snippet": "2H_QUARTERSTAFF",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
+      },
+      "ironcladStaff": {
+        "id_snippet": "2H_IRONCLADEDSTAFF",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
+      },
+      "doubleBladedStaff": {
+        "id_snippet": "2H_DOUBLEBLADEDSTAFF",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
       }
-    ],
-    "torch": [
-      {
-        "torch": "OFF_TORCH"
+    },
+    "torch": {
+      "torch": {
+        "id_snippet": "OFF_TORCH",
+        "primaryResource": "metalBar",
+        "primaryResourceAmount": 8,
+        "secondaryResource": null,
+        "secondaryResourceAmount": null
       }
-    ]
+    }
   }
 }
