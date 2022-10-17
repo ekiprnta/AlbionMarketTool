@@ -1,0 +1,198 @@
+{
+  "warrior": {
+    "plateHelmet": [
+      {
+        "soldierHelmet": "HEAD_PLATE_SET1",
+        "knightHelmet": "HEAD_PLATE_SET2",
+        "guardianHelmet": "HEAD_PLATE_SET3"
+      }
+    ],
+    "plateArmor": [
+      {
+        "soldierArmor": "ARMOR_PLATE_SET1",
+        "knightArmor": "ARMOR_PLATE_SET2",
+        "guardianArmor": "ARMOR_PLATE_SET3"
+      }
+    ],
+    "plateBoots": [
+      {
+        "soldierBoots": "SHOES_PLATE_SET1",
+        "knightBoots": "SHOES_PLATE_SET2",
+        "guardianBoots": "SHOES_PLATE_SET3"
+      }
+    ],
+    "sword": [
+      {
+        "broadsword": "MAIN_SWORD",
+        "claymore": "2H_CLAYMORE",
+        "dualSwords": "2h_DUALSWORD"
+      }
+    ],
+    "axe": [
+      {
+        "battleAxe": "MAIN_AXE",
+        "greatAxe": "2H_AXE",
+        "halberd": "2h_HALBERD"
+      }
+    ],
+    "mace": [
+      {
+        "mace": "MAIN_MACE",
+        "heavyMace": "2H_MACE",
+        "morningStar": "2h_FLAIL"
+      }
+    ],
+    "hammer": [
+      {
+        "hammer": "MAIN_SWORD",
+        "poleHammer": "2H_POLEHAMMER",
+        "greatHammer": "2h_HAMMER"
+      }
+    ],
+    "warGlove": [
+      {
+        "brawlerGloves": "2H_KNUCKLES_SET1",
+        "battleBracers": "2H_KNUCKLES_SET2",
+        "spikedGauntlet": "2H_KNUCKLES_SET3"
+      }
+    ],
+    "crossbow": [
+      {
+        "crossbow": "2H_CROSSBOW",
+        "heavyCrossbow": "2H_CROSSBOWLARGE",
+        "lightCrossbow": "MAIN_1HCROSSBOW"
+      }
+    ],
+    "shield": [
+      {
+        "shield": "OFF_SHIELD"
+      }
+    ]
+  },
+  "mage": {
+    "clothCowl": [
+      {
+        "scholarCowl": "HEAD_CLOTH_SET1",
+        "clericCowl": "HEAD_CLOTH_SET2",
+        "mageCowl": "HEAD_CLOTH_SET3"
+      }
+    ],
+    "clothRobe": [
+      {
+        "scholarRobe": "ARMOR_CLOTH_SET1",
+        "clericRobe": "ARMOR_CLOTH_SET2",
+        "mageRobe": "ARMOR_CLOTH_SET3"
+      }
+    ],
+    "clothSandals": [
+      {
+        "scholarSandals": "SHOES_CLOTH_SET1",
+        "clericSandals": "SHOES_CLOTH_SET2",
+        "mageSandals": "SHOES_CLOTH_SET3"
+      }
+    ],
+    "fireStaff": [
+      {
+        "fireStaff": "MAIN_FIRESTAFF",
+        "greatFireStaff": "2H_FIRESTAFF",
+        "infernoStaff": "2H_INFERNOSTAFF"
+      }
+    ],
+    "holyStaff": [
+      {
+        "holyStaff": "MAIN_HOLYSTAFF",
+        "greatHolyStaff": "2H_HOLYSTAFF",
+        "divineStaff": "2H_DIVINESTAFF"
+      }
+    ],
+    "arcaneStaff": [
+      {
+        "arcaneStaff": "MAIN_ARCANESTAFF",
+        "greatArcaneStaff": "2H_ARCANESTAFF",
+        "enigmaticStaff": "2H_ENIGMATICSTAFF"
+      }
+    ],
+    "frostStaff": [
+      {
+        "frostStaff": "MAIN_FROSTSTAFF",
+        "greatFrostStaff": "2H_FROSTSTAFF",
+        "glacialStaff": "2H_GLACIALSTAFF"
+      }
+    ],
+    "curseStaff": [
+      {
+        "cursedStaff": "MAIN_CURSEDSTAFF",
+        "greatCursedStaff": "2H_CURSEDSTAFF",
+        "demonicStaff": "2H_DEMONICSTAFF"
+      }
+    ],
+    "tome": [
+      {
+        "tomeOfSpells": "OFF_BOOK"
+      }
+    ]
+  },
+  "hunter": {
+    "leatherHood": [
+      {
+        "mercenaryHood": "HEAD_LEATHER_SET1",
+        "hunterHood": "HEAD_LEATHER_SET2",
+        "assassinHood": "HEAD_LEATHER_SET3"
+      }
+    ],
+    "leatherJacket": [
+      {
+        "mercenaryJacket": "ARMOR_LEATHER_SET1",
+        "hunterJacket": "ARMOR_LEATHER_SET2",
+        "assassinJacket": "ARMOR_LEATHER_SET3"
+      }
+    ],
+    "leatherShoes": [
+      {
+        "mercenaryShoes": "SHOES_LEATHER_SET1",
+        "hunterShoes": "SHOES_LEATHER_SET2",
+        "assassinShoes": "SHOES_LEATHER_SET3"
+      }
+    ],
+    "bow": [
+      {
+        "bow": "2H_BOW",
+        "warbow": "2H_WARBOW",
+        "longbow": "2H_LONGBOW"
+      }
+    ],
+    "spear": [
+      {
+        "spear": "MAIN_SPEAR",
+        "pike": "2H_SPEAR",
+        "glaive": "2H_GLAIVE"
+      }
+    ],
+    "nature": [
+      {
+        "natureStaff": "MAIN_NATURESTAFF",
+        "greatNatureStaff": "2H_NATURESTAFF",
+        "wildStaff": "2H_WILDSTAFF"
+      }
+    ],
+    "dagger": [
+      {
+        "dagger": "MAIN_DAGGER",
+        "daggerPair": "2H_DAGGERPAIR",
+        "claws": "2H_CLAWPAIR"
+      }
+    ],
+    "quarterstaff": [
+      {
+        "quarterstaff": "2H_QUARTERSTAFF",
+        "ironcladStaff": "2H_IRONCLADEDSTAFF",
+        "doubleBladedStaff": "2H_DOUBLEBLADEDSTAFF"
+      }
+    ],
+    "torch": [
+      {
+        "torch": "OFF_TORCH"
+      }
+    ]
+  }
+}
