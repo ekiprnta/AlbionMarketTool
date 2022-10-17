@@ -7,7 +7,7 @@ namespace MZierdt\Albion\Handler;
 use _PHPStan_acbb55bae\Nette\Utils\JsonException;
 use Laminas\Diactoros\Response\HtmlResponse;
 use MZierdt\Albion\repositories\ResourceUploadRepository;
-use MZierdt\Albion\Service\JsonService;
+use MZierdt\Albion\Service\NameDataService;
 use Twig\Environment;
 
 class ShowResourcePriceHandler
@@ -20,7 +20,7 @@ class ShowResourcePriceHandler
 
     public function handler(): HtmlResponse
     {
-        $x = new JsonService();
+        $x = new NameDataService();
         $x->getNameDataArray();
 
         $this->repositoryUpload->uploadIntoCsv();
