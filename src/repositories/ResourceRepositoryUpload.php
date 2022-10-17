@@ -17,7 +17,7 @@ class ResourceRepositoryUpload
     }
 
 
-    public function uploadIntoCsv()
+    public function uploadIntoCsv(): void
     {
         $header = ['itemId', 'city', 'sellOrderPrice', 'sellOrderPriceDate', 'buyOrderPrice', 'buyOrderPriceDate'];
 
@@ -26,7 +26,7 @@ class ResourceRepositoryUpload
         $clothArray = $this->apiService->getResource('cloth');
         $leatherArray = $this->apiService->getResource('leather');
 
-        $resourceArray = $metalBarArray + $planksArray + $clothArray + $leatherArray;
+        $resourceArray = array_merge($metalBarArray, $planksArray, $clothArray, $leatherArray);
         $resourceArray = $this->filterArrays($resourceArray);
 
         $csv = $this->getCsvConnection();
@@ -39,7 +39,7 @@ class ResourceRepositoryUpload
         return Writer::createFromPath(self::PATH_TO_CSV, 'wb');
     }
 
-    private function filterArrays(array $resourceArray)
+    private function filterArrays(array $resourceArray): array
     {
         $filteredArray = [];
         foreach ($resourceArray as $resourceInfo) {
