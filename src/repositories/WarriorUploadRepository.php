@@ -29,28 +29,29 @@ class WarriorUploadRepository implements UploadInterface
         ];
 
         $helmetArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_WARRIOR_HELMET);
-        $armorArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_WARRIOR_ARMOR);
-        $bootsArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_WARRIOR_BOOTS);
-        $swordArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_WARRIOR_SWORD);
-        $axeArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_WARRIOR_AXE);
-        $maceArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_WARRIOR_MACE);
-        $hammerArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_WARRIOR_HAMMER);
-        $warGloveArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_WARRIOR_WAR_GLOVE);
-        $crossbowArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_WARRIOR_CROSSBOW);
-        $shieldArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_WARRIOR_SHIELD);
+//        $armorArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_WARRIOR_ARMOR);
+//        $bootsArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_WARRIOR_BOOTS);
+//        $swordArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_WARRIOR_SWORD);
+//        $axeArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_WARRIOR_AXE);
+//        $maceArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_WARRIOR_MACE);
+//        $hammerArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_WARRIOR_HAMMER);
+//        $warGloveArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_WARRIOR_WAR_GLOVE);
+//        $crossbowArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_WARRIOR_CROSSBOW);
+//        $shieldArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_WARRIOR_SHIELD);
 
         $warriorArray = array_merge(
             $helmetArray,
-            $armorArray,
-            $bootsArray,
-            $swordArray,
-            $axeArray,
-            $maceArray,
-            $hammerArray,
-            $warGloveArray,
-            $crossbowArray,
-            $shieldArray,
+//            $armorArray,
+//            $bootsArray,
+//            $swordArray,
+//            $axeArray,
+//            $maceArray,
+//            $hammerArray,
+//            $warGloveArray,
+//            $crossbowArray,
+//            $shieldArray,
         );
+        dd($warriorArray);
 
         $filteredWarriorArray = $this->filterArrays($warriorArray);
 

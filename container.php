@@ -38,7 +38,10 @@ $serviceManager = new ServiceManager([
                 ],
                 ShowResourcePriceHandler::class => [
                     Environment::class,
-                    ResourceUploadRepository::class
+                    ResourceUploadRepository::class,
+                    WarriorUploadRepository::class,
+                    MageUploadRepository::class,
+                    HunterUploadRepository::class
                 ],
                 CalculateInfoHandler::class => [
                   Environment::class
