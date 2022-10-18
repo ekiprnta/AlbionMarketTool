@@ -97,6 +97,71 @@ class ItemEntity
         $this->bonusCity = $itemData['bonusCity'];
     }
 
+    public function getTier(): mixed
+    {
+        return $this->tier;
+    }
+
+    public function getName(): mixed
+    {
+        return $this->name;
+    }
+
+    public function getCity(): mixed
+    {
+        return $this->city;
+    }
+
+    public function getQuality(): mixed
+    {
+        return $this->quality;
+    }
+
+    public function getSellOrderPrice(): int
+    {
+        return $this->sellOrderPrice;
+    }
+
+    public function getSellOrderPriceDate(): DateTimeImmutable|bool
+    {
+        return $this->sellOrderPriceDate;
+    }
+
+    public function getBuyOrderPrice(): int
+    {
+        return $this->buyOrderPrice;
+    }
+
+    public function getBuyOrderPriceDate(): DateTimeImmutable|bool
+    {
+        return $this->buyOrderPriceDate;
+    }
+
+    public function getPrimaryResource(): mixed
+    {
+        return $this->primaryResource;
+    }
+
+    public function getPrimaryResourceAmount(): mixed
+    {
+        return $this->primaryResourceAmount;
+    }
+
+    public function getSecondaryResource(): mixed
+    {
+        return $this->secondaryResource;
+    }
+
+    public function getSecondaryResourceAmount(): mixed
+    {
+        return $this->secondaryResourceAmount;
+    }
+
+    public function getBonusCity(): mixed
+    {
+        return $this->bonusCity;
+    }
+
     private function splitIdIntoNameAndTier(string $itemId): array
     {
         $itemIdArray = explode('_', $itemId);
