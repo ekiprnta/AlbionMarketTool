@@ -14,19 +14,11 @@ class ShowResourcePriceHandler
 {
     public function __construct(
         private Environment $twigEnvironment,
-        private UploadCsvRepository $uploadCsvRepository,
-        private ResourceUploadRepository $repositoryUpload,
     ) {
     }
 
     public function handler(): HtmlResponse
     {
-//        $this->uploadCsvRepository->fillItemsCsvFiles();
-//        $this->repositoryUpload->uploadIntoCsv();
-
-        $bla = new ItemRepository();
-        dd($bla->getItemsAsItemEntityFromBonusCity('Martlock'));
-
         $htmlContent = $this->twigEnvironment->render('test.html.twig');
         return new HtmlResponse($htmlContent);
     }

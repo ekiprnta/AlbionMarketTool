@@ -118,6 +118,7 @@ class ItemEntity
             self::TIER_T8_1 => self::T81_FACTOR_FAME,
             self::TIER_T8_2 => self::T82_FACTOR_FAME,
             self::TIER_T8_3 => self::T83_FACTOR_FAME,
+            default => throw new \InvalidArgumentException('wrong Factor in Item Entity')
         };
     }
 
@@ -244,6 +245,7 @@ class ItemEntity
             'T81' => self::TIER_T8_1,
             'T82' => self::TIER_T8_2,
             'T83' => self::TIER_T8_3,
+            default => throw new \InvalidArgumentException('wrong tier in Item Entity')
         };
     }
 

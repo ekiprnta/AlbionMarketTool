@@ -13,7 +13,6 @@ class ApiService // Buy Order ist buy_price_max
     public const ITEM_TIERS_WITH_PLACEHOLDER = 'T2_%s,T3_%s,T4_%s,T5_%s,T6_%s,T7_%s,T8_%s,T4_%s@1,T5_%s@1,T6_%s@1,T7_%s@1,T8_%s@1,T4_%s@2,T5_%s@2,T6_%s@2,T7_%s@2,T8_%s@2,T4_%s@3,T5_%s@3,T6_%s@3,T7_%s@3,T8_%s@3';
 
     private const RESOURCE_PLANKS = 'Planks';
-    private const RESOURCE_STONEBLOCK = 'T2_StoneBlock,T3_StoneBlock,T4_StoneBlock,T5_StoneBlock,T6_StoneBlock,T7_StoneBlock,T8_StoneBlock';
     private const RESOURCE_METALBAR = 'MetalBar';
     private const RESOURCE_LEATHER = 'Leather';
     private const RESOURCE_CLOTH = 'Cloth';
@@ -23,7 +22,6 @@ class ApiService // Buy Order ist buy_price_max
     private const CITY_BRIDGEWATCH = 'Bridgewatch';
     private const CITY_MARTLOCK = 'Martlock';
     private const CITY_THETFORD = 'Thetford';
-    private const CITY_CAERLEON = 'Caerleon';
     private const CITY_BLACKMARKET = 'BlackMarket';
 
     public const ITEM_WARRIOR_HELMET = 'plateHelmet';
@@ -57,11 +55,7 @@ class ApiService // Buy Order ist buy_price_max
     public const ITEM_HUNTER_QUARTERSTAFF = 'quarterstaff';
     public const ITEM_HUNTER_TORCH = 'torch';
 
-    private const QUALITY_NORMAL = 1;
     private const QUALITY_GOOD = 2;
-    private const QUALITY_OUTSTANDING = 3;
-    private const QUALITY_EXCELLENT = 4;
-    private const QUALITY_MASTERPIECE = 5;
 
     public function __construct(private HttpClient $httpClient)
     {
@@ -74,6 +68,7 @@ class ApiService // Buy Order ist buy_price_max
             'planks' => $this->apiUrlAssembler(self::RESOURCE_PLANKS),
             'cloth' => $this->apiUrlAssembler(self::RESOURCE_CLOTH),
             'leather' => $this->apiUrlAssembler(self::RESOURCE_LEATHER),
+            default => throw new \InvalidArgumentException('wrong Resource Type in ApiService')
         };
 
         $cities = sprintf(
@@ -187,6 +182,7 @@ class ApiService // Buy Order ist buy_price_max
                 self::ITEM_HUNTER_TORCH,
                 self::ITEM_TIERS_WITH_PLACEHOLDER
             ),
+            default => throw new \InvalidArgumentException('wrong Item name in Api Service')
         };
 
         if (is_array($apiUrl)) {
