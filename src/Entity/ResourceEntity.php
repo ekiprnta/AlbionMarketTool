@@ -103,7 +103,7 @@ class ResourceEntity
         $preTier = array_shift($itemIdArray);
         $itemName = implode('_', $itemIdArray);
 
-        if (!str_contains($itemName,'@')) {
+        if (!str_contains($itemName, '@')) {
             return [
                 'tier' => $this->tierConverter($preTier),
                 'name' => $itemName
@@ -113,7 +113,7 @@ class ResourceEntity
         $explodedNameEnchantment = explode('@', $itemName);
 
         return [
-            'tier' => $this->tierConverter($preTier. $explodedNameEnchantment[1]),
+            'tier' => $this->tierConverter($preTier . $explodedNameEnchantment[1]),
             'name' => $explodedNameEnchantment[0]
         ];
     }
@@ -149,6 +149,10 @@ class ResourceEntity
     private function getDateTimeImmutable(mixed $sellOrderPriceDate): DateTimeImmutable|bool
     {
         $sellOrderPriceDate = str_replace('T', ' ', $sellOrderPriceDate);
-        return DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $sellOrderPriceDate, new DateTimeZone('Europe/London'));
+        return DateTimeImmutable::createFromFormat(
+            'Y-m-d H:i:s',
+            $sellOrderPriceDate,
+            new DateTimeZone('Europe/London')
+        );
     }
 }
