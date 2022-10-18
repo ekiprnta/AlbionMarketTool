@@ -10,6 +10,7 @@ use MZierdt\Albion\HttpClient;
 use MZierdt\Albion\repositories\HunterUploadRepository;
 use MZierdt\Albion\repositories\MageUploadRepository;
 use MZierdt\Albion\repositories\ResourceUploadRepository;
+use MZierdt\Albion\repositories\UploadCsvRepository;
 use MZierdt\Albion\repositories\WarriorUploadRepository;
 use MZierdt\Albion\Service\ApiService;
 use MZierdt\Albion\Service\NameDataService;
@@ -19,6 +20,7 @@ class ShowResourcePriceHandler
 {
     public function __construct(
         private Environment $twigEnvironment,
+        private UploadCsvRepository $uploadCsvRepository,
         private ResourceUploadRepository $repositoryUpload,
         private WarriorUploadRepository $warriorUpload,
         private MageUploadRepository $mageUpload,
@@ -28,10 +30,11 @@ class ShowResourcePriceHandler
 
     public function handler(): HtmlResponse
     {
+        $this->uploadCsvRepository->fillItemsCsvFiles();
 //        $this->repositoryUpload->uploadIntoCsv();
 //        $this->warriorUpload->uploadIntoCsv();
 //        $this->mageUpload->uploadIntoCsv();
-        $this->hunterUpload->uploadIntoCsv();
+//        $this->hunterUpload->uploadIntoCsv();
 
         $htmlContent = $this->twigEnvironment->render('test.html.twig');
         return new HtmlResponse($htmlContent);
