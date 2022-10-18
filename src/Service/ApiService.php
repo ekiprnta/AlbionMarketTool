@@ -196,7 +196,7 @@ class ApiService // Buy Order ist buy_price_max
                     $url,
                     [
                         'locations' => self::CITY_BLACKMARKET,
-                        'qualities' => self::QUALITY_GOOD
+                        'qualities' => self::QUALITY_GOOD,
                     ]
                 );
                 $apiData[] = $this->jsonDecode($jsonFromArray);
@@ -208,7 +208,7 @@ class ApiService // Buy Order ist buy_price_max
             $apiUrl,
             [
                 'locations' => self::CITY_BLACKMARKET,
-                'qualities' => self::QUALITY_GOOD
+                'qualities' => self::QUALITY_GOOD,
             ]
         );
         return $this->jsonDecode($json);

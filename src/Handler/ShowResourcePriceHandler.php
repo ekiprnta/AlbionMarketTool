@@ -6,7 +6,6 @@ namespace MZierdt\Albion\Handler;
 
 use Laminas\Diactoros\Response\HtmlResponse;
 use MZierdt\Albion\repositories\ItemRepository;
-use MZierdt\Albion\repositories\ResourceRepository;
 use MZierdt\Albion\repositories\ResourceUploadRepository;
 use MZierdt\Albion\repositories\UploadCsvRepository;
 use Twig\Environment;
@@ -17,7 +16,6 @@ class ShowResourcePriceHandler
         private Environment $twigEnvironment,
         private UploadCsvRepository $uploadCsvRepository,
         private ResourceUploadRepository $repositoryUpload,
-
     ) {
     }
 
@@ -28,7 +26,6 @@ class ShowResourcePriceHandler
 
         $bla = new ItemRepository();
         dd($bla->getItemsAsItemEntityFromBonusCity('Martlock'));
-
 
         $htmlContent = $this->twigEnvironment->render('test.html.twig');
         return new HtmlResponse($htmlContent);

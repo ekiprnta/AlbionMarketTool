@@ -55,7 +55,12 @@ class ItemRepository
         return $itemStack;
     }
 
-    private function filterByBonusCity(string $city, array $allWarriorItems, array $allMageItems, array $allHunterItems): array
+    private function filterByBonusCity(
+        string $city,
+        array $allWarriorItems,
+        array $allMageItems,
+        array $allHunterItems
+    ): array
     {
         $filteredItems = [];
         /** @var ItemEntity $warriorItem */

@@ -49,9 +49,9 @@ class ResourceEntity
         $this->tier = $split['tier'];
         $this->name = $split['name'];
         $this->city = $resourceData['city'];
-        $this->sellOrderPrice = (int)$resourceData['sellOrderPrice'];
+        $this->sellOrderPrice = (int) $resourceData['sellOrderPrice'];
         $this->sellOrderPriceDate = $sellOrderPriceDate;
-        $this->buyOrderPrice = (int)$resourceData['buyOrderPrice'];
+        $this->buyOrderPrice = (int) $resourceData['buyOrderPrice'];
         $this->buyOrderPriceDate = $buyOrderPriceDate;
     }
 
@@ -103,10 +103,10 @@ class ResourceEntity
         $preTier = array_shift($itemIdArray);
         $itemName = implode('_', $itemIdArray);
 
-        if (!str_contains($itemName, '@')) {
+        if (! str_contains($itemName, '@')) {
             return [
                 'tier' => $this->tierConverter($preTier),
-                'name' => $itemName
+                'name' => $itemName,
             ];
         }
 
@@ -114,7 +114,7 @@ class ResourceEntity
 
         return [
             'tier' => $this->tierConverter($preTier . $explodedNameEnchantment[1]),
-            'name' => $explodedNameEnchantment[0]
+            'name' => $explodedNameEnchantment[0],
         ];
     }
 

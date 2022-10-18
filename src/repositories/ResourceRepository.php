@@ -29,7 +29,7 @@ class ResourceRepository
             'metalBar' => $allMetalBarResourcesFromCity,
             'planks' => $allPlanksResourcesFromCity,
             'cloth' => $allClothResourcesFromCity,
-            'leather' => $allLeatherResourcesFromCity
+            'leather' => $allLeatherResourcesFromCity,
         ];
     }
 
@@ -73,7 +73,7 @@ class ResourceRepository
             'metalBar' => $metalBarStack,
             'planks' => $planksStack,
             'cloth' => $clothStack,
-            'leather' => $leatherStack
+            'leather' => $leatherStack,
         ];
     }
 
@@ -82,8 +82,7 @@ class ResourceRepository
         $cityResource = [];
         /** @var ResourceEntity $resourceEntity */
         foreach ($resources as $resourceEntity) {
-            if ($resourceEntity->getCity() === $city)
-            {
+            if ($resourceEntity->getCity() === $city) {
                 $cityResource[] = $resourceEntity;
             }
         }
