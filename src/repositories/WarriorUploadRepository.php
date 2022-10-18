@@ -6,6 +6,7 @@ namespace MZierdt\Albion\repositories;
 
 use League\Csv\Writer;
 use MZierdt\Albion\Service\ApiService;
+use MZierdt\Albion\Service\NameDataService;
 
 class WarriorUploadRepository implements UploadInterface
 {
@@ -20,35 +21,25 @@ class WarriorUploadRepository implements UploadInterface
     {
         $this->emptyCsv();
 
-        $helmetArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_WARRIOR_HELMET);
-        $armorArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_WARRIOR_ARMOR);
-        $bootsArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_WARRIOR_BOOTS);
-        $swordArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_WARRIOR_SWORD);
-        $axeArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_WARRIOR_AXE);
-        $maceArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_WARRIOR_MACE);
-        $hammerArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_WARRIOR_HAMMER);
-        $warGloveArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_WARRIOR_WAR_GLOVE);
-        $crossbowArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_WARRIOR_CROSSBOW);
-        $shieldArray = $this->apiService->getBlackMarketItem(ApiService::ITEM_WARRIOR_SHIELD);
-
-        $warriorArray = array_merge(
-            $helmetArray,
-            $armorArray,
-            $bootsArray,
-            $swordArray,
-            $axeArray,
-            $maceArray,
-            $hammerArray,
-            $warGloveArray,
-            $crossbowArray,
-            $shieldArray,
-        );
-        dd($warriorArray);
-        $filteredWarriorArray = $this->filterArrays($warriorArray);
-
-        dd($warriorArray);
         $csv = $this->getCsvConnection();
-        $csv->insertAll($filteredWarriorArray);
+
+//        $this->insertIntoCsv(ApiService::ITEM_WARRIOR_HELMET, $csv);
+//        $this->insertIntoCsv(ApiService::ITEM_WARRIOR_ARMOR, $csv);
+//        $this->insertIntoCsv(ApiService::ITEM_WARRIOR_BOOTS, $csv);
+        $this->insertIntoCsv(ApiService::ITEM_WARRIOR_SWORD, $csv);
+        $this->insertIntoCsv(ApiService::ITEM_WARRIOR_AXE, $csv);
+        $this->insertIntoCsv(ApiService::ITEM_WARRIOR_MACE, $csv);
+        $this->insertIntoCsv(ApiService::ITEM_WARRIOR_HAMMER, $csv);
+        $this->insertIntoCsv(ApiService::ITEM_WARRIOR_WAR_GLOVE, $csv);
+        $this->insertIntoCsv(ApiService::ITEM_WARRIOR_CROSSBOW, $csv);
+        $this->insertIntoCsv(ApiService::ITEM_WARRIOR_SHIELD, $csv);
+    }
+
+    private function insertIntoCsv(string $itemCategory, Writer $csv): void
+    {
+        $itemArray = $this->apiService->getBlackMarketItem($itemCategory);
+        $filteredItemArray = $this->filterArrays($itemArray, $itemCategory);
+        $csv->insertAll($filteredItemArray);
     }
 
     private function getCsvConnection(): Writer
@@ -71,20 +62,44 @@ class WarriorUploadRepository implements UploadInterface
         $csv->insertOne($header);
     }
 
-    private function filterArrays(array $data): array
+    private function filterArrays(array $data, string $category): array
     {
+        $nameData = NameDataService::getNameDataArray();
+
         $filteredArray = [];
-        foreach ($data as $warriorInfo) {
-            $filteredArray[] = [
-                $warriorInfo['item_id'],
-                $warriorInfo['city'],
-                $warriorInfo['quality'],
-                $warriorInfo['sell_price_min'],
-                $warriorInfo['sell_price_min_date'],
-                $warriorInfo['buy_price_max'],
-                $warriorInfo['buy_price_max_date'],
-            ];
+        foreach ($data as $itemCategory) {
+            foreach ($itemCategory as $item) {
+               $itemWithoutTier = NameDataService::getFilteredArray($item['item_id']);
+
+               $primaryResource = null;
+               $primaryResourceAmount = null;
+               $secondaryResource = null;
+               $secondaryResourceAmount = null;
+                foreach ($nameData['warrior'][$category] as $singleItem) {
+                    if ($singleItem['id_snippet'] === $itemWithoutTier) {
+                        $primaryResource = $singleItem['primaryResource'];
+                        $primaryResourceAmount = $singleItem['primaryResourceAmount'];
+                        $secondaryResource = $singleItem['secondaryResource'];
+                        $secondaryResourceAmount = $singleItem['secondaryResourceAmount'];
+                    }
+                }
+
+                $filteredArray[] = [
+                    $item['item_id'],
+                    $item['city'],
+                    $item['quality'],
+                    $item['sell_price_min'],
+                    $item['sell_price_min_date'],
+                    $item['buy_price_max'],
+                    $item['buy_price_max_date'],
+                    $primaryResource,
+                    $primaryResourceAmount,
+                    $secondaryResource,
+                    $secondaryResourceAmount
+                ];
+            }
         }
+        dd($filteredArray[47]);
         return $filteredArray;
     }
 }
