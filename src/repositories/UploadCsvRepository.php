@@ -97,6 +97,7 @@ class UploadCsvRepository
             'primaryResourceAmount',
             'secondaryResource',
             'secondaryResourceAmount',
+            'bonusCity',
         ];
         $csv = Writer::createFromPath($path, 'wb');
         $csv->insertOne($header);
@@ -126,12 +127,14 @@ class UploadCsvRepository
                 $primaryResourceAmount = null;
                 $secondaryResource = null;
                 $secondaryResourceAmount = null;
+                $bonusCity = null;
                 foreach ($nameData[$mainCategory][$category] as $singleItem) {
                     if (strcasecmp($singleItem['id_snippet'], $itemWithoutTier) === 0) {
                         $primaryResource = $singleItem['primaryResource'];
                         $primaryResourceAmount = $singleItem['primaryResourceAmount'];
                         $secondaryResource = $singleItem['secondaryResource'];
                         $secondaryResourceAmount = $singleItem['secondaryResourceAmount'];
+                        $bonusCity = $singleItem['bonusCity'];
                     }
                 }
 
@@ -146,7 +149,8 @@ class UploadCsvRepository
                     $primaryResource,
                     $primaryResourceAmount,
                     $secondaryResource,
-                    $secondaryResourceAmount
+                    $secondaryResourceAmount,
+                    $bonusCity
                 ];
             }
         }
