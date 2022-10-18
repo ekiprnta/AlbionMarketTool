@@ -52,6 +52,41 @@ class ResourceEntity
         $this->buyOrderPriceDate = new DateTimeImmutable($resourceData['buyOrderPriceDate']);
     }
 
+    public function getTier(): mixed
+    {
+        return $this->tier;
+    }
+
+    public function getName(): mixed
+    {
+        return $this->name;
+    }
+
+    public function getCity(): mixed
+    {
+        return $this->city;
+    }
+
+    public function getSellOrderPrice(): mixed
+    {
+        return $this->sellOrderPrice;
+    }
+
+    public function getSellOrderPriceDate(): DateTimeImmutable
+    {
+        return $this->sellOrderPriceDate;
+    }
+
+    public function getBuyOrderPrice(): mixed
+    {
+        return $this->buyOrderPrice;
+    }
+
+    public function getBuyOrderPriceDate(): DateTimeImmutable
+    {
+        return $this->buyOrderPriceDate;
+    }
+
     private function splitIdIntoNameAndTier(string $itemId): array
     {
         $itemIdArray = explode('_', $itemId);
