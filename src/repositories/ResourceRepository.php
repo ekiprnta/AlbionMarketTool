@@ -15,6 +15,23 @@ class ResourceRepository
     {
     }
 
+    public function getAllResourcesFromCity(string $city)
+    {
+        $allResourceArray = $this->getResourcesAsResourceEntity();
+
+        $allMetalBarResourcesFromCity = $this->filterResourcesByCity($allResourceArray['metalBar'], $city);
+        $allPlanksResourcesFromCity = $this->filterResourcesByCity($allResourceArray['planks'], $city);
+        $allClothResourcesFromCity = $this->filterResourcesByCity($allResourceArray['cloth'], $city);
+        $allLeatherResourcesFromCity = $this->filterResourcesByCity($allResourceArray['leather'], $city);
+
+        return [
+            'metalBar' => $allMetalBarResourcesFromCity,
+            'planks' => $allPlanksResourcesFromCity,
+            'cloth' => $allClothResourcesFromCity,
+            'leather' => $allLeatherResourcesFromCity
+        ];
+    }
+
     public function getResourcesAsResourceEntity(): array
     {
         $reader = $this->getReader();
@@ -57,5 +74,18 @@ class ResourceRepository
             'cloth' => $clothStack,
             'leather' => $leatherStack
         ];
+    }
+
+    private function filterResourcesByCity(array $resources, string $city)
+    {
+        $cityResource = [];
+        /** @var ResourceEntity $resourceEntity */
+        foreach ($resources as $resourceEntity) {
+            if ($resourceEntity->getCity() === $city)
+            {
+                $cityResource[] = $resourceEntity;
+            }
+        }
+        return $cityResource;
     }
 }
