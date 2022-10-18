@@ -40,6 +40,7 @@ class ResourceRepository
         $clothStack = [];
         $leatherStack = [];
         foreach ($allResourceInformation as $resource) {
+            dd($resource);
             $lowerCaseItemId = strtolower($resource['itemId']);
             if (str_contains($lowerCaseItemId, 'metalbar')) {
                 $metalBarStack[] = new ResourceEntity($resource);
