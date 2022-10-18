@@ -28,15 +28,6 @@ $serviceManager = new ServiceManager([
                 ResourceUploadRepository::class => [
                     ApiService::class
                 ],
-                WarriorUploadRepository::class => [
-                    ApiService::class
-                ],
-                MageUploadRepository::class => [
-                    ApiService::class
-                ],
-                HunterUploadRepository::class => [
-                    ApiService::class
-                ],
                 UploadCsvRepository::class => [
                     ApiService::class
                 ],
@@ -44,9 +35,6 @@ $serviceManager = new ServiceManager([
                     Environment::class,
                     UploadCsvRepository::class,
                     ResourceUploadRepository::class,
-                    WarriorUploadRepository::class,
-                    MageUploadRepository::class,
-                    HunterUploadRepository::class
                 ],
                 CalculateInfoHandler::class => [
                   Environment::class
