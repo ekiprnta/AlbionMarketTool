@@ -121,22 +121,22 @@ class ItemEntity
         };
     }
 
-    public function getTier(): mixed
+    public function getTier(): int
     {
         return $this->tier;
     }
 
-    public function getName(): mixed
+    public function getName(): string
     {
         return $this->name;
     }
 
-    public function getCity(): mixed
+    public function getCity(): string
     {
         return $this->city;
     }
 
-    public function getQuality(): mixed
+    public function getQuality(): int
     {
         return $this->quality;
     }
@@ -161,29 +161,34 @@ class ItemEntity
         return $this->buyOrderPriceDate;
     }
 
-    public function getPrimaryResource(): mixed
+    public function getPrimaryResource(): string
     {
         return $this->primaryResource;
     }
 
-    public function getPrimaryResourceAmount(): mixed
+    public function getPrimaryResourceAmount(): int
     {
         return $this->primaryResourceAmount;
     }
 
-    public function getSecondaryResource(): mixed
+    public function getSecondaryResource(): string
     {
         return $this->secondaryResource;
     }
 
-    public function getSecondaryResourceAmount(): mixed
+    public function getSecondaryResourceAmount(): int
     {
         return $this->secondaryResourceAmount;
     }
 
-    public function getBonusCity(): mixed
+    public function getBonusCity(): string
     {
         return $this->bonusCity;
+    }
+
+    public function getFameFactor(): float
+    {
+        return $this->fameFactor;
     }
 
     private function splitIdIntoNameAndTier(string $itemId): array

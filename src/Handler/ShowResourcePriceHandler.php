@@ -27,7 +27,7 @@ class ShowResourcePriceHandler
 //        $this->repositoryUpload->uploadIntoCsv();
 
         $bla = new ItemRepository();
-        $bla->getItemsAsItemEntityFromCity('Martlock');
+        dd($bla->getItemsAsItemEntityFromBonusCity('Martlock'));
 
 
         $htmlContent = $this->twigEnvironment->render('test.html.twig');
