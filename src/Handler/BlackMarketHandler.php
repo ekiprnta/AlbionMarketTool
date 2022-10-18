@@ -16,7 +16,7 @@ class BlackMarketHandler
 
     public function handler()
     {
-        $htmlContent = $this->twigEnvironment->render('test.html.twig');
+        $htmlContent = $this->twigEnvironment->render('showData.html.twig');
         return new HtmlResponse($htmlContent);
     }
 }

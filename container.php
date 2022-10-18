@@ -10,7 +10,9 @@ use MZierdt\Albion\Handler\CalculateInfoHandler;
 use MZierdt\Albion\Handler\ShowResourcePriceHandler;
 use MZierdt\Albion\HttpClient;
 use MZierdt\Albion\repositories\HunterUploadRepository;
+use MZierdt\Albion\repositories\ItemRepository;
 use MZierdt\Albion\repositories\MageUploadRepository;
+use MZierdt\Albion\repositories\ResourceRepository;
 use MZierdt\Albion\repositories\ResourceUploadRepository;
 use MZierdt\Albion\repositories\UploadCsvRepository;
 use MZierdt\Albion\repositories\WarriorUploadRepository;
@@ -31,8 +33,12 @@ $serviceManager = new ServiceManager([
                 UploadCsvRepository::class => [
                     ApiService::class
                 ],
+                ItemRepository::class => [],
+                ResourceRepository::class => [],
                 ShowResourcePriceHandler::class => [
                     Environment::class,
+                    ItemRepository::class,
+                    ResourceRepository::class
                 ],
                 CalculateInfoHandler::class => [
                   Environment::class
