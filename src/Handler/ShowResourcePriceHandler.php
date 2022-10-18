@@ -28,11 +28,7 @@ class ShowResourcePriceHandler
 
     public function handler(): HtmlResponse
     {
-        $fortSterlingResources = $this->resourceRepository->getAllResourcesFromCity(self::CITY_FORTSTERLING);
-        $lymhurstResources = $this->resourceRepository->getAllResourcesFromCity(self::CITY_LYMHURST);
-        $bridgewatchResources = $this->resourceRepository->getAllResourcesFromCity(self::CITY_BRIDGEWATCH);
-        $martlockResources = $this->resourceRepository->getAllResourcesFromCity(self::CITY_MARTLOCK);
-        $thetfordResources = $this->resourceRepository->getAllResourcesFromCity(self::CITY_THETFORD);
+
 
         $fortSterlingItems = $this->itemRepository->getItemsAsItemEntityFromBonusCity(self::CITY_FORTSTERLING);
         $lymhurstItems = $this->itemRepository->getItemsAsItemEntityFromBonusCity(self::CITY_LYMHURST);
@@ -40,16 +36,18 @@ class ShowResourcePriceHandler
         $martlockItems = $this->itemRepository->getItemsAsItemEntityFromBonusCity(self::CITY_MARTLOCK);
         $thetfordItems = $this->itemRepository->getItemsAsItemEntityFromBonusCity(self::CITY_THETFORD);
 
-        $allCitiesResource = [
-            [$fortSterlingResources, $fortSterlingItems],
-            [$lymhurstResources, $lymhurstItems],
-            [$bridgewatchResources, $bridgewatchItems],
-            [$martlockResources, $martlockItems],
-            [$thetfordResources, $thetfordItems]
+        $allCitiesResource = $this->resourceRepository->getResourcesAsResourceEntity();
+        $allCitiesItems = [
+            $fortSterlingItems,
+            $lymhurstItems,
+            $bridgewatchItems,
+            $martlockItems,
+            $thetfordItems
         ];
 
         $htmlContent = $this->twigEnvironment->render('showData.html.twig', [
-            'data' => $allCitiesResource,
+            'allCitiesResource' => $allCitiesResource,
+            'allCitiesItems' => $allCitiesItems,
         ]);
         return new HtmlResponse($htmlContent);
     }

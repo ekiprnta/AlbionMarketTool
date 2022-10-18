@@ -1,5 +1,22 @@
 {% extends "layout.html.twig" %}
 
 {% block content %}
-{{data}}
+<div class="row">
+    {# @var resourceEntity \MZierdt\Albion\Entity\ResourceEntity #}
+    {%for typeResource in allCitiesResource%}
+        <table class="table table-striped">
+        {% for resourceEntity in typeResource %}
+            <tr>
+            <td>{{resourceEntity.tier}}</td>
+            <td>{{resourceEntity.name}}</td>
+            <td>{{resourceEntity.city}}</td>
+            <td>{{resourceEntity.sellOrderPrice}}</td>
+{#            <td>{{resourceEntity.sellOrderPriceDate}}</td>#}
+            <td>{{resourceEntity.buyOrderPrice}}</td>
+{#            <td>{{resourceEntity.buyOrderPriceDate}}</td>#}
+            </tr>
+    {% endfor%}
+        </table>
+    {% endfor%}
+</div>
 {%endblock%}
