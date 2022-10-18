@@ -40,7 +40,7 @@ class ResourceUploadRepository
     private function emptyCsv(): void
     {
         $header = ['itemId', 'city', 'sellOrderPrice', 'sellOrderPriceDate', 'buyOrderPrice', 'buyOrderPriceDate'];
-        $csv = Writer::createFromPath(self::PATH_TO_CSV,'wb');
+        $csv = Writer::createFromPath(self::PATH_TO_CSV, 'wb');
         $csv->insertOne($header);
     }
 

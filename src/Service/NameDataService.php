@@ -16,10 +16,10 @@ class NameDataService
 
     public static function getFilteredArray(string $itemString): string
     {
-        $itemAsArray = explode('_',$itemString);
+        $itemAsArray = explode('_', $itemString);
         array_shift($itemAsArray);
         $itemWithoutTier = implode('_', $itemAsArray);
-        if (str_contains($itemWithoutTier,'@')) {
+        if (str_contains($itemWithoutTier, '@')) {
             $itemWithoutTier = explode('@', $itemWithoutTier);
             return $itemWithoutTier[0];
         }

@@ -10,7 +10,6 @@ use MZierdt\Albion\Service\NameDataService;
 
 class UploadCsvRepository
 {
-
     private const PATH_TO_CSV_WARRIOR = __DIR__ . '/../../assets/warrior.csv';
     private const PATH_TO_CSV_MAGE = __DIR__ . '/../../assets/mage.csv';
     private const PATH_TO_CSV_HUNTER = __DIR__ . '/../../assets/hunter.csv';
@@ -31,20 +30,20 @@ class UploadCsvRepository
 
     private function fillWarriorCsvFile()
     {
-            $this->emptyCsv(self::PATH_TO_CSV_WARRIOR);
+        $this->emptyCsv(self::PATH_TO_CSV_WARRIOR);
 
-            $csv = $this->getCsvConnection(self::PATH_TO_CSV_WARRIOR);
+        $csv = $this->getCsvConnection(self::PATH_TO_CSV_WARRIOR);
 
-            $this->insertIntoCsv(ApiService::ITEM_WARRIOR_HELMET, $csv, self::WARRIOR);
-            $this->insertIntoCsv(ApiService::ITEM_WARRIOR_ARMOR, $csv, self::WARRIOR);
-            $this->insertIntoCsv(ApiService::ITEM_WARRIOR_BOOTS, $csv, self::WARRIOR);
-            $this->insertIntoCsv(ApiService::ITEM_WARRIOR_SWORD, $csv, self::WARRIOR);
-            $this->insertIntoCsv(ApiService::ITEM_WARRIOR_AXE, $csv, self::WARRIOR);
-            $this->insertIntoCsv(ApiService::ITEM_WARRIOR_MACE, $csv, self::WARRIOR);
-            $this->insertIntoCsv(ApiService::ITEM_WARRIOR_HAMMER, $csv, self::WARRIOR);
-            $this->insertIntoCsv(ApiService::ITEM_WARRIOR_WAR_GLOVE, $csv, self::WARRIOR);
-            $this->insertIntoCsv(ApiService::ITEM_WARRIOR_CROSSBOW, $csv, self::WARRIOR);
-            $this->insertIntoCsv(ApiService::ITEM_WARRIOR_SHIELD, $csv, self::WARRIOR);
+        $this->insertIntoCsv(ApiService::ITEM_WARRIOR_HELMET, $csv, self::WARRIOR);
+        $this->insertIntoCsv(ApiService::ITEM_WARRIOR_ARMOR, $csv, self::WARRIOR);
+        $this->insertIntoCsv(ApiService::ITEM_WARRIOR_BOOTS, $csv, self::WARRIOR);
+        $this->insertIntoCsv(ApiService::ITEM_WARRIOR_SWORD, $csv, self::WARRIOR);
+        $this->insertIntoCsv(ApiService::ITEM_WARRIOR_AXE, $csv, self::WARRIOR);
+        $this->insertIntoCsv(ApiService::ITEM_WARRIOR_MACE, $csv, self::WARRIOR);
+        $this->insertIntoCsv(ApiService::ITEM_WARRIOR_HAMMER, $csv, self::WARRIOR);
+        $this->insertIntoCsv(ApiService::ITEM_WARRIOR_WAR_GLOVE, $csv, self::WARRIOR);
+        $this->insertIntoCsv(ApiService::ITEM_WARRIOR_CROSSBOW, $csv, self::WARRIOR);
+        $this->insertIntoCsv(ApiService::ITEM_WARRIOR_SHIELD, $csv, self::WARRIOR);
     }
 
     private function fillMageCsvFile()
@@ -62,7 +61,6 @@ class UploadCsvRepository
         $this->insertIntoCsv(ApiService::ITEM_MAGE_FROST_STAFF, $csv, self::MAGE);
         $this->insertIntoCsv(ApiService::ITEM_MAGE_CURSE_STAFF, $csv, self::MAGE);
         $this->insertIntoCsv(ApiService::ITEM_MAGE_TOME_STAFF, $csv, self::MAGE);
-
     }
 
     private function fillHunterCsvFile()
@@ -80,7 +78,6 @@ class UploadCsvRepository
         $this->insertIntoCsv(ApiService::ITEM_HUNTER_DAGGER, $csv, self::HUNTER);
         $this->insertIntoCsv(ApiService::ITEM_HUNTER_QUARTERSTAFF, $csv, self::HUNTER);
         $this->insertIntoCsv(ApiService::ITEM_HUNTER_TORCH, $csv, self::HUNTER);
-
     }
 
     private function emptyCsv(string $path): void
@@ -97,6 +94,7 @@ class UploadCsvRepository
             'primaryResourceAmount',
             'secondaryResource',
             'secondaryResourceAmount',
+            'bonusCity',
         ];
         $csv = Writer::createFromPath($path, 'wb');
         $csv->insertOne($header);
@@ -126,12 +124,14 @@ class UploadCsvRepository
                 $primaryResourceAmount = null;
                 $secondaryResource = null;
                 $secondaryResourceAmount = null;
+                $bonusCity = null;
                 foreach ($nameData[$mainCategory][$category] as $singleItem) {
                     if (strcasecmp($singleItem['id_snippet'], $itemWithoutTier) === 0) {
                         $primaryResource = $singleItem['primaryResource'];
                         $primaryResourceAmount = $singleItem['primaryResourceAmount'];
                         $secondaryResource = $singleItem['secondaryResource'];
                         $secondaryResourceAmount = $singleItem['secondaryResourceAmount'];
+                        $bonusCity = $singleItem['bonusCity'];
                     }
                 }
 
@@ -146,11 +146,11 @@ class UploadCsvRepository
                     $primaryResource,
                     $primaryResourceAmount,
                     $secondaryResource,
-                    $secondaryResourceAmount
+                    $secondaryResourceAmount,
+                    $bonusCity,
                 ];
             }
         }
         return $filteredArray;
     }
-
 }

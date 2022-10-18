@@ -6,21 +6,24 @@
         "primaryResource": "metalBar",
         "primaryResourceAmount": 8,
         "secondaryResource": null,
-        "secondaryResourceAmount": null
+        "secondaryResourceAmount": null,
+        "bonusCity": "Fort Sterling"
       },
       "knightHelmet": {
         "id_snippet": "HEAD_PLATE_SET2",
         "primaryResource": "metalBar",
         "primaryResourceAmount": 8,
         "secondaryResource": null,
-        "secondaryResourceAmount": null
+        "secondaryResourceAmount": null,
+        "bonusCity": "Fort Sterling"
       },
       "guardianHelmet": {
         "id_snippet": "HEAD_PLATE_SET3",
         "primaryResource": "metalBar",
         "primaryResourceAmount": 8,
         "secondaryResource": null,
-        "secondaryResourceAmount": null
+        "secondaryResourceAmount": null,
+        "bonusCity": "Fort Sterling"
       }
     },
     "plateArmor": {
@@ -29,21 +32,24 @@
         "primaryResource": "metalBar",
         "primaryResourceAmount": 16,
         "secondaryResource": null,
-        "secondaryResourceAmount": null
+        "secondaryResourceAmount": null,
+        "bonusCity": "Bridgewatch"
       },
       "knightArmor": {
         "id_snippet": "ARMOR_PLATE_SET2",
         "primaryResource": "metalBar",
         "primaryResourceAmount": 16,
         "secondaryResource": null,
-        "secondaryResourceAmount": null
+        "secondaryResourceAmount": null,
+        "bonusCity": "Bridgewatch"
       },
       "guardianArmor": {
         "id_snippet": "ARMOR_PLATE_SET3",
         "primaryResource": "metalBar",
         "primaryResourceAmount": 16,
         "secondaryResource": null,
-        "secondaryResourceAmount": null
+        "secondaryResourceAmount": null,
+        "bonusCity": "Bridgewatch"
       }
     },
     "plateBoots": {
@@ -52,21 +58,24 @@
         "primaryResource": "metalBar",
         "primaryResourceAmount": 8,
         "secondaryResource": null,
-        "secondaryResourceAmount": null
+        "secondaryResourceAmount": null,
+        "bonusCity": "Martlock"
       },
       "knightBoots": {
         "id_snippet": "SHOES_PLATE_SET2",
         "primaryResource": "metalBar",
         "primaryResourceAmount": 8,
         "secondaryResource": null,
-        "secondaryResourceAmount": null
+        "secondaryResourceAmount": null,
+        "bonusCity": "Martlock"
       },
       "guardianBoots": {
         "id_snippet": "SHOES_PLATE_SET3",
         "primaryResource": "metalBar",
         "primaryResourceAmount": 8,
         "secondaryResource": null,
-        "secondaryResourceAmount": null
+        "secondaryResourceAmount": null,
+        "bonusCity": "Martlock"
       }
     },
     "sword": {
@@ -75,21 +84,24 @@
         "primaryResource": "metalBar",
         "primaryResourceAmount": 16,
         "secondaryResource": "leather",
-        "secondaryResourceAmount": 8
+        "secondaryResourceAmount": 8,
+        "bonusCity": "Lymhurst"
       },
       "claymore": {
         "id_snippet": "2H_CLAYMORE",
         "primaryResource": "metalBar",
         "primaryResourceAmount": 20,
         "secondaryResource": "leather",
-        "secondaryResourceAmount": 12
+        "secondaryResourceAmount": 12,
+        "bonusCity": "Lymhurst"
       },
       "dualSwords": {
         "id_snippet": "2h_DUALSWORD",
         "primaryResource": "metalBar",
         "primaryResourceAmount": 20,
         "secondaryResource": "leather",
-        "secondaryResourceAmount": 12
+        "secondaryResourceAmount": 12,
+        "bonusCity": "Lymhurst"
       }
     },
     "axe": {
@@ -98,21 +110,24 @@
         "primaryResource": "metalBar",
         "primaryResourceAmount": 16,
         "secondaryResource": "planks",
-        "secondaryResourceAmount": 8
+        "secondaryResourceAmount": 8,
+        "bonusCity": "Martlock"
       },
       "greatAxe": {
         "id_snippet": "2H_AXE",
         "primaryResource": "metalBar",
         "primaryResourceAmount": 20,
         "secondaryResource": "planks",
-        "secondaryResourceAmount": 12
+        "secondaryResourceAmount": 12,
+        "bonusCity": "Martlock"
       },
       "halberd": {
         "id_snippet": "2h_HALBERD",
         "primaryResource": "metalBar",
         "primaryResourceAmount": 12,
         "secondaryResource": "planks",
-        "secondaryResourceAmount": 20
+        "secondaryResourceAmount": 20,
+        "bonusCity": "Martlock"
       }
     },
     "mace": {
@@ -121,21 +136,24 @@
         "primaryResource": "metalBar",
         "primaryResourceAmount": 16,
         "secondaryResource": "cloth",
-        "secondaryResourceAmount": 8
+        "secondaryResourceAmount": 8,
+        "bonusCity": "Thetford"
       },
       "heavyMace": {
         "id_snippet": "2H_MACE",
         "primaryResource": "metalBar",
         "primaryResourceAmount": 20,
         "secondaryResource": "cloth",
-        "secondaryResourceAmount": 12
+        "secondaryResourceAmount": 12,
+        "bonusCity": "Thetford"
       },
       "morningStar": {
         "id_snippet": "2h_FLAIL",
         "primaryResource": "metalBar",
         "primaryResourceAmount": 20,
         "secondaryResource": "cloth",
-        "secondaryResourceAmount": 12
+        "secondaryResourceAmount": 12,
+        "bonusCity": "Thetford"
       }
     },
     "hammer": {
@@ -144,21 +162,24 @@
         "primaryResource": "metalBar",
         "primaryResourceAmount": 24,
         "secondaryResource": null,
-        "secondaryResourceAmount": null
+        "secondaryResourceAmount": null,
+        "bonusCity": "Fort Sterling"
       },
       "poleHammer": {
         "id_snippet": "2H_POLEHAMMER",
         "primaryResource": "metalBar",
         "primaryResourceAmount": 20,
         "secondaryResource": "cloth",
-        "secondaryResourceAmount": 12
+        "secondaryResourceAmount": 12,
+        "bonusCity": "Fort Sterling"
       },
       "greatHammer": {
         "id_snippet": "2h_HAMMER",
         "primaryResource": "metalBar",
         "primaryResourceAmount": 20,
         "secondaryResource": "cloth",
-        "secondaryResourceAmount": 12
+        "secondaryResourceAmount": 12,
+        "bonusCity": "Fort Sterling"
       }
     },
     "warGlove": {
@@ -167,21 +188,24 @@
         "primaryResource": "metalBar",
         "primaryResourceAmount": 12,
         "secondaryResource": "leather",
-        "secondaryResourceAmount": 20
+        "secondaryResourceAmount": 20,
+        "bonusCity": "Caerleon"
       },
       "battleBracers": {
         "id_snippet": "2H_KNUCKLES_SET2",
         "primaryResource": "metalBar",
         "primaryResourceAmount": 12,
         "secondaryResource": "leather",
-        "secondaryResourceAmount": 20
+        "secondaryResourceAmount": 20,
+        "bonusCity": "Caerleon"
       },
       "spikedGauntlet": {
         "id_snippet": "2H_KNUCKLES_SET3",
         "primaryResource": "metalBar",
         "primaryResourceAmount": 12,
         "secondaryResource": "leather",
-        "secondaryResourceAmount": 20
+        "secondaryResourceAmount": 20,
+        "bonusCity": "Caerleon"
       }
     },
     "crossbow": {
@@ -190,21 +214,24 @@
         "primaryResource": "metalBar",
         "primaryResourceAmount": 12,
         "secondaryResource": "planks",
-        "secondaryResourceAmount": 20
+        "secondaryResourceAmount": 20,
+        "bonusCity": "Bridgewatch"
       },
       "heavyCrossbow": {
         "id_snippet": "2H_CROSSBOWLARGE",
         "primaryResource": "metalBar",
         "primaryResourceAmount": 12,
         "secondaryResource": "planks",
-        "secondaryResourceAmount": 20
+        "secondaryResourceAmount": 20,
+        "bonusCity": "Bridgewatch"
       },
       "lightCrossbow": {
         "id_snippet": "MAIN_1HCROSSBOW",
         "primaryResource": "metalBar",
         "primaryResourceAmount": 8,
         "secondaryResource": "planks",
-        "secondaryResourceAmount": 16
+        "secondaryResourceAmount": 16,
+        "bonusCity": "Bridgewatch"
       }
     },
     "shield": {
@@ -213,7 +240,8 @@
         "primaryResource": "metalBar",
         "primaryResourceAmount": 4,
         "secondaryResource": "planks",
-        "secondaryResourceAmount": 4
+        "secondaryResourceAmount": 4,
+        "bonusCity": "Martlock"
       }
     }
   },
@@ -224,21 +252,24 @@
         "primaryResource": "cloth",
         "primaryResourceAmount": 8,
         "secondaryResource": null,
-        "secondaryResourceAmount": null
+        "secondaryResourceAmount": null,
+        "bonusCity": "Thetford"
       },
       "clericCowl": {
         "id_snippet": "HEAD_CLOTH_SET2",
         "primaryResource": "cloth",
         "primaryResourceAmount": 8,
         "secondaryResource": null,
-        "secondaryResourceAmount": null
+        "secondaryResourceAmount": null,
+        "bonusCity": "Thetford"
       },
       "mageCowl": {
         "id_snippet": "HEAD_CLOTH_SET3",
         "primaryResource": "cloth",
         "primaryResourceAmount": 8,
         "secondaryResource": null,
-        "secondaryResourceAmount": null
+        "secondaryResourceAmount": null,
+        "bonusCity": "Thetford"
       }
     },
     "clothRobe": {
@@ -247,21 +278,24 @@
         "primaryResource": "cloth",
         "primaryResourceAmount": 16,
         "secondaryResource": null,
-        "secondaryResourceAmount": null
+        "secondaryResourceAmount": null,
+        "bonusCity": "Fort Sterling"
       },
       "clericRobe": {
         "id_snippet": "ARMOR_CLOTH_SET2",
         "primaryResource": "cloth",
         "primaryResourceAmount": 16,
         "secondaryResource": null,
-        "secondaryResourceAmount": null
+        "secondaryResourceAmount": null,
+        "bonusCity": "Fort Sterling"
       },
       "mageRobe": {
         "id_snippet": "ARMOR_CLOTH_SET3",
         "primaryResource": "cloth",
         "primaryResourceAmount": 16,
         "secondaryResource": null,
-        "secondaryResourceAmount": null
+        "secondaryResourceAmount": null,
+        "bonusCity": "Fort Sterling"
       }
     },
     "clothSandals": {
@@ -270,21 +304,24 @@
         "primaryResource": "cloth",
         "primaryResourceAmount": 8,
         "secondaryResource": null,
-        "secondaryResourceAmount": null
+        "secondaryResourceAmount": null,
+        "bonusCity": "Bridgewatch"
       },
       "clericSandals": {
         "id_snippet": "SHOES_CLOTH_SET2",
         "primaryResource": "cloth",
         "primaryResourceAmount": 8,
         "secondaryResource": null,
-        "secondaryResourceAmount": null
+        "secondaryResourceAmount": null,
+        "bonusCity": "Bridgewatch"
       },
       "mageSandals": {
         "id_snippet": "SHOES_CLOTH_SET3",
         "primaryResource": "cloth",
         "primaryResourceAmount": 8,
         "secondaryResource": null,
-        "secondaryResourceAmount": null
+        "secondaryResourceAmount": null,
+        "bonusCity": "Bridgewatch"
       }
     },
     "fireStaff": {
@@ -293,21 +330,24 @@
         "primaryResource": "planks",
         "primaryResourceAmount": 16,
         "secondaryResource": "metalBar",
-        "secondaryResourceAmount": 8
+        "secondaryResourceAmount": 8,
+        "bonusCity": "Thetford"
       },
       "greatFireStaff": {
         "id_snippet": "2H_FIRESTAFF",
         "primaryResource": "planks",
         "primaryResourceAmount": 20,
         "secondaryResource": "metalBar",
-        "secondaryResourceAmount": 12
+        "secondaryResourceAmount": 12,
+        "bonusCity": "Thetford"
       },
       "infernoStaff": {
         "id_snippet": "2H_INFERNOSTAFF",
         "primaryResource": "planks",
         "primaryResourceAmount": 20,
         "secondaryResource": "metalBar",
-        "secondaryResourceAmount": 12
+        "secondaryResourceAmount": 12,
+        "bonusCity": "Thetford"
       }
     },
     "holyStaff": {
@@ -316,21 +356,24 @@
         "primaryResource": "planks",
         "primaryResourceAmount": 16,
         "secondaryResource": "cloth",
-        "secondaryResourceAmount": 8
+        "secondaryResourceAmount": 8,
+        "bonusCity": "Fort Sterling"
       },
       "greatHolyStaff": {
         "id_snippet": "2H_HOLYSTAFF",
         "primaryResource": "planks",
         "primaryResourceAmount": 20,
         "secondaryResource": "cloth",
-        "secondaryResourceAmount": 12
+        "secondaryResourceAmount": 12,
+        "bonusCity": "Fort Sterling"
       },
       "divineStaff": {
         "id_snippet": "2H_DIVINESTAFF",
         "primaryResource": "planks",
         "primaryResourceAmount": 20,
         "secondaryResource": "cloth",
-        "secondaryResourceAmount": 12
+        "secondaryResourceAmount": 12,
+        "bonusCity": "Fort Sterling"
       }
     },
     "arcaneStaff": {
@@ -339,21 +382,24 @@
         "primaryResource": "planks",
         "primaryResourceAmount": 16,
         "secondaryResource": "metalBar",
-        "secondaryResourceAmount": 8
+        "secondaryResourceAmount": 8,
+        "bonusCity": "Lymhurst"
       },
       "greatArcaneStaff": {
         "id_snippet": "2H_ARCANESTAFF",
         "primaryResource": "planks",
         "primaryResourceAmount": 20,
         "secondaryResource": "metalBar",
-        "secondaryResourceAmount": 12
+        "secondaryResourceAmount": 12,
+        "bonusCity": "Lymhurst"
       },
       "enigmaticStaff": {
         "id_snippet": "2H_ENIGMATICSTAFF",
         "primaryResource": "planks",
         "primaryResourceAmount": 20,
         "secondaryResource": "metalBar",
-        "secondaryResourceAmount": 12
+        "secondaryResourceAmount": 12,
+        "bonusCity": "Lymhurst"
       }
     },
     "frostStaff": {
@@ -362,21 +408,24 @@
         "primaryResource": "planks",
         "primaryResourceAmount": 16,
         "secondaryResource": "metalBar",
-        "secondaryResourceAmount": 8
+        "secondaryResourceAmount": 8,
+        "bonusCity": "Martlock"
       },
       "greatFrostStaff": {
         "id_snippet": "2H_FROSTSTAFF",
         "primaryResource": "planks",
         "primaryResourceAmount": 20,
         "secondaryResource": "metalBar",
-        "secondaryResourceAmount": 12
+        "secondaryResourceAmount": 12,
+        "bonusCity": "Martlock"
       },
       "glacialStaff": {
         "id_snippet": "2H_GLACIALSTAFF",
         "primaryResource": "planks",
         "primaryResourceAmount": 20,
         "secondaryResource": "metalBar",
-        "secondaryResourceAmount": 12
+        "secondaryResourceAmount": 12,
+        "bonusCity": "Martlock"
       }
     },
     "curseStaff": {
@@ -385,21 +434,24 @@
         "primaryResource": "planks",
         "primaryResourceAmount": 16,
         "secondaryResource": "metalBar",
-        "secondaryResourceAmount": 8
+        "secondaryResourceAmount": 8,
+        "bonusCity": "Bridgewatch"
       },
       "greatCursedStaff": {
         "id_snippet": "2H_CURSEDSTAFF",
         "primaryResource": "planks",
         "primaryResourceAmount": 20,
         "secondaryResource": "metalBar",
-        "secondaryResourceAmount": 12
+        "secondaryResourceAmount": 12,
+        "bonusCity": "Bridgewatch"
       },
       "demonicStaff": {
         "id_snippet": "2H_DEMONICSTAFF",
         "primaryResource": "planks",
         "primaryResourceAmount": 20,
         "secondaryResource": "metalBar",
-        "secondaryResourceAmount": 12
+        "secondaryResourceAmount": 12,
+        "bonusCity": "Bridgewatch"
       }
     },
     "tome": {
@@ -408,7 +460,8 @@
         "primaryResource": "cloth",
         "primaryResourceAmount": 4,
         "secondaryResource": "leather",
-        "secondaryResourceAmount": 4
+        "secondaryResourceAmount": 4,
+        "bonusCity": "Martlock"
       }
     }
   },
@@ -419,21 +472,24 @@
         "primaryResource": "leather",
         "primaryResourceAmount": 8,
         "secondaryResource": null,
-        "secondaryResourceAmount": null
+        "secondaryResourceAmount": null,
+        "bonusCity": "Lymhurst"
       },
       "hunterHood": {
         "id_snippet": "HEAD_LEATHER_SET2",
         "primaryResource": "leather",
         "primaryResourceAmount": 8,
         "secondaryResource": null,
-        "secondaryResourceAmount": null
+        "secondaryResourceAmount": null,
+        "bonusCity": "Lymhurst"
       },
       "assassinHood": {
         "id_snippet": "HEAD_LEATHER_SET3",
         "primaryResource": "leather",
         "primaryResourceAmount": 8,
         "secondaryResource": null,
-        "secondaryResourceAmount": null
+        "secondaryResourceAmount": null,
+        "bonusCity": "Lymhurst"
       }
     },
     "leatherJacket": {
@@ -442,21 +498,24 @@
         "primaryResource": "leather",
         "primaryResourceAmount": 16,
         "secondaryResource": null,
-        "secondaryResourceAmount": null
+        "secondaryResourceAmount": null,
+        "bonusCity": "Thetford"
       },
       "hunterJacket": {
         "id_snippet": "ARMOR_LEATHER_SET2",
         "primaryResource": "leather",
         "primaryResourceAmount": 16,
         "secondaryResource": null,
-        "secondaryResourceAmount": null
+        "secondaryResourceAmount": null,
+        "bonusCity": "Thetford"
       },
       "assassinJacket": {
         "id_snippet": "ARMOR_LEATHER_SET3",
         "primaryResource": "leather",
         "primaryResourceAmount": 16,
         "secondaryResource": null,
-        "secondaryResourceAmount": null
+        "secondaryResourceAmount": null,
+        "bonusCity": "Thetford"
       }
     },
     "leatherShoes": {
@@ -465,21 +524,24 @@
         "primaryResource": "leather",
         "primaryResourceAmount": 8,
         "secondaryResource": null,
-        "secondaryResourceAmount": null
+        "secondaryResourceAmount": null,
+        "bonusCity": "Lymhurst"
       },
       "hunterShoes": {
         "id_snippet": "SHOES_LEATHER_SET2",
         "primaryResource": "leather",
         "primaryResourceAmount": 8,
         "secondaryResource": null,
-        "secondaryResourceAmount": null
+        "secondaryResourceAmount": null,
+        "bonusCity": "Lymhurst"
       },
       "assassinShoes": {
         "id_snippet": "SHOES_LEATHER_SET3",
         "primaryResource": "leather",
         "primaryResourceAmount": 8,
         "secondaryResource": null,
-        "secondaryResourceAmount": null
+        "secondaryResourceAmount": null,
+        "bonusCity": "Lymhurst"
       }
     },
     "bow": {
@@ -488,21 +550,24 @@
         "primaryResource": "planks",
         "primaryResourceAmount": 32,
         "secondaryResource": null,
-        "secondaryResourceAmount": null
+        "secondaryResourceAmount": null,
+        "bonusCity": "Lymhurst"
       },
       "warbow": {
         "id_snippet": "2H_WARBOW",
         "primaryResource": "planks",
         "primaryResourceAmount": 32,
         "secondaryResource": null,
-        "secondaryResourceAmount": null
+        "secondaryResourceAmount": null,
+        "bonusCity": "Lymhurst"
       },
       "longbow": {
         "id_snippet": "2H_LONGBOW",
         "primaryResource": "planks",
         "primaryResourceAmount": 32,
         "secondaryResource": null,
-        "secondaryResourceAmount": null
+        "secondaryResourceAmount": null,
+        "bonusCity": "Lymhurst"
       }
     },
     "spear": {
@@ -511,21 +576,24 @@
         "primaryResource": "metalBar",
         "primaryResourceAmount": 8,
         "secondaryResource": "planks",
-        "secondaryResourceAmount": 16
+        "secondaryResourceAmount": 16,
+        "bonusCity": "Fort Sterling"
       },
       "pike": {
         "id_snippet": "2H_SPEAR",
         "primaryResource": "metalBar",
         "primaryResourceAmount": 12,
         "secondaryResource": "planks",
-        "secondaryResourceAmount": 20
+        "secondaryResourceAmount": 20,
+        "bonusCity": "Fort Sterling"
       },
       "glaive": {
         "id_snippet": "2H_GLAIVE",
         "primaryResource": "metalBar",
         "primaryResourceAmount": 20,
         "secondaryResource": "planks",
-        "secondaryResourceAmount": 12
+        "secondaryResourceAmount": 12,
+        "bonusCity": "Fort Sterling"
       }
     },
     "nature": {
@@ -534,21 +602,24 @@
         "primaryResource": "planks",
         "primaryResourceAmount": 16,
         "secondaryResource": "cloth",
-        "secondaryResourceAmount": 8
+        "secondaryResourceAmount": 8,
+        "bonusCity": "Thetford"
       },
       "greatNatureStaff": {
         "id_snippet": "2H_NATURESTAFF",
         "primaryResource": "planks",
         "primaryResourceAmount": 20,
         "secondaryResource": "cloth",
-        "secondaryResourceAmount": 12
+        "secondaryResourceAmount": 12,
+        "bonusCity": "Thetford"
       },
       "wildStaff": {
         "id_snippet": "2H_WILDSTAFF",
         "primaryResource": "planks",
         "primaryResourceAmount": 20,
         "secondaryResource": "cloth",
-        "secondaryResourceAmount": 12
+        "secondaryResourceAmount": 12,
+        "bonusCity": "Thetford"
       }
     },
     "dagger": {
@@ -557,21 +628,24 @@
         "primaryResource": "metalBar",
         "primaryResourceAmount": 12,
         "secondaryResource": "leather",
-        "secondaryResourceAmount": 12
+        "secondaryResourceAmount": 12,
+        "bonusCity": "Bridgewatch"
       },
       "daggerPair": {
         "id_snippet": "2H_DAGGERPAIR",
         "primaryResource": "metalBar",
         "primaryResourceAmount": 16,
         "secondaryResource": "leather",
-        "secondaryResourceAmount": 16
+        "secondaryResourceAmount": 16,
+        "bonusCity": "Bridgewatch"
       },
       "claws": {
         "id_snippet": "2H_CLAWPAIR",
         "primaryResource": "metalBar",
         "primaryResourceAmount": 12,
         "secondaryResource": "leather",
-        "secondaryResourceAmount": 20
+        "secondaryResourceAmount": 20,
+        "bonusCity": "Bridgewatch"
       }
     },
     "quarterstaff": {
@@ -580,21 +654,24 @@
         "primaryResource": "metalBar",
         "primaryResourceAmount": 12,
         "secondaryResource": "leather",
-        "secondaryResourceAmount": 20
+        "secondaryResourceAmount": 20,
+        "bonusCity": "Martlock"
       },
       "ironcladStaff": {
         "id_snippet": "2H_IRONCLADEDSTAFF",
         "primaryResource": "metalBar",
         "primaryResourceAmount": 12,
         "secondaryResource": "leather",
-        "secondaryResourceAmount": 20
+        "secondaryResourceAmount": 20,
+        "bonusCity": "Martlock"
       },
       "doubleBladedStaff": {
         "id_snippet": "2H_DOUBLEBLADEDSTAFF",
         "primaryResource": "metalBar",
         "primaryResourceAmount": 12,
         "secondaryResource": "leather",
-        "secondaryResourceAmount": 20
+        "secondaryResourceAmount": 20,
+        "bonusCity": "Martlock"
       }
     },
     "torch": {
@@ -603,7 +680,8 @@
         "primaryResource": "planks",
         "primaryResourceAmount": 4,
         "secondaryResource": "leather",
-        "secondaryResourceAmount": 4
+        "secondaryResourceAmount": 4,
+        "bonusCity": "Martlock"
       }
     }
   }
