@@ -134,6 +134,7 @@ class ItemEntity
 
     public function getCity(): string
     {
+        $a = 1;
         return $this->city;
     }
 
