@@ -58,7 +58,7 @@ class ItemEntity
     private int $tier;
     private string $name;
     private string $city;
-    private string $quality;
+    private int $quality;
     private int $sellOrderPrice;
     private DateTimeImmutable $sellOrderPriceDate;
     private int $buyOrderPrice;
@@ -80,7 +80,7 @@ class ItemEntity
         $this->tier = $split['tier'];
         $this->name = $split['name'];
         $this->city = $itemData['city'];
-        $this->quality = $itemData['quality'];
+        $this->quality = (int)$itemData['quality'];
         $this->sellOrderPrice = (int) $itemData['sellOrderPrice'];
         $this->sellOrderPriceDate = $sellOrderPriceDate;
         $this->buyOrderPrice = (int) $itemData['buyOrderPrice'];
