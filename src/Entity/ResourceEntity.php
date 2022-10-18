@@ -143,6 +143,7 @@ class ResourceEntity
             'T81' => self::TIER_T8_1,
             'T82' => self::TIER_T8_2,
             'T83' => self::TIER_T8_3,
+            default => throw new \InvalidArgumentException('wrong Tier in Resource Entity')
         };
     }
 

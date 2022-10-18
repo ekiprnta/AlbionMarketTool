@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\repositories;
 
+use InvalidArgumentException;
 use Iterator;
 use League\Csv\Reader;
 use MZierdt\Albion\Entity\ItemEntity;
@@ -32,6 +33,7 @@ class ItemRepository
             self::WARRIOR => self::PATH_TO_CSV_WARRIOR,
             self::MAGE => self::PATH_TO_CSV_MAGE,
             self::HUNTER => self::PATH_TO_CSV_HUNTER,
+            default => throw new InvalidArgumentException('wrong Item type in ItemRepository')
         };
 
         $csv = Reader::createFromPath($path, 'rb');

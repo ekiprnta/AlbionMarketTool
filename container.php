@@ -33,8 +33,6 @@ $serviceManager = new ServiceManager([
                 ],
                 ShowResourcePriceHandler::class => [
                     Environment::class,
-                    UploadCsvRepository::class,
-                    ResourceUploadRepository::class,
                 ],
                 CalculateInfoHandler::class => [
                   Environment::class
