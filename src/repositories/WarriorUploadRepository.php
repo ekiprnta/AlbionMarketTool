@@ -17,15 +17,15 @@ class WarriorUploadRepository implements UploadInterface
     ) {
     }
 
-    public function uploadIntoCsv()
+    public function uploadIntoCsv(): void
     {
         $this->emptyCsv();
 
         $csv = $this->getCsvConnection();
 
-//        $this->insertIntoCsv(ApiService::ITEM_WARRIOR_HELMET, $csv);
-//        $this->insertIntoCsv(ApiService::ITEM_WARRIOR_ARMOR, $csv);
-//        $this->insertIntoCsv(ApiService::ITEM_WARRIOR_BOOTS, $csv);
+        $this->insertIntoCsv(ApiService::ITEM_WARRIOR_HELMET, $csv);
+        $this->insertIntoCsv(ApiService::ITEM_WARRIOR_ARMOR, $csv);
+        $this->insertIntoCsv(ApiService::ITEM_WARRIOR_BOOTS, $csv);
         $this->insertIntoCsv(ApiService::ITEM_WARRIOR_SWORD, $csv);
         $this->insertIntoCsv(ApiService::ITEM_WARRIOR_AXE, $csv);
         $this->insertIntoCsv(ApiService::ITEM_WARRIOR_MACE, $csv);
@@ -56,7 +56,11 @@ class WarriorUploadRepository implements UploadInterface
             'sellOrderPrice',
             'sellOrderPriceDate',
             'buyOrderPrice',
-            'buyOrderPriceDate'
+            'buyOrderPriceDate',
+            'primaryResource',
+            'primaryResourceAmount',
+            'secondaryResource',
+            'secondaryResourceAmount',
         ];
         $csv = Writer::createFromPath(self::PATH_TO_CSV, 'wb');
         $csv->insertOne($header);
@@ -65,7 +69,6 @@ class WarriorUploadRepository implements UploadInterface
     private function filterArrays(array $data, string $category): array
     {
         $nameData = NameDataService::getNameDataArray();
-
         $filteredArray = [];
         foreach ($data as $itemCategory) {
             foreach ($itemCategory as $item) {
@@ -76,7 +79,7 @@ class WarriorUploadRepository implements UploadInterface
                $secondaryResource = null;
                $secondaryResourceAmount = null;
                 foreach ($nameData['warrior'][$category] as $singleItem) {
-                    if ($singleItem['id_snippet'] === $itemWithoutTier) {
+                    if (strcasecmp($singleItem['id_snippet'], $itemWithoutTier) === 0) {
                         $primaryResource = $singleItem['primaryResource'];
                         $primaryResourceAmount = $singleItem['primaryResourceAmount'];
                         $secondaryResource = $singleItem['secondaryResource'];
@@ -99,7 +102,6 @@ class WarriorUploadRepository implements UploadInterface
                 ];
             }
         }
-        dd($filteredArray[47]);
         return $filteredArray;
     }
 }
