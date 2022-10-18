@@ -29,8 +29,8 @@ class ShowResourcePriceHandler
     public function handler(): HtmlResponse
     {
 //        $this->repositoryUpload->uploadIntoCsv();
-        $this->warriorUpload->uploadIntoCsv();
-//        $this->mageUpload->uploadIntoCsv();
+//        $this->warriorUpload->uploadIntoCsv();
+        $this->mageUpload->uploadIntoCsv();
 //        $this->hunterUpload->uploadIntoCsv();
 
         $htmlContent = $this->twigEnvironment->render('test.html.twig');

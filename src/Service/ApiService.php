@@ -37,9 +37,9 @@ class ApiService // Buy Order ist buy_price_max
     public const ITEM_WARRIOR_CROSSBOW = 'crossbow';
     public const ITEM_WARRIOR_SHIELD = 'shield';
 
-    public const ITEM_MAGE_HELMET = 'clothHelmet';
-    public const ITEM_MAGE_ARMOR = 'clothAmor';
-    public const ITEM_MAGE_BOOTS = 'clothBoots';
+    public const ITEM_MAGE_HELMET = 'clothCowl';
+    public const ITEM_MAGE_ARMOR = 'clothRobe';
+    public const ITEM_MAGE_BOOTS = 'clothSandals';
     public const ITEM_MAGE_FIRE_STAFF = 'fire';
     public const ITEM_MAGE_HOLY_STAFF = 'holy';
     public const ITEM_MAGE_ARCANE_STAFF = 'arcane';
@@ -47,9 +47,9 @@ class ApiService // Buy Order ist buy_price_max
     public const ITEM_MAGE_CURSE_STAFF = 'curse';
     public const ITEM_MAGE_TOME_STAFF = 'tome';
 
-    public const ITEM_HUNTER_HELMET = 'leatherHelmet';
-    public const ITEM_HUNTER_ARMOR = 'leatherAmor';
-    public const ITEM_HUNTER_BOOTS = 'leatherBoots';
+    public const ITEM_HUNTER_HELMET = 'leatherHood';
+    public const ITEM_HUNTER_ARMOR = 'leatherJacket';
+    public const ITEM_HUNTER_BOOTS = 'leatherShoes';
     public const ITEM_HUNTER_BOW = 'bow';
     public const ITEM_HUNTER_SPEAR = 'spear';
     public const ITEM_HUNTER_NATURE_STAFF = 'nature';
