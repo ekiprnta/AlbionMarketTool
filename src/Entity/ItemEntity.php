@@ -55,12 +55,6 @@ class ItemEntity
     private const T82_FACTOR_FAME = 5580;
     private const T83_FACTOR_FAME = 11160;
 
-    private const RESOURCE_STONES = 0;
-    private const RESOURCE_PLANKS = 1;
-    private const RESOURCE_BARS = 2;
-    private const RESOURCE_CLOTH = 3;
-    private const RESOURCE_LEATHER = 4;
-
     private int $tier;
     private string $name;
     private string $city;
@@ -74,6 +68,7 @@ class ItemEntity
     private string $secondaryResource;
     private int $secondaryResourceAmount;
     private string $bonusCity;
+    private float $fameFactor;
 
 
     public function __construct(array $itemData)
@@ -91,10 +86,39 @@ class ItemEntity
         $this->buyOrderPrice = (int)$itemData['buyOrderPrice'];
         $this->buyOrderPriceDate = $buyOrderPriceDate;
         $this->primaryResource = $itemData['primaryResource'];
-        $this->primaryResourceAmount = $itemData['primaryResourceAmount'];
+        $this->primaryResourceAmount = (int)$itemData['primaryResourceAmount'];
         $this->secondaryResource = $itemData['secondaryResource'];
-        $this->secondaryResourceAmount = $itemData['secondaryResourceAmount'];
+        $this->secondaryResourceAmount = (int)$itemData['secondaryResourceAmount'];
         $this->bonusCity = $itemData['bonusCity'];
+        $this->fameFactor = $this->setFameFactor();
+    }
+
+    private function setFameFactor(): float
+    {
+        return match ($this->tier) {
+            self::TIER_T2 => self::T20_FACTOR_FAME,
+            self::TIER_T3 => self::T30_FACTOR_FAME,
+            self::TIER_T4 => self::T40_FACTOR_FAME,
+            self::TIER_T4_1 => self::T41_FACTOR_FAME,
+            self::TIER_T4_2 => self::T42_FACTOR_FAME,
+            self::TIER_T4_3 => self::T43_FACTOR_FAME,
+            self::TIER_T5 => self::T50_FACTOR_FAME,
+            self::TIER_T5_1 => self::T51_FACTOR_FAME,
+            self::TIER_T5_2 => self::T52_FACTOR_FAME,
+            self::TIER_T5_3 => self::T53_FACTOR_FAME,
+            self::TIER_T6 => self::T60_FACTOR_FAME,
+            self::TIER_T6_1 => self::T61_FACTOR_FAME,
+            self::TIER_T6_2 => self::T62_FACTOR_FAME,
+            self::TIER_T6_3 => self::T63_FACTOR_FAME,
+            self::TIER_T7 => self::T70_FACTOR_FAME,
+            self::TIER_T7_1 => self::T71_FACTOR_FAME,
+            self::TIER_T7_2 => self::T72_FACTOR_FAME,
+            self::TIER_T7_3 => self::T73_FACTOR_FAME,
+            self::TIER_T8 => self::T80_FACTOR_FAME,
+            self::TIER_T8_1 => self::T81_FACTOR_FAME,
+            self::TIER_T8_2 => self::T82_FACTOR_FAME,
+            self::TIER_T8_3 => self::T83_FACTOR_FAME,
+        };
     }
 
     public function getTier(): mixed

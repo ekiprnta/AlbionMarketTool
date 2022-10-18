@@ -53,7 +53,6 @@ class ItemRepository
     {
         $itemStack = [];
         foreach ($allItemInformation as $item) {
-            dd($item);
             $itemStack[] = new ItemEntity($item);
         }
         return $itemStack;
