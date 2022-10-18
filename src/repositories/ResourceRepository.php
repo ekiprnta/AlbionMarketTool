@@ -15,15 +15,12 @@ class ResourceRepository
     {
     }
 
-    public function getResourcesAsResourceEntity(): ResourceEntity
+    public function getResourcesAsResourceEntity(): array
     {
         $reader = $this->getReader();
 
         $allResourceInformation = $reader->getRecords();
-        $this->dataAsResourceEntity($allResourceInformation);
-
-
-        return new ResourceEntity();
+        return $this->dataAsResourceEntity($allResourceInformation);
     }
 
     private function getReader(): Reader
@@ -33,14 +30,13 @@ class ResourceRepository
         return $csv;
     }
 
-    private function dataAsResourceEntity(iterable $allResourceInformation)
+    private function dataAsResourceEntity(iterable $allResourceInformation): array
     {
         $metalBarStack = [];
         $planksStack = [];
         $clothStack = [];
         $leatherStack = [];
         foreach ($allResourceInformation as $resource) {
-            dd($resource);
             $lowerCaseItemId = strtolower($resource['itemId']);
             if (str_contains($lowerCaseItemId, 'metalbar')) {
                 $metalBarStack[] = new ResourceEntity($resource);

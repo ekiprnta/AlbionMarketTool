@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace MZierdt\Albion\Entity;
 
 use DateTimeImmutable;
+use DateTimeZone;
 
 class ResourceEntity
 {
@@ -41,15 +42,17 @@ class ResourceEntity
 
     public function __construct(array $resourceData)
     {
-        $split = $this->splitIdIntoNameAndTier($resourceData['itemID']);
+        $split = $this->splitIdIntoNameAndTier($resourceData['itemId']);
+        $sellOrderPriceDate = $this->getDateTimeImmutable($resourceData['sellOrderPriceDate']);
+        $buyOrderPriceDate = $this->getDateTimeImmutable($resourceData['buyOrderPriceDate']);
 
         $this->tier = $split['tier'];
         $this->name = $split['name'];
         $this->city = $resourceData['city'];
-        $this->sellOrderPrice = $resourceData['sellOrderPrice'];
-        $this->sellOrderPriceDate = new DateTimeImmutable($resourceData['sellOrderPriceDate']);
-        $this->buyOrderPrice = $resourceData['buyOrderPrice'];
-        $this->buyOrderPriceDate = new DateTimeImmutable($resourceData['buyOrderPriceDate']);
+        $this->sellOrderPrice = (int)$resourceData['sellOrderPrice'];
+        $this->sellOrderPriceDate = $sellOrderPriceDate;
+        $this->buyOrderPrice = (int)$resourceData['buyOrderPrice'];
+        $this->buyOrderPriceDate = $buyOrderPriceDate;
     }
 
     public function getTier(): mixed
@@ -67,7 +70,7 @@ class ResourceEntity
         return $this->city;
     }
 
-    public function getSellOrderPrice(): mixed
+    public function getSellOrderPrice(): int
     {
         return $this->sellOrderPrice;
     }
@@ -77,7 +80,7 @@ class ResourceEntity
         return $this->sellOrderPriceDate;
     }
 
-    public function getBuyOrderPrice(): mixed
+    public function getBuyOrderPrice(): int
     {
         return $this->buyOrderPrice;
     }
@@ -141,5 +144,11 @@ class ResourceEntity
             'T82' => self::TIER_T8_2,
             'T83' => self::TIER_T8_3,
         };
+    }
+
+    private function getDateTimeImmutable(mixed $sellOrderPriceDate): DateTimeImmutable|bool
+    {
+        $sellOrderPriceDate = str_replace('T', ' ', $sellOrderPriceDate);
+        return DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $sellOrderPriceDate, new DateTimeZone('Europe/London'));
     }
 }

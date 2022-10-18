@@ -25,9 +25,6 @@ class ShowResourcePriceHandler
 //        $this->uploadCsvRepository->fillItemsCsvFiles();
 //        $this->repositoryUpload->uploadIntoCsv();
 
-        $bla = new ResourceRepository();
-        $bla->getResourcesAsResourceEntity();
-
         $htmlContent = $this->twigEnvironment->render('test.html.twig');
         return new HtmlResponse($htmlContent);
     }
