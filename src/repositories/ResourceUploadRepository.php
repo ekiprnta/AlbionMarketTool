@@ -7,7 +7,7 @@ namespace MZierdt\Albion\repositories;
 use League\Csv\Writer;
 use MZierdt\Albion\Service\ApiService;
 
-class ResourceUploadRepository implements UploadInterface
+class ResourceUploadRepository
 {
     private const PATH_TO_CSV = __DIR__ . '/../../assets/ressourcen.csv';
 
