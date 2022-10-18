@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\repositories;
 
+use Iterator;
 use League\Csv\Reader;
 use MZierdt\Albion\Entity\ResourceEntity;
 
@@ -47,7 +48,7 @@ class ResourceRepository
         return $csv;
     }
 
-    private function dataAsResourceEntity(iterable $allResourceInformation): array
+    private function dataAsResourceEntity(Iterator $allResourceInformation): array
     {
         $metalBarStack = [];
         $planksStack = [];
