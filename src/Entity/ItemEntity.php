@@ -4,8 +4,33 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\Entity;
 
+use DateTimeImmutable;
+
 class ItemEntity
 {
+    private const TIER_T2 = 20;
+    private const TIER_T3 = 30;
+    private const TIER_T4 = 40;
+    private const TIER_T4_1 = 41;
+    private const TIER_T4_2 = 42;
+    private const TIER_T4_3 = 43;
+    private const TIER_T5 = 50;
+    private const TIER_T5_1 = 51;
+    private const TIER_T5_2 = 52;
+    private const TIER_T5_3 = 53;
+    private const TIER_T6 = 60;
+    private const TIER_T6_1 = 61;
+    private const TIER_T6_2 = 62;
+    private const TIER_T6_3 = 63;
+    private const TIER_T7 = 70;
+    private const TIER_T7_1 = 71;
+    private const TIER_T7_2 = 72;
+    private const TIER_T7_3 = 73;
+    private const TIER_T8 = 80;
+    private const TIER_T8_1 = 81;
+    private const TIER_T8_2 = 82;
+    private const TIER_T8_3 = 83;
+
     private const T20_FACTOR_FAME = 1.5;
     private const T30_FACTOR_FAME = 7.5;
     private const T40_FACTOR_FAME = 22.5;
@@ -37,7 +62,22 @@ class ItemEntity
 
     private int $tier;
     private string $name;
-    private int $sellPriceBlackMarket;
+    private string $city;
+    private string $quality;
+    private int $sellOrderPrice;
+    private DateTimeImmutable $sellOrderPriceDate;
+    private int $buyOrderPrice;
+    private DateTimeImmutable $buyOrderPriceDate;
+    private string $primaryResource;
     private int $primaryResourceAmount;
+    private string $secondaryResource;
     private int $secondaryResourceAmount;
+    private string $bonusCity;
+
+
+    public function __construct(array $itemData)
+    {
+
+
+    }
 }

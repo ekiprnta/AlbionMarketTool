@@ -9,14 +9,6 @@ use DateTimeZone;
 
 class ResourceEntity
 {
-    private int $tier;
-    private string $name;
-    private string $city;
-    private int $sellOrderPrice;
-    private DateTimeImmutable $sellOrderPriceDate;
-    private int $buyOrderPrice;
-    private DateTimeImmutable $buyOrderPriceDate;
-
     private const TIER_T2 = 20;
     private const TIER_T3 = 30;
     private const TIER_T4 = 40;
@@ -39,6 +31,14 @@ class ResourceEntity
     private const TIER_T8_1 = 81;
     private const TIER_T8_2 = 82;
     private const TIER_T8_3 = 83;
+
+    private int $tier;
+    private string $name;
+    private string $city;
+    private int $sellOrderPrice;
+    private DateTimeImmutable $sellOrderPriceDate;
+    private int $buyOrderPrice;
+    private DateTimeImmutable $buyOrderPriceDate;
 
     public function __construct(array $resourceData)
     {
