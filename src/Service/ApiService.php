@@ -40,11 +40,11 @@ class ApiService // Buy Order ist buy_price_max
     public const ITEM_MAGE_HELMET = 'clothCowl';
     public const ITEM_MAGE_ARMOR = 'clothRobe';
     public const ITEM_MAGE_BOOTS = 'clothSandals';
-    public const ITEM_MAGE_FIRE_STAFF = 'fire';
-    public const ITEM_MAGE_HOLY_STAFF = 'holy';
-    public const ITEM_MAGE_ARCANE_STAFF = 'arcane';
-    public const ITEM_MAGE_FROST_STAFF = 'frost';
-    public const ITEM_MAGE_CURSE_STAFF = 'curse';
+    public const ITEM_MAGE_FIRE_STAFF = 'fireStaff';
+    public const ITEM_MAGE_HOLY_STAFF = 'holyStaff';
+    public const ITEM_MAGE_ARCANE_STAFF = 'arcaneStaff';
+    public const ITEM_MAGE_FROST_STAFF = 'frostStaff';
+    public const ITEM_MAGE_CURSE_STAFF = 'curseStaff';
     public const ITEM_MAGE_TOME_STAFF = 'tome';
 
     public const ITEM_HUNTER_HELMET = 'leatherHood';
