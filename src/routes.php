@@ -14,8 +14,8 @@ $twigEnvironment = $serviceManager->get(Environment::class);
 $dispatcher = FastRoute\simpleDispatcher(
     function (FastRoute\RouteCollector $r) use ($serviceManager): void {
         $r->addRoute(['GET', 'POST'], '/[info]', $serviceManager->get(ShowResourcePriceHandler::class));
-        $r->addRoute(['GET', 'POST'], '/calculate', $serviceManager->get(CalculateInfoHandler::class));
-        $r->addRoute(['GET', 'POST'], '/calculate/blackmarket', $serviceManager->get(BlackMarketHandler::class));
+        $r->addRoute(['GET', 'POST'], '/calculate', $serviceManager->get(BlackMarketHandler::class));
+        $r->addRoute(['GET', 'POST'], '/calculate/blackmarket', $serviceManager->get(CalculateInfoHandler::class));
     }
 );
 

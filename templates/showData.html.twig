@@ -4,9 +4,9 @@
     {# @var resourceEntity \MZierdt\Albion\Entity\ResourceEntity #}
     {% for city,cityResource in allCitiesResource %}
         {% for resourceType,resources in cityResource %}
-            <table class="table table-striped table-sm">
+            <h3 class="text-light"> {{ resourceType }} in {{ city }}</h3>
+            <table class="table table-striped table-sm table-light">
                 <thead class="thead-default">
-                {{ resourceType }} in {{ city }}
                 <tr>
                     <th>Tier</th>
                     <th>Name</th>
@@ -35,9 +35,9 @@
     {% endfor %}
     {# @var itemEntity \MZierdt\Albion\Entity\ItemEntity #}
     {% for city,cityItems in allCitiesItems %}
-        <table class="table table-striped table-sm">
+        <h3 class="text-light">{{ city }}</h3>
+        <table class="table table-striped table-sm table-light">
             <thead class="thead-default">
-            {{ city }}
             <tr>
                 <th>Tier</th>
                 <th>Name</th>
