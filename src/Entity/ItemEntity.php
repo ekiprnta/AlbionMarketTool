@@ -9,28 +9,28 @@ use DateTimeZone;
 
 class ItemEntity
 {
-    private const TIER_T2 = 20;
-    private const TIER_T3 = 30;
-    private const TIER_T4 = 40;
-    private const TIER_T4_1 = 41;
-    private const TIER_T4_2 = 42;
-    private const TIER_T4_3 = 43;
-    private const TIER_T5 = 50;
-    private const TIER_T5_1 = 51;
-    private const TIER_T5_2 = 52;
-    private const TIER_T5_3 = 53;
-    private const TIER_T6 = 60;
-    private const TIER_T6_1 = 61;
-    private const TIER_T6_2 = 62;
-    private const TIER_T6_3 = 63;
-    private const TIER_T7 = 70;
-    private const TIER_T7_1 = 71;
-    private const TIER_T7_2 = 72;
-    private const TIER_T7_3 = 73;
-    private const TIER_T8 = 80;
-    private const TIER_T8_1 = 81;
-    private const TIER_T8_2 = 82;
-    private const TIER_T8_3 = 83;
+    private const TIER_T2 = '2';
+    private const TIER_T3 = '3';
+    private const TIER_T4 = '4';
+    private const TIER_T4_1 = '4.1';
+    private const TIER_T4_2 = '4.2';
+    private const TIER_T4_3 = '4.3';
+    private const TIER_T5 = '5';
+    private const TIER_T5_1 = '5.1';
+    private const TIER_T5_2 = '5.2';
+    private const TIER_T5_3 = '5.3';
+    private const TIER_T6 = '6';
+    private const TIER_T6_1 = '6.1';
+    private const TIER_T6_2 = '6.2';
+    private const TIER_T6_3 = '6.3';
+    private const TIER_T7 = '7';
+    private const TIER_T7_1 = '7.1';
+    private const TIER_T7_2 = '7.2';
+    private const TIER_T7_3 = '7.3';
+    private const TIER_T8 = '8';
+    private const TIER_T8_1 = '8.1';
+    private const TIER_T8_2 = '8.2';
+    private const TIER_T8_3 = '8.3';
 
     private const T20_FACTOR_FAME = 1.5;
     private const T30_FACTOR_FAME = 7.5;
@@ -55,7 +55,7 @@ class ItemEntity
     private const T82_FACTOR_FAME = 5580;
     private const T83_FACTOR_FAME = 11160;
 
-    private int $tier;
+    private string $tier;
     private string $name;
     private string $city;
     private int $quality;
@@ -81,14 +81,14 @@ class ItemEntity
         $this->name = $split['name'];
         $this->city = $itemData['city'];
         $this->quality = (int)$itemData['quality'];
-        $this->sellOrderPrice = (int) $itemData['sellOrderPrice'];
+        $this->sellOrderPrice = (int)$itemData['sellOrderPrice'];
         $this->sellOrderPriceDate = $sellOrderPriceDate;
-        $this->buyOrderPrice = (int) $itemData['buyOrderPrice'];
+        $this->buyOrderPrice = (int)$itemData['buyOrderPrice'];
         $this->buyOrderPriceDate = $buyOrderPriceDate;
         $this->primaryResource = $itemData['primaryResource'];
-        $this->primaryResourceAmount = (int) $itemData['primaryResourceAmount'];
+        $this->primaryResourceAmount = (int)$itemData['primaryResourceAmount'];
         $this->secondaryResource = $itemData['secondaryResource'];
-        $this->secondaryResourceAmount = (int) $itemData['secondaryResourceAmount'];
+        $this->secondaryResourceAmount = (int)$itemData['secondaryResourceAmount'];
         $this->bonusCity = $itemData['bonusCity'];
         $this->fameFactor = $this->setFameFactor();
     }
@@ -122,7 +122,7 @@ class ItemEntity
         };
     }
 
-    public function getTier(): int
+    public function getTier(): string
     {
         return $this->tier;
     }
@@ -152,6 +152,11 @@ class ItemEntity
         return $this->sellOrderPriceDate;
     }
 
+    public function getSellOrderPriceDateString(): string
+    {
+        return $this->sellOrderPriceDate->format('Y-m-d H:i:s');
+    }
+
     public function getBuyOrderPrice(): int
     {
         return $this->buyOrderPrice;
@@ -160,6 +165,11 @@ class ItemEntity
     public function getBuyOrderPriceDate(): DateTimeImmutable|bool
     {
         return $this->buyOrderPriceDate;
+    }
+
+    public function getBuyOrderPriceDateString(): string
+    {
+        return $this->buyOrderPriceDate->format('Y-m-d H:i:s');
     }
 
     public function getPrimaryResource(): string
@@ -194,18 +204,19 @@ class ItemEntity
 
     private function splitIdIntoNameAndTier(string $itemId): array
     {
+        $itemId = strtolower($itemId);
         $itemIdArray = explode('_', $itemId);
 
-        if ($itemIdArray[0] === 'T2' || $itemIdArray[0] === 'T3') {
+        if ($itemIdArray[0] === 't2' || $itemIdArray[0] === 't3') {
             return [
-                'tier' => $this->tierConverter($itemIdArray[0]),
-                'name' => $itemIdArray[1],
+                'tier' => $this->tierConverter(array_shift($itemIdArray)),
+                'name' => implode('_', $itemIdArray),
             ];
         }
         $preTier = array_shift($itemIdArray);
         $itemName = implode('_', $itemIdArray);
 
-        if (! str_contains($itemName, '@')) {
+        if (!str_contains($itemName, '@')) {
             return [
                 'tier' => $this->tierConverter($preTier),
                 'name' => $itemName,
@@ -220,31 +231,31 @@ class ItemEntity
         ];
     }
 
-    private function tierConverter(string $tierString): int
+    private function tierConverter(string $tierString): string
     {
         return match ($tierString) {
-            'T2' => self::TIER_T2,
-            'T3' => self::TIER_T3,
-            'T4' => self::TIER_T4,
-            'T41' => self::TIER_T4_1,
-            'T42' => self::TIER_T4_2,
-            'T43' => self::TIER_T4_3,
-            'T5' => self::TIER_T5,
-            'T51' => self::TIER_T5_1,
-            'T52' => self::TIER_T5_2,
-            'T53' => self::TIER_T5_3,
-            'T6' => self::TIER_T6,
-            'T61' => self::TIER_T6_1,
-            'T62' => self::TIER_T6_2,
-            'T63' => self::TIER_T6_3,
-            'T7' => self::TIER_T7,
-            'T71' => self::TIER_T7_1,
-            'T72' => self::TIER_T7_2,
-            'T73' => self::TIER_T7_3,
-            'T8' => self::TIER_T8,
-            'T81' => self::TIER_T8_1,
-            'T82' => self::TIER_T8_2,
-            'T83' => self::TIER_T8_3,
+            't2' => self::TIER_T2,
+            't3' => self::TIER_T3,
+            't4' => self::TIER_T4,
+            't41' => self::TIER_T4_1,
+            't42' => self::TIER_T4_2,
+            't43' => self::TIER_T4_3,
+            't5' => self::TIER_T5,
+            't51' => self::TIER_T5_1,
+            't52' => self::TIER_T5_2,
+            't53' => self::TIER_T5_3,
+            't6' => self::TIER_T6,
+            't61' => self::TIER_T6_1,
+            't62' => self::TIER_T6_2,
+            't63' => self::TIER_T6_3,
+            't7' => self::TIER_T7,
+            't71' => self::TIER_T7_1,
+            't72' => self::TIER_T7_2,
+            't73' => self::TIER_T7_3,
+            't8' => self::TIER_T8,
+            't81' => self::TIER_T8_1,
+            't82' => self::TIER_T8_2,
+            't83' => self::TIER_T8_3,
             default => throw new \InvalidArgumentException('wrong tier in Item Entity')
         };
     }
