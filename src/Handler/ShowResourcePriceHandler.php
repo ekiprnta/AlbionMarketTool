@@ -28,7 +28,11 @@ class ShowResourcePriceHandler
 
     public function handler(): HtmlResponse
     {
-
+        $fortSterlingResource = $this->resourceRepository->getAllResourcesFromCity(self::CITY_FORTSTERLING);
+        $lymhurstResource = $this->resourceRepository->getAllResourcesFromCity(self::CITY_LYMHURST);
+        $bridgewatchResource = $this->resourceRepository->getAllResourcesFromCity(self::CITY_BRIDGEWATCH);
+        $martlockResource = $this->resourceRepository->getAllResourcesFromCity(self::CITY_MARTLOCK);
+        $thetfordResource = $this->resourceRepository->getAllResourcesFromCity(self::CITY_THETFORD);
 
         $fortSterlingItems = $this->itemRepository->getItemsAsItemEntityFromBonusCity(self::CITY_FORTSTERLING);
         $lymhurstItems = $this->itemRepository->getItemsAsItemEntityFromBonusCity(self::CITY_LYMHURST);
@@ -36,15 +40,20 @@ class ShowResourcePriceHandler
         $martlockItems = $this->itemRepository->getItemsAsItemEntityFromBonusCity(self::CITY_MARTLOCK);
         $thetfordItems = $this->itemRepository->getItemsAsItemEntityFromBonusCity(self::CITY_THETFORD);
 
-        $allCitiesResource = $this->resourceRepository->getResourcesAsResourceEntity();
-        $allCitiesItems = [
-            $fortSterlingItems,
-            $lymhurstItems,
-            $bridgewatchItems,
-            $martlockItems,
-            $thetfordItems
+        $allCitiesResource = [
+            'fortSterling' =>$fortSterlingResource,
+            'lymhurst' =>$lymhurstResource,
+            'bridgewatch' =>$bridgewatchResource,
+            'martlock' =>$martlockResource,
+            'thetford' =>$thetfordResource
         ];
-
+        $allCitiesItems = [
+            'fortSterling' =>$fortSterlingItems,
+            'lymhurst' =>$lymhurstItems,
+            'bridgewatch' =>$bridgewatchItems,
+            'martlock' =>$martlockItems,
+            'thetford' =>$thetfordItems
+        ];
         $htmlContent = $this->twigEnvironment->render('showData.html.twig', [
             'allCitiesResource' => $allCitiesResource,
             'allCitiesItems' => $allCitiesItems,

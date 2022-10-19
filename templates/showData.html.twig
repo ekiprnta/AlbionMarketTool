@@ -1,22 +1,64 @@
 {% extends "layout.html.twig" %}
 
 {% block content %}
-<div class="row">
     {# @var resourceEntity \MZierdt\Albion\Entity\ResourceEntity #}
-    {%for typeResource in allCitiesResource%}
-        <table class="table table-striped">
-        {% for resourceEntity in typeResource %}
+    {% for city,cityResource in allCitiesResource %}
+        {% for resourceType,resources in cityResource %}
+            <table class="table table-striped table-sm">
+                <thead class="thead-default">
+                {{ resourceType }} in {{ city }}
+                <tr>
+                    <th>Tier</th>
+                    <th>Name</th>
+                    <th>City</th>
+                    <th>sell Order Price</th>
+                    {#                <th>sell Order Price Date</th> #}
+                    <th>buy Order Price</th>
+                    {#                <th>buy Order Price Date</th> #}
+                </tr>
+                </thead>
+                <tbody>
+                {% for resourceEntity in resources %}
+                    <tr>
+                        <td>{{ resourceEntity.tier }}</td>
+                        <td>{{ resourceEntity.name }}</td>
+                        <td>{{ resourceEntity.city }}</td>
+                        <td>{{ resourceEntity.sellOrderPrice }}</td>
+                        {#            <td>{{resourceEntity.sellOrderPriceDate}}</td> #}
+                        <td>{{ resourceEntity.buyOrderPrice }}</td>
+                        {#            <td>{{resourceEntity.buyOrderPriceDate}}</td> #}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endfor %}
+    {% endfor %}
+    {# @var itemEntity \MZierdt\Albion\Entity\ItemEntity #}
+    {% for city,cityItems in allCitiesItems %}
+        <table class="table table-striped table-sm">
+            <thead class="thead-default">
+            {{city}}
             <tr>
-            <td>{{resourceEntity.tier}}</td>
-            <td>{{resourceEntity.name}}</td>
-            <td>{{resourceEntity.city}}</td>
-            <td>{{resourceEntity.sellOrderPrice}}</td>
-{#            <td>{{resourceEntity.sellOrderPriceDate}}</td>#}
-            <td>{{resourceEntity.buyOrderPrice}}</td>
-{#            <td>{{resourceEntity.buyOrderPriceDate}}</td>#}
+                <th>Tier</th>
+                <th>Name</th>
+                <th>sell Order Price</th>
+{#                <th>sell Order Price Date</th>#}
+                <th>buy Order Price</th>
+{#                <th>buy Order Price Date</th>#}
             </tr>
-    {% endfor%}
+            </thead>
+    {% for itemEntity in cityItems %}
+<tr>
+    <td>{{itemEntity.tier}}</td>
+    <td>{{itemEntity.name}}</td>
+    <td>{{itemEntity.sellOrderPrice}}</td>
+{#    <td>{{itemEntity.sellOrderPriceDate}}</td>#}
+    <td>{{itemEntity.buyOrderPrice}}</td>
+{#    <td>{{itemEntity.buyOrderPriceDate}}</td>#}
+</tr>
+    {%endfor%}
+
         </table>
-    {% endfor%}
-</div>
-{%endblock%}
+    {%endfor%}
+
+{% endblock %}
