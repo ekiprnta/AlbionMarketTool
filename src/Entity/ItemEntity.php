@@ -152,6 +152,11 @@ class ItemEntity
         return $this->sellOrderPriceDate;
     }
 
+    public function getSellOrderPriceDateString(): string
+    {
+        return $this->sellOrderPriceDate->format('Y-m-d H:i:s');
+    }
+
     public function getBuyOrderPrice(): int
     {
         return $this->buyOrderPrice;
@@ -160,6 +165,11 @@ class ItemEntity
     public function getBuyOrderPriceDate(): DateTimeImmutable|bool
     {
         return $this->buyOrderPriceDate;
+    }
+
+    public function getBuyOrderPriceDateString(): string
+    {
+        return $this->buyOrderPriceDate->format('Y-m-d H:i:s');
     }
 
     public function getPrimaryResource(): string

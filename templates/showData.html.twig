@@ -12,9 +12,9 @@
                     <th>Name</th>
                     <th>City</th>
                     <th>sell Order Price</th>
-                    {#                <th>sell Order Price Date</th> #}
+                                    <th>sell Order Price Date</th>
                     <th>buy Order Price</th>
-                    {#                <th>buy Order Price Date</th> #}
+                                    <th>buy Order Price Date</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -24,9 +24,9 @@
                         <td>{{ resourceEntity.name }}</td>
                         <td>{{ resourceEntity.city }}</td>
                         <td>{{ resourceEntity.sellOrderPrice }}</td>
-                        {#            <td>{{resourceEntity.sellOrderPriceDate}}</td> #}
+                                    <td>{{resourceEntity.sellOrderPriceDateString}}</td>
                         <td>{{ resourceEntity.buyOrderPrice }}</td>
-                        {#            <td>{{resourceEntity.buyOrderPriceDate}}</td> #}
+                                    <td>{{resourceEntity.buyOrderPriceDateString}}</td>
                     </tr>
                 {% endfor %}
                 </tbody>
@@ -42,9 +42,9 @@
                 <th>Tier</th>
                 <th>Name</th>
                 <th>sell Order Price</th>
-{#                <th>sell Order Price Date</th>#}
+                <th>sell Order Price Date</th>
                 <th>buy Order Price</th>
-{#                <th>buy Order Price Date</th>#}
+                <th>buy Order Price Date</th>
             </tr>
             </thead>
     {% for itemEntity in cityItems %}
@@ -52,9 +52,9 @@
     <td>{{itemEntity.tier}}</td>
     <td>{{itemEntity.name}}</td>
     <td>{{itemEntity.sellOrderPrice}}</td>
-{#    <td>{{itemEntity.sellOrderPriceDate}}</td>#}
+    <td>{{itemEntity.sellOrderPriceDateString}}</td>
     <td>{{itemEntity.buyOrderPrice}}</td>
-{#    <td>{{itemEntity.buyOrderPriceDate}}</td>#}
+    <td>{{itemEntity.buyOrderPriceDateString}}</td>
 </tr>
     {%endfor%}
 

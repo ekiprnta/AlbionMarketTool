@@ -80,6 +80,11 @@ class ResourceEntity
         return $this->sellOrderPriceDate;
     }
 
+    public function getSellOrderPriceDateString(): string
+    {
+        return $this->sellOrderPriceDate->format('Y-m-d H:i:s');
+    }
+
     public function getBuyOrderPrice(): int
     {
         return $this->buyOrderPrice;
@@ -88,6 +93,11 @@ class ResourceEntity
     public function getBuyOrderPriceDate(): DateTimeImmutable
     {
         return $this->buyOrderPriceDate;
+    }
+
+    public function getBuyOrderPriceDateString(): string
+    {
+        return $this->buyOrderPriceDate->format('Y-m-d H:i:s');
     }
 
     private function splitIdIntoNameAndTier(string $itemId): array
