@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 use Laminas\ServiceManager\AbstractFactory\ConfigAbstractFactory;
 use Laminas\ServiceManager\ServiceManager;
+use MZierdt\Albion\factories\ResourceUploadRepositoryFactory;
 use MZierdt\Albion\factories\TwigEnvironmentFactory;
 use MZierdt\Albion\Handler\BlackMarketHandler;
 use MZierdt\Albion\Handler\CalculateInfoHandler;
 use MZierdt\Albion\Handler\ShowResourcePriceHandler;
+use MZierdt\Albion\Handler\UploadHandler;
 use MZierdt\Albion\HttpClient;
 use MZierdt\Albion\repositories\HunterUploadRepository;
 use MZierdt\Albion\repositories\ItemRepository;
@@ -40,8 +42,12 @@ $serviceManager = new ServiceManager([
                     ItemRepository::class,
                     ResourceRepository::class
                 ],
+                UploadHandler::class => [
+                    ApiService::class,
+                    ResourceUploadRepository::class
+                ],
                 CalculateInfoHandler::class => [
-                  Environment::class
+                    Environment::class
                 ],
                 BlackMarketHandler::class => [
                     Environment::class
@@ -52,6 +58,7 @@ $serviceManager = new ServiceManager([
     'abstract_factories' => [ConfigAbstractFactory::class],
     'factories' => [
         Environment::class => TwigEnvironmentFactory::class,
+        ResourceUploadRepository::class => ResourceUploadRepositoryFactory::class,
         'abstract_factories' => [ConfigAbstractFactory::class],
     ],
 ]);
