@@ -25,4 +25,10 @@ class NameDataService
         }
         return $itemWithoutTier;
     }
+
+    public function getBonusCityForResource(string $type)
+    {
+        $nameData = self::getNameDataArray();
+        return $nameData['resource'][$type]['bonusCity'];
+    }
 }
