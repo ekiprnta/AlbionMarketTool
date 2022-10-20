@@ -13,6 +13,7 @@ class ResourceUploadRepository
 
     public function __construct(
         private ApiService $apiService,
+        private PDO $pdoConnection
     ) {
     }
 
@@ -58,5 +59,13 @@ class ResourceUploadRepository
             ];
         }
         return $filteredArray;
+    }
+
+    public function loadDataIntoDatabase(array $resourceInformation)
+    {
+        $query = <<<SQL
+INSERT INTO 
+SQL;
+
     }
 }
