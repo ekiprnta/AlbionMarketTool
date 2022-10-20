@@ -11,8 +11,6 @@ use PDOException;
 
 class ResourceUploadRepository
 {
-    private const PATH_TO_CSV = __DIR__ . '/../../assets/ressourcen.csv';
-
     public function __construct(
         private PDO $pdoConnection
     ) {
@@ -22,7 +20,7 @@ class ResourceUploadRepository
     {
         $query = <<<SQL
 INSERT INTO albion_db.resource
-(`tier`, `name`, `city`, `sellOrderPrice`, `sellOrderPriceAmount`,`buyOrderPrice`, `buyOrderPriceAmount`, `bonusCity`)
+(`tier`, `name`, `city`, `sellOrderPrice`, `sellOrderPriceDate`,`buyOrderPrice`, `buyOrderPriceDate`, `bonusCity`)
 VALUES (?,?,?,?,?,?,?,?)
 SQL;
         foreach ($resourceInformation as $information) {
@@ -31,9 +29,9 @@ SQL;
                 $information['name'],
                 $information['city'],
                 $information['sellOrderPrice'],
-                $information['sellOrderPriceAmount'],
+                $information['sellOrderPriceDate'],
                 $information['buyOrderPrice'],
-                $information['buyOrderPriceAmount'],
+                $information['buyOrderPriceDate'],
                 $information['bonusCity'],
             ]);
         }

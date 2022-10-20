@@ -9,6 +9,12 @@ use DateTimeZone;
 
 class ResourceEntity
 {
+    public const RESOURCE_METAL_BAR = 'metalBar';
+    public const RESOURCE_PLANKS = 'planks';
+    public const RESOURCE_CLOTH = 'cloth';
+    public const RESOURCE_LEATHER = 'leather';
+    public const RESOURCE_STONE_BLOCK = 'stoneBLock';
+
     private const TIER_T2 = '2';
     private const TIER_T3 = '3';
     private const TIER_T4 = '4';

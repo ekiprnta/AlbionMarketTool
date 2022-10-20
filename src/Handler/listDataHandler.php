@@ -30,6 +30,7 @@ class listDataHandler
     public function handler(): HtmlResponse
     {
      $this->uploadHandler->uploadResourceIntoDb();
+     die();
 
 
         $fortSterlingResource = $this->resourceRepository->getAllResourcesFromCity(self::CITY_FORTSTERLING);
