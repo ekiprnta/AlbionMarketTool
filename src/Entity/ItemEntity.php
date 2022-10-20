@@ -57,6 +57,8 @@ class ItemEntity
 
     private string $tier;
     private string $name;
+    private string $weaponGroup;
+    private string $class;
     private string $city;
     private int $quality;
     private int $sellOrderPrice;
@@ -69,6 +71,7 @@ class ItemEntity
     private int $secondaryResourceAmount;
     private string $bonusCity;
     private float $fameFactor;
+    private int $amountInStorage;
 
 
     public function __construct(array $itemData)

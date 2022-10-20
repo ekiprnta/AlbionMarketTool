@@ -39,6 +39,8 @@ class ResourceEntity
     private DateTimeImmutable $sellOrderPriceDate;
     private int $buyOrderPrice;
     private DateTimeImmutable $buyOrderPriceDate;
+    private string $bonusCity;
+    private int $amountInStorage;
 
     public function __construct(array $resourceData)
     {
