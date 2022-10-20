@@ -11,7 +11,7 @@ use MZierdt\Albion\repositories\ResourceUploadRepository;
 use MZierdt\Albion\repositories\UploadCsvRepository;
 use Twig\Environment;
 
-class ShowResourcePriceHandler
+class listDataHandler
 {
     private const CITY_FORTSTERLING = 'Fort Sterling';
     private const CITY_LYMHURST = 'Lymhurst';
@@ -23,11 +23,15 @@ class ShowResourcePriceHandler
         private Environment $twigEnvironment,
         private ItemRepository $itemRepository,
         private ResourceRepository $resourceRepository,
+        private UploadHandler $uploadHandler,
     ) {
     }
 
     public function handler(): HtmlResponse
     {
+     $this->uploadHandler->uploadResourceIntoDb();
+
+
         $fortSterlingResource = $this->resourceRepository->getAllResourcesFromCity(self::CITY_FORTSTERLING);
         $lymhurstResource = $this->resourceRepository->getAllResourcesFromCity(self::CITY_LYMHURST);
         $bridgewatchResource = $this->resourceRepository->getAllResourcesFromCity(self::CITY_BRIDGEWATCH);

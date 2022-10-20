@@ -8,7 +8,7 @@ use MZierdt\Albion\factories\ResourceUploadRepositoryFactory;
 use MZierdt\Albion\factories\TwigEnvironmentFactory;
 use MZierdt\Albion\Handler\BlackMarketHandler;
 use MZierdt\Albion\Handler\CalculateInfoHandler;
-use MZierdt\Albion\Handler\ShowResourcePriceHandler;
+use MZierdt\Albion\Handler\listDataHandler;
 use MZierdt\Albion\Handler\UploadHandler;
 use MZierdt\Albion\HttpClient;
 use MZierdt\Albion\repositories\HunterUploadRepository;
@@ -37,10 +37,11 @@ $serviceManager = new ServiceManager([
                 ],
                 ItemRepository::class => [],
                 ResourceRepository::class => [],
-                ShowResourcePriceHandler::class => [
+                listDataHandler::class => [
                     Environment::class,
                     ItemRepository::class,
-                    ResourceRepository::class
+                    ResourceRepository::class,
+                    UploadHandler::class
                 ],
                 UploadHandler::class => [
                     ApiService::class,
