@@ -21,36 +21,36 @@ time_zone = "+00:00";
 
 CREATE TABLE `Warrior`
 (
-    `id`               varchar(64) UNSIGNED NOT NULL,
+    `id`               varchar(64) NOT NULL,
     `city`             varchar(64) DEFAULT NULL,
     `quality`          int(1) DEFAULT NULL,
     `sellPriceMin`     int(11) DEFAULT NULL,
     `sellPriceMinDate` varchar(64) DEFAULT NULL,
     `buyPriceMin`      int (11) DEFAULT NULL,
-    `buyPriceMinDate`  varchar(64) DEFAULT NULL,
-)
+    `buyPriceMinDate`  varchar(64) DEFAULT NULL
+);
 
 CREATE TABLE `Mage`
 (
-    `id`               varchar(64) UNSIGNED NOT NULL,
+    `id`               varchar(64)  NOT NULL,
     `city`             varchar(64) DEFAULT NULL,
     `quality`          int(1) DEFAULT NULL,
     `sellPriceMin`     int(11) DEFAULT NULL,
     `sellPriceMinDate` varchar(64) DEFAULT NULL,
     `buyPriceMin`      int (11) DEFAULT NULL,
-    `buyPriceMinDate`  varchar(64) DEFAULT NULL,
-)
+    `buyPriceMinDate`  varchar(64) DEFAULT NULL
+);
 
 CREATE TABLE `Hunter`
 (
-    `id`               varchar(64) UNSIGNED NOT NULL,
+    `id`               varchar(64)  NOT NULL,
     `city`             varchar(64) DEFAULT NULL,
     `quality`          int(1) DEFAULT NULL,
     `sellPriceMin`     int(11) DEFAULT NULL,
     `sellPriceMinDate` varchar(64) DEFAULT NULL,
     `buyPriceMin`      int (11) DEFAULT NULL,
-    `buyPriceMinDate`  varchar(64) DEFAULT NULL,
-)
+    `buyPriceMinDate`  varchar(64) DEFAULT NULL
+);
 
 ALTER TABLE `Warrior`
     ADD PRIMARY KEY (`id`),
