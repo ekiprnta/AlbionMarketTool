@@ -9,6 +9,7 @@ use MZierdt\Albion\repositories\ItemRepository;
 use MZierdt\Albion\repositories\ResourceRepository;
 use MZierdt\Albion\repositories\ResourceUploadRepository;
 use MZierdt\Albion\repositories\UploadCsvRepository;
+use MZierdt\Albion\Service\DatabaseService;
 use Twig\Environment;
 
 class listDataHandler
@@ -29,6 +30,8 @@ class listDataHandler
 
     public function handler(): HtmlResponse
     {
+        $pdo = DatabaseService::getConnection('qwert');
+        dd($pdo);
      $this->uploadHandler->uploadResourceIntoDb();
      die();
 
