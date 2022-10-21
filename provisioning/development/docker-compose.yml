@@ -56,7 +56,6 @@ services:
       - php-fpm
     links:
       - php-fpm
-    restart: always
 
   db_local:
     #    https://hub.docker.com/_/mariadb

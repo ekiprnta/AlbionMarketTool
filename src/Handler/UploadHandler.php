@@ -21,21 +21,24 @@ class UploadHandler
     ) {
     }
 
-    public function uploadResourceIntoDb(): void
+    public function uploadResourceIntoEmptyDb(): void
     {
-        $metalBarArray = $this->apiService->getResource(ResourceEntity::RESOURCE_METAL_BAR);
-        $metalBarArrayAdjusted = $this->adjustResourceArray($metalBarArray, ResourceEntity::RESOURCE_METAL_BAR);
-        $planksArray = $this->apiService->getResource(ResourceEntity::RESOURCE_PLANKS);
-        $planksArrayAdjusted = $this->adjustResourceArray($planksArray, ResourceEntity::RESOURCE_PLANKS);
-        $clothArray = $this->apiService->getResource(ResourceEntity::RESOURCE_CLOTH);
-        $clothArrayAdjusted = $this->adjustResourceArray($clothArray, ResourceEntity::RESOURCE_CLOTH);
-        $leatherArray = $this->apiService->getResource(ResourceEntity::RESOURCE_LEATHER);
-        $leatherArrayAdjusted = $this->adjustResourceArray($leatherArray, ResourceEntity::RESOURCE_LEATHER);
+       $resources= $this->getAdjustedResources();
 
-        $this->resourceUploadRepository->loadDataIntoDatabase($metalBarArrayAdjusted);
-        $this->resourceUploadRepository->loadDataIntoDatabase($planksArrayAdjusted);
-        $this->resourceUploadRepository->loadDataIntoDatabase($clothArrayAdjusted);
-        $this->resourceUploadRepository->loadDataIntoDatabase($leatherArrayAdjusted);
+        $this->resourceUploadRepository->loadDataIntoDatabase($resources['metalBar']);
+        $this->resourceUploadRepository->loadDataIntoDatabase($resources['planks']);
+        $this->resourceUploadRepository->loadDataIntoDatabase($resources['cloth']);
+        $this->resourceUploadRepository->loadDataIntoDatabase($resources['leather']);
+    }
+
+    public function uploadRefreshedPrices(): void
+    {
+        $resources = $this->getAdjustedResources();
+
+        $this->resourceUploadRepository->reloadUpdatedPrices($resources['metalBar']);
+        $this->resourceUploadRepository->reloadUpdatedPrices($resources['planks']);
+        $this->resourceUploadRepository->reloadUpdatedPrices($resources['cloth']);
+        $this->resourceUploadRepository->reloadUpdatedPrices($resources['leather']);
     }
 
     protected function adjustResourceArray(array $resourceArray, string $resourceType)
@@ -55,5 +58,24 @@ class UploadHandler
             ];
         }
         return $adjustedRessourceArray;
+    }
+
+    protected function getAdjustedResources(): array
+    {
+        $metalBarArray = $this->apiService->getResource(ResourceEntity::RESOURCE_METAL_BAR);
+        $metalBarArrayAdjusted = $this->adjustResourceArray($metalBarArray, ResourceEntity::RESOURCE_METAL_BAR);
+        $planksArray = $this->apiService->getResource(ResourceEntity::RESOURCE_PLANKS);
+        $planksArrayAdjusted = $this->adjustResourceArray($planksArray, ResourceEntity::RESOURCE_PLANKS);
+        $clothArray = $this->apiService->getResource(ResourceEntity::RESOURCE_CLOTH);
+        $clothArrayAdjusted = $this->adjustResourceArray($clothArray, ResourceEntity::RESOURCE_CLOTH);
+        $leatherArray = $this->apiService->getResource(ResourceEntity::RESOURCE_LEATHER);
+        $leatherArrayAdjusted = $this->adjustResourceArray($leatherArray, ResourceEntity::RESOURCE_LEATHER);
+
+        return [
+            'metalBar' => $metalBarArrayAdjusted,
+            'planks' => $planksArrayAdjusted,
+            'cloth' => $clothArrayAdjusted,
+            'leather' => $leatherArrayAdjusted,
+        ];
     }
 }

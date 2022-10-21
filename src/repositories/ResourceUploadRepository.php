@@ -16,12 +16,12 @@ class ResourceUploadRepository
     ) {
     }
 
-    public function loadDataIntoDatabase(array $resourceInformation)
+    public function loadDataIntoDatabase(array $resourceInformation): void
     {
         $query = <<<SQL
-INSERT INTO albion_db.resource
-(`tier`, `name`, `city`, `sellOrderPrice`, `sellOrderPriceDate`,`buyOrderPrice`, `buyOrderPriceDate`, `bonusCity`)
-VALUES (?,?,?,?,?,?,?,?)
+            INSERT INTO albion_db.resource
+            (`tier`, `name`, `city`, `sellOrderPrice`, `sellOrderPriceDate`,`buyOrderPrice`, `buyOrderPriceDate`, `bonusCity`)
+            VALUES (?,?,?,?,?,?,?,?)
 SQL;
         foreach ($resourceInformation as $information) {
             $this->inputInformation($this->pdoConnection, $query, [
@@ -45,6 +45,48 @@ SQL;
         } else {
             echo 'Query is not set';
             throw new PDOException();
+        }
+    }
+
+    public function reloadUpdatedPrices(array $resourceInformation): void
+    {
+        foreach ($resourceInformation as $information) {
+            if ($information['sellOrderPrice'] !== '0') {
+                $statement = $this->pdoConnection->prepare(
+                    <<<SQL
+                    UPDATE albion_db.resource
+                    SET `sellOrderPrice` = :sellOrderPrice,
+                        `sellOrderPriceDate` = :sellOrderPriceDate
+                    WHERE albion_db.resource.name = :name
+                    AND albion_db.resource.tier = :tier
+                    AND albion_db.resource.city = :city
+SQL
+                );
+                $statement->bindParam(':sellOrderPrice', $information['sellOrderPrice']);
+                $statement->bindParam(':sellOrderPriceDate', $information['sellOrderPriceDate']);
+                $statement->bindParam(':name', $information['name']);
+                $statement->bindParam(':tier', $information['tier']);
+                $statement->bindParam(':city', $information['city']);
+                $statement->execute();
+            }
+            if ($information['buyOrderPrice'] !== '0') {
+                $statement = $this->pdoConnection->prepare(
+                    <<<SQL
+                    UPDATE albion_db.resource
+                    SET `buyOrderPrice` = :buyOrderPrice,
+                        `buyOrderPriceDate` = :buyOrderPriceDate
+                    WHERE albion_db.resource.name = :name
+                    AND albion_db.resource.tier = :tier
+                    AND albion_db.resource.city = :city
+SQL
+                );
+                $statement->bindParam(':buyOrderPrice', $information['buyOrderPrice']);
+                $statement->bindParam(':buyOrderPriceDate', $information['buyOrderPriceDate']);
+                $statement->bindParam(':name', $information['name']);
+                $statement->bindParam(':tier', $information['tier']);
+                $statement->bindParam(':city', $information['city']);
+                $statement->execute();
+            }
         }
     }
 }

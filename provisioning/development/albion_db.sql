@@ -29,7 +29,7 @@ CREATE TABLE `resource`
     `buyOrderPrice`      int (11) DEFAULT NULL,
     `buyOrderPriceDate`  datetime    DEFAULT NULL,
     `bonusCity`          varchar(64) DEFAULT NULL,
-    `amountInStorage`    int(10) DEFAULT NULL,
+    `amountInStorage`    int(10) DEFAULT NULL
     primary key (`tier`, `name`, `city`)
 );
 

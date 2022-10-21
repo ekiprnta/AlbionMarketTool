@@ -30,9 +30,7 @@ class listDataHandler
 
     public function handler(): HtmlResponse
     {
-        $pdo = DatabaseService::getConnection('qwert');
-        dd($pdo);
-     $this->uploadHandler->uploadResourceIntoDb();
+$this->uploadHandler->uploadRefreshedPrices();
      die();
 
 
