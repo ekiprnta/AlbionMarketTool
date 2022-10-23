@@ -68,7 +68,7 @@ class UploadHandler
         return $adjustedResourceArray;
     }
 
-    private function getAdjustedResources(): array
+    public function getAdjustedResources(): array
     {
         $metalBarArray = $this->apiService->getResource(ResourceEntity::RESOURCE_METAL_BAR);
         $metalBarArrayAdjusted = $this->adjustResourceArray($metalBarArray, ResourceEntity::RESOURCE_METAL_BAR);
@@ -87,13 +87,51 @@ class UploadHandler
         ];
     }
 
-    public function getAdjustedItems()
+    public function getAdjustedItems(): array
     {
         $warriorArray = $this->itemHelper->getWarriorItems();
-        $warriorArrayAdjusted = $this->adjustItemsArray($warriorArray,ItemEntity::CLASS_WARRIOR);
+        $warriorArrayAdjusted = $this->adjustItemsArray($warriorArray, ItemEntity::CLASS_WARRIOR);
         $mageArray = $this->itemHelper->getMageItems();
-        $mageArrayAdjusted = $this->adjustItemsArray($mageArray,ItemEntity::CLASS_MAGE);
+        $mageArrayAdjusted = $this->adjustItemsArray($mageArray, ItemEntity::CLASS_MAGE);
         $hunterArray = $this->itemHelper->getHunterItems();
-        $hunterArrayAdjusted = $this->adjustItemsArray($hunterArray,ItemEntity::CLASS_HUNTER);
+        $hunterArrayAdjusted = $this->adjustItemsArray($hunterArray, ItemEntity::CLASS_HUNTER);
+
+        return [
+            'warrior' => $warriorArrayAdjusted,
+            'mage' => $mageArrayAdjusted,
+            'hunter' => $hunterArrayAdjusted,
+        ];
+    }
+
+    private function adjustItemsArray(array $classArray, string $class): array
+    {
+        $adjustedItemsArray = [];
+        foreach ($classArray as $weaponGroupName => $weaponGroup) {
+            foreach ($weaponGroup as $weapon) {
+                foreach ($weapon as $item) {
+                    $nameAndTier = TierService::splitIntoTierAndName($item['item_id']);
+                    $stats = NameDataService::getStatsForItem($class, $weaponGroupName, $nameAndTier['name']);
+                    $adjustedItemsArray[] = [
+                        'tier' => $nameAndTier['tier'],
+                        'name' => $nameAndTier['name'],
+                        'weaponGroup' => $weaponGroupName,
+                        'class' => $class,
+                        'city' => $item['city'],
+                        'quality' => $item['quality'],
+                        'sellOrderPrice' => $item['sell_price_min'],
+                        'sellOrderPriceDate' => $item['sell_price_min_date'],
+                        'buyOrderPrice' => $item['buy_price_max'],
+                        'buyOrderPriceDate' => $item['buy_price_max_date'],
+                        'primaryResource' => $stats['primaryResource'],
+                        'primaryResourceAmount' => $stats['primaryResourceAmount'],
+                        'secondaryResource' => $stats['secondaryResource'],
+                        'secondaryResourceAmount' => $stats['secondaryResourceAmount'],
+                        'bonusCity' => $stats['bonusCity'],
+                        'fameFactor' => null,
+                    ];
+                }
+            }
+        }
+        return $adjustedItemsArray;
     }
 }

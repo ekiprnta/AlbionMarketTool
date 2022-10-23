@@ -30,7 +30,10 @@ class listDataHandler
 
     public function handler(): HtmlResponse
     {
-$this->uploadHandler->getAdjustedItems();
+$ab = $this->uploadHandler->getAdjustedItems();
+//$bc = $this->uploadHandler->getAdjustedResources();
+
+dd($ab, $bc);
      die();
 
 
