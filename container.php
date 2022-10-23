@@ -19,6 +19,7 @@ use MZierdt\Albion\repositories\ResourceUploadRepository;
 use MZierdt\Albion\repositories\UploadCsvRepository;
 use MZierdt\Albion\repositories\WarriorUploadRepository;
 use MZierdt\Albion\Service\ApiService;
+use MZierdt\Albion\Service\ItemHelper;
 use Twig\Environment;
 
 $serviceManager = new ServiceManager([
@@ -45,7 +46,8 @@ $serviceManager = new ServiceManager([
                 ],
                 UploadHandler::class => [
                     ApiService::class,
-                    ResourceUploadRepository::class
+                    ResourceUploadRepository::class,
+                    ItemHelper::class
                 ],
                 CalculateInfoHandler::class => [
                     Environment::class
@@ -53,6 +55,9 @@ $serviceManager = new ServiceManager([
                 BlackMarketHandler::class => [
                     Environment::class
                 ],
+                ItemHelper::class => [
+                    ApiService::class
+                ]
             ]
         ],
     ],

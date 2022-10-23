@@ -25,7 +25,7 @@ class ApiService // Buy Order ist buy_price_max
     private const CITY_BLACKMARKET = 'BlackMarket';
 
     public const ITEM_WARRIOR_HELMET = 'plateHelmet';
-    public const ITEM_WARRIOR_ARMOR = 'plateAmor';
+    public const ITEM_WARRIOR_ARMOR = 'plateArmor';
     public const ITEM_WARRIOR_BOOTS = 'plateBoots';
     public const ITEM_WARRIOR_SWORD = 'sword';
     public const ITEM_WARRIOR_AXE = 'axe';

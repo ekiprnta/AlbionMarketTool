@@ -55,6 +55,10 @@ class ItemEntity
     private const T82_FACTOR_FAME = 3720;
     private const T83_FACTOR_FAME = 7440;
 
+    public const CLASS_WARRIOR = 'warrior';
+    public const CLASS_MAGE = 'mage';
+    public const CLASS_HUNTER = 'hunter';
+
     private string $tier;
     private string $name;
     private string $weaponGroup;

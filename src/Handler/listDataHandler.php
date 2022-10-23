@@ -30,7 +30,7 @@ class listDataHandler
 
     public function handler(): HtmlResponse
     {
-$this->uploadHandler->uploadRefreshedPrices();
+$this->uploadHandler->getAdjustedItems();
      die();
 
 

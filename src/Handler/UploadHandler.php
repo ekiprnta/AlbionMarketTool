@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace MZierdt\Albion\Handler;
 
 use ECSPrefix202206\React\EventLoop\TimerInterface;
+use MZierdt\Albion\Entity\ItemEntity;
 use MZierdt\Albion\Entity\ResourceEntity;
 use MZierdt\Albion\repositories\ResourceUploadRepository;
 use MZierdt\Albion\Service\ApiService;
+use MZierdt\Albion\Service\ItemHelper;
 use MZierdt\Albion\Service\NameDataService;
 use MZierdt\Albion\Service\TierService;
 
@@ -18,12 +20,18 @@ class UploadHandler
     public function __construct(
         private ApiService $apiService,
         private ResourceUploadRepository $resourceUploadRepository,
+        private ItemHelper $itemHelper
     ) {
+    }
+
+    public function uploadItemsIntoEmptyDb()
+    {
+        $items = $this->getAdjustedItems();
     }
 
     public function uploadResourceIntoEmptyDb(): void
     {
-       $resources= $this->getAdjustedResources();
+        $resources = $this->getAdjustedResources();
 
         $this->resourceUploadRepository->loadDataIntoDatabase($resources['metalBar']);
         $this->resourceUploadRepository->loadDataIntoDatabase($resources['planks']);
@@ -43,10 +51,10 @@ class UploadHandler
 
     protected function adjustResourceArray(array $resourceArray, string $resourceType)
     {
-        $adjustedRessourceArray = [];
+        $adjustedResourceArray = [];
         foreach ($resourceArray as $resource) {
             $nameAndTier = TierService::splitIntoTierAndName($resource['item_id']);
-            $adjustedRessourceArray[] = [
+            $adjustedResourceArray[] = [
                 'tier' => $nameAndTier['tier'],
                 'name' => $nameAndTier['name'],
                 'city' => $resource['city'],
@@ -57,10 +65,10 @@ class UploadHandler
                 'bonusCity' => NameDataService::getBonusCityForResource($resourceType)
             ];
         }
-        return $adjustedRessourceArray;
+        return $adjustedResourceArray;
     }
 
-    protected function getAdjustedResources(): array
+    private function getAdjustedResources(): array
     {
         $metalBarArray = $this->apiService->getResource(ResourceEntity::RESOURCE_METAL_BAR);
         $metalBarArrayAdjusted = $this->adjustResourceArray($metalBarArray, ResourceEntity::RESOURCE_METAL_BAR);
@@ -77,5 +85,15 @@ class UploadHandler
             'cloth' => $clothArrayAdjusted,
             'leather' => $leatherArrayAdjusted,
         ];
+    }
+
+    public function getAdjustedItems()
+    {
+        $warriorArray = $this->itemHelper->getWarriorItems();
+        $warriorArrayAdjusted = $this->adjustItemsArray($warriorArray,ItemEntity::CLASS_WARRIOR);
+        $mageArray = $this->itemHelper->getMageItems();
+        $mageArrayAdjusted = $this->adjustItemsArray($mageArray,ItemEntity::CLASS_MAGE);
+        $hunterArray = $this->itemHelper->getHunterItems();
+        $hunterArrayAdjusted = $this->adjustItemsArray($hunterArray,ItemEntity::CLASS_HUNTER);
     }
 }
