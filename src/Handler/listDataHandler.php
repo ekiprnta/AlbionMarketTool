@@ -30,11 +30,8 @@ class listDataHandler
 
     public function handler(): HtmlResponse
     {
-$ab = $this->uploadHandler->getAdjustedItems();
-//$bc = $this->uploadHandler->getAdjustedResources();
-
-dd($ab, $bc);
-     die();
+        $this->uploadHandler->uploadRefreshedPrices();
+        die();
 
 
         $fortSterlingResource = $this->resourceRepository->getAllResourcesFromCity(self::CITY_FORTSTERLING);
@@ -50,18 +47,18 @@ dd($ab, $bc);
         $thetfordItems = $this->itemRepository->getItemsAsItemEntityFromBonusCity(self::CITY_THETFORD);
 
         $allCitiesResource = [
-            'fortSterling' =>$fortSterlingResource,
-            'lymhurst' =>$lymhurstResource,
-            'bridgewatch' =>$bridgewatchResource,
-            'martlock' =>$martlockResource,
-            'thetford' =>$thetfordResource
+            'fortSterling' => $fortSterlingResource,
+            'lymhurst' => $lymhurstResource,
+            'bridgewatch' => $bridgewatchResource,
+            'martlock' => $martlockResource,
+            'thetford' => $thetfordResource
         ];
         $allCitiesItems = [
-            'fortSterling' =>$fortSterlingItems,
-            'lymhurst' =>$lymhurstItems,
-            'bridgewatch' =>$bridgewatchItems,
-            'martlock' =>$martlockItems,
-            'thetford' =>$thetfordItems
+            'fortSterling' => $fortSterlingItems,
+            'lymhurst' => $lymhurstItems,
+            'bridgewatch' => $bridgewatchItems,
+            'martlock' => $martlockItems,
+            'thetford' => $thetfordItems
         ];
         $htmlContent = $this->twigEnvironment->render('showData.html.twig', [
             'allCitiesResource' => $allCitiesResource,

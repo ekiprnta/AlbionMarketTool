@@ -27,16 +27,20 @@ class UploadHandler
     public function uploadItemsIntoEmptyDb()
     {
         $items = $this->getAdjustedItems();
+
+        $this->resourceUploadRepository->loadItemsIntoDatabase($items['warrior']);
+        $this->resourceUploadRepository->loadItemsIntoDatabase($items['mage']);
+        $this->resourceUploadRepository->loadItemsIntoDatabase($items['hunter']);
     }
 
     public function uploadResourceIntoEmptyDb(): void
     {
         $resources = $this->getAdjustedResources();
 
-        $this->resourceUploadRepository->loadDataIntoDatabase($resources['metalBar']);
-        $this->resourceUploadRepository->loadDataIntoDatabase($resources['planks']);
-        $this->resourceUploadRepository->loadDataIntoDatabase($resources['cloth']);
-        $this->resourceUploadRepository->loadDataIntoDatabase($resources['leather']);
+        $this->resourceUploadRepository->loadResourcesIntoDatabase($resources['metalBar']);
+        $this->resourceUploadRepository->loadResourcesIntoDatabase($resources['planks']);
+        $this->resourceUploadRepository->loadResourcesIntoDatabase($resources['cloth']);
+        $this->resourceUploadRepository->loadResourcesIntoDatabase($resources['leather']);
     }
 
     public function uploadRefreshedPrices(): void
@@ -47,6 +51,12 @@ class UploadHandler
         $this->resourceUploadRepository->reloadUpdatedPrices($resources['planks']);
         $this->resourceUploadRepository->reloadUpdatedPrices($resources['cloth']);
         $this->resourceUploadRepository->reloadUpdatedPrices($resources['leather']);
+
+        $items = $this->getAdjustedItems();
+
+        $this->resourceUploadRepository->reloadUpdatedPrices($items['warrior']);
+        $this->resourceUploadRepository->reloadUpdatedPrices($items['mage']);
+        $this->resourceUploadRepository->reloadUpdatedPrices($items['hunter']);
     }
 
     protected function adjustResourceArray(array $resourceArray, string $resourceType)
@@ -68,7 +78,7 @@ class UploadHandler
         return $adjustedResourceArray;
     }
 
-    public function getAdjustedResources(): array
+    private function getAdjustedResources(): array
     {
         $metalBarArray = $this->apiService->getResource(ResourceEntity::RESOURCE_METAL_BAR);
         $metalBarArrayAdjusted = $this->adjustResourceArray($metalBarArray, ResourceEntity::RESOURCE_METAL_BAR);
@@ -87,7 +97,7 @@ class UploadHandler
         ];
     }
 
-    public function getAdjustedItems(): array
+    private function getAdjustedItems(): array
     {
         $warriorArray = $this->itemHelper->getWarriorItems();
         $warriorArrayAdjusted = $this->adjustItemsArray($warriorArray, ItemEntity::CLASS_WARRIOR);

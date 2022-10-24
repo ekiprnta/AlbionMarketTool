@@ -38,8 +38,8 @@ class NameDataService
     {
         $nameData = self::getNameDataArray();
         foreach ($nameData[$class][$weaponGroupName] as $itemName => $item) {
-            $lowerCaseIdSnippte = strtolower($item['id_snippet']);
-            if ($lowerCaseIdSnippte === $name) {
+            $lowerCaseIdSnippet = strtolower($item['id_snippet']);
+            if ($lowerCaseIdSnippet === $name) {
                 return $nameData[$class][$weaponGroupName][$itemName];
             }
         }

@@ -16,7 +16,7 @@ class ResourceUploadRepository
     ) {
     }
 
-    public function loadDataIntoDatabase(array $resourceInformation): void
+    public function loadResourcesIntoDatabase(array $resourceInformation): void
     {
         $query = <<<SQL
             INSERT INTO albion_db.resource
@@ -87,6 +87,50 @@ SQL
                 $statement->bindParam(':city', $information['city']);
                 $statement->execute();
             }
+        }
+    }
+
+    public function loadItemsIntoDatabase(array $itemArrayByClass)
+    {
+        $query = <<<SQL
+            INSERT INTO albion_db.items
+            (`tier`,
+             `name`,
+             `weaponGroup`,
+             `class`,
+             `city`,
+             `quality`,
+             `sellOrderPrice`,
+             `sellOrderPriceDate`,
+             `buyOrderPrice`,
+             `buyOrderPriceDate`,
+             `primaryResource`,
+             `primaryResourceAmount`,
+             `secondaryResource`,
+             `secondaryResourceAmount`,
+             `bonusCity`,
+             `fameFactor`)
+            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+SQL;
+        foreach ($itemArrayByClass as $item) {
+            $this->inputInformation($this->pdoConnection,$query,[
+                $item['tier'],
+                $item['name'],
+                $item['weaponGroup'],
+                $item['class'],
+                $item['city'],
+                $item['quality'],
+                $item['sellOrderPrice'],
+                $item['sellOrderPriceDate'],
+                $item['buyOrderPrice'],
+                $item['buyOrderPriceDate'],
+                $item['primaryResource'],
+                $item['primaryResourceAmount'],
+                $item['secondaryResource'],
+                $item['secondaryResourceAmount'],
+                $item['bonusCity'],
+                $item['fameFactor'],
+            ]);
         }
     }
 }
