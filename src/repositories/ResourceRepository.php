@@ -15,7 +15,7 @@ class ResourceRepository
     {
     }
 
-    public function getResourcesByCity(string $city)
+    public function getResourcesByCity(string $city): array
     {
        return $this->getResourcesFromDb($city);
     }

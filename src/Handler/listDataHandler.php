@@ -22,23 +22,22 @@ class listDataHandler
         private Environment $twigEnvironment,
         private ItemRepository $itemRepository,
         private ResourceRepository $resourceRepository,
-        private UploadService $uploadHandler,
     ) {
     }
 
     public function handler(): HtmlResponse
     {
-        $fortSterlingResource = $this->resourceRepository->getAllResourcesFromCity(self::CITY_FORTSTERLING);
-        $lymhurstResource = $this->resourceRepository->getAllResourcesFromCity(self::CITY_LYMHURST);
-        $bridgewatchResource = $this->resourceRepository->getAllResourcesFromCity(self::CITY_BRIDGEWATCH);
-        $martlockResource = $this->resourceRepository->getAllResourcesFromCity(self::CITY_MARTLOCK);
-        $thetfordResource = $this->resourceRepository->getAllResourcesFromCity(self::CITY_THETFORD);
+        $fortSterlingResource = $this->resourceRepository->getResourcesByCity(self::CITY_FORTSTERLING);
+        $lymhurstResource = $this->resourceRepository->getResourcesByCity(self::CITY_LYMHURST);
+        $bridgewatchResource = $this->resourceRepository->getResourcesByCity(self::CITY_BRIDGEWATCH);
+        $martlockResource = $this->resourceRepository->getResourcesByCity(self::CITY_MARTLOCK);
+        $thetfordResource = $this->resourceRepository->getResourcesByCity(self::CITY_THETFORD);
 
-        $fortSterlingItems = $this->itemRepository->getItemsAsItemEntityFromBonusCity(self::CITY_FORTSTERLING);
-        $lymhurstItems = $this->itemRepository->getItemsAsItemEntityFromBonusCity(self::CITY_LYMHURST);
-        $bridgewatchItems = $this->itemRepository->getItemsAsItemEntityFromBonusCity(self::CITY_BRIDGEWATCH);
-        $martlockItems = $this->itemRepository->getItemsAsItemEntityFromBonusCity(self::CITY_MARTLOCK);
-        $thetfordItems = $this->itemRepository->getItemsAsItemEntityFromBonusCity(self::CITY_THETFORD);
+        $fortSterlingItems = $this->itemRepository->getItemsFromCity(self::CITY_FORTSTERLING);
+        $lymhurstItems = $this->itemRepository->getItemsFromCity(self::CITY_LYMHURST);
+        $bridgewatchItems = $this->itemRepository->getItemsFromCity(self::CITY_BRIDGEWATCH);
+        $martlockItems = $this->itemRepository->getItemsFromCity(self::CITY_MARTLOCK);
+        $thetfordItems = $this->itemRepository->getItemsFromCity(self::CITY_THETFORD);
 
         $allCitiesResource = [
             'fortSterling' => $fortSterlingResource,
@@ -54,6 +53,8 @@ class listDataHandler
             'martlock' => $martlockItems,
             'thetford' => $thetfordItems,
         ];
+
+//        dd($allCitiesResource);
         $htmlContent = $this->twigEnvironment->render('showData.html.twig', [
             'allCitiesResource' => $allCitiesResource,
             'allCitiesItems' => $allCitiesItems,
