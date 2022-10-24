@@ -35,6 +35,6 @@ SQL
         foreach ($statement->getIterator() as $itemInformation) {
             $itemsArray[] = new ItemEntity($itemInformation);
         }
-    return $itemsArray;
+        return $itemsArray;
     }
 }

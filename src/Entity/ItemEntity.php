@@ -94,8 +94,8 @@ class ItemEntity
     private DateTimeImmutable $buyOrderPriceDate;
     private string $primaryResource;
     private int $primaryResourceAmount;
-    private string $secondaryResource;
-    private int $secondaryResourceAmount;
+    private ?string $secondaryResource;
+    private ?int $secondaryResourceAmount;
     private string $bonusCity;
     private float $fameFactor;
     private ?int $amountInStorage;
@@ -263,64 +263,6 @@ class ItemEntity
         return $this->fameFactor;
     }
 
-    private function splitIdIntoNameAndTier(string $itemId): array
-    {
-        $itemId = strtolower($itemId);
-        $itemIdArray = explode('_', $itemId);
-
-        if ($itemIdArray[0] === 't2' || $itemIdArray[0] === 't3') {
-            return [
-                'tier' => $this->tierConverter(array_shift($itemIdArray)),
-                'name' => implode('_', $itemIdArray),
-            ];
-        }
-        $preTier = array_shift($itemIdArray);
-        $itemName = implode('_', $itemIdArray);
-
-        if (! str_contains($itemName, '@')) {
-            return [
-                'tier' => $this->tierConverter($preTier),
-                'name' => $itemName,
-            ];
-        }
-
-        $explodedNameEnchantment = explode('@', $itemName);
-
-        return [
-            'tier' => $this->tierConverter($preTier . $explodedNameEnchantment[1]),
-            'name' => $explodedNameEnchantment[0],
-        ];
-    }
-
-    private function tierConverter(string $tierString): string
-    {
-        return match ($tierString) {
-            't2' => self::TIER_T2,
-            't3' => self::TIER_T3,
-            't4' => self::TIER_T4,
-            't41' => self::TIER_T4_1,
-            't42' => self::TIER_T4_2,
-            't43' => self::TIER_T4_3,
-            't5' => self::TIER_T5,
-            't51' => self::TIER_T5_1,
-            't52' => self::TIER_T5_2,
-            't53' => self::TIER_T5_3,
-            't6' => self::TIER_T6,
-            't61' => self::TIER_T6_1,
-            't62' => self::TIER_T6_2,
-            't63' => self::TIER_T6_3,
-            't7' => self::TIER_T7,
-            't71' => self::TIER_T7_1,
-            't72' => self::TIER_T7_2,
-            't73' => self::TIER_T7_3,
-            't8' => self::TIER_T8,
-            't81' => self::TIER_T8_1,
-            't82' => self::TIER_T8_2,
-            't83' => self::TIER_T8_3,
-            default => throw new \InvalidArgumentException('wrong tier in Item Entity')
-        };
-    }
-
     private function getDateTimeImmutable(mixed $sellOrderPriceDate): DateTimeImmutable|bool
     {
         $sellOrderPriceDate = str_replace('T', ' ', $sellOrderPriceDate);
@@ -333,30 +275,31 @@ class ItemEntity
 
     private function setWeight(array $itemData): float
     {
+
         $weightFactor = match ($itemData['tier'])
         {
-            't2' => self::T20_WEIGHT_FACTOR,
-            't3' => self::T30_WEIGHT_FACTOR,
-            't4' => self::T40_WEIGHT_FACTOR,
-            't41' => self::T41_WEIGHT_FACTOR,
-            't42' => self::T42_WEIGHT_FACTOR,
-            't43' => self::T43_WEIGHT_FACTOR,
-            't5' => self::T50_WEIGHT_FACTOR,
-            't51' => self::T51_WEIGHT_FACTOR,
-            't52' => self::T52_WEIGHT_FACTOR,
-            't53' => self::T53_WEIGHT_FACTOR,
-            't6' => self::T60_WEIGHT_FACTOR,
-            't61' => self::T61_WEIGHT_FACTOR,
-            't62' => self::T62_WEIGHT_FACTOR,
-            't63' => self::T63_WEIGHT_FACTOR,
-            't7' => self::T70_WEIGHT_FACTOR,
-            't71' => self::T71_WEIGHT_FACTOR,
-            't72' => self::T72_WEIGHT_FACTOR,
-            't73' => self::T73_WEIGHT_FACTOR,
-            't8' => self::T80_WEIGHT_FACTOR,
-            't81' => self::T81_WEIGHT_FACTOR,
-            't82' => self::T82_WEIGHT_FACTOR,
-            't83' => self::T83_WEIGHT_FACTOR,
+            self::TIER_T2 => self::T20_WEIGHT_FACTOR,
+            self::TIER_T3 => self::T30_WEIGHT_FACTOR,
+            self::TIER_T4 => self::T40_WEIGHT_FACTOR,
+            self::TIER_T4_1 => self::T41_WEIGHT_FACTOR,
+            self::TIER_T4_2 => self::T42_WEIGHT_FACTOR,
+            self::TIER_T4_3 => self::T43_WEIGHT_FACTOR,
+            self::TIER_T5 => self::T50_WEIGHT_FACTOR,
+            self::TIER_T5_1 => self::T51_WEIGHT_FACTOR,
+            self::TIER_T5_2 => self::T52_WEIGHT_FACTOR,
+            self::TIER_T5_3 => self::T53_WEIGHT_FACTOR,
+            self::TIER_T6 => self::T60_WEIGHT_FACTOR,
+            self::TIER_T6_1 => self::T61_WEIGHT_FACTOR,
+            self::TIER_T6_2 => self::T62_WEIGHT_FACTOR,
+            self::TIER_T6_3 => self::T63_WEIGHT_FACTOR,
+            self::TIER_T7 => self::T70_WEIGHT_FACTOR,
+            self::TIER_T7_1 => self::T71_WEIGHT_FACTOR,
+            self::TIER_T7_2 => self::T72_WEIGHT_FACTOR,
+            self::TIER_T7_3 => self::T73_WEIGHT_FACTOR,
+            self::TIER_T8 => self::T80_WEIGHT_FACTOR,
+            self::TIER_T8_1 => self::T81_WEIGHT_FACTOR,
+            self::TIER_T8_2 => self::T82_WEIGHT_FACTOR,
+            self::TIER_T8_3 => self::T83_WEIGHT_FACTOR,
             default => throw new \InvalidArgumentException('wrong tier in Item Entity')
         };
 
