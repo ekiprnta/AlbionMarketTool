@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Laminas\ServiceManager\AbstractFactory\ConfigAbstractFactory;
 use Laminas\ServiceManager\ServiceManager;
+use MZierdt\Albion\factories\ItemRepositoryFactory;
 use MZierdt\Albion\factories\ResourceRepositoryFactory;
 use MZierdt\Albion\factories\UploadRepositoryFactory;
 use MZierdt\Albion\factories\TwigEnvironmentFactory;
@@ -30,10 +31,6 @@ $serviceManager = new ServiceManager([
                 ],
                 UploadCsvRepository::class => [
                     ApiService::class
-                ],
-                ItemRepository::class => [],
-                ResourceRepository::class => [
-
                 ],
                 listDataHandler::class => [
                     Environment::class,
@@ -63,6 +60,7 @@ $serviceManager = new ServiceManager([
         Environment::class => TwigEnvironmentFactory::class,
         UploadRepository::class => UploadRepositoryFactory::class,
         ResourceRepository::class => ResourceRepositoryFactory::class,
+        ItemRepository::class => ItemRepositoryFactory::class,
         'abstract_factories' => [ConfigAbstractFactory::class],
     ],
 ]);
