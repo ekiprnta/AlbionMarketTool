@@ -2,21 +2,17 @@
 
 declare(strict_types=1);
 
-namespace MZierdt\Albion\Handler;
+namespace MZierdt\Albion\Service;
 
 use MZierdt\Albion\Entity\ItemEntity;
 use MZierdt\Albion\Entity\ResourceEntity;
-use MZierdt\Albion\repositories\ResourceUploadRepository;
-use MZierdt\Albion\Service\ApiService;
-use MZierdt\Albion\Service\ItemHelper;
-use MZierdt\Albion\Service\NameDataService;
-use MZierdt\Albion\Service\TierService;
+use MZierdt\Albion\repositories\UploadRepository;
 
 class UploadService
 {
     public function __construct(
         private ApiService $apiService,
-        private ResourceUploadRepository $resourceUploadRepository,
+        private UploadRepository $resourceUploadRepository,
         private ItemHelper $itemHelper
     ) {
     }

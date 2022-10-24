@@ -46,21 +46,37 @@ class ResourceEntity
     private int $buyOrderPrice;
     private DateTimeImmutable $buyOrderPriceDate;
     private string $bonusCity;
-    private int $amountInStorage;
+    private ?int $amountInStorage;
 
     public function __construct(array $resourceData)
     {
-        $split = $this->splitIdIntoNameAndTier($resourceData['itemId']);
         $sellOrderPriceDate = $this->getDateTimeImmutable($resourceData['sellOrderPriceDate']);
         $buyOrderPriceDate = $this->getDateTimeImmutable($resourceData['buyOrderPriceDate']);
 
-        $this->tier = $split['tier'];
-        $this->name = $split['name'];
+        $this->tier = $resourceData['tier'];
+        $this->name = $resourceData['name'];
         $this->city = $resourceData['city'];
-        $this->sellOrderPrice = (int) $resourceData['sellOrderPrice'];
+        $this->sellOrderPrice = (int)$resourceData['sellOrderPrice'];
         $this->sellOrderPriceDate = $sellOrderPriceDate;
-        $this->buyOrderPrice = (int) $resourceData['buyOrderPrice'];
+        $this->buyOrderPrice = (int)$resourceData['buyOrderPrice'];
         $this->buyOrderPriceDate = $buyOrderPriceDate;
+        $this->bonusCity = $resourceData['bonusCity'];
+        $this->amountInStorage = $resourceData['amountInStorage'];
+    }
+
+    public function setAmountInStorage(mixed $amountInStorage): void
+    {
+        $this->amountInStorage = $amountInStorage;
+    }
+
+    public function getBonusCity(): mixed
+    {
+        return $this->bonusCity;
+    }
+
+    public function getAmountInStorage(): mixed
+    {
+        return $this->amountInStorage;
     }
 
     public function getTier(): string
@@ -122,7 +138,7 @@ class ResourceEntity
         $preTier = array_shift($itemIdArray);
         $itemName = implode('_', $itemIdArray);
 
-        if (! str_contains($itemName, '@')) {
+        if (!str_contains($itemName, '@')) {
             return [
                 'tier' => $this->tierConverter($preTier),
                 'name' => $itemName,

@@ -7,7 +7,7 @@ namespace MZierdt\Albion\repositories;
 use PDO;
 use PDOException;
 
-class ResourceUploadRepository
+class UploadRepository
 {
     public function __construct(
         private PDO $pdoConnection
