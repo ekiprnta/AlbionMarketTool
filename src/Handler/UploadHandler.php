@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\Handler;
 
-use ECSPrefix202206\React\EventLoop\TimerInterface;
 use MZierdt\Albion\Entity\ItemEntity;
 use MZierdt\Albion\Entity\ResourceEntity;
 use MZierdt\Albion\repositories\ResourceUploadRepository;
@@ -15,8 +14,6 @@ use MZierdt\Albion\Service\TierService;
 
 class UploadHandler
 {
-
-
     public function __construct(
         private ApiService $apiService,
         private ResourceUploadRepository $resourceUploadRepository,
@@ -72,7 +69,7 @@ class UploadHandler
                 'sellOrderPriceDate' => $resource['sell_price_min_date'],
                 'buyOrderPrice' => $resource['buy_price_max'],
                 'buyOrderPriceDate' => $resource['buy_price_max_date'],
-                'bonusCity' => NameDataService::getBonusCityForResource($resourceType)
+                'bonusCity' => NameDataService::getBonusCityForResource($resourceType),
             ];
         }
         return $adjustedResourceArray;

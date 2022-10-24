@@ -87,15 +87,15 @@ class ItemEntity
         $this->tier = $split['tier'];
         $this->name = $split['name'];
         $this->city = $itemData['city'];
-        $this->quality = (int)$itemData['quality'];
-        $this->sellOrderPrice = (int)$itemData['sellOrderPrice'];
+        $this->quality = (int) $itemData['quality'];
+        $this->sellOrderPrice = (int) $itemData['sellOrderPrice'];
         $this->sellOrderPriceDate = $sellOrderPriceDate;
-        $this->buyOrderPrice = (int)$itemData['buyOrderPrice'];
+        $this->buyOrderPrice = (int) $itemData['buyOrderPrice'];
         $this->buyOrderPriceDate = $buyOrderPriceDate;
         $this->primaryResource = $itemData['primaryResource'];
-        $this->primaryResourceAmount = (int)$itemData['primaryResourceAmount'];
+        $this->primaryResourceAmount = (int) $itemData['primaryResourceAmount'];
         $this->secondaryResource = $itemData['secondaryResource'];
-        $this->secondaryResourceAmount = (int)$itemData['secondaryResourceAmount'];
+        $this->secondaryResourceAmount = (int) $itemData['secondaryResourceAmount'];
         $this->bonusCity = $itemData['bonusCity'];
         $this->fameFactor = $this->setFameFactor();
     }
@@ -223,7 +223,7 @@ class ItemEntity
         $preTier = array_shift($itemIdArray);
         $itemName = implode('_', $itemIdArray);
 
-        if (!str_contains($itemName, '@')) {
+        if (! str_contains($itemName, '@')) {
             return [
                 'tier' => $this->tierConverter($preTier),
                 'name' => $itemName,

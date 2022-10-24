@@ -9,7 +9,6 @@ use PDOException;
 
 class DatabaseService
 {
-
     private const HOST = 'db_local'; //db dev_db_1 10.0.3.2
     private const PORT = '3306';
     private const DB = 'albion_db';

@@ -31,7 +31,7 @@ class TierService
     private const TIER_T8_2 = '8.2';
     private const TIER_T8_3 = '8.3';
 
-    #[ArrayShape(['tier' => "string", 'name' => "string"])]
+
     public static function splitIntoTierAndName(string $itemId): array
     {
         $itemId = strtolower($itemId);
@@ -46,7 +46,7 @@ class TierService
         $preTier = array_shift($itemIdArray);
         $itemName = implode('_', $itemIdArray);
 
-        if (!str_contains($itemName, '@')) {
+        if (! str_contains($itemName, '@')) {
             return [
                 'tier' => self::tierConverter($preTier),
                 'name' => $itemName,

@@ -70,6 +70,4 @@ class ItemHelper
             ApiService::ITEM_HUNTER_TORCH => $this->apiService->getBlackMarketItem(ApiService::ITEM_HUNTER_TORCH),
         ];
     }
-
-
 }

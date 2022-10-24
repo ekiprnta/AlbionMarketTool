@@ -62,8 +62,7 @@ class ItemRepository
         array $allWarriorItems,
         array $allMageItems,
         array $allHunterItems
-    ): array
-    {
+    ): array {
         $filteredItems = [];
         /** @var ItemEntity $warriorItem */
         foreach ($allWarriorItems as $warriorItem) {

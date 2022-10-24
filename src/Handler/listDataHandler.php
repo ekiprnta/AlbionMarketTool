@@ -7,9 +7,6 @@ namespace MZierdt\Albion\Handler;
 use Laminas\Diactoros\Response\HtmlResponse;
 use MZierdt\Albion\repositories\ItemRepository;
 use MZierdt\Albion\repositories\ResourceRepository;
-use MZierdt\Albion\repositories\ResourceUploadRepository;
-use MZierdt\Albion\repositories\UploadCsvRepository;
-use MZierdt\Albion\Service\DatabaseService;
 use Twig\Environment;
 
 class listDataHandler
@@ -33,7 +30,6 @@ class listDataHandler
         $this->uploadHandler->uploadRefreshedPrices();
         die();
 
-
         $fortSterlingResource = $this->resourceRepository->getAllResourcesFromCity(self::CITY_FORTSTERLING);
         $lymhurstResource = $this->resourceRepository->getAllResourcesFromCity(self::CITY_LYMHURST);
         $bridgewatchResource = $this->resourceRepository->getAllResourcesFromCity(self::CITY_BRIDGEWATCH);
@@ -51,14 +47,14 @@ class listDataHandler
             'lymhurst' => $lymhurstResource,
             'bridgewatch' => $bridgewatchResource,
             'martlock' => $martlockResource,
-            'thetford' => $thetfordResource
+            'thetford' => $thetfordResource,
         ];
         $allCitiesItems = [
             'fortSterling' => $fortSterlingItems,
             'lymhurst' => $lymhurstItems,
             'bridgewatch' => $bridgewatchItems,
             'martlock' => $martlockItems,
-            'thetford' => $thetfordItems
+            'thetford' => $thetfordItems,
         ];
         $htmlContent = $this->twigEnvironment->render('showData.html.twig', [
             'allCitiesResource' => $allCitiesResource,

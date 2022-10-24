@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\repositories;
 
-use League\Csv\Writer;
-use MZierdt\Albion\Service\ApiService;
 use PDO;
 use PDOException;
 
@@ -113,7 +111,7 @@ SQL
             VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
 SQL;
         foreach ($itemArrayByClass as $item) {
-            $this->inputInformation($this->pdoConnection,$query,[
+            $this->inputInformation($this->pdoConnection, $query, [
                 $item['tier'],
                 $item['name'],
                 $item['weaponGroup'],
