@@ -8,6 +8,7 @@ use MZierdt\Albion\factories\ItemRepositoryFactory;
 use MZierdt\Albion\factories\ResourceRepositoryFactory;
 use MZierdt\Albion\factories\UploadRepositoryFactory;
 use MZierdt\Albion\factories\TwigEnvironmentFactory;
+use MZierdt\Albion\Handler\AdminHandler;
 use MZierdt\Albion\Handler\BlackMarketHandler;
 use MZierdt\Albion\Handler\CalculateInfoHandler;
 use MZierdt\Albion\Handler\listDataHandler;
@@ -51,6 +52,11 @@ $serviceManager = new ServiceManager([
                 ],
                 ItemHelper::class => [
                     ApiService::class
+                ],
+                AdminHandler::class => [
+                    Environment::class,
+                    UploadService::class,
+                    UploadRepository::class
                 ]
             ]
         ],

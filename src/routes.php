@@ -1,6 +1,7 @@
 <?php
 
 
+use MZierdt\Albion\Handler\AdminHandler;
 use MZierdt\Albion\Handler\BlackMarketHandler;
 use MZierdt\Albion\Handler\CalculateInfoHandler;
 use MZierdt\Albion\Handler\listDataHandler;
@@ -16,6 +17,7 @@ $dispatcher = FastRoute\simpleDispatcher(
         $r->addRoute(['GET', 'POST'], '/[info]', $serviceManager->get(listDataHandler::class));
         $r->addRoute(['GET', 'POST'], '/calculate', $serviceManager->get(CalculateInfoHandler::class));
         $r->addRoute(['GET', 'POST'], '/calculate/blackmarket', $serviceManager->get(BlackMarketHandler::class));
+        $r->addRoute(['GET', 'POST'], '/admin', $serviceManager->get(AdminHandler::class));
     }
 );
 
