@@ -684,5 +684,22 @@
         "bonusCity": "Martlock"
       }
     }
+  },
+  "resource": {
+    "metalBar": {
+      "bonusCity": "Thetford"
+    },
+    "cloth": {
+      "bonusCity": "Lymhurst"
+    },
+    "planks": {
+      "bonusCity": "Fort Sterling"
+    },
+    "leather": {
+      "bonusCity": "Martlock"
+    },
+    "stoneBLock": {
+      "bonusCity": "Bridgewatch"
+    }
   }
 }

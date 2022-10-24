@@ -56,7 +56,6 @@ services:
       - php-fpm
     links:
       - php-fpm
-    restart: always
 
   db_local:
     #    https://hub.docker.com/_/mariadb
@@ -70,7 +69,7 @@ services:
       - MYSQL_ROOT_PASSWORD=zuiop
       - MYSQL_PASSWORD=qwert
       - MYSQL_USER=flyka
-      - MYSQL_DATABASE=dealership_db
+      - MYSQL_DATABASE=albion_db
 
 
 volumes:

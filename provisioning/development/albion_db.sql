@@ -19,47 +19,38 @@ time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION = @@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
-CREATE TABLE `Warrior`
+CREATE TABLE `resource`
 (
-    `id`               varchar(64) NOT NULL,
-    `city`             varchar(64) DEFAULT NULL,
-    `quality`          int(1) DEFAULT NULL,
-    `sellPriceMin`     int(11) DEFAULT NULL,
-    `sellPriceMinDate` varchar(64) DEFAULT NULL,
-    `buyPriceMin`      int (11) DEFAULT NULL,
-    `buyPriceMinDate`  varchar(64) DEFAULT NULL
+    `tier`               varchar(64) NOT NULL,
+    `name`               varchar(64) NOT NULL,
+    `city`               varchar(64) NOT NULL,
+    `sellOrderPrice`     int(11) DEFAULT NULL,
+    `sellOrderPriceDate` datetime    DEFAULT NULL,
+    `buyOrderPrice`      int (11) DEFAULT NULL,
+    `buyOrderPriceDate`  datetime    DEFAULT NULL,
+    `bonusCity`          varchar(64) DEFAULT NULL,
+    `amountInStorage`    int(10) DEFAULT NULL
+    primary key (`tier`, `name`, `city`)
 );
 
-CREATE TABLE `Mage`
+CREATE TABLE `items`
 (
-    `id`               varchar(64)  NOT NULL,
-    `city`             varchar(64) DEFAULT NULL,
-    `quality`          int(1) DEFAULT NULL,
-    `sellPriceMin`     int(11) DEFAULT NULL,
-    `sellPriceMinDate` varchar(64) DEFAULT NULL,
-    `buyPriceMin`      int (11) DEFAULT NULL,
-    `buyPriceMinDate`  varchar(64) DEFAULT NULL
+    `tier`                    varchar(64) NOT NULL,
+    `name`                    varchar(64) NOT NULL,
+    `weaponGroup`             varchar(64) NOT NULL,
+    `class`                   varchar(64) DEFAULT NULL,
+    `city`                    varchar(64) DEFAULT NULL,
+    `quality`                 int(1) DEFAULT NULL,
+    `sellOrderPrice`          int(11) DEFAULT NULL,
+    `sellOrderPriceDate`      datetime    DEFAULT NULL,
+    `buyOrderPrice`           int (11) DEFAULT NULL,
+    `buyOrderPriceDate`       datetime    DEFAULT NULL,
+    `primaryResource`         varchar(64) DEFAULT NULL,
+    `primaryResourceAmount`   int(2) DEFAULT NULL,
+    `secondaryResource`       varchar(64) DEFAULT NULL,
+    `secondaryResourceAmount` int(2) DEFAULT NULL,
+    `bonusCity`               varchar(64) DEFAULT NULL,
+    `fameFactor`              float       DEFAULT NULL,
+    `amountInStorage`         int(10) DEFAULT NULL,
+    primary key (`tier`, `name`, `weaponGroup`)
 );
-
-CREATE TABLE `Hunter`
-(
-    `id`               varchar(64)  NOT NULL,
-    `city`             varchar(64) DEFAULT NULL,
-    `quality`          int(1) DEFAULT NULL,
-    `sellPriceMin`     int(11) DEFAULT NULL,
-    `sellPriceMinDate` varchar(64) DEFAULT NULL,
-    `buyPriceMin`      int (11) DEFAULT NULL,
-    `buyPriceMinDate`  varchar(64) DEFAULT NULL
-);
-
-ALTER TABLE `Warrior`
-    ADD PRIMARY KEY (`id`),
-    ADD UNIQUE KEY `id_UNIQUE` (`id`);
-
-ALTER TABLE `Mage`
-    ADD PRIMARY KEY (`id`),
-    ADD UNIQUE KEY `id_UNIQUE` (`id`);
-
-ALTER TABLE `Hunter`
-    ADD PRIMARY KEY (`id`),
-    ADD UNIQUE KEY `id_UNIQUE` (`id`);

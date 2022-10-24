@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\Service;
 
+use RuntimeException;
+
 class NameDataService
 {
     private const PATH_TO_JSON = __DIR__ . '/NameData.json';
@@ -24,5 +26,23 @@ class NameDataService
             return $itemWithoutTier[0];
         }
         return $itemWithoutTier;
+    }
+
+    public static function getBonusCityForResource(string $type)
+    {
+        $nameData = self::getNameDataArray();
+        return $nameData['resource'][$type]['bonusCity'];
+    }
+
+    public static function getStatsForItem(string $class, string $weaponGroupName, string $name)
+    {
+        $nameData = self::getNameDataArray();
+        foreach ($nameData[$class][$weaponGroupName] as $itemName => $item) {
+            $lowerCaseIdSnippet = strtolower($item['id_snippet']);
+            if ($lowerCaseIdSnippet === $name) {
+                return $nameData[$class][$weaponGroupName][$itemName];
+            }
+        }
+        throw new RuntimeException(' IN Name Data Service in getStatsForItem nothing found');
     }
 }

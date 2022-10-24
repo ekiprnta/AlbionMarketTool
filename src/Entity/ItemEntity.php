@@ -32,31 +32,37 @@ class ItemEntity
     private const TIER_T8_2 = '8.2';
     private const TIER_T8_3 = '8.3';
 
-    private const T20_FACTOR_FAME = 1.5;
-    private const T30_FACTOR_FAME = 7.5;
-    private const T40_FACTOR_FAME = 22.5;
-    private const T41_FACTOR_FAME = 45;
-    private const T42_FACTOR_FAME = 90;
-    private const T43_FACTOR_FAME = 180;
-    private const T50_FACTOR_FAME = 90;
-    private const T51_FACTOR_FAME = 180;
-    private const T52_FACTOR_FAME = 360;
-    private const T53_FACTOR_FAME = 720;
-    private const T60_FACTOR_FAME = 270;
-    private const T61_FACTOR_FAME = 540;
-    private const T62_FACTOR_FAME = 1080;
-    private const T63_FACTOR_FAME = 2160;
-    private const T70_FACTOR_FAME = 645;
-    private const T71_FACTOR_FAME = 1290;
-    private const T72_FACTOR_FAME = 2580;
-    private const T73_FACTOR_FAME = 5160;
-    private const T80_FACTOR_FAME = 1395;
-    private const T81_FACTOR_FAME = 2790;
-    private const T82_FACTOR_FAME = 5580;
-    private const T83_FACTOR_FAME = 11160;
+    private const T20_FACTOR_FAME = 1;
+    private const T30_FACTOR_FAME = 5;
+    private const T40_FACTOR_FAME = 15;
+    private const T41_FACTOR_FAME = 30;
+    private const T42_FACTOR_FAME = 60;
+    private const T43_FACTOR_FAME = 120;
+    private const T50_FACTOR_FAME = 60;
+    private const T51_FACTOR_FAME = 120;
+    private const T52_FACTOR_FAME = 240;
+    private const T53_FACTOR_FAME = 480;
+    private const T60_FACTOR_FAME = 180;
+    private const T61_FACTOR_FAME = 360;
+    private const T62_FACTOR_FAME = 720;
+    private const T63_FACTOR_FAME = 1440;
+    private const T70_FACTOR_FAME = 430;
+    private const T71_FACTOR_FAME = 860;
+    private const T72_FACTOR_FAME = 1720;
+    private const T73_FACTOR_FAME = 3440;
+    private const T80_FACTOR_FAME = 930;
+    private const T81_FACTOR_FAME = 1860;
+    private const T82_FACTOR_FAME = 3720;
+    private const T83_FACTOR_FAME = 7440;
+
+    public const CLASS_WARRIOR = 'warrior';
+    public const CLASS_MAGE = 'mage';
+    public const CLASS_HUNTER = 'hunter';
 
     private string $tier;
     private string $name;
+    private string $weaponGroup;
+    private string $class;
     private string $city;
     private int $quality;
     private int $sellOrderPrice;
@@ -69,6 +75,7 @@ class ItemEntity
     private int $secondaryResourceAmount;
     private string $bonusCity;
     private float $fameFactor;
+    private int $amountInStorage;
 
 
     public function __construct(array $itemData)
@@ -80,15 +87,15 @@ class ItemEntity
         $this->tier = $split['tier'];
         $this->name = $split['name'];
         $this->city = $itemData['city'];
-        $this->quality = (int)$itemData['quality'];
-        $this->sellOrderPrice = (int)$itemData['sellOrderPrice'];
+        $this->quality = (int) $itemData['quality'];
+        $this->sellOrderPrice = (int) $itemData['sellOrderPrice'];
         $this->sellOrderPriceDate = $sellOrderPriceDate;
-        $this->buyOrderPrice = (int)$itemData['buyOrderPrice'];
+        $this->buyOrderPrice = (int) $itemData['buyOrderPrice'];
         $this->buyOrderPriceDate = $buyOrderPriceDate;
         $this->primaryResource = $itemData['primaryResource'];
-        $this->primaryResourceAmount = (int)$itemData['primaryResourceAmount'];
+        $this->primaryResourceAmount = (int) $itemData['primaryResourceAmount'];
         $this->secondaryResource = $itemData['secondaryResource'];
-        $this->secondaryResourceAmount = (int)$itemData['secondaryResourceAmount'];
+        $this->secondaryResourceAmount = (int) $itemData['secondaryResourceAmount'];
         $this->bonusCity = $itemData['bonusCity'];
         $this->fameFactor = $this->setFameFactor();
     }
@@ -216,7 +223,7 @@ class ItemEntity
         $preTier = array_shift($itemIdArray);
         $itemName = implode('_', $itemIdArray);
 
-        if (!str_contains($itemName, '@')) {
+        if (! str_contains($itemName, '@')) {
             return [
                 'tier' => $this->tierConverter($preTier),
                 'name' => $itemName,

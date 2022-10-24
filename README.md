@@ -15,7 +15,6 @@ dc up -d
 ## Composer pakete installieren
 
 ```shell
-dc exec -w /app php-fpm bash
 composer up
 composer run stan5
 ```

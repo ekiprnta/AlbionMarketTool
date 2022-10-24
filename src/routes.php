@@ -3,7 +3,7 @@
 
 use MZierdt\Albion\Handler\BlackMarketHandler;
 use MZierdt\Albion\Handler\CalculateInfoHandler;
-use MZierdt\Albion\Handler\ShowResourcePriceHandler;
+use MZierdt\Albion\Handler\listDataHandler;
 use Twig\Environment;
 
 $serviceManager = require __DIR__ . '/../container.php';
@@ -13,7 +13,7 @@ $twigEnvironment = $serviceManager->get(Environment::class);
 /** @var Environment $twig */
 $dispatcher = FastRoute\simpleDispatcher(
     function (FastRoute\RouteCollector $r) use ($serviceManager): void {
-        $r->addRoute(['GET', 'POST'], '/[info]', $serviceManager->get(ShowResourcePriceHandler::class));
+        $r->addRoute(['GET', 'POST'], '/[info]', $serviceManager->get(listDataHandler::class));
         $r->addRoute(['GET', 'POST'], '/calculate', $serviceManager->get(CalculateInfoHandler::class));
         $r->addRoute(['GET', 'POST'], '/calculate/blackmarket', $serviceManager->get(BlackMarketHandler::class));
     }
