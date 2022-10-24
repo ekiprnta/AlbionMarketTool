@@ -21,7 +21,7 @@ class listDataHandler
         private Environment $twigEnvironment,
         private ItemRepository $itemRepository,
         private ResourceRepository $resourceRepository,
-        private UploadHandler $uploadHandler,
+        private UploadService $uploadHandler,
     ) {
     }
 

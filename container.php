@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 use Laminas\ServiceManager\AbstractFactory\ConfigAbstractFactory;
 use Laminas\ServiceManager\ServiceManager;
+use MZierdt\Albion\factories\ResourceRepositoryFactory;
 use MZierdt\Albion\factories\ResourceUploadRepositoryFactory;
 use MZierdt\Albion\factories\TwigEnvironmentFactory;
 use MZierdt\Albion\Handler\BlackMarketHandler;
 use MZierdt\Albion\Handler\CalculateInfoHandler;
 use MZierdt\Albion\Handler\listDataHandler;
-use MZierdt\Albion\Handler\UploadHandler;
+use MZierdt\Albion\Handler\UploadService;
 use MZierdt\Albion\HttpClient;
 use MZierdt\Albion\repositories\HunterUploadRepository;
 use MZierdt\Albion\repositories\ItemRepository;
@@ -30,21 +31,20 @@ $serviceManager = new ServiceManager([
                 ApiService::class => [
                     HttpClient::class
                 ],
-                ResourceUploadRepository::class => [
-                    ApiService::class
-                ],
                 UploadCsvRepository::class => [
                     ApiService::class
                 ],
                 ItemRepository::class => [],
-                ResourceRepository::class => [],
+                ResourceRepository::class => [
+
+                ],
                 listDataHandler::class => [
                     Environment::class,
                     ItemRepository::class,
                     ResourceRepository::class,
-                    UploadHandler::class
+                    UploadService::class
                 ],
-                UploadHandler::class => [
+                UploadService::class => [
                     ApiService::class,
                     ResourceUploadRepository::class,
                     ItemHelper::class
@@ -65,6 +65,7 @@ $serviceManager = new ServiceManager([
     'factories' => [
         Environment::class => TwigEnvironmentFactory::class,
         ResourceUploadRepository::class => ResourceUploadRepositoryFactory::class,
+        ResourceRepository::class => ResourceRepositoryFactory::class,
         'abstract_factories' => [ConfigAbstractFactory::class],
     ],
 ]);

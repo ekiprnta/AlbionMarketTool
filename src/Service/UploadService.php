@@ -12,7 +12,7 @@ use MZierdt\Albion\Service\ItemHelper;
 use MZierdt\Albion\Service\NameDataService;
 use MZierdt\Albion\Service\TierService;
 
-class UploadHandler
+class UploadService
 {
     public function __construct(
         private ApiService $apiService,
