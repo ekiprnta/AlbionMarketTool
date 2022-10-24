@@ -28,7 +28,7 @@ class listDataHandler
 
     public function handler(): HtmlResponse
     {
-        dd($this->resourceRepository->getResourcesByCity('Martlock'));
+        dd($this->itemRepository->getItemsFromCity('Martlock'));
         die();
 
         $fortSterlingResource = $this->resourceRepository->getAllResourcesFromCity(self::CITY_FORTSTERLING);

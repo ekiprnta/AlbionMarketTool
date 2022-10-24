@@ -32,6 +32,29 @@ class ItemEntity
     private const TIER_T8_2 = '8.2';
     private const TIER_T8_3 = '8.3';
 
+    private const T20_WEIGHT_FACTOR = 0.1;
+    private const T30_WEIGHT_FACTOR = 0.14;
+    private const T40_WEIGHT_FACTOR = 0.21;
+    private const T41_WEIGHT_FACTOR = 0.21;
+    private const T42_WEIGHT_FACTOR = 0.21;
+    private const T43_WEIGHT_FACTOR = 0.21;
+    private const T50_WEIGHT_FACTOR = 0.316;
+    private const T51_WEIGHT_FACTOR = 0.316;
+    private const T52_WEIGHT_FACTOR = 0.316;
+    private const T53_WEIGHT_FACTOR = 0.316;
+    private const T60_WEIGHT_FACTOR = 0.475;
+    private const T61_WEIGHT_FACTOR = 0.475;
+    private const T62_WEIGHT_FACTOR = 0.475;
+    private const T63_WEIGHT_FACTOR = 0.475;
+    private const T70_WEIGHT_FACTOR = 0.7125;
+    private const T71_WEIGHT_FACTOR = 0.7125;
+    private const T72_WEIGHT_FACTOR = 0.7125;
+    private const T73_WEIGHT_FACTOR = 0.7125;
+    private const T80_WEIGHT_FACTOR = 1.056;
+    private const T81_WEIGHT_FACTOR = 1.056;
+    private const T82_WEIGHT_FACTOR = 1.056;
+    private const T83_WEIGHT_FACTOR = 1.056;
+
     private const T20_FACTOR_FAME = 1;
     private const T30_FACTOR_FAME = 5;
     private const T40_FACTOR_FAME = 15;
@@ -75,17 +98,20 @@ class ItemEntity
     private int $secondaryResourceAmount;
     private string $bonusCity;
     private float $fameFactor;
-    private int $amountInStorage;
+    private ?int $amountInStorage;
+    private float $weight;
 
 
     public function __construct(array $itemData)
     {
-        $split = $this->splitIdIntoNameAndTier($itemData['itemId']);
         $sellOrderPriceDate = $this->getDateTimeImmutable($itemData['sellOrderPriceDate']);
         $buyOrderPriceDate = $this->getDateTimeImmutable($itemData['buyOrderPriceDate']);
+        $weight = $this->setWeight($itemData);
 
-        $this->tier = $split['tier'];
-        $this->name = $split['name'];
+        $this->tier = $itemData['tier'];
+        $this->name = $itemData['name'];
+        $this->weaponGroup = $itemData['weaponGroup'];
+        $this->class = $itemData['class'];
         $this->city = $itemData['city'];
         $this->quality = (int) $itemData['quality'];
         $this->sellOrderPrice = (int) $itemData['sellOrderPrice'];
@@ -98,6 +124,8 @@ class ItemEntity
         $this->secondaryResourceAmount = (int) $itemData['secondaryResourceAmount'];
         $this->bonusCity = $itemData['bonusCity'];
         $this->fameFactor = $this->setFameFactor();
+        $this->amountInStorage = $itemData['amountInStorage'];
+        $this->weight = $weight;
     }
 
     private function setFameFactor(): float
@@ -129,6 +157,27 @@ class ItemEntity
         };
     }
 
+    public function setAmountInStorage(mixed $amountInStorage): void
+    {
+        $this->amountInStorage = $amountInStorage;
+    }
+
+
+    public function getWeaponGroup(): mixed
+    {
+        return $this->weaponGroup;
+    }
+
+    public function getClass(): mixed
+    {
+        return $this->class;
+    }
+
+    public function getAmountInStorage(): mixed
+    {
+        return $this->amountInStorage;
+    }
+
     public function getTier(): string
     {
         return $this->tier;
@@ -137,6 +186,11 @@ class ItemEntity
     public function getName(): string
     {
         return $this->name;
+    }
+
+    public function getWeight(): float
+    {
+        return $this->weight;
     }
 
     public function getCity(): string
@@ -275,5 +329,37 @@ class ItemEntity
             $sellOrderPriceDate,
             new DateTimeZone('Europe/London')
         );
+    }
+
+    private function setWeight(array $itemData): float
+    {
+        $weightFactor = match ($itemData['tier'])
+        {
+            't2' => self::T20_WEIGHT_FACTOR,
+            't3' => self::T30_WEIGHT_FACTOR,
+            't4' => self::T40_WEIGHT_FACTOR,
+            't41' => self::T41_WEIGHT_FACTOR,
+            't42' => self::T42_WEIGHT_FACTOR,
+            't43' => self::T43_WEIGHT_FACTOR,
+            't5' => self::T50_WEIGHT_FACTOR,
+            't51' => self::T51_WEIGHT_FACTOR,
+            't52' => self::T52_WEIGHT_FACTOR,
+            't53' => self::T53_WEIGHT_FACTOR,
+            't6' => self::T60_WEIGHT_FACTOR,
+            't61' => self::T61_WEIGHT_FACTOR,
+            't62' => self::T62_WEIGHT_FACTOR,
+            't63' => self::T63_WEIGHT_FACTOR,
+            't7' => self::T70_WEIGHT_FACTOR,
+            't71' => self::T71_WEIGHT_FACTOR,
+            't72' => self::T72_WEIGHT_FACTOR,
+            't73' => self::T73_WEIGHT_FACTOR,
+            't8' => self::T80_WEIGHT_FACTOR,
+            't81' => self::T81_WEIGHT_FACTOR,
+            't82' => self::T82_WEIGHT_FACTOR,
+            't83' => self::T83_WEIGHT_FACTOR,
+            default => throw new \InvalidArgumentException('wrong tier in Item Entity')
+        };
+
+        return ($itemData['primaryResourceAmount'] + $itemData['secondaryResourceAmount']) * $weightFactor;
     }
 }
