@@ -25,13 +25,12 @@ class BlackMarketHandler
         }
 
         $cityData = [];
-        $city ='';
+        $city = '';
         $rrr = 'Resource Return Rate in %';
         $weight = 'weight in kg';
-        if(!empty($_GET))
-        {
+        if (! empty($_GET)) {
             $city = $_GET['city'];
-            $weight = (int)$_GET['weight'];
+            $weight = (int) $_GET['weight'];
             $rrr = (float) $_GET['rrr'];
             $cityData = $this->calculatorService->getDataForCity($city, $weight, $rrr);
         }
