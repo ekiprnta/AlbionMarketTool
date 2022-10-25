@@ -243,12 +243,12 @@ class ItemEntity
         return $this->primaryResourceAmount;
     }
 
-    public function getSecondaryResource(): string
+    public function getSecondaryResource(): ?string
     {
         return $this->secondaryResource;
     }
 
-    public function getSecondaryResourceAmount(): int
+    public function getSecondaryResourceAmount(): ?int
     {
         return $this->secondaryResourceAmount;
     }

@@ -137,9 +137,12 @@ SQL;
     {
         $query = <<<SQL
         TRUNCATE TABLE albion_db.items
-        TRUNCATE TABLE albion_db.resource
 SQL;
+        $this->pdoConnection->query($query);
 
+        $query = <<<SQL
+        TRUNCATE TABLE albion_db.resource
+ SQL;
         $this->pdoConnection->query($query);
     }
 }

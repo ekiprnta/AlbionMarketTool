@@ -54,7 +54,6 @@ class listDataHandler
             'thetford' => $thetfordItems,
         ];
 
-//        dd($allCitiesResource);
         $htmlContent = $this->twigEnvironment->render('showData.html.twig', [
             'allCitiesResource' => $allCitiesResource,
             'allCitiesItems' => $allCitiesItems,

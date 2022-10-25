@@ -57,9 +57,10 @@ class UploadService
         $adjustedResourceArray = [];
         foreach ($resourceArray as $resource) {
             $nameAndTier = TierService::splitIntoTierAndName($resource['item_id']);
+            $name = $this->getResourceName($nameAndTier['name']);
             $adjustedResourceArray[] = [
                 'tier' => $nameAndTier['tier'],
-                'name' => $nameAndTier['name'],
+                'name' => $name,
                 'city' => $resource['city'],
                 'sellOrderPrice' => $resource['sell_price_min'],
                 'sellOrderPriceDate' => $resource['sell_price_min_date'],
@@ -136,5 +137,19 @@ class UploadService
             }
         }
         return $adjustedItemsArray;
+    }
+
+    private function getResourceName(string $name): string
+    {
+        if (str_contains($name, '_level1')) {
+            $resourceName = str_replace('_level1', '', $name);
+        }
+        if (str_contains($name, '_level2')) {
+            $resourceName = str_replace('_level2', '', $name);
+        }
+        if (str_contains($name, '_level3')) {
+            $resourceName = str_replace('_level3', '', $name);
+        }
+        return $resourceName ?? $name;
     }
 }
