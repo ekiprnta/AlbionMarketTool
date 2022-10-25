@@ -24,12 +24,13 @@ class BlackMarketHandler
             $this->uploadService->uploadRefreshedPrices();
         }
 
-        $amount = 1;
-        $cityData = $this->calculatorService->getDataForCity('Fort Sterling');
-
+        $cityData = [];
+        if(!empty($_GET))
+        {
+            $cityData = $this->calculatorService->getDataForCity($_GET['city'], (int)$_GET['weight'],(float) $_GET['rrr']);
+        }
         $htmlContent = $this->twigEnvironment->render('calculateBlackMarket.html.twig', [
             'dataArray' => $cityData,
-            'amount' => $amount,
         ]);
         return new HtmlResponse($htmlContent);
     }
