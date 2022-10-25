@@ -31,6 +31,7 @@ class CalculateEntity
 
     private float $WeightProfitQuotient;
     private string $colorGrade;
+    private float $amount;
 
     public function __construct(ItemEntity $itemEntity, array $resourceData)
     {
@@ -55,6 +56,16 @@ class CalculateEntity
             $this->secondarySellOrderPrice = $secondaryResourceEntity->getSellOrderPrice();
         }
         $this->resourceWeight = $resourceWeight;
+    }
+
+    public function getAmount(): float
+    {
+        return $this->amount;
+    }
+
+    public function setAmount(float $amount): void
+    {
+        $this->amount = $amount;
     }
 
     public function getColorGrade(): string

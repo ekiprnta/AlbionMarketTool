@@ -15,7 +15,7 @@ class CalculatorService
     private const RRR_BONUS_CITY_FOCUS = 47.9;
     private const RRR_BASE_PERCENTAGE = 100;
 
-    private int $amount;
+    private int $maxWeight;
 
     public function __construct(
         private ItemRepository $itemRepository,
@@ -23,9 +23,9 @@ class CalculatorService
     ) {
     }
 
-    public function getDataForCity(string $city, int $amount = 1, float $percentage = self::RRR_BONUS_CITY_FOCUS): array
+    public function getDataForCity(string $city, int $weight = 1, float $percentage = self::RRR_BONUS_CITY_FOCUS): array
     {
-        $this->amount = $amount;
+        $this->maxWeight = $weight;
         $items = $this->itemRepository->getItemsFromCity($city);
         $resources = $this->resourceRepository->getResourcesByCity($city);
 
@@ -35,8 +35,8 @@ class CalculatorService
             $calculateEntityArray[] = new CalculateEntity($item, $resources);
         }
 
-        $this->calculateProfit($calculateEntityArray, $percentage);
         $this->calculateTotalWeight($calculateEntityArray);
+        $this->calculateProfit($calculateEntityArray, $percentage);
         $this->calculateWeightProfitQuotient($calculateEntityArray);
         $this->calculateColorGrade($calculateEntityArray);
         $filteredArray = $this->filterCalculateEntityArray($calculateEntityArray);
@@ -66,12 +66,13 @@ class CalculatorService
 
     private function calculateProfitNoFocus(CalculateEntity $calculateEntity): float
     {
+        $amount = $calculateEntity->getAmount();
         $itemCost = $calculateEntity->getPrimarySellOrderPrice() *
             $calculateEntity->getPrimaryResourceAmount() +
             $calculateEntity->getSecondarySellOrderPrice() *
             $calculateEntity->getSecondaryResourceAmount();
         $rate = (self::RRR_BASE_PERCENTAGE - self::RRR_BONUS_CITY_NO_FOCUS) / 100;
-        return ($calculateEntity->getItemSellOrderPrice() - ($itemCost * $rate)) * $this->amount;
+        return ($calculateEntity->getItemSellOrderPrice() - ($itemCost * $rate)) * $amount;
     }
 
     private function calculateProfitByPercentage(CalculateEntity $calculateEntity, float $percentage): float
@@ -81,17 +82,17 @@ class CalculatorService
             $calculateEntity->getSecondarySellOrderPrice() *
             $calculateEntity->getSecondaryResourceAmount();
         $rate = (self::RRR_BASE_PERCENTAGE - $percentage) / 100;
-        return ($calculateEntity->getItemSellOrderPrice() - ($itemCost * $rate)) * $this->amount;
+        $amount = $calculateEntity->getAmount();
+        return ($calculateEntity->getItemSellOrderPrice() - ($itemCost * $rate)) * $amount;
     }
 
     private function calculateTotalWeight(array $calculateEntityArray): void
     {
         /** @var CalculateEntity $calculateEntity */
         foreach ($calculateEntityArray as $calculateEntity) {
-            $calculateEntity->setTotalWeightItems($this->amount * $calculateEntity->getItemWeight());
-
-            $weight = $calculateEntity->getResourceWeight();
-            $calculateEntity->setTotalWeightResources($this->amount * $weight);
+            $calculateEntity->setTotalWeightResources($this->maxWeight);
+            $calculateEntity->setAmount($this->maxWeight / $calculateEntity->getResourceWeight());
+            $calculateEntity->setTotalWeightItems($calculateEntity->getAmount() * $calculateEntity->getItemWeight());
         }
     }
 

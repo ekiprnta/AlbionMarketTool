@@ -25,12 +25,21 @@ class BlackMarketHandler
         }
 
         $cityData = [];
+        $city ='';
+        $rrr = 'Resource Return Rate in %';
+        $weight = 'weight in kg';
         if(!empty($_GET))
         {
-            $cityData = $this->calculatorService->getDataForCity($_GET['city'], (int)$_GET['weight'],(float) $_GET['rrr']);
+            $city = $_GET['city'];
+            $weight = (int)$_GET['weight'];
+            $rrr = (float) $_GET['rrr'];
+            $cityData = $this->calculatorService->getDataForCity($city, $weight, $rrr);
         }
         $htmlContent = $this->twigEnvironment->render('calculateBlackMarket.html.twig', [
             'dataArray' => $cityData,
+            'city' => $city,
+            'weight' => $weight,
+            'rrr' => $rrr,
         ]);
         return new HtmlResponse($htmlContent);
     }
