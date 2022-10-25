@@ -64,15 +64,17 @@ class CalculatorService
     private function calculateProfitNoFocus(CalculateEntity $calculateEntity): float
     {
         $itemCost = $calculateEntity->getPrimarySellOrderPrice() + $calculateEntity->getSecondarySellOrderPrice();
-        $rate = (self::RRR_BASE_PERCENTAGE - self::RRR_BONUS_CITY_NO_FOCUS);
-        return ($calculateEntity->getItemSellOrderPrice() - $itemCost) * $rate * $this->amount;
+        $rate = (self::RRR_BASE_PERCENTAGE - self::RRR_BONUS_CITY_NO_FOCUS) / 100;
+        return ($calculateEntity->getItemSellOrderPrice() - ($itemCost * $rate)) * $this->amount;
     }
 
     private function calculateProfitByPercentage(CalculateEntity $calculateEntity, float $percentage): float
     {
-        $itemCost = $calculateEntity->getPrimarySellOrderPrice() + $calculateEntity->getSecondarySellOrderPrice();
-        $rate = (self::RRR_BASE_PERCENTAGE - $percentage);
-        return ($calculateEntity->getItemSellOrderPrice() - $itemCost) * $rate * $this->amount;
+        $itemCost = $calculateEntity->getPrimarySellOrderPrice() * $calculateEntity->getPrimaryResourceAmount() +
+            $calculateEntity->getSecondarySellOrderPrice() * $calculateEntity->getSecondaryResourceAmount();
+        $rate = (self::RRR_BASE_PERCENTAGE - $percentage) / 100;
+        return ($calculateEntity->getItemSellOrderPrice() - ($itemCost * $rate)) * $this->amount;
     }
+
 
 }
