@@ -41,9 +41,10 @@
             <div class="card-title">
                 <h3> TITEL</h3>
             </div>
-            <table class="table table-striped">
+            <table class="table table-striped table-sm">
                 <thead class="thead-default">
                 <tr>
+                    <th>Tier</th>
                     <th>Price 1. Resource</th>
                     <th>Amount 1. Resources</th>
                     <th>Price 2. Resource</th>
@@ -58,21 +59,21 @@
                 </tr>
                 </thead>
                 <tbody>
-{#                {% for data in dataArray %}#}
+                {% for data in dataArray %}
                     <tr>
-                        <th>1</th>
-                        <th>2</th>
-                        <th>2</th>
-                        <th>2</th>
-                        <th>2</th>
-                        <th>2</th>
-                        <th>2</th>
-                        <th>2</th>
-                        <th>2</th>
-                        <th>2</th>
-                        <th>2</th>
+                        <td>{{data['tier']}}</td>
+                        <td>{{ data['primaryResourcePrice'] }}</td>
+                        <td>{{ data['primaryResourcePriceAmount'] }}</td>
+                        <td>{{ data['secondaryResourcePrice'] }}</td>
+                        <td>{{ data['secondaryResourcePriceAmount'] }}</td>
+                        <td>{{ data['price'] }}</td>
+                        <td> Books</td>
+                        <td>Profit</td>
+                        <td>Profit</td>
+                        <td>weight R</td>
+                        <td>{{ data['weight'] }}</td>
                     </tr>
-{#                {%endfor%}#}
+                {%endfor%}
                 </tbody>
             </table>
 

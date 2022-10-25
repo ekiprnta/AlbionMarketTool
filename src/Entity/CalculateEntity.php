@@ -24,6 +24,8 @@ class CalculateEntity
     private ?int $secondarySellOrderPrice = null;
     private float $resourceWeight;
 
+    private float $noFocusProfit;
+    private float $percentageProfit;
 
 
     public function __construct(ItemEntity $itemEntity, array $resourceData)
@@ -49,6 +51,26 @@ class CalculateEntity
             $this->secondarySellOrderPrice = $secondaryResourceEntity->getSellOrderPrice();
         }
         $this->resourceWeight = $resourceWeight;
+    }
+
+    public function getNoFocusProfit(): float
+    {
+        return $this->noFocusProfit;
+    }
+
+    public function setNoFocusProfit(float $noFocusProfit): void
+    {
+        $this->noFocusProfit = $noFocusProfit;
+    }
+
+    public function getPercentageProfit(): float
+    {
+        return $this->percentageProfit;
+    }
+
+    public function setPercentageProfit(float $percentageProfit): void
+    {
+        $this->percentageProfit = $percentageProfit;
     }
 
     public function getTier(): string

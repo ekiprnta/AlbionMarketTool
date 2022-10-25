@@ -12,6 +12,7 @@ use MZierdt\Albion\Handler\AdminHandler;
 use MZierdt\Albion\Handler\BlackMarketHandler;
 use MZierdt\Albion\Handler\CalculateInfoHandler;
 use MZierdt\Albion\Handler\listDataHandler;
+use MZierdt\Albion\Service\CalculatorService;
 use MZierdt\Albion\Service\UploadService;
 use MZierdt\Albion\HttpClient;
 use MZierdt\Albion\repositories\ItemRepository;
@@ -44,11 +45,16 @@ $serviceManager = new ServiceManager([
                     UploadRepository::class,
                     ItemHelper::class
                 ],
+                CalculatorService::class => [
+                ItemRepository::class,
+                ResourceRepository::class
+                ],
                 CalculateInfoHandler::class => [
                     Environment::class
                 ],
                 BlackMarketHandler::class => [
-                    Environment::class
+                    Environment::class,
+                    CalculatorService::class
                 ],
                 ItemHelper::class => [
                     ApiService::class
