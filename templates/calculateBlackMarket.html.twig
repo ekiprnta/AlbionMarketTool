@@ -5,7 +5,8 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-2">
-                    <form action="" method="post">
+                    <form action="/calculate" method="post">
+                        <input type="hidden" name="updatePrices" value="1">
                         <button class="btn btn-primary" type="submit" id="updatePrices">update Prices</button>
                     </form>
                 </div>
@@ -46,11 +47,12 @@
                     <thead class="thead-default">
                     <tr>
                         <th>Tier</th>
+                        <th>Name</th>
                         <th>Price 1. Resource</th>
                         <th>Amount 1. Resources</th>
                         <th>Price 2. Resource</th>
                         <th>Amount 2. Resources</th>
-                        <th>Price {{weaponGroupName}}</th>
+                        <th>Price</th>
                         <th>Amount Crafted</th>
                         <th>Amount Books</th>
                         <th>Profit w/o Focus (25%RRR)</th>
@@ -65,6 +67,7 @@
                     {% for item in weaponGroup %}
                         <tr class=bg-{{item.colorGrade}}>
                             <td class="text-left">{{ item.tier }}</td>
+                            <td>{{ item.name }}</td>
                             <td>{{ item.primarySellOrderPrice|number_format }}</td>
                             <td>{{ item.primaryResourceAmount }}</td>
                             <td>{{ item.secondarySellOrderPrice|number_format }}</td>

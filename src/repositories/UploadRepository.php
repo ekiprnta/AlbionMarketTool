@@ -88,7 +88,7 @@ SQL
         }
     }
 
-    public function loadItemsIntoDatabase(array $itemArrayByClass)
+    public function loadItemsIntoDatabase(array $itemArrayByClass): void
     {
         $query = <<<SQL
             INSERT INTO albion_db.items

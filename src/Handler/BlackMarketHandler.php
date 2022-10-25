@@ -25,7 +25,7 @@ class BlackMarketHandler
         }
 
         $amount = 1;
-        $cityData = $this->calculatorService->getDataForCity('Martlock');
+        $cityData = $this->calculatorService->getDataForCity('Fort Sterling');
 
         $htmlContent = $this->twigEnvironment->render('calculateBlackMarket.html.twig', [
             'dataArray' => $cityData,

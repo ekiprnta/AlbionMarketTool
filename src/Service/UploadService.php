@@ -17,7 +17,7 @@ class UploadService
     ) {
     }
 
-    public function uploadItemsIntoEmptyDb()
+    public function uploadItemsIntoEmptyDb(): void
     {
         $items = $this->getAdjustedItems();
 
