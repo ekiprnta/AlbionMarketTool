@@ -26,7 +26,11 @@ class CalculateEntity
 
     private float $noFocusProfit;
     private float $percentageProfit;
+    private float $totalWeightItems;
+    private float $totalWeightResources;
 
+    private float $WeightProfitQuotient;
+    private string $colorGrade;
 
     public function __construct(ItemEntity $itemEntity, array $resourceData)
     {
@@ -51,6 +55,46 @@ class CalculateEntity
             $this->secondarySellOrderPrice = $secondaryResourceEntity->getSellOrderPrice();
         }
         $this->resourceWeight = $resourceWeight;
+    }
+
+    public function getColorGrade(): string
+    {
+        return $this->colorGrade;
+    }
+
+    public function setColorGrade(string $colorGrade): void
+    {
+        $this->colorGrade = $colorGrade;
+    }
+
+    public function getWeightProfitQuotient(): float
+    {
+        return $this->WeightProfitQuotient;
+    }
+
+    public function setWeightProfitQuotient(float $WeightProfitQuotient): void
+    {
+        $this->WeightProfitQuotient = $WeightProfitQuotient;
+    }
+
+    public function getTotalWeightItems(): float
+    {
+        return $this->totalWeightItems;
+    }
+
+    public function setTotalWeightItems(float $totalWeightItems): void
+    {
+        $this->totalWeightItems = $totalWeightItems;
+    }
+
+    public function getTotalWeightResources(): float
+    {
+        return $this->totalWeightResources;
+    }
+
+    public function setTotalWeightResources(float $totalWeightResources): void
+    {
+        $this->totalWeightResources = $totalWeightResources;
     }
 
     public function getNoFocusProfit(): float

@@ -36,9 +36,12 @@ class CalculatorService
         }
 
         $this->calculateProfit($calculateEntityArray, $percentage);
+        $this->calculateTotalWeight($calculateEntityArray);
+        $this->calculateWeightProfitQuotient($calculateEntityArray);
+        $this->calculateColorGrade($calculateEntityArray);
         $filteredArray = $this->filterCalculateEntityArray($calculateEntityArray);
-        dd($filteredArray);
-        die();
+//        dd($filteredArray);
+        return $filteredArray;
     }
 
     private function filterCalculateEntityArray(array $calculateEntityArray)
@@ -46,7 +49,7 @@ class CalculatorService
         $array = [];
         /** @var CalculateEntity $calculateEntity */
         foreach ($calculateEntityArray as $calculateEntity) {
-            $array[$calculateEntity->getWeaponGroup()][] = $calculateEntity;
+            $array[$calculateEntity->getName()][] = $calculateEntity;
         }
         arsort($array);
         return $array;
@@ -74,6 +77,45 @@ class CalculatorService
             $calculateEntity->getSecondarySellOrderPrice() * $calculateEntity->getSecondaryResourceAmount();
         $rate = (self::RRR_BASE_PERCENTAGE - $percentage) / 100;
         return ($calculateEntity->getItemSellOrderPrice() - ($itemCost * $rate)) * $this->amount;
+    }
+
+    private function calculateTotalWeight(array $calculateEntityArray): void
+    {
+        /** @var CalculateEntity $calculateEntity */
+        foreach ($calculateEntityArray as $calculateEntity) {
+            $calculateEntity->setTotalWeightItems(
+                $this->amount * $calculateEntity->getItemWeight()
+            );
+            $calculateEntity->setTotalWeightResources(
+                $this->amount *
+                ($calculateEntity->getPrimaryResourceAmount() +
+                    $calculateEntity->getSecondaryResourceAmount())
+            );
+        }
+    }
+
+    private function calculateWeightProfitQuotient(array $calculateEntityArray): void
+    {
+        /** @var CalculateEntity $calculateEntity */
+        foreach ($calculateEntityArray as $calculateEntity) {
+            $calculateEntity->setWeightProfitQuotient($calculateEntity->getPercentageProfit()/ $calculateEntity->getTotalWeightResources());
+        }
+    }
+
+    private function calculateColorGrade(array $calculateEntityArray)
+    {
+        /** @var CalculateEntity $calculateEntity */
+        foreach ($calculateEntityArray as $calculateEntity) {
+            $quotient = $calculateEntity->getWeightProfitQuotient();
+            $colorGrade = match (true) {
+                $quotient >= 200 => 'S',
+                $quotient >= 100 => 'A',
+                $quotient >= 50 => 'B',
+                $quotient >= 0 => 'C',
+                $quotient <= 0 => 'D',
+            };
+            $calculateEntity->setColorGrade($colorGrade);
+        }
     }
 
 

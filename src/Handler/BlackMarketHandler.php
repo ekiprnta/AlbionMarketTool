@@ -18,10 +18,12 @@ class BlackMarketHandler
 
     public function handler()
     {
+        $amount = 1;
         $cityData = $this->calculatorService->getDataForCity('Martlock');
 
         $htmlContent = $this->twigEnvironment->render('calculateBlackMarket.html.twig', [
             'dataArray' => $cityData,
+            'amount' => $amount,
         ]);
         return new HtmlResponse($htmlContent);
     }
