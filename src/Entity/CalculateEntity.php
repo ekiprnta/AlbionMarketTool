@@ -183,7 +183,8 @@ class CalculateEntity
     }
 
 
-    private function getPrimaryResourceEntity(ItemEntity $item, array $resourceData): ResourceEntity {
+    private function getPrimaryResourceEntity(ItemEntity $item, array $resourceData): ResourceEntity
+    {
         /** @var ResourceEntity $resourceEntity */
         foreach ($resourceData as $resourceEntity) {
             if (($resourceEntity->getTier() === $item->getTier()) && strcasecmp(
@@ -196,7 +197,8 @@ class CalculateEntity
         throw new RuntimeException('No Primary Resource found');
     }
 
-    private function getSecondaryResourceEntity(ItemEntity $item, array $resourceData): ResourceEntity {
+    private function getSecondaryResourceEntity(ItemEntity $item, array $resourceData): ResourceEntity
+    {
         /** @var ResourceEntity $resourceEntity */
         foreach ($resourceData as $resourceEntity) {
             if (($resourceEntity->getTier() === $item->getTier()) && strcasecmp(
@@ -225,5 +227,4 @@ class CalculateEntity
         $weightResource = $resourceEntity->getWeight();
         return ($amountPrimary + $amountSecondary) * $weightResource;
     }
-
 }

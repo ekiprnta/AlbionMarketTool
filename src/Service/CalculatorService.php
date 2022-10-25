@@ -83,9 +83,7 @@ class CalculatorService
     {
         /** @var CalculateEntity $calculateEntity */
         foreach ($calculateEntityArray as $calculateEntity) {
-            $calculateEntity->setTotalWeightItems(
-                $this->amount * $calculateEntity->getItemWeight()
-            );
+            $calculateEntity->setTotalWeightItems($this->amount * $calculateEntity->getItemWeight());
 
             $weight = $calculateEntity->getResourceWeight();
             $calculateEntity->setTotalWeightResources($this->amount * $weight);
@@ -117,6 +115,4 @@ class CalculatorService
             $calculateEntity->setColorGrade($colorGrade);
         }
     }
-
-
 }
