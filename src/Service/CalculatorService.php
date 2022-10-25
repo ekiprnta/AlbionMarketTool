@@ -49,9 +49,9 @@ class CalculatorService
         $array = [];
         /** @var CalculateEntity $calculateEntity */
         foreach ($calculateEntityArray as $calculateEntity) {
-            $array[$calculateEntity->getName()][] = $calculateEntity;
+            $array[$calculateEntity->getWeaponGroup() . $calculateEntity->getName()][] = $calculateEntity;
         }
-        arsort($array);
+        krsort($array);
         return $array;
     }
 
@@ -86,11 +86,9 @@ class CalculatorService
             $calculateEntity->setTotalWeightItems(
                 $this->amount * $calculateEntity->getItemWeight()
             );
-            $calculateEntity->setTotalWeightResources(
-                $this->amount *
-                ($calculateEntity->getPrimaryResourceAmount() +
-                    $calculateEntity->getSecondaryResourceAmount())
-            );
+
+            $weight = $calculateEntity->getResourceWeight();
+            $calculateEntity->setTotalWeightResources($this->amount * $weight);
         }
     }
 
@@ -98,7 +96,9 @@ class CalculatorService
     {
         /** @var CalculateEntity $calculateEntity */
         foreach ($calculateEntityArray as $calculateEntity) {
-            $calculateEntity->setWeightProfitQuotient($calculateEntity->getPercentageProfit()/ $calculateEntity->getTotalWeightResources());
+            $calculateEntity->setWeightProfitQuotient(
+                $calculateEntity->getPercentageProfit() / $calculateEntity->getTotalWeightResources()
+            );
         }
     }
 
@@ -108,9 +108,9 @@ class CalculatorService
         foreach ($calculateEntityArray as $calculateEntity) {
             $quotient = $calculateEntity->getWeightProfitQuotient();
             $colorGrade = match (true) {
-                $quotient >= 200 => 'S',
-                $quotient >= 100 => 'A',
-                $quotient >= 50 => 'B',
+                $quotient >= 1000 => 'S',
+                $quotient >= 400 => 'A',
+                $quotient >= 100 => 'B',
                 $quotient >= 0 => 'C',
                 $quotient <= 0 => 'D',
             };

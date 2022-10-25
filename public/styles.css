@@ -1,13 +1,13 @@
 .bg-S {
-    background-color: green;
+    background-color: #007000;
 }
 
 .bg-A {
-    background-color: greenyellow;
+    background-color: #288823;
 }
 
 .bg-B {
-    background-color: yellow;
+    background-color: #FFBF00;
 }
 
 .bg-C {
@@ -15,5 +15,5 @@
 }
 
 .bg-D {
-    background-color: red;
+    background-color: #D2222D;
 }

@@ -165,7 +165,7 @@ class ResourceEntity
         );
     }
 
-    private function setWeight(array $resourceData)
+    private function setWeight(array $resourceData): float
     {
         return match ($resourceData['tier']) {
             self::TIER_T2 => self::T20_WEIGHT_FACTOR,

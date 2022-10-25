@@ -6,6 +6,7 @@ namespace MZierdt\Albion\Handler;
 
 use Laminas\Diactoros\Response\HtmlResponse;
 use MZierdt\Albion\Service\CalculatorService;
+use MZierdt\Albion\Service\UploadService;
 use Twig\Environment;
 
 class BlackMarketHandler
@@ -13,11 +14,16 @@ class BlackMarketHandler
     public function __construct(
         private Environment $twigEnvironment,
         private CalculatorService $calculatorService,
+        private UploadService $uploadService,
     ) {
     }
 
-    public function handler()
+    public function handler(): HtmlResponse
     {
+        if (! empty($_POST['updatePrices'])) {
+            $this->uploadService->uploadRefreshedPrices();
+        }
+
         $amount = 1;
         $cityData = $this->calculatorService->getDataForCity('Martlock');
 
