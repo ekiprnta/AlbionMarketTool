@@ -8,7 +8,6 @@ use Laminas\Diactoros\Response\HtmlResponse;
 use MZierdt\Albion\repositories\ItemRepository;
 use MZierdt\Albion\repositories\ResourceRepository;
 use Twig\Environment;
-use MZierdt\Albion\Service\UploadService;
 
 class listDataHandler
 {

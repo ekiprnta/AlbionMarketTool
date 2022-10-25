@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\Service;
 
-use JetBrains\PhpStorm\ArrayShape;
-
 class TierService
 {
     private const TIER_T2 = '2';

@@ -10,7 +10,6 @@ use Psr\Container\ContainerInterface;
 
 class ItemRepositoryFactory
 {
-
     public function __invoke(ContainerInterface $container): ItemRepository
     {
         $password = 'qwert';

@@ -81,9 +81,9 @@ class ResourceEntity
         $this->tier = $resourceData['tier'];
         $this->name = $resourceData['name'];
         $this->city = $resourceData['city'];
-        $this->sellOrderPrice = (int)$resourceData['sellOrderPrice'];
+        $this->sellOrderPrice = (int) $resourceData['sellOrderPrice'];
         $this->sellOrderPriceDate = $sellOrderPriceDate;
-        $this->buyOrderPrice = (int)$resourceData['buyOrderPrice'];
+        $this->buyOrderPrice = (int) $resourceData['buyOrderPrice'];
         $this->buyOrderPriceDate = $buyOrderPriceDate;
         $this->bonusCity = $resourceData['bonusCity'];
         $this->amountInStorage = $resourceData['amountInStorage'];

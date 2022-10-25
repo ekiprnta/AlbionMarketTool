@@ -275,9 +275,7 @@ class ItemEntity
 
     private function setWeight(array $itemData): float
     {
-
-        $weightFactor = match ($itemData['tier'])
-        {
+        $weightFactor = match ($itemData['tier']) {
             self::TIER_T2 => self::T20_WEIGHT_FACTOR,
             self::TIER_T3 => self::T30_WEIGHT_FACTOR,
             self::TIER_T4 => self::T40_WEIGHT_FACTOR,

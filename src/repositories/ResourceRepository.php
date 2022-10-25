@@ -11,13 +11,12 @@ class ResourceRepository
 {
     public function __construct(
         private PDO $pdoConnection
-    )
-    {
+    ) {
     }
 
     public function getResourcesByCity(string $city): array
     {
-       return $this->getResourcesFromDb($city);
+        return $this->getResourcesFromDb($city);
     }
 
     private function getResourcesFromDb(string $city): array
@@ -37,7 +36,6 @@ SQL
         foreach ($statement->getIterator() as $resourceInformation) {
             $resourceArray[] = new ResourceEntity($resourceInformation);
         }
-    return $resourceArray;
+        return $resourceArray;
     }
-
 }

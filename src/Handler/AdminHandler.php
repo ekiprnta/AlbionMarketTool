@@ -20,12 +20,12 @@ class AdminHandler
 
     public function handler(): HtmlResponse
     {
-        if (!empty($_POST['reloadDB'])) {
+        if (! empty($_POST['reloadDB'])) {
             $this->uploadRepository->emptyDb();
             $this->uploadService->uploadItemsIntoEmptyDb();
             $this->uploadService->uploadResourceIntoEmptyDb();
         }
-        if (!empty($_POST['updatePrices'])){
+        if (! empty($_POST['updatePrices'])) {
             $this->uploadService->uploadRefreshedPrices();
         }
 
