@@ -1,0 +1,22 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-2">
+                    <form method="post" action="/admin">
+                        <input type="hidden" name="reloadDB" value="1">
+                        <button class="btn btn-primary" type="submit">reload Database</button>
+                    </form>
+                </div>
+                <div class="col-1">
+                    <form method="post" action="/admin">
+                        <input type="hidden" name="updatePrices" value="1">
+                        <button class="btn btn-primary" type="submit">update Prices</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
