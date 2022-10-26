@@ -1,0 +1,88 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <div class="card mt-3">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-2">
+                    <form action="" method="post">
+                        <button class="btn btn-primary" type="submit" id="updatePrices">update Prices</button>
+                    </form>
+                </div>
+                <div class="col-5">
+                    <form action="" method="get">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="citySelect">Choose the City to Craft</label>
+                                    <select name="city" id="citySelect" class="form-control">
+                                        <option value="fortSterling">Fort Sterling</option>
+                                        <option value="lymhurst">Lymhurst</option>
+                                        <option value="bridgewatch">Bridgewatch</option>
+                                        <option value="martlock">Martlock</option>
+                                        <option value="thetford">Thetford</option>
+                                    </select>
+                                    <button class="btn btn-primary" type="submit">Calculate</button>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <label for="percentage">RRR</label>
+                                <input type="number" min="0" max="100" step="0.1" class="form-control" id="percentage"
+                                       name="rrr">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% for weaponGroupName, weaponGroup in dataArray %}
+        <div class="card mt-3">
+            <div class="card-body">
+                <div class="card-title">
+                    <h3> {{ weaponGroupName }}</h3>
+                </div>
+                <table class="table table-sm table-hover">
+                    <thead class="thead-default">
+                    <tr>
+                        <th>Tier</th>
+                        <th>Price 1. Resource</th>
+                        <th>Amount 1. Resources</th>
+                        <th>Price 2. Resource</th>
+                        <th>Amount 2. Resources</th>
+                        <th>Price {{weaponGroupName}}</th>
+                        <th>Amount Crafted</th>
+                        <th>Amount Books</th>
+                        <th>Profit w/o Focus (25%RRR)</th>
+                        <th>Profit depending on selected RRR</th>
+                        <th>Weight Resources</th>
+                        <th>Weight Items</th>
+                        <th>Profit/Weight</th>
+                    </tr>
+                    </thead>
+                    <tbody class="text-right">
+                    {# @var item MZierdt\Albion\Entity\CalculateEntity #}
+                    {% for item in weaponGroup %}
+                        <tr class=bg-{{item.colorGrade}}>
+                            <td class="text-left">{{ item.tier }}</td>
+                            <td>{{ item.primarySellOrderPrice|number_format }}</td>
+                            <td>{{ item.primaryResourceAmount }}</td>
+                            <td>{{ item.secondarySellOrderPrice|number_format }}</td>
+                            <td>{{ item.secondaryResourceAmount }}</td>
+                            <td>{{ item.itemSellOrderPrice|number_format }}</td>
+                            <td> {{ amount }}</td>
+                            <td> Books</td>
+                            <td>{{ item.noFocusProfit|number_format }}</td>
+                            <td>{{ item.percentageProfit|number_format }}</td>
+                            <td>{{ item.totalWeightItems|number_format }}</td>
+                            <td>{{ item.totalWeightResources|number_format }}</td>
+                            <td>{{ item.weightProfitQuotient|number_format}}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
+

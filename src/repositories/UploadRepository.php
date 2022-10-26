@@ -7,7 +7,7 @@ namespace MZierdt\Albion\repositories;
 use PDO;
 use PDOException;
 
-class ResourceUploadRepository
+class UploadRepository
 {
     public function __construct(
         private PDO $pdoConnection
@@ -130,5 +130,19 @@ SQL;
                 $item['fameFactor'],
             ]);
         }
+    }
+
+
+    public function emptyDb()
+    {
+        $query = <<<SQL
+        TRUNCATE TABLE albion_db.items
+SQL;
+        $this->pdoConnection->query($query);
+
+        $query = <<<SQL
+        TRUNCATE TABLE albion_db.resource
+ SQL;
+        $this->pdoConnection->query($query);
     }
 }

@@ -5,32 +5,31 @@ declare(strict_types=1);
 namespace MZierdt\Albion\Handler;
 
 use Laminas\Diactoros\Response\HtmlResponse;
-use MZierdt\Albion\Service\CalculatorService;
+use MZierdt\Albion\repositories\UploadRepository;
 use MZierdt\Albion\Service\UploadService;
 use Twig\Environment;
 
-class BlackMarketHandler
+class AdminHandler
 {
     public function __construct(
         private Environment $twigEnvironment,
-        private CalculatorService $calculatorService,
         private UploadService $uploadService,
+        private UploadRepository $uploadRepository
     ) {
     }
 
     public function handler(): HtmlResponse
     {
+        if (! empty($_POST['reloadDB'])) {
+            $this->uploadRepository->emptyDb();
+            $this->uploadService->uploadItemsIntoEmptyDb();
+            $this->uploadService->uploadResourceIntoEmptyDb();
+        }
         if (! empty($_POST['updatePrices'])) {
             $this->uploadService->uploadRefreshedPrices();
         }
 
-        $amount = 1;
-        $cityData = $this->calculatorService->getDataForCity('Martlock');
-
-        $htmlContent = $this->twigEnvironment->render('calculateBlackMarket.html.twig', [
-            'dataArray' => $cityData,
-            'amount' => $amount,
-        ]);
+        $htmlContent = $this->twigEnvironment->render('admin.html.twig');
         return new HtmlResponse($htmlContent);
     }
 }

@@ -2,21 +2,17 @@
 
 declare(strict_types=1);
 
-namespace MZierdt\Albion\Handler;
+namespace MZierdt\Albion\Service;
 
 use MZierdt\Albion\Entity\ItemEntity;
 use MZierdt\Albion\Entity\ResourceEntity;
-use MZierdt\Albion\repositories\ResourceUploadRepository;
-use MZierdt\Albion\Service\ApiService;
-use MZierdt\Albion\Service\ItemHelper;
-use MZierdt\Albion\Service\NameDataService;
-use MZierdt\Albion\Service\TierService;
+use MZierdt\Albion\repositories\UploadRepository;
 
-class UploadHandler
+class UploadService
 {
     public function __construct(
         private ApiService $apiService,
-        private ResourceUploadRepository $resourceUploadRepository,
+        private UploadRepository $UploadRepository,
         private ItemHelper $itemHelper
     ) {
     }
@@ -25,35 +21,35 @@ class UploadHandler
     {
         $items = $this->getAdjustedItems();
 
-        $this->resourceUploadRepository->loadItemsIntoDatabase($items['warrior']);
-        $this->resourceUploadRepository->loadItemsIntoDatabase($items['mage']);
-        $this->resourceUploadRepository->loadItemsIntoDatabase($items['hunter']);
+        $this->UploadRepository->loadItemsIntoDatabase($items['warrior']);
+        $this->UploadRepository->loadItemsIntoDatabase($items['mage']);
+        $this->UploadRepository->loadItemsIntoDatabase($items['hunter']);
     }
 
     public function uploadResourceIntoEmptyDb(): void
     {
         $resources = $this->getAdjustedResources();
 
-        $this->resourceUploadRepository->loadResourcesIntoDatabase($resources['metalBar']);
-        $this->resourceUploadRepository->loadResourcesIntoDatabase($resources['planks']);
-        $this->resourceUploadRepository->loadResourcesIntoDatabase($resources['cloth']);
-        $this->resourceUploadRepository->loadResourcesIntoDatabase($resources['leather']);
+        $this->UploadRepository->loadResourcesIntoDatabase($resources['metalBar']);
+        $this->UploadRepository->loadResourcesIntoDatabase($resources['planks']);
+        $this->UploadRepository->loadResourcesIntoDatabase($resources['cloth']);
+        $this->UploadRepository->loadResourcesIntoDatabase($resources['leather']);
     }
 
     public function uploadRefreshedPrices(): void
     {
         $resources = $this->getAdjustedResources();
 
-        $this->resourceUploadRepository->reloadUpdatedPrices($resources['metalBar']);
-        $this->resourceUploadRepository->reloadUpdatedPrices($resources['planks']);
-        $this->resourceUploadRepository->reloadUpdatedPrices($resources['cloth']);
-        $this->resourceUploadRepository->reloadUpdatedPrices($resources['leather']);
+        $this->UploadRepository->reloadUpdatedPrices($resources['metalBar']);
+        $this->UploadRepository->reloadUpdatedPrices($resources['planks']);
+        $this->UploadRepository->reloadUpdatedPrices($resources['cloth']);
+        $this->UploadRepository->reloadUpdatedPrices($resources['leather']);
 
         $items = $this->getAdjustedItems();
 
-        $this->resourceUploadRepository->reloadUpdatedPrices($items['warrior']);
-        $this->resourceUploadRepository->reloadUpdatedPrices($items['mage']);
-        $this->resourceUploadRepository->reloadUpdatedPrices($items['hunter']);
+        $this->UploadRepository->reloadUpdatedPrices($items['warrior']);
+        $this->UploadRepository->reloadUpdatedPrices($items['mage']);
+        $this->UploadRepository->reloadUpdatedPrices($items['hunter']);
     }
 
     protected function adjustResourceArray(array $resourceArray, string $resourceType)
@@ -61,9 +57,10 @@ class UploadHandler
         $adjustedResourceArray = [];
         foreach ($resourceArray as $resource) {
             $nameAndTier = TierService::splitIntoTierAndName($resource['item_id']);
+            $name = $this->getResourceName($nameAndTier['name']);
             $adjustedResourceArray[] = [
                 'tier' => $nameAndTier['tier'],
-                'name' => $nameAndTier['name'],
+                'name' => $name,
                 'city' => $resource['city'],
                 'sellOrderPrice' => $resource['sell_price_min'],
                 'sellOrderPriceDate' => $resource['sell_price_min_date'],
@@ -140,5 +137,19 @@ class UploadHandler
             }
         }
         return $adjustedItemsArray;
+    }
+
+    private function getResourceName(string $name): string
+    {
+        if (str_contains($name, '_level1')) {
+            $resourceName = str_replace('_level1', '', $name);
+        }
+        if (str_contains($name, '_level2')) {
+            $resourceName = str_replace('_level2', '', $name);
+        }
+        if (str_contains($name, '_level3')) {
+            $resourceName = str_replace('_level3', '', $name);
+        }
+        return $resourceName ?? $name;
     }
 }

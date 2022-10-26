@@ -38,6 +38,29 @@ class ResourceEntity
     private const TIER_T8_2 = '8.2';
     private const TIER_T8_3 = '8.3';
 
+    private const T20_WEIGHT_FACTOR = 0.23;
+    private const T30_WEIGHT_FACTOR = 0.34;
+    private const T40_WEIGHT_FACTOR = 0.51;
+    private const T41_WEIGHT_FACTOR = 0.51;
+    private const T42_WEIGHT_FACTOR = 0.51;
+    private const T43_WEIGHT_FACTOR = 0.51;
+    private const T50_WEIGHT_FACTOR = 0.76;
+    private const T51_WEIGHT_FACTOR = 0.76;
+    private const T52_WEIGHT_FACTOR = 0.76;
+    private const T53_WEIGHT_FACTOR = 0.76;
+    private const T60_WEIGHT_FACTOR = 1.14;
+    private const T61_WEIGHT_FACTOR = 1.14;
+    private const T62_WEIGHT_FACTOR = 1.14;
+    private const T63_WEIGHT_FACTOR = 1.14;
+    private const T70_WEIGHT_FACTOR = 1.71;
+    private const T71_WEIGHT_FACTOR = 1.71;
+    private const T72_WEIGHT_FACTOR = 1.71;
+    private const T73_WEIGHT_FACTOR = 1.71;
+    private const T80_WEIGHT_FACTOR = 2.56;
+    private const T81_WEIGHT_FACTOR = 2.56;
+    private const T82_WEIGHT_FACTOR = 2.56;
+    private const T83_WEIGHT_FACTOR = 2.56;
+
     private string $tier;
     private string $name;
     private string $city;
@@ -46,21 +69,45 @@ class ResourceEntity
     private int $buyOrderPrice;
     private DateTimeImmutable $buyOrderPriceDate;
     private string $bonusCity;
-    private int $amountInStorage;
+    private ?int $amountInStorage;
+    private float $weight;
 
     public function __construct(array $resourceData)
     {
-        $split = $this->splitIdIntoNameAndTier($resourceData['itemId']);
         $sellOrderPriceDate = $this->getDateTimeImmutable($resourceData['sellOrderPriceDate']);
         $buyOrderPriceDate = $this->getDateTimeImmutable($resourceData['buyOrderPriceDate']);
+        $weight = $this->setWeight($resourceData);
 
-        $this->tier = $split['tier'];
-        $this->name = $split['name'];
+        $this->tier = $resourceData['tier'];
+        $this->name = $resourceData['name'];
         $this->city = $resourceData['city'];
         $this->sellOrderPrice = (int) $resourceData['sellOrderPrice'];
         $this->sellOrderPriceDate = $sellOrderPriceDate;
         $this->buyOrderPrice = (int) $resourceData['buyOrderPrice'];
         $this->buyOrderPriceDate = $buyOrderPriceDate;
+        $this->bonusCity = $resourceData['bonusCity'];
+        $this->amountInStorage = $resourceData['amountInStorage'];
+        $this->weight = $weight;
+    }
+
+    public function setAmountInStorage(mixed $amountInStorage): void
+    {
+        $this->amountInStorage = $amountInStorage;
+    }
+
+    public function getBonusCity(): mixed
+    {
+        return $this->bonusCity;
+    }
+
+    public function getAmountInStorage(): mixed
+    {
+        return $this->amountInStorage;
+    }
+
+    public function getWeight(): float
+    {
+        return $this->weight;
     }
 
     public function getTier(): string
@@ -108,65 +155,6 @@ class ResourceEntity
         return $this->buyOrderPriceDate->format('Y-m-d H:i:s');
     }
 
-    private function splitIdIntoNameAndTier(string $itemId): array
-    {
-        $itemId = strtolower($itemId);
-        $itemIdArray = explode('_', $itemId);
-
-        if ($itemIdArray[0] === 'T2' || $itemIdArray[0] === 'T3') {
-            return [
-                'tier' => $this->tierConverter($itemIdArray[0]),
-                'name' => $itemIdArray[1],
-            ];
-        }
-        $preTier = array_shift($itemIdArray);
-        $itemName = implode('_', $itemIdArray);
-
-        if (! str_contains($itemName, '@')) {
-            return [
-                'tier' => $this->tierConverter($preTier),
-                'name' => $itemName,
-            ];
-        }
-
-        $explodedNameEnchantment = explode('@', $itemName);
-        $explodedName = explode('_', $explodedNameEnchantment[0]);
-
-        return [
-            'tier' => $this->tierConverter($preTier . $explodedNameEnchantment[1]),
-            'name' => $explodedName[0],
-        ];
-    }
-
-    private function tierConverter(string $tierString): string
-    {
-        return match ($tierString) {
-            't2' => self::TIER_T2,
-            't3' => self::TIER_T3,
-            't4' => self::TIER_T4,
-            't41' => self::TIER_T4_1,
-            't42' => self::TIER_T4_2,
-            't43' => self::TIER_T4_3,
-            't5' => self::TIER_T5,
-            't51' => self::TIER_T5_1,
-            't52' => self::TIER_T5_2,
-            't53' => self::TIER_T5_3,
-            't6' => self::TIER_T6,
-            't61' => self::TIER_T6_1,
-            't62' => self::TIER_T6_2,
-            't63' => self::TIER_T6_3,
-            't7' => self::TIER_T7,
-            't71' => self::TIER_T7_1,
-            't72' => self::TIER_T7_2,
-            't73' => self::TIER_T7_3,
-            't8' => self::TIER_T8,
-            't81' => self::TIER_T8_1,
-            't82' => self::TIER_T8_2,
-            't83' => self::TIER_T8_3,
-            default => throw new \InvalidArgumentException('wrong Tier in Resource Entity')
-        };
-    }
-
     private function getDateTimeImmutable(mixed $sellOrderPriceDate): DateTimeImmutable|bool
     {
         $sellOrderPriceDate = str_replace('T', ' ', $sellOrderPriceDate);
@@ -175,5 +163,34 @@ class ResourceEntity
             $sellOrderPriceDate,
             new DateTimeZone('Europe/London')
         );
+    }
+
+    private function setWeight(array $resourceData): float
+    {
+        return match ($resourceData['tier']) {
+            self::TIER_T2 => self::T20_WEIGHT_FACTOR,
+            self::TIER_T3 => self::T30_WEIGHT_FACTOR,
+            self::TIER_T4 => self::T40_WEIGHT_FACTOR,
+            self::TIER_T4_1 => self::T41_WEIGHT_FACTOR,
+            self::TIER_T4_2 => self::T42_WEIGHT_FACTOR,
+            self::TIER_T4_3 => self::T43_WEIGHT_FACTOR,
+            self::TIER_T5 => self::T50_WEIGHT_FACTOR,
+            self::TIER_T5_1 => self::T51_WEIGHT_FACTOR,
+            self::TIER_T5_2 => self::T52_WEIGHT_FACTOR,
+            self::TIER_T5_3 => self::T53_WEIGHT_FACTOR,
+            self::TIER_T6 => self::T60_WEIGHT_FACTOR,
+            self::TIER_T6_1 => self::T61_WEIGHT_FACTOR,
+            self::TIER_T6_2 => self::T62_WEIGHT_FACTOR,
+            self::TIER_T6_3 => self::T63_WEIGHT_FACTOR,
+            self::TIER_T7 => self::T70_WEIGHT_FACTOR,
+            self::TIER_T7_1 => self::T71_WEIGHT_FACTOR,
+            self::TIER_T7_2 => self::T72_WEIGHT_FACTOR,
+            self::TIER_T7_3 => self::T73_WEIGHT_FACTOR,
+            self::TIER_T8 => self::T80_WEIGHT_FACTOR,
+            self::TIER_T8_1 => self::T81_WEIGHT_FACTOR,
+            self::TIER_T8_2 => self::T82_WEIGHT_FACTOR,
+            self::TIER_T8_3 => self::T83_WEIGHT_FACTOR,
+            default => throw new \InvalidArgumentException('wrong tier in Resource Entity')
+        };
     }
 }
