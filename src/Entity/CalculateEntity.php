@@ -7,6 +7,8 @@ namespace MZierdt\Albion\Entity;
 use DateTimeImmutable;
 use RuntimeException;
 
+use function PHPUnit\Framework\stringStartsWith;
+
 class CalculateEntity
 {
     private const PREMIUM_FACTOR = 1.5;
@@ -39,10 +41,11 @@ class CalculateEntity
     private float $WeightProfitQuotient;
     private string $colorGrade;
     private float $amount;
+    private int $tierColor;
 
     private int $itemPriceAge;
     private int $primaryPriceAge;
-    private int $secondaryPriceAge;
+    private ?int $secondaryPriceAge = null;
 
     public function __construct(ItemEntity $itemEntity, array $resourceData)
     {
@@ -66,12 +69,13 @@ class CalculateEntity
 
         $this->secondaryResource = $itemEntity->getSecondaryResource();
         $this->secondaryResourceAmount = $itemEntity->getSecondaryResourceAmount();
-        if (! ($this->secondaryResource === null)) {
+        if (!($this->secondaryResource === null)) {
             $secondaryResourceEntity = $this->getSecondaryResourceEntity($itemEntity, $resourceData);
             $this->secondarySellOrderPrice = $secondaryResourceEntity->getSellOrderPrice();
             $this->secondarySellOrderPriceDate = $secondaryResourceEntity->getSellOrderPriceDate();
         }
 
+        $this->tierColor = $this->setTierColor();
         $this->resourceWeight = $resourceWeight;
     }
 
@@ -95,7 +99,7 @@ class CalculateEntity
         $this->primaryPriceAge = $primaryPriceAge;
     }
 
-    public function getSecondaryPriceAge(): int
+    public function getSecondaryPriceAge(): ?int
     {
         return $this->secondaryPriceAge;
     }
@@ -251,9 +255,9 @@ class CalculateEntity
         /** @var ResourceEntity $resourceEntity */
         foreach ($resourceData as $resourceEntity) {
             if (($resourceEntity->getTier() === $item->getTier()) && strcasecmp(
-                $resourceEntity->getName(),
-                $item->getPrimaryResource()
-            ) === 0) {
+                    $resourceEntity->getName(),
+                    $item->getPrimaryResource()
+                ) === 0) {
                 return $resourceEntity;
             }
         }
@@ -265,9 +269,9 @@ class CalculateEntity
         /** @var ResourceEntity $resourceEntity */
         foreach ($resourceData as $resourceEntity) {
             if (($resourceEntity->getTier() === $item->getTier()) && strcasecmp(
-                $resourceEntity->getName(),
-                $item->getSecondaryResource()
-            ) === 0) {
+                    $resourceEntity->getName(),
+                    $item->getSecondaryResource()
+                ) === 0) {
                 return $resourceEntity;
             }
         }
@@ -277,10 +281,10 @@ class CalculateEntity
     private function calculateCraftingFame(ItemEntity $item): float
     {
         return (
-            $item->getPrimaryResourceAmount() +
+                $item->getPrimaryResourceAmount() +
                 $item->getSecondaryResourceAmount()) *
-                $item->getFameFactor() *
-                self::PREMIUM_FACTOR;
+            $item->getFameFactor() *
+            self::PREMIUM_FACTOR;
     }
 
     private function calculateResourceWeight(ItemEntity $itemEntity, ResourceEntity $resourceEntity): float
@@ -289,5 +293,36 @@ class CalculateEntity
         $amountPrimary = $itemEntity->getPrimaryResourceAmount();
         $weightResource = $resourceEntity->getWeight();
         return ($amountPrimary + $amountSecondary) * $weightResource;
+    }
+
+    private function setTierColor(): int
+    {
+        if (str_starts_with($this->tier, '2')) {
+            return 2;
+        }
+        if (str_starts_with($this->tier, '3')) {
+            return 3;
+        }
+        if (str_starts_with($this->tier, '4')) {
+            return 4;
+        }
+        if (str_starts_with($this->tier, '5')) {
+            return 5;
+        }
+        if (str_starts_with($this->tier, '6')) {
+            return 6;
+        }
+        if (str_starts_with($this->tier, '7')) {
+            return 7;
+        }
+        if (str_starts_with($this->tier, '8')) {
+            return 8;
+        }
+        throw new \RuntimeException('No string found');
+    }
+
+    public function getTierColor(): int
+    {
+        return $this->tierColor;
     }
 }

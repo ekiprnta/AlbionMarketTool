@@ -135,10 +135,11 @@ class CalculatorService
             $primaryDiff = date_diff($now, $primaryPriceDate);
             $calculateEntity->setPrimaryPriceAge($this->getAgeInMin($primaryDiff));
 
-
-            $secondaryPriceDate = $calculateEntity->getSecondarySellOrderPriceDate();
-            $secondaryDiff = date_diff($now, $secondaryPriceDate);
-            $calculateEntity->setSecondaryPriceAge($this->getAgeInMin($secondaryDiff));
+            if($calculateEntity->getSecondarySellOrderPriceDate() !== null) {
+                $secondaryPriceDate = $calculateEntity->getSecondarySellOrderPriceDate();
+                $secondaryDiff = date_diff($now, $secondaryPriceDate);
+                $calculateEntity->setSecondaryPriceAge($this->getAgeInMin($secondaryDiff));
+            }
         }
     }
 

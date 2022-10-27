@@ -87,8 +87,8 @@
                     <tbody class="text-right">
                     {# @var item MZierdt\Albion\Entity\CalculateEntity #}
                     {% for item in weaponGroup %}
-                        <tr class=bg-{{ item.colorGrade }}>
-                            <td class="text-left">{{ item.tier }}</td>
+                        <tr class="bg-{{item.colorGrade}}">
+                            <td class="text-left tier-{{ item.tierColor }}">{{ item.tier }}</td>
                             <td>{{ item.name }}</td>
                             <td>{{ item.primarySellOrderPrice|number_format }}</td>
                             <td>{{ item.primaryPriceAge|number_format }} min old</td>
