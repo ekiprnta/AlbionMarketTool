@@ -69,13 +69,16 @@
                         <th>Tier</th>
                         <th>Name</th>
                         <th>Price 1. Resource</th>
+                        <th>Price 1. Age</th>
                         <th>Amount 1. Resources</th>
                         <th>Price 2. Resource</th>
+                        <th>Price 2. Age</th>
                         <th>Amount 2. Resources</th>
                         <th>Price</th>
+                        <th>Price Age</th>
                         <th>Amount Crafted</th>
                         <th>Amount Books</th>
-                        <th>Profit depending on selected RRR</th>
+                        <th>Profit when rrr: {{rrr}}</th>
                         <th>Weight Resources</th>
                         <th>Weight Items</th>
                         <th>Profit/Weight</th>
@@ -88,10 +91,13 @@
                             <td class="text-left">{{ item.tier }}</td>
                             <td>{{ item.name }}</td>
                             <td>{{ item.primarySellOrderPrice|number_format }}</td>
+                            <td>{{ item.primaryPriceAge|number_format }} min old</td>
                             <td>{{ item.primaryResourceAmount }}</td>
                             <td>{{ item.secondarySellOrderPrice|number_format }}</td>
+                            <td>{{ item.secondaryPriceAge|number_format }} min old</td>
                             <td>{{ item.secondaryResourceAmount }}</td>
                             <td>{{ item.itemSellOrderPrice|number_format }}</td>
+                            <td>{{ item.itemPriceAge|number_format }} min old</td>
                             <td> {{ item.amount|number_format }}</td>
                             <td> Books</td>
                             <td>{{ item.percentageProfit|number_format }}</td>

@@ -49,6 +49,7 @@ class CalculatorService
         $this->calculateProfit($calculateEntityArray, $percentage);
         $this->calculateWeightProfitQuotient($calculateEntityArray);
         $this->calculateColorGrade($calculateEntityArray);
+        $this->calculateAgeOfPrices($calculateEntityArray);
         $filteredArray = $this->filterCalculateEntityArray($calculateEntityArray);
 //        dd($filteredArray);
         return $filteredArray;
@@ -118,5 +119,31 @@ class CalculatorService
             };
             $calculateEntity->setColorGrade($colorGrade);
         }
+    }
+
+    private function calculateAgeOfPrices(array $calculateEntityArray)
+    {
+        /** @var CalculateEntity $calculateEntity */
+        foreach ($calculateEntityArray as $calculateEntity) {
+            $now = \DateTimeImmutable::createFromFormat('Y-m-d H:i:s',Date('Y-m-d H:i:s'));
+
+            $itemPriceDate = $calculateEntity->getItemSellOrderPriceDate();
+            $itemDiff = date_diff($now, $itemPriceDate);
+            $calculateEntity->setItemPriceAge($this->getAgeInMin($itemDiff));
+
+            $primaryPriceDate = $calculateEntity->getPrimarySellOrderPriceDate();
+            $primaryDiff = date_diff($now, $primaryPriceDate);
+            $calculateEntity->setPrimaryPriceAge($this->getAgeInMin($primaryDiff));
+
+
+            $secondaryPriceDate = $calculateEntity->getSecondarySellOrderPriceDate();
+            $secondaryDiff = date_diff($now, $secondaryPriceDate);
+            $calculateEntity->setSecondaryPriceAge($this->getAgeInMin($secondaryDiff));
+        }
+    }
+
+    private function getAgeInMin(\DateInterval $itemDiff): int
+    {
+        return $itemDiff->d * 24 * 60 + $itemDiff->h * 60 + $itemDiff->i;
     }
 }

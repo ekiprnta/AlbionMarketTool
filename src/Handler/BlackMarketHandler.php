@@ -24,7 +24,6 @@ class BlackMarketHandler
         if (! empty($_POST['updatePrices'])) {
             $this->uploadService->uploadRefreshedPrices();
         }
-
         $cityData = [];
         $city = '';
         $rrr = 'Resource Return Rate in %';

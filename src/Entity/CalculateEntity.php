@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\Entity;
 
+use DateTimeImmutable;
 use RuntimeException;
 
 class CalculateEntity
@@ -14,14 +15,21 @@ class CalculateEntity
     private string $name;
     private string $weaponGroup;
     private int $itemSellOrderPrice;
+    private DateTimeImmutable $itemSellOrderPriceDate;
     private float $fameAmount;
     private float $itemWeight;
+
     private string $primaryResource;
     private int $primaryResourceAmount;
     private int $primarySellOrderPrice;
+    private DateTimeImmutable $primarySellOrderPriceDate;
+
     private ?string $secondaryResource;
     private ?int $secondaryResourceAmount;
     private ?int $secondarySellOrderPrice = null;
+    private ?DateTimeImmutable $secondarySellOrderPriceDate = null;
+
+
     private float $resourceWeight;
 
     private float $percentageProfit;
@@ -31,6 +39,10 @@ class CalculateEntity
     private float $WeightProfitQuotient;
     private string $colorGrade;
     private float $amount;
+
+    private int $itemPriceAge;
+    private int $primaryPriceAge;
+    private int $secondaryPriceAge;
 
     public function __construct(ItemEntity $itemEntity, array $resourceData)
     {
@@ -43,18 +55,69 @@ class CalculateEntity
         $this->name = $itemEntity->getName();
         $this->weaponGroup = $itemEntity->getWeaponGroup();
         $this->itemSellOrderPrice = $itemEntity->getSellOrderPrice();
+        $this->itemSellOrderPriceDate = $itemEntity->getSellOrderPriceDate();
         $this->fameAmount = $craftingFame;
         $this->itemWeight = $itemEntity->getWeight();
+
         $this->primaryResource = $itemEntity->getPrimaryResource();
         $this->primaryResourceAmount = $itemEntity->getPrimaryResourceAmount();
         $this->primarySellOrderPrice = $primaryResourceEntity->getSellOrderPrice();
+        $this->primarySellOrderPriceDate = $primaryResourceEntity->getSellOrderPriceDate();
+
         $this->secondaryResource = $itemEntity->getSecondaryResource();
         $this->secondaryResourceAmount = $itemEntity->getSecondaryResourceAmount();
         if (! ($this->secondaryResource === null)) {
             $secondaryResourceEntity = $this->getSecondaryResourceEntity($itemEntity, $resourceData);
             $this->secondarySellOrderPrice = $secondaryResourceEntity->getSellOrderPrice();
+            $this->secondarySellOrderPriceDate = $secondaryResourceEntity->getSellOrderPriceDate();
         }
+
         $this->resourceWeight = $resourceWeight;
+    }
+
+    public function getItemPriceAge(): int
+    {
+        return $this->itemPriceAge;
+    }
+
+    public function setItemPriceAge(int $itemPriceAge): void
+    {
+        $this->itemPriceAge = $itemPriceAge;
+    }
+
+    public function getPrimaryPriceAge(): int
+    {
+        return $this->primaryPriceAge;
+    }
+
+    public function setPrimaryPriceAge(int $primaryPriceAge): void
+    {
+        $this->primaryPriceAge = $primaryPriceAge;
+    }
+
+    public function getSecondaryPriceAge(): int
+    {
+        return $this->secondaryPriceAge;
+    }
+
+    public function setSecondaryPriceAge(int $secondaryPriceAge): void
+    {
+        $this->secondaryPriceAge = $secondaryPriceAge;
+    }
+
+    public function getItemSellOrderPriceDate(): DateTimeImmutable
+    {
+        return $this->itemSellOrderPriceDate;
+    }
+
+    public function getPrimarySellOrderPriceDate(): DateTimeImmutable
+    {
+        return $this->primarySellOrderPriceDate;
+    }
+
+    public function getSecondarySellOrderPriceDate(): ?DateTimeImmutable
+    {
+        return $this->secondarySellOrderPriceDate;
     }
 
     public function getAmount(): float
