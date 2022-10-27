@@ -24,13 +24,14 @@ CREATE TABLE `resource`
     `tier`               varchar(64) NOT NULL,
     `name`               varchar(64) NOT NULL,
     `city`               varchar(64) NOT NULL,
+    `realName`           varchar(64) DEFAULT NULL,
     `sellOrderPrice`     int(11) DEFAULT NULL,
     `sellOrderPriceDate` datetime    DEFAULT NULL,
     `buyOrderPrice`      int (11) DEFAULT NULL,
     `buyOrderPriceDate`  datetime    DEFAULT NULL,
     `bonusCity`          varchar(64) DEFAULT NULL,
     `amountInStorage`    int(10) DEFAULT NULL
-    primary key (`tier`, `name`, `city`)
+        primary key (`tier`, `id`, `city`)
 );
 
 CREATE TABLE `items`
@@ -38,7 +39,8 @@ CREATE TABLE `items`
     `tier`                    varchar(64) NOT NULL,
     `name`                    varchar(64) NOT NULL,
     `weaponGroup`             varchar(64) NOT NULL,
-    `class`                   varchar(64) DEFAULT NULL,
+    `realName`                varchar(64) DEFAULT NULL
+        `class` varchar (64) DEFAULT NULL,
     `city`                    varchar(64) DEFAULT NULL,
     `quality`                 int(1) DEFAULT NULL,
     `sellOrderPrice`          int(11) DEFAULT NULL,
@@ -52,5 +54,5 @@ CREATE TABLE `items`
     `bonusCity`               varchar(64) DEFAULT NULL,
     `fameFactor`              float       DEFAULT NULL,
     `amountInStorage`         int(10) DEFAULT NULL,
-    primary key (`tier`, `name`, `weaponGroup`)
+    primary key (`tier`, `id`, `weaponGroup`)
 );
