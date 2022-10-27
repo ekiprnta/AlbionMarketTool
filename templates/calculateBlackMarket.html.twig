@@ -63,7 +63,7 @@
                 <div class="card-title">
                     <h3> {{ weaponGroupName }}</h3>
                 </div>
-                <table class="table table-sm table-hover">
+                <table class="table table-sm">
                     <thead class="thead-default">
                     <tr>
                         <th>Tier</th>
@@ -87,7 +87,7 @@
                     <tbody class="text-right">
                     {# @var item MZierdt\Albion\Entity\CalculateEntity #}
                     {% for item in weaponGroup %}
-                        <tr class="bg-{{item.colorGrade}}">
+                        <tr class="bg-{{item.colorGrade}} bg-{{item.getPrice}}">
                             <td class="text-left tier-{{ item.tierColor }}">{{ item.tier }}</td>
                             <td>{{ item.name }}</td>
                             <td>{{ item.primarySellOrderPrice|number_format }}</td>

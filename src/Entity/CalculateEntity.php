@@ -325,4 +325,12 @@ class CalculateEntity
     {
         return $this->tierColor;
     }
+
+    public function getPrice()
+    {
+        if ($this->itemSellOrderPrice === 0) {
+            return 'X';
+        }
+        return '0';
+    }
 }
