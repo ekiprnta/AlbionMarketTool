@@ -52,7 +52,7 @@ class UploadService
         $this->UploadRepository->reloadUpdatedPricesItems($items['hunter']);
     }
 
-    protected function adjustResourceArray(array $resourceArray, string $resourceType)
+    protected function adjustResourceArray(array $resourceArray, string $resourceType): array
     {
         $adjustedResourceArray = [];
         foreach ($resourceArray as $resource) {
@@ -62,6 +62,7 @@ class UploadService
                 'tier' => $nameAndTier['tier'],
                 'name' => $name,
                 'city' => $resource['city'],
+                'realName' => $resourceType,
                 'sellOrderPrice' => $resource['sell_price_min'],
                 'sellOrderPriceDate' => $resource['sell_price_min_date'],
                 'buyOrderPrice' => $resource['buy_price_max'],
@@ -119,6 +120,7 @@ class UploadService
                         'tier' => $nameAndTier['tier'],
                         'name' => $nameAndTier['name'],
                         'weaponGroup' => $weaponGroupName,
+                        'realName' => $stats['realName'],
                         'class' => $class,
                         'city' => $item['city'],
                         'quality' => $item['quality'],

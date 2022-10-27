@@ -18,7 +18,6 @@ use MZierdt\Albion\HttpClient;
 use MZierdt\Albion\repositories\ItemRepository;
 use MZierdt\Albion\repositories\ResourceRepository;
 use MZierdt\Albion\repositories\UploadRepository;
-use MZierdt\Albion\repositories\UploadCsvRepository;
 use MZierdt\Albion\Service\ApiService;
 use MZierdt\Albion\Service\ItemHelper;
 use Twig\Environment;
@@ -30,9 +29,6 @@ $serviceManager = new ServiceManager([
                 HttpClient::class => [],
                 ApiService::class => [
                     HttpClient::class
-                ],
-                UploadCsvRepository::class => [
-                    ApiService::class
                 ],
                 listDataHandler::class => [
                     Environment::class,

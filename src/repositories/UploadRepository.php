@@ -18,14 +18,15 @@ class UploadRepository
     {
         $query = <<<SQL
             INSERT INTO albion_db.resource
-            (`tier`, `name`, `city`, `sellOrderPrice`, `sellOrderPriceDate`,`buyOrderPrice`, `buyOrderPriceDate`, `bonusCity`)
-            VALUES (?,?,?,?,?,?,?,?)
+            (`tier`, `name`, `city`, `realName`, `sellOrderPrice`, `sellOrderPriceDate`,`buyOrderPrice`, `buyOrderPriceDate`, `bonusCity`)
+            VALUES (?,?,?,?,?,?,?,?,?)
 SQL;
         foreach ($resourceInformation as $information) {
             $this->inputInformation($this->pdoConnection, $query, [
                 $information['tier'],
                 $information['name'],
                 $information['city'],
+                $information['realName'],
                 $information['sellOrderPrice'],
                 $information['sellOrderPriceDate'],
                 $information['buyOrderPrice'],
@@ -137,6 +138,7 @@ SQL
             (`tier`,
              `name`,
              `weaponGroup`,
+             `realName`,
              `class`,
              `city`,
              `quality`,
@@ -150,13 +152,14 @@ SQL
              `secondaryResourceAmount`,
              `bonusCity`,
              `fameFactor`)
-            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
 SQL;
         foreach ($itemArrayByClass as $item) {
             $this->inputInformation($this->pdoConnection, $query, [
                 $item['tier'],
                 $item['name'],
                 $item['weaponGroup'],
+                $item['realName'],
                 $item['class'],
                 $item['city'],
                 $item['quality'],
