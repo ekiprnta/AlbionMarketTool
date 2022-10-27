@@ -24,7 +24,6 @@ class CalculateEntity
     private ?int $secondarySellOrderPrice = null;
     private float $resourceWeight;
 
-    private float $noFocusProfit;
     private float $percentageProfit;
     private float $totalWeightItems;
     private float $totalWeightResources;
@@ -106,16 +105,6 @@ class CalculateEntity
     public function setTotalWeightResources(float $totalWeightResources): void
     {
         $this->totalWeightResources = $totalWeightResources;
-    }
-
-    public function getNoFocusProfit(): float
-    {
-        return $this->noFocusProfit;
-    }
-
-    public function setNoFocusProfit(float $noFocusProfit): void
-    {
-        $this->noFocusProfit = $noFocusProfit;
     }
 
     public function getPercentageProfit(): float

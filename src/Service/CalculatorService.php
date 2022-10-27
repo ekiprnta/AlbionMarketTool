@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\Service;
 
+use InvalidArgumentException;
 use MZierdt\Albion\Entity\CalculateEntity;
 use MZierdt\Albion\Entity\ItemEntity;
 use MZierdt\Albion\repositories\ItemRepository;
@@ -23,8 +24,17 @@ class CalculatorService
     ) {
     }
 
-    public function getDataForCity(string $city, int $weight = 1, float $percentage = self::RRR_BONUS_CITY_FOCUS): array
+    public function getDataForCity(string $city, int $weight, float $percentage): array
     {
+        if (empty($city)) {
+            throw new InvalidArgumentException('Please select a city');
+        }
+        if (empty($weight)) {
+            throw new InvalidArgumentException('Please insert your maximum carry Weight');
+        }
+        if (empty($percentage)) {
+            $percentage = self::RRR_BONUS_CITY_NO_FOCUS;
+        }
         $this->maxWeight = $weight;
         $items = $this->itemRepository->getItemsFromCity($city);
         $resources = $this->resourceRepository->getResourcesByCity($city);
@@ -59,20 +69,8 @@ class CalculatorService
     {
         /** @var CalculateEntity $calculateEntity */
         foreach ($calculateEntityArray as $calculateEntity) {
-            $calculateEntity->setNoFocusProfit($this->calculateProfitNoFocus($calculateEntity));
             $calculateEntity->setPercentageProfit($this->calculateProfitByPercentage($calculateEntity, $percentage));
         }
-    }
-
-    private function calculateProfitNoFocus(CalculateEntity $calculateEntity): float
-    {
-        $amount = $calculateEntity->getAmount();
-        $itemCost = $calculateEntity->getPrimarySellOrderPrice() *
-            $calculateEntity->getPrimaryResourceAmount() +
-            $calculateEntity->getSecondarySellOrderPrice() *
-            $calculateEntity->getSecondaryResourceAmount();
-        $rate = (self::RRR_BASE_PERCENTAGE - self::RRR_BONUS_CITY_NO_FOCUS) / 100;
-        return ($calculateEntity->getItemSellOrderPrice() - ($itemCost * $rate)) * $amount;
     }
 
     private function calculateProfitByPercentage(CalculateEntity $calculateEntity, float $percentage): float

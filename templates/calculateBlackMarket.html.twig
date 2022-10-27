@@ -50,6 +50,11 @@
                     </form>
                 </div>
             </div>
+            <div class="row">
+                {% if alertMessage is not null %}
+                    <div class="alert alert-danger">{{ alertMessage }}</div>
+                {% endif %}
+            </div>
         </div>
     </div>
     {% for weaponGroupName, weaponGroup in dataArray %}
@@ -70,7 +75,6 @@
                         <th>Price</th>
                         <th>Amount Crafted</th>
                         <th>Amount Books</th>
-                        <th>Profit w/o Focus (25%RRR)</th>
                         <th>Profit depending on selected RRR</th>
                         <th>Weight Resources</th>
                         <th>Weight Items</th>
@@ -90,7 +94,6 @@
                             <td>{{ item.itemSellOrderPrice|number_format }}</td>
                             <td> {{ item.amount|number_format }}</td>
                             <td> Books</td>
-                            <td>{{ item.noFocusProfit|number_format }}</td>
                             <td>{{ item.percentageProfit|number_format }}</td>
                             <td>{{ item.totalWeightItems|number_format }}</td>
                             <td>{{ item.totalWeightResources|number_format }}</td>
