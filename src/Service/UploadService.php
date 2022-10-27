@@ -17,7 +17,7 @@ class UploadService
     ) {
     }
 
-    public function uploadItemsIntoEmptyDb()
+    public function uploadItemsIntoEmptyDb(): void
     {
         $items = $this->getAdjustedItems();
 
@@ -40,16 +40,16 @@ class UploadService
     {
         $resources = $this->getAdjustedResources();
 
-        $this->UploadRepository->reloadUpdatedPrices($resources['metalBar']);
-        $this->UploadRepository->reloadUpdatedPrices($resources['planks']);
-        $this->UploadRepository->reloadUpdatedPrices($resources['cloth']);
-        $this->UploadRepository->reloadUpdatedPrices($resources['leather']);
+        $this->UploadRepository->reloadUpdatedPricesResources($resources['metalBar']);
+        $this->UploadRepository->reloadUpdatedPricesResources($resources['planks']);
+        $this->UploadRepository->reloadUpdatedPricesResources($resources['cloth']);
+        $this->UploadRepository->reloadUpdatedPricesResources($resources['leather']);
 
         $items = $this->getAdjustedItems();
 
-        $this->UploadRepository->reloadUpdatedPrices($items['warrior']);
-        $this->UploadRepository->reloadUpdatedPrices($items['mage']);
-        $this->UploadRepository->reloadUpdatedPrices($items['hunter']);
+        $this->UploadRepository->reloadUpdatedPricesItems($items['warrior']);
+        $this->UploadRepository->reloadUpdatedPricesItems($items['mage']);
+        $this->UploadRepository->reloadUpdatedPricesItems($items['hunter']);
     }
 
     protected function adjustResourceArray(array $resourceArray, string $resourceType)

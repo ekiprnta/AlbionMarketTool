@@ -46,7 +46,7 @@ SQL;
         }
     }
 
-    public function reloadUpdatedPrices(array $resourceInformation): void
+    public function reloadUpdatedPricesResources(array $resourceInformation): void
     {
         foreach ($resourceInformation as $information) {
             if ($information['sellOrderPrice'] !== '0') {
@@ -88,7 +88,49 @@ SQL
         }
     }
 
-    public function loadItemsIntoDatabase(array $itemArrayByClass)
+    public function reloadUpdatedPricesItems(array $itemInformation): void
+    {
+        foreach ($itemInformation as $information) {
+            if ($information['sellOrderPrice'] !== 0) {
+                $statement = $this->pdoConnection->prepare(
+                    <<<SQL
+                    UPDATE albion_db.items
+                    SET `sellOrderPrice` = :sellOrderPrice,
+                        `sellOrderPriceDate` = :sellOrderPriceDate
+                    WHERE albion_db.items.name = :name
+                    AND albion_db.items.tier = :tier
+                    AND albion_db.items.city = :city
+SQL
+                );
+                $statement->bindParam(':sellOrderPrice', $information['sellOrderPrice']);
+                $statement->bindParam(':sellOrderPriceDate', $information['sellOrderPriceDate']);
+                $statement->bindParam(':name', $information['name']);
+                $statement->bindParam(':tier', $information['tier']);
+                $statement->bindParam(':city', $information['city']);
+                $statement->execute();
+            }
+            if ($information['buyOrderPrice'] !== 0) {
+                $statement = $this->pdoConnection->prepare(
+                    <<<SQL
+                    UPDATE albion_db.items
+                    SET `buyOrderPrice` = :buyOrderPrice,
+                        `buyOrderPriceDate` = :buyOrderPriceDate
+                    WHERE albion_db.items.name = :name
+                    AND albion_db.items.tier = :tier
+                    AND albion_db.items.city = :city
+SQL
+                );
+                $statement->bindParam(':buyOrderPrice', $information['buyOrderPrice']);
+                $statement->bindParam(':buyOrderPriceDate', $information['buyOrderPriceDate']);
+                $statement->bindParam(':name', $information['name']);
+                $statement->bindParam(':tier', $information['tier']);
+                $statement->bindParam(':city', $information['city']);
+                $statement->execute();
+            }
+        }
+    }
+
+    public function loadItemsIntoDatabase(array $itemArrayByClass): void
     {
         $query = <<<SQL
             INSERT INTO albion_db.items

@@ -5,7 +5,8 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-2">
-                    <form action="" method="post">
+                    <form action="/calculate" method="post">
+                        <input type="hidden" name="updatePrices" value="1">
                         <button class="btn btn-primary" type="submit" id="updatePrices">update Prices</button>
                     </form>
                 </div>
@@ -16,23 +17,43 @@
                                 <div class="form-group">
                                     <label for="citySelect">Choose the City to Craft</label>
                                     <select name="city" id="citySelect" class="form-control">
-                                        <option value="fortSterling">Fort Sterling</option>
-                                        <option value="lymhurst">Lymhurst</option>
-                                        <option value="bridgewatch">Bridgewatch</option>
-                                        <option value="martlock">Martlock</option>
-                                        <option value="thetford">Thetford</option>
+                                        <option value="{{ city }}" selected hidden> {{ city }}</option>
+                                        <option value="Fort Sterling">Fort Sterling</option>
+                                        <option value="Lymhurst">Lymhurst</option>
+                                        <option value="Bridgewatch">Bridgewatch</option>
+                                        <option value="Martlock">Martlock</option>
+                                        <option value="Thetford">Thetford</option>
                                     </select>
-                                    <button class="btn btn-primary" type="submit">Calculate</button>
                                 </div>
                             </div>
-                            <div class="col-4">
+                            <div class="col-3">
                                 <label for="percentage">RRR</label>
-                                <input type="number" min="0" max="100" step="0.1" class="form-control" id="percentage"
-                                       name="rrr">
+                                <input class="form-control"
+                                       id="percentage"
+                                       max="100"
+                                       min="0"
+                                       name="rrr"
+                                       placeholder="{{ rrr }}"
+                                       step="0.1"
+                                       type="number">
                             </div>
+                            <div class="col-3">
+                                <label for="weight">Max. Carry Capacity</label>
+                                <input class="form-control"
+                                       id="weight"
+                                       name="weight"
+                                       placeholder="{{ weight }}"
+                                       type="number">
+                            </div>
+                            <button class="btn btn-primary" type="submit">Calculate</button>
                         </div>
                     </form>
                 </div>
+            </div>
+            <div class="row">
+                {% if alertMessage is not null %}
+                    <div class="alert alert-danger">{{ alertMessage }}</div>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -42,19 +63,22 @@
                 <div class="card-title">
                     <h3> {{ weaponGroupName }}</h3>
                 </div>
-                <table class="table table-sm table-hover">
+                <table class="table table-sm">
                     <thead class="thead-default">
                     <tr>
                         <th>Tier</th>
+                        <th>Name</th>
                         <th>Price 1. Resource</th>
+                        <th>Price 1. Age</th>
                         <th>Amount 1. Resources</th>
                         <th>Price 2. Resource</th>
+                        <th>Price 2. Age</th>
                         <th>Amount 2. Resources</th>
-                        <th>Price {{weaponGroupName}}</th>
+                        <th>Price</th>
+                        <th>Price Age</th>
                         <th>Amount Crafted</th>
                         <th>Amount Books</th>
-                        <th>Profit w/o Focus (25%RRR)</th>
-                        <th>Profit depending on selected RRR</th>
+                        <th>Profit when rrr: {{rrr}}</th>
                         <th>Weight Resources</th>
                         <th>Weight Items</th>
                         <th>Profit/Weight</th>
@@ -63,20 +87,23 @@
                     <tbody class="text-right">
                     {# @var item MZierdt\Albion\Entity\CalculateEntity #}
                     {% for item in weaponGroup %}
-                        <tr class=bg-{{item.colorGrade}}>
-                            <td class="text-left">{{ item.tier }}</td>
+                        <tr class="bg-{{item.colorGrade}} bg-{{item.getPrice}}">
+                            <td class="text-left tier-{{ item.tierColor }}">{{ item.tier }}</td>
+                            <td>{{ item.name }}</td>
                             <td>{{ item.primarySellOrderPrice|number_format }}</td>
+                            <td>{{ item.primaryPriceAge|number_format }} min old</td>
                             <td>{{ item.primaryResourceAmount }}</td>
                             <td>{{ item.secondarySellOrderPrice|number_format }}</td>
+                            <td>{{ item.secondaryPriceAge|number_format }} min old</td>
                             <td>{{ item.secondaryResourceAmount }}</td>
                             <td>{{ item.itemSellOrderPrice|number_format }}</td>
-                            <td> {{ amount }}</td>
+                            <td>{{ item.itemPriceAge|number_format }} min old</td>
+                            <td> {{ item.amount|number_format }}</td>
                             <td> Books</td>
-                            <td>{{ item.noFocusProfit|number_format }}</td>
                             <td>{{ item.percentageProfit|number_format }}</td>
                             <td>{{ item.totalWeightItems|number_format }}</td>
                             <td>{{ item.totalWeightResources|number_format }}</td>
-                            <td>{{ item.weightProfitQuotient|number_format}}</td>
+                            <td>{{ item.weightProfitQuotient|number_format }}</td>
                         </tr>
                     {% endfor %}
                     </tbody>

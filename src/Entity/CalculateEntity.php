@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\Entity;
 
+use DateTimeImmutable;
 use RuntimeException;
+
+use function PHPUnit\Framework\stringStartsWith;
 
 class CalculateEntity
 {
@@ -14,23 +17,35 @@ class CalculateEntity
     private string $name;
     private string $weaponGroup;
     private int $itemSellOrderPrice;
+    private DateTimeImmutable $itemSellOrderPriceDate;
     private float $fameAmount;
     private float $itemWeight;
+
     private string $primaryResource;
     private int $primaryResourceAmount;
     private int $primarySellOrderPrice;
+    private DateTimeImmutable $primarySellOrderPriceDate;
+
     private ?string $secondaryResource;
     private ?int $secondaryResourceAmount;
     private ?int $secondarySellOrderPrice = null;
+    private ?DateTimeImmutable $secondarySellOrderPriceDate = null;
+
+
     private float $resourceWeight;
 
-    private float $noFocusProfit;
     private float $percentageProfit;
     private float $totalWeightItems;
     private float $totalWeightResources;
 
     private float $WeightProfitQuotient;
     private string $colorGrade;
+    private float $amount;
+    private int $tierColor;
+
+    private int $itemPriceAge;
+    private int $primaryPriceAge;
+    private ?int $secondaryPriceAge = null;
 
     public function __construct(ItemEntity $itemEntity, array $resourceData)
     {
@@ -43,18 +58,80 @@ class CalculateEntity
         $this->name = $itemEntity->getName();
         $this->weaponGroup = $itemEntity->getWeaponGroup();
         $this->itemSellOrderPrice = $itemEntity->getSellOrderPrice();
+        $this->itemSellOrderPriceDate = $itemEntity->getSellOrderPriceDate();
         $this->fameAmount = $craftingFame;
         $this->itemWeight = $itemEntity->getWeight();
+
         $this->primaryResource = $itemEntity->getPrimaryResource();
         $this->primaryResourceAmount = $itemEntity->getPrimaryResourceAmount();
         $this->primarySellOrderPrice = $primaryResourceEntity->getSellOrderPrice();
+        $this->primarySellOrderPriceDate = $primaryResourceEntity->getSellOrderPriceDate();
+
         $this->secondaryResource = $itemEntity->getSecondaryResource();
         $this->secondaryResourceAmount = $itemEntity->getSecondaryResourceAmount();
-        if (! ($this->secondaryResource === null)) {
+        if (!($this->secondaryResource === null)) {
             $secondaryResourceEntity = $this->getSecondaryResourceEntity($itemEntity, $resourceData);
             $this->secondarySellOrderPrice = $secondaryResourceEntity->getSellOrderPrice();
+            $this->secondarySellOrderPriceDate = $secondaryResourceEntity->getSellOrderPriceDate();
         }
+
+        $this->tierColor = $this->setTierColor();
         $this->resourceWeight = $resourceWeight;
+    }
+
+    public function getItemPriceAge(): int
+    {
+        return $this->itemPriceAge;
+    }
+
+    public function setItemPriceAge(int $itemPriceAge): void
+    {
+        $this->itemPriceAge = $itemPriceAge;
+    }
+
+    public function getPrimaryPriceAge(): int
+    {
+        return $this->primaryPriceAge;
+    }
+
+    public function setPrimaryPriceAge(int $primaryPriceAge): void
+    {
+        $this->primaryPriceAge = $primaryPriceAge;
+    }
+
+    public function getSecondaryPriceAge(): ?int
+    {
+        return $this->secondaryPriceAge;
+    }
+
+    public function setSecondaryPriceAge(int $secondaryPriceAge): void
+    {
+        $this->secondaryPriceAge = $secondaryPriceAge;
+    }
+
+    public function getItemSellOrderPriceDate(): DateTimeImmutable
+    {
+        return $this->itemSellOrderPriceDate;
+    }
+
+    public function getPrimarySellOrderPriceDate(): DateTimeImmutable
+    {
+        return $this->primarySellOrderPriceDate;
+    }
+
+    public function getSecondarySellOrderPriceDate(): ?DateTimeImmutable
+    {
+        return $this->secondarySellOrderPriceDate;
+    }
+
+    public function getAmount(): float
+    {
+        return $this->amount;
+    }
+
+    public function setAmount(float $amount): void
+    {
+        $this->amount = $amount;
     }
 
     public function getColorGrade(): string
@@ -95,16 +172,6 @@ class CalculateEntity
     public function setTotalWeightResources(float $totalWeightResources): void
     {
         $this->totalWeightResources = $totalWeightResources;
-    }
-
-    public function getNoFocusProfit(): float
-    {
-        return $this->noFocusProfit;
-    }
-
-    public function setNoFocusProfit(float $noFocusProfit): void
-    {
-        $this->noFocusProfit = $noFocusProfit;
     }
 
     public function getPercentageProfit(): float
@@ -188,9 +255,9 @@ class CalculateEntity
         /** @var ResourceEntity $resourceEntity */
         foreach ($resourceData as $resourceEntity) {
             if (($resourceEntity->getTier() === $item->getTier()) && strcasecmp(
-                $resourceEntity->getName(),
-                $item->getPrimaryResource()
-            ) === 0) {
+                    $resourceEntity->getName(),
+                    $item->getPrimaryResource()
+                ) === 0) {
                 return $resourceEntity;
             }
         }
@@ -202,9 +269,9 @@ class CalculateEntity
         /** @var ResourceEntity $resourceEntity */
         foreach ($resourceData as $resourceEntity) {
             if (($resourceEntity->getTier() === $item->getTier()) && strcasecmp(
-                $resourceEntity->getName(),
-                $item->getSecondaryResource()
-            ) === 0) {
+                    $resourceEntity->getName(),
+                    $item->getSecondaryResource()
+                ) === 0) {
                 return $resourceEntity;
             }
         }
@@ -214,10 +281,10 @@ class CalculateEntity
     private function calculateCraftingFame(ItemEntity $item): float
     {
         return (
-            $item->getPrimaryResourceAmount() +
+                $item->getPrimaryResourceAmount() +
                 $item->getSecondaryResourceAmount()) *
-                $item->getFameFactor() *
-                self::PREMIUM_FACTOR;
+            $item->getFameFactor() *
+            self::PREMIUM_FACTOR;
     }
 
     private function calculateResourceWeight(ItemEntity $itemEntity, ResourceEntity $resourceEntity): float
@@ -226,5 +293,44 @@ class CalculateEntity
         $amountPrimary = $itemEntity->getPrimaryResourceAmount();
         $weightResource = $resourceEntity->getWeight();
         return ($amountPrimary + $amountSecondary) * $weightResource;
+    }
+
+    private function setTierColor(): int
+    {
+        if (str_starts_with($this->tier, '2')) {
+            return 2;
+        }
+        if (str_starts_with($this->tier, '3')) {
+            return 3;
+        }
+        if (str_starts_with($this->tier, '4')) {
+            return 4;
+        }
+        if (str_starts_with($this->tier, '5')) {
+            return 5;
+        }
+        if (str_starts_with($this->tier, '6')) {
+            return 6;
+        }
+        if (str_starts_with($this->tier, '7')) {
+            return 7;
+        }
+        if (str_starts_with($this->tier, '8')) {
+            return 8;
+        }
+        throw new \RuntimeException('No string found');
+    }
+
+    public function getTierColor(): int
+    {
+        return $this->tierColor;
+    }
+
+    public function getPrice()
+    {
+        if ($this->itemSellOrderPrice === 0) {
+            return 'X';
+        }
+        return '0';
     }
 }
