@@ -45,6 +45,9 @@ class CalculatorService
         if (empty($percentage)) {
             $percentage = self::RRR_BONUS_CITY_NO_FOCUS;
         }
+        if (empty($resourceCity)) {
+            $resourceCity = $itemCity;
+        }
         $this->maxWeight = $weight;
         $items = $this->itemRepository->getItemsFromCity($itemCity);
         $resources = $this->resourceRepository->getResourcesByCity($resourceCity);

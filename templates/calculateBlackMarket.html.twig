@@ -10,14 +10,13 @@
                         <button class="btn btn-primary" type="submit" id="updatePrices">update Prices</button>
                     </form>
                 </div>
-                <div class="col-5">
+                <div class="col-10">
                     <form action="" method="get">
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-3">
                                 <div class="form-group">
-                                    <label for="citySelect">Choose the City to Craft</label>
-                                    <select name="city" id="citySelect" class="form-control">
-                                        <option value="{{ city }}" selected hidden> {{ city }}</option>
+                                    <label for="itemCity">Choose the City to Craft</label>
+                                    <select name="cityItem" id="itemCity" class="form-control">
                                         <option value="Fort Sterling">Fort Sterling</option>
                                         <option value="Lymhurst">Lymhurst</option>
                                         <option value="Bridgewatch">Bridgewatch</option>
@@ -27,25 +26,39 @@
                                 </div>
                             </div>
                             <div class="col-3">
-                                <label for="percentage">RRR</label>
+                                <label for="weight">Max. Carry Capacity</label>
+                                <input class="form-control"
+                                       id="weight"
+                                       name="weight"
+                                       type="number">
+                            </div>
+                            <div class="col-3">
+                                <label for="percentage">RRR (Default 24,8%)</label>
                                 <input class="form-control"
                                        id="percentage"
                                        max="100"
                                        min="0"
                                        name="rrr"
-                                       placeholder="{{ rrr }}"
                                        step="0.1"
                                        type="number">
                             </div>
-                            <div class="col-3">
-                                <label for="weight">Max. Carry Capacity</label>
-                                <input class="form-control"
-                                       id="weight"
-                                       name="weight"
-                                       placeholder="{{ weight }}"
-                                       type="number">
+                            <div class="row-3">
+                                <div class="form-group">
+                                    <label for="resourceCity">Resurce Location (Default: Choosen City)</label>
+                                    <select name="cityResource" id="resourceCity" class="form-control">
+                                        <option value="Fort Sterling">Fort Sterling</option>
+                                        <option value="Lymhurst">Lymhurst</option>
+                                        <option value="Bridgewatch">Bridgewatch</option>
+                                        <option value="Martlock">Martlock</option>
+                                        <option value="Thetford">Thetford</option>
+                                    </select>
+                                </div>
                             </div>
-                            <button class="btn btn-primary" type="submit">Calculate</button>
+                        </div>
+                        <div class="row">
+                            <div class="col-3">
+                                <button class="btn btn-primary" type="submit">Calculate</button>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -68,17 +81,17 @@
                     <tr>
                         <th>Tier</th>
                         <th>Name</th>
-                        <th>Price 1. Resource</th>
-                        <th>Price 1. Age</th>
-                        <th>Amount 1. Resources</th>
-                        <th>Price 2. Resource</th>
-                        <th>Price 2. Age</th>
-                        <th>Amount 2. Resources</th>
+                        <th>Price {{ infoService.getPrimResource(weaponGroupName) }}</th>
+                        <th>Price Age</th>
+                        <th>Amount {{ infoService.getPrimResource(weaponGroupName) }}</th>
+                        <th>Price {{ infoService.getSecResource(weaponGroupName) }}</th>
+                        <th>Price Age</th>
+                        <th>Amount {{ infoService.getSecResource(weaponGroupName) }}</th>
                         <th>Price</th>
                         <th>Price Age</th>
                         <th>Amount Crafted</th>
                         <th>Amount Books</th>
-                        <th>Profit when rrr: {{rrr}}</th>
+                        <th>Profit when rrr: {{ rrr }}</th>
                         <th>Weight Resources</th>
                         <th>Weight Items</th>
                         <th>Profit/Weight</th>
@@ -87,7 +100,7 @@
                     <tbody class="text-right">
                     {# @var item MZierdt\Albion\Entity\CalculateEntity #}
                     {% for item in weaponGroup %}
-                        <tr class="bg-{{item.colorGrade}} bg-{{item.getPrice}}">
+                        <tr class="bg-{{ item.colorGrade }} bg-{{ item.getPrice }}">
                             <td class="text-left tier-{{ item.tierColor }}">{{ item.tier }}</td>
                             <td>{{ item.name }}</td>
                             <td>{{ item.primarySellOrderPrice|number_format }}</td>
