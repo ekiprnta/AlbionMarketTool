@@ -16,6 +16,7 @@ class CalculateEntity
     private string $tier;
     private string $name;
     private string $weaponGroup;
+    private string $realName;
     private int $itemSellOrderPrice;
     private DateTimeImmutable $itemSellOrderPriceDate;
     private float $fameAmount;
@@ -57,6 +58,7 @@ class CalculateEntity
         $this->tier = $itemEntity->getTier();
         $this->name = $itemEntity->getName();
         $this->weaponGroup = $itemEntity->getWeaponGroup();
+        $this->realName = $itemEntity->getRealName();
         $this->itemSellOrderPrice = $itemEntity->getSellOrderPrice();
         $this->itemSellOrderPriceDate = $itemEntity->getSellOrderPriceDate();
         $this->fameAmount = $craftingFame;
@@ -332,5 +334,10 @@ class CalculateEntity
             return 'X';
         }
         return '0';
+    }
+
+    public function getRealName(): string
+    {
+        return $this->realName;
     }
 }

@@ -24,9 +24,19 @@ class CalculatorService
     ) {
     }
 
-    public function getDataForCity(string $city, int $weight, float $percentage): array
+    public function getPrimResource(string $itemName)
     {
-        if (empty($city)) {
+         return NameDataService::getPrimResource($itemName);
+    }
+
+    public function getSecResource(string $itemName)
+    {
+        return NameDataService::getSecResource($itemName);
+    }
+
+    public function getDataForCity(string $itemCity, int $weight, float $percentage, string $resourceCity): array
+    {
+        if (empty($itemCity)) {
             throw new InvalidArgumentException('Please select a city');
         }
         if (empty($weight)) {
@@ -36,8 +46,8 @@ class CalculatorService
             $percentage = self::RRR_BONUS_CITY_NO_FOCUS;
         }
         $this->maxWeight = $weight;
-        $items = $this->itemRepository->getItemsFromCity($city);
-        $resources = $this->resourceRepository->getResourcesByCity($city);
+        $items = $this->itemRepository->getItemsFromCity($itemCity);
+        $resources = $this->resourceRepository->getResourcesByCity($resourceCity);
 
         $calculateEntityArray = [];
         /** @var ItemEntity $item */
@@ -60,7 +70,7 @@ class CalculatorService
         $array = [];
         /** @var CalculateEntity $calculateEntity */
         foreach ($calculateEntityArray as $calculateEntity) {
-            $array[$calculateEntity->getWeaponGroup() . $calculateEntity->getName()][] = $calculateEntity;
+            $array[$calculateEntity->getWeaponGroup() . '_' . $calculateEntity->getRealName()][] = $calculateEntity;
         }
         krsort($array);
         return $array;

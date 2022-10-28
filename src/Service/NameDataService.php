@@ -6,6 +6,8 @@ namespace MZierdt\Albion\Service;
 
 use RuntimeException;
 
+use function Pipeline\fromArray;
+
 class NameDataService
 {
     private const PATH_TO_JSON = __DIR__ . '/NameData.json';
@@ -45,4 +47,31 @@ class NameDataService
         }
         throw new RuntimeException(' IN Name Data Service in getStatsForItem nothing found');
     }
+
+    public static function getPrimResource(string $name)
+    {
+        $nameData = self::getNameDataArray();
+        foreach ($nameData as $weaponGroup) {
+            foreach ($weaponGroup as $class) {
+                if (array_key_exists($name, $class)) {
+                    return $class[$name]['primaryResource'];
+                }
+            }
+        }
+        return null;
+    }
+
+    public static function getSecResource(string $name)
+    {
+        $nameData = self::getNameDataArray();
+        foreach ($nameData as $weaponGroup) {
+            foreach ($weaponGroup as $class) {
+                if (array_key_exists($name, $class)) {
+                    return $class[$name]['secondaryResource'];
+                }
+            }
+        }
+        return null;
+    }
+
 }

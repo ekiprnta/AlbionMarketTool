@@ -85,6 +85,7 @@ class ItemEntity
     private string $tier;
     private string $name;
     private string $weaponGroup;
+    private string $realName;
     private string $class;
     private string $city;
     private int $quality;
@@ -111,6 +112,7 @@ class ItemEntity
         $this->tier = $itemData['tier'];
         $this->name = $itemData['name'];
         $this->weaponGroup = $itemData['weaponGroup'];
+        $this->realName = $itemData['realName'];
         $this->class = $itemData['class'];
         $this->city = $itemData['city'];
         $this->quality = (int) $itemData['quality'];
@@ -302,5 +304,10 @@ class ItemEntity
         };
 
         return ($itemData['primaryResourceAmount'] + $itemData['secondaryResourceAmount']) * $weightFactor;
+    }
+
+    public function getRealName(): string
+    {
+        return $this->realName;
     }
 }

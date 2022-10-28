@@ -64,6 +64,7 @@ class ResourceEntity
     private string $tier;
     private string $name;
     private string $city;
+    private string $realName;
     private int $sellOrderPrice;
     private DateTimeImmutable $sellOrderPriceDate;
     private int $buyOrderPrice;
@@ -81,6 +82,7 @@ class ResourceEntity
         $this->tier = $resourceData['tier'];
         $this->name = $resourceData['name'];
         $this->city = $resourceData['city'];
+        $this->realName = $resourceData['realName'];
         $this->sellOrderPrice = (int) $resourceData['sellOrderPrice'];
         $this->sellOrderPriceDate = $sellOrderPriceDate;
         $this->buyOrderPrice = (int) $resourceData['buyOrderPrice'];
@@ -192,5 +194,10 @@ class ResourceEntity
             self::TIER_T8_3 => self::T83_WEIGHT_FACTOR,
             default => throw new \InvalidArgumentException('wrong tier in Resource Entity')
         };
+    }
+
+    public function getRealName(): string
+    {
+        return $this->realName;
     }
 }
