@@ -27,12 +27,13 @@ class BlackMarketHandler
         $cityData = [];
         $alertMessage = null;
         if (! empty($_GET)) {
-            $itemCity = $_GET['cityItem'];
-            $resourceCity = $_GET['cityItem'];
+            $itemCity = $_GET['itemCity'];
+            $resourceCity = $_GET['resourceCity'];
             $weight = (int) $_GET['weight'];
             $rrr = (float) $_GET['rrr'];
+            $order = $_GET['order'];
             try {
-                $cityData = $this->calculatorService->getDataForCity($itemCity, $weight, $rrr, $resourceCity);
+                $cityData = $this->calculatorService->getDataForCity($itemCity, $weight, $rrr, $resourceCity, $order);
             } catch (InvalidArgumentException $invalidArgumentExceptionException) {
                 $alertMessage = $invalidArgumentExceptionException->getMessage();
             }

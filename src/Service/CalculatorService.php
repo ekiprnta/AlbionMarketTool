@@ -26,7 +26,7 @@ class CalculatorService
 
     public function getPrimResource(string $itemName)
     {
-         return NameDataService::getPrimResource($itemName);
+        return NameDataService::getPrimResource($itemName);
     }
 
     public function getSecResource(string $itemName)
@@ -34,8 +34,13 @@ class CalculatorService
         return NameDataService::getSecResource($itemName);
     }
 
-    public function getDataForCity(string $itemCity, int $weight, float $percentage, string $resourceCity): array
-    {
+    public function getDataForCity(
+        string $itemCity,
+        int $weight,
+        float $percentage,
+        string $resourceCity,
+        string $order
+    ): array {
         if (empty($itemCity)) {
             throw new InvalidArgumentException('Please select a city');
         }
@@ -59,10 +64,10 @@ class CalculatorService
         }
 
         $this->calculateTotalWeight($calculateEntityArray);
-        $this->calculateProfit($calculateEntityArray, $percentage);
+        $this->calculateProfit($calculateEntityArray, $percentage, $order);
         $this->calculateWeightProfitQuotient($calculateEntityArray);
         $this->calculateColorGrade($calculateEntityArray);
-        $this->calculateAgeOfPrices($calculateEntityArray);
+        $this->calculateAgeOfPrices($calculateEntityArray, $order);
         $filteredArray = $this->filterCalculateEntityArray($calculateEntityArray);
 //        dd($filteredArray);
         return $filteredArray;
@@ -79,20 +84,30 @@ class CalculatorService
         return $array;
     }
 
-    private function calculateProfit(array $calculateEntityArray, float $percentage): void
+    private function calculateProfit(array $calculateEntityArray, float $percentage, string $order): void
     {
         /** @var CalculateEntity $calculateEntity */
         foreach ($calculateEntityArray as $calculateEntity) {
-            $calculateEntity->setPercentageProfit($this->calculateProfitByPercentage($calculateEntity, $percentage));
+            $calculateEntity->setPercentageProfit(
+                $this->calculateProfitByPercentage($calculateEntity, $percentage, $order)
+            );
         }
     }
 
-    private function calculateProfitByPercentage(CalculateEntity $calculateEntity, float $percentage): float
+    private function calculateProfitByPercentage(CalculateEntity $calculateEntity, float $percentage, string $order): float
     {
-        $itemCost = $calculateEntity->getPrimarySellOrderPrice() *
-            $calculateEntity->getPrimaryResourceAmount() +
-            $calculateEntity->getSecondarySellOrderPrice() *
-            $calculateEntity->getSecondaryResourceAmount();
+        if($order === '1') {
+            $itemCost = $calculateEntity->getPrimarySellOrderPrice() *
+                $calculateEntity->getPrimaryResourceAmount() +
+                $calculateEntity->getSecondarySellOrderPrice() *
+                $calculateEntity->getSecondaryResourceAmount();
+        } else {
+            $itemCost = $calculateEntity->getPrimaryBuyOrderPrice() *
+                $calculateEntity->getPrimaryResourceAmount() +
+                $calculateEntity->getSecondaryBuyOrderPrice() *
+                $calculateEntity->getSecondaryResourceAmount();
+        }
+
         $rate = (self::RRR_BASE_PERCENTAGE - $percentage) / 100;
         $amount = $calculateEntity->getAmount();
         return ($calculateEntity->getItemSellOrderPrice() - ($itemCost * $rate)) * $amount;
@@ -134,22 +149,30 @@ class CalculatorService
         }
     }
 
-    private function calculateAgeOfPrices(array $calculateEntityArray)
+    private function calculateAgeOfPrices(array $calculateEntityArray, string $order)
     {
         /** @var CalculateEntity $calculateEntity */
         foreach ($calculateEntityArray as $calculateEntity) {
-            $now = \DateTimeImmutable::createFromFormat('Y-m-d H:i:s',Date('Y-m-d H:i:s'));
+            $now = \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', Date('Y-m-d H:i:s'));
 
             $itemPriceDate = $calculateEntity->getItemSellOrderPriceDate();
             $itemDiff = date_diff($now, $itemPriceDate);
             $calculateEntity->setItemPriceAge($this->getAgeInMin($itemDiff));
 
-            $primaryPriceDate = $calculateEntity->getPrimarySellOrderPriceDate();
+            if ($order === '1') {
+                $primaryPriceDate = $calculateEntity->getPrimarySellOrderPriceDate();
+            } else {
+                $primaryPriceDate = $calculateEntity->getPrimaryBuyOrderPriceDate();
+            }
             $primaryDiff = date_diff($now, $primaryPriceDate);
             $calculateEntity->setPrimaryPriceAge($this->getAgeInMin($primaryDiff));
 
-            if($calculateEntity->getSecondarySellOrderPriceDate() !== null) {
-                $secondaryPriceDate = $calculateEntity->getSecondarySellOrderPriceDate();
+            if ($calculateEntity->getSecondarySellOrderPriceDate() !== null) {
+                if ($order === '1') {
+                    $secondaryPriceDate = $calculateEntity->getSecondarySellOrderPriceDate();
+                }else {
+                    $secondaryPriceDate = $calculateEntity->getSecondaryBuyOrderPriceDate();
+                }
                 $secondaryDiff = date_diff($now, $secondaryPriceDate);
                 $calculateEntity->setSecondaryPriceAge($this->getAgeInMin($secondaryDiff));
             }

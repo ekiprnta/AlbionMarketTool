@@ -16,7 +16,7 @@
                             <div class="col-3">
                                 <div class="form-group">
                                     <label for="itemCity">Choose the City to Craft</label>
-                                    <select name="cityItem" id="itemCity" class="form-control">
+                                    <select name="itemCity" id="itemCity" class="form-control">
                                         <option value="Fort Sterling">Fort Sterling</option>
                                         <option value="Lymhurst">Lymhurst</option>
                                         <option value="Bridgewatch">Bridgewatch</option>
@@ -42,11 +42,12 @@
                                        step="0.1"
                                        type="number">
                             </div>
-                            <div class="row-3">
+                            <div class="col-3">
                                 <div class="form-group">
                                     <label for="resourceCity">Resurce Location (Default: Choosen City)</label>
-                                    <select name="cityResource" id="resourceCity" class="form-control">
+                                    <select name="resourceCity" id="resourceCity" class="form-control">
                                         <option value="Fort Sterling">Fort Sterling</option>
+                                        <option value="" hidden selected>pls select</option>
                                         <option value="Lymhurst">Lymhurst</option>
                                         <option value="Bridgewatch">Bridgewatch</option>
                                         <option value="Martlock">Martlock</option>
@@ -58,6 +59,18 @@
                         <div class="row">
                             <div class="col-3">
                                 <button class="btn btn-primary" type="submit">Calculate</button>
+                            </div>
+                            <div class="col-3">
+                                <div class="form-check">
+                                    <input type="radio" class="form-check-input" name="order" id="buyOrder" value="1">
+                                    <label class="form-check-label" for="buyOrder">Buy order Resources</label>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="form-check">
+                                    <input type="radio" class="form-check-input" name="order" id="sellOrder" value="2" checked>
+                                    <label class="form-check-label" for="sellOrder">Buy Resources</label>
+                                </div>
                             </div>
                         </div>
                     </form>
