@@ -7,7 +7,8 @@
         "primaryResourceAmount": 8,
         "secondaryResource": null,
         "secondaryResourceAmount": null,
-        "bonusCity": "Fort Sterling"
+        "bonusCity": "Fort Sterling",
+        "realName": "soldierHelmet"
       },
       "knightHelmet": {
         "id_snippet": "HEAD_PLATE_SET2",
@@ -15,7 +16,8 @@
         "primaryResourceAmount": 8,
         "secondaryResource": null,
         "secondaryResourceAmount": null,
-        "bonusCity": "Fort Sterling"
+        "bonusCity": "Fort Sterling",
+        "realName": "knightHelmet"
       },
       "guardianHelmet": {
         "id_snippet": "HEAD_PLATE_SET3",
@@ -23,7 +25,8 @@
         "primaryResourceAmount": 8,
         "secondaryResource": null,
         "secondaryResourceAmount": null,
-        "bonusCity": "Fort Sterling"
+        "bonusCity": "Fort Sterling",
+        "realName": "guardianHelmet"
       }
     },
     "plateArmor": {
@@ -33,7 +36,8 @@
         "primaryResourceAmount": 16,
         "secondaryResource": null,
         "secondaryResourceAmount": null,
-        "bonusCity": "Bridgewatch"
+        "bonusCity": "Bridgewatch",
+        "realName": "soldierArmor"
       },
       "knightArmor": {
         "id_snippet": "ARMOR_PLATE_SET2",
@@ -41,7 +45,8 @@
         "primaryResourceAmount": 16,
         "secondaryResource": null,
         "secondaryResourceAmount": null,
-        "bonusCity": "Bridgewatch"
+        "bonusCity": "Bridgewatch",
+        "realName": "knightArmor"
       },
       "guardianArmor": {
         "id_snippet": "ARMOR_PLATE_SET3",
@@ -49,7 +54,8 @@
         "primaryResourceAmount": 16,
         "secondaryResource": null,
         "secondaryResourceAmount": null,
-        "bonusCity": "Bridgewatch"
+        "bonusCity": "Bridgewatch",
+        "realName": "guardianArmor"
       }
     },
     "plateBoots": {
@@ -59,7 +65,8 @@
         "primaryResourceAmount": 8,
         "secondaryResource": null,
         "secondaryResourceAmount": null,
-        "bonusCity": "Martlock"
+        "bonusCity": "Martlock",
+        "realName": "soldierBoots"
       },
       "knightBoots": {
         "id_snippet": "SHOES_PLATE_SET2",
@@ -67,7 +74,8 @@
         "primaryResourceAmount": 8,
         "secondaryResource": null,
         "secondaryResourceAmount": null,
-        "bonusCity": "Martlock"
+        "bonusCity": "Martlock",
+        "realName": "knightBoots"
       },
       "guardianBoots": {
         "id_snippet": "SHOES_PLATE_SET3",
@@ -75,7 +83,8 @@
         "primaryResourceAmount": 8,
         "secondaryResource": null,
         "secondaryResourceAmount": null,
-        "bonusCity": "Martlock"
+        "bonusCity": "Martlock",
+        "realName": "guardianBoots"
       }
     },
     "sword": {
@@ -85,7 +94,8 @@
         "primaryResourceAmount": 16,
         "secondaryResource": "leather",
         "secondaryResourceAmount": 8,
-        "bonusCity": "Lymhurst"
+        "bonusCity": "Lymhurst",
+        "realName": "broadsword"
       },
       "claymore": {
         "id_snippet": "2H_CLAYMORE",
@@ -93,7 +103,8 @@
         "primaryResourceAmount": 20,
         "secondaryResource": "leather",
         "secondaryResourceAmount": 12,
-        "bonusCity": "Lymhurst"
+        "bonusCity": "Lymhurst",
+        "realName": "claymore"
       },
       "dualSwords": {
         "id_snippet": "2h_DUALSWORD",
@@ -101,7 +112,8 @@
         "primaryResourceAmount": 20,
         "secondaryResource": "leather",
         "secondaryResourceAmount": 12,
-        "bonusCity": "Lymhurst"
+        "bonusCity": "Lymhurst",
+        "realName": "dualSwords"
       }
     },
     "axe": {
@@ -111,7 +123,8 @@
         "primaryResourceAmount": 16,
         "secondaryResource": "planks",
         "secondaryResourceAmount": 8,
-        "bonusCity": "Martlock"
+        "bonusCity": "Martlock",
+        "realName": "battleAxe"
       },
       "greatAxe": {
         "id_snippet": "2H_AXE",
@@ -119,7 +132,8 @@
         "primaryResourceAmount": 20,
         "secondaryResource": "planks",
         "secondaryResourceAmount": 12,
-        "bonusCity": "Martlock"
+        "bonusCity": "Martlock",
+        "realName": "greatAxe"
       },
       "halberd": {
         "id_snippet": "2h_HALBERD",
@@ -127,7 +141,8 @@
         "primaryResourceAmount": 12,
         "secondaryResource": "planks",
         "secondaryResourceAmount": 20,
-        "bonusCity": "Martlock"
+        "bonusCity": "Martlock",
+        "realName": "halberd"
       }
     },
     "mace": {
@@ -137,7 +152,8 @@
         "primaryResourceAmount": 16,
         "secondaryResource": "cloth",
         "secondaryResourceAmount": 8,
-        "bonusCity": "Thetford"
+        "bonusCity": "Thetford",
+        "realName": "mace"
       },
       "heavyMace": {
         "id_snippet": "2H_MACE",
@@ -145,7 +161,8 @@
         "primaryResourceAmount": 20,
         "secondaryResource": "cloth",
         "secondaryResourceAmount": 12,
-        "bonusCity": "Thetford"
+        "bonusCity": "Thetford",
+        "realName": "heavyMace"
       },
       "morningStar": {
         "id_snippet": "2h_FLAIL",
@@ -153,7 +170,8 @@
         "primaryResourceAmount": 20,
         "secondaryResource": "cloth",
         "secondaryResourceAmount": 12,
-        "bonusCity": "Thetford"
+        "bonusCity": "Thetford",
+        "realName": "morningStar"
       }
     },
     "hammer": {
@@ -163,7 +181,8 @@
         "primaryResourceAmount": 24,
         "secondaryResource": null,
         "secondaryResourceAmount": null,
-        "bonusCity": "Fort Sterling"
+        "bonusCity": "Fort Sterling",
+        "realName": "hammer"
       },
       "poleHammer": {
         "id_snippet": "2H_POLEHAMMER",
@@ -171,7 +190,8 @@
         "primaryResourceAmount": 20,
         "secondaryResource": "cloth",
         "secondaryResourceAmount": 12,
-        "bonusCity": "Fort Sterling"
+        "bonusCity": "Fort Sterling",
+        "realName": "poleHammer"
       },
       "greatHammer": {
         "id_snippet": "2h_HAMMER",
@@ -179,7 +199,8 @@
         "primaryResourceAmount": 20,
         "secondaryResource": "cloth",
         "secondaryResourceAmount": 12,
-        "bonusCity": "Fort Sterling"
+        "bonusCity": "Fort Sterling",
+        "realName": "greatHammer"
       }
     },
     "warGlove": {
@@ -189,7 +210,8 @@
         "primaryResourceAmount": 12,
         "secondaryResource": "leather",
         "secondaryResourceAmount": 20,
-        "bonusCity": "Caerleon"
+        "bonusCity": "Caerleon",
+        "realName": "brawlerGloves"
       },
       "battleBracers": {
         "id_snippet": "2H_KNUCKLES_SET2",
@@ -197,7 +219,8 @@
         "primaryResourceAmount": 12,
         "secondaryResource": "leather",
         "secondaryResourceAmount": 20,
-        "bonusCity": "Caerleon"
+        "bonusCity": "Caerleon",
+        "realName": "battleBracers"
       },
       "spikedGauntlet": {
         "id_snippet": "2H_KNUCKLES_SET3",
@@ -205,7 +228,8 @@
         "primaryResourceAmount": 12,
         "secondaryResource": "leather",
         "secondaryResourceAmount": 20,
-        "bonusCity": "Caerleon"
+        "bonusCity": "Caerleon",
+        "realName": "spikedGauntlet"
       }
     },
     "crossbow": {
@@ -215,7 +239,8 @@
         "primaryResourceAmount": 12,
         "secondaryResource": "planks",
         "secondaryResourceAmount": 20,
-        "bonusCity": "Bridgewatch"
+        "bonusCity": "Bridgewatch",
+        "realName": "crossbow"
       },
       "heavyCrossbow": {
         "id_snippet": "2H_CROSSBOWLARGE",
@@ -223,7 +248,8 @@
         "primaryResourceAmount": 12,
         "secondaryResource": "planks",
         "secondaryResourceAmount": 20,
-        "bonusCity": "Bridgewatch"
+        "bonusCity": "Bridgewatch",
+        "realName": "heavyCrossbow"
       },
       "lightCrossbow": {
         "id_snippet": "MAIN_1HCROSSBOW",
@@ -231,7 +257,8 @@
         "primaryResourceAmount": 8,
         "secondaryResource": "planks",
         "secondaryResourceAmount": 16,
-        "bonusCity": "Bridgewatch"
+        "bonusCity": "Bridgewatch",
+        "realName": "lightCrossbow"
       }
     },
     "shield": {
@@ -241,7 +268,8 @@
         "primaryResourceAmount": 4,
         "secondaryResource": "planks",
         "secondaryResourceAmount": 4,
-        "bonusCity": "Martlock"
+        "bonusCity": "Martlock",
+        "realName": "shield"
       }
     }
   },
@@ -253,7 +281,8 @@
         "primaryResourceAmount": 8,
         "secondaryResource": null,
         "secondaryResourceAmount": null,
-        "bonusCity": "Thetford"
+        "bonusCity": "Thetford",
+        "realName": "scholarCowl"
       },
       "clericCowl": {
         "id_snippet": "HEAD_CLOTH_SET2",
@@ -261,7 +290,8 @@
         "primaryResourceAmount": 8,
         "secondaryResource": null,
         "secondaryResourceAmount": null,
-        "bonusCity": "Thetford"
+        "bonusCity": "Thetford",
+        "realName": "clericCowl"
       },
       "mageCowl": {
         "id_snippet": "HEAD_CLOTH_SET3",
@@ -269,7 +299,8 @@
         "primaryResourceAmount": 8,
         "secondaryResource": null,
         "secondaryResourceAmount": null,
-        "bonusCity": "Thetford"
+        "bonusCity": "Thetford",
+        "realName": "mageCowl"
       }
     },
     "clothRobe": {
@@ -279,7 +310,8 @@
         "primaryResourceAmount": 16,
         "secondaryResource": null,
         "secondaryResourceAmount": null,
-        "bonusCity": "Fort Sterling"
+        "bonusCity": "Fort Sterling",
+        "realName": "scholarRobe"
       },
       "clericRobe": {
         "id_snippet": "ARMOR_CLOTH_SET2",
@@ -287,7 +319,8 @@
         "primaryResourceAmount": 16,
         "secondaryResource": null,
         "secondaryResourceAmount": null,
-        "bonusCity": "Fort Sterling"
+        "bonusCity": "Fort Sterling",
+        "realName": "clericRobe"
       },
       "mageRobe": {
         "id_snippet": "ARMOR_CLOTH_SET3",
@@ -295,7 +328,8 @@
         "primaryResourceAmount": 16,
         "secondaryResource": null,
         "secondaryResourceAmount": null,
-        "bonusCity": "Fort Sterling"
+        "bonusCity": "Fort Sterling",
+        "realName": "mageRobe"
       }
     },
     "clothSandals": {
@@ -305,7 +339,8 @@
         "primaryResourceAmount": 8,
         "secondaryResource": null,
         "secondaryResourceAmount": null,
-        "bonusCity": "Bridgewatch"
+        "bonusCity": "Bridgewatch",
+        "realName": "scholarSandals"
       },
       "clericSandals": {
         "id_snippet": "SHOES_CLOTH_SET2",
@@ -313,7 +348,8 @@
         "primaryResourceAmount": 8,
         "secondaryResource": null,
         "secondaryResourceAmount": null,
-        "bonusCity": "Bridgewatch"
+        "bonusCity": "Bridgewatch",
+        "realName": "clericSandals"
       },
       "mageSandals": {
         "id_snippet": "SHOES_CLOTH_SET3",
@@ -321,7 +357,8 @@
         "primaryResourceAmount": 8,
         "secondaryResource": null,
         "secondaryResourceAmount": null,
-        "bonusCity": "Bridgewatch"
+        "bonusCity": "Bridgewatch",
+        "realName": "mageSandals"
       }
     },
     "fireStaff": {
@@ -331,7 +368,8 @@
         "primaryResourceAmount": 16,
         "secondaryResource": "metalBar",
         "secondaryResourceAmount": 8,
-        "bonusCity": "Thetford"
+        "bonusCity": "Thetford",
+        "realName": "fireStaff"
       },
       "greatFireStaff": {
         "id_snippet": "2H_FIRESTAFF",
@@ -339,7 +377,8 @@
         "primaryResourceAmount": 20,
         "secondaryResource": "metalBar",
         "secondaryResourceAmount": 12,
-        "bonusCity": "Thetford"
+        "bonusCity": "Thetford",
+        "realName": "greatFireStaff"
       },
       "infernoStaff": {
         "id_snippet": "2H_INFERNOSTAFF",
@@ -347,7 +386,8 @@
         "primaryResourceAmount": 20,
         "secondaryResource": "metalBar",
         "secondaryResourceAmount": 12,
-        "bonusCity": "Thetford"
+        "bonusCity": "Thetford",
+        "realName": "infernoStaff"
       }
     },
     "holyStaff": {
@@ -357,7 +397,8 @@
         "primaryResourceAmount": 16,
         "secondaryResource": "cloth",
         "secondaryResourceAmount": 8,
-        "bonusCity": "Fort Sterling"
+        "bonusCity": "Fort Sterling",
+        "realName": "holyStaff"
       },
       "greatHolyStaff": {
         "id_snippet": "2H_HOLYSTAFF",
@@ -365,7 +406,8 @@
         "primaryResourceAmount": 20,
         "secondaryResource": "cloth",
         "secondaryResourceAmount": 12,
-        "bonusCity": "Fort Sterling"
+        "bonusCity": "Fort Sterling",
+        "realName": "greatHolyStaff"
       },
       "divineStaff": {
         "id_snippet": "2H_DIVINESTAFF",
@@ -373,7 +415,8 @@
         "primaryResourceAmount": 20,
         "secondaryResource": "cloth",
         "secondaryResourceAmount": 12,
-        "bonusCity": "Fort Sterling"
+        "bonusCity": "Fort Sterling",
+        "realName": "divineStaff"
       }
     },
     "arcaneStaff": {
@@ -383,7 +426,8 @@
         "primaryResourceAmount": 16,
         "secondaryResource": "metalBar",
         "secondaryResourceAmount": 8,
-        "bonusCity": "Lymhurst"
+        "bonusCity": "Lymhurst",
+        "realName": "arcaneStaff"
       },
       "greatArcaneStaff": {
         "id_snippet": "2H_ARCANESTAFF",
@@ -391,7 +435,8 @@
         "primaryResourceAmount": 20,
         "secondaryResource": "metalBar",
         "secondaryResourceAmount": 12,
-        "bonusCity": "Lymhurst"
+        "bonusCity": "Lymhurst",
+        "realName": "greatArcaneStaff"
       },
       "enigmaticStaff": {
         "id_snippet": "2H_ENIGMATICSTAFF",
@@ -399,7 +444,8 @@
         "primaryResourceAmount": 20,
         "secondaryResource": "metalBar",
         "secondaryResourceAmount": 12,
-        "bonusCity": "Lymhurst"
+        "bonusCity": "Lymhurst",
+        "realName": "enigmaticStaff"
       }
     },
     "frostStaff": {
@@ -409,7 +455,8 @@
         "primaryResourceAmount": 16,
         "secondaryResource": "metalBar",
         "secondaryResourceAmount": 8,
-        "bonusCity": "Martlock"
+        "bonusCity": "Martlock",
+        "realName": "frostStaff"
       },
       "greatFrostStaff": {
         "id_snippet": "2H_FROSTSTAFF",
@@ -417,7 +464,8 @@
         "primaryResourceAmount": 20,
         "secondaryResource": "metalBar",
         "secondaryResourceAmount": 12,
-        "bonusCity": "Martlock"
+        "bonusCity": "Martlock",
+        "realName": "greatFrostStaff"
       },
       "glacialStaff": {
         "id_snippet": "2H_GLACIALSTAFF",
@@ -425,7 +473,8 @@
         "primaryResourceAmount": 20,
         "secondaryResource": "metalBar",
         "secondaryResourceAmount": 12,
-        "bonusCity": "Martlock"
+        "bonusCity": "Martlock",
+        "realName": "glacialStaff"
       }
     },
     "curseStaff": {
@@ -435,7 +484,8 @@
         "primaryResourceAmount": 16,
         "secondaryResource": "metalBar",
         "secondaryResourceAmount": 8,
-        "bonusCity": "Bridgewatch"
+        "bonusCity": "Bridgewatch",
+        "realName": "cursedStaff"
       },
       "greatCursedStaff": {
         "id_snippet": "2H_CURSEDSTAFF",
@@ -443,7 +493,8 @@
         "primaryResourceAmount": 20,
         "secondaryResource": "metalBar",
         "secondaryResourceAmount": 12,
-        "bonusCity": "Bridgewatch"
+        "bonusCity": "Bridgewatch",
+        "realName": "greatCursedStaff"
       },
       "demonicStaff": {
         "id_snippet": "2H_DEMONICSTAFF",
@@ -451,7 +502,8 @@
         "primaryResourceAmount": 20,
         "secondaryResource": "metalBar",
         "secondaryResourceAmount": 12,
-        "bonusCity": "Bridgewatch"
+        "bonusCity": "Bridgewatch",
+        "realName": "demonicStaff"
       }
     },
     "tome": {
@@ -461,7 +513,8 @@
         "primaryResourceAmount": 4,
         "secondaryResource": "leather",
         "secondaryResourceAmount": 4,
-        "bonusCity": "Martlock"
+        "bonusCity": "Martlock",
+        "realName": "tomeOfSpells"
       }
     }
   },
@@ -473,7 +526,8 @@
         "primaryResourceAmount": 8,
         "secondaryResource": null,
         "secondaryResourceAmount": null,
-        "bonusCity": "Lymhurst"
+        "bonusCity": "Lymhurst",
+        "realName": "mercenaryHood"
       },
       "hunterHood": {
         "id_snippet": "HEAD_LEATHER_SET2",
@@ -481,7 +535,8 @@
         "primaryResourceAmount": 8,
         "secondaryResource": null,
         "secondaryResourceAmount": null,
-        "bonusCity": "Lymhurst"
+        "bonusCity": "Lymhurst",
+        "realName": "hunterHood"
       },
       "assassinHood": {
         "id_snippet": "HEAD_LEATHER_SET3",
@@ -489,7 +544,8 @@
         "primaryResourceAmount": 8,
         "secondaryResource": null,
         "secondaryResourceAmount": null,
-        "bonusCity": "Lymhurst"
+        "bonusCity": "Lymhurst",
+        "realName": "assassinHood"
       }
     },
     "leatherJacket": {
@@ -499,7 +555,8 @@
         "primaryResourceAmount": 16,
         "secondaryResource": null,
         "secondaryResourceAmount": null,
-        "bonusCity": "Thetford"
+        "bonusCity": "Thetford",
+        "realName": "mercenaryJacket"
       },
       "hunterJacket": {
         "id_snippet": "ARMOR_LEATHER_SET2",
@@ -507,7 +564,8 @@
         "primaryResourceAmount": 16,
         "secondaryResource": null,
         "secondaryResourceAmount": null,
-        "bonusCity": "Thetford"
+        "bonusCity": "Thetford",
+        "realName": "hunterJacket"
       },
       "assassinJacket": {
         "id_snippet": "ARMOR_LEATHER_SET3",
@@ -515,7 +573,8 @@
         "primaryResourceAmount": 16,
         "secondaryResource": null,
         "secondaryResourceAmount": null,
-        "bonusCity": "Thetford"
+        "bonusCity": "Thetford",
+        "realName": "assassinJacket"
       }
     },
     "leatherShoes": {
@@ -525,7 +584,8 @@
         "primaryResourceAmount": 8,
         "secondaryResource": null,
         "secondaryResourceAmount": null,
-        "bonusCity": "Lymhurst"
+        "bonusCity": "Lymhurst",
+        "realName": "mercenaryShoes"
       },
       "hunterShoes": {
         "id_snippet": "SHOES_LEATHER_SET2",
@@ -533,7 +593,8 @@
         "primaryResourceAmount": 8,
         "secondaryResource": null,
         "secondaryResourceAmount": null,
-        "bonusCity": "Lymhurst"
+        "bonusCity": "Lymhurst",
+        "realName": "hunterShoes"
       },
       "assassinShoes": {
         "id_snippet": "SHOES_LEATHER_SET3",
@@ -541,7 +602,8 @@
         "primaryResourceAmount": 8,
         "secondaryResource": null,
         "secondaryResourceAmount": null,
-        "bonusCity": "Lymhurst"
+        "bonusCity": "Lymhurst",
+        "realName": "assassinShoes"
       }
     },
     "bow": {
@@ -551,7 +613,8 @@
         "primaryResourceAmount": 32,
         "secondaryResource": null,
         "secondaryResourceAmount": null,
-        "bonusCity": "Lymhurst"
+        "bonusCity": "Lymhurst",
+        "realName": "bow"
       },
       "warbow": {
         "id_snippet": "2H_WARBOW",
@@ -559,7 +622,8 @@
         "primaryResourceAmount": 32,
         "secondaryResource": null,
         "secondaryResourceAmount": null,
-        "bonusCity": "Lymhurst"
+        "bonusCity": "Lymhurst",
+        "realName": "warbow"
       },
       "longbow": {
         "id_snippet": "2H_LONGBOW",
@@ -567,7 +631,8 @@
         "primaryResourceAmount": 32,
         "secondaryResource": null,
         "secondaryResourceAmount": null,
-        "bonusCity": "Lymhurst"
+        "bonusCity": "Lymhurst",
+        "realName": "longbow"
       }
     },
     "spear": {
@@ -577,7 +642,8 @@
         "primaryResourceAmount": 8,
         "secondaryResource": "planks",
         "secondaryResourceAmount": 16,
-        "bonusCity": "Fort Sterling"
+        "bonusCity": "Fort Sterling",
+        "realName": "spear"
       },
       "pike": {
         "id_snippet": "2H_SPEAR",
@@ -585,7 +651,8 @@
         "primaryResourceAmount": 12,
         "secondaryResource": "planks",
         "secondaryResourceAmount": 20,
-        "bonusCity": "Fort Sterling"
+        "bonusCity": "Fort Sterling",
+        "realName": "pike"
       },
       "glaive": {
         "id_snippet": "2H_GLAIVE",
@@ -593,7 +660,8 @@
         "primaryResourceAmount": 20,
         "secondaryResource": "planks",
         "secondaryResourceAmount": 12,
-        "bonusCity": "Fort Sterling"
+        "bonusCity": "Fort Sterling",
+        "realName": "glaive"
       }
     },
     "nature": {
@@ -603,7 +671,8 @@
         "primaryResourceAmount": 16,
         "secondaryResource": "cloth",
         "secondaryResourceAmount": 8,
-        "bonusCity": "Thetford"
+        "bonusCity": "Thetford",
+        "realName": "natureStaff"
       },
       "greatNatureStaff": {
         "id_snippet": "2H_NATURESTAFF",
@@ -611,7 +680,8 @@
         "primaryResourceAmount": 20,
         "secondaryResource": "cloth",
         "secondaryResourceAmount": 12,
-        "bonusCity": "Thetford"
+        "bonusCity": "Thetford",
+        "realName": "greatNatureStaff"
       },
       "wildStaff": {
         "id_snippet": "2H_WILDSTAFF",
@@ -619,7 +689,8 @@
         "primaryResourceAmount": 20,
         "secondaryResource": "cloth",
         "secondaryResourceAmount": 12,
-        "bonusCity": "Thetford"
+        "bonusCity": "Thetford",
+        "realName": "wildStaff"
       }
     },
     "dagger": {
@@ -629,7 +700,8 @@
         "primaryResourceAmount": 12,
         "secondaryResource": "leather",
         "secondaryResourceAmount": 12,
-        "bonusCity": "Bridgewatch"
+        "bonusCity": "Bridgewatch",
+        "realName": "dagger"
       },
       "daggerPair": {
         "id_snippet": "2H_DAGGERPAIR",
@@ -637,7 +709,8 @@
         "primaryResourceAmount": 16,
         "secondaryResource": "leather",
         "secondaryResourceAmount": 16,
-        "bonusCity": "Bridgewatch"
+        "bonusCity": "Bridgewatch",
+        "realName": "daggerPair"
       },
       "claws": {
         "id_snippet": "2H_CLAWPAIR",
@@ -645,7 +718,8 @@
         "primaryResourceAmount": 12,
         "secondaryResource": "leather",
         "secondaryResourceAmount": 20,
-        "bonusCity": "Bridgewatch"
+        "bonusCity": "Bridgewatch",
+        "realName": "claws"
       }
     },
     "quarterstaff": {
@@ -655,7 +729,8 @@
         "primaryResourceAmount": 12,
         "secondaryResource": "leather",
         "secondaryResourceAmount": 20,
-        "bonusCity": "Martlock"
+        "bonusCity": "Martlock",
+        "realName": "quarterstaff"
       },
       "ironcladStaff": {
         "id_snippet": "2H_IRONCLADEDSTAFF",
@@ -663,7 +738,8 @@
         "primaryResourceAmount": 12,
         "secondaryResource": "leather",
         "secondaryResourceAmount": 20,
-        "bonusCity": "Martlock"
+        "bonusCity": "Martlock",
+        "realName": "ironcladStaff"
       },
       "doubleBladedStaff": {
         "id_snippet": "2H_DOUBLEBLADEDSTAFF",
@@ -671,7 +747,8 @@
         "primaryResourceAmount": 12,
         "secondaryResource": "leather",
         "secondaryResourceAmount": 20,
-        "bonusCity": "Martlock"
+        "bonusCity": "Martlock",
+        "realName": "doubleBladedStaff"
       }
     },
     "torch": {
@@ -681,7 +758,8 @@
         "primaryResourceAmount": 4,
         "secondaryResource": "leather",
         "secondaryResourceAmount": 4,
-        "bonusCity": "Martlock"
+        "bonusCity": "Martlock",
+        "realName": "torch"
       }
     }
   },

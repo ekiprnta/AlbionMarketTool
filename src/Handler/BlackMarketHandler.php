@@ -25,27 +25,22 @@ class BlackMarketHandler
             $this->uploadService->uploadRefreshedPrices();
         }
         $cityData = [];
-        $city = '';
-        $rrr = 'Resource Return Rate in %';
-        $weight = 'weight in kg';
         $alertMessage = null;
         if (! empty($_GET)) {
-            $city = $_GET['city'];
+            $itemCity = $_GET['itemCity'];
+            $resourceCity = $_GET['resourceCity'];
             $weight = (int) $_GET['weight'];
             $rrr = (float) $_GET['rrr'];
+            $order = $_GET['order'];
             try {
-                $cityData = $this->calculatorService->getDataForCity($city, $weight, $rrr);
+                $cityData = $this->calculatorService->getDataForCity($itemCity, $weight, $rrr, $resourceCity, $order);
             } catch (InvalidArgumentException $invalidArgumentExceptionException) {
                 $alertMessage = $invalidArgumentExceptionException->getMessage();
             }
         }
-
-
         $htmlContent = $this->twigEnvironment->render('calculateBlackMarket.html.twig', [
             'dataArray' => $cityData,
-            'city' => $city,
-            'weight' => $weight,
-            'rrr' => $rrr,
+            'infoService' => $this->calculatorService,
             'alertMessage' => $alertMessage,
         ]);
         return new HtmlResponse($htmlContent);

@@ -16,6 +16,7 @@ class CalculateEntity
     private string $tier;
     private string $name;
     private string $weaponGroup;
+    private string $realName;
     private int $itemSellOrderPrice;
     private DateTimeImmutable $itemSellOrderPriceDate;
     private float $fameAmount;
@@ -25,11 +26,16 @@ class CalculateEntity
     private int $primaryResourceAmount;
     private int $primarySellOrderPrice;
     private DateTimeImmutable $primarySellOrderPriceDate;
+    private int $primaryBuyOrderPrice;
+    private DateTimeImmutable $primaryBuyOrderPriceDate;
+
 
     private ?string $secondaryResource;
     private ?int $secondaryResourceAmount;
     private ?int $secondarySellOrderPrice = null;
     private ?DateTimeImmutable $secondarySellOrderPriceDate = null;
+    private ?int $secondaryBuyOrderPrice = null;
+    private ?DateTimeImmutable $secondaryBuyOrderPriceDate = null;
 
 
     private float $resourceWeight;
@@ -57,6 +63,7 @@ class CalculateEntity
         $this->tier = $itemEntity->getTier();
         $this->name = $itemEntity->getName();
         $this->weaponGroup = $itemEntity->getWeaponGroup();
+        $this->realName = $itemEntity->getRealName();
         $this->itemSellOrderPrice = $itemEntity->getSellOrderPrice();
         $this->itemSellOrderPriceDate = $itemEntity->getSellOrderPriceDate();
         $this->fameAmount = $craftingFame;
@@ -66,6 +73,8 @@ class CalculateEntity
         $this->primaryResourceAmount = $itemEntity->getPrimaryResourceAmount();
         $this->primarySellOrderPrice = $primaryResourceEntity->getSellOrderPrice();
         $this->primarySellOrderPriceDate = $primaryResourceEntity->getSellOrderPriceDate();
+        $this->primaryBuyOrderPrice = $primaryResourceEntity->getBuyOrderPrice();
+        $this->primaryBuyOrderPriceDate = $primaryResourceEntity->getBuyOrderPriceDate();
 
         $this->secondaryResource = $itemEntity->getSecondaryResource();
         $this->secondaryResourceAmount = $itemEntity->getSecondaryResourceAmount();
@@ -73,10 +82,32 @@ class CalculateEntity
             $secondaryResourceEntity = $this->getSecondaryResourceEntity($itemEntity, $resourceData);
             $this->secondarySellOrderPrice = $secondaryResourceEntity->getSellOrderPrice();
             $this->secondarySellOrderPriceDate = $secondaryResourceEntity->getSellOrderPriceDate();
+            $this->secondaryBuyOrderPrice = $secondaryResourceEntity->getBuyOrderPrice();
+            $this->secondaryBuyOrderPriceDate = $secondaryResourceEntity->getBuyOrderPriceDate();
         }
 
         $this->tierColor = $this->setTierColor();
         $this->resourceWeight = $resourceWeight;
+    }
+
+    public function getPrimaryBuyOrderPrice(): int
+    {
+        return $this->primaryBuyOrderPrice;
+    }
+
+    public function getPrimaryBuyOrderPriceDate(): DateTimeImmutable
+    {
+        return $this->primaryBuyOrderPriceDate;
+    }
+
+    public function getSecondaryBuyOrderPrice(): ?int
+    {
+        return $this->secondaryBuyOrderPrice;
+    }
+
+    public function getSecondaryBuyOrderPriceDate(): ?DateTimeImmutable
+    {
+        return $this->secondaryBuyOrderPriceDate;
     }
 
     public function getItemPriceAge(): int
@@ -332,5 +363,10 @@ class CalculateEntity
             return 'X';
         }
         return '0';
+    }
+
+    public function getRealName(): string
+    {
+        return $this->realName;
     }
 }
