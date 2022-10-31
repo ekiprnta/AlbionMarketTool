@@ -44,8 +44,9 @@ $serviceManager = new ServiceManager([
                     ItemHelper::class
                 ],
                 CalculatorService::class => [
-                ItemRepository::class,
-                ResourceRepository::class
+                    ItemRepository::class,
+                    ResourceRepository::class,
+                    JournalRepository::class
                 ],
                 CalculateInfoHandler::class => [
                     Environment::class
@@ -72,7 +73,7 @@ $serviceManager = new ServiceManager([
         UploadRepository::class => UploadRepositoryFactory::class,
         ResourceRepository::class => ResourceRepositoryFactory::class,
         ItemRepository::class => ItemRepositoryFactory::class,
-        JournalRepository::class => JournalRepositoryFactory::class ,
+        JournalRepository::class => JournalRepositoryFactory::class,
         'abstract_factories' => [ConfigAbstractFactory::class],
     ],
 ]);

@@ -22,9 +22,6 @@ class BlackMarketHandler
 
     public function handler(): HtmlResponse
     {
-        $this->uploadService->uploadJournalsIntoEmptyDb();
-        die();
-
         if (! empty($_POST['updatePrices'])) {
             $this->uploadService->uploadRefreshedPrices();
         }

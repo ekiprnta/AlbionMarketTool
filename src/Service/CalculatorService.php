@@ -8,6 +8,7 @@ use InvalidArgumentException;
 use MZierdt\Albion\Entity\CalculateEntity;
 use MZierdt\Albion\Entity\ItemEntity;
 use MZierdt\Albion\repositories\ItemRepository;
+use MZierdt\Albion\repositories\JournalRepository;
 use MZierdt\Albion\repositories\ResourceRepository;
 
 class CalculatorService
@@ -21,6 +22,7 @@ class CalculatorService
     public function __construct(
         private ItemRepository $itemRepository,
         private ResourceRepository $resourceRepository,
+        private JournalRepository $journalRepository,
     ) {
     }
 
@@ -56,6 +58,8 @@ class CalculatorService
         $this->maxWeight = $weight;
         $items = $this->itemRepository->getItemsFromCity($itemCity);
         $resources = $this->resourceRepository->getResourcesByCity($resourceCity);
+        $journals = $this->journalRepository->getJournalsFromCity($resourceCity);
+        dd($journals);
 
         $calculateEntityArray = [];
         /** @var ItemEntity $item */

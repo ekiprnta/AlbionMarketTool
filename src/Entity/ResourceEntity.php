@@ -157,12 +157,12 @@ class ResourceEntity
         return $this->buyOrderPriceDate->format('Y-m-d H:i:s');
     }
 
-    private function getDateTimeImmutable(mixed $sellOrderPriceDate): DateTimeImmutable|bool
+    private function getDateTimeImmutable(string $date): DateTimeImmutable|bool
     {
-        $sellOrderPriceDate = str_replace('T', ' ', $sellOrderPriceDate);
+        $date = str_replace('T', ' ', $date);
         return DateTimeImmutable::createFromFormat(
             'Y-m-d H:i:s',
-            $sellOrderPriceDate,
+            $date,
             new DateTimeZone('Europe/London')
         );
     }
