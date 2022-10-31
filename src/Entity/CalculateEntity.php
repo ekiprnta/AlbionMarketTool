@@ -377,7 +377,7 @@ class CalculateEntity
         $journalInfo = [];
         /** @var JournalEntity $journalEntity */
         foreach ($journalData as $journalEntity) {
-            if ($journalEntity->getWeaponGroup() === $itemEntity->getClass() &&
+            if ($journalEntity->getClass() === $itemEntity->getClass() &&
                 (str_starts_with($itemEntity->getTier(), $journalEntity->getTier()))
                 //Todo rename journal Entity to weaponGroup > class
             ) {

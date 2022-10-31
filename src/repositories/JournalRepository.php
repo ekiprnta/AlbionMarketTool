@@ -26,7 +26,7 @@ SQL
 
             $statement->bindParam(':city', $city);
             $statement->execute();
-            $itemsArray = [];
+            $journalsArray = [];
             foreach ($statement->getIterator() as $journalInformation) {
                 $journalsArray[] = new JournalEntity($journalInformation);
             }

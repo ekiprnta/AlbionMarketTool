@@ -90,9 +90,8 @@ class CalculatorService
     {
         /** @var CalculateEntity $calculateEntity */
         foreach ($calculateEntityArray as $calculateEntity) {
-            $calculateEntity->setPercentageProfit(
-                $this->calculateProfitByPercentage($calculateEntity, $percentage, $order)
-            );
+            $profit = $this->calculateProfitByPercentage($calculateEntity, $percentage, $order);
+            $calculateEntity->setPercentageProfit($profit);
         }
     }
 
@@ -195,6 +194,8 @@ class CalculatorService
 
     private function calculateProfitBooks(CalculateEntity $calculateEntity): float|int
     {
-        return ($calculateEntity->getFullSellOrderPrice() - $calculateEntity->getEmptySellOrderPrice()) * $calculateEntity->getAmountBooks();
+        return ($calculateEntity->getFullSellOrderPrice() -
+                $calculateEntity->getEmptySellOrderPrice()) *
+            $calculateEntity->getAmountBooks();
     }
 }

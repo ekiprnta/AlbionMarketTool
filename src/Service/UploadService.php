@@ -20,6 +20,7 @@ class UploadService
     public function uploadJournalsIntoEmptyDb(): void
     {
         $journals = $this->getAdjustedJournals();
+
         $this->uploadRepository->loadJournalsIntoDatabase($journals['warrior']);
         $this->uploadRepository->loadJournalsIntoDatabase($journals['mage']);
         $this->uploadRepository->loadJournalsIntoDatabase($journals['hunter']);
@@ -156,7 +157,7 @@ class UploadService
                 'buyOrderPriceDate' => $journal['buy_price_max_date'],
                 'weight' => $stats['weight'],
                 'fillStatus'=> $split[2],
-                'weaponGroup' =>$split[1],
+                'class' =>$split[1],
             ];
         }
         return $adjustedJournalsArray;

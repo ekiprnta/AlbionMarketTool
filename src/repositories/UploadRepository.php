@@ -101,6 +101,7 @@ SQL
                     WHERE albion_db.journals.name = :name
                     AND albion_db.journals.tier = :tier
                     AND albion_db.journals.city = :city
+                    AND albion_db.journals.class = :classGroup
 SQL
                 );
                 $statement->bindParam(':sellOrderPrice', $information['sellOrderPrice']);
@@ -108,6 +109,7 @@ SQL
                 $statement->bindParam(':name', $information['name']);
                 $statement->bindParam(':tier', $information['tier']);
                 $statement->bindParam(':city', $information['city']);
+                $statement->bindParam(':classGroup', $information['class']);
                 $statement->execute();
             }
             if ($information['buyOrderPrice'] !== 0) {
@@ -119,6 +121,7 @@ SQL
                     WHERE albion_db.journals.name = :name
                     AND albion_db.journals.tier = :tier
                     AND albion_db.journals.city = :city
+                    AND albion_db.journals.class = :classGroup
 SQL
                 );
                 $statement->bindParam(':buyOrderPrice', $information['buyOrderPrice']);
@@ -126,6 +129,7 @@ SQL
                 $statement->bindParam(':name', $information['name']);
                 $statement->bindParam(':tier', $information['tier']);
                 $statement->bindParam(':city', $information['city']);
+                $statement->bindParam(':classGroup', $information['class']);
                 $statement->execute();
             }
         }
@@ -242,7 +246,7 @@ SQL;
     {
         $query = <<<SQL
             INSERT INTO albion_db.journals
-            (`tier`, `name`, `city`, `fameToFill`, `sellOrderPrice`, `sellOrderPriceDate`,`buyOrderPrice`, `buyOrderPriceDate`, `weight`, `fillStatus`, `weaponGroup` )
+            (`tier`, `name`, `city`, `fameToFill`, `sellOrderPrice`, `sellOrderPriceDate`,`buyOrderPrice`, `buyOrderPriceDate`, `weight`, `fillStatus`, `class` )
             VALUES (?,?,?,?,?,?,?,?,?,?,?)
 SQL;
         foreach ($journalInformation as $information) {
@@ -257,7 +261,7 @@ SQL;
                 $information['buyOrderPriceDate'],
                 $information['weight'],
                 $information['fillStatus'],
-                $information['weaponGroup'],
+                $information['class'],
             ]);
         }
     }

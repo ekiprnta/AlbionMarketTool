@@ -19,7 +19,7 @@ class JournalEntity
     private DateTimeImmutable $buyOrderPriceDate;
     private float $weight;
     private string $fillStatus; //full empty
-    private string $weaponGroup; //warrior mage
+    private string $class; //warrior mage
 
     public function __construct(array $journalData) {
         $sellOrderPriceDate = $this->getDateTimeImmutable($journalData['sellOrderPriceDate']);
@@ -35,7 +35,7 @@ class JournalEntity
         $this->buyOrderPriceDate = $buyOrderPriceDate;
         $this->weight = (float)$journalData['weight'];
         $this->fillStatus = $journalData['fillStatus'];
-        $this->weaponGroup = $journalData['weaponGroup'];
+        $this->class = $journalData['class'];
     }
 
     public function getTier(): string
@@ -88,9 +88,9 @@ class JournalEntity
         return $this->fillStatus;
     }
 
-    public function getWeaponGroup(): string
+    public function getClass(): string
     {
-        return $this->weaponGroup;
+        return $this->class;
     }
 
     private function getDateTimeImmutable(string $date): DateTimeImmutable|bool
