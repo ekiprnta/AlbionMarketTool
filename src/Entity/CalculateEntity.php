@@ -7,8 +7,6 @@ namespace MZierdt\Albion\Entity;
 use DateTimeImmutable;
 use RuntimeException;
 
-use function PHPUnit\Framework\stringStartsWith;
-
 class CalculateEntity
 {
     private const PREMIUM_FACTOR = 1.5;
@@ -53,7 +51,18 @@ class CalculateEntity
     private int $primaryPriceAge;
     private ?int $secondaryPriceAge = null;
 
-    public function __construct(ItemEntity $itemEntity, array $resourceData)
+    private int $fameToFill;
+    private string $journalName;
+    private float $journalWeight;
+    private int $fullSellOrderPrice;
+    private DateTimeImmutable $fullSellOrderPriceDate;
+    private int $emptySellOrderPrice;
+    private DateTimeImmutable $emptySellOrderPriceDate;
+    private int $emptyBuyOrderPrice;
+    private DateTimeImmutable $emptyBuyOrderPriceDate;
+    private int $amountBooks;
+
+    public function __construct(ItemEntity $itemEntity, array $resourceData, array $journalData)
     {
         $primaryResourceEntity = $this->getPrimaryResourceEntity($itemEntity, $resourceData);
 
@@ -88,6 +97,73 @@ class CalculateEntity
 
         $this->tierColor = $this->setTierColor();
         $this->resourceWeight = $resourceWeight;
+        /** @var JournalEntity[] $journalInfo */
+        $journalInfo = $this->getJournalInfo($itemEntity, $journalData);
+        $this->fameToFill = $journalInfo['full']->getFameToFill();
+        $this->journalName = $journalInfo['full']->getName();
+        $this->fullSellOrderPrice = $journalInfo['full']->getSellOrderPrice();
+        $this->fullSellOrderPriceDate = $journalInfo['full']->getSellOrderPriceDate();
+        $this->emptySellOrderPrice = $journalInfo['empty']->getSellOrderPrice();
+        $this->emptySellOrderPriceDate = $journalInfo['empty']->getSellOrderPriceDate();
+        $this->emptyBuyOrderPrice = $journalInfo['empty']->getBuyOrderPrice();
+        $this->emptyBuyOrderPriceDate = $journalInfo['empty']->getBuyOrderPriceDate();
+
+        $this->journalWeight = $this->getCalculatedJournalWeight($journalInfo['full']);
+    }
+
+    public function getAmountBooks(): int
+    {
+        return $this->amountBooks;
+    }
+
+    public function setAmountBooks(int $totalAmount): void
+    {
+        $this->amountBooks = (int)ceil(($totalAmount * $this->fameAmount) / $this->fameToFill);
+    }
+
+    public function getFameToFill(): int
+    {
+        return $this->fameToFill;
+    }
+
+    public function getJournalName(): string
+    {
+        return $this->journalName;
+    }
+
+    public function getJournalWeight(): float
+    {
+        return $this->journalWeight;
+    }
+
+    public function getFullSellOrderPrice(): int
+    {
+        return $this->fullSellOrderPrice;
+    }
+
+    public function getFullSellOrderPriceDate(): DateTimeImmutable
+    {
+        return $this->fullSellOrderPriceDate;
+    }
+
+    public function getEmptySellOrderPrice(): int
+    {
+        return $this->emptySellOrderPrice;
+    }
+
+    public function getEmptySellOrderPriceDate(): DateTimeImmutable
+    {
+        return $this->emptySellOrderPriceDate;
+    }
+
+    public function getEmptyBuyOrderPrice(): int
+    {
+        return $this->emptyBuyOrderPrice;
+    }
+
+    public function getEmptyBuyOrderPriceDate(): DateTimeImmutable
+    {
+        return $this->emptyBuyOrderPriceDate;
     }
 
     public function getPrimaryBuyOrderPrice(): int
@@ -295,6 +371,25 @@ class CalculateEntity
         throw new RuntimeException('No Primary Resource found');
     }
 
+    private function getJournalInfo(ItemEntity $itemEntity, array $journalData): array
+    {
+        $journalInfo = [];
+        /** @var JournalEntity $journalEntity */
+        foreach ($journalData as $journalEntity) {
+            if (($journalEntity->getTier() === $itemEntity->getTier()) &&
+                $journalEntity->getWeaponGroup() === $itemEntity->getWeaponGroup()
+            ) {
+                if ($journalEntity->getFillStatus() === 'full') {
+                    $journalInfo['full'] = $journalEntity;
+                }
+                if ($journalEntity->getFillStatus() === 'empty') {
+                    $journalEntity['empty'] = $journalEntity;
+                }
+            }
+        }
+        return $journalInfo;
+    }
+
     private function getSecondaryResourceEntity(ItemEntity $item, array $resourceData): ResourceEntity
     {
         /** @var ResourceEntity $resourceEntity */
@@ -368,5 +463,10 @@ class CalculateEntity
     public function getRealName(): string
     {
         return $this->realName;
+    }
+
+    private function getCalculatedJournalWeight(JournalEntity $journal): float
+    {
+        return ($this->fameToFill / $this->fameAmount) * $journal->getWeight();
     }
 }
