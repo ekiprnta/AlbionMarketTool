@@ -12,44 +12,59 @@ class UploadService
 {
     public function __construct(
         private ApiService $apiService,
-        private UploadRepository $UploadRepository,
+        private UploadRepository $uploadRepository,
         private ItemHelper $itemHelper
     ) {
+    }
+
+    public function uploadJournalsIntoEmptyDb(): void
+    {
+        $journals = $this->getAdjustedJournals();
+
+        $this->uploadRepository->loadJournalsIntoDatabase($journals['warrior']);
+        $this->uploadRepository->loadJournalsIntoDatabase($journals['mage']);
+        $this->uploadRepository->loadJournalsIntoDatabase($journals['hunter']);
     }
 
     public function uploadItemsIntoEmptyDb(): void
     {
         $items = $this->getAdjustedItems();
 
-        $this->UploadRepository->loadItemsIntoDatabase($items['warrior']);
-        $this->UploadRepository->loadItemsIntoDatabase($items['mage']);
-        $this->UploadRepository->loadItemsIntoDatabase($items['hunter']);
+        $this->uploadRepository->loadItemsIntoDatabase($items['warrior']);
+        $this->uploadRepository->loadItemsIntoDatabase($items['mage']);
+        $this->uploadRepository->loadItemsIntoDatabase($items['hunter']);
     }
 
     public function uploadResourceIntoEmptyDb(): void
     {
         $resources = $this->getAdjustedResources();
 
-        $this->UploadRepository->loadResourcesIntoDatabase($resources['metalBar']);
-        $this->UploadRepository->loadResourcesIntoDatabase($resources['planks']);
-        $this->UploadRepository->loadResourcesIntoDatabase($resources['cloth']);
-        $this->UploadRepository->loadResourcesIntoDatabase($resources['leather']);
+        $this->uploadRepository->loadResourcesIntoDatabase($resources['metalBar']);
+        $this->uploadRepository->loadResourcesIntoDatabase($resources['planks']);
+        $this->uploadRepository->loadResourcesIntoDatabase($resources['cloth']);
+        $this->uploadRepository->loadResourcesIntoDatabase($resources['leather']);
     }
 
     public function uploadRefreshedPrices(): void
     {
         $resources = $this->getAdjustedResources();
 
-        $this->UploadRepository->reloadUpdatedPricesResources($resources['metalBar']);
-        $this->UploadRepository->reloadUpdatedPricesResources($resources['planks']);
-        $this->UploadRepository->reloadUpdatedPricesResources($resources['cloth']);
-        $this->UploadRepository->reloadUpdatedPricesResources($resources['leather']);
+        $this->uploadRepository->reloadUpdatedPricesResources($resources['metalBar']);
+        $this->uploadRepository->reloadUpdatedPricesResources($resources['planks']);
+        $this->uploadRepository->reloadUpdatedPricesResources($resources['cloth']);
+        $this->uploadRepository->reloadUpdatedPricesResources($resources['leather']);
 
         $items = $this->getAdjustedItems();
 
-        $this->UploadRepository->reloadUpdatedPricesItems($items['warrior']);
-        $this->UploadRepository->reloadUpdatedPricesItems($items['mage']);
-        $this->UploadRepository->reloadUpdatedPricesItems($items['hunter']);
+        $this->uploadRepository->reloadUpdatedPricesItems($items['warrior']);
+        $this->uploadRepository->reloadUpdatedPricesItems($items['mage']);
+        $this->uploadRepository->reloadUpdatedPricesItems($items['hunter']);
+
+        $journals = $this->getAdjustedJournals();
+
+        $this->uploadRepository->reloadUpdatedPricesJournals($journals['warrior']);
+        $this->uploadRepository->reloadUpdatedPricesJournals($journals['mage']);
+        $this->uploadRepository->reloadUpdatedPricesJournals($journals['hunter']);
     }
 
     protected function adjustResourceArray(array $resourceArray, string $resourceType): array
@@ -71,6 +86,22 @@ class UploadService
             ];
         }
         return $adjustedResourceArray;
+    }
+
+    private function getAdjustedJournals(): array
+    {
+        $warriorJournalArray = $this->apiService->getJournals(ApiService::JOURNAL_WARRIOR);
+        $warriorJournalArrayAdjusted = $this->adjustJournals($warriorJournalArray, ApiService::JOURNAL_WARRIOR);
+        $mageJournalArray = $this->apiService->getJournals(ApiService::JOURNAL_WARRIOR);
+        $mageJournalArrayAdjusted = $this->adjustJournals($mageJournalArray, ApiService::JOURNAL_MAGE);
+        $hunterJournalArray = $this->apiService->getJournals(ApiService::JOURNAL_WARRIOR);
+        $hunterJournalArrayAdjusted = $this->adjustJournals($hunterJournalArray, ApiService::JOURNAL_HUNTER);
+
+        return [
+            'warrior' => $warriorJournalArrayAdjusted,
+            'mage' => $mageJournalArrayAdjusted,
+            'hunter' => $hunterJournalArrayAdjusted,
+        ];
     }
 
     private function getAdjustedResources(): array
@@ -106,6 +137,26 @@ class UploadService
             'mage' => $mageArrayAdjusted,
             'hunter' => $hunterArrayAdjusted,
         ];
+    }
+
+    private function adjustJournals(array $journals): array
+    {
+        $adjustedJournalsArray = [];
+        foreach ($journals as $journal) {
+            $nameAndTier = TierService::splitIntoTierAndName($journal['item_id']);
+            $fameToFill = NameDataService::getFameToFill($nameAndTier['tier']);
+            $adjustedJournalsArray[] = [
+                'tier' => $nameAndTier['tier'],
+                'name' => $nameAndTier['name'],
+                'city' => $journal['city'],
+                'fameToFill' => $fameToFill,
+                'sellOrderPrice' => $journal['sell_price_min'],
+                'sellOrderPriceDate' => $journal['sell_price_min_date'],
+                'buyOrderPrice' => $journal['buy_price_max'],
+                'buyOrderPriceDate' => $journal['buy_price_max_date'],
+            ];
+        }
+        return $adjustedJournalsArray;
     }
 
     private function adjustItemsArray(array $classArray, string $class): array
