@@ -104,19 +104,22 @@ class CalculatorService
             $itemCost = $calculateEntity->getPrimarySellOrderPrice() *
                 $calculateEntity->getPrimaryResourceAmount() +
                 $calculateEntity->getSecondarySellOrderPrice() *
-                $calculateEntity->getSecondaryResourceAmount() +
-                $this->calculateProfitBooks($calculateEntity);
+                $calculateEntity->getSecondaryResourceAmount();
         } else {
             $itemCost = $calculateEntity->getPrimaryBuyOrderPrice() *
                 $calculateEntity->getPrimaryResourceAmount() +
                 $calculateEntity->getSecondaryBuyOrderPrice() *
-                $calculateEntity->getSecondaryResourceAmount() +
-                $this->calculateProfitBooks($calculateEntity);
+                $calculateEntity->getSecondaryResourceAmount();
         }
 
         $rate = (self::RRR_BASE_PERCENTAGE - $percentage) / 100;
         $amount = $calculateEntity->getAmount();
-        return ($calculateEntity->getItemSellOrderPrice() - ($itemCost * $rate)) * $amount;
+        $profitBooks = $this->calculateProfitBooks($calculateEntity);
+        $itemSellPrice = $calculateEntity->getItemSellOrderPrice();
+        if ($calculateEntity->getTier() === '5' &&
+            $calculateEntity->getName() === 'off_torch') {
+        }
+        return ($itemSellPrice - ($itemCost * $rate)) * $amount + $profitBooks;
     }
 
     private function calculateTotalWeight(array $calculateEntityArray): void

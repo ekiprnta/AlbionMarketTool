@@ -119,7 +119,7 @@ class CalculateEntity
 
     public function setAmountBooks(float $totalAmount): void
     {
-        $this->amountBooks = (int)ceil(($totalAmount * $this->fameAmount) / $this->fameToFill);
+        $this->amountBooks = (int)(($totalAmount * $this->fameAmount) / $this->fameToFill);
     }
 
     public function getFameToFill(): int
