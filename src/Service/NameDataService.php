@@ -74,10 +74,10 @@ class NameDataService
         return null;
     }
 
-    public static function getFameToFill(string $tier)
+    public static function getStatsJournals(string $tier)
     {
         $nameData = self::getNameDataArray();
-        return $nameData['journal']['fameToFill'][$tier];
+        return $nameData['journal']['stats'][$tier];
     }
 
 }
