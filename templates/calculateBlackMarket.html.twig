@@ -120,13 +120,19 @@
                             <td class="text-left tier-{{ item.tierColor }} tier">{{ item.tier }}</td>
                             <td>{{ item.realName }}</td>
                             <td>{{ item.primarySellOrderPrice|number_format }}</td>
-                            <td {%if item.primaryPriceAge > 720%} class="bg-D" {%endif%}>{{ item.primaryPriceAge|number_format }} min old</td>
+                            <td {%if item.primaryPriceAge > 720%} class="bg-D" {%endif%}>
+                                {{ item.primaryPriceAge|number_format }} min
+                            </td>
                             <td>{{ item.primaryResourceAmount }}</td>
                             <td>{{ item.secondarySellOrderPrice|number_format }}</td>
-                            <td {%if item.secondaryPriceAge > 720%} class="bg-D" {%endif%}>{{ item.secondaryPriceAge|number_format }} min</td>
+                            <td {%if item.secondaryPriceAge > 720%} class="bg-D" {%endif%}>
+                                {{ item.secondaryPriceAge|number_format }} min
+                            </td>
                             <td>{{ item.secondaryResourceAmount }}</td>
                             <td>{{ item.itemSellOrderPrice|number_format }}</td>
-                            <td {%if item.itemPriceAge > 1440%} class="bg-D" {%endif%}>{{ item.itemPriceAge|number_format }} min</td>
+                            <td {%if item.itemPriceAge > 1440%} class="bg-D" {%endif%}>
+                                {{ item.itemPriceAge|number_format }} min
+                            </td>
                             <td>{{ item.amount|number_format }}</td>
                             <td>{{ item.amountBooks|round(1,'ceil') }}</td>
                             <td>{{ item.getFullSellOrderPrice|number_format }}</td>
