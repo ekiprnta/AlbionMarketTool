@@ -145,15 +145,19 @@ class UploadService
         foreach ($journals as $journal) {
             $nameAndTier = TierService::splitIntoTierAndName($journal['item_id']);
             $stats = NameDataService::getStatsJournals($nameAndTier['tier']);
+            $split = explode('_', $nameAndTier['name']);
             $adjustedJournalsArray[] = [
                 'tier' => $nameAndTier['tier'],
-                'name' => $nameAndTier['name'],
+                'name' => implode('_', [$split[0], $split[1]]),
                 'city' => $journal['city'],
                 'fameToFill' => $stats['fameToFill'],
                 'sellOrderPrice' => $journal['sell_price_min'],
                 'sellOrderPriceDate' => $journal['sell_price_min_date'],
                 'buyOrderPrice' => $journal['buy_price_max'],
                 'buyOrderPriceDate' => $journal['buy_price_max_date'],
+                'weight' => $stats['weight'],
+                'fillStatus'=> $split[2],
+                'weaponGroup' =>$split[1],
             ];
         }
         return $adjustedJournalsArray;

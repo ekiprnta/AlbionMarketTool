@@ -231,14 +231,19 @@ SQL;
         TRUNCATE TABLE albion_db.resource
  SQL;
         $this->pdoConnection->query($query);
+
+        $query = <<<SQL
+        TRUNCATE TABLE albion_db.journals
+ SQL;
+        $this->pdoConnection->query($query);
     }
 
     public function loadJournalsIntoDatabase(array $journalInformation): void
     {
         $query = <<<SQL
             INSERT INTO albion_db.journals
-            (`tier`, `name`, `city`, `fameToFill`, `sellOrderPrice`, `sellOrderPriceDate`,`buyOrderPrice`, `buyOrderPriceDate`)
-            VALUES (?,?,?,?,?,?,?,?)
+            (`tier`, `name`, `city`, `fameToFill`, `sellOrderPrice`, `sellOrderPriceDate`,`buyOrderPrice`, `buyOrderPriceDate`, `weight`, `fillStatus`, `weaponGroup` )
+            VALUES (?,?,?,?,?,?,?,?,?,?,?)
 SQL;
         foreach ($journalInformation as $information) {
             $this->inputInformation($this->pdoConnection, $query, [
@@ -250,6 +255,9 @@ SQL;
                 $information['sellOrderPriceDate'],
                 $information['buyOrderPrice'],
                 $information['buyOrderPriceDate'],
+                $information['weight'],
+                $information['fillStatus'],
+                $information['weaponGroup'],
             ]);
         }
     }
