@@ -97,9 +97,10 @@ class CalculateEntity
 
         $this->tierColor = $this->setTierColor();
         $this->resourceWeight = $resourceWeight;
-        /** @var JournalEntity[] $journalInfo */
+
         $journalInfo = $this->getJournalInfo($itemEntity, $journalData);
-        $this->fameToFill = $journalInfo['full']->getFameToFill();
+        $fame = $journalInfo['full']->getFameToFill();
+        $this->fameToFill = $fame;
         $this->journalName = $journalInfo['full']->getName();
         $this->fullSellOrderPrice = $journalInfo['full']->getSellOrderPrice();
         $this->fullSellOrderPriceDate = $journalInfo['full']->getSellOrderPriceDate();
@@ -376,14 +377,15 @@ class CalculateEntity
         $journalInfo = [];
         /** @var JournalEntity $journalEntity */
         foreach ($journalData as $journalEntity) {
-            if (($journalEntity->getTier() === $itemEntity->getTier()) &&
-                $journalEntity->getWeaponGroup() === $itemEntity->getWeaponGroup()
+            if ($journalEntity->getWeaponGroup() === $itemEntity->getClass() &&
+                (str_starts_with($itemEntity->getTier(), $journalEntity->getTier()))
+                //Todo rename journal Entity to weaponGroup > class
             ) {
                 if ($journalEntity->getFillStatus() === 'full') {
                     $journalInfo['full'] = $journalEntity;
                 }
                 if ($journalEntity->getFillStatus() === 'empty') {
-                    $journalEntity['empty'] = $journalEntity;
+                    $journalInfo['empty'] = $journalEntity;
                 }
             }
         }
