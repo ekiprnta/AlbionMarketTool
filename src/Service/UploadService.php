@@ -20,7 +20,6 @@ class UploadService
     public function uploadJournalsIntoEmptyDb(): void
     {
         $journals = $this->getAdjustedJournals();
-
         $this->uploadRepository->loadJournalsIntoDatabase($journals['warrior']);
         $this->uploadRepository->loadJournalsIntoDatabase($journals['mage']);
         $this->uploadRepository->loadJournalsIntoDatabase($journals['hunter']);
@@ -91,11 +90,11 @@ class UploadService
     private function getAdjustedJournals(): array
     {
         $warriorJournalArray = $this->apiService->getJournals(ApiService::JOURNAL_WARRIOR);
-        $warriorJournalArrayAdjusted = $this->adjustJournals($warriorJournalArray, ApiService::JOURNAL_WARRIOR);
-        $mageJournalArray = $this->apiService->getJournals(ApiService::JOURNAL_WARRIOR);
-        $mageJournalArrayAdjusted = $this->adjustJournals($mageJournalArray, ApiService::JOURNAL_MAGE);
-        $hunterJournalArray = $this->apiService->getJournals(ApiService::JOURNAL_WARRIOR);
-        $hunterJournalArrayAdjusted = $this->adjustJournals($hunterJournalArray, ApiService::JOURNAL_HUNTER);
+        $warriorJournalArrayAdjusted = $this->adjustJournals($warriorJournalArray);
+        $mageJournalArray = $this->apiService->getJournals(ApiService::JOURNAL_MAGE);
+        $mageJournalArrayAdjusted = $this->adjustJournals($mageJournalArray);
+        $hunterJournalArray = $this->apiService->getJournals(ApiService::JOURNAL_HUNTER);
+        $hunterJournalArrayAdjusted = $this->adjustJournals($hunterJournalArray);
 
         return [
             'warrior' => $warriorJournalArrayAdjusted,
