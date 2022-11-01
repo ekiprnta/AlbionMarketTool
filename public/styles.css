@@ -24,11 +24,38 @@
     background-color: cyan;
 }
 
-.tier-1 {background-color: darkgray}
-.tier-2 {background-color: gray}
-.tier-3 {background-color: darkgreen}
-.tier-4 {background-color: cornflowerblue}
-.tier-5 {background-color: orangered}
-.tier-6 {background-color: orange}
-.tier-7 {background-color: yellow}
-.tier-8 {background-color: white}
+.tier {
+    color: black;
+}
+
+.tier-1 {
+    background-color: darkgray
+}
+
+.tier-2 {
+    background-color: gray
+}
+
+.tier-3 {
+    background-color: darkgreen
+}
+
+.tier-4 {
+    background-color: cornflowerblue
+}
+
+.tier-5 {
+    background-color: orangered
+}
+
+.tier-6 {
+    background-color: orange
+}
+
+.tier-7 {
+    background-color: yellow
+}
+
+.tier-8 {
+    background-color: white
+}

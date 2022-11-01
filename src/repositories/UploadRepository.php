@@ -89,6 +89,52 @@ SQL
         }
     }
 
+    public function reloadUpdatedPricesJournals(array $journalInformation): void
+    {
+        foreach ($journalInformation as $information) {
+            if ($information['sellOrderPrice'] !== 0) {
+                $statement = $this->pdoConnection->prepare(
+                    <<<SQL
+                    UPDATE albion_db.journals
+                    SET `sellOrderPrice` = :sellOrderPrice,
+                        `sellOrderPriceDate` = :sellOrderPriceDate
+                    WHERE albion_db.journals.name = :name
+                    AND albion_db.journals.tier = :tier
+                    AND albion_db.journals.city = :city
+                    AND albion_db.journals.class = :classGroup
+SQL
+                );
+                $statement->bindParam(':sellOrderPrice', $information['sellOrderPrice']);
+                $statement->bindParam(':sellOrderPriceDate', $information['sellOrderPriceDate']);
+                $statement->bindParam(':name', $information['name']);
+                $statement->bindParam(':tier', $information['tier']);
+                $statement->bindParam(':city', $information['city']);
+                $statement->bindParam(':classGroup', $information['class']);
+                $statement->execute();
+            }
+            if ($information['buyOrderPrice'] !== 0) {
+                $statement = $this->pdoConnection->prepare(
+                    <<<SQL
+                    UPDATE albion_db.journals
+                    SET `buyOrderPrice` = :buyOrderPrice,
+                        `buyOrderPriceDate` = :buyOrderPriceDate
+                    WHERE albion_db.journals.name = :name
+                    AND albion_db.journals.tier = :tier
+                    AND albion_db.journals.city = :city
+                    AND albion_db.journals.class = :classGroup
+SQL
+                );
+                $statement->bindParam(':buyOrderPrice', $information['buyOrderPrice']);
+                $statement->bindParam(':buyOrderPriceDate', $information['buyOrderPriceDate']);
+                $statement->bindParam(':name', $information['name']);
+                $statement->bindParam(':tier', $information['tier']);
+                $statement->bindParam(':city', $information['city']);
+                $statement->bindParam(':classGroup', $information['class']);
+                $statement->execute();
+            }
+        }
+    }
+
     public function reloadUpdatedPricesItems(array $itemInformation): void
     {
         foreach ($itemInformation as $information) {
@@ -189,5 +235,34 @@ SQL;
         TRUNCATE TABLE albion_db.resource
  SQL;
         $this->pdoConnection->query($query);
+
+        $query = <<<SQL
+        TRUNCATE TABLE albion_db.journals
+ SQL;
+        $this->pdoConnection->query($query);
+    }
+
+    public function loadJournalsIntoDatabase(array $journalInformation): void
+    {
+        $query = <<<SQL
+            INSERT INTO albion_db.journals
+            (`tier`, `name`, `city`, `fameToFill`, `sellOrderPrice`, `sellOrderPriceDate`,`buyOrderPrice`, `buyOrderPriceDate`, `weight`, `fillStatus`, `class` )
+            VALUES (?,?,?,?,?,?,?,?,?,?,?)
+SQL;
+        foreach ($journalInformation as $information) {
+            $this->inputInformation($this->pdoConnection, $query, [
+                $information['tier'],
+                $information['name'],
+                $information['city'],
+                $information['fameToFill'],
+                $information['sellOrderPrice'],
+                $information['sellOrderPriceDate'],
+                $information['buyOrderPrice'],
+                $information['buyOrderPriceDate'],
+                $information['weight'],
+                $information['fillStatus'],
+                $information['class'],
+            ]);
+        }
     }
 }

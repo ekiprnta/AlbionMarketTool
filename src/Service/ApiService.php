@@ -11,6 +11,7 @@ class ApiService // Buy Order ist buy_price_max
     private const BASE_URL = 'https://www.albion-online-data.com/api/v2/stats/prices/';
     private const RESOURCE_TIERS_WITH_PLACEHOLDER = 'T2_%s,T3_%s,T4_%s,T5_%s,T6_%s,T7_%s,T8_%s,T4_%s_level1@1,T5_%s_level1@1,T6_%s_level1@1,T7_%s_level1@1,T8_%s_level1@1,T4_%s_level2@2,T5_%s_level2@2,T6_%s_level2@2,T7_%s_level2@2,T8_%s_level2@2,T4_%s_level3@3,T5_%s_level3@3,T6_%s_level3@3,T7_%s_level3@3,T8_%s_level3@3';
     public const ITEM_TIERS_WITH_PLACEHOLDER = 'T2_%s,T3_%s,T4_%s,T5_%s,T6_%s,T7_%s,T8_%s,T4_%s@1,T5_%s@1,T6_%s@1,T7_%s@1,T8_%s@1,T4_%s@2,T5_%s@2,T6_%s@2,T7_%s@2,T8_%s@2,T4_%s@3,T5_%s@3,T6_%s@3,T7_%s@3,T8_%s@3';
+    public const JOURNAL_TIERS_WITH_PLACEHOLDER = 'T2_%s_FULL,T3_%s_FULL,T4_%s_FULL,T5_%s_FULL,T6_%s_FULL,T7_%s_FULL,T8_%s_FULL,T2_%s_EMPTY,T3_%s_EMPTY,T4_%s_EMPTY,T5_%s_EMPTY,T6_%s_EMPTY,T7_%s_EMPTY,T8_%s_EMPTY';
 
     private const RESOURCE_PLANKS = 'Planks';
     private const RESOURCE_METALBAR = 'MetalBar';
@@ -55,10 +56,30 @@ class ApiService // Buy Order ist buy_price_max
     public const ITEM_HUNTER_QUARTERSTAFF = 'quarterstaff';
     public const ITEM_HUNTER_TORCH = 'torch';
 
+    public const JOURNAL_WARRIOR = 'JOURNAL_WARRIOR';
+    public const JOURNAL_MAGE = 'JOURNAL_MAGE';
+    public const JOURNAL_HUNTER = 'JOURNAL_HUNTER';
+
     private const QUALITY_GOOD = 2;
 
-    public function __construct(private HttpClient $httpClient)
+    public function __construct(
+        private HttpClient $httpClient
+    ) {
+    }
+
+    public function getJournals(string $journalType)
     {
+        $apiUrl = $this->apiUrlAssembler($journalType, self::JOURNAL_TIERS_WITH_PLACEHOLDER);
+
+        $cities = sprintf(
+            '%s,%s,%s,%s,%s',
+            self::CITY_BRIDGEWATCH,
+            self::CITY_FORTSTERLING,
+            self::CITY_LYMHURST,
+            self::CITY_MARTLOCK,
+            self::CITY_THETFORD
+        );
+        return $this->jsonDecode($this->httpClient->get($apiUrl, ['locations' => $cities]));
     }
 
     public function getResource(string $resourceType)
@@ -216,7 +237,8 @@ class ApiService // Buy Order ist buy_price_max
         string $stringWithPlaceholders = self::RESOURCE_TIERS_WITH_PLACEHOLDER
     ): string|array {
         $completeUrl = self::BASE_URL;
-        if ($stringWithPlaceholders === self::RESOURCE_TIERS_WITH_PLACEHOLDER) {
+        if ($stringWithPlaceholders === self::RESOURCE_TIERS_WITH_PLACEHOLDER ||
+            $stringWithPlaceholders === self::JOURNAL_TIERS_WITH_PLACEHOLDER) {
             return $completeUrl . str_replace('%s', $replacement, $stringWithPlaceholders);
         }
         $nameData = NameDataService::getNameDataArray();

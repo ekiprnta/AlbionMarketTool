@@ -63,7 +63,7 @@
                             <div class="col-3">
                                 <div class="form-check">
                                     <input type="radio" class="form-check-input" name="order" id="buyOrder" value="1">
-                                    <label class="form-check-label" for="buyOrder">Buy order Resources</label>
+                                    <label class="form-check-label" for="buyOrder">Insta buy Resources</label>
                                 </div>
                             </div>
                             <div class="col-3">
@@ -105,9 +105,11 @@
                         <th>Price Age</th>
                         <th>Amount Crafted</th>
                         <th>Amount Books</th>
+                        <th>Books Full Price</th>
+                        <th>Books Empty Price</th>
                         <th>Profit when rrr: {{ rrr }}</th>
-                        <th>Weight Resources</th>
                         <th>Weight Items</th>
+                        <th>Weight Resources</th>
                         <th>Profit/Weight</th>
                     </tr>
                     </thead>
@@ -115,18 +117,26 @@
                     {# @var item MZierdt\Albion\Entity\CalculateEntity #}
                     {% for item in weaponGroup %}
                         <tr class="bg-{{ item.colorGrade }} bg-{{ item.getPrice }}">
-                            <td class="text-left tier-{{ item.tierColor }}">{{ item.tier }}</td>
-                            <td>{{ item.name }}</td>
+                            <td class="text-left tier-{{ item.tierColor }} tier">{{ item.tier }}</td>
+                            <td>{{ item.realName }}</td>
                             <td>{{ item.primarySellOrderPrice|number_format }}</td>
-                            <td>{{ item.primaryPriceAge|number_format }} min old</td>
+                            <td {%if item.primaryPriceAge > 720%} class="bg-D" {%endif%}>
+                                {{ item.primaryPriceAge|number_format }} min
+                            </td>
                             <td>{{ item.primaryResourceAmount }}</td>
                             <td>{{ item.secondarySellOrderPrice|number_format }}</td>
-                            <td>{{ item.secondaryPriceAge|number_format }} min old</td>
+                            <td {%if item.secondaryPriceAge > 720%} class="bg-D" {%endif%}>
+                                {{ item.secondaryPriceAge|number_format }} min
+                            </td>
                             <td>{{ item.secondaryResourceAmount }}</td>
                             <td>{{ item.itemSellOrderPrice|number_format }}</td>
-                            <td>{{ item.itemPriceAge|number_format }} min old</td>
-                            <td> {{ item.amount|number_format }}</td>
-                            <td> Books</td>
+                            <td {%if item.itemPriceAge > 1440%} class="bg-D" {%endif%}>
+                                {{ item.itemPriceAge|number_format }} min
+                            </td>
+                            <td>{{ item.amount|number_format }}</td>
+                            <td>{{ item.amountBooks|round(1,'ceil') }}</td>
+                            <td>{{ item.getFullSellOrderPrice|number_format }}</td>
+                            <td>{{ item.getEmptySellOrderPrice|number_format }}</td>
                             <td>{{ item.percentageProfit|number_format }}</td>
                             <td>{{ item.totalWeightItems|number_format }}</td>
                             <td>{{ item.totalWeightResources|number_format }}</td>
