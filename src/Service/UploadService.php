@@ -156,8 +156,8 @@ class UploadService
                 'buyOrderPrice' => $journal['buy_price_max'],
                 'buyOrderPriceDate' => $journal['buy_price_max_date'],
                 'weight' => $stats['weight'],
-                'fillStatus'=> $split[2],
-                'class' =>$split[1],
+                'fillStatus' => $split[2],
+                'class' => $split[1],
             ];
         }
         return $adjustedJournalsArray;

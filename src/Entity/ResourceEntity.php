@@ -160,11 +160,7 @@ class ResourceEntity
     private function getDateTimeImmutable(string $date): DateTimeImmutable|bool
     {
         $date = str_replace('T', ' ', $date);
-        return DateTimeImmutable::createFromFormat(
-            'Y-m-d H:i:s',
-            $date,
-            new DateTimeZone('Europe/London')
-        );
+        return DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $date, new DateTimeZone('Europe/London'));
     }
 
     private function setWeight(array $resourceData): float

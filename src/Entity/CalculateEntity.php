@@ -87,7 +87,7 @@ class CalculateEntity
 
         $this->secondaryResource = $itemEntity->getSecondaryResource();
         $this->secondaryResourceAmount = $itemEntity->getSecondaryResourceAmount();
-        if (!($this->secondaryResource === null)) {
+        if (! ($this->secondaryResource === null)) {
             $secondaryResourceEntity = $this->getSecondaryResourceEntity($itemEntity, $resourceData);
             $this->secondarySellOrderPrice = $secondaryResourceEntity->getSellOrderPrice();
             $this->secondarySellOrderPriceDate = $secondaryResourceEntity->getSellOrderPriceDate();
@@ -119,7 +119,7 @@ class CalculateEntity
 
     public function setAmountBooks(float $totalAmount): void
     {
-        $this->amountBooks = (int)(($totalAmount * $this->fameAmount) / $this->fameToFill);
+        $this->amountBooks = (int) (($totalAmount * $this->fameAmount) / $this->fameToFill);
     }
 
     public function getFameToFill(): int
@@ -363,9 +363,9 @@ class CalculateEntity
         /** @var ResourceEntity $resourceEntity */
         foreach ($resourceData as $resourceEntity) {
             if (($resourceEntity->getTier() === $item->getTier()) && strcasecmp(
-                    $resourceEntity->getName(),
-                    $item->getPrimaryResource()
-                ) === 0) {
+                $resourceEntity->getName(),
+                $item->getPrimaryResource()
+            ) === 0) {
                 return $resourceEntity;
             }
         }
@@ -397,9 +397,9 @@ class CalculateEntity
         /** @var ResourceEntity $resourceEntity */
         foreach ($resourceData as $resourceEntity) {
             if (($resourceEntity->getTier() === $item->getTier()) && strcasecmp(
-                    $resourceEntity->getName(),
-                    $item->getSecondaryResource()
-                ) === 0) {
+                $resourceEntity->getName(),
+                $item->getSecondaryResource()
+            ) === 0) {
                 return $resourceEntity;
             }
         }

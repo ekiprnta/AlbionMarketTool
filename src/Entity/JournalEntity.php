@@ -21,19 +21,20 @@ class JournalEntity
     private string $fillStatus; //full empty
     private string $class; //warrior mage
 
-    public function __construct(array $journalData) {
+    public function __construct(array $journalData)
+    {
         $sellOrderPriceDate = $this->getDateTimeImmutable($journalData['sellOrderPriceDate']);
         $buyOrderPriceDate = $this->getDateTimeImmutable($journalData['buyOrderPriceDate']);
 
         $this->tier = $journalData['tier'];
         $this->name = $journalData['name'];
         $this->city = $journalData['city'];
-        $this->fameToFill = (int)$journalData['fameToFill'];
-        $this->sellOrderPrice = (int)$journalData['sellOrderPrice'];
+        $this->fameToFill = (int) $journalData['fameToFill'];
+        $this->sellOrderPrice = (int) $journalData['sellOrderPrice'];
         $this->sellOrderPriceDate = $sellOrderPriceDate;
         $this->buyOrderPrice = (int) $journalData['buyOrderPrice'];
         $this->buyOrderPriceDate = $buyOrderPriceDate;
-        $this->weight = (float)$journalData['weight'];
+        $this->weight = (float) $journalData['weight'];
         $this->fillStatus = $journalData['fillStatus'];
         $this->class = $journalData['class'];
     }
@@ -96,10 +97,6 @@ class JournalEntity
     private function getDateTimeImmutable(string $date): DateTimeImmutable|bool
     {
         $date = str_replace('T', ' ', $date);
-        return DateTimeImmutable::createFromFormat(
-            'Y-m-d H:i:s',
-            $date,
-            new DateTimeZone('Europe/London')
-        );
+        return DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $date, new DateTimeZone('Europe/London'));
     }
 }

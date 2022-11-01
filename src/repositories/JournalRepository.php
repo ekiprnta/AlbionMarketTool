@@ -15,22 +15,20 @@ class JournalRepository
 
     public function getJournalsFromCity(string $city): array
     {
-        {
-            $statement = $this->pdoConnection->prepare(
-                <<<SQL
+        $statement = $this->pdoConnection->prepare(
+            <<<SQL
             SELECT * 
             FROM albion_db.journals
             WHERE albion_db.journals.city = :city
 SQL
-            );
+        );
 
-            $statement->bindParam(':city', $city);
-            $statement->execute();
-            $journalsArray = [];
-            foreach ($statement->getIterator() as $journalInformation) {
-                $journalsArray[] = new JournalEntity($journalInformation);
-            }
-            return $journalsArray;
+        $statement->bindParam(':city', $city);
+        $statement->execute();
+        $journalsArray = [];
+        foreach ($statement->getIterator() as $journalInformation) {
+            $journalsArray[] = new JournalEntity($journalInformation);
         }
+        return $journalsArray;
     }
 }

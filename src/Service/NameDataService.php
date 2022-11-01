@@ -6,8 +6,6 @@ namespace MZierdt\Albion\Service;
 
 use RuntimeException;
 
-use function Pipeline\fromArray;
-
 class NameDataService
 {
     private const PATH_TO_JSON = __DIR__ . '/NameData.json';
@@ -79,5 +77,4 @@ class NameDataService
         $nameData = self::getNameDataArray();
         return $nameData['journal']['stats'][$tier];
     }
-
 }
