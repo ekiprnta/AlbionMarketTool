@@ -8,6 +8,7 @@ use InvalidArgumentException;
 use MZierdt\Albion\Entity\CalculateEntity;
 use MZierdt\Albion\Entity\ItemEntity;
 use MZierdt\Albion\repositories\ItemRepository;
+use MZierdt\Albion\repositories\JournalRepository;
 use MZierdt\Albion\repositories\ResourceRepository;
 
 class CalculatorService
@@ -21,6 +22,7 @@ class CalculatorService
     public function __construct(
         private ItemRepository $itemRepository,
         private ResourceRepository $resourceRepository,
+        private JournalRepository $journalRepository,
     ) {
     }
 
@@ -56,13 +58,13 @@ class CalculatorService
         $this->maxWeight = $weight;
         $items = $this->itemRepository->getItemsFromCity($itemCity);
         $resources = $this->resourceRepository->getResourcesByCity($resourceCity);
+        $journals = $this->journalRepository->getJournalsFromCity($resourceCity);
 
         $calculateEntityArray = [];
         /** @var ItemEntity $item */
         foreach ($items as $item) {
-            $calculateEntityArray[] = new CalculateEntity($item, $resources);
+            $calculateEntityArray[] = new CalculateEntity($item, $resources, $journals);
         }
-
         $this->calculateTotalWeight($calculateEntityArray);
         $this->calculateProfit($calculateEntityArray, $percentage, $order);
         $this->calculateWeightProfitQuotient($calculateEntityArray);
@@ -88,15 +90,17 @@ class CalculatorService
     {
         /** @var CalculateEntity $calculateEntity */
         foreach ($calculateEntityArray as $calculateEntity) {
-            $calculateEntity->setPercentageProfit(
-                $this->calculateProfitByPercentage($calculateEntity, $percentage, $order)
-            );
+            $profit = $this->calculateProfitByPercentage($calculateEntity, $percentage, $order);
+            $calculateEntity->setPercentageProfit($profit);
         }
     }
 
-    private function calculateProfitByPercentage(CalculateEntity $calculateEntity, float $percentage, string $order): float
-    {
-        if($order === '1') {
+    private function calculateProfitByPercentage(
+        CalculateEntity $calculateEntity,
+        float $percentage,
+        string $order
+    ): float {
+        if ($order === '1') {
             $itemCost = $calculateEntity->getPrimarySellOrderPrice() *
                 $calculateEntity->getPrimaryResourceAmount() +
                 $calculateEntity->getSecondarySellOrderPrice() *
@@ -110,7 +114,12 @@ class CalculatorService
 
         $rate = (self::RRR_BASE_PERCENTAGE - $percentage) / 100;
         $amount = $calculateEntity->getAmount();
-        return ($calculateEntity->getItemSellOrderPrice() - ($itemCost * $rate)) * $amount;
+        $profitBooks = $this->calculateProfitBooks($calculateEntity);
+        $itemSellPrice = $calculateEntity->getItemSellOrderPrice();
+        if ($calculateEntity->getTier() === '5' &&
+            $calculateEntity->getName() === 'off_torch') {
+        }
+        return ($itemSellPrice - ($itemCost * $rate)) * $amount + $profitBooks;
     }
 
     private function calculateTotalWeight(array $calculateEntityArray): void
@@ -118,7 +127,9 @@ class CalculatorService
         /** @var CalculateEntity $calculateEntity */
         foreach ($calculateEntityArray as $calculateEntity) {
             $calculateEntity->setTotalWeightResources($this->maxWeight);
-            $calculateEntity->setAmount($this->maxWeight / $calculateEntity->getResourceWeight());
+            $amount = $this->maxWeight / ($calculateEntity->getResourceWeight() + $calculateEntity->getJournalWeight());
+            $calculateEntity->setAmount($amount);
+            $calculateEntity->setAmountBooks($amount);
             $calculateEntity->setTotalWeightItems($calculateEntity->getAmount() * $calculateEntity->getItemWeight());
         }
     }
@@ -170,7 +181,7 @@ class CalculatorService
             if ($calculateEntity->getSecondarySellOrderPriceDate() !== null) {
                 if ($order === '1') {
                     $secondaryPriceDate = $calculateEntity->getSecondarySellOrderPriceDate();
-                }else {
+                } else {
                     $secondaryPriceDate = $calculateEntity->getSecondaryBuyOrderPriceDate();
                 }
                 $secondaryDiff = date_diff($now, $secondaryPriceDate);
@@ -182,5 +193,12 @@ class CalculatorService
     private function getAgeInMin(\DateInterval $itemDiff): int
     {
         return $itemDiff->d * 24 * 60 + $itemDiff->h * 60 + $itemDiff->i;
+    }
+
+    private function calculateProfitBooks(CalculateEntity $calculateEntity): float|int
+    {
+        return ($calculateEntity->getFullSellOrderPrice() -
+                $calculateEntity->getEmptySellOrderPrice()) *
+            $calculateEntity->getAmountBooks();
     }
 }

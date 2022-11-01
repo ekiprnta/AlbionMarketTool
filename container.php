@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Laminas\ServiceManager\AbstractFactory\ConfigAbstractFactory;
 use Laminas\ServiceManager\ServiceManager;
 use MZierdt\Albion\factories\ItemRepositoryFactory;
+use MZierdt\Albion\factories\JournalRepositoryFactory;
 use MZierdt\Albion\factories\ResourceRepositoryFactory;
 use MZierdt\Albion\factories\UploadRepositoryFactory;
 use MZierdt\Albion\factories\TwigEnvironmentFactory;
@@ -12,6 +13,7 @@ use MZierdt\Albion\Handler\AdminHandler;
 use MZierdt\Albion\Handler\BlackMarketHandler;
 use MZierdt\Albion\Handler\CalculateInfoHandler;
 use MZierdt\Albion\Handler\listDataHandler;
+use MZierdt\Albion\repositories\JournalRepository;
 use MZierdt\Albion\Service\CalculatorService;
 use MZierdt\Albion\Service\UploadService;
 use MZierdt\Albion\HttpClient;
@@ -42,8 +44,9 @@ $serviceManager = new ServiceManager([
                     ItemHelper::class
                 ],
                 CalculatorService::class => [
-                ItemRepository::class,
-                ResourceRepository::class
+                    ItemRepository::class,
+                    ResourceRepository::class,
+                    JournalRepository::class
                 ],
                 CalculateInfoHandler::class => [
                     Environment::class
@@ -70,6 +73,7 @@ $serviceManager = new ServiceManager([
         UploadRepository::class => UploadRepositoryFactory::class,
         ResourceRepository::class => ResourceRepositoryFactory::class,
         ItemRepository::class => ItemRepositoryFactory::class,
+        JournalRepository::class => JournalRepositoryFactory::class,
         'abstract_factories' => [ConfigAbstractFactory::class],
     ],
 ]);
