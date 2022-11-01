@@ -142,7 +142,10 @@
                             <td>{{ item.totalWeightResources|number_format }}</td>
                             <td>{{ item.weightProfitQuotient|number_format }}</td>
                         </tr>
-                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                        <button type="button" class="btn btn-primary #myModal" data-toggle="modal" data-target="#exampleModal">
+                            Launch demo modal
+                        </button>
+                        <div class="modal fade #myInput" id="exampleModal" tabindex="-1" role="dialog"
                              aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
