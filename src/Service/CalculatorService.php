@@ -116,9 +116,6 @@ class CalculatorService
         $amount = $calculateEntity->getAmount();
         $profitBooks = $this->calculateProfitBooks($calculateEntity);
         $itemSellPrice = $calculateEntity->getItemSellOrderPrice();
-        if ($calculateEntity->getTier() === '5' &&
-            $calculateEntity->getName() === 'off_torch') {
-        }
         return ($itemSellPrice - ($itemCost * $rate)) * $amount + $profitBooks;
     }
 
