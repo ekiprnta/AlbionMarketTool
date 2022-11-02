@@ -116,105 +116,109 @@
                     <tbody class="text-right">
                     {# @var item MZierdt\Albion\Entity\CalculateEntity #}
                     {% for item in weaponGroup %}
-                        <tr class="bg-{{ item.colorGrade }} bg-{{ item.getPrice }}">
-                            <td class="text-left tier-{{ item.tierColor }} tier">{{ item.tier }}</td>
-                            <td>{{ item.realName }}</td>
-                            <td>{{ item.primarySellOrderPrice|number_format }}</td>
-                            <td {% if item.primaryPriceAge > 720 %} class="bg-D" {% endif %}>
-                                {{ item.primaryPriceAge|number_format }} min
-                            </td>
-                            <td>{{ item.primaryResourceAmount }}</td>
-                            <td>{{ item.secondarySellOrderPrice|number_format }}</td>
-                            <td {% if item.secondaryPriceAge > 720 %} class="bg-D" {% endif %}>
-                                {{ item.secondaryPriceAge|number_format }} min
-                            </td>
-                            <td>{{ item.secondaryResourceAmount }}</td>
-                            <td>{{ item.itemSellOrderPrice|number_format }}</td>
-                            <td {% if item.itemPriceAge > 1440 %} class="bg-D" {% endif %}>
-                                {{ item.itemPriceAge|number_format }} min
-                            </td>
-                            <td>{{ item.amount|number_format }}</td>
-                            <td>{{ item.amountBooks|round(1,'ceil') }}</td>
-                            <td>{{ item.getFullSellOrderPrice|number_format }}</td>
-                            <td>{{ item.getEmptySellOrderPrice|number_format }}</td>
-                            <td>{{ item.percentageProfit|number_format }}</td>
-                            <td>{{ item.totalWeightItems|number_format }}</td>
-                            <td>{{ item.totalWeightResources|number_format }}</td>
-                            <td>{{ item.weightProfitQuotient|number_format }}</td>
-                            <td>
-                                <button type="button" class="btn btn-primary" data-toggle="modal"
-                                        data-target="#{{ weaponGroupName }}">
-                                    more Info
-                                </button>
-                            </td>
-                        </tr>
-                        <div class="modal fade bd-example-modal-lg" id="{{ weaponGroupName }}" tabindex="-1"
-                             aria-labelledby="exampleModalLabel"
-                             aria-hidden="true">
-                            <div class="modal-dialog bg-dark">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">{{ weaponGroupName }}</h5>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <div class="card-title"><h4>Item Info</h4></div>
-                                                <div class="d-flex flex-column">
-                                                    <div class="badge-info badge standard-badge">
-                                                        tier: {{ item.tier }}</div>
-                                                    <div class="badge-info badge standard-badge">
-                                                        name: {{ item.name }}</div>
-                                                    <div class="badge-info badge standard-badge">
-                                                        weaponGroup: {{ item.weaponGroup }}</div>
-                                                    <div class="badge-info badge standard-badge">
-                                                        realName: {{ item.realName }}</div>
-                                                    <div class="badge-info badge standard-badge">
-                                                        itemSellOrderPrice: {{ item.itemSellOrderPrice }}</div>
-                                                    <div class="badge-info badge standard-badge">
-                                                        fameAmount: {{ item.fameAmount }}</div>
-                                                    <div class="badge-info badge standard-badge">
-                                                        itemWeight: {{ item.itemWeight }}</div>
-                                                    <div class="badge-info badge standard-badge">
-                                                        amount: {{ item.amount }}</div>
+                    <tr class="bg-{{ item.colorGrade }} bg-{{ item.getPrice }}">
+                        <td class="text-left tier-{{ item.tierColor }} tier">{{ item.tier }}</td>
+                        <td>{{ item.realName }}</td>
+                        <td>{{ item.primarySellOrderPrice|number_format }}</td>
+                        <td {% if item.primaryPriceAge > 720 %} class="bg-D" {% endif %}>
+                            {{ item.primaryPriceAge|number_format }} min
+                        </td>
+                        <td>{{ item.primaryResourceAmount }}</td>
+                        <td>{{ item.secondarySellOrderPrice|number_format }}</td>
+                        <td {% if item.secondaryPriceAge > 720 %} class="bg-D" {% endif %}>
+                            {{ item.secondaryPriceAge|number_format }} min
+                        </td>
+                        <td>{{ item.secondaryResourceAmount }}</td>
+                        <td>{{ item.itemSellOrderPrice|number_format }}</td>
+                        <td {% if item.itemPriceAge > 1440 %} class="bg-D" {% endif %}>
+                            {{ item.itemPriceAge|number_format }} min
+                        </td>
+                        <td>{{ item.amount|number_format }}</td>
+                        <td>{{ item.amountBooks|round(1,'ceil') }}</td>
+                        <td>{{ item.getFullSellOrderPrice|number_format }}</td>
+                        <td>{{ item.getEmptySellOrderPrice|number_format }}</td>
+                        <td>{{ item.percentageProfit|number_format }}</td>
+                        <td>{{ item.totalWeightItems|number_format }}</td>
+                        <td>{{ item.totalWeightResources|number_format }}</td>
+                        <td>{{ item.weightProfitQuotient|number_format }}</td>
+                        <td>
+                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                    data-target="#{{ weaponGroupName }}">
+                                more Info
+                            </button>
+                        </td>
+                    </tr>
+                    <div class="modal fade bd-example-modal-lg" id="{{ weaponGroupName }}" tabindex="-1"
+                         aria-labelledby="exampleModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog bg-dark">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">{{ weaponGroupName }}</h5>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="card-title"><h4>Item Info</h4></div>
+                                            <div class="d-flex flex-column">
+                                                <div class="badge-info badge standard-badge">
+                                                    tier: {{ item.tier }}</div>
+                                                <div class="badge-info badge standard-badge">
+                                                    name: {{ item.name }}</div>
+                                                <div class="badge-info badge standard-badge">
+                                                    weaponGroup: {{ item.weaponGroup }}</div>
+                                                <div class="badge-info badge standard-badge">
+                                                    realName: {{ item.realName }}</div>
+                                                <div class="badge-info badge standard-badge">
+                                                    itemSellOrderPrice: {{ item.itemSellOrderPrice|number_format }}Silver</div>
+                                                <div class="badge-info badge standard-badge">
+                                                    fameAmount: {{ item.fameAmount }}</div>
+                                                <div class="badge-info badge standard-badge">
+                                                    itemWeight: {{ item.itemWeight|number_format }}kg</div>
+                                                <div class="badge-info badge standard-badge">
+                                                    amount: {{ item.amount }}</div>
+                                                <div class="badge-info badge standard-badge">
+                                                    itemPriceAge: {{ item.itemPriceAge }}min
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
                                     <div class="card">
                                         <div class="card-body">
-                                            <div class="card-title"><h4>Primär Resource {{item.primaryResource}}</h4></div>
+                                            <div class="card-title"><h4>Primär Resource {{ item.primaryResource }}</h4>
+                                            </div>
                                             <div class="d-flex flex-column">
                                                 <div class="badge-info badge standard-badge">
                                                     primaryResource: {{ item.primaryResource }}</div>
                                                 <div class="badge-info badge standard-badge">
-                                                    primaryResourceAmount: {{ item.primaryResourceAmount }}</div>
+                                                    primaryResourceAmount: {{ item.primaryResourceAmount|number_format }}Silver</div>
                                                 <div class="badge-info badge standard-badge">
-                                                    primarySellOrderPrice: {{ item.primarySellOrderPrice }}</div>
+                                                    primarySellOrderPrice: {{ item.primarySellOrderPrice|number_format }}Silver</div>
                                                 <div class="badge-info badge standard-badge">
-                                                    primaryBuyOrderPrice: {{ item.primaryBuyOrderPrice }}</div>
+                                                    primaryBuyOrderPrice: {{ item.primaryBuyOrderPrice|number_format }}Silver</div>
                                                 <div class="badge-info badge standard-badge">
-                                                    itemPriceAge: {{ item.itemPriceAge }}</div>
+                                                    primaryPriceAge: {{ item.primaryPriceAge }}min</div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="card">
                                         <div class="card-body">
-                                            <div class="card-title"><h4>Secondary Resource {{item.secondaryResource}}</h4></div>
+                                            <div class="card-title"><h4>Secondary
+                                                    Resource {{ item.secondaryResource }}</h4></div>
                                             <div class="d-flex flex-column">
                                                 <div class="badge-info badge standard-badge">
                                                     secondaryResource: {{ item.secondaryResource }}</div>
                                                 <div class="badge-info badge standard-badge">
-                                                    secondaryResourceAmount: {{ item.secondaryResourceAmount }}</div>
+                                                    secondaryResourceAmount: {{ item.secondaryResourceAmount|number_format }}Silver</div>
                                                 <div class="badge-info badge standard-badge">
-                                                    secondarySellOrderPrice: {{ item.secondarySellOrderPrice }}</div>
+                                                    secondarySellOrderPrice: {{ item.secondarySellOrderPrice|number_format }}Silver</div>
                                                 <div class="badge-info badge standard-badge">
-                                                    secondaryBuyOrderPrice: {{ item.secondaryBuyOrderPrice }}</div>
+                                                    secondaryBuyOrderPrice: {{ item.secondaryBuyOrderPrice|number_format }}Silver</div>
                                                 <div class="badge-info badge standard-badge">
-                                                    resourceWeight: {{ item.resourceWeight }}</div>
+                                                    resourceWeight: {{ item.resourceWeight }}kg</div>
                                                 <div class="badge-info badge standard-badge">
-                                                    primaryPriceAge: {{ item.primaryPriceAge }}</div>
-                                                <div class="badge-info badge standard-badge">
-                                                    secondaryPriceAge: {{ item.secondaryPriceAge }}</div>
+                                                    secondaryPriceAge: {{ item.secondaryPriceAge }}min
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -223,13 +227,13 @@
                                             <div class="card-title"><h4>Miscellaneous</h4></div>
                                             <div class="d-flex flex-column">
                                                 <div class="badge-info badge standard-badge">
-                                                    percentageProfit: {{ item.percentageProfit }}</div>
+                                                    percentageProfit: {{ item.percentageProfit|number_format }}Silver</div>
                                                 <div class="badge-info badge standard-badge">
-                                                    totalWeightItems: {{ item.totalWeightItems }}</div>
+                                                    totalWeightItems: {{ item.totalWeightItems|number_format }}kg</div>
                                                 <div class="badge-info badge standard-badge">
-                                                    totalWeightResources: {{ item.totalWeightResources }}</div>
+                                                    totalWeightResources: {{ item.totalWeightResources|number_format }}kg</div>
                                                 <div class="badge-info badge standard-badge">
-                                                    WeightProfitQuotient: {{ item.WeightProfitQuotient }}</div>
+                                                    WeightProfitQuotient: {{ item.WeightProfitQuotient|number_format }}s/kg</div>
                                             </div>
                                         </div>
                                     </div>
@@ -255,7 +259,7 @@
                                 </div>
                             </div>
                         </div>
-                    {% endfor %}
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>
