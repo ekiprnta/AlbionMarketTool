@@ -141,7 +141,120 @@
                             <td>{{ item.totalWeightItems|number_format }}</td>
                             <td>{{ item.totalWeightResources|number_format }}</td>
                             <td>{{ item.weightProfitQuotient|number_format }}</td>
+                            <td>
+                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                        data-target="#{{ weaponGroupName }}">
+                                    more Info
+                                </button>
+                            </td>
                         </tr>
+                        <div class="modal fade bd-example-modal-lg" id="{{ weaponGroupName }}" tabindex="-1"
+                             aria-labelledby="exampleModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog bg-dark">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">{{ weaponGroupName }}</h5>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="card-title"><h4>Item Info</h4></div>
+                                                <div class="d-flex flex-column">
+                                                    <div class="badge-info badge standard-badge">
+                                                        tier: {{ item.tier }}</div>
+                                                    <div class="badge-info badge standard-badge">
+                                                        name: {{ item.name }}</div>
+                                                    <div class="badge-info badge standard-badge">
+                                                        weaponGroup: {{ item.weaponGroup }}</div>
+                                                    <div class="badge-info badge standard-badge">
+                                                        realName: {{ item.realName }}</div>
+                                                    <div class="badge-info badge standard-badge">
+                                                        itemSellOrderPrice: {{ item.itemSellOrderPrice }}</div>
+                                                    <div class="badge-info badge standard-badge">
+                                                        fameAmount: {{ item.fameAmount }}</div>
+                                                    <div class="badge-info badge standard-badge">
+                                                        itemWeight: {{ item.itemWeight }}</div>
+                                                    <div class="badge-info badge standard-badge">
+                                                        amount: {{ item.amount }}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="card-title"><h4>Primär Resource {{item.primaryResource}}</h4></div>
+                                            <div class="d-flex flex-column">
+                                                <div class="badge-info badge standard-badge">
+                                                    primaryResource: {{ item.primaryResource }}</div>
+                                                <div class="badge-info badge standard-badge">
+                                                    primaryResourceAmount: {{ item.primaryResourceAmount }}</div>
+                                                <div class="badge-info badge standard-badge">
+                                                    primarySellOrderPrice: {{ item.primarySellOrderPrice }}</div>
+                                                <div class="badge-info badge standard-badge">
+                                                    primaryBuyOrderPrice: {{ item.primaryBuyOrderPrice }}</div>
+                                                <div class="badge-info badge standard-badge">
+                                                    itemPriceAge: {{ item.itemPriceAge }}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="card-title"><h4>Secondary Resource {{item.secondaryResource}}</h4></div>
+                                            <div class="d-flex flex-column">
+                                                <div class="badge-info badge standard-badge">
+                                                    secondaryResource: {{ item.secondaryResource }}</div>
+                                                <div class="badge-info badge standard-badge">
+                                                    secondaryResourceAmount: {{ item.secondaryResourceAmount }}</div>
+                                                <div class="badge-info badge standard-badge">
+                                                    secondarySellOrderPrice: {{ item.secondarySellOrderPrice }}</div>
+                                                <div class="badge-info badge standard-badge">
+                                                    secondaryBuyOrderPrice: {{ item.secondaryBuyOrderPrice }}</div>
+                                                <div class="badge-info badge standard-badge">
+                                                    resourceWeight: {{ item.resourceWeight }}</div>
+                                                <div class="badge-info badge standard-badge">
+                                                    primaryPriceAge: {{ item.primaryPriceAge }}</div>
+                                                <div class="badge-info badge standard-badge">
+                                                    secondaryPriceAge: {{ item.secondaryPriceAge }}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="card-title"><h4>Miscellaneous</h4></div>
+                                            <div class="d-flex flex-column">
+                                                <div class="badge-info badge standard-badge">
+                                                    percentageProfit: {{ item.percentageProfit }}</div>
+                                                <div class="badge-info badge standard-badge">
+                                                    totalWeightItems: {{ item.totalWeightItems }}</div>
+                                                <div class="badge-info badge standard-badge">
+                                                    totalWeightResources: {{ item.totalWeightResources }}</div>
+                                                <div class="badge-info badge standard-badge">
+                                                    WeightProfitQuotient: {{ item.WeightProfitQuotient }}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="card-title"><h4>Journal Info</h4></div>
+                                            <div class="d-flex flex-column">
+                                                <div class="badge-info badge standard-badge">
+                                                    journalName: {{ item.journalName }}</div>
+                                                <div class="badge-info badge standard-badge">
+                                                    fameToFill: {{ item.fameToFill }}</div>
+                                                <div class="badge-info badge standard-badge">
+                                                    fullSellOrderPrice: {{ item.fullSellOrderPrice }}</div>
+                                                <div class="badge-info badge standard-badge">
+                                                    emptySellOrderPrice: {{ item.emptySellOrderPrice }}</div>
+                                                <div class="badge-info badge standard-badge">
+                                                    emptyBuyOrderPrice: {{ item.emptyBuyOrderPrice }}</div>
+                                                <div class="badge-info badge standard-badge">
+                                                    amountBooks: {{ item.amountBooks }}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     {% endfor %}
                     </tbody>
                 </table>
