@@ -20,7 +20,6 @@ class UploadService
     public function uploadJournalsIntoEmptyDb(): void
     {
         $journals = $this->getAdjustedJournals();
-
         $this->uploadRepository->loadJournalsIntoDatabase($journals['warrior']);
         $this->uploadRepository->loadJournalsIntoDatabase($journals['mage']);
         $this->uploadRepository->loadJournalsIntoDatabase($journals['hunter']);
