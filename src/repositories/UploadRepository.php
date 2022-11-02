@@ -50,7 +50,7 @@ SQL;
     public function reloadUpdatedPricesResources(array $resourceInformation): void
     {
         foreach ($resourceInformation as $information) {
-            if ($information['sellOrderPrice'] !== '0') {
+            if ($information['sellOrderPrice'] !== 0) {
                 $statement = $this->pdoConnection->prepare(
                     <<<SQL
                     UPDATE albion_db.resource
@@ -68,7 +68,7 @@ SQL
                 $statement->bindParam(':city', $information['city']);
                 $statement->execute();
             }
-            if ($information['buyOrderPrice'] !== '0') {
+            if ($information['buyOrderPrice'] !== 0) {
                 $statement = $this->pdoConnection->prepare(
                     <<<SQL
                     UPDATE albion_db.resource
@@ -101,7 +101,7 @@ SQL
                     WHERE albion_db.journals.name = :name
                     AND albion_db.journals.tier = :tier
                     AND albion_db.journals.city = :city
-                    AND albion_db.journals.class = :classGroup
+                    AND albion_db.journals.fillStatus = :fillStatus
 SQL
                 );
                 $statement->bindParam(':sellOrderPrice', $information['sellOrderPrice']);
@@ -109,7 +109,7 @@ SQL
                 $statement->bindParam(':name', $information['name']);
                 $statement->bindParam(':tier', $information['tier']);
                 $statement->bindParam(':city', $information['city']);
-                $statement->bindParam(':classGroup', $information['class']);
+                $statement->bindParam(':fillStatus', $information['fillStatus']);
                 $statement->execute();
             }
             if ($information['buyOrderPrice'] !== 0) {
