@@ -66,6 +66,7 @@ class CalculatorService
             $calculateEntityArray[] = new CalculateEntity($item, $resources, $journals);
         }
         $this->calculateTotalWeight($calculateEntityArray);
+        $this->calculateTotalAmountResources($calculateEntityArray);
         $this->calculateProfit($calculateEntityArray, $percentage, $order);
         $this->calculateWeightProfitQuotient($calculateEntityArray);
         $this->calculateColorGrade($calculateEntityArray);
