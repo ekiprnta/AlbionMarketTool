@@ -123,12 +123,12 @@
                             <td {% if item.primaryPriceAge > 720 %} class="bg-D" {% endif %}>
                                 {{ item.primaryPriceAge|number_format }} min
                             </td>
-                            <td>{{ item.primaryResourceAmount }}</td>
+                            <td>{{ item.primaryTotalAmount|number_format }}</td>
                             <td>{{ item.secondarySellOrderPrice|number_format }}</td>
                             <td {% if item.secondaryPriceAge > 720 %} class="bg-D" {% endif %}>
                                 {{ item.secondaryPriceAge|number_format }} min
                             </td>
-                            <td>{{ item.secondaryResourceAmount }}</td>
+                            <td>{{ item.secondaryTotalAmount|number_format }}</td>
                             <td>{{ item.itemSellOrderPrice|number_format }}</td>
                             <td {% if item.itemPriceAge > 1440 %} class="bg-D" {% endif %}>
                                 {{ item.itemPriceAge|number_format }} min

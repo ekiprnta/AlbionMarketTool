@@ -199,4 +199,19 @@ class CalculatorService
                 $calculateEntity->getEmptySellOrderPrice()) *
             $calculateEntity->getAmountBooks();
     }
+
+    private function calculateTotalAmountResources(array $calculateEntityArray): void
+    {
+        /** @var CalculateEntity $calculateEntity */
+        foreach ($calculateEntityArray as $calculateEntity) {
+            $calculateEntity->setPrimaryTotalAmount(
+                $calculateEntity->getPrimaryResourceAmount() *
+                $calculateEntity->getAmount()
+            );
+            $calculateEntity->setSecondaryTotalAmount(
+                $calculateEntity->getSecondaryResourceAmount() *
+                $calculateEntity->getAmount()
+            );
+        }
+    }
 }

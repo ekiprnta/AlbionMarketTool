@@ -26,7 +26,7 @@ class CalculateEntity
     private DateTimeImmutable $primarySellOrderPriceDate;
     private int $primaryBuyOrderPrice;
     private DateTimeImmutable $primaryBuyOrderPriceDate;
-    private int $primaryTotalAmount;
+    private float $primaryTotalAmount;
 
     private ?string $secondaryResource;
     private ?int $secondaryResourceAmount;
@@ -34,7 +34,7 @@ class CalculateEntity
     private ?DateTimeImmutable $secondarySellOrderPriceDate = null;
     private ?int $secondaryBuyOrderPrice = null;
     private ?DateTimeImmutable $secondaryBuyOrderPriceDate = null;
-    private int $secondaryTotalAmount;
+    private float $secondaryTotalAmount;
 
 
     private float $resourceWeight;
@@ -113,22 +113,22 @@ class CalculateEntity
         $this->journalWeight = $this->getCalculatedJournalWeight($journalInfo['full']);
     }
 
-    public function getPrimaryTotalAmount(): int
+    public function getPrimaryTotalAmount(): float
     {
         return $this->primaryTotalAmount;
     }
 
-    public function setPrimaryTotalAmount(int $primaryTotalAmount): void
+    public function setPrimaryTotalAmount(float $primaryTotalAmount): void
     {
         $this->primaryTotalAmount = $primaryTotalAmount;
     }
 
-    public function getSecondaryTotalAmount(): int
+    public function getSecondaryTotalAmount(): float
     {
         return $this->secondaryTotalAmount;
     }
 
-    public function setSecondaryTotalAmount(int $secondaryTotalAmount): void
+    public function setSecondaryTotalAmount(float $secondaryTotalAmount): void
     {
         $this->secondaryTotalAmount = $secondaryTotalAmount;
     }
