@@ -2,8 +2,8 @@
 
 
 use MZierdt\Albion\Handler\AdminHandler;
-use MZierdt\Albion\Handler\BlackMarketHandler;
-use MZierdt\Albion\Handler\CalculateInfoHandler;
+use MZierdt\Albion\Handler\BlackMarketCraftingHandler;
+use MZierdt\Albion\Handler\BlackMarketTransportingHandler;
 use MZierdt\Albion\Handler\listDataHandler;
 use Twig\Environment;
 
@@ -15,8 +15,8 @@ $twigEnvironment = $serviceManager->get(Environment::class);
 $dispatcher = FastRoute\simpleDispatcher(
     function (FastRoute\RouteCollector $r) use ($serviceManager): void {
         $r->addRoute(['GET', 'POST'], '/[info]', $serviceManager->get(listDataHandler::class));
-        $r->addRoute(['GET', 'POST'], '/calculate', $serviceManager->get(BlackMarketHandler::class));
-        $r->addRoute(['GET', 'POST'], '/calculate/blackmarket', $serviceManager->get(CalculateInfoHandler::class));
+        $r->addRoute(['GET', 'POST'], '/blackmarket/crafting', $serviceManager->get(BlackMarketCraftingHandler::class));
+        $r->addRoute(['GET', 'POST'], '/blackmarket/transport', $serviceManager->get(BlackMarketTransportingHandler::class));
         $r->addRoute(['GET', 'POST'], '/admin', $serviceManager->get(AdminHandler::class));
     }
 );
