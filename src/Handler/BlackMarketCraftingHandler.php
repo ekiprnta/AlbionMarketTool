@@ -10,7 +10,7 @@ use MZierdt\Albion\Service\CalculatorService;
 use MZierdt\Albion\Service\UploadService;
 use Twig\Environment;
 
-class BlackMarketHandler
+class BlackMarketCraftingHandler
 {
     public function __construct(
         private Environment $twigEnvironment,

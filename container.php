@@ -10,8 +10,8 @@ use MZierdt\Albion\factories\ResourceRepositoryFactory;
 use MZierdt\Albion\factories\UploadRepositoryFactory;
 use MZierdt\Albion\factories\TwigEnvironmentFactory;
 use MZierdt\Albion\Handler\AdminHandler;
-use MZierdt\Albion\Handler\BlackMarketHandler;
-use MZierdt\Albion\Handler\CalculateInfoHandler;
+use MZierdt\Albion\Handler\BlackMarketCraftingHandler;
+use MZierdt\Albion\Handler\BlackMarketTransportingHandler;
 use MZierdt\Albion\Handler\listDataHandler;
 use MZierdt\Albion\repositories\JournalRepository;
 use MZierdt\Albion\Service\CalculatorService;
@@ -48,10 +48,10 @@ $serviceManager = new ServiceManager([
                     ResourceRepository::class,
                     JournalRepository::class
                 ],
-                CalculateInfoHandler::class => [
+                BlackMarketTransportingHandler::class => [
                     Environment::class
                 ],
-                BlackMarketHandler::class => [
+                BlackMarketCraftingHandler::class => [
                     Environment::class,
                     CalculatorService::class,
                     UploadService::class,

@@ -66,6 +66,7 @@ class CalculatorService
             $calculateEntityArray[] = new CalculateEntity($item, $resources, $journals);
         }
         $this->calculateTotalWeight($calculateEntityArray);
+        $this->calculateTotalAmountResources($calculateEntityArray);
         $this->calculateProfit($calculateEntityArray, $percentage, $order);
         $this->calculateWeightProfitQuotient($calculateEntityArray);
         $this->calculateColorGrade($calculateEntityArray);
@@ -197,5 +198,20 @@ class CalculatorService
         return ($calculateEntity->getFullSellOrderPrice() -
                 $calculateEntity->getEmptySellOrderPrice()) *
             $calculateEntity->getAmountBooks();
+    }
+
+    private function calculateTotalAmountResources(array $calculateEntityArray): void
+    {
+        /** @var CalculateEntity $calculateEntity */
+        foreach ($calculateEntityArray as $calculateEntity) {
+            $calculateEntity->setPrimaryTotalAmount(
+                $calculateEntity->getPrimaryResourceAmount() *
+                $calculateEntity->getAmount()
+            );
+            $calculateEntity->setSecondaryTotalAmount(
+                $calculateEntity->getSecondaryResourceAmount() *
+                $calculateEntity->getAmount()
+            );
+        }
     }
 }
