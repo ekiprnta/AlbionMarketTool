@@ -116,6 +116,7 @@
                     <tbody class="text-right">
                     {# @var item MZierdt\Albion\Entity\CalculateEntity #}
                     {% for item in weaponGroup %}
+                        {%if item.itemSellOrderPrice != 0%}
                         <tr class="bg-{{ item.colorGrade }} bg-{{ item.getPrice }}">
                             <td class="text-left tier-{{ item.tierColor }} tier">{{ item.tier }}</td>
                             <td>{{ item.realName }}</td>
@@ -148,6 +149,7 @@
                                 </button>
                             </td>
                         </tr>
+                        {%endif%}
                         <div class="modal fade bd-example-modal-lg" id="{{ weaponGroupName }}" tabindex="-1"
                              aria-labelledby="exampleModalLabel"
                              aria-hidden="true">
