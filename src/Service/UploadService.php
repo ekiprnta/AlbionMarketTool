@@ -44,41 +44,44 @@ class UploadService
         $this->uploadRepository->loadResourcesIntoDatabase($resources['leather']);
     }
 
-    public function uploadItemsIntoDb()
+    public function updateAllPricesInAlbionDb(): void
     {
         $itemList = [
             //Warrior
-            ApiService::ITEM_WARRIOR_HELMET,
-            ApiService::ITEM_WARRIOR_ARMOR,
-            ApiService::ITEM_WARRIOR_BOOTS,
-            ApiService::ITEM_WARRIOR_SWORD,
-            ApiService::ITEM_WARRIOR_AXE,
-            ApiService::ITEM_WARRIOR_MACE,
-            ApiService::ITEM_WARRIOR_HAMMER,
-            ApiService::ITEM_WARRIOR_WAR_GLOVE,
-            ApiService::ITEM_WARRIOR_CROSSBOW,
-            ApiService::ITEM_WARRIOR_SHIELD,
+            [ItemEntity::ITEM_WARRIOR_HELMET, ItemEntity::CLASS_WARRIOR],
+            [ItemEntity::ITEM_WARRIOR_ARMOR, ItemEntity::CLASS_WARRIOR],
+            [ItemEntity::ITEM_WARRIOR_BOOTS, ItemEntity::CLASS_WARRIOR],
+            [ItemEntity::ITEM_WARRIOR_SWORD, ItemEntity::CLASS_WARRIOR],
+            [ItemEntity::ITEM_WARRIOR_AXE, ItemEntity::CLASS_WARRIOR],
+            [ItemEntity::ITEM_WARRIOR_MACE, ItemEntity::CLASS_WARRIOR],
+            [ItemEntity::ITEM_WARRIOR_HAMMER, ItemEntity::CLASS_WARRIOR],
+            [ItemEntity::ITEM_WARRIOR_WAR_GLOVE, ItemEntity::CLASS_WARRIOR],
+            [ItemEntity::ITEM_WARRIOR_CROSSBOW, ItemEntity::CLASS_WARRIOR],
+            [ItemEntity::ITEM_WARRIOR_SHIELD, ItemEntity::CLASS_WARRIOR],
             //Mage
-            ApiService::ITEM_MAGE_HELMET,
-            ApiService::ITEM_MAGE_ARMOR,
-            ApiService::ITEM_MAGE_BOOTS,
-            ApiService::ITEM_MAGE_FIRE_STAFF,
-            ApiService::ITEM_MAGE_HOLY_STAFF,
-            ApiService::ITEM_MAGE_ARCANE_STAFF,
-            ApiService::ITEM_MAGE_FROST_STAFF,
-            ApiService::ITEM_MAGE_CURSE_STAFF,
-            ApiService::ITEM_MAGE_TOME_STAFF,
+            [ItemEntity::ITEM_MAGE_HELMET, ItemEntity::CLASS_MAGE],
+            [ItemEntity::ITEM_MAGE_ARMOR, ItemEntity::CLASS_MAGE],
+            [ItemEntity::ITEM_MAGE_BOOTS, ItemEntity::CLASS_MAGE],
+            [ItemEntity::ITEM_MAGE_FIRE_STAFF, ItemEntity::CLASS_MAGE],
+            [ItemEntity::ITEM_MAGE_HOLY_STAFF, ItemEntity::CLASS_MAGE],
+            [ItemEntity::ITEM_MAGE_ARCANE_STAFF, ItemEntity::CLASS_MAGE],
+            [ItemEntity::ITEM_MAGE_FROST_STAFF, ItemEntity::CLASS_MAGE],
+            [ItemEntity::ITEM_MAGE_CURSE_STAFF, ItemEntity::CLASS_MAGE],
+            [ItemEntity::ITEM_MAGE_TOME_STAFF, ItemEntity::CLASS_MAGE],
             //Hunter
-            ApiService::ITEM_HUNTER_HELMET,
-            ApiService::ITEM_HUNTER_ARMOR,
-            ApiService::ITEM_HUNTER_BOOTS,
-            ApiService::ITEM_HUNTER_BOW,
-            ApiService::ITEM_HUNTER_SPEAR,
-            ApiService::ITEM_HUNTER_NATURE_STAFF,
-            ApiService::ITEM_HUNTER_DAGGER,
-            ApiService::ITEM_HUNTER_QUARTERSTAFF,
-            ApiService::ITEM_HUNTER_TORCH,
+            [ItemEntity::ITEM_HUNTER_HELMET, ItemEntity::CLASS_HUNTER],
+            [ItemEntity::ITEM_HUNTER_ARMOR, ItemEntity::CLASS_HUNTER],
+            [ItemEntity::ITEM_HUNTER_BOOTS, ItemEntity::CLASS_HUNTER],
+            [ItemEntity::ITEM_HUNTER_BOW, ItemEntity::CLASS_HUNTER],
+            [ItemEntity::ITEM_HUNTER_SPEAR, ItemEntity::CLASS_HUNTER],
+            [ItemEntity::ITEM_HUNTER_NATURE_STAFF, ItemEntity::CLASS_HUNTER],
+            [ItemEntity::ITEM_HUNTER_DAGGER, ItemEntity::CLASS_HUNTER],
+            [ItemEntity::ITEM_HUNTER_QUARTERSTAFF, ItemEntity::CLASS_HUNTER],
+            [ItemEntity::ITEM_HUNTER_TORCH, ItemEntity::CLASS_HUNTER],
         ];
+        foreach ($itemList as $item) {
+            $this->updatePriceFromItem($item);
+        }
     }
 
     public function uploadRefreshedPrices(): void
@@ -244,5 +247,44 @@ class UploadService
             $resourceName = str_replace('_level3', '', $name);
         }
         return $resourceName ?? $name;
+    }
+
+    private function updatePriceFromItem(array $itemData): void
+    {
+        $items = $this->apiService->getItems($itemData[0]);
+        $adjustedItems = $this->adjustItems($items, $itemData);
+        $this->uploadRepository->updatePricesFromItem($adjustedItems);
+    }
+
+    private function adjustItems(array $weaponGroupArray, array $itemData): array
+    {
+        [$weaponGroupName, $class] = $itemData;
+        $adjustedItems = [];
+        foreach ($weaponGroupArray as $weapon) {
+            foreach ($weapon as $item) {
+                $nameAndTier = TierService::splitIntoTierAndName($item['item_id']);
+                $stats = NameDataService::getStatsForItem($class, $weaponGroupName, $nameAndTier['name']);
+                $adjustedItems[] = [
+                    'tier' => $nameAndTier['tier'],
+                    'name' => $nameAndTier['name'],
+                    'weaponGroup' => $weaponGroupName,
+                    'realName' => $stats['realName'],
+                    'class' => $class,
+                    'city' => $item['city'],
+                    'quality' => $item['quality'],
+                    'sellOrderPrice' => $item['sell_price_min'],
+                    'sellOrderPriceDate' => $item['sell_price_min_date'],
+                    'buyOrderPrice' => $item['buy_price_max'],
+                    'buyOrderPriceDate' => $item['buy_price_max_date'],
+                    'primaryResource' => $stats['primaryResource'],
+                    'primaryResourceAmount' => $stats['primaryResourceAmount'],
+                    'secondaryResource' => $stats['secondaryResource'],
+                    'secondaryResourceAmount' => $stats['secondaryResourceAmount'],
+                    'bonusCity' => $stats['bonusCity'],
+                    'fameFactor' => null,
+                ];
+            }
+        }
+        return $adjustedItems;
     }
 }

@@ -21,6 +21,10 @@ class BlackMarketCraftingHandler
 
     public function handler(): HtmlResponse
     {
+        $this->uploadService->updateAllPricesInAlbionDb();
+        die();
+
+
         if (! empty($_POST['updatePrices'])) {
             $this->uploadService->uploadRefreshedPrices();
         }

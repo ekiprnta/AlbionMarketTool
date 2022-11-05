@@ -9,6 +9,37 @@ use DateTimeZone;
 
 class ItemEntity
 {
+    public const ITEM_WARRIOR_HELMET = 'plateHelmet';
+    public const ITEM_WARRIOR_ARMOR = 'plateArmor';
+    public const ITEM_WARRIOR_BOOTS = 'plateBoots';
+    public const ITEM_WARRIOR_SWORD = 'sword';
+    public const ITEM_WARRIOR_AXE = 'axe';
+    public const ITEM_WARRIOR_MACE = 'mace';
+    public const ITEM_WARRIOR_HAMMER = 'hammer';
+    public const ITEM_WARRIOR_WAR_GLOVE = 'warGlove';
+    public const ITEM_WARRIOR_CROSSBOW = 'crossbow';
+    public const ITEM_WARRIOR_SHIELD = 'shield';
+
+    public const ITEM_MAGE_HELMET = 'clothCowl';
+    public const ITEM_MAGE_ARMOR = 'clothRobe';
+    public const ITEM_MAGE_BOOTS = 'clothSandals';
+    public const ITEM_MAGE_FIRE_STAFF = 'fireStaff';
+    public const ITEM_MAGE_HOLY_STAFF = 'holyStaff';
+    public const ITEM_MAGE_ARCANE_STAFF = 'arcaneStaff';
+    public const ITEM_MAGE_FROST_STAFF = 'frostStaff';
+    public const ITEM_MAGE_CURSE_STAFF = 'curseStaff';
+    public const ITEM_MAGE_TOME_STAFF = 'tome';
+
+    public const ITEM_HUNTER_HELMET = 'leatherHood';
+    public const ITEM_HUNTER_ARMOR = 'leatherJacket';
+    public const ITEM_HUNTER_BOOTS = 'leatherShoes';
+    public const ITEM_HUNTER_BOW = 'bow';
+    public const ITEM_HUNTER_SPEAR = 'spear';
+    public const ITEM_HUNTER_NATURE_STAFF = 'nature';
+    public const ITEM_HUNTER_DAGGER = 'dagger';
+    public const ITEM_HUNTER_QUARTERSTAFF = 'quarterstaff';
+    public const ITEM_HUNTER_TORCH = 'torch';
+
     private const TIER_T2 = '2';
     private const TIER_T3 = '3';
     private const TIER_T4 = '4';

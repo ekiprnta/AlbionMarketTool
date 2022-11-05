@@ -25,37 +25,6 @@ class ApiService // Buy Order ist buy_price_max
     private const CITY_THETFORD = 'Thetford';
     private const CITY_BLACKMARKET = 'BlackMarket';
 
-    public const ITEM_WARRIOR_HELMET = 'plateHelmet';
-    public const ITEM_WARRIOR_ARMOR = 'plateArmor';
-    public const ITEM_WARRIOR_BOOTS = 'plateBoots';
-    public const ITEM_WARRIOR_SWORD = 'sword';
-    public const ITEM_WARRIOR_AXE = 'axe';
-    public const ITEM_WARRIOR_MACE = 'mace';
-    public const ITEM_WARRIOR_HAMMER = 'hammer';
-    public const ITEM_WARRIOR_WAR_GLOVE = 'warGlove';
-    public const ITEM_WARRIOR_CROSSBOW = 'crossbow';
-    public const ITEM_WARRIOR_SHIELD = 'shield';
-
-    public const ITEM_MAGE_HELMET = 'clothCowl';
-    public const ITEM_MAGE_ARMOR = 'clothRobe';
-    public const ITEM_MAGE_BOOTS = 'clothSandals';
-    public const ITEM_MAGE_FIRE_STAFF = 'fireStaff';
-    public const ITEM_MAGE_HOLY_STAFF = 'holyStaff';
-    public const ITEM_MAGE_ARCANE_STAFF = 'arcaneStaff';
-    public const ITEM_MAGE_FROST_STAFF = 'frostStaff';
-    public const ITEM_MAGE_CURSE_STAFF = 'curseStaff';
-    public const ITEM_MAGE_TOME_STAFF = 'tome';
-
-    public const ITEM_HUNTER_HELMET = 'leatherHood';
-    public const ITEM_HUNTER_ARMOR = 'leatherJacket';
-    public const ITEM_HUNTER_BOOTS = 'leatherShoes';
-    public const ITEM_HUNTER_BOW = 'bow';
-    public const ITEM_HUNTER_SPEAR = 'spear';
-    public const ITEM_HUNTER_NATURE_STAFF = 'nature';
-    public const ITEM_HUNTER_DAGGER = 'dagger';
-    public const ITEM_HUNTER_QUARTERSTAFF = 'quarterstaff';
-    public const ITEM_HUNTER_TORCH = 'torch';
-
     public const JOURNAL_WARRIOR = 'JOURNAL_WARRIOR';
     public const JOURNAL_MAGE = 'JOURNAL_MAGE';
     public const JOURNAL_HUNTER = 'JOURNAL_HUNTER';
@@ -162,13 +131,12 @@ class ApiService // Buy Order ist buy_price_max
         return json_decode($json, true, 512, JSON_THROW_ON_ERROR);
     }
 
-    public function getItem(string $itemName):array
+    public function getItems(string $itemName):array
     {
         $apiUrl = $this->apiUrlAssembler(
             $itemName,
             self::ITEM_TIERS_WITH_PLACEHOLDER
         );
-
         $cities = sprintf(
             '%s,%s,%s,%s,%s,%s',
             self::CITY_BLACKMARKET,
@@ -197,7 +165,7 @@ class ApiService // Buy Order ist buy_price_max
         $json = $this->httpClient->get(
             $apiUrl,
             [
-                'locations' => self::CITY_BLACKMARKET,
+                'locations' => $cities,
                 'qualities' => self::QUALITY_GOOD,
             ]
         );
