@@ -23,8 +23,8 @@ class AdminHandler
         if (! empty($_POST['reloadDB'])) {
             $this->uploadRepository->emptyDb();
             $this->uploadService->uploadItemsIntoEmptyDb();
-            $this->uploadService->uploadResourceIntoEmptyDb();
-            $this->uploadService->uploadJournalsIntoEmptyDb();
+//            $this->uploadService->uploadResourceIntoEmptyDb();
+//            $this->uploadService->uploadJournalsIntoEmptyDb();
         }
         if (! empty($_POST['updatePrices'])) {
             $this->uploadService->uploadRefreshedPrices();
