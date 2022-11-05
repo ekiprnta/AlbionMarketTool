@@ -142,7 +142,7 @@ class CalculatorService
         }
     }
 
-    private function calculateColorGrade(array $calculateEntityArray)
+    private function calculateColorGrade(array $calculateEntityArray): void
     {
         /** @var CalculateEntity $calculateEntity */
         foreach ($calculateEntityArray as $calculateEntity) {
@@ -193,7 +193,7 @@ class CalculatorService
         return $itemDiff->d * 24 * 60 + $itemDiff->h * 60 + $itemDiff->i;
     }
 
-    private function calculateProfitBooks(CalculateEntity $calculateEntity): float|int
+    private function calculateProfitBooks(CalculateEntity $calculateEntity): int
     {
         return ($calculateEntity->getFullSellOrderPrice() -
                 $calculateEntity->getEmptySellOrderPrice()) *
