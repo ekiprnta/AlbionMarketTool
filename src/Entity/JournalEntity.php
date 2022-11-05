@@ -9,6 +9,10 @@ use DateTimeZone;
 
 class JournalEntity
 {
+    public const JOURNAL_WARRIOR = 'JOURNAL_WARRIOR';
+    public const JOURNAL_MAGE = 'JOURNAL_MAGE';
+    public const JOURNAL_HUNTER = 'JOURNAL_HUNTER';
+
     private string $tier;
     private string $name;
     private string $city;

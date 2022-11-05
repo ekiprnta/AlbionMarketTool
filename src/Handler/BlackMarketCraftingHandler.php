@@ -6,6 +6,7 @@ namespace MZierdt\Albion\Handler;
 
 use InvalidArgumentException;
 use Laminas\Diactoros\Response\HtmlResponse;
+use MZierdt\Albion\Service\ApiService;
 use MZierdt\Albion\Service\CalculatorService;
 use MZierdt\Albion\Service\UploadService;
 use Twig\Environment;
@@ -21,7 +22,7 @@ class BlackMarketCraftingHandler
 
     public function handler(): HtmlResponse
     {
-        $this->uploadService->updateAllPricesInAlbionDb();
+        $this->uploadService->updateItemPricesInAlbionDbByCity(ApiService::CITY_LYMHURST);
         die();
 
 

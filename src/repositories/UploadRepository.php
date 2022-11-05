@@ -314,15 +314,17 @@ SQL
                 INSERT INTO `items` (`tier`,
              `name`,
              `weaponGroup`,
+             `city`,
              `buyOrderPrice`,
              `buyOrderPriceDate`)
-            VALUES (:tier, :name, :weaponGroup, :buyOrderPrice, :buyOrderPriceDate)
+            VALUES (:tier, :name, :weaponGroup, :city, :buyOrderPrice, :buyOrderPriceDate)
             ON DUPLICATE KEY UPDATE `buyOrderPrice`  = :buyOrderPrice, `buyOrderPriceDate` = :buyOrderPriceDate;
 SQL
                 );
                 $statement->bindParam(':tier', $item['tier']);
                 $statement->bindParam(':name', $item['name']);
                 $statement->bindParam(':weaponGroup', $item['weaponGroup']);
+                $statement->bindParam(':city', $item['city']);
                 $statement->bindParam(':buyOrderPrice', $item['buyOrderPrice']);
                 $statement->bindParam(':buyOrderPriceDate', $item['buyOrderPriceDate']);
                 $statement->execute();
@@ -367,6 +369,47 @@ SQL
                 $statement->bindParam(':city', $resource['city']);
                 $statement->bindParam(':buyOrderPrice', $resource['buyOrderPrice']);
                 $statement->bindParam(':buyOrderPriceDate', $resource['buyOrderPriceDate']);
+                $statement->execute();
+            }
+        }
+    }
+
+    public function updatePricesFromJournals(array $journalInformation): void
+    {
+        foreach ($journalInformation as $journals) {
+            if ($journals['sellOrderPrice'] !== 0) {
+                $statement = $this->pdoConnection->prepare(
+                    <<<SQL
+                INSERT INTO `journals` (`tier`, `name`, `city`, `fameToFill`, `sellOrderPrice`, `sellOrderPriceDate`, `weight`, `fillStatus`, `class` )
+            VALUES (:tier, :name, :city, :fameToFill, :sellOrderPrice, :sellOrderPriceDate, :weight, :fillStatus, :class)
+            ON DUPLICATE KEY UPDATE `sellOrderPrice`  = :sellOrderPrice, `sellOrderPriceDate` = :sellOrderPriceDate;
+SQL
+                );
+                $statement->bindParam(':tier', $journals['tier']);
+                $statement->bindParam(':name', $journals['name']);
+                $statement->bindParam(':city', $journals['city']);
+                $statement->bindParam(':fameToFill', $journals['fameToFill']);
+                $statement->bindParam(':sellOrderPrice', $journals['sellOrderPrice']);
+                $statement->bindParam(':sellOrderPriceDate', $journals['sellOrderPriceDate']);
+                $statement->bindParam(':weight', $journals['weight']);
+                $statement->bindParam(':fillStatus', $journals['fillStatus']);
+                $statement->bindParam(':class', $journals['class']);
+                $statement->execute();
+            }
+            if ($journals['buyOrderPrice'] !== 0) {
+                $statement = $this->pdoConnection->prepare(
+                    <<<SQL
+            INSERT INTO `journals` (`tier`, `name`, `city`, `buyOrderPrice`, `buyOrderPriceDate`, `fillStatus`)
+            VALUES (:tier, :name, :city, :buyOrderPrice, :buyOrderPriceDate, :fillStatus)
+            ON DUPLICATE KEY UPDATE `buyOrderPrice`  = :buyOrderPrice, `buyOrderPriceDate` = :buyOrderPriceDate;
+SQL
+                );
+                $statement->bindParam(':tier', $journals['tier']);
+                $statement->bindParam(':name', $journals['name']);
+                $statement->bindParam(':city', $journals['city']);
+                $statement->bindParam(':buyOrderPrice', $journals['buyOrderPrice']);
+                $statement->bindParam(':buyOrderPriceDate', $journals['buyOrderPriceDate']);
+                $statement->bindParam(':fillStatus', $journals['fillStatus']);
                 $statement->execute();
             }
         }

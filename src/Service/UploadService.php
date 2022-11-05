@@ -5,11 +5,46 @@ declare(strict_types=1);
 namespace MZierdt\Albion\Service;
 
 use MZierdt\Albion\Entity\ItemEntity;
+use MZierdt\Albion\Entity\JournalEntity;
 use MZierdt\Albion\Entity\ResourceEntity;
 use MZierdt\Albion\repositories\UploadRepository;
+use PHPUnit\Framework\MockObject\Api;
 
 class UploadService
 {
+    private array $itemList = [
+        [ItemEntity::ITEM_WARRIOR_HELMET, ItemEntity::CLASS_WARRIOR],
+        [ItemEntity::ITEM_WARRIOR_ARMOR, ItemEntity::CLASS_WARRIOR],
+        [ItemEntity::ITEM_WARRIOR_BOOTS, ItemEntity::CLASS_WARRIOR],
+        [ItemEntity::ITEM_WARRIOR_SWORD, ItemEntity::CLASS_WARRIOR],
+        [ItemEntity::ITEM_WARRIOR_AXE, ItemEntity::CLASS_WARRIOR],
+        [ItemEntity::ITEM_WARRIOR_MACE, ItemEntity::CLASS_WARRIOR],
+        [ItemEntity::ITEM_WARRIOR_HAMMER, ItemEntity::CLASS_WARRIOR],
+        [ItemEntity::ITEM_WARRIOR_WAR_GLOVE, ItemEntity::CLASS_WARRIOR],
+        [ItemEntity::ITEM_WARRIOR_CROSSBOW, ItemEntity::CLASS_WARRIOR],
+        [ItemEntity::ITEM_WARRIOR_SHIELD, ItemEntity::CLASS_WARRIOR],
+
+        [ItemEntity::ITEM_MAGE_HELMET, ItemEntity::CLASS_MAGE],
+        [ItemEntity::ITEM_MAGE_ARMOR, ItemEntity::CLASS_MAGE],
+        [ItemEntity::ITEM_MAGE_BOOTS, ItemEntity::CLASS_MAGE],
+        [ItemEntity::ITEM_MAGE_FIRE_STAFF, ItemEntity::CLASS_MAGE],
+        [ItemEntity::ITEM_MAGE_HOLY_STAFF, ItemEntity::CLASS_MAGE],
+        [ItemEntity::ITEM_MAGE_ARCANE_STAFF, ItemEntity::CLASS_MAGE],
+        [ItemEntity::ITEM_MAGE_FROST_STAFF, ItemEntity::CLASS_MAGE],
+        [ItemEntity::ITEM_MAGE_CURSE_STAFF, ItemEntity::CLASS_MAGE],
+        [ItemEntity::ITEM_MAGE_TOME_STAFF, ItemEntity::CLASS_MAGE],
+
+        [ItemEntity::ITEM_HUNTER_HELMET, ItemEntity::CLASS_HUNTER],
+        [ItemEntity::ITEM_HUNTER_ARMOR, ItemEntity::CLASS_HUNTER],
+        [ItemEntity::ITEM_HUNTER_BOOTS, ItemEntity::CLASS_HUNTER],
+        [ItemEntity::ITEM_HUNTER_BOW, ItemEntity::CLASS_HUNTER],
+        [ItemEntity::ITEM_HUNTER_SPEAR, ItemEntity::CLASS_HUNTER],
+        [ItemEntity::ITEM_HUNTER_NATURE_STAFF, ItemEntity::CLASS_HUNTER],
+        [ItemEntity::ITEM_HUNTER_DAGGER, ItemEntity::CLASS_HUNTER],
+        [ItemEntity::ITEM_HUNTER_QUARTERSTAFF, ItemEntity::CLASS_HUNTER],
+        [ItemEntity::ITEM_HUNTER_TORCH, ItemEntity::CLASS_HUNTER],
+    ];
+
     public function __construct(
         private ApiService $apiService,
         private UploadRepository $uploadRepository,
@@ -44,53 +79,35 @@ class UploadService
         $this->uploadRepository->loadResourcesIntoDatabase($resources['leather']);
     }
 
-    public function updateAllPricesInAlbionDb(): void
+    public function updateJournalPricesInAlbionDb(): void
     {
-        $itemList = [
-            //Warrior
-            [ItemEntity::ITEM_WARRIOR_HELMET, ItemEntity::CLASS_WARRIOR],
-            [ItemEntity::ITEM_WARRIOR_ARMOR, ItemEntity::CLASS_WARRIOR],
-            [ItemEntity::ITEM_WARRIOR_BOOTS, ItemEntity::CLASS_WARRIOR],
-            [ItemEntity::ITEM_WARRIOR_SWORD, ItemEntity::CLASS_WARRIOR],
-            [ItemEntity::ITEM_WARRIOR_AXE, ItemEntity::CLASS_WARRIOR],
-            [ItemEntity::ITEM_WARRIOR_MACE, ItemEntity::CLASS_WARRIOR],
-            [ItemEntity::ITEM_WARRIOR_HAMMER, ItemEntity::CLASS_WARRIOR],
-            [ItemEntity::ITEM_WARRIOR_WAR_GLOVE, ItemEntity::CLASS_WARRIOR],
-            [ItemEntity::ITEM_WARRIOR_CROSSBOW, ItemEntity::CLASS_WARRIOR],
-            [ItemEntity::ITEM_WARRIOR_SHIELD, ItemEntity::CLASS_WARRIOR],
-            //Mage
-            [ItemEntity::ITEM_MAGE_HELMET, ItemEntity::CLASS_MAGE],
-            [ItemEntity::ITEM_MAGE_ARMOR, ItemEntity::CLASS_MAGE],
-            [ItemEntity::ITEM_MAGE_BOOTS, ItemEntity::CLASS_MAGE],
-            [ItemEntity::ITEM_MAGE_FIRE_STAFF, ItemEntity::CLASS_MAGE],
-            [ItemEntity::ITEM_MAGE_HOLY_STAFF, ItemEntity::CLASS_MAGE],
-            [ItemEntity::ITEM_MAGE_ARCANE_STAFF, ItemEntity::CLASS_MAGE],
-            [ItemEntity::ITEM_MAGE_FROST_STAFF, ItemEntity::CLASS_MAGE],
-            [ItemEntity::ITEM_MAGE_CURSE_STAFF, ItemEntity::CLASS_MAGE],
-            [ItemEntity::ITEM_MAGE_TOME_STAFF, ItemEntity::CLASS_MAGE],
-            //Hunter
-            [ItemEntity::ITEM_HUNTER_HELMET, ItemEntity::CLASS_HUNTER],
-            [ItemEntity::ITEM_HUNTER_ARMOR, ItemEntity::CLASS_HUNTER],
-            [ItemEntity::ITEM_HUNTER_BOOTS, ItemEntity::CLASS_HUNTER],
-            [ItemEntity::ITEM_HUNTER_BOW, ItemEntity::CLASS_HUNTER],
-            [ItemEntity::ITEM_HUNTER_SPEAR, ItemEntity::CLASS_HUNTER],
-            [ItemEntity::ITEM_HUNTER_NATURE_STAFF, ItemEntity::CLASS_HUNTER],
-            [ItemEntity::ITEM_HUNTER_DAGGER, ItemEntity::CLASS_HUNTER],
-            [ItemEntity::ITEM_HUNTER_QUARTERSTAFF, ItemEntity::CLASS_HUNTER],
-            [ItemEntity::ITEM_HUNTER_TORCH, ItemEntity::CLASS_HUNTER],
+        $journalList = [
+            JournalEntity::JOURNAL_WARRIOR,
+            JournalEntity::JOURNAL_MAGE,
+            JournalEntity::JOURNAL_HUNTER,
         ];
+        foreach ($journalList as $journalType) {
+            $this->updatePriceFromJournals($journalType);
+        }
+    }
+
+    public function updateResourcePricesInAlbionDb(): void
+    {
         $resourceList = [
             ResourceEntity::RESOURCE_METAL_BAR,
             ResourceEntity::RESOURCE_PLANKS,
             ResourceEntity::RESOURCE_CLOTH,
             ResourceEntity::RESOURCE_LEATHER,
         ];
-
-        foreach ($itemList as $item) {
-//            $this->updatePriceFromItem($item);
-        }
         foreach ($resourceList as $resource) {
             $this->updatePriceFromResource($resource);
+        }
+    }
+
+    public function updateItemPricesInAlbionDbByCity(string $city): void
+    {
+        foreach ($this->itemList as $item) {
+            $this->updatePriceFromItem($item, $city);
         }
     }
 
@@ -259,9 +276,9 @@ class UploadService
         return $resourceName ?? $name;
     }
 
-    private function updatePriceFromItem(array $itemData): void
+    private function updatePriceFromItem(array $itemData, string $city): void
     {
-        $items = $this->apiService->getItems($itemData[0]);
+        $items = $this->apiService->getItems($itemData[0], $city);
         $adjustedItems = $this->adjustItems($items, $itemData);
         $this->uploadRepository->updatePricesFromItem($adjustedItems);
     }
@@ -271,6 +288,14 @@ class UploadService
         $resources = $this->apiService->getResource($resourceType);
         $adjustedResources = $this->adjustResourceArray($resources, $resourceType);
         $this->uploadRepository->updatePricesFromResources($adjustedResources);
+    }
+
+
+    private function updatePriceFromJournals(string $journalType): void
+    {
+        $journals = $this->apiService->getJournals($journalType);
+        $adjustedJournals = $this->adjustJournals($journals);
+        $this->uploadRepository->updatePricesFromJournals($adjustedJournals);
     }
 
     private function adjustItems(array $weaponGroupArray, array $itemData): array

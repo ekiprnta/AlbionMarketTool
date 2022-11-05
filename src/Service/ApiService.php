@@ -18,16 +18,12 @@ class ApiService // Buy Order ist buy_price_max
     private const RESOURCE_LEATHER = 'Leather';
     private const RESOURCE_CLOTH = 'Cloth';
 
-    private const CITY_LYMHURST = 'Lymhurst';
-    private const CITY_FORTSTERLING = 'FortSterling';
-    private const CITY_BRIDGEWATCH = 'Bridgewatch';
-    private const CITY_MARTLOCK = 'Martlock';
-    private const CITY_THETFORD = 'Thetford';
-    private const CITY_BLACKMARKET = 'BlackMarket';
-
-    public const JOURNAL_WARRIOR = 'JOURNAL_WARRIOR';
-    public const JOURNAL_MAGE = 'JOURNAL_MAGE';
-    public const JOURNAL_HUNTER = 'JOURNAL_HUNTER';
+    public const CITY_LYMHURST = 'Lymhurst';
+    public const CITY_FORTSTERLING = 'FortSterling';
+    public const CITY_BRIDGEWATCH = 'Bridgewatch';
+    public const CITY_MARTLOCK = 'Martlock';
+    public const CITY_THETFORD = 'Thetford';
+    public const CITY_BLACKMARKET = 'BlackMarket';
 
     private const QUALITY_GOOD = 2;
 
@@ -131,20 +127,11 @@ class ApiService // Buy Order ist buy_price_max
         return json_decode($json, true, 512, JSON_THROW_ON_ERROR);
     }
 
-    public function getItems(string $itemName):array
+    public function getItems(string $itemName, string $city):array
     {
         $apiUrl = $this->apiUrlAssembler(
             $itemName,
             self::ITEM_TIERS_WITH_PLACEHOLDER
-        );
-        $cities = sprintf(
-            '%s,%s,%s,%s,%s,%s',
-            self::CITY_BLACKMARKET,
-            self::CITY_BRIDGEWATCH,
-            self::CITY_FORTSTERLING,
-            self::CITY_LYMHURST,
-            self::CITY_MARTLOCK,
-            self::CITY_THETFORD
         );
 
         if (is_array($apiUrl)) {
@@ -153,7 +140,7 @@ class ApiService // Buy Order ist buy_price_max
                 $jsonFromArray = $this->httpClient->get(
                     $url,
                     [
-                        'locations' => $cities,
+                        'locations' => $city,
                         'qualities' => self::QUALITY_GOOD,
                     ]
                 );
@@ -165,7 +152,7 @@ class ApiService // Buy Order ist buy_price_max
         $json = $this->httpClient->get(
             $apiUrl,
             [
-                'locations' => $cities,
+                'locations' => $city,
                 'qualities' => self::QUALITY_GOOD,
             ]
         );
