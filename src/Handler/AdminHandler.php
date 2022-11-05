@@ -19,28 +19,28 @@ class AdminHandler
 
     public function handler(): HtmlResponse
     {
-        if (!empty($_POST['updateJournals'])) {
+        if (! empty($_POST['updateJournals'])) {
             $this->uploadService->updateJournalPricesInAlbionDb();
         }
-        if (!empty($_POST['updateResources'])) {
+        if (! empty($_POST['updateResources'])) {
             $this->uploadService->updateResourcePricesInAlbionDb();
         }
-        if (!empty($_POST['updateItemsBlackMarket'])) {
+        if (! empty($_POST['updateItemsBlackMarket'])) {
             $this->uploadService->updateItemPricesInAlbionDbByCity(ApiService::CITY_BLACKMARKET);
         }
-        if (!empty($_POST['updateItemsFortSterling'])) {
+        if (! empty($_POST['updateItemsFortSterling'])) {
             $this->uploadService->updateItemPricesInAlbionDbByCity(ApiService::CITY_FORTSTERLING);
         }
-        if (!empty($_POST['updateItemsLymhurst'])) {
+        if (! empty($_POST['updateItemsLymhurst'])) {
             $this->uploadService->updateItemPricesInAlbionDbByCity(ApiService::CITY_LYMHURST);
         }
-        if (!empty($_POST['updateItemsBridgewatch'])) {
+        if (! empty($_POST['updateItemsBridgewatch'])) {
             $this->uploadService->updateItemPricesInAlbionDbByCity(ApiService::CITY_BRIDGEWATCH);
         }
-        if (!empty($_POST['updateItemsMartlock'])) {
+        if (! empty($_POST['updateItemsMartlock'])) {
             $this->uploadService->updateItemPricesInAlbionDbByCity(ApiService::CITY_MARTLOCK);
         }
-        if (!empty($_POST['updateItemsThetford'])) {
+        if (! empty($_POST['updateItemsThetford'])) {
             $this->uploadService->updateItemPricesInAlbionDbByCity(ApiService::CITY_THETFORD);
         }
 

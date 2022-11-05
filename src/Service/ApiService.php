@@ -70,10 +70,7 @@ class ApiService // Buy Order ist buy_price_max
 
     public function getBlackMarketItem(string $itemName)
     {
-        $apiUrl = $this->apiUrlAssembler(
-            $itemName,
-            self::ITEM_TIERS_WITH_PLACEHOLDER
-        );
+        $apiUrl = $this->apiUrlAssembler($itemName, self::ITEM_TIERS_WITH_PLACEHOLDER);
 
         if (is_array($apiUrl)) {
             $apiData = [];
@@ -127,12 +124,9 @@ class ApiService // Buy Order ist buy_price_max
         return json_decode($json, true, 512, JSON_THROW_ON_ERROR);
     }
 
-    public function getItems(string $itemName, string $city):array
+    public function getItems(string $itemName, string $city): array
     {
-        $apiUrl = $this->apiUrlAssembler(
-            $itemName,
-            self::ITEM_TIERS_WITH_PLACEHOLDER
-        );
+        $apiUrl = $this->apiUrlAssembler($itemName, self::ITEM_TIERS_WITH_PLACEHOLDER);
 
         if (is_array($apiUrl)) {
             $apiData = [];
@@ -149,13 +143,10 @@ class ApiService // Buy Order ist buy_price_max
             return $apiData;
         }
 
-        $json = $this->httpClient->get(
-            $apiUrl,
-            [
+        $json = $this->httpClient->get($apiUrl, [
                 'locations' => $city,
                 'qualities' => self::QUALITY_GOOD,
-            ]
-        );
+            ]);
         return $this->jsonDecode($json);
     }
 }
