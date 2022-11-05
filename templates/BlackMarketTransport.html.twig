@@ -1,5 +1,62 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
+    <div class="card mt-3">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-2">
+                    <form action="/blackmarket/transporting" method="post">
+                        <div class="form-group">
+                            <label for="itemCity">Choose City to Update Pricing</label>
+                            <select name="itemCity" id="itemCity" class="form-control">
+                                <option value="Fort Sterling">Fort Sterling</option>
+                                <option value="Lymhurst">Lymhurst</option>
+                                <option value="Bridgewatch">Bridgewatch</option>
+                                <option value="Martlock">Martlock</option>
+                                <option value="Thetford">Thetford</option>
+                            </select>
+                        </div>
+                        <input type="hidden" name="updatePrices" value="1">
+                        <button class="btn btn-primary" type="submit" id="updatePrices">update Prices</button>
+                    </form>
+                </div>
+                <div class="col-10">
+                    <form action="" method="get">
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label for="itemCity">Choose the City to Craft</label>
+                                    <select name="itemCity" id="itemCity" class="form-control">
+                                        <option value="Fort Sterling">Fort Sterling</option>
+                                        <option value="Lymhurst">Lymhurst</option>
+                                        <option value="Bridgewatch">Bridgewatch</option>
+                                        <option value="Martlock">Martlock</option>
+                                        <option value="Thetford">Thetford</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <label for="weight">Max. Carry Capacity</label>
+                                <input class="form-control"
+                                       id="weight"
+                                       name="weight"
+                                       type="number">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3">
+                                <button class="btn btn-primary" type="submit">Calculate</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                {% if alertMessage is not null %}
+                    <div class="alert alert-danger">{{ alertMessage }}</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
 
 {% endblock %}

@@ -14,9 +14,9 @@ class BlackMarketTransportingHandler
     ) {
     }
 
-    public function handler()
+    public function handler(): HtmlResponse
     {
-        $htmlContent = $this->twigEnvironment->render('showData.html.twig');
+        $htmlContent = $this->twigEnvironment->render('BlackMarketTransport.html.twig');
         return new HtmlResponse($htmlContent);
     }
 }
