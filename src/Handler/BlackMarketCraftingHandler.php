@@ -22,12 +22,8 @@ class BlackMarketCraftingHandler
 
     public function handler(): HtmlResponse
     {
-        $this->uploadService->updateItemPricesInAlbionDbByCity(ApiService::CITY_LYMHURST);
-        die();
-
-
         if (! empty($_POST['updatePrices'])) {
-            $this->uploadService->uploadRefreshedPrices();
+            $this->uploadService->updateItemPricesInAlbionDbByCity(ApiService::CITY_BLACKMARKET);
         }
         $cityData = [];
         $alertMessage = null;

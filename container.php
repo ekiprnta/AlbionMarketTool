@@ -62,7 +62,6 @@ $serviceManager = new ServiceManager([
                 AdminHandler::class => [
                     Environment::class,
                     UploadService::class,
-                    UploadRepository::class
                 ]
             ]
         ],
