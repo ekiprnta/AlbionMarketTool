@@ -79,8 +79,18 @@ class UploadService
             [ItemEntity::ITEM_HUNTER_QUARTERSTAFF, ItemEntity::CLASS_HUNTER],
             [ItemEntity::ITEM_HUNTER_TORCH, ItemEntity::CLASS_HUNTER],
         ];
+        $resourceList = [
+            ResourceEntity::RESOURCE_METAL_BAR,
+            ResourceEntity::RESOURCE_PLANKS,
+            ResourceEntity::RESOURCE_CLOTH,
+            ResourceEntity::RESOURCE_LEATHER,
+        ];
+
         foreach ($itemList as $item) {
-            $this->updatePriceFromItem($item);
+//            $this->updatePriceFromItem($item);
+        }
+        foreach ($resourceList as $resource) {
+            $this->updatePriceFromResource($resource);
         }
     }
 
@@ -254,6 +264,13 @@ class UploadService
         $items = $this->apiService->getItems($itemData[0]);
         $adjustedItems = $this->adjustItems($items, $itemData);
         $this->uploadRepository->updatePricesFromItem($adjustedItems);
+    }
+
+    private function updatePriceFromResource(string $resourceType): void
+    {
+        $resources = $this->apiService->getResource($resourceType);
+        $adjustedResources = $this->adjustResourceArray($resources, $resourceType);
+        $this->uploadRepository->updatePricesFromResources($adjustedResources);
     }
 
     private function adjustItems(array $weaponGroupArray, array $itemData): array
