@@ -110,23 +110,13 @@ class ApiService // Buy Order ist buy_price_max
             self::ITEM_TIERS_WITH_PLACEHOLDER
         );
 
-        $cities = sprintf(
-            '%s,%s,%s,%s,%s,%s',
-            self::CITY_BLACKMARKET,
-            self::CITY_BRIDGEWATCH,
-            self::CITY_FORTSTERLING,
-            self::CITY_LYMHURST,
-            self::CITY_MARTLOCK,
-            self::CITY_THETFORD
-        );
-
         if (is_array($apiUrl)) {
             $apiData = [];
             foreach ($apiUrl as $url) {
                 $jsonFromArray = $this->httpClient->get(
                     $url,
                     [
-                        'locations' => $cities,
+                        'locations' => self::CITY_BLACKMARKET,
                         'qualities' => self::QUALITY_GOOD,
                     ]
                 );
@@ -170,5 +160,47 @@ class ApiService // Buy Order ist buy_price_max
     private function jsonDecode(string $json)
     {
         return json_decode($json, true, 512, JSON_THROW_ON_ERROR);
+    }
+
+    public function getItem(string $itemName):array
+    {
+        $apiUrl = $this->apiUrlAssembler(
+            $itemName,
+            self::ITEM_TIERS_WITH_PLACEHOLDER
+        );
+
+        $cities = sprintf(
+            '%s,%s,%s,%s,%s,%s',
+            self::CITY_BLACKMARKET,
+            self::CITY_BRIDGEWATCH,
+            self::CITY_FORTSTERLING,
+            self::CITY_LYMHURST,
+            self::CITY_MARTLOCK,
+            self::CITY_THETFORD
+        );
+
+        if (is_array($apiUrl)) {
+            $apiData = [];
+            foreach ($apiUrl as $url) {
+                $jsonFromArray = $this->httpClient->get(
+                    $url,
+                    [
+                        'locations' => $cities,
+                        'qualities' => self::QUALITY_GOOD,
+                    ]
+                );
+                $apiData[] = $this->jsonDecode($jsonFromArray);
+            }
+            return $apiData;
+        }
+
+        $json = $this->httpClient->get(
+            $apiUrl,
+            [
+                'locations' => self::CITY_BLACKMARKET,
+                'qualities' => self::QUALITY_GOOD,
+            ]
+        );
+        return $this->jsonDecode($json);
     }
 }

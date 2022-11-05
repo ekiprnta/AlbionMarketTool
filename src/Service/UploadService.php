@@ -44,6 +44,43 @@ class UploadService
         $this->uploadRepository->loadResourcesIntoDatabase($resources['leather']);
     }
 
+    public function uploadItemsIntoDb()
+    {
+        $itemList = [
+            //Warrior
+            ApiService::ITEM_WARRIOR_HELMET,
+            ApiService::ITEM_WARRIOR_ARMOR,
+            ApiService::ITEM_WARRIOR_BOOTS,
+            ApiService::ITEM_WARRIOR_SWORD,
+            ApiService::ITEM_WARRIOR_AXE,
+            ApiService::ITEM_WARRIOR_MACE,
+            ApiService::ITEM_WARRIOR_HAMMER,
+            ApiService::ITEM_WARRIOR_WAR_GLOVE,
+            ApiService::ITEM_WARRIOR_CROSSBOW,
+            ApiService::ITEM_WARRIOR_SHIELD,
+            //Mage
+            ApiService::ITEM_MAGE_HELMET,
+            ApiService::ITEM_MAGE_ARMOR,
+            ApiService::ITEM_MAGE_BOOTS,
+            ApiService::ITEM_MAGE_FIRE_STAFF,
+            ApiService::ITEM_MAGE_HOLY_STAFF,
+            ApiService::ITEM_MAGE_ARCANE_STAFF,
+            ApiService::ITEM_MAGE_FROST_STAFF,
+            ApiService::ITEM_MAGE_CURSE_STAFF,
+            ApiService::ITEM_MAGE_TOME_STAFF,
+            //Hunter
+            ApiService::ITEM_HUNTER_HELMET,
+            ApiService::ITEM_HUNTER_ARMOR,
+            ApiService::ITEM_HUNTER_BOOTS,
+            ApiService::ITEM_HUNTER_BOW,
+            ApiService::ITEM_HUNTER_SPEAR,
+            ApiService::ITEM_HUNTER_NATURE_STAFF,
+            ApiService::ITEM_HUNTER_DAGGER,
+            ApiService::ITEM_HUNTER_QUARTERSTAFF,
+            ApiService::ITEM_HUNTER_TORCH,
+        ];
+    }
+
     public function uploadRefreshedPrices(): void
     {
         $resources = $this->getAdjustedResources();
