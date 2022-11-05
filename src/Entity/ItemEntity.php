@@ -296,12 +296,15 @@ class ItemEntity
         return $this->fameFactor;
     }
 
-    private function getDateTimeImmutable(mixed $sellOrderPriceDate): DateTimeImmutable|bool
+    private function getDateTimeImmutable(mixed $date): DateTimeImmutable|bool
     {
-        $sellOrderPriceDate = str_replace('T', ' ', $sellOrderPriceDate);
+        if ($date === null) {
+            return DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '2000-00-00 00:00:00');
+        }
+        $date = str_replace('T', ' ', $date);
         return DateTimeImmutable::createFromFormat(
             'Y-m-d H:i:s',
-            $sellOrderPriceDate,
+            $date,
             new DateTimeZone('Europe/London')
         );
     }
