@@ -268,8 +268,8 @@ SQL;
 
     public function updatePricesFromItem(array $itemInformation): void
     {
-        foreach ($itemInformation as $information) {
-            if ($information['sellOrderPrice'] !== 0) {
+        foreach ($itemInformation as $item) {
+            if ($item['sellOrderPrice'] !== 0) {
                 $statement = $this->pdoConnection->prepare(
                     <<<SQL
                 INSERT INTO `items` (`tier`,
@@ -308,7 +308,7 @@ SQL
                 $statement->bindParam(':fameFactor', $item['fameFactor']);
                 $statement->execute();
             }
-            if ($information['buyOrderPrice'] !== 0) {
+            if ($item['buyOrderPrice'] !== 0) {
                 $statement = $this->pdoConnection->prepare(
                     <<<SQL
                 INSERT INTO `items` (`tier`,
