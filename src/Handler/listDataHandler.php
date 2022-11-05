@@ -32,11 +32,11 @@ class listDataHandler
         $martlockResource = $this->resourceRepository->getResourcesByCity(self::CITY_MARTLOCK);
         $thetfordResource = $this->resourceRepository->getResourcesByCity(self::CITY_THETFORD);
 
-        $fortSterlingItems = $this->itemRepository->getItemsFromCity(self::CITY_FORTSTERLING);
-        $lymhurstItems = $this->itemRepository->getItemsFromCity(self::CITY_LYMHURST);
-        $bridgewatchItems = $this->itemRepository->getItemsFromCity(self::CITY_BRIDGEWATCH);
-        $martlockItems = $this->itemRepository->getItemsFromCity(self::CITY_MARTLOCK);
-        $thetfordItems = $this->itemRepository->getItemsFromCity(self::CITY_THETFORD);
+        $fortSterlingItems = $this->itemRepository->getBlackMarketItemsFromCity(self::CITY_FORTSTERLING);
+        $lymhurstItems = $this->itemRepository->getBlackMarketItemsFromCity(self::CITY_LYMHURST);
+        $bridgewatchItems = $this->itemRepository->getBlackMarketItemsFromCity(self::CITY_BRIDGEWATCH);
+        $martlockItems = $this->itemRepository->getBlackMarketItemsFromCity(self::CITY_MARTLOCK);
+        $thetfordItems = $this->itemRepository->getBlackMarketItemsFromCity(self::CITY_THETFORD);
 
         $allCitiesResource = [
             'fortSterling' => $fortSterlingResource,
