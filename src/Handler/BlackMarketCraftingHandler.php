@@ -24,6 +24,8 @@ class BlackMarketCraftingHandler
     {
         if (! empty($_POST['updatePrices'])) {
             $this->uploadService->updateItemPricesInAlbionDbByCity(ApiService::CITY_BLACKMARKET);
+            $this->uploadService->updateResourcePricesInAlbionDb();
+            $this->uploadService->updateJournalPricesInAlbionDb();
         }
         $cityData = [];
         $alertMessage = null;
