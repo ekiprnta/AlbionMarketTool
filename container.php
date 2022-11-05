@@ -21,7 +21,6 @@ use MZierdt\Albion\repositories\ItemRepository;
 use MZierdt\Albion\repositories\ResourceRepository;
 use MZierdt\Albion\repositories\UploadRepository;
 use MZierdt\Albion\Service\ApiService;
-use MZierdt\Albion\Service\ItemHelper;
 use Twig\Environment;
 
 $serviceManager = new ServiceManager([
@@ -41,7 +40,6 @@ $serviceManager = new ServiceManager([
                 UploadService::class => [
                     ApiService::class,
                     UploadRepository::class,
-                    ItemHelper::class
                 ],
                 CalculatorService::class => [
                     ItemRepository::class,
@@ -55,9 +53,6 @@ $serviceManager = new ServiceManager([
                     Environment::class,
                     CalculatorService::class,
                     UploadService::class,
-                ],
-                ItemHelper::class => [
-                    ApiService::class
                 ],
                 AdminHandler::class => [
                     Environment::class,
