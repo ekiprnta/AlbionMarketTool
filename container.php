@@ -14,7 +14,7 @@ use MZierdt\Albion\Handler\BlackMarketCraftingHandler;
 use MZierdt\Albion\Handler\BlackMarketTransportingHandler;
 use MZierdt\Albion\Handler\listDataHandler;
 use MZierdt\Albion\repositories\JournalRepository;
-use MZierdt\Albion\Service\CalculatorService;
+use MZierdt\Albion\Service\BlackMarketCraftingService;
 use MZierdt\Albion\Service\UploadService;
 use MZierdt\Albion\HttpClient;
 use MZierdt\Albion\repositories\ItemRepository;
@@ -41,7 +41,7 @@ $serviceManager = new ServiceManager([
                     ApiService::class,
                     UploadRepository::class,
                 ],
-                CalculatorService::class => [
+                BlackMarketCraftingService::class => [
                     ItemRepository::class,
                     ResourceRepository::class,
                     JournalRepository::class
@@ -51,7 +51,7 @@ $serviceManager = new ServiceManager([
                 ],
                 BlackMarketCraftingHandler::class => [
                     Environment::class,
-                    CalculatorService::class,
+                    BlackMarketCraftingService::class,
                     UploadService::class,
                 ],
                 AdminHandler::class => [

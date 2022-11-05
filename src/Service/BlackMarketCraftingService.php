@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace MZierdt\Albion\Service;
 
 use InvalidArgumentException;
-use MZierdt\Albion\Entity\CalculateEntity;
+use MZierdt\Albion\Entity\BlackMarketCraftingEntity;
 use MZierdt\Albion\Entity\ItemEntity;
 use MZierdt\Albion\repositories\ItemRepository;
 use MZierdt\Albion\repositories\JournalRepository;
 use MZierdt\Albion\repositories\ResourceRepository;
 
-class CalculatorService
+class BlackMarketCraftingService
 {
     private const RRR_BONUS_CITY_NO_FOCUS = 24.8;
     private const RRR_BONUS_CITY_FOCUS = 47.9;
@@ -63,7 +63,7 @@ class CalculatorService
         $calculateEntityArray = [];
         /** @var ItemEntity $item */
         foreach ($items as $item) {
-            $calculateEntityArray[] = new CalculateEntity($item, $resources, $journals);
+            $calculateEntityArray[] = new BlackMarketCraftingEntity($item, $resources, $journals);
         }
         $this->calculateTotalWeight($calculateEntityArray);
         $this->calculateTotalAmountResources($calculateEntityArray);
@@ -79,7 +79,7 @@ class CalculatorService
     private function filterCalculateEntityArray(array $calculateEntityArray)
     {
         $array = [];
-        /** @var CalculateEntity $calculateEntity */
+        /** @var BlackMarketCraftingEntity $calculateEntity */
         foreach ($calculateEntityArray as $calculateEntity) {
             $array[$calculateEntity->getWeaponGroup() . '_' . $calculateEntity->getRealName()][] = $calculateEntity;
         }
@@ -89,7 +89,7 @@ class CalculatorService
 
     private function calculateProfit(array $calculateEntityArray, float $percentage, string $order): void
     {
-        /** @var CalculateEntity $calculateEntity */
+        /** @var BlackMarketCraftingEntity $calculateEntity */
         foreach ($calculateEntityArray as $calculateEntity) {
             $profit = $this->calculateProfitByPercentage($calculateEntity, $percentage, $order);
             $calculateEntity->setPercentageProfit($profit);
@@ -97,7 +97,7 @@ class CalculatorService
     }
 
     private function calculateProfitByPercentage(
-        CalculateEntity $calculateEntity,
+        BlackMarketCraftingEntity $calculateEntity,
         float $percentage,
         string $order
     ): float {
@@ -122,7 +122,7 @@ class CalculatorService
 
     private function calculateTotalWeight(array $calculateEntityArray): void
     {
-        /** @var CalculateEntity $calculateEntity */
+        /** @var BlackMarketCraftingEntity $calculateEntity */
         foreach ($calculateEntityArray as $calculateEntity) {
             $calculateEntity->setTotalWeightResources($this->maxWeight);
             $amount = $this->maxWeight / ($calculateEntity->getResourceWeight() + $calculateEntity->getJournalWeight());
@@ -134,7 +134,7 @@ class CalculatorService
 
     private function calculateWeightProfitQuotient(array $calculateEntityArray): void
     {
-        /** @var CalculateEntity $calculateEntity */
+        /** @var BlackMarketCraftingEntity $calculateEntity */
         foreach ($calculateEntityArray as $calculateEntity) {
             $calculateEntity->setWeightProfitQuotient(
                 $calculateEntity->getPercentageProfit() / $calculateEntity->getTotalWeightResources()
@@ -144,7 +144,7 @@ class CalculatorService
 
     private function calculateColorGrade(array $calculateEntityArray): void
     {
-        /** @var CalculateEntity $calculateEntity */
+        /** @var BlackMarketCraftingEntity $calculateEntity */
         foreach ($calculateEntityArray as $calculateEntity) {
             $quotient = $calculateEntity->getWeightProfitQuotient();
             $colorGrade = match (true) {
@@ -160,7 +160,7 @@ class CalculatorService
 
     private function calculateAgeOfPrices(array $calculateEntityArray, string $order)
     {
-        /** @var CalculateEntity $calculateEntity */
+        /** @var BlackMarketCraftingEntity $calculateEntity */
         foreach ($calculateEntityArray as $calculateEntity) {
             $now = \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', Date('Y-m-d H:i:s'));
 
@@ -193,7 +193,7 @@ class CalculatorService
         return $itemDiff->d * 24 * 60 + $itemDiff->h * 60 + $itemDiff->i;
     }
 
-    private function calculateProfitBooks(CalculateEntity $calculateEntity): int
+    private function calculateProfitBooks(BlackMarketCraftingEntity $calculateEntity): int
     {
         return ($calculateEntity->getFullSellOrderPrice() -
                 $calculateEntity->getEmptySellOrderPrice()) *
@@ -202,7 +202,7 @@ class CalculatorService
 
     private function calculateTotalAmountResources(array $calculateEntityArray): void
     {
-        /** @var CalculateEntity $calculateEntity */
+        /** @var BlackMarketCraftingEntity $calculateEntity */
         foreach ($calculateEntityArray as $calculateEntity) {
             $calculateEntity->setPrimaryTotalAmount(
                 $calculateEntity->getPrimaryResourceAmount() *

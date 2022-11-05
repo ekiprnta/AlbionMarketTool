@@ -7,7 +7,7 @@ namespace MZierdt\Albion\Handler;
 use InvalidArgumentException;
 use Laminas\Diactoros\Response\HtmlResponse;
 use MZierdt\Albion\Service\ApiService;
-use MZierdt\Albion\Service\CalculatorService;
+use MZierdt\Albion\Service\BlackMarketCraftingService;
 use MZierdt\Albion\Service\UploadService;
 use Twig\Environment;
 
@@ -15,7 +15,7 @@ class BlackMarketCraftingHandler
 {
     public function __construct(
         private Environment $twigEnvironment,
-        private CalculatorService $calculatorService,
+        private BlackMarketCraftingService $calculatorService,
         private UploadService $uploadService,
     ) {
     }
