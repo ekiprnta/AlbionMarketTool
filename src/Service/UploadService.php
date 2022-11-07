@@ -8,6 +8,7 @@ use MZierdt\Albion\Entity\ItemEntity;
 use MZierdt\Albion\Entity\JournalEntity;
 use MZierdt\Albion\Entity\ResourceEntity;
 use MZierdt\Albion\repositories\UploadRepository;
+use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class UploadService
@@ -76,10 +77,20 @@ class UploadService
 
     public function updateItemPricesInAlbionDb(OutputInterface $output): void
     {
+        $section1 = $output->section();
+        $section2 = $output->section();
+        $progressBar = ProgressBarService::getProgressBar($section1, count($this->itemList));
+        $detailProgressBar = ProgressBarService::getProgressBar($section2, 396);
+
+
         foreach ($this->itemList as $item) {
             $items = $this->apiService->getItems($item[0]);
+            $progressBar->setMessage('Get Item:' . $item[0]);
+            $progressBar->advance();
+            $progressBar->display();
             $adjustedItems = $this->adjustItems($items, $item);
-            $this->uploadRepository->updatePricesFromItem($adjustedItems);
+
+            $this->uploadRepository->updatePricesFromItem($adjustedItems, $detailProgressBar);
         }
     }
 

@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\repositories;
 
+use MZierdt\Albion\Service\ProgressBarService;
 use PDO;
 use PDOException;
+use Symfony\Component\Console\Helper\ProgressBar;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class UploadRepository
 {
@@ -266,9 +269,14 @@ SQL;
         }
     }
 
-    public function updatePricesFromItem(array $itemInformation): void
+    public function updatePricesFromItem(array $itemInformation, ProgressBar $progressBar): void
     {
+
         foreach ($itemInformation as $item) {
+            $progressBar->setMessage('Uploading:' . $item['realName']);
+            $progressBar->advance();
+            $progressBar->display();
+
             if ($item['sellOrderPrice'] !== 0) {
                 $statement = $this->pdoConnection->prepare(
                     <<<SQL
