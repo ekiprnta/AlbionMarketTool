@@ -52,12 +52,18 @@ class UploadService
     ) {
     }
 
-    public function UpdateAllPricesInDb(string $city): void
-    {
-        foreach ($this->warriorList as $item) {
-            $this->updatePriceFromItem($item, $city);
-        }
-    }
+//    public function UpdateAllPricesInDb(string $city): void
+//    {
+//        foreach ($this->warriorList as $item) {
+//            $this->updatePriceFromItem($item, $city);
+//        }
+//        foreach ($this->mageList as $item) {
+//            $this->updatePriceFromItem($item, $city);
+//        }
+//        foreach ($this->hunterList as $item) {
+//            $this->updatePriceFromItem($item, $city);
+//        }
+//    }
 
     public function updateJournalPricesInAlbionDb(): void
     {
