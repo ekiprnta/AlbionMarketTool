@@ -19,7 +19,7 @@ class UploadService
         [ItemEntity::ITEM_WARRIOR_AXE, ItemEntity::CLASS_WARRIOR],
         [ItemEntity::ITEM_WARRIOR_MACE, ItemEntity::CLASS_WARRIOR],
         [ItemEntity::ITEM_WARRIOR_HAMMER, ItemEntity::CLASS_WARRIOR],
-//        [ItemEntity::ITEM_WARRIOR_WAR_GLOVE, ItemEntity::CLASS_WARRIOR], //out due to no real bonus City and timeout error
+        [ItemEntity::ITEM_WARRIOR_WAR_GLOVE, ItemEntity::CLASS_WARRIOR], //out due to no real bonus City and timeout error
         [ItemEntity::ITEM_WARRIOR_CROSSBOW, ItemEntity::CLASS_WARRIOR],
         [ItemEntity::ITEM_WARRIOR_SHIELD, ItemEntity::CLASS_WARRIOR],
     ];
@@ -51,19 +51,6 @@ class UploadService
         private UploadRepository $uploadRepository,
     ) {
     }
-
-//    public function UpdateAllPricesInDb(string $city): void
-//    {
-//        foreach ($this->warriorList as $item) {
-//            $this->updatePriceFromItem($item, $city);
-//        }
-//        foreach ($this->mageList as $item) {
-//            $this->updatePriceFromItem($item, $city);
-//        }
-//        foreach ($this->hunterList as $item) {
-//            $this->updatePriceFromItem($item, $city);
-//        }
-//    }
 
     public function updateJournalPricesInAlbionDb(): void
     {
