@@ -26,16 +26,6 @@ class BlackMarketCraftingService
     ) {
     }
 
-    public function getPrimResource(string $itemName)
-    {
-        return NameDataService::getPrimResource($itemName);
-    }
-
-    public function getSecResource(string $itemName)
-    {
-        return NameDataService::getSecResource($itemName);
-    }
-
     public function getDataForCity(
         string $itemCity,
         int $weight,
@@ -56,7 +46,7 @@ class BlackMarketCraftingService
             $resourceCity = $itemCity;
         }
         $this->maxWeight = $weight;
-        $items = $this->itemRepository->getItemsFromCity($itemCity);
+        $items = $this->itemRepository->getBlackMarketItemsFromCity($itemCity);
         $resources = $this->resourceRepository->getResourcesByCity($resourceCity);
         $journals = $this->journalRepository->getJournalsFromCity($resourceCity);
 
@@ -213,5 +203,15 @@ class BlackMarketCraftingService
                 $calculateEntity->getAmount()
             );
         }
+    }
+
+    public function getPrimResource(string $itemName)
+    {
+        return NameDataService::getPrimResource($itemName);
+    }
+
+    public function getSecResource(string $itemName)
+    {
+        return NameDataService::getSecResource($itemName);
     }
 }

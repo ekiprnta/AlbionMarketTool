@@ -57,7 +57,6 @@ $serviceManager = new ServiceManager([
                 BlackMarketCraftingHandler::class => [
                     Environment::class,
                     BlackMarketCraftingService::class,
-                    UploadService::class,
                 ],
                 AdminHandler::class => [
                     Environment::class,

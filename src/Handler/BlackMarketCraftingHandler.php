@@ -16,17 +16,11 @@ class BlackMarketCraftingHandler
     public function __construct(
         private Environment $twigEnvironment,
         private BlackMarketCraftingService $calculatorService,
-        private UploadService $uploadService,
     ) {
     }
 
     public function handler(): HtmlResponse
     {
-        if (! empty($_POST['updatePrices'])) {
-            $this->uploadService->updateItemPricesInAlbionDbByCity(ApiService::CITY_BLACKMARKET);
-            $this->uploadService->updateResourcePricesInAlbionDb();
-            $this->uploadService->updateJournalPricesInAlbionDb();
-        }
         $cityData = [];
         $alertMessage = null;
         if (! empty($_GET)) {
