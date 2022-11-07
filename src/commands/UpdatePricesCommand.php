@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\commands;
 
-use MZierdt\Albion\Entity\ItemEntity;
+use MZierdt\Albion\Service\ProgressBarService;
 use MZierdt\Albion\Service\UploadService;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -22,11 +23,11 @@ class UpdatePricesCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $this->uploadService->updatePricesInCityDependingOnCLass(ItemEntity::CLASS_WARRIOR);
-        $this->uploadService->updatePricesInCityDependingOnCLass(ItemEntity::CLASS_MAGE);
-        $this->uploadService->updatePricesInCityDependingOnCLass(ItemEntity::CLASS_HUNTER);
-        $this->uploadService->updateJournalPricesInAlbionDb();
-        $this->uploadService->updateResourcePricesInAlbionDb();
+
+        $this->uploadService->updateItemPricesInAlbionDb($output);
+        $this->uploadService->updateJournalPricesInAlbionDb($output);
+        $this->uploadService->updateResourcePricesInAlbionDb($output);
+
         $output->writeln(['Price Updating finished']);
 
         return self::SUCCESS;

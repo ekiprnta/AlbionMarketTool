@@ -8,10 +8,11 @@ use MZierdt\Albion\Entity\ItemEntity;
 use MZierdt\Albion\Entity\JournalEntity;
 use MZierdt\Albion\Entity\ResourceEntity;
 use MZierdt\Albion\repositories\UploadRepository;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class UploadService
 {
-    private array $warriorList = [
+    private array $itemList = [
         [ItemEntity::ITEM_WARRIOR_HELMET, ItemEntity::CLASS_WARRIOR],
         [ItemEntity::ITEM_WARRIOR_ARMOR, ItemEntity::CLASS_WARRIOR],
         [ItemEntity::ITEM_WARRIOR_BOOTS, ItemEntity::CLASS_WARRIOR],
@@ -19,11 +20,9 @@ class UploadService
         [ItemEntity::ITEM_WARRIOR_AXE, ItemEntity::CLASS_WARRIOR],
         [ItemEntity::ITEM_WARRIOR_MACE, ItemEntity::CLASS_WARRIOR],
         [ItemEntity::ITEM_WARRIOR_HAMMER, ItemEntity::CLASS_WARRIOR],
-        [ItemEntity::ITEM_WARRIOR_WAR_GLOVE, ItemEntity::CLASS_WARRIOR], //out due to no real bonus City and timeout error
+        [ItemEntity::ITEM_WARRIOR_WAR_GLOVE, ItemEntity::CLASS_WARRIOR],
         [ItemEntity::ITEM_WARRIOR_CROSSBOW, ItemEntity::CLASS_WARRIOR],
         [ItemEntity::ITEM_WARRIOR_SHIELD, ItemEntity::CLASS_WARRIOR],
-    ];
-    private array $mageList = [
         [ItemEntity::ITEM_MAGE_HELMET, ItemEntity::CLASS_MAGE],
         [ItemEntity::ITEM_MAGE_ARMOR, ItemEntity::CLASS_MAGE],
         [ItemEntity::ITEM_MAGE_BOOTS, ItemEntity::CLASS_MAGE],
@@ -33,8 +32,6 @@ class UploadService
         [ItemEntity::ITEM_MAGE_FROST_STAFF, ItemEntity::CLASS_MAGE],
         [ItemEntity::ITEM_MAGE_CURSE_STAFF, ItemEntity::CLASS_MAGE],
         [ItemEntity::ITEM_MAGE_TOME_STAFF, ItemEntity::CLASS_MAGE],
-    ];
-    private array $hunterList = [
         [ItemEntity::ITEM_HUNTER_HELMET, ItemEntity::CLASS_HUNTER],
         [ItemEntity::ITEM_HUNTER_ARMOR, ItemEntity::CLASS_HUNTER],
         [ItemEntity::ITEM_HUNTER_BOOTS, ItemEntity::CLASS_HUNTER],
@@ -52,7 +49,7 @@ class UploadService
     ) {
     }
 
-    public function updateJournalPricesInAlbionDb(): void
+    public function updateJournalPricesInAlbionDb(OutputInterface $output): void
     {
         $journalList = [
             JournalEntity::JOURNAL_WARRIOR,
@@ -64,7 +61,7 @@ class UploadService
         }
     }
 
-    public function updateResourcePricesInAlbionDb(): void
+    public function updateResourcePricesInAlbionDb(OutputInterface $output): void
     {
         $resourceList = [
             ResourceEntity::RESOURCE_METAL_BAR,
@@ -77,15 +74,12 @@ class UploadService
         }
     }
 
-    public function updatePricesInCityDependingOnCLass(string $class): void
+    public function updateItemPricesInAlbionDb(OutputInterface $output): void
     {
-        $list = match ($class) {
-            'warrior' => $this->warriorList,
-            'mage' => $this->mageList,
-            'hunter' => $this->hunterList,
-        };
-        foreach ($list as $item) {
-            $this->updatePriceFromItem($item);
+        foreach ($this->itemList as $item) {
+            $items = $this->apiService->getItems($item[0]);
+            $adjustedItems = $this->adjustItems($items, $item);
+            $this->uploadRepository->updatePricesFromItem($adjustedItems);
         }
     }
 
@@ -147,13 +141,6 @@ class UploadService
             $resourceName = str_replace('_level3', '', $name);
         }
         return $resourceName ?? $name;
-    }
-
-    private function updatePriceFromItem(array $itemData): void
-    {
-        $items = $this->apiService->getItems($itemData[0]);
-        $adjustedItems = $this->adjustItems($items, $itemData);
-        $this->uploadRepository->updatePricesFromItem($adjustedItems);
     }
 
     private function updatePriceFromResource(string $resourceType): void
