@@ -61,7 +61,6 @@ $serviceManager = new ServiceManager([
                 ],
                 AdminHandler::class => [
                     Environment::class,
-                    UploadService::class,
                 ],
                 UpdatePricesCommand::class => [
                     UploadService::class
