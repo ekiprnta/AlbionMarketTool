@@ -1,39 +1,10 @@
 {% extends "layout.html.twig" %}
 
 {% block content %}
-    <hr>
-    <div class="d-flex justify-content-around">
-        <div class="card standard-badge">
-            <div class="card-body">
-                <form class="standard-badge" method="post" action="/admin">
-                    <input type="hidden" name="updateJournals" value="1">
-                    <button class="btn btn-primary" type="submit">update journal prices</button>
-                </form>
-            </div>
-        </div>
-        <div class="card standard-badge">
-            <div class="card-body">
-                <form class="standard-badge" method="post" action="/admin">
-                    <input type="hidden" name="updateResources" value="1">
-                    <button class="btn btn-primary" type="submit">update resource prices</button>
-                </form>
-            </div>
-        </div>
-        <div class="card standard-badge">
-            <div class="card-body">
-                <form class="standard-badge" method="post" action="/admin">
-                    <input type="hidden" name="updateItemsBlackMarket" value="1">
-                    <button class="btn btn-primary" type="submit">update Black Market item prices</button>
-                    <div class="form-group">
-                        <label for="class">Class:</label>
-                        <select name="class" id="class" class="form-control">
-                            <option value="warrior">Warrior</option>
-                            <option value="mage">Mage</option>
-                            <option value="hunter">Hunter</option>
-                        </select>
-                    </div>
-                </form>
-            </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="card-title"><h3>Admin handle</h3></div>
+            <p>Nothing..</p>
         </div>
     </div>
 {% endblock %}
