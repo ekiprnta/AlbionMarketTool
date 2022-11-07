@@ -57,8 +57,12 @@ class UploadService
             JournalEntity::JOURNAL_MAGE,
             JournalEntity::JOURNAL_HUNTER,
         ];
+
+        $progressBar = ProgressBarService::getProgressBar($output,210);
         foreach ($journalList as $journalType) {
-            $this->updatePriceFromJournals($journalType);
+            $journals = $this->apiService->getJournals($journalType);
+            $adjustedJournals = $this->adjustJournals($journals);
+            $this->uploadRepository->updatePricesFromJournals($adjustedJournals, $progressBar);
         }
     }
 
@@ -70,8 +74,11 @@ class UploadService
             ResourceEntity::RESOURCE_CLOTH,
             ResourceEntity::RESOURCE_LEATHER,
         ];
+        $progressBar = ProgressBarService::getProgressBar($output,440);
         foreach ($resourceList as $resource) {
-            $this->updatePriceFromResource($resource);
+            $resources = $this->apiService->getResource($resource);
+            $adjustedResources = $this->adjustResourceArray($resources, $resource);
+            $this->uploadRepository->updatePricesFromResources($adjustedResources, $progressBar);
         }
     }
 
@@ -152,20 +159,6 @@ class UploadService
             $resourceName = str_replace('_level3', '', $name);
         }
         return $resourceName ?? $name;
-    }
-
-    private function updatePriceFromResource(string $resourceType): void
-    {
-        $resources = $this->apiService->getResource($resourceType);
-        $adjustedResources = $this->adjustResourceArray($resources, $resourceType);
-        $this->uploadRepository->updatePricesFromResources($adjustedResources);
-    }
-
-    private function updatePriceFromJournals(string $journalType): void
-    {
-        $journals = $this->apiService->getJournals($journalType);
-        $adjustedJournals = $this->adjustJournals($journals);
-        $this->uploadRepository->updatePricesFromJournals($adjustedJournals);
     }
 
     private function adjustItems(array $weaponGroupArray, array $itemData): array

@@ -340,9 +340,13 @@ SQL
         }
     }
 
-    public function updatePricesFromResources(array $resourceInformation): void
+    public function updatePricesFromResources(array $resourceInformation, ProgressBar $progressBar): void
     {
         foreach ($resourceInformation as $resource) {
+            $progressBar->setMessage('Uploading:' . $resource['realName']);
+            $progressBar->advance();
+            $progressBar->display();
+
             if ($resource['sellOrderPrice'] !== 0) {
                 $statement = $this->pdoConnection->prepare(
                     <<<SQL
@@ -382,9 +386,13 @@ SQL
         }
     }
 
-    public function updatePricesFromJournals(array $journalInformation): void
+    public function updatePricesFromJournals(array $journalInformation, ProgressBar $progressBar): void
     {
         foreach ($journalInformation as $journals) {
+            $progressBar->setMessage('Updating: ' . $journals['name']);
+            $progressBar->advance();
+            $progressBar->display();
+
             if ($journals['sellOrderPrice'] !== 0) {
                 $statement = $this->pdoConnection->prepare(
                     <<<SQL
