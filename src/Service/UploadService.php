@@ -90,24 +90,17 @@ class UploadService
         }
     }
 
-    public function updateWarriorPricesInAlbionDbByCity(string $city): void
+    public function updateBlackMarketPricesForCraftingInCity(string $city): void
     {
-        foreach ($this->warriorList as $item) {
+        $cityList = NameDataService::getAllBonusItemForCity($city);
+        foreach ($cityList as $item) {
             $this->updatePriceFromItem($item, $city);
         }
     }
 
-    public function updateMagePricesInAlbionDbByCity(string $city): void
+    public function updatePricesInCityDependingOnCLass(string $city): void
     {
-
         foreach ($this->mageList as $item) {
-            $this->updatePriceFromItem($item, $city);
-        }
-    }
-
-    public function updateHunterPricesInAlbionDbByCity(string $city): void
-    {
-        foreach ($this->hunterList as $item) {
             $this->updatePriceFromItem($item, $city);
         }
     }
