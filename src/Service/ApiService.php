@@ -6,6 +6,8 @@ namespace MZierdt\Albion\Service;
 
 use MZierdt\Albion\HttpClient;
 
+use function ECSPrefix202206\Symfony\Component\DependencyInjection\Loader\Configurator\service;
+
 class ApiService // Buy Order ist buy_price_max
 {
     private const BASE_URL = 'https://www.albion-online-data.com/api/v2/stats/prices/';
@@ -124,9 +126,18 @@ class ApiService // Buy Order ist buy_price_max
         return json_decode($json, true, 512, JSON_THROW_ON_ERROR);
     }
 
-    public function getItems(string $itemName, string $city): array
+    public function getItems(string $itemName): array
     {
         $apiUrl = $this->apiUrlAssembler($itemName, self::ITEM_TIERS_WITH_PLACEHOLDER);
+        $cities = sprintf(
+            '%s,%s,%s,%s,%s,%s',
+            self::CITY_BRIDGEWATCH,
+            self::CITY_FORTSTERLING,
+            self::CITY_LYMHURST,
+            self::CITY_MARTLOCK,
+            self::CITY_THETFORD,
+            self::CITY_BLACKMARKET,
+        );
 
         if (is_array($apiUrl)) {
             $apiData = [];
@@ -134,7 +145,7 @@ class ApiService // Buy Order ist buy_price_max
                 $jsonFromArray = $this->httpClient->get(
                     $url,
                     [
-                        'locations' => $city,
+                        'locations' => $cities,
                         'qualities' => self::QUALITY_GOOD,
                     ]
                 );
@@ -144,7 +155,7 @@ class ApiService // Buy Order ist buy_price_max
         }
 
         $json = $this->httpClient->get($apiUrl, [
-                'locations' => $city,
+                'locations' => $cities,
                 'qualities' => self::QUALITY_GOOD,
             ]);
         return $this->jsonDecode($json);

@@ -26,7 +26,7 @@ class AdminHandler
             $this->uploadService->updateResourcePricesInAlbionDb();
         }
         if (! empty($_POST['updateItemsBlackMarket'])) {
-            $this->uploadService->updateBlackMarketPricesForCraftingInCity($_POST['biomeBonus']);
+            $this->uploadService->updatePricesInCityDependingOnCLass($_POST['class']);
         }
         if (! empty($_POST['updateItemsFortSterling'])) {
             $this->uploadService->updatePricesInCityDependingOnCLass($_POST['class']);

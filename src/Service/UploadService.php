@@ -19,7 +19,7 @@ class UploadService
         [ItemEntity::ITEM_WARRIOR_AXE, ItemEntity::CLASS_WARRIOR],
         [ItemEntity::ITEM_WARRIOR_MACE, ItemEntity::CLASS_WARRIOR],
         [ItemEntity::ITEM_WARRIOR_HAMMER, ItemEntity::CLASS_WARRIOR],
-        [ItemEntity::ITEM_WARRIOR_WAR_GLOVE, ItemEntity::CLASS_WARRIOR],
+//        [ItemEntity::ITEM_WARRIOR_WAR_GLOVE, ItemEntity::CLASS_WARRIOR], //out due to no real bonus City and timeout error
         [ItemEntity::ITEM_WARRIOR_CROSSBOW, ItemEntity::CLASS_WARRIOR],
         [ItemEntity::ITEM_WARRIOR_SHIELD, ItemEntity::CLASS_WARRIOR],
     ];
@@ -98,10 +98,15 @@ class UploadService
         }
     }
 
-    public function updatePricesInCityDependingOnCLass(string $city): void
+    public function updatePricesInCityDependingOnCLass(string $class): void
     {
-        foreach ($this->mageList as $item) {
-            $this->updatePriceFromItem($item, $city);
+        $list = match ($class) {
+            'warrior' => $this->warriorList,
+            'mage' => $this->mageList,
+            'hunter' => $this->hunterList,
+        };
+        foreach ($list as $item) {
+            $this->updatePriceFromItem($item);
         }
     }
 
@@ -165,9 +170,9 @@ class UploadService
         return $resourceName ?? $name;
     }
 
-    private function updatePriceFromItem(array $itemData, string $city): void
+    private function updatePriceFromItem(array $itemData): void
     {
-        $items = $this->apiService->getItems($itemData[0], $city);
+        $items = $this->apiService->getItems($itemData[0]);
         $adjustedItems = $this->adjustItems($items, $itemData);
         $this->uploadRepository->updatePricesFromItem($adjustedItems);
     }
