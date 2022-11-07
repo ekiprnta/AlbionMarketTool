@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Laminas\ServiceManager\AbstractFactory\ConfigAbstractFactory;
 use Laminas\ServiceManager\ServiceManager;
+use MZierdt\Albion\commands\UpdatePricesCommand;
 use MZierdt\Albion\factories\ItemRepositoryFactory;
 use MZierdt\Albion\factories\JournalRepositoryFactory;
 use MZierdt\Albion\factories\ResourceRepositoryFactory;
@@ -62,6 +63,9 @@ $serviceManager = new ServiceManager([
                     Environment::class,
                     UploadService::class,
                 ],
+                UpdatePricesCommand::class => [
+                    UploadService::class
+                ]
             ]
         ],
     ],

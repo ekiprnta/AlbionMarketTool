@@ -28,21 +28,6 @@ class AdminHandler
         if (! empty($_POST['updateItemsBlackMarket'])) {
             $this->uploadService->updatePricesInCityDependingOnCLass($_POST['class']);
         }
-        if (! empty($_POST['updateItemsFortSterling'])) {
-            $this->uploadService->updatePricesInCityDependingOnCLass($_POST['class']);
-        }
-        if (! empty($_POST['updateItemsLymhurst'])) {
-            $this->uploadService->updatePricesInCityDependingOnCLass($_POST['class']);
-        }
-        if (! empty($_POST['updateItemsBridgewatch'])) {
-            $this->uploadService->updatePricesInCityDependingOnCLass($_POST['class']);
-        }
-        if (! empty($_POST['updateItemsMartlock'])) {
-            $this->uploadService->updatePricesInCityDependingOnCLass($_POST['class']);
-        }
-        if (! empty($_POST['updateItemsThetford'])) {
-            $this->uploadService->updatePricesInCityDependingOnCLass($_POST['class']);
-        }
 
         $htmlContent = $this->twigEnvironment->render('admin.html.twig');
         return new HtmlResponse($htmlContent);

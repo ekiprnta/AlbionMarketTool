@@ -90,14 +90,6 @@ class UploadService
         }
     }
 
-    public function updateBlackMarketPricesForCraftingInCity(string $city): void
-    {
-        $cityList = NameDataService::getAllBonusItemForCity($city);
-        foreach ($cityList as $item) {
-            $this->updatePriceFromItem($item, $city);
-        }
-    }
-
     public function updatePricesInCityDependingOnCLass(string $class): void
     {
         $list = match ($class) {
