@@ -11,7 +11,7 @@ use MZierdt\Albion\repositories\UploadRepository;
 
 class UploadService
 {
-    private array $itemList = [
+    private array $warriorList = [
         [ItemEntity::ITEM_WARRIOR_HELMET, ItemEntity::CLASS_WARRIOR],
         [ItemEntity::ITEM_WARRIOR_ARMOR, ItemEntity::CLASS_WARRIOR],
         [ItemEntity::ITEM_WARRIOR_BOOTS, ItemEntity::CLASS_WARRIOR],
@@ -22,7 +22,8 @@ class UploadService
         [ItemEntity::ITEM_WARRIOR_WAR_GLOVE, ItemEntity::CLASS_WARRIOR],
         [ItemEntity::ITEM_WARRIOR_CROSSBOW, ItemEntity::CLASS_WARRIOR],
         [ItemEntity::ITEM_WARRIOR_SHIELD, ItemEntity::CLASS_WARRIOR],
-
+    ];
+    private array $mageList = [
         [ItemEntity::ITEM_MAGE_HELMET, ItemEntity::CLASS_MAGE],
         [ItemEntity::ITEM_MAGE_ARMOR, ItemEntity::CLASS_MAGE],
         [ItemEntity::ITEM_MAGE_BOOTS, ItemEntity::CLASS_MAGE],
@@ -32,7 +33,8 @@ class UploadService
         [ItemEntity::ITEM_MAGE_FROST_STAFF, ItemEntity::CLASS_MAGE],
         [ItemEntity::ITEM_MAGE_CURSE_STAFF, ItemEntity::CLASS_MAGE],
         [ItemEntity::ITEM_MAGE_TOME_STAFF, ItemEntity::CLASS_MAGE],
-
+    ];
+    private array $hunterList = [
         [ItemEntity::ITEM_HUNTER_HELMET, ItemEntity::CLASS_HUNTER],
         [ItemEntity::ITEM_HUNTER_ARMOR, ItemEntity::CLASS_HUNTER],
         [ItemEntity::ITEM_HUNTER_BOOTS, ItemEntity::CLASS_HUNTER],
@@ -75,12 +77,28 @@ class UploadService
         }
     }
 
-    public function updateItemPricesInAlbionDbByCity(string $city): void
+    public function updateWarriorPricesInAlbionDbByCity(string $city): void
     {
-        foreach ($this->itemList as $item) {
+        foreach ($this->warriorList as $item) {
             $this->updatePriceFromItem($item, $city);
         }
     }
+
+    public function updateMagePricesInAlbionDbByCity(string $city): void
+    {
+
+        foreach ($this->mageList as $item) {
+            $this->updatePriceFromItem($item, $city);
+        }
+    }
+
+    public function updateHunterPricesInAlbionDbByCity(string $city): void
+    {
+        foreach ($this->hunterList as $item) {
+            $this->updatePriceFromItem($item, $city);
+        }
+    }
+
 
     protected function adjustResourceArray(array $resourceArray, string $resourceType): array
     {

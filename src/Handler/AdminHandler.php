@@ -26,22 +26,22 @@ class AdminHandler
             $this->uploadService->updateResourcePricesInAlbionDb();
         }
         if (! empty($_POST['updateItemsBlackMarket'])) {
-            $this->uploadService->updateItemPricesInAlbionDbByCity(ApiService::CITY_BLACKMARKET);
+            $this->uploadService->updateWarriorPricesInAlbionDbByCity(ApiService::CITY_BLACKMARKET);
         }
         if (! empty($_POST['updateItemsFortSterling'])) {
-            $this->uploadService->updateItemPricesInAlbionDbByCity(ApiService::CITY_FORTSTERLING);
+            $this->uploadService->updateWarriorPricesInAlbionDbByCity(ApiService::CITY_FORTSTERLING);
         }
         if (! empty($_POST['updateItemsLymhurst'])) {
-            $this->uploadService->updateItemPricesInAlbionDbByCity(ApiService::CITY_LYMHURST);
+            $this->uploadService->updateWarriorPricesInAlbionDbByCity(ApiService::CITY_LYMHURST);
         }
         if (! empty($_POST['updateItemsBridgewatch'])) {
-            $this->uploadService->updateItemPricesInAlbionDbByCity(ApiService::CITY_BRIDGEWATCH);
+            $this->uploadService->updateWarriorPricesInAlbionDbByCity(ApiService::CITY_BRIDGEWATCH);
         }
         if (! empty($_POST['updateItemsMartlock'])) {
-            $this->uploadService->updateItemPricesInAlbionDbByCity(ApiService::CITY_MARTLOCK);
+            $this->uploadService->updateWarriorPricesInAlbionDbByCity(ApiService::CITY_MARTLOCK);
         }
         if (! empty($_POST['updateItemsThetford'])) {
-            $this->uploadService->updateItemPricesInAlbionDbByCity(ApiService::CITY_THETFORD);
+            $this->uploadService->updateWarriorPricesInAlbionDbByCity(ApiService::CITY_THETFORD);
         }
 
         $htmlContent = $this->twigEnvironment->render('admin.html.twig');
