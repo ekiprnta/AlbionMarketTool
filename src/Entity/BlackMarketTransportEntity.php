@@ -13,6 +13,7 @@ class BlackMarketTransportEntity
     private string $realName;
     private int $quality;
     private float $weight;
+    private int $tierColor;
 
     private int $bmPrice;
     private DateTimeImmutable $bmPriceDate;
@@ -21,26 +22,31 @@ class BlackMarketTransportEntity
     private ?DateTimeImmutable $fsPriceDate = null;
     private ?int $fsProfit = null;
     private ?float $fsWeightProfitQuotient = null;
+    private string $fsColorGrade = 'D';
 
     private ?int $lymPrice = null;
     private ?DateTimeImmutable $lymPriceDate = null;
     private ?int $lymProfit = null;
     private ?float $lymWeightProfitQuotient = null;
+    private string $lymColorGrade = 'D';
 
     private ?int $bwPrice = null;
     private ?DateTimeImmutable $bwPriceDate = null;
     private ?int $bwProfit = null;
     private ?float $bwWeightProfitQuotient = null;
+    private string $bwColorGrade = 'D';
 
     private ?int $mlPrice = null;
     private ?DateTimeImmutable $mlPriceDate = null;
     private ?int $mlProfit = null;
     private ?float $mlWeightProfitQuotient = null;
+    private string $mlColorGrade = 'D';
 
     private ?int $thetPrice = null;
     private ?DateTimeImmutable $thetPriceDate = null;
     private ?int $thetProfit = null;
     private ?float $thetWeightProfitQuotient = null;
+    private string $thetColorGrade = 'D';
 
     private int $amount;
 
@@ -51,12 +57,94 @@ class BlackMarketTransportEntity
         $this->realName = $bmItemData->getRealName();
         $this->quality = $bmItemData->getQuality();
         $this->weight = $bmItemData->getWeight();
+        $this->tierColor = $this->setTierColor();
 
         $this->bmPrice = $bmItemData->getSellOrderPrice();
         $this->bmPriceDate = $bmItemData->getSellOrderPriceDate();
     }
 
-    public function getFsWeightProfitQuotient(): float
+    public function getTierColor(): int
+    {
+        return $this->tierColor;
+    }
+
+    private function setTierColor(): int
+    {
+        if (str_starts_with($this->tier, '2')) {
+            return 2;
+        }
+        if (str_starts_with($this->tier, '3')) {
+            return 3;
+        }
+        if (str_starts_with($this->tier, '4')) {
+            return 4;
+        }
+        if (str_starts_with($this->tier, '5')) {
+            return 5;
+        }
+        if (str_starts_with($this->tier, '6')) {
+            return 6;
+        }
+        if (str_starts_with($this->tier, '7')) {
+            return 7;
+        }
+        if (str_starts_with($this->tier, '8')) {
+            return 8;
+        }
+        throw new \RuntimeException('No string found');
+    }
+
+    public function getFsColorGrade(): string
+    {
+        return $this->fsColorGrade;
+    }
+
+    public function setFsColorGrade(string $fsColorGrade): void
+    {
+        $this->fsColorGrade = $fsColorGrade;
+    }
+
+    public function getLymColorGrade(): string
+    {
+        return $this->lymColorGrade;
+    }
+
+    public function setLymColorGrade(string $lymColorGrade): void
+    {
+        $this->lymColorGrade = $lymColorGrade;
+    }
+
+    public function getBwColorGrade(): string
+    {
+        return $this->bwColorGrade;
+    }
+
+    public function setBwColorGrade(string $bwColorGrade): void
+    {
+        $this->bwColorGrade = $bwColorGrade;
+    }
+
+    public function getMlColorGrade(): string
+    {
+        return $this->mlColorGrade;
+    }
+
+    public function setMlColorGrade(string $mlColorGrade): void
+    {
+        $this->mlColorGrade = $mlColorGrade;
+    }
+
+    public function getThetColorGrade(): string
+    {
+        return $this->thetColorGrade;
+    }
+
+    public function setThetColorGrade(string $thetColorGrade): void
+    {
+        $this->thetColorGrade = $thetColorGrade;
+    }
+
+    public function getFsWeightProfitQuotient(): ?float
     {
         return $this->fsWeightProfitQuotient;
     }
@@ -66,7 +154,7 @@ class BlackMarketTransportEntity
         $this->fsWeightProfitQuotient = $fsWeightProfitQuotient;
     }
 
-    public function getLymWeightProfitQuotient(): float
+    public function getLymWeightProfitQuotient(): ?float
     {
         return $this->lymWeightProfitQuotient;
     }
@@ -76,7 +164,7 @@ class BlackMarketTransportEntity
         $this->lymWeightProfitQuotient = $lymWeightProfitQuotient;
     }
 
-    public function getBwWeightProfitQuotient(): float
+    public function getBwWeightProfitQuotient(): ?float
     {
         return $this->bwWeightProfitQuotient;
     }
@@ -86,7 +174,7 @@ class BlackMarketTransportEntity
         $this->bwWeightProfitQuotient = $bwWeightProfitQuotient;
     }
 
-    public function getMlWeightProfitQuotient(): float
+    public function getMlWeightProfitQuotient(): ?float
     {
         return $this->mlWeightProfitQuotient;
     }
@@ -96,7 +184,7 @@ class BlackMarketTransportEntity
         $this->mlWeightProfitQuotient = $mlWeightProfitQuotient;
     }
 
-    public function getThetWeightProfitQuotient(): float
+    public function getThetWeightProfitQuotient(): ?float
     {
         return $this->thetWeightProfitQuotient;
     }

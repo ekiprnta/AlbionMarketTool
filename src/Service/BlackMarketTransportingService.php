@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace MZierdt\Albion\Service;
 
 use InvalidArgumentException;
+use MZierdt\Albion\Entity\BlackMarketCraftingEntity;
 use MZierdt\Albion\Entity\BlackMarketTransportEntity;
 use MZierdt\Albion\Entity\ItemEntity;
 use MZierdt\Albion\repositories\ItemRepository;
@@ -33,6 +34,7 @@ class BlackMarketTransportingService
         foreach ($combinedItems as $combinedItem) {
             $this->calculateAmount($combinedItem);
             $this->calculateProfit($combinedItem);
+            $this->setColorGradeForItem($combinedItem);
         }
         return $combinedItems;
     }
@@ -98,7 +100,7 @@ class BlackMarketTransportingService
             $combinedItem->setLymProfit((int)$bmPrice - $combinedItem->getLymPrice());
             $combinedItem->setLymWeightProfitQuotient((float)$combinedItem->getLymProfit() / $weight);
         }
-        if ($combinedItem->getBmPrice() !== null) {
+        if ($combinedItem->getBwPrice() !== null) {
             $combinedItem->setBwProfit((int)$bmPrice - $combinedItem->getBwPrice());
             $combinedItem->setBwWeightProfitQuotient((float)$combinedItem->getBwProfit() / $weight);
         }
@@ -110,5 +112,28 @@ class BlackMarketTransportingService
             $combinedItem->setThetProfit((int)$bmPrice - $combinedItem->getThetPrice());
             $combinedItem->setThetWeightProfitQuotient((float)$combinedItem->getThetProfit() / $weight);
         }
+    }
+
+    private function calculateColorGrade(?float $quotient): string
+    {
+        if ( $quotient === null) {
+            return 'D';
+        }
+        return match (true) {
+            $quotient >= 1000 => 'S',
+            $quotient >= 400 => 'A',
+            $quotient >= 100 => 'B',
+            $quotient >= 0 => 'C',
+            default => 'D',
+        };
+    }
+
+    private function setColorGradeForItem(BlackMarketTransportEntity $combinedItem): void
+    {
+        $combinedItem->setFsColorGrade($this->calculateColorGrade($combinedItem->getFsWeightProfitQuotient()));
+        $combinedItem->setLymColorGrade($this->calculateColorGrade($combinedItem->getLymWeightProfitQuotient()));
+        $combinedItem->setBwColorGrade($this->calculateColorGrade($combinedItem->getBwWeightProfitQuotient()));
+        $combinedItem->setMlColorGrade($this->calculateColorGrade($combinedItem->getMlWeightProfitQuotient()));
+        $combinedItem->setThetColorGrade($this->calculateColorGrade($combinedItem->getThetWeightProfitQuotient()));
     }
 }
