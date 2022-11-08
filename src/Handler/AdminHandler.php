@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace MZierdt\Albion\Handler;
 
 use Laminas\Diactoros\Response\HtmlResponse;
-use MZierdt\Albion\Service\ApiService;
-use MZierdt\Albion\Service\UploadService;
 use Twig\Environment;
 
 class AdminHandler

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace MZierdt\Albion\repositories;
 
 use MZierdt\Albion\Entity\ItemEntity;
-use MZierdt\Albion\Service\ApiService;
 use PDO;
 
 class ItemRepository

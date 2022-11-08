@@ -24,7 +24,7 @@ class UpdatePricesCommand extends Command
             $this->uploadService->updateItemPricesInAlbionDb($output);
             $this->uploadService->updateJournalPricesInAlbionDb($output);
             $this->uploadService->updateResourcePricesInAlbionDb($output);
-        } catch (\JsonException|\RuntimeException $exception ) {
+        } catch (\JsonException|\RuntimeException $exception) {
             $message .= ' Except for ' . $exception->getMessage();
         }
         $output->writeln($message);

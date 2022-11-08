@@ -302,11 +302,7 @@ class ItemEntity
             return DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '2000-00-00 00:00:00');
         }
         $date = str_replace('T', ' ', $date);
-        return DateTimeImmutable::createFromFormat(
-            'Y-m-d H:i:s',
-            $date,
-            new DateTimeZone('Europe/London')
-        );
+        return DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $date, new DateTimeZone('Europe/London'));
     }
 
     private function setWeight(array $itemData): float

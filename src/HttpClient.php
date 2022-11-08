@@ -9,7 +9,6 @@ use RuntimeException;
 
 final class HttpClient
 {
-    /** @throws \RuntimeException */
     private function call(string $url, string $method = 'get', int $try = 0): string
     {
         $curl = $this->initCurl($url);
@@ -58,7 +57,7 @@ final class HttpClient
 
     private function getUrl(string $baseUrl, array $parameters = []): string
     {
-        if (!empty($parameters)) {
+        if (! empty($parameters)) {
             $baseUrl .= '?';
             foreach ($parameters as $property => $parameter) {
                 $baseUrl .= http_build_query([$property => $parameter]);

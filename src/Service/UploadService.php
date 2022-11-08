@@ -8,7 +8,6 @@ use MZierdt\Albion\Entity\ItemEntity;
 use MZierdt\Albion\Entity\JournalEntity;
 use MZierdt\Albion\Entity\ResourceEntity;
 use MZierdt\Albion\repositories\UploadRepository;
-use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class UploadService
@@ -50,9 +49,7 @@ class UploadService
     ) {
     }
 
-    /**
-     * @throws \JsonException|\RuntimeException
-     */
+
     public function updateJournalPricesInAlbionDb(OutputInterface $output): void
     {
         $journalList = [
@@ -61,7 +58,7 @@ class UploadService
             JournalEntity::JOURNAL_HUNTER,
         ];
 
-        $progressBar = ProgressBarService::getProgressBar($output,210);
+        $progressBar = ProgressBarService::getProgressBar($output, 210);
         $progressBar->setMessage('Getting Journals...');
         foreach ($journalList as $journalType) {
             $journals = $this->apiService->getJournals($journalType);
@@ -70,7 +67,7 @@ class UploadService
         }
     }
 
-    /** @throws \JsonException|\RuntimeException */
+
     public function updateResourcePricesInAlbionDb(OutputInterface $output): void
     {
         $resourceList = [
@@ -79,7 +76,7 @@ class UploadService
             ResourceEntity::RESOURCE_CLOTH,
             ResourceEntity::RESOURCE_LEATHER,
         ];
-        $progressBar = ProgressBarService::getProgressBar($output,440);
+        $progressBar = ProgressBarService::getProgressBar($output, 440);
         $progressBar->setMessage('Getting Resources...');
         foreach ($resourceList as $resource) {
             $resources = $this->apiService->getResource($resource);
@@ -88,16 +85,13 @@ class UploadService
         }
     }
 
-    /**
-     * @throws \JsonException
-     */
+
     public function updateItemPricesInAlbionDb(OutputInterface $output): void
     {
         $section1 = $output->section();
         $section2 = $output->section();
         $progressBar = ProgressBarService::getProgressBar($section1, count($this->itemList));
         $detailProgressBar = ProgressBarService::getProgressBar($section2, 10296);
-
 
         foreach ($this->itemList as $item) {
             $items = $this->apiService->getItems($item[0]);
