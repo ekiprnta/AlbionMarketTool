@@ -45,7 +45,7 @@
     <div class="card mt-3">
         <div class="card-body">
             <div class="card-title"><h3>Profit</h3></div>
-            <table class="table table-sm">
+            <table class="table table-sm" id="sortTable">
                 <thead class="thead-default">
                 <tr>
                     <th>Tier</th>
@@ -59,19 +59,19 @@
                 </tr>
                 </thead>
                 <tbody>
-                {# @var TransportEntity \MZierdt\Albion\Entity\BlackMarketTransportEntity#}
-                {% for TransportEntity in dataArray%}
+                {# @var TransportEntity \MZierdt\Albion\Entity\BlackMarketTransportEntity #}
+                {% for TransportEntity in dataArray %}
                     <tr>
-                        <td>{{TransportEntity.tier}}</td>
-                        <td>{{TransportEntity.realName}}</td>
-                        <td>{{TransportEntity.bmPrice}}</td>
-                        <td>{{TransportEntity.fsPrice}}</td>
-                        <td>{{TransportEntity.lymPrice}}</td>
-                        <td>{{TransportEntity.bwPrice}}</td>
-                        <td>{{TransportEntity.mlPrice}}</td>
-                        <td>{{TransportEntity.thetPrice}}</td>
+                        <td>{{ TransportEntity.tier }}</td>
+                        <td>{{ TransportEntity.realName }}</td>
+                        <td>{{ TransportEntity.bmPrice }}</td>
+                        <td>{{ TransportEntity.fsPrice }}</td>
+                        <td>{{ TransportEntity.lymPrice }}</td>
+                        <td>{{ TransportEntity.bwPrice }}</td>
+                        <td>{{ TransportEntity.mlPrice }}</td>
+                        <td>{{ TransportEntity.thetPrice }}</td>
                     </tr>
-                {%endfor%}
+                {% endfor %}
                 </tbody>
             </table>
         </div>

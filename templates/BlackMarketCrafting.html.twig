@@ -109,42 +109,42 @@
                     </tr>
                     </thead>
                     <tbody class="text-right">
-                    {# @var item MZierdt\Albion\Entity\CalculateEntity #}
+                    {# @var item \MZierdt\Albion\Entity\BlackMarketCraftingEntity #}
                     {% for item in weaponGroup %}
-                        {%if item.itemSellOrderPrice != 0%}
-                        <tr class="bg-{{ item.colorGrade }} bg-{{ item.getPrice }}">
-                            <td class="text-left tier-{{ item.tierColor }} tier">{{ item.tier }}</td>
-                            <td>{{ item.realName }}</td>
-                            <td>{{ item.primarySellOrderPrice|number_format }}</td>
-                            <td {% if item.primaryPriceAge > 720 %} class="bg-D" {% endif %}>
-                                {{ item.primaryPriceAge|number_format }} min
-                            </td>
-                            <td>{{ item.primaryTotalAmount|number_format }}</td>
-                            <td>{{ item.secondarySellOrderPrice|number_format }}</td>
-                            <td {% if item.secondaryPriceAge > 720 %} class="bg-D" {% endif %}>
-                                {{ item.secondaryPriceAge|number_format }} min
-                            </td>
-                            <td>{{ item.secondaryTotalAmount|number_format }}</td>
-                            <td>{{ item.itemSellOrderPrice|number_format }}</td>
-                            <td {% if item.itemPriceAge > 1440 %} class="bg-D" {% endif %}>
-                                {{ item.itemPriceAge|number_format }} min
-                            </td>
-                            <td>{{ item.amount|number_format }}</td>
-                            <td>{{ item.amountBooks|round(1,'ceil') }}</td>
-                            <td>{{ item.getFullSellOrderPrice|number_format }}</td>
-                            <td>{{ item.getEmptySellOrderPrice|number_format }}</td>
-                            <td>{{ item.percentageProfit|number_format }}</td>
-                            <td>{{ item.totalWeightItems|number_format }}</td>
-                            <td>{{ item.totalWeightResources|number_format }}</td>
-                            <td>{{ item.weightProfitQuotient|number_format }}</td>
-                            <td>
-                                <button type="button" class="btn btn-primary" data-toggle="modal"
-                                        data-target="#{{ weaponGroupName }}">
-                                    more Info
-                                </button>
-                            </td>
-                        </tr>
-                        {%endif%}
+                        {% if item.itemSellOrderPrice != 0 %}
+                            <tr class="bg-{{ item.colorGrade }} bg-{{ item.getPrice }}">
+                                <td class="text-left tier-{{ item.tierColor }} tier">{{ item.tier }}</td>
+                                <td>{{ item.realName }}</td>
+                                <td>{{ item.primarySellOrderPrice|number_format }}</td>
+                                <td {% if item.primaryPriceAge > 720 %} class="bg-D" {% endif %}>
+                                    {{ item.primaryPriceAge|number_format }} min
+                                </td>
+                                <td>{{ item.primaryTotalAmount|number_format }}</td>
+                                <td>{{ item.secondarySellOrderPrice|number_format }}</td>
+                                <td {% if item.secondaryPriceAge > 720 %} class="bg-D" {% endif %}>
+                                    {{ item.secondaryPriceAge|number_format }} min
+                                </td>
+                                <td>{{ item.secondaryTotalAmount|number_format }}</td>
+                                <td>{{ item.itemSellOrderPrice|number_format }}</td>
+                                <td {% if item.itemPriceAge > 1440 %} class="bg-D" {% endif %}>
+                                    {{ item.itemPriceAge|number_format }} min
+                                </td>
+                                <td>{{ item.amount|number_format }}</td>
+                                <td>{{ item.amountBooks|round(1,'ceil') }}</td>
+                                <td>{{ item.getFullSellOrderPrice|number_format }}</td>
+                                <td>{{ item.getEmptySellOrderPrice|number_format }}</td>
+                                <td>{{ item.percentageProfit|number_format }}</td>
+                                <td>{{ item.totalWeightItems|number_format }}</td>
+                                <td>{{ item.totalWeightResources|number_format }}</td>
+                                <td>{{ item.weightProfitQuotient|number_format }}</td>
+                                <td>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal"
+                                            data-target="#{{ weaponGroupName }}">
+                                        more Info
+                                    </button>
+                                </td>
+                            </tr>
+                        {% endif %}
                         <div class="modal fade bd-example-modal-lg" id="{{ weaponGroupName }}" tabindex="-1"
                              aria-labelledby="exampleModalLabel"
                              aria-hidden="true">
