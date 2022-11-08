@@ -18,9 +18,22 @@ class BlackMarketTransportingHandler
 
     public function handler(): HtmlResponse
     {
-        $this->blackMarketTransportingService->getDataForCity('Martlock', 2000);
+        $cityData = [];
+        $alertMessage = null;
+        if (!empty ($_GET)) {
+            $itemCity = $_GET['itemCity'];
+            $weight =(int) $_GET['weight'];
+            try {
+                $cityData=$this->blackMarketTransportingService->getDataForCity($itemCity, $weight);
+            } catch (\InvalidArgumentException $invalidArgumentException) {
+                $alertMessage = $invalidArgumentException->getMessage();
+            }
+        }
 
-        $htmlContent = $this->twigEnvironment->render('BlackMarketTransport.html.twig');
+        $htmlContent = $this->twigEnvironment->render('BlackMarketTransport.html.twig', [
+            'dataArray' => $cityData,
+            'alertMessage' => $alertMessage,
+        ]);
         return new HtmlResponse($htmlContent);
     }
 }

@@ -4,28 +4,12 @@
     <div class="card mt-3">
         <div class="card-body">
             <div class="row">
-                <div class="col-2">
-                    <form action="/blackmarket/transporting" method="post">
-                        <div class="form-group">
-                            <label for="itemCity">Choose City to Update Pricing</label>
-                            <select name="itemCity" id="itemCity" class="form-control">
-                                <option value="Fort Sterling">Fort Sterling</option>
-                                <option value="Lymhurst">Lymhurst</option>
-                                <option value="Bridgewatch">Bridgewatch</option>
-                                <option value="Martlock">Martlock</option>
-                                <option value="Thetford">Thetford</option>
-                            </select>
-                        </div>
-                        <input type="hidden" name="updatePrices" value="1">
-                        <button class="btn btn-primary" type="submit" id="updatePrices">update Prices</button>
-                    </form>
-                </div>
                 <div class="col-10">
                     <form action="" method="get">
                         <div class="row">
                             <div class="col-3">
                                 <div class="form-group">
-                                    <label for="itemCity">Choose the City to Craft</label>
+                                    <label for="itemCity">Choose City to transport from</label>
                                     <select name="itemCity" id="itemCity" class="form-control">
                                         <option value="Fort Sterling">Fort Sterling</option>
                                         <option value="Lymhurst">Lymhurst</option>
@@ -56,6 +40,40 @@
                     <div class="alert alert-danger">{{ alertMessage }}</div>
                 {% endif %}
             </div>
+        </div>
+    </div>
+    <div class="card mt-3">
+        <div class="card-body">
+            <div class="card-title"><h3>Profit</h3></div>
+            <table class="table table-sm">
+                <thead class="thead-default">
+                <tr>
+                    <th>Tier</th>
+                    <th>Name</th>
+                    <th>BlackMarketPrice</th>
+                    <th>FS Price</th>
+                    <th>Lym Price</th>
+                    <th>Bw Price</th>
+                    <th>Ml Price</th>
+                    <th>Thet Price</th>
+                </tr>
+                </thead>
+                <tbody>
+                {# @var TransportEntity \MZierdt\Albion\Entity\BlackMarketTransportEntity#}
+                {% for TransportEntity in dataArray%}
+                    <tr>
+                        <td>{{TransportEntity.tier}}</td>
+                        <td>{{TransportEntity.realName}}</td>
+                        <td>{{TransportEntity.bmPrice}}</td>
+                        <td>{{TransportEntity.fsPrice}}</td>
+                        <td>{{TransportEntity.lymPrice}}</td>
+                        <td>{{TransportEntity.bwPrice}}</td>
+                        <td>{{TransportEntity.mlPrice}}</td>
+                        <td>{{TransportEntity.thetPrice}}</td>
+                    </tr>
+                {%endfor%}
+                </tbody>
+            </table>
         </div>
     </div>
 
