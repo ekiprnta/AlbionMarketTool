@@ -9,7 +9,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class UpdatePricesCommand extends Command
+class UpdateResourcesCommand extends Command
 {
     public function __construct(
         private UploadService $uploadService,
@@ -21,10 +21,8 @@ class UpdatePricesCommand extends Command
     {
         $message = 'Succesful updated all Prices';
         try {
-            $this->uploadService->updateItemPricesInAlbionDb($output);
-            $this->uploadService->updateJournalPricesInAlbionDb($output);
             $this->uploadService->updateResourcePricesInAlbionDb($output);
-        } catch (\JsonException|\RuntimeException $exception ) {
+        } catch (\JsonException|\RuntimeException $exception) {
             $message .= ' Except for ' . $exception->getMessage();
         }
         $output->writeln($message);
@@ -33,8 +31,8 @@ class UpdatePricesCommand extends Command
 
     protected function configure()
     {
-        $this->setName('update:all');
-        $this->setDescription('update Prices');
-        $this->setHelp('updates Prices');
+        $this->setName('update:resource');
+        $this->setDescription('update Prices of Resources');
+        $this->setHelp('updates Prices of Resources');
     }
 }

@@ -50,6 +50,9 @@ class UploadService
     ) {
     }
 
+    /**
+     * @throws \JsonException|\RuntimeException
+     */
     public function updateJournalPricesInAlbionDb(OutputInterface $output): void
     {
         $journalList = [
@@ -59,6 +62,7 @@ class UploadService
         ];
 
         $progressBar = ProgressBarService::getProgressBar($output,210);
+        $progressBar->setMessage('Getting Journals...');
         foreach ($journalList as $journalType) {
             $journals = $this->apiService->getJournals($journalType);
             $adjustedJournals = $this->adjustJournals($journals);
@@ -66,6 +70,7 @@ class UploadService
         }
     }
 
+    /** @throws \JsonException|\RuntimeException */
     public function updateResourcePricesInAlbionDb(OutputInterface $output): void
     {
         $resourceList = [
@@ -75,6 +80,7 @@ class UploadService
             ResourceEntity::RESOURCE_LEATHER,
         ];
         $progressBar = ProgressBarService::getProgressBar($output,440);
+        $progressBar->setMessage('Getting Resources...');
         foreach ($resourceList as $resource) {
             $resources = $this->apiService->getResource($resource);
             $adjustedResources = $this->adjustResourceArray($resources, $resource);
