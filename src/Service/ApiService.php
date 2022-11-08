@@ -34,6 +34,10 @@ class ApiService // Buy Order ist buy_price_max
     ) {
     }
 
+    /**
+     * @throws \JsonException
+     * @throws \RuntimeException
+     */
     public function getJournals(string $journalType)
     {
         $apiUrl = $this->apiUrlAssembler($journalType, self::JOURNAL_TIERS_WITH_PLACEHOLDER);
@@ -126,6 +130,9 @@ class ApiService // Buy Order ist buy_price_max
         return json_decode($json, true, 512, JSON_THROW_ON_ERROR);
     }
 
+    /**
+     * @throws \JsonException
+     */
     public function getItems(string $itemName): array
     {
         $apiUrl = $this->apiUrlAssembler($itemName, self::ITEM_TIERS_WITH_PLACEHOLDER);

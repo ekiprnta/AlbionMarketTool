@@ -9,7 +9,8 @@ use RuntimeException;
 
 final class HttpClient
 {
-    private function call(string $url, string $method = 'get'): string
+    /** @throws \RuntimeException */
+    private function call(string $url, string $method = 'get', int $try = 0): string
     {
         $curl = $this->initCurl($url);
         if ($method === 'post') {
@@ -17,6 +18,10 @@ final class HttpClient
         }
         $result = curl_exec($curl);
         if (is_bool($result)) {
+            if ($try < 3) {
+                $try++;
+                $this->call($url, $method, $try);
+            }
             throw new RuntimeException('Couldn\'t perform cUrl Session.' . PHP_EOL . $url);
         }
         curl_close($curl);
@@ -53,7 +58,7 @@ final class HttpClient
 
     private function getUrl(string $baseUrl, array $parameters = []): string
     {
-        if (! empty($parameters)) {
+        if (!empty($parameters)) {
             $baseUrl .= '?';
             foreach ($parameters as $property => $parameter) {
                 $baseUrl .= http_build_query([$property => $parameter]);

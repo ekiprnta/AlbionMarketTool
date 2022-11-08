@@ -82,12 +82,15 @@ class UploadService
         }
     }
 
+    /**
+     * @throws \JsonException
+     */
     public function updateItemPricesInAlbionDb(OutputInterface $output): void
     {
         $section1 = $output->section();
         $section2 = $output->section();
         $progressBar = ProgressBarService::getProgressBar($section1, count($this->itemList));
-        $detailProgressBar = ProgressBarService::getProgressBar($section2, 396);
+        $detailProgressBar = ProgressBarService::getProgressBar($section2, 10296);
 
 
         foreach ($this->itemList as $item) {
