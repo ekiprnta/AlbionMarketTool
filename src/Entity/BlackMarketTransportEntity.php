@@ -17,38 +17,17 @@ class BlackMarketTransportEntity
 
     private int $bmPrice;
     private DateTimeImmutable $bmPriceDate;
+    private ?int $bmPriceAge = null;
 
-    private ?int $fsPrice = null;
-    private ?DateTimeImmutable $fsPriceDate = null;
-    private ?int $fsProfit = null;
-    private ?float $fsWeightProfitQuotient = null;
-    private string $fsColorGrade = 'D';
+    private ?int $cityPrice = null;
+    private ?DateTimeImmutable $cityPriceDate = null;
+    private ?int $cityPriceAge = null;
+    private ?int $cityProfit = null;
+    private ?float $cityWeightProfitQuotient = null;
+    private string $cityColorGrade = 'D';
 
-    private ?int $lymPrice = null;
-    private ?DateTimeImmutable $lymPriceDate = null;
-    private ?int $lymProfit = null;
-    private ?float $lymWeightProfitQuotient = null;
-    private string $lymColorGrade = 'D';
-
-    private ?int $bwPrice = null;
-    private ?DateTimeImmutable $bwPriceDate = null;
-    private ?int $bwProfit = null;
-    private ?float $bwWeightProfitQuotient = null;
-    private string $bwColorGrade = 'D';
-
-    private ?int $mlPrice = null;
-    private ?DateTimeImmutable $mlPriceDate = null;
-    private ?int $mlProfit = null;
-    private ?float $mlWeightProfitQuotient = null;
-    private string $mlColorGrade = 'D';
-
-    private ?int $thetPrice = null;
-    private ?DateTimeImmutable $thetPriceDate = null;
-    private ?int $thetProfit = null;
-    private ?float $thetWeightProfitQuotient = null;
-    private string $thetColorGrade = 'D';
-
-    private int $amount;
+    private ?int $amount = null;
+    private ?int $totalProfit = null;
 
     public function __construct(ItemEntity $bmItemData)
     {
@@ -61,6 +40,36 @@ class BlackMarketTransportEntity
 
         $this->bmPrice = $bmItemData->getSellOrderPrice();
         $this->bmPriceDate = $bmItemData->getSellOrderPriceDate();
+    }
+
+    public function getBmPriceAge(): ?int
+    {
+        return $this->bmPriceAge;
+    }
+
+    public function setBmPriceAge(?int $bmPriceAge): void
+    {
+        $this->bmPriceAge = $bmPriceAge;
+    }
+
+    public function getCityPriceAge(): ?int
+    {
+        return $this->cityPriceAge;
+    }
+
+    public function getTotalProfit(): ?int
+    {
+        return $this->totalProfit;
+    }
+
+    public function setTotalProfit(int $totalProfit): void
+    {
+        $this->totalProfit = $totalProfit;
+    }
+
+    public function setCityPriceAge(?int $cityPriceAge): void
+    {
+        $this->cityPriceAge = $cityPriceAge;
     }
 
     public function getTierColor(): int
@@ -92,166 +101,6 @@ class BlackMarketTransportEntity
             return 8;
         }
         throw new \RuntimeException('No string found');
-    }
-
-    public function getFsColorGrade(): string
-    {
-        return $this->fsColorGrade;
-    }
-
-    public function setFsColorGrade(string $fsColorGrade): void
-    {
-        $this->fsColorGrade = $fsColorGrade;
-    }
-
-    public function getLymColorGrade(): string
-    {
-        return $this->lymColorGrade;
-    }
-
-    public function setLymColorGrade(string $lymColorGrade): void
-    {
-        $this->lymColorGrade = $lymColorGrade;
-    }
-
-    public function getBwColorGrade(): string
-    {
-        return $this->bwColorGrade;
-    }
-
-    public function setBwColorGrade(string $bwColorGrade): void
-    {
-        $this->bwColorGrade = $bwColorGrade;
-    }
-
-    public function getMlColorGrade(): string
-    {
-        return $this->mlColorGrade;
-    }
-
-    public function setMlColorGrade(string $mlColorGrade): void
-    {
-        $this->mlColorGrade = $mlColorGrade;
-    }
-
-    public function getThetColorGrade(): string
-    {
-        return $this->thetColorGrade;
-    }
-
-    public function setThetColorGrade(string $thetColorGrade): void
-    {
-        $this->thetColorGrade = $thetColorGrade;
-    }
-
-    public function getFsWeightProfitQuotient(): ?float
-    {
-        return $this->fsWeightProfitQuotient;
-    }
-
-    public function setFsWeightProfitQuotient(float $fsWeightProfitQuotient): void
-    {
-        $this->fsWeightProfitQuotient = $fsWeightProfitQuotient;
-    }
-
-    public function getLymWeightProfitQuotient(): ?float
-    {
-        return $this->lymWeightProfitQuotient;
-    }
-
-    public function setLymWeightProfitQuotient(float $lymWeightProfitQuotient): void
-    {
-        $this->lymWeightProfitQuotient = $lymWeightProfitQuotient;
-    }
-
-    public function getBwWeightProfitQuotient(): ?float
-    {
-        return $this->bwWeightProfitQuotient;
-    }
-
-    public function setBwWeightProfitQuotient(float $bwWeightProfitQuotient): void
-    {
-        $this->bwWeightProfitQuotient = $bwWeightProfitQuotient;
-    }
-
-    public function getMlWeightProfitQuotient(): ?float
-    {
-        return $this->mlWeightProfitQuotient;
-    }
-
-    public function setMlWeightProfitQuotient(float $mlWeightProfitQuotient): void
-    {
-        $this->mlWeightProfitQuotient = $mlWeightProfitQuotient;
-    }
-
-    public function getThetWeightProfitQuotient(): ?float
-    {
-        return $this->thetWeightProfitQuotient;
-    }
-
-    public function setThetWeightProfitQuotient(float $thetWeightProfitQuotient): void
-    {
-        $this->thetWeightProfitQuotient = $thetWeightProfitQuotient;
-    }
-
-    public function getFsProfit(): ?int
-    {
-        return $this->fsProfit;
-    }
-
-    public function setFsProfit(int $fsProfit): void
-    {
-        $this->fsProfit = $fsProfit;
-    }
-
-    public function getLymProfit(): ?int
-    {
-        return $this->lymProfit;
-    }
-
-    public function setLymProfit(int $lymProfit): void
-    {
-        $this->lymProfit = $lymProfit;
-    }
-
-    public function getBwProfit(): ?int
-    {
-        return $this->bwProfit;
-    }
-
-    public function setBwProfit(int $bwProfit): void
-    {
-        $this->bwProfit = $bwProfit;
-    }
-
-    public function getMlProfit(): ?int
-    {
-        return $this->mlProfit;
-    }
-
-    public function setMlProfit(int $mlProfit): void
-    {
-        $this->mlProfit = $mlProfit;
-    }
-
-    public function getThetProfit(): ?int
-    {
-        return $this->thetProfit;
-    }
-
-    public function setThetProfit(int $thetProfit): void
-    {
-        $this->thetProfit = $thetProfit;
-    }
-
-    public function getAmount(): int
-    {
-        return $this->amount;
-    }
-
-    public function setAmount(int $amount): void
-    {
-        $this->amount = $amount;
     }
 
     public function getTier(): string
@@ -289,103 +138,63 @@ class BlackMarketTransportEntity
         return $this->bmPriceDate;
     }
 
-    public function getFsPrice(): ?int
+    public function getCityPrice(): ?int
     {
-        return $this->fsPrice;
+        return $this->cityPrice;
     }
 
-    public function setFsPrice(int $fsPrice): void
+    public function setCityPrice(?int $cityPrice): void
     {
-        $this->fsPrice = $fsPrice;
+        $this->cityPrice = $cityPrice;
     }
 
-    public function getFsPriceDate(): DateTimeImmutable
+    public function getCityPriceDate(): ?DateTimeImmutable
     {
-        return $this->fsPriceDate;
+        return $this->cityPriceDate;
     }
 
-    public function setFsPriceDate(DateTimeImmutable $fsPriceDate): void
+    public function setCityPriceDate(?DateTimeImmutable $cityPriceDate): void
     {
-        $this->fsPriceDate = $fsPriceDate;
+        $this->cityPriceDate = $cityPriceDate;
     }
 
-    public function getLymPrice(): ?int
+    public function getCityProfit(): ?int
     {
-        return $this->lymPrice;
+        return $this->cityProfit;
     }
 
-    public function setLymPrice(int $lymPrice): void
+    public function setCityProfit(?int $cityProfit): void
     {
-        $this->lymPrice = $lymPrice;
+        $this->cityProfit = $cityProfit;
     }
 
-    public function getLymPriceDate(): DateTimeImmutable
+    public function getCityWeightProfitQuotient(): ?float
     {
-        return $this->lymPriceDate;
+        return $this->cityWeightProfitQuotient;
     }
 
-    public function setLymPriceDate(DateTimeImmutable $lymPriceDate): void
+    public function setCityWeightProfitQuotient(?float $cityWeightProfitQuotient): void
     {
-        $this->lymPriceDate = $lymPriceDate;
+        $this->cityWeightProfitQuotient = $cityWeightProfitQuotient;
     }
 
-    public function getBwPrice(): ?int
+    public function getCityColorGrade(): string
     {
-        return $this->bwPrice;
+        return $this->cityColorGrade;
     }
 
-    public function setBwPrice(int $bwPrice): void
+    public function setCityColorGrade(string $cityColorGrade): void
     {
-        $this->bwPrice = $bwPrice;
+        $this->cityColorGrade = $cityColorGrade;
     }
 
-    public function getBwPriceDate(): DateTimeImmutable
+    public function getAmount(): ?int
     {
-        return $this->bwPriceDate;
+        return $this->amount;
     }
 
-    public function setBwPriceDate(DateTimeImmutable $bwPriceDate): void
+    public function setAmount(int $amount): void
     {
-        $this->bwPriceDate = $bwPriceDate;
-    }
-
-    public function getMlPrice(): ?int
-    {
-        return $this->mlPrice;
-    }
-
-    public function setMlPrice(int $mlPrice): void
-    {
-        $this->mlPrice = $mlPrice;
-    }
-
-    public function getMlPriceDate(): DateTimeImmutable
-    {
-        return $this->mlPriceDate;
-    }
-
-    public function setMlPriceDate(DateTimeImmutable $mlPriceDate): void
-    {
-        $this->mlPriceDate = $mlPriceDate;
-    }
-
-    public function getThetPrice(): ?int
-    {
-        return $this->thetPrice;
-    }
-
-    public function setThetPrice(int $thetPrice): void
-    {
-        $this->thetPrice = $thetPrice;
-    }
-
-    public function getThetPriceDate(): DateTimeImmutable
-    {
-        return $this->thetPriceDate;
-    }
-
-    public function setThetPriceDate(DateTimeImmutable $thetPriceDate): void
-    {
-        $this->thetPriceDate = $thetPriceDate;
+        $this->amount = $amount;
     }
 }

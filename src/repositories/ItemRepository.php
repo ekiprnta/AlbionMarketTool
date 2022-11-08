@@ -18,9 +18,9 @@ class ItemRepository
     {
         $statement = $this->pdoConnection->prepare(
             <<<SQL
-            SELECT * 
+            SELECT *
             FROM albion_db.items
-            WHERE albion_db.items.bonusCity = :city
+            WHERE albion_db.items.city = :city
 SQL
         );
         $statement->bindParam(':city', $city);

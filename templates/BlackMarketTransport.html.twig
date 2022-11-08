@@ -51,35 +51,29 @@
                     <th>Tier</th>
                     <th>Name</th>
                     <th>BlackMarketPrice</th>
-                    <th>FS Price</th>
-                    <th>FS Weight/Profit</th>
-                    <th>Lym Price</th>
-                    <th>Lym Weight/Profit</th>
-                    <th>Bw Price</th>
-                    <th>Bw Weight/Profit</th>
-                    <th>Ml Price</th>
-                    <th>Ml Weight/Profit</th>
-                    <th>Thet Price</th>
-                    <th>Thet Weight/Profit</th>
+                    <th>BlackMarketPrice Age</th>
+                    <th>Price</th>
+                    <th>Price Age</th>
+                    <th>Weight/Profit</th>
+                    <th>Profit</th>
+                    <th>TotalProfit</th>
+                    <th>Amount</th>
                 </tr>
                 </thead>
                 <tbody>
                 {# @var TransportEntity \MZierdt\Albion\Entity\BlackMarketTransportEntity #}
                 {% for TransportEntity in dataArray %}
-                    <tr>
+                    <tr class="bg-{{ TransportEntity.cityColorGrade }}">
                         <td class="text-left tier-{{ TransportEntity.tierColor }} tier">{{ TransportEntity.tier }}</td>
                         <td>{{ TransportEntity.realName }}</td>
                         <td>{% if TransportEntity.bmPrice == 0 %} - {% else %} {{ TransportEntity.bmPrice|number_format }} {% endif %}</td>
-                        <td class="bg-{{TransportEntity.fsColorGrade}}">{% if TransportEntity.fsPrice == 0 %} - {% else %} {{ TransportEntity.fsPrice|number_format }} {% endif %}</td>
-                        <td class="bg-{{TransportEntity.fsColorGrade}}">{% if TransportEntity.fsWeightProfitQuotient == 0 %} - {% else %} {{ TransportEntity.fsWeightProfitQuotient|number_format }} {% endif %}</td>
-                        <td class="bg-{{TransportEntity.lymColorGrade}}">{% if TransportEntity.lymPrice == 0 %} - {% else %} {{ TransportEntity.lymPrice|number_format }} {% endif %}</td>
-                        <td class="bg-{{TransportEntity.lymColorGrade}}">{% if TransportEntity.lymWeightProfitQuotient == 0 %} - {% else %} {{ TransportEntity.lymWeightProfitQuotient|number_format }} {% endif %}</td>
-                        <td class="bg-{{TransportEntity.bwColorGrade}}">{% if TransportEntity.bwPrice == 0 %} - {% else %} {{ TransportEntity.bwPrice|number_format }} {% endif %}</td>
-                        <td class="bg-{{TransportEntity.bwColorGrade}}">{% if TransportEntity.bwWeightProfitQuotient == 0 %} - {% else %} {{ TransportEntity.bwWeightProfitQuotient|number_format }} {% endif %}</td>
-                        <td class="bg-{{TransportEntity.mlColorGrade}}">{% if TransportEntity.mlPrice == 0 %} - {% else %} {{ TransportEntity.mlPrice|number_format }} {% endif %}</td>
-                        <td class="bg-{{TransportEntity.mlColorGrade}}">{% if TransportEntity.mlWeightProfitQuotient == 0 %} - {% else %} {{ TransportEntity.mlWeightProfitQuotient|number_format }} {% endif %}</td>
-                        <td class="bg-{{TransportEntity.thetColorGrade}}">{% if TransportEntity.thetPrice == 0 %} - {% else %} {{ TransportEntity.thetPrice|number_format }} {% endif %}</td>
-                        <td class="bg-{{TransportEntity.thetColorGrade}}">{% if TransportEntity.thetWeightProfitQuotient == 0 %} - {% else %} {{ TransportEntity.thetWeightProfitQuotient|number_format }} {% endif %}</td>
+                        <td {% if TransportEntity.bmPriceAge > 720 %} class="bg-D" {% endif %}>{{ TransportEntity.bmPriceAge|number_format }}min</td>
+                        <td>{% if TransportEntity.cityPrice == 0 %} - {% else %} {{ TransportEntity.cityPrice|number_format }} {% endif %}</td>
+                        <td {% if TransportEntity.cityPriceAge > 720 %} class="bg-D" {% endif %}>{{ TransportEntity.cityPriceAge|number_format }}min</td>
+                        <td>{% if TransportEntity.cityWeightProfitQuotient == 0 %} - {% else %} {{ TransportEntity.cityWeightProfitQuotient|number_format }} {% endif %}</td>
+                        <td>{% if TransportEntity.cityProfit == 0 %} - {% else %} {{ TransportEntity.cityProfit|number_format }} {% endif %}</td>
+                        <td>{% if TransportEntity.totalProfit == 0 %} - {% else %} {{ TransportEntity.totalProfit|number_format }} {% endif %}</td>
+                        <td>{% if TransportEntity.amount == 0 %} - {% else %} {{ TransportEntity.amount|number_format }} {% endif %}</td>
                     </tr>
                 {% endfor %}
                 </tbody>
