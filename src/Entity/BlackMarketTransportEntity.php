@@ -6,5 +6,4 @@ namespace MZierdt\Albion\Entity;
 
 class BlackMarketTransportEntity
 {
-
 }

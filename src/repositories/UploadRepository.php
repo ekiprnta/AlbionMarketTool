@@ -6,6 +6,7 @@ namespace MZierdt\Albion\repositories;
 
 use PDO;
 use PDOException;
+use Symfony\Component\Console\Helper\ProgressBar;
 
 class UploadRepository
 {
@@ -266,9 +267,13 @@ SQL;
         }
     }
 
-    public function updatePricesFromItem(array $itemInformation): void
+    public function updatePricesFromItem(array $itemInformation, ProgressBar $progressBar): void
     {
         foreach ($itemInformation as $item) {
+            $progressBar->setMessage('Uploading:' . $item['realName']);
+            $progressBar->advance();
+            $progressBar->display();
+
             if ($item['sellOrderPrice'] !== 0) {
                 $statement = $this->pdoConnection->prepare(
                     <<<SQL
@@ -332,9 +337,13 @@ SQL
         }
     }
 
-    public function updatePricesFromResources(array $resourceInformation): void
+    public function updatePricesFromResources(array $resourceInformation, ProgressBar $progressBar): void
     {
         foreach ($resourceInformation as $resource) {
+            $progressBar->setMessage('Uploading:' . $resource['realName']);
+            $progressBar->advance();
+            $progressBar->display();
+
             if ($resource['sellOrderPrice'] !== 0) {
                 $statement = $this->pdoConnection->prepare(
                     <<<SQL
@@ -374,9 +383,13 @@ SQL
         }
     }
 
-    public function updatePricesFromJournals(array $journalInformation): void
+    public function updatePricesFromJournals(array $journalInformation, ProgressBar $progressBar): void
     {
         foreach ($journalInformation as $journals) {
+            $progressBar->setMessage('Updating: ' . $journals['name']);
+            $progressBar->advance();
+            $progressBar->display();
+
             if ($journals['sellOrderPrice'] !== 0) {
                 $statement = $this->pdoConnection->prepare(
                     <<<SQL

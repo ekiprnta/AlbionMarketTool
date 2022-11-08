@@ -82,10 +82,10 @@ class NameDataService
     {
         $nameData = self::getNameDataArray();
         $itemNames = [];
-        foreach ($nameData as $className =>$class) {
+        foreach ($nameData as $className => $class) {
             foreach ($class as $weaponGroupName => $weaponGroup) {
                 $array = current($weaponGroup);
-                if (!(is_array($array) && array_key_exists('bonusCity', $array))) {
+                if (! (is_array($array) && array_key_exists('bonusCity', $array))) {
                     continue;
                 }
                 if ($array['bonusCity'] === $city) {

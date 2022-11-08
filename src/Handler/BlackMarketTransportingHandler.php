@@ -18,7 +18,7 @@ class BlackMarketTransportingHandler
 
     public function handler(): HtmlResponse
     {
-$this->blackMarketTransportingService->getDataForCity('Martlock', 2000);
+        $this->blackMarketTransportingService->getDataForCity('Martlock', 2000);
 
         $htmlContent = $this->twigEnvironment->render('BlackMarketTransport.html.twig');
         return new HtmlResponse($htmlContent);
