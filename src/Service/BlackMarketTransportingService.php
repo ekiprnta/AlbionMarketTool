@@ -31,6 +31,8 @@ class BlackMarketTransportingService
         $bmItems = $this->itemRepository->getItemsForTransport('Black Market');
         $combinedItems = $this->combineItems($cityItems, $bmItems);
 
+
+        $bla = usort($combinedItems, static fn($a, $b) => $a->getCityWeightProfitQuotient() <=> $b->getCityWeightProfitQuotient());
         return $combinedItems;
     }
 
