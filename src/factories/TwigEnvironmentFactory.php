@@ -14,7 +14,7 @@ class TwigEnvironmentFactory
     {
         $loader = new FilesystemLoader(__DIR__ . '/../../templates');
         $twig = new Environment($loader);
-        $twig->getExtension(CoreExtension::class)->setNumberFormat(0, ',', '.');
+        $twig->getExtension(CoreExtension::class)->setNumberFormat(0, '.', ',');
         return $twig;
     }
 }
