@@ -28,7 +28,13 @@ class BlackMarketCraftingHandler
             $rrr = (float) $_GET['rrr'];
             $order = $_GET['order'];
             try {
-                $cityData = $this->blackMarketCraftingService->getDataForCity($itemCity, $weight, $rrr, $resourceCity, $order);
+                $cityData = $this->blackMarketCraftingService->getDataForCity(
+                    $itemCity,
+                    $weight,
+                    $rrr,
+                    $resourceCity,
+                    $order
+                );
             } catch (InvalidArgumentException $invalidArgumentExceptionException) {
                 $alertMessage = $invalidArgumentExceptionException->getMessage();
             }
