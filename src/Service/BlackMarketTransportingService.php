@@ -55,10 +55,10 @@ class BlackMarketTransportingService
             return 'D';
         }
         return match (true) {
-            $quotient >= 1000 => 'S',
-            $quotient >= 400 => 'A',
-            $quotient >= 100 => 'B',
-            $quotient >= 0 => 'C',
+            $quotient >= 10000 => 'S',
+            $quotient >= 5000 => 'A',
+            $quotient >= 1000 => 'B',
+            $quotient >= 500 => 'C',
             default => 'D',
         };
     }

@@ -35,11 +35,11 @@
                         </div>
                     </form>
                 </div>
-                <div class="row">
-                    {% if alertMessage is not null %}
-                        <div class="alert alert-danger">{{ alertMessage }}</div>
-                    {% endif %}
-                </div>
+            </div>
+            <div class="row">
+                {% if alertMessage is not null %}
+                    <div class="alert alert-danger standard-alert">{{ alertMessage }}</div>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -64,6 +64,7 @@
                 <tbody>
                 {# @var TransportEntity \MZierdt\Albion\Entity\BlackMarketTransportEntity #}
                 {% for TransportEntity in dataArray %}
+                    {%if TransportEntity.cityPrice != 0 and TransportEntity.cityWeightProfitQuotient > 500%}
                     <tr class="bg-{{ TransportEntity.cityColorGrade }}">
                         <td class="text-left tier-{{ TransportEntity.tierColor }} tier">{{ TransportEntity.tier }}</td>
                         <td>{{ TransportEntity.realName }}</td>
@@ -80,6 +81,7 @@
                         <td>{% if TransportEntity.totalProfit == 0 %} - {% else %} {{ TransportEntity.totalProfit|number_format }} {% endif %}</td>
                         <td>{% if TransportEntity.amount == 0 %} - {% else %} {{ TransportEntity.amount|number_format }} {% endif %}</td>
                     </tr>
+                    {%endif%}
                 {% endfor %}
                 </tbody>
             </table>
