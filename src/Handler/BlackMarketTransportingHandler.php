@@ -20,14 +20,18 @@ class BlackMarketTransportingHandler
     {
         $cityData = [];
         $alertMessage = null;
-        if (!empty ($_GET)) {
+        if (! empty($_GET)) {
             $request = $_GET;
             $itemCity = $request['itemCity'];
             unset($request['itemCity']);
-            $weight =(int) $request['weight'];
+            $weight = (int) $request['weight'];
             unset($request['weight']);
             try {
-                $cityData=$this->blackMarketTransportingService->getDataForCity($itemCity, $weight, array_filter($request));
+                $cityData = $this->blackMarketTransportingService->getDataForCity(
+                    $itemCity,
+                    $weight,
+                    array_filter($request)
+                );
             } catch (\InvalidArgumentException $invalidArgumentException) {
                 $alertMessage = $invalidArgumentException->getMessage();
             }

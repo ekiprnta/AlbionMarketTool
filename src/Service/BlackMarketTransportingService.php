@@ -51,7 +51,7 @@ class BlackMarketTransportingService
 
     private function calculateColorGrade(?float $quotient): string
     {
-        if ( $quotient === null) {
+        if ($quotient === null) {
             return 'D';
         }
         return match (true) {
@@ -68,13 +68,17 @@ class BlackMarketTransportingService
         /** @var ItemEntity $cityItem */
         foreach ($cityItems as $cityItem) {
             if ($cityItem->getTier() === $transportEntity->getTier() &&
-            $cityItem->getName() === $transportEntity->getName()){
+            $cityItem->getName() === $transportEntity->getName()) {
                 $transportEntity->setCityPrice($cityItem->getSellOrderPrice());
                 $transportEntity->setCityPriceDate($cityItem->getSellOrderPriceDate());
-                $transportEntity->setAmount((int)ceil($this->maxWeight /$transportEntity->getWeight()));
+                $transportEntity->setAmount((int) ceil($this->maxWeight / $transportEntity->getWeight()));
                 $transportEntity->setCityProfit($transportEntity->getBmPrice() - $transportEntity->getCityPrice());
-                $transportEntity->setCityWeightProfitQuotient($transportEntity->getCityProfit() / $transportEntity->getWeight());
-                $transportEntity->setCityColorGrade($this->calculateColorGrade($transportEntity->getCityWeightProfitQuotient()));
+                $transportEntity->setCityWeightProfitQuotient(
+                    $transportEntity->getCityProfit() / $transportEntity->getWeight()
+                );
+                $transportEntity->setCityColorGrade(
+                    $this->calculateColorGrade($transportEntity->getCityWeightProfitQuotient())
+                );
                 $transportEntity->setCityPriceAge($this->getTimeDiff($transportEntity->getCityPriceDate()));
                 $transportEntity->setBmPriceAge($this->getTimeDiff($transportEntity->getBmPriceDate()));
                 $transportEntity->setTotalProfit($transportEntity->getAmount() * $transportEntity->getCityProfit());
@@ -95,7 +99,7 @@ class BlackMarketTransportingService
     private function renameArrayKeys(array $tierList): array
     {
         foreach ($tierList as $tier => $value) {
-            if (str_contains((string)$tier, '_')) {
+            if (str_contains((string) $tier, '_')) {
                 $newKeyName = str_replace('_', '.', $tier);
                 $tierList[$newKeyName] = $value;
                 unset($tierList[$tier]);
@@ -104,11 +108,11 @@ class BlackMarketTransportingService
         return $tierList;
     }
 
-    private function filterItems(array $combinedItems, array $tierList):array
+    private function filterItems(array $combinedItems, array $tierList): array
     {
         /** @var BlackMarketTransportEntity $combinedItem */
         foreach ($combinedItems as $key => $combinedItem) {
-            if (!in_array($combinedItem->getTier(), $tierList, true)) {
+            if (! in_array($combinedItem->getTier(), $tierList, true)) {
                 unset($combinedItems[$key]);
             }
         }
