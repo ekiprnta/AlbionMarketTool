@@ -68,11 +68,15 @@ class BlackMarketTransportingService
         /** @var ItemEntity $cityItem */
         foreach ($cityItems as $cityItem) {
             if ($cityItem->getTier() === $transportEntity->getTier() &&
-            $cityItem->getName() === $transportEntity->getName()) {
+                $cityItem->getName() === $transportEntity->getName()) {
                 $transportEntity->setCityPrice($cityItem->getSellOrderPrice());
                 $transportEntity->setCityPriceDate($cityItem->getSellOrderPriceDate());
-                $transportEntity->setAmount((int) ceil($this->maxWeight / $transportEntity->getWeight()));
-                $transportEntity->setCityProfit($transportEntity->getBmPrice() - $transportEntity->getCityPrice());
+                $transportEntity->setAmount((int)ceil($this->maxWeight / $transportEntity->getWeight()));
+                $transportEntity->setCityProfit(
+                    (int)($transportEntity->getBmPrice() *
+                        (1 - BlackMarketCraftingService::MARKET_SETUP - BlackMarketCraftingService::MARKET_FEE) -
+                        $transportEntity->getCityPrice())
+                );
                 $transportEntity->setCityWeightProfitQuotient(
                     $transportEntity->getCityProfit() / $transportEntity->getWeight()
                 );
@@ -100,7 +104,7 @@ class BlackMarketTransportingService
     {
         /** @var BlackMarketTransportEntity $combinedItem */
         foreach ($combinedItems as $key => $combinedItem) {
-            if (! in_array($combinedItem->getTier(), $tierList, true)) {
+            if (!in_array($combinedItem->getTier(), $tierList, true)) {
                 unset($combinedItems[$key]);
             }
         }

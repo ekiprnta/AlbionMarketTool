@@ -19,8 +19,8 @@ class BlackMarketCraftingService
     private const RRR_NO_BONUS_CITY_FOCUS = 43.5;
     private const RRR_BASE_PERCENTAGE = 100;
 
-    private const MARKET_SETUP = 2.5;
-    private const MARKET_FEE = 4.0;
+    public const MARKET_SETUP = 2.5;
+    public const MARKET_FEE = 4.0;
 
     private int $maxWeight;
 
