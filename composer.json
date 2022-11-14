@@ -22,8 +22,7 @@
     "laminas/laminas-diactoros": "^2.13",
     "laminas/laminas-servicemanager": "^3.16",
     "monolog/monolog": "2.5",
-    "ext-curl": "*",
-    "ext-http": "*"
+    "ext-curl": "*"
   },
   "require-dev": {
     "roave/security-advisories": "dev-latest",
