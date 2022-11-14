@@ -19,6 +19,9 @@ class BlackMarketCraftingService
     private const RRR_NO_BONUS_CITY_FOCUS = 43.5;
     private const RRR_BASE_PERCENTAGE = 100;
 
+    private const MARKET_SETUP = 2.5;
+    private const MARKET_FEE = 4.0;
+
     private int $maxWeight;
 
     public function __construct(
@@ -99,16 +102,16 @@ class BlackMarketCraftingService
                 $calculateEntity->getSecondarySellOrderPrice() *
                 $calculateEntity->getSecondaryResourceAmount();
         } else {
-            $itemCost = $calculateEntity->getPrimaryBuyOrderPrice() *
-                $calculateEntity->getPrimaryResourceAmount() +
-                $calculateEntity->getSecondaryBuyOrderPrice() *
-                $calculateEntity->getSecondaryResourceAmount();
+            $itemCost = ($calculateEntity->getPrimaryBuyOrderPrice() *
+                    $calculateEntity->getPrimaryResourceAmount() +
+                    $calculateEntity->getSecondaryBuyOrderPrice() *
+                    $calculateEntity->getSecondaryResourceAmount()) *
+                (1 + self::MARKET_SETUP);
         }
-
         $rate = (self::RRR_BASE_PERCENTAGE - $percentage) / 100;
         $amount = $calculateEntity->getAmount();
         $profitBooks = $this->calculateProfitBooks($calculateEntity);
-        $itemSellPrice = $calculateEntity->getItemSellOrderPrice();
+        $itemSellPrice = $calculateEntity->getItemSellOrderPrice() * (1 - self::MARKET_SETUP - self::MARKET_FEE);
         return ($itemSellPrice - ($itemCost * $rate)) * $amount + $profitBooks;
     }
 
@@ -185,10 +188,11 @@ class BlackMarketCraftingService
         return $itemDiff->d * 24 * 60 + $itemDiff->h * 60 + $itemDiff->i;
     }
 
-    private function calculateProfitBooks(BlackMarketCraftingEntity $calculateEntity): int
+    private function calculateProfitBooks(BlackMarketCraftingEntity $calculateEntity): float
     {
         return ($calculateEntity->getFullSellOrderPrice() -
                 $calculateEntity->getEmptySellOrderPrice()) *
+            (1 - self::MARKET_FEE - self::MARKET_SETUP) *
             $calculateEntity->getAmountBooks();
     }
 
