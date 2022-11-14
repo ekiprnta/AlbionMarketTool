@@ -148,7 +148,7 @@ class BlackMarketCraftingService
         }
     }
 
-    private function calculateAgeOfPrices(array $calculateEntityArray, string $order)
+    private function calculateAgeOfPrices(array $calculateEntityArray, string $order): void
     {
         /** @var BlackMarketCraftingEntity $calculateEntity */
         foreach ($calculateEntityArray as $calculateEntity) {
