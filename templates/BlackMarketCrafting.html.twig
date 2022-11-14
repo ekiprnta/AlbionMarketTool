@@ -27,7 +27,9 @@
                                        type="number">
                             </div>
                             <div class="col-3">
-                                <label for="percentage">RRR (Default 24,8%)</label>
+                                <label for="percentage">
+                                    Resource Return Rate*
+                                </label>
                                 <input class="form-control"
                                        id="percentage"
                                        max="100"
@@ -69,6 +71,13 @@
                             </div>
                         </div>
                     </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="d-flex">
+                    {% for name,rate in rates %}
+                        <small class="badge badge-secondary">*{{ name }}: {{ rate }}%</small>
+                    {% endfor %}
                 </div>
             </div>
             <div class="row">

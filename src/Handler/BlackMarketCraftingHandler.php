@@ -13,7 +13,7 @@ class BlackMarketCraftingHandler
 {
     public function __construct(
         private Environment $twigEnvironment,
-        private BlackMarketCraftingService $calculatorService,
+        private BlackMarketCraftingService $blackMarketCraftingService,
     ) {
     }
 
@@ -28,15 +28,16 @@ class BlackMarketCraftingHandler
             $rrr = (float) $_GET['rrr'];
             $order = $_GET['order'];
             try {
-                $cityData = $this->calculatorService->getDataForCity($itemCity, $weight, $rrr, $resourceCity, $order);
+                $cityData = $this->blackMarketCraftingService->getDataForCity($itemCity, $weight, $rrr, $resourceCity, $order);
             } catch (InvalidArgumentException $invalidArgumentExceptionException) {
                 $alertMessage = $invalidArgumentExceptionException->getMessage();
             }
         }
         $htmlContent = $this->twigEnvironment->render('BlackMarketCrafting.html.twig', [
             'dataArray' => $cityData,
-            'infoService' => $this->calculatorService,
+            'infoService' => $this->blackMarketCraftingService,
             'alertMessage' => $alertMessage,
+            'rates' => $this->blackMarketCraftingService->getCraftingRates(),
         ]);
         return new HtmlResponse($htmlContent);
     }

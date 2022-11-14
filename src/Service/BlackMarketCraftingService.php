@@ -15,6 +15,8 @@ class BlackMarketCraftingService
 {
     private const RRR_BONUS_CITY_NO_FOCUS = 24.8;
     private const RRR_BONUS_CITY_FOCUS = 47.9;
+    private const RRR_NO_BONUS_CITY_NO_FOCUS = 15.2;
+    private const RRR_NO_BONUS_CITY_FOCUS = 43.5;
     private const RRR_BASE_PERCENTAGE = 100;
 
     private int $maxWeight;
@@ -213,5 +215,15 @@ class BlackMarketCraftingService
     public function getSecResource(string $itemName)
     {
         return NameDataService::getSecResource($itemName);
+    }
+
+    public function getCraftingRates(): array
+    {
+        return [
+            'No City Bonus No Focus' => self::RRR_NO_BONUS_CITY_NO_FOCUS,
+            'No City Bonus Focus' => self::RRR_NO_BONUS_CITY_FOCUS,
+            'City Bonus No Focus' => self::RRR_BONUS_CITY_NO_FOCUS,
+            'City Bonus Focus' => self::RRR_BONUS_CITY_FOCUS,
+        ];
     }
 }
