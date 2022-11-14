@@ -6,24 +6,19 @@ namespace MZierdt\Albion\Handler;
 
 use InvalidArgumentException;
 use Laminas\Diactoros\Response\HtmlResponse;
-use MZierdt\Albion\Service\CalculatorService;
-use MZierdt\Albion\Service\UploadService;
+use MZierdt\Albion\Service\BlackMarketCraftingService;
 use Twig\Environment;
 
 class BlackMarketCraftingHandler
 {
     public function __construct(
         private Environment $twigEnvironment,
-        private CalculatorService $calculatorService,
-        private UploadService $uploadService,
+        private BlackMarketCraftingService $blackMarketCraftingService,
     ) {
     }
 
     public function handler(): HtmlResponse
     {
-        if (! empty($_POST['updatePrices'])) {
-            $this->uploadService->uploadRefreshedPrices();
-        }
         $cityData = [];
         $alertMessage = null;
         if (! empty($_GET)) {
@@ -33,15 +28,22 @@ class BlackMarketCraftingHandler
             $rrr = (float) $_GET['rrr'];
             $order = $_GET['order'];
             try {
-                $cityData = $this->calculatorService->getDataForCity($itemCity, $weight, $rrr, $resourceCity, $order);
+                $cityData = $this->blackMarketCraftingService->getDataForCity(
+                    $itemCity,
+                    $weight,
+                    $rrr,
+                    $resourceCity,
+                    $order
+                );
             } catch (InvalidArgumentException $invalidArgumentExceptionException) {
                 $alertMessage = $invalidArgumentExceptionException->getMessage();
             }
         }
-        $htmlContent = $this->twigEnvironment->render('calculateBlackMarket.html.twig', [
+        $htmlContent = $this->twigEnvironment->render('BlackMarketCrafting.html.twig', [
             'dataArray' => $cityData,
-            'infoService' => $this->calculatorService,
+            'infoService' => $this->blackMarketCraftingService,
             'alertMessage' => $alertMessage,
+            'rates' => $this->blackMarketCraftingService->getCraftingRates(),
         ]);
         return new HtmlResponse($htmlContent);
     }

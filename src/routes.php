@@ -18,7 +18,7 @@ $dispatcher = FastRoute\simpleDispatcher(
         $r->addRoute(['GET', 'POST'], '/blackmarket/crafting', $serviceManager->get(BlackMarketCraftingHandler::class));
         $r->addRoute(
             ['GET', 'POST'],
-            '/blackmarket/transport',
+            '/blackmarket/transporting',
             $serviceManager->get(BlackMarketTransportingHandler::class)
         );
         $r->addRoute(['GET', 'POST'], '/admin', $serviceManager->get(AdminHandler::class));

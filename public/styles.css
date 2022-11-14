@@ -64,3 +64,9 @@
     margin-right: 2px;
     margin-bottom: 2px;
 }
+
+.standard-alert {
+    width: 100%;
+    margin: 2px;
+    text-align: center;
+}

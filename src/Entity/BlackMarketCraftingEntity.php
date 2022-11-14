@@ -7,7 +7,7 @@ namespace MZierdt\Albion\Entity;
 use DateTimeImmutable;
 use RuntimeException;
 
-class CalculateEntity
+class BlackMarketCraftingEntity
 {
     private const PREMIUM_FACTOR = 1.5;
 

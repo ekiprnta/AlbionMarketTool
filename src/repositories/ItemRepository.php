@@ -14,22 +14,39 @@ class ItemRepository
     ) {
     }
 
-    public function getItemsFromCity(string $city)
+    public function getItemsForTransport(string $city): array
     {
-        return $this->getItemsFromDb($city);
+        $statement = $this->pdoConnection->prepare(
+            <<<SQL
+            SELECT *
+            FROM albion_db.items
+            WHERE albion_db.items.city = :city
+SQL
+        );
+        $statement->bindParam(':city', $city);
+        $statement->execute();
+
+        $itemsArray = [];
+        foreach ($statement->getIterator() as $itemInformation) {
+            $itemsArray[] = new ItemEntity($itemInformation);
+        }
+        return $itemsArray;
     }
 
-    private function getItemsFromDb(string $city): array
+    public function getBlackMarketItemsFromCity(string $city): array
     {
         $statement = $this->pdoConnection->prepare(
             <<<SQL
             SELECT * 
             FROM albion_db.items
             WHERE albion_db.items.bonusCity = :city
+            AND  city = :bm
 SQL
         );
 
         $statement->bindParam(':city', $city);
+        $blackMarketCity = 'Black Market';
+        $statement->bindParam(':bm', $blackMarketCity);
         $statement->execute();
         $itemsArray = [];
         foreach ($statement->getIterator() as $itemInformation) {

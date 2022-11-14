@@ -18,47 +18,12 @@ class ApiService // Buy Order ist buy_price_max
     private const RESOURCE_LEATHER = 'Leather';
     private const RESOURCE_CLOTH = 'Cloth';
 
-    private const CITY_LYMHURST = 'Lymhurst';
-    private const CITY_FORTSTERLING = 'FortSterling';
-    private const CITY_BRIDGEWATCH = 'Bridgewatch';
-    private const CITY_MARTLOCK = 'Martlock';
-    private const CITY_THETFORD = 'Thetford';
-    private const CITY_BLACKMARKET = 'BlackMarket';
-
-    public const ITEM_WARRIOR_HELMET = 'plateHelmet';
-    public const ITEM_WARRIOR_ARMOR = 'plateArmor';
-    public const ITEM_WARRIOR_BOOTS = 'plateBoots';
-    public const ITEM_WARRIOR_SWORD = 'sword';
-    public const ITEM_WARRIOR_AXE = 'axe';
-    public const ITEM_WARRIOR_MACE = 'mace';
-    public const ITEM_WARRIOR_HAMMER = 'hammer';
-    public const ITEM_WARRIOR_WAR_GLOVE = 'warGlove';
-    public const ITEM_WARRIOR_CROSSBOW = 'crossbow';
-    public const ITEM_WARRIOR_SHIELD = 'shield';
-
-    public const ITEM_MAGE_HELMET = 'clothCowl';
-    public const ITEM_MAGE_ARMOR = 'clothRobe';
-    public const ITEM_MAGE_BOOTS = 'clothSandals';
-    public const ITEM_MAGE_FIRE_STAFF = 'fireStaff';
-    public const ITEM_MAGE_HOLY_STAFF = 'holyStaff';
-    public const ITEM_MAGE_ARCANE_STAFF = 'arcaneStaff';
-    public const ITEM_MAGE_FROST_STAFF = 'frostStaff';
-    public const ITEM_MAGE_CURSE_STAFF = 'curseStaff';
-    public const ITEM_MAGE_TOME_STAFF = 'tome';
-
-    public const ITEM_HUNTER_HELMET = 'leatherHood';
-    public const ITEM_HUNTER_ARMOR = 'leatherJacket';
-    public const ITEM_HUNTER_BOOTS = 'leatherShoes';
-    public const ITEM_HUNTER_BOW = 'bow';
-    public const ITEM_HUNTER_SPEAR = 'spear';
-    public const ITEM_HUNTER_NATURE_STAFF = 'nature';
-    public const ITEM_HUNTER_DAGGER = 'dagger';
-    public const ITEM_HUNTER_QUARTERSTAFF = 'quarterstaff';
-    public const ITEM_HUNTER_TORCH = 'torch';
-
-    public const JOURNAL_WARRIOR = 'JOURNAL_WARRIOR';
-    public const JOURNAL_MAGE = 'JOURNAL_MAGE';
-    public const JOURNAL_HUNTER = 'JOURNAL_HUNTER';
+    public const CITY_LYMHURST = 'Lymhurst';
+    public const CITY_FORTSTERLING = 'FortSterling';
+    public const CITY_BRIDGEWATCH = 'Bridgewatch';
+    public const CITY_MARTLOCK = 'Martlock';
+    public const CITY_THETFORD = 'Thetford';
+    public const CITY_BLACKMARKET = 'BlackMarket';
 
     private const QUALITY_GOOD = 2;
 
@@ -66,6 +31,7 @@ class ApiService // Buy Order ist buy_price_max
         private HttpClient $httpClient
     ) {
     }
+
 
     public function getJournals(string $journalType)
     {
@@ -105,106 +71,7 @@ class ApiService // Buy Order ist buy_price_max
 
     public function getBlackMarketItem(string $itemName)
     {
-        $apiUrl = match ($itemName) {
-            self::ITEM_WARRIOR_HELMET => $this->apiUrlAssembler(
-                self::ITEM_WARRIOR_HELMET,
-                self::ITEM_TIERS_WITH_PLACEHOLDER
-            ),
-            self::ITEM_WARRIOR_ARMOR => $this->apiUrlAssembler(
-                self::ITEM_WARRIOR_ARMOR,
-                self::ITEM_TIERS_WITH_PLACEHOLDER
-            ),
-            self::ITEM_WARRIOR_BOOTS => $this->apiUrlAssembler(
-                self::ITEM_WARRIOR_BOOTS,
-                self::ITEM_TIERS_WITH_PLACEHOLDER
-            ),
-            self::ITEM_WARRIOR_SWORD => $this->apiUrlAssembler(
-                self::ITEM_WARRIOR_SWORD,
-                self::ITEM_TIERS_WITH_PLACEHOLDER
-            ),
-            self::ITEM_WARRIOR_AXE => $this->apiUrlAssembler(self::ITEM_WARRIOR_AXE, self::ITEM_TIERS_WITH_PLACEHOLDER),
-            self::ITEM_WARRIOR_MACE => $this->apiUrlAssembler(
-                self::ITEM_WARRIOR_MACE,
-                self::ITEM_TIERS_WITH_PLACEHOLDER
-            ),
-            self::ITEM_WARRIOR_HAMMER => $this->apiUrlAssembler(
-                self::ITEM_WARRIOR_HAMMER,
-                self::ITEM_TIERS_WITH_PLACEHOLDER
-            ),
-            self::ITEM_WARRIOR_WAR_GLOVE => $this->apiUrlAssembler(
-                self::ITEM_WARRIOR_WAR_GLOVE,
-                self::ITEM_TIERS_WITH_PLACEHOLDER
-            ),
-            self::ITEM_WARRIOR_CROSSBOW => $this->apiUrlAssembler(
-                self::ITEM_WARRIOR_CROSSBOW,
-                self::ITEM_TIERS_WITH_PLACEHOLDER
-            ),
-            self::ITEM_WARRIOR_SHIELD => $this->apiUrlAssembler(
-                self::ITEM_WARRIOR_SHIELD,
-                self::ITEM_TIERS_WITH_PLACEHOLDER
-            ),
-            self::ITEM_MAGE_HELMET => $this->apiUrlAssembler(self::ITEM_MAGE_HELMET, self::ITEM_TIERS_WITH_PLACEHOLDER),
-            self::ITEM_MAGE_ARMOR => $this->apiUrlAssembler(self::ITEM_MAGE_ARMOR, self::ITEM_TIERS_WITH_PLACEHOLDER),
-            self::ITEM_MAGE_BOOTS => $this->apiUrlAssembler(self::ITEM_MAGE_BOOTS, self::ITEM_TIERS_WITH_PLACEHOLDER),
-            self::ITEM_MAGE_FIRE_STAFF => $this->apiUrlAssembler(
-                self::ITEM_MAGE_FIRE_STAFF,
-                self::ITEM_TIERS_WITH_PLACEHOLDER
-            ),
-            self::ITEM_MAGE_HOLY_STAFF => $this->apiUrlAssembler(
-                self::ITEM_MAGE_HOLY_STAFF,
-                self::ITEM_TIERS_WITH_PLACEHOLDER
-            ),
-            self::ITEM_MAGE_ARCANE_STAFF => $this->apiUrlAssembler(
-                self::ITEM_MAGE_ARCANE_STAFF,
-                self::ITEM_TIERS_WITH_PLACEHOLDER
-            ),
-            self::ITEM_MAGE_FROST_STAFF => $this->apiUrlAssembler(
-                self::ITEM_MAGE_FROST_STAFF,
-                self::ITEM_TIERS_WITH_PLACEHOLDER
-            ),
-            self::ITEM_MAGE_CURSE_STAFF => $this->apiUrlAssembler(
-                self::ITEM_MAGE_CURSE_STAFF,
-                self::ITEM_TIERS_WITH_PLACEHOLDER
-            ),
-            self::ITEM_MAGE_TOME_STAFF => $this->apiUrlAssembler(
-                self::ITEM_MAGE_TOME_STAFF,
-                self::ITEM_TIERS_WITH_PLACEHOLDER
-            ),
-            self::ITEM_HUNTER_HELMET => $this->apiUrlAssembler(
-                self::ITEM_HUNTER_HELMET,
-                self::ITEM_TIERS_WITH_PLACEHOLDER
-            ),
-            self::ITEM_HUNTER_ARMOR => $this->apiUrlAssembler(
-                self::ITEM_HUNTER_ARMOR,
-                self::ITEM_TIERS_WITH_PLACEHOLDER
-            ),
-            self::ITEM_HUNTER_BOOTS => $this->apiUrlAssembler(
-                self::ITEM_HUNTER_BOOTS,
-                self::ITEM_TIERS_WITH_PLACEHOLDER
-            ),
-            self::ITEM_HUNTER_BOW => $this->apiUrlAssembler(self::ITEM_HUNTER_BOW, self::ITEM_TIERS_WITH_PLACEHOLDER),
-            self::ITEM_HUNTER_SPEAR => $this->apiUrlAssembler(
-                self::ITEM_HUNTER_SPEAR,
-                self::ITEM_TIERS_WITH_PLACEHOLDER
-            ),
-            self::ITEM_HUNTER_NATURE_STAFF => $this->apiUrlAssembler(
-                self::ITEM_HUNTER_NATURE_STAFF,
-                self::ITEM_TIERS_WITH_PLACEHOLDER
-            ),
-            self::ITEM_HUNTER_DAGGER => $this->apiUrlAssembler(
-                self::ITEM_HUNTER_DAGGER,
-                self::ITEM_TIERS_WITH_PLACEHOLDER
-            ),
-            self::ITEM_HUNTER_QUARTERSTAFF => $this->apiUrlAssembler(
-                self::ITEM_HUNTER_QUARTERSTAFF,
-                self::ITEM_TIERS_WITH_PLACEHOLDER
-            ),
-            self::ITEM_HUNTER_TORCH => $this->apiUrlAssembler(
-                self::ITEM_HUNTER_TORCH,
-                self::ITEM_TIERS_WITH_PLACEHOLDER
-            ),
-            default => throw new \InvalidArgumentException('wrong Item name in Api Service')
-        };
+        $apiUrl = $this->apiUrlAssembler($itemName, self::ITEM_TIERS_WITH_PLACEHOLDER);
 
         if (is_array($apiUrl)) {
             $apiData = [];
@@ -256,5 +123,41 @@ class ApiService // Buy Order ist buy_price_max
     private function jsonDecode(string $json)
     {
         return json_decode($json, true, 512, JSON_THROW_ON_ERROR);
+    }
+
+
+    public function getItems(string $itemName): array
+    {
+        $apiUrl = $this->apiUrlAssembler($itemName, self::ITEM_TIERS_WITH_PLACEHOLDER);
+        $cities = sprintf(
+            '%s,%s,%s,%s,%s,%s',
+            self::CITY_BRIDGEWATCH,
+            self::CITY_FORTSTERLING,
+            self::CITY_LYMHURST,
+            self::CITY_MARTLOCK,
+            self::CITY_THETFORD,
+            self::CITY_BLACKMARKET,
+        );
+
+        if (is_array($apiUrl)) {
+            $apiData = [];
+            foreach ($apiUrl as $url) {
+                $jsonFromArray = $this->httpClient->get(
+                    $url,
+                    [
+                        'locations' => $cities,
+                        'qualities' => self::QUALITY_GOOD,
+                    ]
+                );
+                $apiData[] = $this->jsonDecode($jsonFromArray);
+            }
+            return $apiData;
+        }
+
+        $json = $this->httpClient->get($apiUrl, [
+            'locations' => $cities,
+            'qualities' => self::QUALITY_GOOD,
+        ]);
+        return $this->jsonDecode($json);
     }
 }

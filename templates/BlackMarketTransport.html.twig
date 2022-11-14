@@ -1,0 +1,91 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <div class="card mt-3">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-10">
+                    <form action="" method="get">
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label for="itemCity">Choose City to transport from</label>
+                                    <select name="itemCity" id="itemCity" class="form-control">
+                                        <option value="Fort Sterling">Fort Sterling</option>
+                                        <option value="Lymhurst">Lymhurst</option>
+                                        <option value="Bridgewatch">Bridgewatch</option>
+                                        <option value="Martlock">Martlock</option>
+                                        <option value="Thetford">Thetford</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <label for="weight">Max. Carry Capacity</label>
+                                <input class="form-control"
+                                       id="weight"
+                                       name="weight"
+                                       type="number">
+                            </div>
+                            {% include 'tierCheckbox.html.twig' %}
+                        </div>
+                        <div class="row">
+                            <div class="col-3">
+                                <button class="btn btn-primary" type="submit">Calculate</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                {% if alertMessage is not null %}
+                    <div class="alert alert-danger standard-alert">{{ alertMessage }}</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="card mt-3">
+        <div class="card-body">
+            <div class="card-title"><h3>Profit</h3></div>
+            <table class="table table-sm" id="sortTable">
+                <thead class="thead-default">
+                <tr>
+                    <th>Tier</th>
+                    <th>Name</th>
+                    <th>BlackMarketPrice</th>
+                    <th>BlackMarketPrice Age</th>
+                    <th>Price</th>
+                    <th>Price Age</th>
+                    <th>Weight/Profit</th>
+                    <th>Profit</th>
+                    <th>TotalProfit</th>
+                    <th>Amount</th>
+                </tr>
+                </thead>
+                <tbody>
+                {# @var TransportEntity \MZierdt\Albion\Entity\BlackMarketTransportEntity #}
+                {% for TransportEntity in dataArray %}
+                    {%if TransportEntity.cityPrice != 0 and TransportEntity.cityWeightProfitQuotient > 500%}
+                    <tr class="bg-{{ TransportEntity.cityColorGrade }}">
+                        <td class="text-left tier-{{ TransportEntity.tierColor }} tier">{{ TransportEntity.tier }}</td>
+                        <td>{{ TransportEntity.realName }}</td>
+                        <td>{% if TransportEntity.bmPrice == 0 %} - {% else %} {{ TransportEntity.bmPrice|number_format }} {% endif %}</td>
+                        <td {% if TransportEntity.bmPriceAge > 720 %} class="bg-D" {% endif %}>{{ TransportEntity.bmPriceAge|number_format }}
+                            min
+                        </td>
+                        <td>{% if TransportEntity.cityPrice == 0 %} - {% else %} {{ TransportEntity.cityPrice|number_format }} {% endif %}</td>
+                        <td {% if TransportEntity.cityPriceAge > 720 %} class="bg-D" {% endif %}>{{ TransportEntity.cityPriceAge|number_format }}
+                            min
+                        </td>
+                        <td>{% if TransportEntity.cityWeightProfitQuotient == 0 %} - {% else %} {{ TransportEntity.cityWeightProfitQuotient|number_format }} {% endif %}</td>
+                        <td>{% if TransportEntity.cityProfit == 0 %} - {% else %} {{ TransportEntity.cityProfit|number_format }} {% endif %}</td>
+                        <td>{% if TransportEntity.totalProfit == 0 %} - {% else %} {{ TransportEntity.totalProfit|number_format }} {% endif %}</td>
+                        <td>{% if TransportEntity.amount == 0 %} - {% else %} {{ TransportEntity.amount|number_format }} {% endif %}</td>
+                    </tr>
+                    {%endif%}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

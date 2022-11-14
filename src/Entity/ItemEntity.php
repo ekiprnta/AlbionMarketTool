@@ -9,6 +9,37 @@ use DateTimeZone;
 
 class ItemEntity
 {
+    public const ITEM_WARRIOR_HELMET = 'plateHelmet';
+    public const ITEM_WARRIOR_ARMOR = 'plateArmor';
+    public const ITEM_WARRIOR_BOOTS = 'plateBoots';
+    public const ITEM_WARRIOR_SWORD = 'sword';
+    public const ITEM_WARRIOR_AXE = 'axe';
+    public const ITEM_WARRIOR_MACE = 'mace';
+    public const ITEM_WARRIOR_HAMMER = 'hammer';
+    public const ITEM_WARRIOR_WAR_GLOVE = 'warGlove';
+    public const ITEM_WARRIOR_CROSSBOW = 'crossbow';
+    public const ITEM_WARRIOR_SHIELD = 'shield';
+
+    public const ITEM_MAGE_HELMET = 'clothCowl';
+    public const ITEM_MAGE_ARMOR = 'clothRobe';
+    public const ITEM_MAGE_BOOTS = 'clothSandals';
+    public const ITEM_MAGE_FIRE_STAFF = 'fireStaff';
+    public const ITEM_MAGE_HOLY_STAFF = 'holyStaff';
+    public const ITEM_MAGE_ARCANE_STAFF = 'arcaneStaff';
+    public const ITEM_MAGE_FROST_STAFF = 'frostStaff';
+    public const ITEM_MAGE_CURSE_STAFF = 'curseStaff';
+    public const ITEM_MAGE_TOME_STAFF = 'tome';
+
+    public const ITEM_HUNTER_HELMET = 'leatherHood';
+    public const ITEM_HUNTER_ARMOR = 'leatherJacket';
+    public const ITEM_HUNTER_BOOTS = 'leatherShoes';
+    public const ITEM_HUNTER_BOW = 'bow';
+    public const ITEM_HUNTER_SPEAR = 'spear';
+    public const ITEM_HUNTER_NATURE_STAFF = 'nature';
+    public const ITEM_HUNTER_DAGGER = 'dagger';
+    public const ITEM_HUNTER_QUARTERSTAFF = 'quarterstaff';
+    public const ITEM_HUNTER_TORCH = 'torch';
+
     private const TIER_T2 = '2';
     private const TIER_T3 = '3';
     private const TIER_T4 = '4';
@@ -112,19 +143,19 @@ class ItemEntity
         $this->tier = $itemData['tier'];
         $this->name = $itemData['name'];
         $this->weaponGroup = $itemData['weaponGroup'];
-        $this->realName = $itemData['realName'];
-        $this->class = $itemData['class'];
+        $this->realName = $itemData['realName'] ?? 'No Name given WTF';
+        $this->class = $itemData['class'] ?? 'No CLass ? wrong input?';
         $this->city = $itemData['city'];
         $this->quality = (int) $itemData['quality'];
         $this->sellOrderPrice = (int) $itemData['sellOrderPrice'];
         $this->sellOrderPriceDate = $sellOrderPriceDate;
         $this->buyOrderPrice = (int) $itemData['buyOrderPrice'];
         $this->buyOrderPriceDate = $buyOrderPriceDate;
-        $this->primaryResource = $itemData['primaryResource'];
+        $this->primaryResource = $itemData['primaryResource'] ?? 'primR';
         $this->primaryResourceAmount = (int) $itemData['primaryResourceAmount'];
         $this->secondaryResource = $itemData['secondaryResource'];
         $this->secondaryResourceAmount = (int) $itemData['secondaryResourceAmount'];
-        $this->bonusCity = $itemData['bonusCity'];
+        $this->bonusCity = $itemData['bonusCity'] ?? 'bonusCity';
         $this->fameFactor = $this->setFameFactor();
         $this->amountInStorage = $itemData['amountInStorage'];
         $this->weight = $weight;
@@ -265,14 +296,13 @@ class ItemEntity
         return $this->fameFactor;
     }
 
-    private function getDateTimeImmutable(mixed $sellOrderPriceDate): DateTimeImmutable|bool
+    private function getDateTimeImmutable(mixed $date): DateTimeImmutable|bool
     {
-        $sellOrderPriceDate = str_replace('T', ' ', $sellOrderPriceDate);
-        return DateTimeImmutable::createFromFormat(
-            'Y-m-d H:i:s',
-            $sellOrderPriceDate,
-            new DateTimeZone('Europe/London')
-        );
+        if ($date === null) {
+            return DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '2000-00-00 00:00:00');
+        }
+        $date = str_replace('T', ' ', $date);
+        return DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $date, new DateTimeZone('Europe/London'));
     }
 
     private function setWeight(array $itemData): float
