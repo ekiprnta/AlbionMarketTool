@@ -9,6 +9,6 @@ class Test extends TestCase
     public function testTest()
     {
         $a = 0;
-        $this->assertEquals(0,$a);
- }
+        $this->assertEquals(0, $a);
+    }
 }
