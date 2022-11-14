@@ -86,6 +86,29 @@ class ItemEntity
     private const T82_WEIGHT_FACTOR = 1.056;
     private const T83_WEIGHT_FACTOR = 1.056;
 
+    public const T20_NUTRITION_FACTOR = 4;
+    public const T30_NUTRITION_FACTOR = 8;
+    public const T40_NUTRITION_FACTOR = 16;
+    public const T41_NUTRITION_FACTOR = 32;
+    public const T42_NUTRITION_FACTOR = 64;
+    public const T43_NUTRITION_FACTOR = 128;
+    public const T50_NUTRITION_FACTOR = 32;
+    public const T51_NUTRITION_FACTOR = 64;
+    public const T52_NUTRITION_FACTOR = 128;
+    public const T53_NUTRITION_FACTOR = 256;
+    public const T60_NUTRITION_FACTOR = 64;
+    public const T61_NUTRITION_FACTOR = 128;
+    public const T62_NUTRITION_FACTOR = 256;
+    public const T63_NUTRITION_FACTOR = 512;
+    public const T70_NUTRITION_FACTOR = 128;
+    public const T71_NUTRITION_FACTOR = 256;
+    public const T72_NUTRITION_FACTOR = 512;
+    public const T73_NUTRITION_FACTOR = 1024;
+    public const T80_NUTRITION_FACTOR = 256;
+    public const T81_NUTRITION_FACTOR = 512;
+    public const T82_NUTRITION_FACTOR = 1024;
+    public const T83_NUTRITION_FACTOR = 2048;
+
     private const T20_FACTOR_FAME = 1;
     private const T30_FACTOR_FAME = 5;
     private const T40_FACTOR_FAME = 15;
@@ -132,6 +155,7 @@ class ItemEntity
     private float $fameFactor;
     private ?int $amountInStorage;
     private float $weight;
+    private int $nutrition;
 
 
     public function __construct(array $itemData)
@@ -159,6 +183,12 @@ class ItemEntity
         $this->fameFactor = $this->setFameFactor();
         $this->amountInStorage = $itemData['amountInStorage'];
         $this->weight = $weight;
+        $this->nutrition = ($this->primaryResourceAmount + $this->secondaryResourceAmount) * $this->getNutritonFactor();
+    }
+
+    public function getNutrition(): int
+    {
+        return $this->nutrition;
     }
 
     private function setFameFactor(): float
@@ -339,5 +369,34 @@ class ItemEntity
     public function getRealName(): string
     {
         return $this->realName;
+    }
+
+    private function getNutritonFactor()
+    {
+        return match ($this->tier) {
+            self::TIER_T2 => self::T20_NUTRITION_FACTOR,
+            self::TIER_T3 => self::T30_NUTRITION_FACTOR,
+            self::TIER_T4 => self::T40_NUTRITION_FACTOR,
+            self::TIER_T4_1 => self::T41_NUTRITION_FACTOR,
+            self::TIER_T4_2 => self::T42_NUTRITION_FACTOR,
+            self::TIER_T4_3 => self::T43_NUTRITION_FACTOR,
+            self::TIER_T5 => self::T50_NUTRITION_FACTOR,
+            self::TIER_T5_1 => self::T51_NUTRITION_FACTOR,
+            self::TIER_T5_2 => self::T52_NUTRITION_FACTOR,
+            self::TIER_T5_3 => self::T53_NUTRITION_FACTOR,
+            self::TIER_T6 => self::T60_NUTRITION_FACTOR,
+            self::TIER_T6_1 => self::T61_NUTRITION_FACTOR,
+            self::TIER_T6_2 => self::T62_NUTRITION_FACTOR,
+            self::TIER_T6_3 => self::T63_NUTRITION_FACTOR,
+            self::TIER_T7 => self::T70_NUTRITION_FACTOR,
+            self::TIER_T7_1 => self::T71_NUTRITION_FACTOR,
+            self::TIER_T7_2 => self::T72_NUTRITION_FACTOR,
+            self::TIER_T7_3 => self::T73_NUTRITION_FACTOR,
+            self::TIER_T8 => self::T80_NUTRITION_FACTOR,
+            self::TIER_T8_1 => self::T81_NUTRITION_FACTOR,
+            self::TIER_T8_2 => self::T82_NUTRITION_FACTOR,
+            self::TIER_T8_3 => self::T83_NUTRITION_FACTOR,
+            default => throw new \InvalidArgumentException('wrong Nutrition Factor in Item Entity')
+        };
     }
 }
