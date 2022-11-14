@@ -142,7 +142,7 @@ class BlackMarketCraftingService
                 $quotient >= 400 => 'A',
                 $quotient >= 100 => 'B',
                 $quotient >= 0 => 'C',
-                $quotient <= 0 => 'D',
+                default => 'D',
             };
             $calculateEntity->setColorGrade($colorGrade);
         }

@@ -88,10 +88,7 @@ class UploadService
 
     public function updateItemPricesInAlbionDb(OutputInterface $output): void
     {
-        $section1 = $output->section();
-        $section2 = $output->section();
-        $progressBar = ProgressBarService::getProgressBar($section1, count($this->itemList));
-        $detailProgressBar = ProgressBarService::getProgressBar($section2, 10296);
+        $progressBar = ProgressBarService::getProgressBar($output, count($this->itemList));
 
         foreach ($this->itemList as $item) {
             $items = $this->apiService->getItems($item[0]);
@@ -100,7 +97,7 @@ class UploadService
             $progressBar->display();
             $adjustedItems = $this->adjustItems($items, $item);
 
-            $this->uploadRepository->updatePricesFromItem($adjustedItems, $detailProgressBar);
+            $this->uploadRepository->updatePricesFromItem($adjustedItems);
         }
     }
 

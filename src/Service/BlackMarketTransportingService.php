@@ -86,7 +86,7 @@ class BlackMarketTransportingService
         }
     }
 
-    private function getTimeDiff(?DateTimeImmutable $priceDate): float|int
+    private function getTimeDiff(?DateTimeImmutable $priceDate): int
     {
         if ($priceDate === null) {
             return 999999;
@@ -94,18 +94,6 @@ class BlackMarketTransportingService
         $now = \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', Date('Y-m-d H:i:s'));
         $itemDiff = date_diff($now, $priceDate);
         return $itemDiff->d * 24 * 60 + $itemDiff->h * 60 + $itemDiff->i;
-    }
-
-    private function renameArrayKeys(array $tierList): array
-    {
-        foreach ($tierList as $tier => $value) {
-            if (str_contains((string) $tier, '_')) {
-                $newKeyName = str_replace('_', '.', $tier);
-                $tierList[$newKeyName] = $value;
-                unset($tierList[$tier]);
-            }
-        }
-        return $tierList;
     }
 
     private function filterItems(array $combinedItems, array $tierList): array

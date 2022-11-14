@@ -50,7 +50,7 @@ CodeStyles:
   image: registry.mehrkanal.com/docker/phpx/cli:8.0-build
   dependencies: [ "Composer dependencies" ]
   script:
-    - vendor/bin/ecs --fix
+    - vendor/bin/ecs
   tags:
     - dind
 

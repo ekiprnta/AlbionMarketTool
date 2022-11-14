@@ -267,13 +267,9 @@ SQL;
         }
     }
 
-    public function updatePricesFromItem(array $itemInformation, ProgressBar $progressBar): void
+    public function updatePricesFromItem(array $itemInformation): void
     {
         foreach ($itemInformation as $item) {
-            $progressBar->setMessage('Uploading:' . $item['realName']);
-            $progressBar->advance();
-            $progressBar->display();
-
             if ($item['sellOrderPrice'] !== 0) {
                 $statement = $this->pdoConnection->prepare(
                     <<<SQL
