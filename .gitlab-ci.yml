@@ -95,7 +95,7 @@ PHP Unit Tests:
   before_script:
     - mkdir ./build
   script:
-    - vendor/bin/phpunit --coverage-text --colors=never --coverage-cobertura build/cobertura-coverage.xml --log-junit build/phpunit-report-unit.xml
+    -php -dpcov.enabled=1 -dpcov.directory=src -dpcov.exclude="~vendor~" vendor/bin/phpunit tests --coverage-text --colors=never --coverage-cobertura build/cobertura-coverage.xml --log-junit build/phpunit-report-unit.xml
   artifacts:
     expire_in: 3 days
     paths:
