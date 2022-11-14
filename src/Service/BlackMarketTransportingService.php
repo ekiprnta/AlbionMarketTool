@@ -18,8 +18,11 @@ class BlackMarketTransportingService
     {
     }
 
-    public function getDataForCity(string $itemCity, int $weight): array
+    public function getDataForCity(string $itemCity, int $weight, array $tierList): array
     {
+        if (empty($tierList)) {
+            throw new InvalidArgumentException('No Tiers selected');
+        }
         if (empty($itemCity)) {
             throw new InvalidArgumentException('Please select a city');
         }
@@ -30,10 +33,8 @@ class BlackMarketTransportingService
         $cityItems = $this->itemRepository->getItemsForTransport($itemCity);
         $bmItems = $this->itemRepository->getItemsForTransport('Black Market');
         $combinedItems = $this->combineItems($cityItems, $bmItems);
-
-
-        $bla = usort($combinedItems, static fn($a, $b) => $b->getCityWeightProfitQuotient() <=> $a->getCityWeightProfitQuotient());
-        return $combinedItems;
+        $filteredItems = $this->filterItems($combinedItems, $tierList);
+        return $filteredItems;
     }
 
     private function combineItems(array $cityItems, array $bmItems): array
@@ -89,5 +90,28 @@ class BlackMarketTransportingService
         $now = \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', Date('Y-m-d H:i:s'));
         $itemDiff = date_diff($now, $priceDate);
         return $itemDiff->d * 24 * 60 + $itemDiff->h * 60 + $itemDiff->i;
+    }
+
+    private function renameArrayKeys(array $tierList): array
+    {
+        foreach ($tierList as $tier => $value) {
+            if (str_contains((string)$tier, '_')) {
+                $newKeyName = str_replace('_', '.', $tier);
+                $tierList[$newKeyName] = $value;
+                unset($tierList[$tier]);
+            }
+        }
+        return $tierList;
+    }
+
+    private function filterItems(array $combinedItems, array $tierList):array
+    {
+        /** @var BlackMarketTransportEntity $combinedItem */
+        foreach ($combinedItems as $key => $combinedItem) {
+            if (!in_array($combinedItem->getTier(), $tierList, true)) {
+                unset($combinedItems[$key]);
+            }
+        }
+        return $combinedItems;
     }
 }
