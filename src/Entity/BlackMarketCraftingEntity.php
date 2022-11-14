@@ -507,6 +507,6 @@ class BlackMarketCraftingEntity
 
     private function getCalculatedJournalWeight(JournalEntity $journal): float
     {
-        return ($this->fameToFill / $this->fameAmount) * $journal->getWeight();
+        return ($this->fameAmount / $this->fameToFill) * $journal->getWeight();
     }
 }
