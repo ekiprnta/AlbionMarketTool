@@ -52,14 +52,14 @@
                                 </div>
                             </div>
                             <div class="col-2">
-                                <label for="nutrition">
+                                <label for="craftingFee">
                                     Crafting Fee / 100 Nutrition
                                 </label>
                                 <input class="form-control"
-                                       id="nutrition"
+                                       id="craftingFee"
                                        max="9999"
                                        min="0"
-                                       name="nutrition"
+                                       name="craftingFee"
                                        step="1"
                                        type="number">
                             </div>
@@ -120,8 +120,7 @@
                         <th>Price Age</th>
                         <th>Amount Crafted</th>
                         <th>Amount Books</th>
-                        <th>Books Full Price</th>
-                        <th>Books Empty Price</th>
+                        <th>Crafting Fee</th>
                         <th>Profit when rrr: {{ rrr }}</th>
                         <th>Weight Items</th>
                         <th>Weight Resources</th>
@@ -152,8 +151,7 @@
                                 </td>
                                 <td>{{ item.amount|number_format }}</td>
                                 <td>{{ item.amountBooks|round(1,'ceil') }}</td>
-                                <td>{{ item.getFullSellOrderPrice|number_format }}</td>
-                                <td>{{ item.getEmptySellOrderPrice|number_format }}</td>
+                                <td>{{ item.getCraftingFee|number_format }}</td>
                                 <td>{{ item.percentageProfit|number_format }}</td>
                                 <td>{{ item.totalWeightItems|number_format }}</td>
                                 <td>{{ item.totalWeightResources|number_format }}</td>

@@ -47,6 +47,7 @@ class BlackMarketCraftingEntity
     private string $colorGrade;
     private float $amount;
     private int $tierColor;
+    private int $craftingFee;
 
     private int $itemPriceAge;
     private int $primaryPriceAge;
@@ -112,6 +113,16 @@ class BlackMarketCraftingEntity
         $this->emptyBuyOrderPriceDate = $journalInfo['empty']->getBuyOrderPriceDate();
 
         $this->journalWeight = $this->getCalculatedJournalWeight($journalInfo['full']);
+    }
+
+    public function getCraftingFee(): int
+    {
+        return $this->craftingFee;
+    }
+
+    public function setCraftingFee(int $craftingFee): void
+    {
+        $this->craftingFee = $craftingFee;
     }
 
     public function getItemValue(): int
