@@ -71,9 +71,8 @@ class BlackMarketCraftingService
         $this->calculateWeightProfitQuotient($calculateEntityArray);
         $this->calculateColorGrade($calculateEntityArray);
         $this->calculateAgeOfPrices($calculateEntityArray, $order);
-        $filteredArray = $this->filterCalculateEntityArray($calculateEntityArray);
 //        dd($filteredArray);
-        return $filteredArray;
+        return $this->filterCalculateEntityArray($calculateEntityArray);
     }
 
     private function filterCalculateEntityArray(array $calculateEntityArray): array

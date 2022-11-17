@@ -90,7 +90,7 @@ class BlackMarketCraftingEntity
 
         $this->secondaryResource = $itemEntity->getSecondaryResource();
         $this->secondaryResourceAmount = $itemEntity->getSecondaryResourceAmount();
-        if (! ($this->secondaryResource === null)) {
+        if ($this->secondaryResource !== null) {
             $secondaryResourceEntity = $this->getSecondaryResourceEntity($itemEntity, $resourceData);
             $this->secondarySellOrderPrice = $secondaryResourceEntity->getSellOrderPrice();
             $this->secondarySellOrderPriceDate = $secondaryResourceEntity->getSellOrderPriceDate();
@@ -102,8 +102,7 @@ class BlackMarketCraftingEntity
         $this->resourceWeight = $resourceWeight;
 
         $journalInfo = $this->getJournalInfo($itemEntity, $journalData);
-        $fame = $journalInfo['full']->getFameToFill();
-        $this->fameToFill = $fame;
+        $this->fameToFill = $journalInfo['full']->getFameToFill();
         $this->journalName = $journalInfo['full']->getName();
         $this->fullSellOrderPrice = $journalInfo['full']->getSellOrderPrice();
         $this->fullSellOrderPriceDate = $journalInfo['full']->getSellOrderPriceDate();

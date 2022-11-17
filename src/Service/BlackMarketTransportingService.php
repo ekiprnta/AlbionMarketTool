@@ -33,8 +33,7 @@ class BlackMarketTransportingService
         $cityItems = $this->itemRepository->getItemsForTransport($itemCity);
         $bmItems = $this->itemRepository->getItemsForTransport('Black Market');
         $combinedItems = $this->combineItems($cityItems, $bmItems);
-        $filteredItems = $this->filterItems($combinedItems, $tierList);
-        return $filteredItems;
+        return $this->filterItems($combinedItems, $tierList);
     }
 
     private function combineItems(array $cityItems, array $bmItems): array
