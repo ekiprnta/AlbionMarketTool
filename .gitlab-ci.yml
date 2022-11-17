@@ -1,3 +1,9 @@
+include:
+  - project: 'candy-shop/gitlab-ci-templates'
+    ref: master
+    file:
+      - '/templates/.metrics.yml'
+
 stages:
   - precheck
   - dependencies
@@ -71,7 +77,7 @@ Code Style Checks:
   tags:
     - dind
 
-CodeUpgrade:
+Rector:
   stage: analyze
   needs: [ "Install Composer dependencies" ]
   image: registry.mehrkanal.com/docker/phpx/cli:8.0-build
