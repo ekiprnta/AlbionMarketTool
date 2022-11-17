@@ -98,7 +98,7 @@ class BlackMarketCraftingService
             $usageFee = $this->calculateCraftingFee($calculateEntity, $feeProHundredNutrition);
             $profitBooks = $this->calculateProfitBooks($calculateEntity);
             $profit = $this->calculateProfitByPercentage($calculateEntity, $percentage, $order);
-            $calculateEntity->setCraftingFee((int)ceil($usageFee));
+            $calculateEntity->setCraftingFee((int) ceil($usageFee));
             $calculateEntity->setPercentageProfit($profit - $usageFee + $profitBooks);
         }
     }
