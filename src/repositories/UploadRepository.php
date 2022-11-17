@@ -225,7 +225,7 @@ SQL;
     }
 
 
-    public function emptyDb()
+    public function emptyDb(): void
     {
         $query = <<<SQL
         TRUNCATE TABLE albion_db.items

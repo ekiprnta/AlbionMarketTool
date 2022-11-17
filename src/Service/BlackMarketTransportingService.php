@@ -33,8 +33,7 @@ class BlackMarketTransportingService
         $cityItems = $this->itemRepository->getItemsForTransport($itemCity);
         $bmItems = $this->itemRepository->getItemsForTransport('Black Market');
         $combinedItems = $this->combineItems($cityItems, $bmItems);
-        $filteredItems = $this->filterItems($combinedItems, $tierList);
-        return $filteredItems;
+        return $this->filterItems($combinedItems, $tierList);
     }
 
     private function combineItems(array $cityItems, array $bmItems): array
@@ -68,11 +67,15 @@ class BlackMarketTransportingService
         /** @var ItemEntity $cityItem */
         foreach ($cityItems as $cityItem) {
             if ($cityItem->getTier() === $transportEntity->getTier() &&
-            $cityItem->getName() === $transportEntity->getName()) {
+                $cityItem->getName() === $transportEntity->getName()) {
                 $transportEntity->setCityPrice($cityItem->getSellOrderPrice());
                 $transportEntity->setCityPriceDate($cityItem->getSellOrderPriceDate());
                 $transportEntity->setAmount((int) ceil($this->maxWeight / $transportEntity->getWeight()));
-                $transportEntity->setCityProfit($transportEntity->getBmPrice() - $transportEntity->getCityPrice());
+                $transportEntity->setCityProfit(
+                    (int) ($transportEntity->getBmPrice() *
+                        (1 - BlackMarketCraftingService::MARKET_SETUP - BlackMarketCraftingService::MARKET_FEE) -
+                        $transportEntity->getCityPrice())
+                );
                 $transportEntity->setCityWeightProfitQuotient(
                     $transportEntity->getCityProfit() / $transportEntity->getWeight()
                 );

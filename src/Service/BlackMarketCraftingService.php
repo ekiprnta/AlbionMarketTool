@@ -19,6 +19,10 @@ class BlackMarketCraftingService
     private const RRR_NO_BONUS_CITY_FOCUS = 43.5;
     private const RRR_BASE_PERCENTAGE = 100;
 
+    public const MARKET_SETUP = 0.025;
+    public const MARKET_FEE = 0.04;
+    private const NUTRITION_FACTOR = 0.1125;
+
     private int $maxWeight;
 
     public function __construct(
@@ -32,6 +36,7 @@ class BlackMarketCraftingService
         string $itemCity,
         int $weight,
         float $percentage,
+        int $feeProHundredNutrition,
         string $resourceCity,
         string $order
     ): array {
@@ -43,6 +48,9 @@ class BlackMarketCraftingService
         }
         if (empty($percentage)) {
             $percentage = self::RRR_BONUS_CITY_NO_FOCUS;
+        }
+        if (empty($feeProHundredNutrition)) {
+            $feeProHundredNutrition = 0;
         }
         if (empty($resourceCity)) {
             $resourceCity = $itemCity;
@@ -59,16 +67,15 @@ class BlackMarketCraftingService
         }
         $this->calculateTotalWeight($calculateEntityArray);
         $this->calculateTotalAmountResources($calculateEntityArray);
-        $this->calculateProfit($calculateEntityArray, $percentage, $order);
+        $this->calculateProfit($calculateEntityArray, $percentage, $order, $feeProHundredNutrition);
         $this->calculateWeightProfitQuotient($calculateEntityArray);
         $this->calculateColorGrade($calculateEntityArray);
         $this->calculateAgeOfPrices($calculateEntityArray, $order);
-        $filteredArray = $this->filterCalculateEntityArray($calculateEntityArray);
 //        dd($filteredArray);
-        return $filteredArray;
+        return $this->filterCalculateEntityArray($calculateEntityArray);
     }
 
-    private function filterCalculateEntityArray(array $calculateEntityArray)
+    private function filterCalculateEntityArray(array $calculateEntityArray): array
     {
         $array = [];
         /** @var BlackMarketCraftingEntity $calculateEntity */
@@ -79,19 +86,26 @@ class BlackMarketCraftingService
         return $array;
     }
 
-    private function calculateProfit(array $calculateEntityArray, float $percentage, string $order): void
-    {
+    private function calculateProfit(
+        array $calculateEntityArray,
+        float $percentage,
+        string $order,
+        int $feeProHundredNutrition
+    ): void {
         /** @var BlackMarketCraftingEntity $calculateEntity */
         foreach ($calculateEntityArray as $calculateEntity) {
+            $usageFee = $this->calculateCraftingFee($calculateEntity, $feeProHundredNutrition);
+            $profitBooks = $this->calculateProfitBooks($calculateEntity);
             $profit = $this->calculateProfitByPercentage($calculateEntity, $percentage, $order);
-            $calculateEntity->setPercentageProfit($profit);
+            $calculateEntity->setCraftingFee((int) ceil($usageFee));
+            $calculateEntity->setPercentageProfit($profit - $usageFee + $profitBooks);
         }
     }
 
     private function calculateProfitByPercentage(
         BlackMarketCraftingEntity $calculateEntity,
         float $percentage,
-        string $order
+        string $order,
     ): float {
         if ($order === '1') {
             $itemCost = $calculateEntity->getPrimarySellOrderPrice() *
@@ -99,17 +113,16 @@ class BlackMarketCraftingService
                 $calculateEntity->getSecondarySellOrderPrice() *
                 $calculateEntity->getSecondaryResourceAmount();
         } else {
-            $itemCost = $calculateEntity->getPrimaryBuyOrderPrice() *
-                $calculateEntity->getPrimaryResourceAmount() +
-                $calculateEntity->getSecondaryBuyOrderPrice() *
-                $calculateEntity->getSecondaryResourceAmount();
+            $itemCost = ($calculateEntity->getPrimaryBuyOrderPrice() *
+                    $calculateEntity->getPrimaryResourceAmount() +
+                    $calculateEntity->getSecondaryBuyOrderPrice() *
+                    $calculateEntity->getSecondaryResourceAmount()) *
+                (1 + self::MARKET_SETUP);
         }
-
         $rate = (self::RRR_BASE_PERCENTAGE - $percentage) / 100;
         $amount = $calculateEntity->getAmount();
-        $profitBooks = $this->calculateProfitBooks($calculateEntity);
-        $itemSellPrice = $calculateEntity->getItemSellOrderPrice();
-        return ($itemSellPrice - ($itemCost * $rate)) * $amount + $profitBooks;
+        $itemSellPrice = $calculateEntity->getItemSellOrderPrice() * (1 - self::MARKET_SETUP - self::MARKET_FEE);
+        return ($itemSellPrice - ($itemCost * $rate)) * $amount;
     }
 
     private function calculateTotalWeight(array $calculateEntityArray): void
@@ -185,9 +198,10 @@ class BlackMarketCraftingService
         return $itemDiff->d * 24 * 60 + $itemDiff->h * 60 + $itemDiff->i;
     }
 
-    private function calculateProfitBooks(BlackMarketCraftingEntity $calculateEntity): int
+    private function calculateProfitBooks(BlackMarketCraftingEntity $calculateEntity): float
     {
-        return ($calculateEntity->getFullSellOrderPrice() -
+        return (($calculateEntity->getFullSellOrderPrice() *
+                    (1 - self::MARKET_FEE - self::MARKET_SETUP)) -
                 $calculateEntity->getEmptySellOrderPrice()) *
             $calculateEntity->getAmountBooks();
     }
@@ -225,5 +239,13 @@ class BlackMarketCraftingService
             'City Bonus No Focus' => self::RRR_BONUS_CITY_NO_FOCUS,
             'City Bonus Focus' => self::RRR_BONUS_CITY_FOCUS,
         ];
+    }
+
+    private function calculateCraftingFee(
+        BlackMarketCraftingEntity $calculateEntity,
+        int $feeProHundredNutrition
+    ): float {
+        $nutrition = $calculateEntity->getItemValue() * self::NUTRITION_FACTOR;
+        return $nutrition * $feeProHundredNutrition / 100;
     }
 }

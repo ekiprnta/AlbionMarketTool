@@ -36,7 +36,7 @@ class BlackMarketCraftingEntity
     private ?DateTimeImmutable $secondaryBuyOrderPriceDate = null;
     private float $secondaryTotalAmount;
 
-
+    private int $itemValue;
     private float $resourceWeight;
 
     private float $percentageProfit;
@@ -47,6 +47,7 @@ class BlackMarketCraftingEntity
     private string $colorGrade;
     private float $amount;
     private int $tierColor;
+    private int $craftingFee;
 
     private int $itemPriceAge;
     private int $primaryPriceAge;
@@ -78,6 +79,7 @@ class BlackMarketCraftingEntity
         $this->itemSellOrderPriceDate = $itemEntity->getSellOrderPriceDate();
         $this->fameAmount = $craftingFame;
         $this->itemWeight = $itemEntity->getWeight();
+        $this->itemValue = $itemEntity->getItemValue();
 
         $this->primaryResource = $itemEntity->getPrimaryResource();
         $this->primaryResourceAmount = $itemEntity->getPrimaryResourceAmount();
@@ -88,7 +90,7 @@ class BlackMarketCraftingEntity
 
         $this->secondaryResource = $itemEntity->getSecondaryResource();
         $this->secondaryResourceAmount = $itemEntity->getSecondaryResourceAmount();
-        if (! ($this->secondaryResource === null)) {
+        if ($this->secondaryResource !== null) {
             $secondaryResourceEntity = $this->getSecondaryResourceEntity($itemEntity, $resourceData);
             $this->secondarySellOrderPrice = $secondaryResourceEntity->getSellOrderPrice();
             $this->secondarySellOrderPriceDate = $secondaryResourceEntity->getSellOrderPriceDate();
@@ -100,8 +102,7 @@ class BlackMarketCraftingEntity
         $this->resourceWeight = $resourceWeight;
 
         $journalInfo = $this->getJournalInfo($itemEntity, $journalData);
-        $fame = $journalInfo['full']->getFameToFill();
-        $this->fameToFill = $fame;
+        $this->fameToFill = $journalInfo['full']->getFameToFill();
         $this->journalName = $journalInfo['full']->getName();
         $this->fullSellOrderPrice = $journalInfo['full']->getSellOrderPrice();
         $this->fullSellOrderPriceDate = $journalInfo['full']->getSellOrderPriceDate();
@@ -111,6 +112,21 @@ class BlackMarketCraftingEntity
         $this->emptyBuyOrderPriceDate = $journalInfo['empty']->getBuyOrderPriceDate();
 
         $this->journalWeight = $this->getCalculatedJournalWeight($journalInfo['full']);
+    }
+
+    public function getCraftingFee(): int
+    {
+        return $this->craftingFee;
+    }
+
+    public function setCraftingFee(int $craftingFee): void
+    {
+        $this->craftingFee = $craftingFee;
+    }
+
+    public function getItemValue(): int
+    {
+        return $this->itemValue;
     }
 
     public function getPrimaryTotalAmount(): float
@@ -490,6 +506,6 @@ class BlackMarketCraftingEntity
 
     private function getCalculatedJournalWeight(JournalEntity $journal): float
     {
-        return ($this->fameToFill / $this->fameAmount) * $journal->getWeight();
+        return ($this->fameAmount / $this->fameToFill) * $journal->getWeight();
     }
 }
