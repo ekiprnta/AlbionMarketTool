@@ -7,8 +7,8 @@ include:
 stages:
   - precheck
   - dependencies
-  - analyze
   - test
+  - analyze
 
 variables:
   PHP_VERSION: "8.0"
