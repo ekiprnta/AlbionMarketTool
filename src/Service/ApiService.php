@@ -110,7 +110,7 @@ class ApiService // Buy Order ist buy_price_max
         }
 
         $json = $this->httpClient->get($apiUrl, [
-            'locations' => $cities,
+            'locations' => self::CITY_ALL,
             'qualities' => self::QUALITY_GOOD,
         ]);
         return $this->jsonDecode($json);

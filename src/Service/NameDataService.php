@@ -8,7 +8,7 @@ use RuntimeException;
 
 class NameDataService
 {
-    private const PATH_TO_JSON = __DIR__ . '/NameData.json';
+    private const PATH_TO_JSON = __DIR__ . '/../../config/data/ItemData.json';
 
     public static function getNameDataArray()
     {
