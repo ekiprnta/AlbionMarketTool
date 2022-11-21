@@ -22,7 +22,11 @@
     "laminas/laminas-diactoros": "^2.13",
     "laminas/laminas-servicemanager": "^3.16",
     "monolog/monolog": "2.5",
-    "ext-curl": "*"
+    "ext-curl": "*",
+    "doctrine/doctrine-orm-module": "^5.2",
+    "mezzio/mezzio-fastroute": "^3.7",
+    "graylog2/gelf-php": "^1.7",
+    "slim/slim": "^4.11"
   },
   "require-dev": {
     "roave/security-advisories": "dev-latest",
