@@ -1,6 +1,6 @@
 # AlbionMarketTool
 
-Ziel: Eint Tool zur Markt Analyse von Albion Online
+Ziel: Eint Tool zur Marktanalyse von Albion Online
 
 ## Start
 ```shell
@@ -17,6 +17,14 @@ dc up -d
 ```shell
 composer up
 composer run stan5
+```
+
+## Jobs
+```shell 
+php bin/cli.php update:item
+php bin/cli.php update:all
+php bin/cli.php update:resource
+php bin/cli.php update:journal
 ```
 
 ## Team
