@@ -582,249 +582,279 @@
     "class": "mage",
     "weaponGroup": "tome"
   },
-  "hunter": {
-    "leatherHood": {
-      "mercenaryHood": {
-        "id_snippet": "HEAD_LEATHER_SET1",
-        "primaryResource": "leather",
-        "primaryResourceAmount": 8,
-        "secondaryResource": null,
-        "secondaryResourceAmount": null,
-        "bonusCity": "Lymhurst",
-        "realName": "mercenaryHood"
-      },
-      "hunterHood": {
-        "id_snippet": "HEAD_LEATHER_SET2",
-        "primaryResource": "leather",
-        "primaryResourceAmount": 8,
-        "secondaryResource": null,
-        "secondaryResourceAmount": null,
-        "bonusCity": "Lymhurst",
-        "realName": "hunterHood"
-      },
-      "assassinHood": {
-        "id_snippet": "HEAD_LEATHER_SET3",
-        "primaryResource": "leather",
-        "primaryResourceAmount": 8,
-        "secondaryResource": null,
-        "secondaryResourceAmount": null,
-        "bonusCity": "Lymhurst",
-        "realName": "assassinHood"
-      }
-    },
-    "leatherJacket": {
-      "mercenaryJacket": {
-        "id_snippet": "ARMOR_LEATHER_SET1",
-        "primaryResource": "leather",
-        "primaryResourceAmount": 16,
-        "secondaryResource": null,
-        "secondaryResourceAmount": null,
-        "bonusCity": "Thetford",
-        "realName": "mercenaryJacket"
-      },
-      "hunterJacket": {
-        "id_snippet": "ARMOR_LEATHER_SET2",
-        "primaryResource": "leather",
-        "primaryResourceAmount": 16,
-        "secondaryResource": null,
-        "secondaryResourceAmount": null,
-        "bonusCity": "Thetford",
-        "realName": "hunterJacket"
-      },
-      "assassinJacket": {
-        "id_snippet": "ARMOR_LEATHER_SET3",
-        "primaryResource": "leather",
-        "primaryResourceAmount": 16,
-        "secondaryResource": null,
-        "secondaryResourceAmount": null,
-        "bonusCity": "Thetford",
-        "realName": "assassinJacket"
-      }
-    },
-    "leatherShoes": {
-      "mercenaryShoes": {
-        "id_snippet": "SHOES_LEATHER_SET1",
-        "primaryResource": "leather",
-        "primaryResourceAmount": 8,
-        "secondaryResource": null,
-        "secondaryResourceAmount": null,
-        "bonusCity": "Lymhurst",
-        "realName": "mercenaryShoes"
-      },
-      "hunterShoes": {
-        "id_snippet": "SHOES_LEATHER_SET2",
-        "primaryResource": "leather",
-        "primaryResourceAmount": 8,
-        "secondaryResource": null,
-        "secondaryResourceAmount": null,
-        "bonusCity": "Lymhurst",
-        "realName": "hunterShoes"
-      },
-      "assassinShoes": {
-        "id_snippet": "SHOES_LEATHER_SET3",
-        "primaryResource": "leather",
-        "primaryResourceAmount": 8,
-        "secondaryResource": null,
-        "secondaryResourceAmount": null,
-        "bonusCity": "Lymhurst",
-        "realName": "assassinShoes"
-      }
-    },
-    "bow": {
-      "bow": {
-        "id_snippet": "2H_BOW",
-        "primaryResource": "planks",
-        "primaryResourceAmount": 32,
-        "secondaryResource": null,
-        "secondaryResourceAmount": null,
-        "bonusCity": "Lymhurst",
-        "realName": "bow"
-      },
-      "warbow": {
-        "id_snippet": "2H_WARBOW",
-        "primaryResource": "planks",
-        "primaryResourceAmount": 32,
-        "secondaryResource": null,
-        "secondaryResourceAmount": null,
-        "bonusCity": "Lymhurst",
-        "realName": "warbow"
-      },
-      "longbow": {
-        "id_snippet": "2H_LONGBOW",
-        "primaryResource": "planks",
-        "primaryResourceAmount": 32,
-        "secondaryResource": null,
-        "secondaryResourceAmount": null,
-        "bonusCity": "Lymhurst",
-        "realName": "longbow"
-      }
-    },
-    "spear": {
-      "spear": {
-        "id_snippet": "MAIN_SPEAR",
-        "primaryResource": "metalBar",
-        "primaryResourceAmount": 8,
-        "secondaryResource": "planks",
-        "secondaryResourceAmount": 16,
-        "bonusCity": "Fort Sterling",
-        "realName": "spear"
-      },
-      "pike": {
-        "id_snippet": "2H_SPEAR",
-        "primaryResource": "metalBar",
-        "primaryResourceAmount": 12,
-        "secondaryResource": "planks",
-        "secondaryResourceAmount": 20,
-        "bonusCity": "Fort Sterling",
-        "realName": "pike"
-      },
-      "glaive": {
-        "id_snippet": "2H_GLAIVE",
-        "primaryResource": "metalBar",
-        "primaryResourceAmount": 20,
-        "secondaryResource": "planks",
-        "secondaryResourceAmount": 12,
-        "bonusCity": "Fort Sterling",
-        "realName": "glaive"
-      }
-    },
-    "nature": {
-      "natureStaff": {
-        "id_snippet": "MAIN_NATURESTAFF",
-        "primaryResource": "planks",
-        "primaryResourceAmount": 16,
-        "secondaryResource": "cloth",
-        "secondaryResourceAmount": 8,
-        "bonusCity": "Thetford",
-        "realName": "natureStaff"
-      },
-      "greatNatureStaff": {
-        "id_snippet": "2H_NATURESTAFF",
-        "primaryResource": "planks",
-        "primaryResourceAmount": 20,
-        "secondaryResource": "cloth",
-        "secondaryResourceAmount": 12,
-        "bonusCity": "Thetford",
-        "realName": "greatNatureStaff"
-      },
-      "wildStaff": {
-        "id_snippet": "2H_WILDSTAFF",
-        "primaryResource": "planks",
-        "primaryResourceAmount": 20,
-        "secondaryResource": "cloth",
-        "secondaryResourceAmount": 12,
-        "bonusCity": "Thetford",
-        "realName": "wildStaff"
-      }
-    },
-    "dagger": {
-      "dagger": {
-        "id_snippet": "MAIN_DAGGER",
-        "primaryResource": "metalBar",
-        "primaryResourceAmount": 12,
-        "secondaryResource": "leather",
-        "secondaryResourceAmount": 12,
-        "bonusCity": "Bridgewatch",
-        "realName": "dagger"
-      },
-      "daggerPair": {
-        "id_snippet": "2H_DAGGERPAIR",
-        "primaryResource": "metalBar",
-        "primaryResourceAmount": 16,
-        "secondaryResource": "leather",
-        "secondaryResourceAmount": 16,
-        "bonusCity": "Bridgewatch",
-        "realName": "daggerPair"
-      },
-      "claws": {
-        "id_snippet": "2H_CLAWPAIR",
-        "primaryResource": "metalBar",
-        "primaryResourceAmount": 12,
-        "secondaryResource": "leather",
-        "secondaryResourceAmount": 20,
-        "bonusCity": "Bridgewatch",
-        "realName": "claws"
-      }
-    },
-    "quarterstaff": {
-      "quarterstaff": {
-        "id_snippet": "2H_QUARTERSTAFF",
-        "primaryResource": "metalBar",
-        "primaryResourceAmount": 12,
-        "secondaryResource": "leather",
-        "secondaryResourceAmount": 20,
-        "bonusCity": "Martlock",
-        "realName": "quarterstaff"
-      },
-      "ironcladStaff": {
-        "id_snippet": "2H_IRONCLADEDSTAFF",
-        "primaryResource": "metalBar",
-        "primaryResourceAmount": 12,
-        "secondaryResource": "leather",
-        "secondaryResourceAmount": 20,
-        "bonusCity": "Martlock",
-        "realName": "ironcladStaff"
-      },
-      "doubleBladedStaff": {
-        "id_snippet": "2H_DOUBLEBLADEDSTAFF",
-        "primaryResource": "metalBar",
-        "primaryResourceAmount": 12,
-        "secondaryResource": "leather",
-        "secondaryResourceAmount": 20,
-        "bonusCity": "Martlock",
-        "realName": "doubleBladedStaff"
-      }
-    },
-    "torch": {
-      "torch": {
-        "id_snippet": "OFF_TORCH",
-        "primaryResource": "planks",
-        "primaryResourceAmount": 4,
-        "secondaryResource": "leather",
-        "secondaryResourceAmount": 4,
-        "bonusCity": "Martlock",
-        "realName": "torch"
-      }
-    }
+  "mercenaryHood": {
+    "id_snippet": "HEAD_LEATHER_SET1",
+    "primaryResource": "leather",
+    "primaryResourceAmount": 8,
+    "secondaryResource": null,
+    "secondaryResourceAmount": null,
+    "bonusCity": "Lymhurst",
+    "realName": "mercenaryHood",
+    "class": "hunter",
+    "weaponGroup": "leatherHood"
+  },
+  "hunterHood": {
+    "id_snippet": "HEAD_LEATHER_SET2",
+    "primaryResource": "leather",
+    "primaryResourceAmount": 8,
+    "secondaryResource": null,
+    "secondaryResourceAmount": null,
+    "bonusCity": "Lymhurst",
+    "realName": "hunterHood",
+    "class": "hunter",
+    "weaponGroup": "leatherHood"
+  },
+  "assassinHood": {
+    "id_snippet": "HEAD_LEATHER_SET3",
+    "primaryResource": "leather",
+    "primaryResourceAmount": 8,
+    "secondaryResource": null,
+    "secondaryResourceAmount": null,
+    "bonusCity": "Lymhurst",
+    "realName": "assassinHood",
+    "class": "hunter",
+    "weaponGroup": "leatherHood"
+  },
+  "mercenaryJacket": {
+    "id_snippet": "ARMOR_LEATHER_SET1",
+    "primaryResource": "leather",
+    "primaryResourceAmount": 16,
+    "secondaryResource": null,
+    "secondaryResourceAmount": null,
+    "bonusCity": "Thetford",
+    "realName": "mercenaryJacket",
+    "class": "hunter",
+    "weaponGroup": "leatherJacket"
+  },
+  "hunterJacket": {
+    "id_snippet": "ARMOR_LEATHER_SET2",
+    "primaryResource": "leather",
+    "primaryResourceAmount": 16,
+    "secondaryResource": null,
+    "secondaryResourceAmount": null,
+    "bonusCity": "Thetford",
+    "realName": "hunterJacket",
+    "class": "hunter",
+    "weaponGroup": "leatherJacket"
+  },
+  "assassinJacket": {
+    "id_snippet": "ARMOR_LEATHER_SET3",
+    "primaryResource": "leather",
+    "primaryResourceAmount": 16,
+    "secondaryResource": null,
+    "secondaryResourceAmount": null,
+    "bonusCity": "Thetford",
+    "realName": "assassinJacket",
+    "class": "hunter",
+    "weaponGroup": "leatherJacket"
+  },
+  "mercenaryShoes": {
+    "id_snippet": "SHOES_LEATHER_SET1",
+    "primaryResource": "leather",
+    "primaryResourceAmount": 8,
+    "secondaryResource": null,
+    "secondaryResourceAmount": null,
+    "bonusCity": "Lymhurst",
+    "realName": "mercenaryShoes",
+    "class": "hunter",
+    "weaponGroup": "leatherShoes"
+  },
+  "hunterShoes": {
+    "id_snippet": "SHOES_LEATHER_SET2",
+    "primaryResource": "leather",
+    "primaryResourceAmount": 8,
+    "secondaryResource": null,
+    "secondaryResourceAmount": null,
+    "bonusCity": "Lymhurst",
+    "realName": "hunterShoes",
+    "class": "hunter",
+    "weaponGroup": "leatherShoes"
+  },
+  "assassinShoes": {
+    "id_snippet": "SHOES_LEATHER_SET3",
+    "primaryResource": "leather",
+    "primaryResourceAmount": 8,
+    "secondaryResource": null,
+    "secondaryResourceAmount": null,
+    "bonusCity": "Lymhurst",
+    "realName": "assassinShoes",
+    "class": "hunter",
+    "weaponGroup": "leatherShoes"
+  },
+  "bow": {
+    "id_snippet": "2H_BOW",
+    "primaryResource": "planks",
+    "primaryResourceAmount": 32,
+    "secondaryResource": null,
+    "secondaryResourceAmount": null,
+    "bonusCity": "Lymhurst",
+    "realName": "bow",
+    "class": "hunter",
+    "weaponGroup": "bow"
+  },
+  "warbow": {
+    "id_snippet": "2H_WARBOW",
+    "primaryResource": "planks",
+    "primaryResourceAmount": 32,
+    "secondaryResource": null,
+    "secondaryResourceAmount": null,
+    "bonusCity": "Lymhurst",
+    "realName": "warbow",
+    "class": "hunter",
+    "weaponGroup": "bow"
+  },
+  "longbow": {
+    "id_snippet": "2H_LONGBOW",
+    "primaryResource": "planks",
+    "primaryResourceAmount": 32,
+    "secondaryResource": null,
+    "secondaryResourceAmount": null,
+    "bonusCity": "Lymhurst",
+    "realName": "longbow",
+    "class": "hunter",
+    "weaponGroup": "bow"
+  },
+  "spear": {
+    "id_snippet": "MAIN_SPEAR",
+    "primaryResource": "metalBar",
+    "primaryResourceAmount": 8,
+    "secondaryResource": "planks",
+    "secondaryResourceAmount": 16,
+    "bonusCity": "Fort Sterling",
+    "realName": "spear",
+    "class": "hunter",
+    "weaponGroup": "spear"
+  },
+  "pike": {
+    "id_snippet": "2H_SPEAR",
+    "primaryResource": "metalBar",
+    "primaryResourceAmount": 12,
+    "secondaryResource": "planks",
+    "secondaryResourceAmount": 20,
+    "bonusCity": "Fort Sterling",
+    "realName": "pike",
+    "class": "hunter",
+    "weaponGroup": "spear"
+  },
+  "glaive": {
+    "id_snippet": "2H_GLAIVE",
+    "primaryResource": "metalBar",
+    "primaryResourceAmount": 20,
+    "secondaryResource": "planks",
+    "secondaryResourceAmount": 12,
+    "bonusCity": "Fort Sterling",
+    "realName": "glaive",
+    "class": "hunter",
+    "weaponGroup": "spear"
+  },
+  "natureStaff": {
+    "id_snippet": "MAIN_NATURESTAFF",
+    "primaryResource": "planks",
+    "primaryResourceAmount": 16,
+    "secondaryResource": "cloth",
+    "secondaryResourceAmount": 8,
+    "bonusCity": "Thetford",
+    "realName": "natureStaff",
+    "class": "hunter",
+    "weaponGroup": "natureStaff"
+  },
+  "greatNatureStaff": {
+    "id_snippet": "2H_NATURESTAFF",
+    "primaryResource": "planks",
+    "primaryResourceAmount": 20,
+    "secondaryResource": "cloth",
+    "secondaryResourceAmount": 12,
+    "bonusCity": "Thetford",
+    "realName": "greatNatureStaff",
+    "class": "hunter",
+    "weaponGroup": "natureStaff"
+  },
+  "wildStaff": {
+    "id_snippet": "2H_WILDSTAFF",
+    "primaryResource": "planks",
+    "primaryResourceAmount": 20,
+    "secondaryResource": "cloth",
+    "secondaryResourceAmount": 12,
+    "bonusCity": "Thetford",
+    "realName": "wildStaff",
+    "class": "hunter",
+    "weaponGroup": "natureStaff"
+  },
+  "dagger": {
+    "id_snippet": "MAIN_DAGGER",
+    "primaryResource": "metalBar",
+    "primaryResourceAmount": 12,
+    "secondaryResource": "leather",
+    "secondaryResourceAmount": 12,
+    "bonusCity": "Bridgewatch",
+    "realName": "dagger",
+    "class": "hunter",
+    "weaponGroup": "dagger"
+  },
+  "daggerPair": {
+    "id_snippet": "2H_DAGGERPAIR",
+    "primaryResource": "metalBar",
+    "primaryResourceAmount": 16,
+    "secondaryResource": "leather",
+    "secondaryResourceAmount": 16,
+    "bonusCity": "Bridgewatch",
+    "realName": "daggerPair",
+    "class": "hunter",
+    "weaponGroup": "dagger"
+  },
+  "claws": {
+    "id_snippet": "2H_CLAWPAIR",
+    "primaryResource": "metalBar",
+    "primaryResourceAmount": 12,
+    "secondaryResource": "leather",
+    "secondaryResourceAmount": 20,
+    "bonusCity": "Bridgewatch",
+    "realName": "claws",
+    "class": "hunter",
+    "weaponGroup": "dagger"
+  },
+  "quarterstaff": {
+    "id_snippet": "2H_QUARTERSTAFF",
+    "primaryResource": "metalBar",
+    "primaryResourceAmount": 12,
+    "secondaryResource": "leather",
+    "secondaryResourceAmount": 20,
+    "bonusCity": "Martlock",
+    "realName": "quarterstaff",
+    "class": "hunter",
+    "weaponGroup": "quarterstaff"
+  },
+  "ironcladStaff": {
+    "id_snippet": "2H_IRONCLADEDSTAFF",
+    "primaryResource": "metalBar",
+    "primaryResourceAmount": 12,
+    "secondaryResource": "leather",
+    "secondaryResourceAmount": 20,
+    "bonusCity": "Martlock",
+    "realName": "ironcladStaff",
+    "class": "hunter",
+    "weaponGroup": "quarterstaff"
+  },
+  "doubleBladedStaff": {
+    "id_snippet": "2H_DOUBLEBLADEDSTAFF",
+    "primaryResource": "metalBar",
+    "primaryResourceAmount": 12,
+    "secondaryResource": "leather",
+    "secondaryResourceAmount": 20,
+    "bonusCity": "Martlock",
+    "realName": "doubleBladedStaff",
+    "class": "hunter",
+    "weaponGroup": "quarterstaff"
+  },
+  "torch": {
+    "id_snippet": "OFF_TORCH",
+    "primaryResource": "planks",
+    "primaryResourceAmount": 4,
+    "secondaryResource": "leather",
+    "secondaryResourceAmount": 4,
+    "bonusCity": "Martlock",
+    "realName": "torch",
+    "class": "hunter",
+    "weaponGroup": "torch"
   }
 }
