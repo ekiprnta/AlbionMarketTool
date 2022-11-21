@@ -1,558 +1,586 @@
 {
-  "warrior": {
-    "soldierHelmet": {
-      "id_snippet": "HEAD_PLATE_SET1",
-      "primaryResource": "metalBar",
-      "primaryResourceAmount": 8,
-      "secondaryResource": null,
-      "secondaryResourceAmount": null,
-      "bonusCity": "Fort Sterling",
-      "realName": "soldierHelmet",
-      "class": "warrior",
-      "weaponGroup": "plateHelmet"
-    },
-    "knightHelmet": {
-      "id_snippet": "HEAD_PLATE_SET2",
-      "primaryResource": "metalBar",
-      "primaryResourceAmount": 8,
-      "secondaryResource": null,
-      "secondaryResourceAmount": null,
-      "bonusCity": "Fort Sterling",
-      "realName": "knightHelmet",
-      "class": "warrior",
-      "weaponGroup": "plateHelmet"
-    },
-    "guardianHelmet": {
-      "id_snippet": "HEAD_PLATE_SET3",
-      "primaryResource": "metalBar",
-      "primaryResourceAmount": 8,
-      "secondaryResource": null,
-      "secondaryResourceAmount": null,
-      "bonusCity": "Fort Sterling",
-      "realName": "guardianHelmet",
-      "class": "warrior",
-      "weaponGroup": "plateHelmet"
-    },
-    "soldierArmor": {
-      "id_snippet": "ARMOR_PLATE_SET1",
-      "primaryResource": "metalBar",
-      "primaryResourceAmount": 16,
-      "secondaryResource": null,
-      "secondaryResourceAmount": null,
-      "bonusCity": "Bridgewatch",
-      "realName": "soldierArmor",
-      "class": "warrior",
-      "weaponGroup": "plateArmor"
-    },
-    "knightArmor": {
-      "id_snippet": "ARMOR_PLATE_SET2",
-      "primaryResource": "metalBar",
-      "primaryResourceAmount": 16,
-      "secondaryResource": null,
-      "secondaryResourceAmount": null,
-      "bonusCity": "Bridgewatch",
-      "realName": "knightArmor",
-      "class": "warrior",
-      "weaponGroup": "plateArmor"
-    },
-    "guardianArmor": {
-      "id_snippet": "ARMOR_PLATE_SET3",
-      "primaryResource": "metalBar",
-      "primaryResourceAmount": 16,
-      "secondaryResource": null,
-      "secondaryResourceAmount": null,
-      "bonusCity": "Bridgewatch",
-      "realName": "guardianArmor",
-      "class": "warrior",
-      "weaponGroup": "plateArmor"
-    },
-    "soldierBoots": {
-      "id_snippet": "SHOES_PLATE_SET1",
-      "primaryResource": "metalBar",
-      "primaryResourceAmount": 8,
-      "secondaryResource": null,
-      "secondaryResourceAmount": null,
-      "bonusCity": "Martlock",
-      "realName": "soldierBoots",
-      "class": "warrior",
-      "weaponGroup": "plateBoots"
-    },
-    "knightBoots": {
-      "id_snippet": "SHOES_PLATE_SET2",
-      "primaryResource": "metalBar",
-      "primaryResourceAmount": 8,
-      "secondaryResource": null,
-      "secondaryResourceAmount": null,
-      "bonusCity": "Martlock",
-      "realName": "knightBoots",
-      "class": "warrior",
-      "weaponGroup": "plateBoots"
-    },
-    "guardianBoots": {
-      "id_snippet": "SHOES_PLATE_SET3",
-      "primaryResource": "metalBar",
-      "primaryResourceAmount": 8,
-      "secondaryResource": null,
-      "secondaryResourceAmount": null,
-      "bonusCity": "Martlock",
-      "realName": "guardianBoots",
-      "class": "warrior",
-      "weaponGroup": "plateBoots"
-    },
-    "broadsword": {
-      "id_snippet": "MAIN_SWORD",
-      "primaryResource": "metalBar",
-      "primaryResourceAmount": 16,
-      "secondaryResource": "leather",
-      "secondaryResourceAmount": 8,
-      "bonusCity": "Lymhurst",
-      "realName": "broadsword",
-      "class": "warrior",
-      "weaponGroup": "sword"
-    },
-    "claymore": {
-      "id_snippet": "2H_CLAYMORE",
-      "primaryResource": "metalBar",
-      "primaryResourceAmount": 20,
-      "secondaryResource": "leather",
-      "secondaryResourceAmount": 12,
-      "bonusCity": "Lymhurst",
-      "realName": "claymore",
-      "class": "warrior",
-      "weaponGroup": "sword"
-    },
-    "dualSwords": {
-      "id_snippet": "2h_DUALSWORD",
-      "primaryResource": "metalBar",
-      "primaryResourceAmount": 20,
-      "secondaryResource": "leather",
-      "secondaryResourceAmount": 12,
-      "bonusCity": "Lymhurst",
-      "realName": "dualSwords",
-      "class": "warrior",
-      "weaponGroup": "sword"
-    },
-    "battleAxe": {
-      "id_snippet": "MAIN_AXE",
-      "primaryResource": "metalBar",
-      "primaryResourceAmount": 16,
-      "secondaryResource": "planks",
-      "secondaryResourceAmount": 8,
-      "bonusCity": "Martlock",
-      "realName": "battleAxe",
-      "class": "warrior",
-      "weaponGroup": "axe"
-    },
-    "greatAxe": {
-      "id_snippet": "2H_AXE",
-      "primaryResource": "metalBar",
-      "primaryResourceAmount": 20,
-      "secondaryResource": "planks",
-      "secondaryResourceAmount": 12,
-      "bonusCity": "Martlock",
-      "realName": "greatAxe",
-      "class": "warrior",
-      "weaponGroup": "axe"
-    },
-    "halberd": {
-      "id_snippet": "2h_HALBERD",
-      "primaryResource": "metalBar",
-      "primaryResourceAmount": 12,
-      "secondaryResource": "planks",
-      "secondaryResourceAmount": 20,
-      "bonusCity": "Martlock",
-      "realName": "halberd",
-      "class": "warrior",
-      "weaponGroup": "axe"
-    },
-    "mace": {
-      "id_snippet": "MAIN_MACE",
-      "primaryResource": "metalBar",
-      "primaryResourceAmount": 16,
-      "secondaryResource": "cloth",
-      "secondaryResourceAmount": 8,
-      "bonusCity": "Thetford",
-      "realName": "mace",
-      "class": "warrior",
-      "weaponGroup": "mace"
-    },
-    "heavyMace": {
-      "id_snippet": "2H_MACE",
-      "primaryResource": "metalBar",
-      "primaryResourceAmount": 20,
-      "secondaryResource": "cloth",
-      "secondaryResourceAmount": 12,
-      "bonusCity": "Thetford",
-      "realName": "heavyMace",
-      "class": "warrior",
-      "weaponGroup": "mace"
-    },
-    "morningStar": {
-      "id_snippet": "2h_FLAIL",
-      "primaryResource": "metalBar",
-      "primaryResourceAmount": 20,
-      "secondaryResource": "cloth",
-      "secondaryResourceAmount": 12,
-      "bonusCity": "Thetford",
-      "realName": "morningStar",
-      "class": "warrior",
-      "weaponGroup": "mace"
-    },
-    "hammer": {
-      "id_snippet": "MAIN_HAMMER",
-      "primaryResource": "metalBar",
-      "primaryResourceAmount": 24,
-      "secondaryResource": null,
-      "secondaryResourceAmount": null,
-      "bonusCity": "Fort Sterling",
-      "realName": "hammer",
-      "class": "warrior",
-      "weaponGroup": "hammer"
-    },
-    "poleHammer": {
-      "id_snippet": "2H_POLEHAMMER",
-      "primaryResource": "metalBar",
-      "primaryResourceAmount": 20,
-      "secondaryResource": "cloth",
-      "secondaryResourceAmount": 12,
-      "bonusCity": "Fort Sterling",
-      "realName": "poleHammer",
-      "class": "warrior",
-      "weaponGroup": "hammer"
-    },
-    "greatHammer": {
-      "id_snippet": "2h_HAMMER",
-      "primaryResource": "metalBar",
-      "primaryResourceAmount": 20,
-      "secondaryResource": "cloth",
-      "secondaryResourceAmount": 12,
-      "bonusCity": "Fort Sterling",
-      "realName": "greatHammer",
-      "class": "warrior",
-      "weaponGroup": "hammer"
-    },
-    "brawlerGloves": {
-      "id_snippet": "2H_KNUCKLES_SET1",
-      "primaryResource": "metalBar",
-      "primaryResourceAmount": 12,
-      "secondaryResource": "leather",
-      "secondaryResourceAmount": 20,
-      "bonusCity": "Caerleon",
-      "realName": "brawlerGloves",
-      "class": "warrior",
-      "weaponGroup": "warGlove"
-    },
-    "battleBracers": {
-      "id_snippet": "2H_KNUCKLES_SET2",
-      "primaryResource": "metalBar",
-      "primaryResourceAmount": 12,
-      "secondaryResource": "leather",
-      "secondaryResourceAmount": 20,
-      "bonusCity": "Caerleon",
-      "realName": "battleBracers",
-      "class": "warrior",
-      "weaponGroup": "warGlove"
-    },
-    "spikedGauntlet": {
-      "id_snippet": "2H_KNUCKLES_SET3",
-      "primaryResource": "metalBar",
-      "primaryResourceAmount": 12,
-      "secondaryResource": "leather",
-      "secondaryResourceAmount": 20,
-      "bonusCity": "Caerleon",
-      "realName": "spikedGauntlet",
-      "class": "warrior",
-      "weaponGroup": "warGlove"
-    },
-    "crossbow": {
-      "id_snippet": "2H_CROSSBOW",
-      "primaryResource": "metalBar",
-      "primaryResourceAmount": 12,
-      "secondaryResource": "planks",
-      "secondaryResourceAmount": 20,
-      "bonusCity": "Bridgewatch",
-      "realName": "crossbow",
-      "class": "warrior",
-      "weaponGroup": "crossbow"
-    },
-    "heavyCrossbow": {
-      "id_snippet": "2H_CROSSBOWLARGE",
-      "primaryResource": "metalBar",
-      "primaryResourceAmount": 12,
-      "secondaryResource": "planks",
-      "secondaryResourceAmount": 20,
-      "bonusCity": "Bridgewatch",
-      "realName": "heavyCrossbow",
-      "class": "warrior",
-      "weaponGroup": "crossbow"
-    },
-    "lightCrossbow": {
-      "id_snippet": "MAIN_1HCROSSBOW",
-      "primaryResource": "metalBar",
-      "primaryResourceAmount": 8,
-      "secondaryResource": "planks",
-      "secondaryResourceAmount": 16,
-      "bonusCity": "Bridgewatch",
-      "realName": "lightCrossbow",
-      "class": "warrior",
-      "weaponGroup": "crossbow"
-    },
-    "shield": {
-      "id_snippet": "OFF_SHIELD",
-      "primaryResource": "metalBar",
-      "primaryResourceAmount": 4,
-      "secondaryResource": "planks",
-      "secondaryResourceAmount": 4,
-      "bonusCity": "Martlock",
-      "realName": "shield",
-      "class": "warrior",
-      "weaponGroup": "shield"
-    }
+  "soldierHelmet": {
+    "id_snippet": "HEAD_PLATE_SET1",
+    "primaryResource": "metalBar",
+    "primaryResourceAmount": 8,
+    "secondaryResource": null,
+    "secondaryResourceAmount": null,
+    "bonusCity": "Fort Sterling",
+    "realName": "soldierHelmet",
+    "class": "warrior",
+    "weaponGroup": "plateHelmet"
   },
-  "mage": {
-    "clothCowl": {
-      "scholarCowl": {
-        "id_snippet": "HEAD_CLOTH_SET1",
-        "primaryResource": "cloth",
-        "primaryResourceAmount": 8,
-        "secondaryResource": null,
-        "secondaryResourceAmount": null,
-        "bonusCity": "Thetford",
-        "realName": "scholarCowl"
-      },
-      "clericCowl": {
-        "id_snippet": "HEAD_CLOTH_SET2",
-        "primaryResource": "cloth",
-        "primaryResourceAmount": 8,
-        "secondaryResource": null,
-        "secondaryResourceAmount": null,
-        "bonusCity": "Thetford",
-        "realName": "clericCowl"
-      },
-      "mageCowl": {
-        "id_snippet": "HEAD_CLOTH_SET3",
-        "primaryResource": "cloth",
-        "primaryResourceAmount": 8,
-        "secondaryResource": null,
-        "secondaryResourceAmount": null,
-        "bonusCity": "Thetford",
-        "realName": "mageCowl"
-      }
-    },
-    "clothRobe": {
-      "scholarRobe": {
-        "id_snippet": "ARMOR_CLOTH_SET1",
-        "primaryResource": "cloth",
-        "primaryResourceAmount": 16,
-        "secondaryResource": null,
-        "secondaryResourceAmount": null,
-        "bonusCity": "Fort Sterling",
-        "realName": "scholarRobe"
-      },
-      "clericRobe": {
-        "id_snippet": "ARMOR_CLOTH_SET2",
-        "primaryResource": "cloth",
-        "primaryResourceAmount": 16,
-        "secondaryResource": null,
-        "secondaryResourceAmount": null,
-        "bonusCity": "Fort Sterling",
-        "realName": "clericRobe"
-      },
-      "mageRobe": {
-        "id_snippet": "ARMOR_CLOTH_SET3",
-        "primaryResource": "cloth",
-        "primaryResourceAmount": 16,
-        "secondaryResource": null,
-        "secondaryResourceAmount": null,
-        "bonusCity": "Fort Sterling",
-        "realName": "mageRobe"
-      }
-    },
-    "clothSandals": {
-      "scholarSandals": {
-        "id_snippet": "SHOES_CLOTH_SET1",
-        "primaryResource": "cloth",
-        "primaryResourceAmount": 8,
-        "secondaryResource": null,
-        "secondaryResourceAmount": null,
-        "bonusCity": "Bridgewatch",
-        "realName": "scholarSandals"
-      },
-      "clericSandals": {
-        "id_snippet": "SHOES_CLOTH_SET2",
-        "primaryResource": "cloth",
-        "primaryResourceAmount": 8,
-        "secondaryResource": null,
-        "secondaryResourceAmount": null,
-        "bonusCity": "Bridgewatch",
-        "realName": "clericSandals"
-      },
-      "mageSandals": {
-        "id_snippet": "SHOES_CLOTH_SET3",
-        "primaryResource": "cloth",
-        "primaryResourceAmount": 8,
-        "secondaryResource": null,
-        "secondaryResourceAmount": null,
-        "bonusCity": "Bridgewatch",
-        "realName": "mageSandals"
-      }
-    },
-    "fireStaff": {
-      "fireStaff": {
-        "id_snippet": "MAIN_FIRESTAFF",
-        "primaryResource": "planks",
-        "primaryResourceAmount": 16,
-        "secondaryResource": "metalBar",
-        "secondaryResourceAmount": 8,
-        "bonusCity": "Thetford",
-        "realName": "fireStaff"
-      },
-      "greatFireStaff": {
-        "id_snippet": "2H_FIRESTAFF",
-        "primaryResource": "planks",
-        "primaryResourceAmount": 20,
-        "secondaryResource": "metalBar",
-        "secondaryResourceAmount": 12,
-        "bonusCity": "Thetford",
-        "realName": "greatFireStaff"
-      },
-      "infernoStaff": {
-        "id_snippet": "2H_INFERNOSTAFF",
-        "primaryResource": "planks",
-        "primaryResourceAmount": 20,
-        "secondaryResource": "metalBar",
-        "secondaryResourceAmount": 12,
-        "bonusCity": "Thetford",
-        "realName": "infernoStaff"
-      }
-    },
-    "holyStaff": {
-      "holyStaff": {
-        "id_snippet": "MAIN_HOLYSTAFF",
-        "primaryResource": "planks",
-        "primaryResourceAmount": 16,
-        "secondaryResource": "cloth",
-        "secondaryResourceAmount": 8,
-        "bonusCity": "Fort Sterling",
-        "realName": "holyStaff"
-      },
-      "greatHolyStaff": {
-        "id_snippet": "2H_HOLYSTAFF",
-        "primaryResource": "planks",
-        "primaryResourceAmount": 20,
-        "secondaryResource": "cloth",
-        "secondaryResourceAmount": 12,
-        "bonusCity": "Fort Sterling",
-        "realName": "greatHolyStaff"
-      },
-      "divineStaff": {
-        "id_snippet": "2H_DIVINESTAFF",
-        "primaryResource": "planks",
-        "primaryResourceAmount": 20,
-        "secondaryResource": "cloth",
-        "secondaryResourceAmount": 12,
-        "bonusCity": "Fort Sterling",
-        "realName": "divineStaff"
-      }
-    },
-    "arcaneStaff": {
-      "arcaneStaff": {
-        "id_snippet": "MAIN_ARCANESTAFF",
-        "primaryResource": "planks",
-        "primaryResourceAmount": 16,
-        "secondaryResource": "metalBar",
-        "secondaryResourceAmount": 8,
-        "bonusCity": "Lymhurst",
-        "realName": "arcaneStaff"
-      },
-      "greatArcaneStaff": {
-        "id_snippet": "2H_ARCANESTAFF",
-        "primaryResource": "planks",
-        "primaryResourceAmount": 20,
-        "secondaryResource": "metalBar",
-        "secondaryResourceAmount": 12,
-        "bonusCity": "Lymhurst",
-        "realName": "greatArcaneStaff"
-      },
-      "enigmaticStaff": {
-        "id_snippet": "2H_ENIGMATICSTAFF",
-        "primaryResource": "planks",
-        "primaryResourceAmount": 20,
-        "secondaryResource": "metalBar",
-        "secondaryResourceAmount": 12,
-        "bonusCity": "Lymhurst",
-        "realName": "enigmaticStaff"
-      }
-    },
-    "frostStaff": {
-      "frostStaff": {
-        "id_snippet": "MAIN_FROSTSTAFF",
-        "primaryResource": "planks",
-        "primaryResourceAmount": 16,
-        "secondaryResource": "metalBar",
-        "secondaryResourceAmount": 8,
-        "bonusCity": "Martlock",
-        "realName": "frostStaff"
-      },
-      "greatFrostStaff": {
-        "id_snippet": "2H_FROSTSTAFF",
-        "primaryResource": "planks",
-        "primaryResourceAmount": 20,
-        "secondaryResource": "metalBar",
-        "secondaryResourceAmount": 12,
-        "bonusCity": "Martlock",
-        "realName": "greatFrostStaff"
-      },
-      "glacialStaff": {
-        "id_snippet": "2H_GLACIALSTAFF",
-        "primaryResource": "planks",
-        "primaryResourceAmount": 20,
-        "secondaryResource": "metalBar",
-        "secondaryResourceAmount": 12,
-        "bonusCity": "Martlock",
-        "realName": "glacialStaff"
-      }
-    },
-    "curseStaff": {
-      "cursedStaff": {
-        "id_snippet": "MAIN_CURSEDSTAFF",
-        "primaryResource": "planks",
-        "primaryResourceAmount": 16,
-        "secondaryResource": "metalBar",
-        "secondaryResourceAmount": 8,
-        "bonusCity": "Bridgewatch",
-        "realName": "cursedStaff"
-      },
-      "greatCursedStaff": {
-        "id_snippet": "2H_CURSEDSTAFF",
-        "primaryResource": "planks",
-        "primaryResourceAmount": 20,
-        "secondaryResource": "metalBar",
-        "secondaryResourceAmount": 12,
-        "bonusCity": "Bridgewatch",
-        "realName": "greatCursedStaff"
-      },
-      "demonicStaff": {
-        "id_snippet": "2H_DEMONICSTAFF",
-        "primaryResource": "planks",
-        "primaryResourceAmount": 20,
-        "secondaryResource": "metalBar",
-        "secondaryResourceAmount": 12,
-        "bonusCity": "Bridgewatch",
-        "realName": "demonicStaff"
-      }
-    },
-    "tome": {
-      "tomeOfSpells": {
-        "id_snippet": "OFF_BOOK",
-        "primaryResource": "cloth",
-        "primaryResourceAmount": 4,
-        "secondaryResource": "leather",
-        "secondaryResourceAmount": 4,
-        "bonusCity": "Martlock",
-        "realName": "tomeOfSpells"
-      }
-    }
+  "knightHelmet": {
+    "id_snippet": "HEAD_PLATE_SET2",
+    "primaryResource": "metalBar",
+    "primaryResourceAmount": 8,
+    "secondaryResource": null,
+    "secondaryResourceAmount": null,
+    "bonusCity": "Fort Sterling",
+    "realName": "knightHelmet",
+    "class": "warrior",
+    "weaponGroup": "plateHelmet"
+  },
+  "guardianHelmet": {
+    "id_snippet": "HEAD_PLATE_SET3",
+    "primaryResource": "metalBar",
+    "primaryResourceAmount": 8,
+    "secondaryResource": null,
+    "secondaryResourceAmount": null,
+    "bonusCity": "Fort Sterling",
+    "realName": "guardianHelmet",
+    "class": "warrior",
+    "weaponGroup": "plateHelmet"
+  },
+  "soldierArmor": {
+    "id_snippet": "ARMOR_PLATE_SET1",
+    "primaryResource": "metalBar",
+    "primaryResourceAmount": 16,
+    "secondaryResource": null,
+    "secondaryResourceAmount": null,
+    "bonusCity": "Bridgewatch",
+    "realName": "soldierArmor",
+    "class": "warrior",
+    "weaponGroup": "plateArmor"
+  },
+  "knightArmor": {
+    "id_snippet": "ARMOR_PLATE_SET2",
+    "primaryResource": "metalBar",
+    "primaryResourceAmount": 16,
+    "secondaryResource": null,
+    "secondaryResourceAmount": null,
+    "bonusCity": "Bridgewatch",
+    "realName": "knightArmor",
+    "class": "warrior",
+    "weaponGroup": "plateArmor"
+  },
+  "guardianArmor": {
+    "id_snippet": "ARMOR_PLATE_SET3",
+    "primaryResource": "metalBar",
+    "primaryResourceAmount": 16,
+    "secondaryResource": null,
+    "secondaryResourceAmount": null,
+    "bonusCity": "Bridgewatch",
+    "realName": "guardianArmor",
+    "class": "warrior",
+    "weaponGroup": "plateArmor"
+  },
+  "soldierBoots": {
+    "id_snippet": "SHOES_PLATE_SET1",
+    "primaryResource": "metalBar",
+    "primaryResourceAmount": 8,
+    "secondaryResource": null,
+    "secondaryResourceAmount": null,
+    "bonusCity": "Martlock",
+    "realName": "soldierBoots",
+    "class": "warrior",
+    "weaponGroup": "plateBoots"
+  },
+  "knightBoots": {
+    "id_snippet": "SHOES_PLATE_SET2",
+    "primaryResource": "metalBar",
+    "primaryResourceAmount": 8,
+    "secondaryResource": null,
+    "secondaryResourceAmount": null,
+    "bonusCity": "Martlock",
+    "realName": "knightBoots",
+    "class": "warrior",
+    "weaponGroup": "plateBoots"
+  },
+  "guardianBoots": {
+    "id_snippet": "SHOES_PLATE_SET3",
+    "primaryResource": "metalBar",
+    "primaryResourceAmount": 8,
+    "secondaryResource": null,
+    "secondaryResourceAmount": null,
+    "bonusCity": "Martlock",
+    "realName": "guardianBoots",
+    "class": "warrior",
+    "weaponGroup": "plateBoots"
+  },
+  "broadsword": {
+    "id_snippet": "MAIN_SWORD",
+    "primaryResource": "metalBar",
+    "primaryResourceAmount": 16,
+    "secondaryResource": "leather",
+    "secondaryResourceAmount": 8,
+    "bonusCity": "Lymhurst",
+    "realName": "broadsword",
+    "class": "warrior",
+    "weaponGroup": "sword"
+  },
+  "claymore": {
+    "id_snippet": "2H_CLAYMORE",
+    "primaryResource": "metalBar",
+    "primaryResourceAmount": 20,
+    "secondaryResource": "leather",
+    "secondaryResourceAmount": 12,
+    "bonusCity": "Lymhurst",
+    "realName": "claymore",
+    "class": "warrior",
+    "weaponGroup": "sword"
+  },
+  "dualSwords": {
+    "id_snippet": "2h_DUALSWORD",
+    "primaryResource": "metalBar",
+    "primaryResourceAmount": 20,
+    "secondaryResource": "leather",
+    "secondaryResourceAmount": 12,
+    "bonusCity": "Lymhurst",
+    "realName": "dualSwords",
+    "class": "warrior",
+    "weaponGroup": "sword"
+  },
+  "battleAxe": {
+    "id_snippet": "MAIN_AXE",
+    "primaryResource": "metalBar",
+    "primaryResourceAmount": 16,
+    "secondaryResource": "planks",
+    "secondaryResourceAmount": 8,
+    "bonusCity": "Martlock",
+    "realName": "battleAxe",
+    "class": "warrior",
+    "weaponGroup": "axe"
+  },
+  "greatAxe": {
+    "id_snippet": "2H_AXE",
+    "primaryResource": "metalBar",
+    "primaryResourceAmount": 20,
+    "secondaryResource": "planks",
+    "secondaryResourceAmount": 12,
+    "bonusCity": "Martlock",
+    "realName": "greatAxe",
+    "class": "warrior",
+    "weaponGroup": "axe"
+  },
+  "halberd": {
+    "id_snippet": "2h_HALBERD",
+    "primaryResource": "metalBar",
+    "primaryResourceAmount": 12,
+    "secondaryResource": "planks",
+    "secondaryResourceAmount": 20,
+    "bonusCity": "Martlock",
+    "realName": "halberd",
+    "class": "warrior",
+    "weaponGroup": "axe"
+  },
+  "mace": {
+    "id_snippet": "MAIN_MACE",
+    "primaryResource": "metalBar",
+    "primaryResourceAmount": 16,
+    "secondaryResource": "cloth",
+    "secondaryResourceAmount": 8,
+    "bonusCity": "Thetford",
+    "realName": "mace",
+    "class": "warrior",
+    "weaponGroup": "mace"
+  },
+  "heavyMace": {
+    "id_snippet": "2H_MACE",
+    "primaryResource": "metalBar",
+    "primaryResourceAmount": 20,
+    "secondaryResource": "cloth",
+    "secondaryResourceAmount": 12,
+    "bonusCity": "Thetford",
+    "realName": "heavyMace",
+    "class": "warrior",
+    "weaponGroup": "mace"
+  },
+  "morningStar": {
+    "id_snippet": "2h_FLAIL",
+    "primaryResource": "metalBar",
+    "primaryResourceAmount": 20,
+    "secondaryResource": "cloth",
+    "secondaryResourceAmount": 12,
+    "bonusCity": "Thetford",
+    "realName": "morningStar",
+    "class": "warrior",
+    "weaponGroup": "mace"
+  },
+  "hammer": {
+    "id_snippet": "MAIN_HAMMER",
+    "primaryResource": "metalBar",
+    "primaryResourceAmount": 24,
+    "secondaryResource": null,
+    "secondaryResourceAmount": null,
+    "bonusCity": "Fort Sterling",
+    "realName": "hammer",
+    "class": "warrior",
+    "weaponGroup": "hammer"
+  },
+  "poleHammer": {
+    "id_snippet": "2H_POLEHAMMER",
+    "primaryResource": "metalBar",
+    "primaryResourceAmount": 20,
+    "secondaryResource": "cloth",
+    "secondaryResourceAmount": 12,
+    "bonusCity": "Fort Sterling",
+    "realName": "poleHammer",
+    "class": "warrior",
+    "weaponGroup": "hammer"
+  },
+  "greatHammer": {
+    "id_snippet": "2h_HAMMER",
+    "primaryResource": "metalBar",
+    "primaryResourceAmount": 20,
+    "secondaryResource": "cloth",
+    "secondaryResourceAmount": 12,
+    "bonusCity": "Fort Sterling",
+    "realName": "greatHammer",
+    "class": "warrior",
+    "weaponGroup": "hammer"
+  },
+  "brawlerGloves": {
+    "id_snippet": "2H_KNUCKLES_SET1",
+    "primaryResource": "metalBar",
+    "primaryResourceAmount": 12,
+    "secondaryResource": "leather",
+    "secondaryResourceAmount": 20,
+    "bonusCity": "Caerleon",
+    "realName": "brawlerGloves",
+    "class": "warrior",
+    "weaponGroup": "warGlove"
+  },
+  "battleBracers": {
+    "id_snippet": "2H_KNUCKLES_SET2",
+    "primaryResource": "metalBar",
+    "primaryResourceAmount": 12,
+    "secondaryResource": "leather",
+    "secondaryResourceAmount": 20,
+    "bonusCity": "Caerleon",
+    "realName": "battleBracers",
+    "class": "warrior",
+    "weaponGroup": "warGlove"
+  },
+  "spikedGauntlet": {
+    "id_snippet": "2H_KNUCKLES_SET3",
+    "primaryResource": "metalBar",
+    "primaryResourceAmount": 12,
+    "secondaryResource": "leather",
+    "secondaryResourceAmount": 20,
+    "bonusCity": "Caerleon",
+    "realName": "spikedGauntlet",
+    "class": "warrior",
+    "weaponGroup": "warGlove"
+  },
+  "crossbow": {
+    "id_snippet": "2H_CROSSBOW",
+    "primaryResource": "metalBar",
+    "primaryResourceAmount": 12,
+    "secondaryResource": "planks",
+    "secondaryResourceAmount": 20,
+    "bonusCity": "Bridgewatch",
+    "realName": "crossbow",
+    "class": "warrior",
+    "weaponGroup": "crossbow"
+  },
+  "heavyCrossbow": {
+    "id_snippet": "2H_CROSSBOWLARGE",
+    "primaryResource": "metalBar",
+    "primaryResourceAmount": 12,
+    "secondaryResource": "planks",
+    "secondaryResourceAmount": 20,
+    "bonusCity": "Bridgewatch",
+    "realName": "heavyCrossbow",
+    "class": "warrior",
+    "weaponGroup": "crossbow"
+  },
+  "lightCrossbow": {
+    "id_snippet": "MAIN_1HCROSSBOW",
+    "primaryResource": "metalBar",
+    "primaryResourceAmount": 8,
+    "secondaryResource": "planks",
+    "secondaryResourceAmount": 16,
+    "bonusCity": "Bridgewatch",
+    "realName": "lightCrossbow",
+    "class": "warrior",
+    "weaponGroup": "crossbow"
+  },
+  "shield": {
+    "id_snippet": "OFF_SHIELD",
+    "primaryResource": "metalBar",
+    "primaryResourceAmount": 4,
+    "secondaryResource": "planks",
+    "secondaryResourceAmount": 4,
+    "bonusCity": "Martlock",
+    "realName": "shield",
+    "class": "warrior",
+    "weaponGroup": "shield"
+  },
+  "scholarCowl": {
+    "id_snippet": "HEAD_CLOTH_SET1",
+    "primaryResource": "cloth",
+    "primaryResourceAmount": 8,
+    "secondaryResource": null,
+    "secondaryResourceAmount": null,
+    "bonusCity": "Thetford",
+    "realName": "scholarCowl",
+    "class": "mage",
+    "weaponGroup": "clothCowl"
+  },
+  "clericCowl": {
+    "id_snippet": "HEAD_CLOTH_SET2",
+    "primaryResource": "cloth",
+    "primaryResourceAmount": 8,
+    "secondaryResource": null,
+    "secondaryResourceAmount": null,
+    "bonusCity": "Thetford",
+    "realName": "clericCowl",
+    "class": "mage",
+    "weaponGroup": "clothCowl"
+  },
+  "mageCowl": {
+    "id_snippet": "HEAD_CLOTH_SET3",
+    "primaryResource": "cloth",
+    "primaryResourceAmount": 8,
+    "secondaryResource": null,
+    "secondaryResourceAmount": null,
+    "bonusCity": "Thetford",
+    "realName": "mageCowl",
+    "class": "mage",
+    "weaponGroup": "clothCowl"
+  },
+  "scholarRobe": {
+    "id_snippet": "ARMOR_CLOTH_SET1",
+    "primaryResource": "cloth",
+    "primaryResourceAmount": 16,
+    "secondaryResource": null,
+    "secondaryResourceAmount": null,
+    "bonusCity": "Fort Sterling",
+    "realName": "scholarRobe",
+    "class": "mage",
+    "weaponGroup": "clothRobe"
+  },
+  "clericRobe": {
+    "id_snippet": "ARMOR_CLOTH_SET2",
+    "primaryResource": "cloth",
+    "primaryResourceAmount": 16,
+    "secondaryResource": null,
+    "secondaryResourceAmount": null,
+    "bonusCity": "Fort Sterling",
+    "realName": "clericRobe",
+    "class": "mage",
+    "weaponGroup": "clothRobe"
+  },
+  "mageRobe": {
+    "id_snippet": "ARMOR_CLOTH_SET3",
+    "primaryResource": "cloth",
+    "primaryResourceAmount": 16,
+    "secondaryResource": null,
+    "secondaryResourceAmount": null,
+    "bonusCity": "Fort Sterling",
+    "realName": "mageRobe",
+    "class": "mage",
+    "weaponGroup": "clothRobe"
+  },
+  "scholarSandals": {
+    "id_snippet": "SHOES_CLOTH_SET1",
+    "primaryResource": "cloth",
+    "primaryResourceAmount": 8,
+    "secondaryResource": null,
+    "secondaryResourceAmount": null,
+    "bonusCity": "Bridgewatch",
+    "realName": "scholarSandals",
+    "class": "mage",
+    "weaponGroup": "clothSandals"
+  },
+  "clericSandals": {
+    "id_snippet": "SHOES_CLOTH_SET2",
+    "primaryResource": "cloth",
+    "primaryResourceAmount": 8,
+    "secondaryResource": null,
+    "secondaryResourceAmount": null,
+    "bonusCity": "Bridgewatch",
+    "realName": "clericSandals",
+    "class": "mage",
+    "weaponGroup": "clothSandals"
+  },
+  "mageSandals": {
+    "id_snippet": "SHOES_CLOTH_SET3",
+    "primaryResource": "cloth",
+    "primaryResourceAmount": 8,
+    "secondaryResource": null,
+    "secondaryResourceAmount": null,
+    "bonusCity": "Bridgewatch",
+    "realName": "mageSandals",
+    "class": "mage",
+    "weaponGroup": "clothSandals"
+  },
+  "fireStaff": {
+    "id_snippet": "MAIN_FIRESTAFF",
+    "primaryResource": "planks",
+    "primaryResourceAmount": 16,
+    "secondaryResource": "metalBar",
+    "secondaryResourceAmount": 8,
+    "bonusCity": "Thetford",
+    "realName": "fireStaff",
+    "class": "mage",
+    "weaponGroup": "fireStaff"
+  },
+  "greatFireStaff": {
+    "id_snippet": "2H_FIRESTAFF",
+    "primaryResource": "planks",
+    "primaryResourceAmount": 20,
+    "secondaryResource": "metalBar",
+    "secondaryResourceAmount": 12,
+    "bonusCity": "Thetford",
+    "realName": "greatFireStaff",
+    "class": "mage",
+    "weaponGroup": "fireStaff"
+  },
+  "infernoStaff": {
+    "id_snippet": "2H_INFERNOSTAFF",
+    "primaryResource": "planks",
+    "primaryResourceAmount": 20,
+    "secondaryResource": "metalBar",
+    "secondaryResourceAmount": 12,
+    "bonusCity": "Thetford",
+    "realName": "infernoStaff",
+    "class": "mage",
+    "weaponGroup": "fireStaff"
+  },
+  "holyStaff": {
+    "id_snippet": "MAIN_HOLYSTAFF",
+    "primaryResource": "planks",
+    "primaryResourceAmount": 16,
+    "secondaryResource": "cloth",
+    "secondaryResourceAmount": 8,
+    "bonusCity": "Fort Sterling",
+    "realName": "holyStaff",
+    "class": "mage",
+    "weaponGroup": "holyStaff"
+  },
+  "greatHolyStaff": {
+    "id_snippet": "2H_HOLYSTAFF",
+    "primaryResource": "planks",
+    "primaryResourceAmount": 20,
+    "secondaryResource": "cloth",
+    "secondaryResourceAmount": 12,
+    "bonusCity": "Fort Sterling",
+    "realName": "greatHolyStaff",
+    "class": "mage",
+    "weaponGroup": "holyStaff"
+  },
+  "divineStaff": {
+    "id_snippet": "2H_DIVINESTAFF",
+    "primaryResource": "planks",
+    "primaryResourceAmount": 20,
+    "secondaryResource": "cloth",
+    "secondaryResourceAmount": 12,
+    "bonusCity": "Fort Sterling",
+    "realName": "divineStaff",
+    "class": "mage",
+    "weaponGroup": "holyStaff"
+  },
+  "arcaneStaff": {
+    "id_snippet": "MAIN_ARCANESTAFF",
+    "primaryResource": "planks",
+    "primaryResourceAmount": 16,
+    "secondaryResource": "metalBar",
+    "secondaryResourceAmount": 8,
+    "bonusCity": "Lymhurst",
+    "realName": "arcaneStaff",
+    "class": "mage",
+    "weaponGroup": "arcaneStaff"
+  },
+  "greatArcaneStaff": {
+    "id_snippet": "2H_ARCANESTAFF",
+    "primaryResource": "planks",
+    "primaryResourceAmount": 20,
+    "secondaryResource": "metalBar",
+    "secondaryResourceAmount": 12,
+    "bonusCity": "Lymhurst",
+    "realName": "greatArcaneStaff",
+    "class": "mage",
+    "weaponGroup": "arcaneStaff"
+  },
+  "enigmaticStaff": {
+    "id_snippet": "2H_ENIGMATICSTAFF",
+    "primaryResource": "planks",
+    "primaryResourceAmount": 20,
+    "secondaryResource": "metalBar",
+    "secondaryResourceAmount": 12,
+    "bonusCity": "Lymhurst",
+    "realName": "enigmaticStaff",
+    "class": "mage",
+    "weaponGroup": "arcaneStaff"
+  },
+  "frostStaff": {
+    "id_snippet": "MAIN_FROSTSTAFF",
+    "primaryResource": "planks",
+    "primaryResourceAmount": 16,
+    "secondaryResource": "metalBar",
+    "secondaryResourceAmount": 8,
+    "bonusCity": "Martlock",
+    "realName": "frostStaff",
+    "class": "mage",
+    "weaponGroup": "frostStaff"
+  },
+  "greatFrostStaff": {
+    "id_snippet": "2H_FROSTSTAFF",
+    "primaryResource": "planks",
+    "primaryResourceAmount": 20,
+    "secondaryResource": "metalBar",
+    "secondaryResourceAmount": 12,
+    "bonusCity": "Martlock",
+    "realName": "greatFrostStaff",
+    "class": "mage",
+    "weaponGroup": "frostStaff"
+  },
+  "glacialStaff": {
+    "id_snippet": "2H_GLACIALSTAFF",
+    "primaryResource": "planks",
+    "primaryResourceAmount": 20,
+    "secondaryResource": "metalBar",
+    "secondaryResourceAmount": 12,
+    "bonusCity": "Martlock",
+    "realName": "glacialStaff",
+    "class": "mage",
+    "weaponGroup": "frostStaff"
+  },
+  "cursedStaff": {
+    "id_snippet": "MAIN_CURSEDSTAFF",
+    "primaryResource": "planks",
+    "primaryResourceAmount": 16,
+    "secondaryResource": "metalBar",
+    "secondaryResourceAmount": 8,
+    "bonusCity": "Bridgewatch",
+    "realName": "cursedStaff",
+    "class": "mage",
+    "weaponGroup": "curseStaff"
+  },
+  "greatCursedStaff": {
+    "id_snippet": "2H_CURSEDSTAFF",
+    "primaryResource": "planks",
+    "primaryResourceAmount": 20,
+    "secondaryResource": "metalBar",
+    "secondaryResourceAmount": 12,
+    "bonusCity": "Bridgewatch",
+    "realName": "greatCursedStaff",
+    "class": "mage",
+    "weaponGroup": "curseStaff"
+  },
+  "demonicStaff": {
+    "id_snippet": "2H_DEMONICSTAFF",
+    "primaryResource": "planks",
+    "primaryResourceAmount": 20,
+    "secondaryResource": "metalBar",
+    "secondaryResourceAmount": 12,
+    "bonusCity": "Bridgewatch",
+    "realName": "demonicStaff",
+    "class": "mage",
+    "weaponGroup": "curseStaff"
+  },
+  "tomeOfSpells": {
+    "id_snippet": "OFF_BOOK",
+    "primaryResource": "cloth",
+    "primaryResourceAmount": 4,
+    "secondaryResource": "leather",
+    "secondaryResourceAmount": 4,
+    "bonusCity": "Martlock",
+    "realName": "tomeOfSpells",
+    "class": "mage",
+    "weaponGroup": "tome"
   },
   "hunter": {
     "leatherHood": {
