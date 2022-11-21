@@ -52,10 +52,10 @@ class ApiService // Buy Order ist buy_price_max
     public function getResource(string $resourceType)
     {
         $apiUrl = match ($resourceType) {
-            'metalBar' => $this->apiUrlAssembler(self::RESOURCE_METALBAR),
-            'planks' => $this->apiUrlAssembler(self::RESOURCE_PLANKS),
-            'cloth' => $this->apiUrlAssembler(self::RESOURCE_CLOTH),
-            'leather' => $this->apiUrlAssembler(self::RESOURCE_LEATHER),
+            'metalBar' => $this->apiUrlAssembler(self::RESOURCE_METALBAR, self::RESOURCE_TIERS_WITH_PLACEHOLDER),
+            'planks' => $this->apiUrlAssembler(self::RESOURCE_PLANKS, self::RESOURCE_TIERS_WITH_PLACEHOLDER),
+            'cloth' => $this->apiUrlAssembler(self::RESOURCE_CLOTH, self::RESOURCE_TIERS_WITH_PLACEHOLDER),
+            'leather' => $this->apiUrlAssembler(self::RESOURCE_LEATHER, self::RESOURCE_TIERS_WITH_PLACEHOLDER),
             default => throw new \InvalidArgumentException('wrong Resource Type in ApiService')
         };
 
@@ -63,25 +63,9 @@ class ApiService // Buy Order ist buy_price_max
     }
 
 
-    private function apiUrlAssembler(
-        string $replacement,
-        string $stringWithPlaceholders = self::RESOURCE_TIERS_WITH_PLACEHOLDER
-    ): string|array {
-        $completeUrl = self::BASE_URL;
-        if ($stringWithPlaceholders === self::RESOURCE_TIERS_WITH_PLACEHOLDER ||
-            $stringWithPlaceholders === self::JOURNAL_TIERS_WITH_PLACEHOLDER) {
-            return $completeUrl . str_replace('%s', $replacement, $stringWithPlaceholders);
-        }
-        $nameData = NameDataService::getNameDataArray();
-        $urlArray = [];
-        foreach ($nameData as $itemCategory) {
-            if (array_key_exists($replacement, $itemCategory)) {
-                foreach ($itemCategory[$replacement] as $item) {
-                    $urlArray[] = $completeUrl . str_replace('%s', $item['id_snippet'], $stringWithPlaceholders);
-                }
-            }
-        }
-        return $urlArray;
+    private function apiUrlAssembler(string $replacement, string $stringWithPlaceholders): string
+    {
+        return self::BASE_URL . str_replace('%s', $replacement, $stringWithPlaceholders);
     }
 
     private function jsonDecode(string $json)
