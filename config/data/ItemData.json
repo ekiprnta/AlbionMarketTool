@@ -779,37 +779,5 @@
     "stoneBLock": {
       "bonusCity": "Bridgewatch"
     }
-  },
-  "journal": {
-    "stats": {
-      "2": {
-        "fameToFill": 900,
-        "weight": 0.2
-      },
-      "3": {
-        "fameToFill": 1800,
-        "weight": 0.2
-      },
-      "4": {
-        "fameToFill": 3600,
-        "weight": 0.3
-      },
-      "5": {
-        "fameToFill": 7200,
-        "weight": 0.5
-      },
-      "6": {
-        "fameToFill": 14400,
-        "weight": 0.8
-      },
-      "7": {
-        "fameToFill": 28380,
-        "weight": 1.1
-      },
-      "8": {
-        "fameToFill": 58590,
-        "weight": 1.7
-      }
-    }
   }
 }
