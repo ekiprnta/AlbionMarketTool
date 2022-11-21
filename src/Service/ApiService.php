@@ -25,6 +25,14 @@ class ApiService // Buy Order ist buy_price_max
     public const CITY_THETFORD = 'Thetford';
     public const CITY_BLACKMARKET = 'BlackMarket';
 
+    public const CITY_ALL =
+        self::CITY_BRIDGEWATCH . ',' .
+        self::CITY_FORTSTERLING . ',' .
+        self::CITY_LYMHURST . ',' .
+        self::CITY_MARTLOCK . ',' .
+        self::CITY_THETFORD . ',' .
+        self::CITY_BLACKMARKET . ',';
+
     private const QUALITY_GOOD = 2;
 
     public function __construct(
@@ -37,15 +45,8 @@ class ApiService // Buy Order ist buy_price_max
     {
         $apiUrl = $this->apiUrlAssembler($journalType, self::JOURNAL_TIERS_WITH_PLACEHOLDER);
 
-        $cities = sprintf(
-            '%s,%s,%s,%s,%s',
-            self::CITY_BRIDGEWATCH,
-            self::CITY_FORTSTERLING,
-            self::CITY_LYMHURST,
-            self::CITY_MARTLOCK,
-            self::CITY_THETFORD
-        );
-        return $this->jsonDecode($this->httpClient->get($apiUrl, ['locations' => $cities]));
+
+        return $this->jsonDecode($this->httpClient->get($apiUrl, ['locations' => self::CITY_ALL]));
     }
 
     public function getResource(string $resourceType)
@@ -58,44 +59,7 @@ class ApiService // Buy Order ist buy_price_max
             default => throw new \InvalidArgumentException('wrong Resource Type in ApiService')
         };
 
-        $cities = sprintf(
-            '%s,%s,%s,%s,%s',
-            self::CITY_BRIDGEWATCH,
-            self::CITY_FORTSTERLING,
-            self::CITY_LYMHURST,
-            self::CITY_MARTLOCK,
-            self::CITY_THETFORD
-        );
-        return $this->jsonDecode($this->httpClient->get($apiUrl, ['locations' => $cities]));
-    }
-
-    public function getBlackMarketItem(string $itemName)
-    {
-        $apiUrl = $this->apiUrlAssembler($itemName, self::ITEM_TIERS_WITH_PLACEHOLDER);
-
-        if (is_array($apiUrl)) {
-            $apiData = [];
-            foreach ($apiUrl as $url) {
-                $jsonFromArray = $this->httpClient->get(
-                    $url,
-                    [
-                        'locations' => self::CITY_BLACKMARKET,
-                        'qualities' => self::QUALITY_GOOD,
-                    ]
-                );
-                $apiData[] = $this->jsonDecode($jsonFromArray);
-            }
-            return $apiData;
-        }
-
-        $json = $this->httpClient->get(
-            $apiUrl,
-            [
-                'locations' => self::CITY_BLACKMARKET,
-                'qualities' => self::QUALITY_GOOD,
-            ]
-        );
-        return $this->jsonDecode($json);
+        return $this->jsonDecode($this->httpClient->get($apiUrl, ['locations' => self::CITY_ALL]));
     }
 
 
@@ -129,15 +93,6 @@ class ApiService // Buy Order ist buy_price_max
     public function getItems(string $itemName): array
     {
         $apiUrl = $this->apiUrlAssembler($itemName, self::ITEM_TIERS_WITH_PLACEHOLDER);
-        $cities = sprintf(
-            '%s,%s,%s,%s,%s,%s',
-            self::CITY_BRIDGEWATCH,
-            self::CITY_FORTSTERLING,
-            self::CITY_LYMHURST,
-            self::CITY_MARTLOCK,
-            self::CITY_THETFORD,
-            self::CITY_BLACKMARKET,
-        );
 
         if (is_array($apiUrl)) {
             $apiData = [];
@@ -145,7 +100,7 @@ class ApiService // Buy Order ist buy_price_max
                 $jsonFromArray = $this->httpClient->get(
                     $url,
                     [
-                        'locations' => $cities,
+                        'locations' => self::CITY_ALL,
                         'qualities' => self::QUALITY_GOOD,
                     ]
                 );
