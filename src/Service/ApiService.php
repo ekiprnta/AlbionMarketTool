@@ -78,21 +78,6 @@ class ApiService // Buy Order ist buy_price_max
     {
         $apiUrl = $this->apiUrlAssembler($itemName, self::ITEM_TIERS_WITH_PLACEHOLDER);
 
-        if (is_array($apiUrl)) {
-            $apiData = [];
-            foreach ($apiUrl as $url) {
-                $jsonFromArray = $this->httpClient->get(
-                    $url,
-                    [
-                        'locations' => self::CITY_ALL,
-                        'qualities' => self::QUALITY_GOOD,
-                    ]
-                );
-                $apiData[] = $this->jsonDecode($jsonFromArray);
-            }
-            return $apiData;
-        }
-
         $json = $this->httpClient->get($apiUrl, [
             'locations' => self::CITY_ALL,
             'qualities' => self::QUALITY_GOOD,
