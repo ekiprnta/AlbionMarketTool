@@ -1,17 +1,22 @@
 {
     "metalBar": {
-      "bonusCity": "Thetford"
+      "bonusCity": "Thetford",
+      "realName": "metalBar"
     },
     "cloth": {
-      "bonusCity": "Lymhurst"
+      "bonusCity": "Lymhurst",
+      "realName": "cloth"
     },
     "planks": {
-      "bonusCity": "Fort Sterling"
+      "bonusCity": "Fort Sterling",
+      "realName": "planks"
     },
     "leather": {
-      "bonusCity": "Martlock"
+      "bonusCity": "Martlock",
+      "realName": "leather"
     },
     "stoneBLock": {
-      "bonusCity": "Bridgewatch"
+      "bonusCity": "Bridgewatch",
+      "realName": "stoneBLock"
     }
 }
