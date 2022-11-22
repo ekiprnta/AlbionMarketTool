@@ -32,7 +32,7 @@ class UpdateItemsCommand extends Command
             return self::FAILURE;
         }
 
-        $progressBar = ProgressBarService::getProgressBar($output, count($itemList));
+        $progressBar = ProgressBarService::getProgressBar($output, is_countable($itemList) ? count($itemList) : 0);
 
         foreach ($itemList as $itemStats) {
             $progressBar->setMessage('Get Item:' . $itemStats['realName']);

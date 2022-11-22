@@ -31,11 +31,11 @@ SQL
         $emptyArray = [];
         foreach ($statement->getIterator() as $resourceInformation) {
             if (empty($resourceInformation['sellOrderPriceDate'])) {
-                $emptyArray[]= [
+                $emptyArray[] = [
                     $resourceInformation['tier'],
                     $resourceInformation['city'],
                     $resourceInformation['name'],
-                    $resourceInformation['bonusCity']
+                    $resourceInformation['bonusCity'],
                 ];
             } else {
                 $resourceArray[] = new ResourceEntity($resourceInformation);

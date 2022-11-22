@@ -6,10 +6,6 @@ namespace MZierdt\Albion\Service;
 
 class UploadHelper
 {
-    public function __construct()
-    {
-    }
-
     public static function adjustResourceArray(array $resourceData, array $resourceStats): array
     {
         $adjustedResourceArray = [];
