@@ -8,7 +8,7 @@ use MZierdt\Albion\repositories\UploadRepository;
 use MZierdt\Albion\Service\ApiService;
 use MZierdt\Albion\Service\ConfigService;
 use MZierdt\Albion\Service\ProgressBarService;
-use MZierdt\Albion\Service\UploadService;
+use MZierdt\Albion\Service\UploadHelper;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -41,7 +41,7 @@ class UpdateItemsCommand extends Command
             $itemsData = $this->apiService->getItems($itemStats['realName']);
             $progressBar->setMessage('preparing Item' . $itemStats['realName']);
             $progressBar->display();
-            $adjustedItems = UploadService::adjustItems($itemsData, $itemStats);
+            $adjustedItems = UploadHelper::adjustItems($itemsData, $itemStats);
             $progressBar->setMessage('Upload Item ' . $itemStats['realName'] . ' into Database');
             $progressBar->display();
             $this->uploadRepository->updatePricesFromItem($adjustedItems);

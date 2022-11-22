@@ -7,40 +7,18 @@ namespace MZierdt\Albion\Service;
 use MZierdt\Albion\repositories\UploadRepository;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class UploadService
+class UploadHelper
 {
     public function __construct(
-        private ApiService $apiService,
-        private UploadRepository $uploadRepository,
     ) {
     }
 
-
-
-    public function updateJournalPricesInAlbionDb(OutputInterface $output): void
-    {
-        $journalList = ConfigService::getJournalConfig();
-        $progressBar = ProgressBarService::getProgressBar($output, count($journalList['names']));
-
-        foreach ($journalList['names'] as $journalNames) {
-            $progressBar->setMessage('Get Resource ' . $journalNames);
-            $progressBar->advance();
-            $progressBar->display();
-            $journalsData = $this->apiService->getJournals($journalNames);
-            $progressBar->setMessage('preparing resource ' . $journalNames);
-            $progressBar->display();
-            $adjustedJournals = $this->adjustJournals($journalsData, $journalList['stats']);
-            $progressBar->setMessage('Upload Resource ' . $journalNames . ' into Database');
-            $progressBar->display();
-            $this->uploadRepository->updatePricesFromJournals($adjustedJournals);
-        }
-    }
     public static function adjustResourceArray(array $resourceData, array $resourceStats): array
     {
         $adjustedResourceArray = [];
         foreach ($resourceData as $resource) {
             $nameAndTier = TierService::splitIntoTierAndName($resource['item_id']);
-            $name = UploadService::getResourceName($nameAndTier['name']);
+            $name = UploadHelper::getResourceName($nameAndTier['name']);
             $adjustedResourceArray[] = [
                 'tier' => $nameAndTier['tier'],
                 'name' => $name,

@@ -8,7 +8,7 @@ use MZierdt\Albion\repositories\UploadRepository;
 use MZierdt\Albion\Service\ApiService;
 use MZierdt\Albion\Service\ConfigService;
 use MZierdt\Albion\Service\ProgressBarService;
-use MZierdt\Albion\Service\UploadService;
+use MZierdt\Albion\Service\UploadHelper;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -41,7 +41,7 @@ class UpdateResourcesCommand extends Command
             $resourcesData = $this->apiService->getResource($resourceStats['realName']);
             $progressBar->setMessage('preparing resource ' . $resourceStats['realName']);
             $progressBar->display();
-            $adjustedResources = UploadService::adjustResourceArray($resourcesData, $resourceStats);
+            $adjustedResources = UploadHelper::adjustResourceArray($resourcesData, $resourceStats);
             $progressBar->setMessage('Upload Resource ' . $resourceStats['realName'] . ' into Database');
             $progressBar->display();
             $this->uploadRepository->updatePricesFromResources($adjustedResources);

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\commands;
 
-use MZierdt\Albion\Service\UploadService;
+use MZierdt\Albion\Service\UploadHelper;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -12,7 +12,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class UpdatePricesCommand extends Command
 {
     public function __construct(
-        private UploadService $uploadService,
+        private UploadHelper $uploadService,
     ) {
         parent::__construct();
     }
