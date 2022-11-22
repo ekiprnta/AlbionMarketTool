@@ -14,7 +14,6 @@ $container = require __DIR__ . '/../container.php';
 
 $app = new Application('Albion Market Tool');
 
-$app->add($container->get(UpdatePricesCommand::class));
 $app->add($container->get(UpdateItemsCommand::class));
 $app->add($container->get(UpdateJournalsCommand::class));
 $app->add($container->get(UpdateResourcesCommand::class));
