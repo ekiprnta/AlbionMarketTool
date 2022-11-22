@@ -17,10 +17,11 @@ class TierService
                 'name' => implode('_', $itemIdArray),
             ];
         }
+
         $preTier = array_shift($itemIdArray);
         $itemName = implode('_', $itemIdArray);
 
-        if (! str_contains($itemName, '@')) {
+        if (!str_contains($itemName, '@')) {
             return [
                 'tier' => self::tierConverter($preTier),
                 'name' => $itemName,
@@ -37,6 +38,6 @@ class TierService
 
     private static function tierConverter(string $tierString): int
     {
-        return (int) ltrim($tierString, 't');
+        return (int)ltrim($tierString, 't');
     }
 }
