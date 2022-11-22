@@ -28,18 +28,8 @@ SQL
         $statement->execute();
 
         $resourceArray = [];
-        $emptyArray = [];
         foreach ($statement->getIterator() as $resourceInformation) {
-            if (empty($resourceInformation['sellOrderPriceDate'])) {
-                $emptyArray[] = [
-                    $resourceInformation['tier'],
-                    $resourceInformation['city'],
-                    $resourceInformation['name'],
-                    $resourceInformation['bonusCity'],
-                ];
-            } else {
                 $resourceArray[] = new ResourceEntity($resourceInformation);
-            }
         }
         return $resourceArray;
     }
