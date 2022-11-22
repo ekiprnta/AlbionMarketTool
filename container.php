@@ -76,7 +76,8 @@ $serviceManager = new ServiceManager([
                     UploadRepository::class,
                 ],
                 UpdateResourcesCommand::class => [
-                    UploadService::class,
+                    ApiService::class,
+                    UploadRepository::class,
                 ],
             ]
         ],

@@ -28,8 +28,7 @@ class UpdateItemsCommand extends Command
         try {
             $itemList = ConfigService::getItemConfig();
         } catch (\JsonException $jsonException) {
-            $message = $jsonException->getMessage();
-            $output->writeln($message);
+            $output->writeln($jsonException->getMessage());
             return self::FAILURE;
         }
 

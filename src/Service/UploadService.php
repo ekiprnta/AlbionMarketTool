@@ -35,28 +35,6 @@ class UploadService
             $this->uploadRepository->updatePricesFromJournals($adjustedJournals);
         }
     }
-
-
-
-    public function updateResourcePricesInAlbionDb(OutputInterface $output): void
-    {
-        $resourceList = ConfigService::getResourceConfig();
-        $progressBar = ProgressBarService::getProgressBar($output, count($resourceList));
-
-        foreach ($resourceList as $resourceStats) {
-            $progressBar->setMessage('Get Resource ' . $resourceStats['realName']);
-            $progressBar->advance();
-            $progressBar->display();
-            $resourcesData = $this->apiService->getResource($resourceStats['realName']);
-            $progressBar->setMessage('preparing resource ' . $resourceStats['realName']);
-            $progressBar->display();
-            $adjustedResources = $this->adjustResourceArray($resourcesData, $resourceStats);
-            $progressBar->setMessage('Upload Resource ' . $resourceStats['realName'] . ' into Database');
-            $progressBar->display();
-            $this->uploadRepository->updatePricesFromResources($adjustedResources);
-        }
-    }
-
     public static function adjustResourceArray(array $resourceData, array $resourceStats): array
     {
         $adjustedResourceArray = [];
