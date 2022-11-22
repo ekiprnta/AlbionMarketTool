@@ -19,13 +19,13 @@ class UpdateResourcesCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $message = 'Succesful updated all Prices';
+        $message = 'successfully updated all Prices';
         try {
             $this->uploadService->updateResourcePricesInAlbionDb($output);
         } catch (\JsonException|\RuntimeException $exception) {
             $message .= ' Except for ' . $exception->getMessage();
         }
-        $output->writeln($message);
+        $output->writeln(PHP_EOL . $message);
         return self::SUCCESS;
     }
 

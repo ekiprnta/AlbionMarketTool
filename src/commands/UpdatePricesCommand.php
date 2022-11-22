@@ -19,7 +19,7 @@ class UpdatePricesCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $message = 'Succesful updated all Prices';
+        $message = 'successfully updated all Prices';
         try {
             $this->uploadService->updateItemPricesInAlbionDb($output);
             $this->uploadService->updateJournalPricesInAlbionDb($output);
@@ -27,7 +27,7 @@ class UpdatePricesCommand extends Command
         } catch (\JsonException|\RuntimeException $exception) {
             $message .= ' Except for ' . $exception->getMessage();
         }
-        $output->writeln($message);
+        $output->writeln(PHP_EOL . $message);
         return self::SUCCESS;
     }
 
