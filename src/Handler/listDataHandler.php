@@ -52,7 +52,6 @@ class listDataHandler
             'martlock' => $martlockItems,
             'thetford' => $thetfordItems,
         ];
-
         $htmlContent = $this->twigEnvironment->render('showData.html.twig', [
             'allCitiesResource' => $allCitiesResource,
             'allCitiesItems' => $allCitiesItems,

@@ -16,11 +16,6 @@ class ResourceRepository
 
     public function getResourcesByCity(string $city): array
     {
-        return $this->getResourcesFromDb($city);
-    }
-
-    private function getResourcesFromDb(string $city): array
-    {
         $statement = $this->pdoConnection->prepare(
             <<<SQL
             SELECT * 
