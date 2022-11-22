@@ -124,20 +124,6 @@ class UploadService
         return $adjustedJournalsArray;
     }
 
-    private function getResourceName(string $name): string
-    {
-        if (str_contains($name, '_level1')) {
-            $resourceName = str_replace('_level1', '', $name);
-        }
-        if (str_contains($name, '_level2')) {
-            $resourceName = str_replace('_level2', '', $name);
-        }
-        if (str_contains($name, '_level3')) {
-            $resourceName = str_replace('_level3', '', $name);
-        }
-        return $resourceName ?? $name;
-    }
-
     private function adjustItems(array $itemData, array $itemStats): array
     {
         $adjustedItems = [];
@@ -164,5 +150,13 @@ class UploadService
             ];
         }
         return $adjustedItems;
+    }
+
+    private function getResourceName(string $name): string
+    {
+        if (count_chars($name) > 10) {
+            return substr($name,0, -7);
+        }
+        return $name;
     }
 }
