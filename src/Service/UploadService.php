@@ -38,20 +38,24 @@ class UploadService
     }
 
 
+    /**
+     * @throws \JsonException
+     */
     public function updateResourcePricesInAlbionDb(OutputInterface $output): void
     {
-        $resourceList = [
-            ResourceEntity::RESOURCE_METAL_BAR,
-            ResourceEntity::RESOURCE_PLANKS,
-            ResourceEntity::RESOURCE_CLOTH,
-            ResourceEntity::RESOURCE_LEATHER,
-        ];
-        $progressBar = ProgressBarService::getProgressBar($output, 440);
-        $progressBar->setMessage('Getting Resources...');
-        foreach ($resourceList as $resource) {
-            $resources = $this->apiService->getResource($resource);
-            $adjustedResources = $this->adjustResourceArray($resources, $resource);
-            $this->uploadRepository->updatePricesFromResources($adjustedResources, $progressBar);
+        $resourceList = ConfigService::getResourceConfig();
+        $progressBar = ProgressBarService::getProgressBar($output, count($resourceList));
+        foreach ($resourceList as $resourceStats) {
+            $progressBar->setMessage('Get Resource ' . $resourceStats['realName']);
+            $progressBar->advance();
+            $progressBar->display();
+            $resourcesData = $this->apiService->getResource($resourceStats['realName']);
+            $progressBar->setMessage('preparing resource ' . $resourceStats['realName']);
+            $progressBar->display();
+            $adjustedResources = $this->adjustResourceArray($resourcesData, $resourceStats);
+            $progressBar->setMessage('Upload Resource ' . $resourceStats['realName'] . ' into Database');
+            $progressBar->display();
+            $this->uploadRepository->updatePricesFromResources($adjustedResources);
         }
     }
 
@@ -61,7 +65,7 @@ class UploadService
      */
     public function updateItemPricesInAlbionDb(OutputInterface $output): void
     {
-        $itemList = ItemDataService::getItemConfig();
+        $itemList = ConfigService::getItemConfig();
         $progressBar = ProgressBarService::getProgressBar($output, count($itemList));
 
         foreach ($itemList as $itemStats) {
@@ -69,7 +73,7 @@ class UploadService
             $progressBar->advance();
             $progressBar->display();
             $itemsData = $this->apiService->getItems($itemStats['realName']);
-            $progressBar->setMessage('Prepare Item' . $itemStats['realName']);
+            $progressBar->setMessage('preparing Item' . $itemStats['realName']);
             $progressBar->display();
             $adjustedItems = $this->adjustItems($itemsData, $itemStats);
             $progressBar->setMessage('Upload Item ' . $itemStats['realName'] . ' into Database');
@@ -79,22 +83,22 @@ class UploadService
     }
 
 
-    protected function adjustResourceArray(array $resourceArray, string $resourceType): array
+    private function adjustResourceArray(array $resourceData, array $resourceStats): array
     {
         $adjustedResourceArray = [];
-        foreach ($resourceArray as $resource) {
+        foreach ($resourceData as $resource) {
             $nameAndTier = TierService::splitIntoTierAndName($resource['item_id']);
             $name = $this->getResourceName($nameAndTier['name']);
             $adjustedResourceArray[] = [
                 'tier' => $nameAndTier['tier'],
                 'name' => $name,
                 'city' => $resource['city'],
-                'realName' => $resourceType,
+                'realName' => $resourceStats['realName'],
                 'sellOrderPrice' => $resource['sell_price_min'],
                 'sellOrderPriceDate' => $resource['sell_price_min_date'],
                 'buyOrderPrice' => $resource['buy_price_max'],
                 'buyOrderPriceDate' => $resource['buy_price_max_date'],
-                'bonusCity' => ItemDataService::getBonusCityForResource($resourceType),
+                'bonusCity' => $resourceStats['bonusCity'],
             ];
         }
         return $adjustedResourceArray;
@@ -105,7 +109,7 @@ class UploadService
         $adjustedJournalsArray = [];
         foreach ($journals as $journal) {
             $nameAndTier = TierService::splitIntoTierAndName($journal['item_id']);
-            $stats = ItemDataService::getStatsJournals($nameAndTier['tier']);
+            $stats = ConfigService::getStatsJournals($nameAndTier['tier']);
             $split = explode('_', $nameAndTier['name']);
             $adjustedJournalsArray[] = [
                 'tier' => $nameAndTier['tier'],
