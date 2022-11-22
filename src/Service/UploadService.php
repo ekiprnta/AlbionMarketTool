@@ -57,34 +57,12 @@ class UploadService
         }
     }
 
-
-
-    public function updateItemPricesInAlbionDb(OutputInterface $output): void
-    {
-        $itemList = ConfigService::getItemConfig();
-        $progressBar = ProgressBarService::getProgressBar($output, count($itemList));
-
-        foreach ($itemList as $itemStats) {
-            $progressBar->setMessage('Get Item:' . $itemStats['realName']);
-            $progressBar->advance();
-            $progressBar->display();
-            $itemsData = $this->apiService->getItems($itemStats['realName']);
-            $progressBar->setMessage('preparing Item' . $itemStats['realName']);
-            $progressBar->display();
-            $adjustedItems = $this->adjustItems($itemsData, $itemStats);
-            $progressBar->setMessage('Upload Item ' . $itemStats['realName'] . ' into Database');
-            $progressBar->display();
-            $this->uploadRepository->updatePricesFromItem($adjustedItems);
-        }
-    }
-
-
-    private function adjustResourceArray(array $resourceData, array $resourceStats): array
+    public static function adjustResourceArray(array $resourceData, array $resourceStats): array
     {
         $adjustedResourceArray = [];
         foreach ($resourceData as $resource) {
             $nameAndTier = TierService::splitIntoTierAndName($resource['item_id']);
-            $name = $this->getResourceName($nameAndTier['name']);
+            $name = UploadService::getResourceName($nameAndTier['name']);
             $adjustedResourceArray[] = [
                 'tier' => $nameAndTier['tier'],
                 'name' => $name,
@@ -100,7 +78,7 @@ class UploadService
         return $adjustedResourceArray;
     }
 
-    private function adjustJournals(array $journalData, array $journalStats): array
+    public static function adjustJournals(array $journalData, array $journalStats): array
     {
         $adjustedJournalsArray = [];
         foreach ($journalData as $journal) {
@@ -124,7 +102,7 @@ class UploadService
         return $adjustedJournalsArray;
     }
 
-    private function adjustItems(array $itemData, array $itemStats): array
+    public static function adjustItems(array $itemData, array $itemStats): array
     {
         $adjustedItems = [];
         foreach ($itemData as $item) {
@@ -152,7 +130,7 @@ class UploadService
         return $adjustedItems;
     }
 
-    private function getResourceName(string $name): string
+    private static function getResourceName(string $name): string
     {
         if (count_chars($name) > 10) {
             return substr($name,0, -7);

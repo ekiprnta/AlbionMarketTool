@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\commands;
 
+use MZierdt\Albion\repositories\UploadRepository;
+use MZierdt\Albion\Service\ApiService;
+use MZierdt\Albion\Service\ConfigService;
+use MZierdt\Albion\Service\ProgressBarService;
 use MZierdt\Albion\Service\UploadService;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -12,7 +16,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 class UpdateItemsCommand extends Command
 {
     public function __construct(
-        private UploadService $uploadService,
+        private ApiService $apiService,
+        private UploadRepository $uploadRepository,
     ) {
         parent::__construct();
     }
@@ -21,10 +26,28 @@ class UpdateItemsCommand extends Command
     {
         $message = 'successfully updated all Prices';
         try {
-            $this->uploadService->updateItemPricesInAlbionDb($output);
-        } catch (\JsonException|\RuntimeException $exception) {
-            $message .= ' Except for ' . $exception->getMessage();
+            $itemList = ConfigService::getItemConfig();
+        } catch (\JsonException $jsonException) {
+            $message = $jsonException->getMessage();
+            $output->writeln($message);
+            return self::FAILURE;
         }
+
+        $progressBar = ProgressBarService::getProgressBar($output, count($itemList));
+
+        foreach ($itemList as $itemStats) {
+            $progressBar->setMessage('Get Item:' . $itemStats['realName']);
+            $progressBar->advance();
+            $progressBar->display();
+            $itemsData = $this->apiService->getItems($itemStats['realName']);
+            $progressBar->setMessage('preparing Item' . $itemStats['realName']);
+            $progressBar->display();
+            $adjustedItems = UploadService::adjustItems($itemsData, $itemStats);
+            $progressBar->setMessage('Upload Item ' . $itemStats['realName'] . ' into Database');
+            $progressBar->display();
+            $this->uploadRepository->updatePricesFromItem($adjustedItems);
+        }
+
         $output->writeln(PHP_EOL . $message);
         return self::SUCCESS;
     }
