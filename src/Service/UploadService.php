@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\Service;
 
-use MZierdt\Albion\Entity\ItemEntity;
-use MZierdt\Albion\Entity\JournalEntity;
-use MZierdt\Albion\Entity\ResourceEntity;
 use MZierdt\Albion\repositories\UploadRepository;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -26,7 +23,7 @@ class UploadService
     public function updateJournalPricesInAlbionDb(OutputInterface $output): void
     {
         $journalList = ConfigService::getJournalConfig();
-        $progressBar = ProgressBarService::getProgressBar($output, 210);
+        $progressBar = ProgressBarService::getProgressBar($output, count($journalList['names']));
         foreach ($journalList['names'] as $journalNames) {
             $progressBar->setMessage('Get Resource ' . $journalNames);
             $progressBar->advance();
@@ -108,10 +105,10 @@ class UploadService
         return $adjustedResourceArray;
     }
 
-    private function adjustJournals(array $journals, array $journalStats): array
+    private function adjustJournals(array $journalData, array $journalStats): array
     {
         $adjustedJournalsArray = [];
-        foreach ($journals as $journal) {
+        foreach ($journalData as $journal) {
             $nameAndTier = TierService::splitIntoTierAndName($journal['item_id']);
             $stats = ConfigService::getStatsJournals($nameAndTier['tier']);
             $split = explode('_', $nameAndTier['name']);
