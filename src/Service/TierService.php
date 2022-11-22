@@ -37,6 +37,6 @@ class TierService
 
     private static function tierConverter(string $tierString): int
     {
-        return (int)ltrim($tierString,'t');
+        return (int) ltrim($tierString, 't');
     }
 }

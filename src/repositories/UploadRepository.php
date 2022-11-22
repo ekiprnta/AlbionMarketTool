@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace MZierdt\Albion\repositories;
 
 use PDO;
-use PDOException;
-use Symfony\Component\Console\Helper\ProgressBar;
 
 class UploadRepository
 {

@@ -12,9 +12,7 @@ class ConfigService
     private const PATH_TO_RESOURCE_CONFIG = __DIR__ . '/../../config/data/ResourceConfig.json';
     private const PATH_TO_JOURNAL_CONFIG = __DIR__ . '/../../config/data/JournalConfig.json';
 
-    /**
-     * @throws \JsonException
-     */
+
     public static function getItemConfig()
     {
         $json = file_get_contents(self::PATH_TO_ITEM_CONFIG);

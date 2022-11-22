@@ -9,7 +9,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class UploadService
 {
-
     public function __construct(
         private ApiService $apiService,
         private UploadRepository $uploadRepository,
@@ -17,13 +16,12 @@ class UploadService
     }
 
 
-    /**
-     * @throws \JsonException
-     */
+
     public function updateJournalPricesInAlbionDb(OutputInterface $output): void
     {
         $journalList = ConfigService::getJournalConfig();
         $progressBar = ProgressBarService::getProgressBar($output, count($journalList['names']));
+
         foreach ($journalList['names'] as $journalNames) {
             $progressBar->setMessage('Get Resource ' . $journalNames);
             $progressBar->advance();
@@ -39,13 +37,12 @@ class UploadService
     }
 
 
-    /**
-     * @throws \JsonException
-     */
+
     public function updateResourcePricesInAlbionDb(OutputInterface $output): void
     {
         $resourceList = ConfigService::getResourceConfig();
         $progressBar = ProgressBarService::getProgressBar($output, count($resourceList));
+
         foreach ($resourceList as $resourceStats) {
             $progressBar->setMessage('Get Resource ' . $resourceStats['realName']);
             $progressBar->advance();
@@ -61,9 +58,7 @@ class UploadService
     }
 
 
-    /**
-     * @throws \JsonException
-     */
+
     public function updateItemPricesInAlbionDb(OutputInterface $output): void
     {
         $itemList = ConfigService::getItemConfig();
@@ -146,28 +141,28 @@ class UploadService
     private function adjustItems(array $itemData, array $itemStats): array
     {
         $adjustedItems = [];
-            foreach ($itemData as $item) {
-                $nameAndTier = TierService::splitIntoTierAndName($item['item_id']);
-                $adjustedItems[] = [
-                    'tier' => $nameAndTier['tier'],
-                    'name' => $nameAndTier['name'],
-                    'weaponGroup' => $itemStats['weaponGroup'],
-                    'realName' => $itemStats['realName'],
-                    'class' => $itemStats['class'],
-                    'city' => $item['city'],
-                    'quality' => $item['quality'],
-                    'sellOrderPrice' => $item['sell_price_min'],
-                    'sellOrderPriceDate' => $item['sell_price_min_date'],
-                    'buyOrderPrice' => $item['buy_price_max'],
-                    'buyOrderPriceDate' => $item['buy_price_max_date'],
-                    'primaryResource' => $itemStats['primaryResource'],
-                    'primaryResourceAmount' => $itemStats['primaryResourceAmount'],
-                    'secondaryResource' => $itemStats['secondaryResource'],
-                    'secondaryResourceAmount' => $itemStats['secondaryResourceAmount'],
-                    'bonusCity' => $itemStats['bonusCity'],
-                    'fameFactor' => null,
-                ];
-            }
+        foreach ($itemData as $item) {
+            $nameAndTier = TierService::splitIntoTierAndName($item['item_id']);
+            $adjustedItems[] = [
+                'tier' => $nameAndTier['tier'],
+                'name' => $nameAndTier['name'],
+                'weaponGroup' => $itemStats['weaponGroup'],
+                'realName' => $itemStats['realName'],
+                'class' => $itemStats['class'],
+                'city' => $item['city'],
+                'quality' => $item['quality'],
+                'sellOrderPrice' => $item['sell_price_min'],
+                'sellOrderPriceDate' => $item['sell_price_min_date'],
+                'buyOrderPrice' => $item['buy_price_max'],
+                'buyOrderPriceDate' => $item['buy_price_max_date'],
+                'primaryResource' => $itemStats['primaryResource'],
+                'primaryResourceAmount' => $itemStats['primaryResourceAmount'],
+                'secondaryResource' => $itemStats['secondaryResource'],
+                'secondaryResourceAmount' => $itemStats['secondaryResourceAmount'],
+                'bonusCity' => $itemStats['bonusCity'],
+                'fameFactor' => null,
+            ];
+        }
         return $adjustedItems;
     }
 }

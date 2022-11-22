@@ -44,22 +44,14 @@ class ApiService // Buy Order ist buy_price_max
     public function getJournals(string $journalType)
     {
         $apiUrl = $this->apiUrlAssembler($journalType, self::JOURNAL_TIERS_WITH_PLACEHOLDER);
-        return $this->jsonDecode(
-            $this->httpClient->get(
-                $apiUrl,
-                ['locations' => self::CITY_ALL]
-            )
-        );
+        return $this->jsonDecode($this->httpClient->get($apiUrl, ['locations' => self::CITY_ALL]));
     }
 
     public function getResource(string $resourceType)
     {
         $apiUrl = $this->apiUrlAssembler($resourceType, self::RESOURCE_TIERS_WITH_PLACEHOLDER);
 
-        $json = $this->httpClient->get(
-            $apiUrl,
-            ['locations' => self::CITY_ALL]
-        );
+        $json = $this->httpClient->get($apiUrl, ['locations' => self::CITY_ALL]);
         return $this->jsonDecode($json);
     }
 
