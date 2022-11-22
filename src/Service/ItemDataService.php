@@ -6,11 +6,14 @@ namespace MZierdt\Albion\Service;
 
 use RuntimeException;
 
-class NameDataService
+class ItemDataService
 {
     private const PATH_TO_JSON = __DIR__ . '/../../config/data/ItemData.json';
 
-    public static function getNameDataArray()
+    /**
+     * @throws \JsonException
+     */
+    public static function getItemDataArray()
     {
         $json = file_get_contents(self::PATH_TO_JSON);
         return json_decode($json, true, 512, JSON_THROW_ON_ERROR);
@@ -30,13 +33,13 @@ class NameDataService
 
     public static function getBonusCityForResource(string $type)
     {
-        $nameData = self::getNameDataArray();
+        $nameData = self::getItemDataArray();
         return $nameData['resource'][$type]['bonusCity'];
     }
 
     public static function getStatsForItem(string $class, string $weaponGroupName, string $name)
     {
-        $nameData = self::getNameDataArray();
+        $nameData = self::getItemDataArray();
         foreach ($nameData[$class][$weaponGroupName] as $itemName => $item) {
             $lowerCaseIdSnippet = strtolower($item['id_snippet']);
             if ($lowerCaseIdSnippet === $name) {
@@ -48,7 +51,7 @@ class NameDataService
 
     public static function getPrimResource(string $name)
     {
-        $nameData = self::getNameDataArray();
+        $nameData = self::getItemDataArray();
         foreach ($nameData as $weaponGroup) {
             foreach ($weaponGroup as $class) {
                 if (array_key_exists($name, $class)) {
@@ -61,7 +64,7 @@ class NameDataService
 
     public static function getSecResource(string $name)
     {
-        $nameData = self::getNameDataArray();
+        $nameData = self::getItemDataArray();
         foreach ($nameData as $weaponGroup) {
             foreach ($weaponGroup as $class) {
                 if (array_key_exists($name, $class)) {
@@ -74,13 +77,13 @@ class NameDataService
 
     public static function getStatsJournals(string $tier)
     {
-        $nameData = self::getNameDataArray();
+        $nameData = self::getItemDataArray();
         return $nameData['journal']['stats'][$tier];
     }
 
     public static function getAllBonusItemForCity(string $city): array
     {
-        $nameData = self::getNameDataArray();
+        $nameData = self::getItemDataArray();
         $itemNames = [];
         foreach ($nameData as $className => $class) {
             foreach ($class as $weaponGroupName => $weaponGroup) {

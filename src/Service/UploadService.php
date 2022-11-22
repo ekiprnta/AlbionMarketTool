@@ -12,36 +12,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class UploadService
 {
-    private array $itemList = [
-        [ItemEntity::ITEM_WARRIOR_HELMET, ItemEntity::CLASS_WARRIOR],
-        [ItemEntity::ITEM_WARRIOR_ARMOR, ItemEntity::CLASS_WARRIOR],
-        [ItemEntity::ITEM_WARRIOR_BOOTS, ItemEntity::CLASS_WARRIOR],
-        [ItemEntity::ITEM_WARRIOR_SWORD, ItemEntity::CLASS_WARRIOR],
-        [ItemEntity::ITEM_WARRIOR_AXE, ItemEntity::CLASS_WARRIOR],
-        [ItemEntity::ITEM_WARRIOR_MACE, ItemEntity::CLASS_WARRIOR],
-        [ItemEntity::ITEM_WARRIOR_HAMMER, ItemEntity::CLASS_WARRIOR],
-        [ItemEntity::ITEM_WARRIOR_WAR_GLOVE, ItemEntity::CLASS_WARRIOR],
-        [ItemEntity::ITEM_WARRIOR_CROSSBOW, ItemEntity::CLASS_WARRIOR],
-        [ItemEntity::ITEM_WARRIOR_SHIELD, ItemEntity::CLASS_WARRIOR],
-        [ItemEntity::ITEM_MAGE_HELMET, ItemEntity::CLASS_MAGE],
-        [ItemEntity::ITEM_MAGE_ARMOR, ItemEntity::CLASS_MAGE],
-        [ItemEntity::ITEM_MAGE_BOOTS, ItemEntity::CLASS_MAGE],
-        [ItemEntity::ITEM_MAGE_FIRE_STAFF, ItemEntity::CLASS_MAGE],
-        [ItemEntity::ITEM_MAGE_HOLY_STAFF, ItemEntity::CLASS_MAGE],
-        [ItemEntity::ITEM_MAGE_ARCANE_STAFF, ItemEntity::CLASS_MAGE],
-        [ItemEntity::ITEM_MAGE_FROST_STAFF, ItemEntity::CLASS_MAGE],
-        [ItemEntity::ITEM_MAGE_CURSE_STAFF, ItemEntity::CLASS_MAGE],
-        [ItemEntity::ITEM_MAGE_TOME_STAFF, ItemEntity::CLASS_MAGE],
-        [ItemEntity::ITEM_HUNTER_HELMET, ItemEntity::CLASS_HUNTER],
-        [ItemEntity::ITEM_HUNTER_ARMOR, ItemEntity::CLASS_HUNTER],
-        [ItemEntity::ITEM_HUNTER_BOOTS, ItemEntity::CLASS_HUNTER],
-        [ItemEntity::ITEM_HUNTER_BOW, ItemEntity::CLASS_HUNTER],
-        [ItemEntity::ITEM_HUNTER_SPEAR, ItemEntity::CLASS_HUNTER],
-        [ItemEntity::ITEM_HUNTER_NATURE_STAFF, ItemEntity::CLASS_HUNTER],
-        [ItemEntity::ITEM_HUNTER_DAGGER, ItemEntity::CLASS_HUNTER],
-        [ItemEntity::ITEM_HUNTER_QUARTERSTAFF, ItemEntity::CLASS_HUNTER],
-        [ItemEntity::ITEM_HUNTER_TORCH, ItemEntity::CLASS_HUNTER],
-    ];
 
     public function __construct(
         private ApiService $apiService,
@@ -86,18 +56,23 @@ class UploadService
     }
 
 
+    /**
+     * @throws \JsonException
+     */
     public function updateItemPricesInAlbionDb(OutputInterface $output): void
     {
-        $progressBar = ProgressBarService::getProgressBar($output, count($this->itemList));
-        foreach ($this->itemList as $item) {
-            $progressBar->setMessage('Get Item:' . $item[0]);
+        $itemList = ItemDataService::getItemDataArray();
+        $progressBar = ProgressBarService::getProgressBar($output, count($itemList));
+
+        foreach ($itemList as $itemStats) {
+            $progressBar->setMessage('Get Item:' . $itemStats['realName']);
             $progressBar->advance();
             $progressBar->display();
-            $items = $this->apiService->getItems($item[0]);
-            $progressBar->setMessage('Prepare Item' . $item[0]);
+            $itemsData = $this->apiService->getItems($itemStats['realName']);
+            $progressBar->setMessage('Prepare Item' . $itemStats['realName']);
             $progressBar->display();
-            $adjustedItems = $this->adjustItems($items, $item);
-            $progressBar->setMessage('Upload Item ' . $item[0] . ' into Database');
+            $adjustedItems = $this->adjustItems($itemsData, $itemStats);
+            $progressBar->setMessage('Upload Item ' . $itemStats['realName'] . ' into Database');
             $progressBar->display();
             $this->uploadRepository->updatePricesFromItem($adjustedItems);
         }
@@ -119,7 +94,7 @@ class UploadService
                 'sellOrderPriceDate' => $resource['sell_price_min_date'],
                 'buyOrderPrice' => $resource['buy_price_max'],
                 'buyOrderPriceDate' => $resource['buy_price_max_date'],
-                'bonusCity' => NameDataService::getBonusCityForResource($resourceType),
+                'bonusCity' => ItemDataService::getBonusCityForResource($resourceType),
             ];
         }
         return $adjustedResourceArray;
@@ -130,7 +105,7 @@ class UploadService
         $adjustedJournalsArray = [];
         foreach ($journals as $journal) {
             $nameAndTier = TierService::splitIntoTierAndName($journal['item_id']);
-            $stats = NameDataService::getStatsJournals($nameAndTier['tier']);
+            $stats = ItemDataService::getStatsJournals($nameAndTier['tier']);
             $split = explode('_', $nameAndTier['name']);
             $adjustedJournalsArray[] = [
                 'tier' => $nameAndTier['tier'],
@@ -163,35 +138,31 @@ class UploadService
         return $resourceName ?? $name;
     }
 
-    private function adjustItems(array $weaponGroupArray, array $itemData): array
+    private function adjustItems(array $itemData, array $itemStats): array
     {
-        [$weaponGroupName, $class] = $itemData;
         $adjustedItems = [];
-        foreach ($weaponGroupArray as $weapon) {
-            foreach ($weapon as $item) {
+            foreach ($itemData as $item) {
                 $nameAndTier = TierService::splitIntoTierAndName($item['item_id']);
-                $stats = NameDataService::getStatsForItem($class, $weaponGroupName, $nameAndTier['name']);
                 $adjustedItems[] = [
                     'tier' => $nameAndTier['tier'],
                     'name' => $nameAndTier['name'],
-                    'weaponGroup' => $weaponGroupName,
-                    'realName' => $stats['realName'],
-                    'class' => $class,
+                    'weaponGroup' => $itemStats['weaponGroup'],
+                    'realName' => $itemStats['realName'],
+                    'class' => $itemStats['class'],
                     'city' => $item['city'],
                     'quality' => $item['quality'],
                     'sellOrderPrice' => $item['sell_price_min'],
                     'sellOrderPriceDate' => $item['sell_price_min_date'],
                     'buyOrderPrice' => $item['buy_price_max'],
                     'buyOrderPriceDate' => $item['buy_price_max_date'],
-                    'primaryResource' => $stats['primaryResource'],
-                    'primaryResourceAmount' => $stats['primaryResourceAmount'],
-                    'secondaryResource' => $stats['secondaryResource'],
-                    'secondaryResourceAmount' => $stats['secondaryResourceAmount'],
-                    'bonusCity' => $stats['bonusCity'],
+                    'primaryResource' => $itemStats['primaryResource'],
+                    'primaryResourceAmount' => $itemStats['primaryResourceAmount'],
+                    'secondaryResource' => $itemStats['secondaryResource'],
+                    'secondaryResourceAmount' => $itemStats['secondaryResourceAmount'],
+                    'bonusCity' => $itemStats['bonusCity'],
                     'fameFactor' => null,
                 ];
             }
-        }
         return $adjustedItems;
     }
 }
