@@ -20,20 +20,24 @@ class UploadService
     }
 
 
+    /**
+     * @throws \JsonException
+     */
     public function updateJournalPricesInAlbionDb(OutputInterface $output): void
     {
-        $journalList = [
-            JournalEntity::JOURNAL_WARRIOR,
-            JournalEntity::JOURNAL_MAGE,
-            JournalEntity::JOURNAL_HUNTER,
-        ];
-
+        $journalList = ConfigService::getJournalConfig();
         $progressBar = ProgressBarService::getProgressBar($output, 210);
-        $progressBar->setMessage('Getting Journals...');
-        foreach ($journalList as $journalType) {
-            $journals = $this->apiService->getJournals($journalType);
-            $adjustedJournals = $this->adjustJournals($journals);
-            $this->uploadRepository->updatePricesFromJournals($adjustedJournals, $progressBar);
+        foreach ($journalList['names'] as $journalNames) {
+            $progressBar->setMessage('Get Resource ' . $journalNames);
+            $progressBar->advance();
+            $progressBar->display();
+            $journalsData = $this->apiService->getJournals($journalNames);
+            $progressBar->setMessage('preparing resource ' . $journalNames);
+            $progressBar->display();
+            $adjustedJournals = $this->adjustJournals($journalsData, $journalList['stats']);
+            $progressBar->setMessage('Upload Resource ' . $journalNames . ' into Database');
+            $progressBar->display();
+            $this->uploadRepository->updatePricesFromJournals($adjustedJournals);
         }
     }
 
@@ -104,7 +108,7 @@ class UploadService
         return $adjustedResourceArray;
     }
 
-    private function adjustJournals(array $journals): array
+    private function adjustJournals(array $journals, array $journalStats): array
     {
         $adjustedJournalsArray = [];
         foreach ($journals as $journal) {
