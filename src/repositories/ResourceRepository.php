@@ -16,11 +16,6 @@ class ResourceRepository
 
     public function getResourcesByCity(string $city): array
     {
-        return $this->getResourcesFromDb($city);
-    }
-
-    private function getResourcesFromDb(string $city): array
-    {
         $statement = $this->pdoConnection->prepare(
             <<<SQL
             SELECT * 
@@ -33,8 +28,18 @@ SQL
         $statement->execute();
 
         $resourceArray = [];
+        $emptyArray = [];
         foreach ($statement->getIterator() as $resourceInformation) {
-            $resourceArray[] = new ResourceEntity($resourceInformation);
+            if (empty($resourceInformation['sellOrderPriceDate'])) {
+                $emptyArray[]= [
+                    $resourceInformation['tier'],
+                    $resourceInformation['city'],
+                    $resourceInformation['name'],
+                    $resourceInformation['bonusCity']
+                ];
+            } else {
+                $resourceArray[] = new ResourceEntity($resourceInformation);
+            }
         }
         return $resourceArray;
     }
