@@ -33,7 +33,10 @@ class UpdateResourcesCommand extends Command
         }
         unset($resourceList['stoneBlock']); // Todo add Stone
 
-        $progressBar = ProgressBarService::getProgressBar($output, is_countable($resourceList) ? count($resourceList) : 0);
+        $progressBar = ProgressBarService::getProgressBar(
+            $output,
+            is_countable($resourceList) ? count($resourceList) : 0
+        );
         foreach ($resourceList as $resourceStats) {
             $progressBar->setMessage('Get Resource ' . $resourceStats['realName']);
             $progressBar->advance();
