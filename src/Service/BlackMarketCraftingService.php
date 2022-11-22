@@ -223,12 +223,12 @@ class BlackMarketCraftingService
 
     public function getPrimResource(string $itemName)
     {
-        return ItemDataService::getPrimResource($itemName);
+        return ConfigService::getPrimResource($itemName);
     }
 
     public function getSecResource(string $itemName)
     {
-        return ItemDataService::getSecResource($itemName);
+        return ConfigService::getSecResource($itemName);
     }
 
     public function getCraftingRates(): array
