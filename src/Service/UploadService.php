@@ -61,7 +61,7 @@ class UploadService
      */
     public function updateItemPricesInAlbionDb(OutputInterface $output): void
     {
-        $itemList = ItemDataService::getItemDataArray();
+        $itemList = ItemDataService::getItemConfig();
         $progressBar = ProgressBarService::getProgressBar($output, count($itemList));
 
         foreach ($itemList as $itemStats) {

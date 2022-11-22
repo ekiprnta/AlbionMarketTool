@@ -8,12 +8,12 @@ use RuntimeException;
 
 class ItemDataService
 {
-    private const PATH_TO_JSON = __DIR__ . '/../../config/data/ItemData.json';
+    private const PATH_TO_JSON = __DIR__ . '/../../config/data/ItemConfig.json';
 
     /**
      * @throws \JsonException
      */
-    public static function getItemDataArray()
+    public static function getItemConfig()
     {
         $json = file_get_contents(self::PATH_TO_JSON);
         return json_decode($json, true, 512, JSON_THROW_ON_ERROR);
@@ -33,13 +33,13 @@ class ItemDataService
 
     public static function getBonusCityForResource(string $type)
     {
-        $nameData = self::getItemDataArray();
+        $nameData = self::getItemConfig();
         return $nameData['resource'][$type]['bonusCity'];
     }
 
     public static function getStatsForItem(string $class, string $weaponGroupName, string $name)
     {
-        $nameData = self::getItemDataArray();
+        $nameData = self::getItemConfig();
         foreach ($nameData[$class][$weaponGroupName] as $itemName => $item) {
             $lowerCaseIdSnippet = strtolower($item['id_snippet']);
             if ($lowerCaseIdSnippet === $name) {
@@ -51,7 +51,7 @@ class ItemDataService
 
     public static function getPrimResource(string $name)
     {
-        $nameData = self::getItemDataArray();
+        $nameData = self::getItemConfig();
         foreach ($nameData as $weaponGroup) {
             foreach ($weaponGroup as $class) {
                 if (array_key_exists($name, $class)) {
@@ -64,7 +64,7 @@ class ItemDataService
 
     public static function getSecResource(string $name)
     {
-        $nameData = self::getItemDataArray();
+        $nameData = self::getItemConfig();
         foreach ($nameData as $weaponGroup) {
             foreach ($weaponGroup as $class) {
                 if (array_key_exists($name, $class)) {
@@ -77,13 +77,13 @@ class ItemDataService
 
     public static function getStatsJournals(string $tier)
     {
-        $nameData = self::getItemDataArray();
+        $nameData = self::getItemConfig();
         return $nameData['journal']['stats'][$tier];
     }
 
     public static function getAllBonusItemForCity(string $city): array
     {
-        $nameData = self::getItemDataArray();
+        $nameData = self::getItemConfig();
         $itemNames = [];
         foreach ($nameData as $className => $class) {
             foreach ($class as $weaponGroupName => $weaponGroup) {
