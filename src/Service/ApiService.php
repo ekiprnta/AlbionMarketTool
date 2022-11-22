@@ -44,7 +44,6 @@ class ApiService // Buy Order ist buy_price_max
     public function getJournals(string $journalType)
     {
         $apiUrl = $this->apiUrlAssembler($journalType, self::JOURNAL_TIERS_WITH_PLACEHOLDER);
-
         return $this->jsonDecode(
             $this->httpClient->get(
                 $apiUrl,
