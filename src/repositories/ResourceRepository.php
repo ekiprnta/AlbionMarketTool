@@ -29,7 +29,7 @@ SQL
 
         $resourceArray = [];
         foreach ($statement->getIterator() as $resourceInformation) {
-                $resourceArray[] = new ResourceEntity($resourceInformation);
+            $resourceArray[] = new ResourceEntity($resourceInformation);
         }
         return $resourceArray;
     }
