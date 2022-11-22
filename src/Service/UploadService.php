@@ -110,11 +110,11 @@ class UploadService
         $adjustedJournalsArray = [];
         foreach ($journalData as $journal) {
             $nameAndTier = TierService::splitIntoTierAndName($journal['item_id']);
-            $stats = ConfigService::getStatsJournals($nameAndTier['tier']);
-            $split = explode('_', $nameAndTier['name']);
+            $stats = $journalStats[$nameAndTier['tier']];
+            [$name, $fillStatus] = explode('_', $nameAndTier['name']);
             $adjustedJournalsArray[] = [
                 'tier' => $nameAndTier['tier'],
-                'name' => implode('_', [$split[0], $split[1]]),
+                'name' => $nameAndTier['name'],
                 'city' => $journal['city'],
                 'fameToFill' => $stats['fameToFill'],
                 'sellOrderPrice' => $journal['sell_price_min'],
@@ -122,8 +122,8 @@ class UploadService
                 'buyOrderPrice' => $journal['buy_price_max'],
                 'buyOrderPriceDate' => $journal['buy_price_max_date'],
                 'weight' => $stats['weight'],
-                'fillStatus' => $split[2],
-                'class' => $split[1],
+                'fillStatus' => $fillStatus,
+                'class' => $name,
             ];
         }
         return $adjustedJournalsArray;
