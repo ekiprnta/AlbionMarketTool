@@ -4,13 +4,10 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\Service;
 
-use MZierdt\Albion\repositories\UploadRepository;
-use Symfony\Component\Console\Output\OutputInterface;
-
 class UploadHelper
 {
-    public function __construct(
-    ) {
+    public function __construct()
+    {
     }
 
     public static function adjustResourceArray(array $resourceData, array $resourceStats): array
@@ -18,7 +15,7 @@ class UploadHelper
         $adjustedResourceArray = [];
         foreach ($resourceData as $resource) {
             $nameAndTier = TierService::splitIntoTierAndName($resource['item_id']);
-            $name = UploadHelper::getResourceName($nameAndTier['name']);
+            $name = self::getResourceName($nameAndTier['name']);
             $adjustedResourceArray[] = [
                 'tier' => $nameAndTier['tier'],
                 'name' => $name,
@@ -88,8 +85,8 @@ class UploadHelper
 
     private static function getResourceName(string $name): string
     {
-        if (count_chars($name) > 10) {
-            return substr($name,0, -7);
+        if (str_contains($name, 'level')) {
+            return substr($name, 0, -7);
         }
         return $name;
     }

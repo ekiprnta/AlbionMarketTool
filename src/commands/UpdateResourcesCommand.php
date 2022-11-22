@@ -31,9 +31,9 @@ class UpdateResourcesCommand extends Command
             $output->writeln($jsonException->getMessage());
             return self::FAILURE;
         }
+        unset($resourceList['stoneBlock']); // Todo add Stone
 
         $progressBar = ProgressBarService::getProgressBar($output, count($resourceList));
-
         foreach ($resourceList as $resourceStats) {
             $progressBar->setMessage('Get Resource ' . $resourceStats['realName']);
             $progressBar->advance();
