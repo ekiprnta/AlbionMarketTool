@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\commands;
 
+use MZierdt\Albion\repositories\ItemRepository;
 use MZierdt\Albion\repositories\UploadRepository;
 use MZierdt\Albion\Service\ApiService;
 use MZierdt\Albion\Service\ConfigService;
@@ -17,7 +18,7 @@ class UpdateItemsCommand extends Command
 {
     public function __construct(
         private ApiService $apiService,
-        private UploadRepository $uploadRepository,
+        private ItemRepository $itemRepository,
     ) {
         parent::__construct();
     }
@@ -44,7 +45,7 @@ class UpdateItemsCommand extends Command
             $adjustedItems = UploadHelper::adjustItems($itemsData, $itemStats);
             $progressBar->setMessage('Upload Item ' . $itemStats['realName'] . ' into Database');
             $progressBar->display();
-            $this->uploadRepository->updatePricesFromItem($adjustedItems);
+            $this->itemRepository->updatePricesFromItem($adjustedItems);
         }
 
         $output->writeln(PHP_EOL . $message);

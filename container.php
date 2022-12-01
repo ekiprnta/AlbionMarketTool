@@ -12,7 +12,6 @@ use MZierdt\Albion\factories\DeleteDataRepositoryFactory;
 use MZierdt\Albion\factories\ItemRepositoryFactory;
 use MZierdt\Albion\factories\JournalRepositoryFactory;
 use MZierdt\Albion\factories\ResourceRepositoryFactory;
-use MZierdt\Albion\factories\UploadRepositoryFactory;
 use MZierdt\Albion\factories\TwigEnvironmentFactory;
 use MZierdt\Albion\Handler\AdminHandler;
 use MZierdt\Albion\Handler\BlackMarketCraftingHandler;
@@ -26,7 +25,6 @@ use MZierdt\Albion\Service\UploadHelper;
 use MZierdt\Albion\HttpClient;
 use MZierdt\Albion\repositories\ItemRepository;
 use MZierdt\Albion\repositories\ResourceRepository;
-use MZierdt\Albion\repositories\UploadRepository;
 use MZierdt\Albion\Service\ApiService;
 use Twig\Environment;
 
@@ -43,10 +41,6 @@ $serviceManager = new ServiceManager([
                     ItemRepository::class,
                     ResourceRepository::class,
                     UploadHelper::class
-                ],
-                UploadHelper::class => [
-                    ApiService::class,
-                    UploadRepository::class,
                 ],
                 BlackMarketCraftingService::class => [
                     ItemRepository::class,
@@ -72,15 +66,15 @@ $serviceManager = new ServiceManager([
                 ],
                 UpdateJournalsCommand::class => [
                     ApiService::class,
-                    UploadRepository::class,
+                    JournalRepository::class,
                 ],
                 UpdateItemsCommand::class => [
                     ApiService::class,
-                    UploadRepository::class,
+                    ItemRepository::class,
                 ],
                 UpdateResourcesCommand::class => [
                     ApiService::class,
-                    UploadRepository::class,
+                    ResourceRepository::class,
                 ],
             ]
         ],
@@ -88,7 +82,6 @@ $serviceManager = new ServiceManager([
     'abstract_factories' => [ConfigAbstractFactory::class],
     'factories' => [
         Environment::class => TwigEnvironmentFactory::class,
-        UploadRepository::class => UploadRepositoryFactory::class,
         ResourceRepository::class => ResourceRepositoryFactory::class,
         ItemRepository::class => ItemRepositoryFactory::class,
         JournalRepository::class => JournalRepositoryFactory::class,

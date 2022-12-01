@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\commands;
 
+use MZierdt\Albion\repositories\ResourceRepository;
 use MZierdt\Albion\repositories\UploadRepository;
 use MZierdt\Albion\Service\ApiService;
 use MZierdt\Albion\Service\ConfigService;
@@ -17,7 +18,7 @@ class UpdateResourcesCommand extends Command
 {
     public function __construct(
         private ApiService $apiService,
-        private UploadRepository $uploadRepository,
+        private ResourceRepository $resourceRepository,
     ) {
         parent::__construct();
     }
@@ -47,7 +48,7 @@ class UpdateResourcesCommand extends Command
             $adjustedResources = UploadHelper::adjustResourceArray($resourcesData, $resourceStats);
             $progressBar->setMessage('Upload Resource ' . $resourceStats['realName'] . ' into Database');
             $progressBar->display();
-            $this->uploadRepository->updatePricesFromResources($adjustedResources);
+            $this->resourceRepository->updatePricesFromResources($adjustedResources);
         }
 
         $output->writeln(PHP_EOL . $message);
