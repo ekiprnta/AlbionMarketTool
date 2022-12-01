@@ -21,7 +21,6 @@ use MZierdt\Albion\repositories\DeleteDataRepository;
 use MZierdt\Albion\repositories\JournalRepository;
 use MZierdt\Albion\Service\BlackMarketCraftingService;
 use MZierdt\Albion\Service\BlackMarketTransportingService;
-use MZierdt\Albion\Service\UploadHelper;
 use MZierdt\Albion\HttpClient;
 use MZierdt\Albion\repositories\ItemRepository;
 use MZierdt\Albion\repositories\ResourceRepository;
@@ -40,7 +39,6 @@ $serviceManager = new ServiceManager([
                     Environment::class,
                     ItemRepository::class,
                     ResourceRepository::class,
-                    UploadHelper::class
                 ],
                 BlackMarketCraftingService::class => [
                     ItemRepository::class,
