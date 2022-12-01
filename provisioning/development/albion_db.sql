@@ -70,7 +70,6 @@ CREATE TABLE `journals` (
 
 --
 -- Tabellenstruktur für Tabelle `resource`
---
 
 CREATE TABLE `resource` (
                             `tier` varchar(64) NOT NULL,

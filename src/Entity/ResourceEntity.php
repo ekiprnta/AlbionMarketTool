@@ -18,25 +18,25 @@ class ResourceEntity
     private const TIER_T2 = '2';
     private const TIER_T3 = '3';
     private const TIER_T4 = '4';
-    private const TIER_T4_1 = '4.1';
-    private const TIER_T4_2 = '4.2';
-    private const TIER_T4_3 = '4.3';
+    private const TIER_T4_1 = '41';
+    private const TIER_T4_2 = '42';
+    private const TIER_T4_3 = '43';
     private const TIER_T5 = '5';
-    private const TIER_T5_1 = '5.1';
-    private const TIER_T5_2 = '5.2';
-    private const TIER_T5_3 = '5.3';
+    private const TIER_T5_1 = '51';
+    private const TIER_T5_2 = '52';
+    private const TIER_T5_3 = '53';
     private const TIER_T6 = '6';
-    private const TIER_T6_1 = '6.1';
-    private const TIER_T6_2 = '6.2';
-    private const TIER_T6_3 = '6.3';
+    private const TIER_T6_1 = '61';
+    private const TIER_T6_2 = '62';
+    private const TIER_T6_3 = '63';
     private const TIER_T7 = '7';
-    private const TIER_T7_1 = '7.1';
-    private const TIER_T7_2 = '7.2';
-    private const TIER_T7_3 = '7.3';
+    private const TIER_T7_1 = '71';
+    private const TIER_T7_2 = '72';
+    private const TIER_T7_3 = '73';
     private const TIER_T8 = '8';
-    private const TIER_T8_1 = '8.1';
-    private const TIER_T8_2 = '8.2';
-    private const TIER_T8_3 = '8.3';
+    private const TIER_T8_1 = '81';
+    private const TIER_T8_2 = '82';
+    private const TIER_T8_3 = '83';
 
     private const T20_WEIGHT_FACTOR = 0.23;
     private const T30_WEIGHT_FACTOR = 0.34;
@@ -64,12 +64,12 @@ class ResourceEntity
     private string $tier;
     private string $name;
     private string $city;
-    private string $realName;
+    private ?string $realName;
     private int $sellOrderPrice;
     private DateTimeImmutable $sellOrderPriceDate;
     private int $buyOrderPrice;
     private DateTimeImmutable $buyOrderPriceDate;
-    private string $bonusCity;
+    private ?string $bonusCity;
     private ?int $amountInStorage;
     private float $weight;
 
@@ -157,8 +157,11 @@ class ResourceEntity
         return $this->buyOrderPriceDate->format('Y-m-d H:i:s');
     }
 
-    private function getDateTimeImmutable(string $date): DateTimeImmutable|bool
+    private function getDateTimeImmutable(?string $date): DateTimeImmutable|bool
     {
+        if ( empty($date)) {
+            return DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '1970-01-01 00:00:00');
+        }
         $date = str_replace('T', ' ', $date);
         return DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $date, new DateTimeZone('Europe/London'));
     }
@@ -188,7 +191,7 @@ class ResourceEntity
             self::TIER_T8_1 => self::T81_WEIGHT_FACTOR,
             self::TIER_T8_2 => self::T82_WEIGHT_FACTOR,
             self::TIER_T8_3 => self::T83_WEIGHT_FACTOR,
-            default => throw new \InvalidArgumentException('wrong tier in Resource Entity')
+            default => throw new \InvalidArgumentException('wrong tier in Resource Entity' . $resourceData['tier']),
         };
     }
 

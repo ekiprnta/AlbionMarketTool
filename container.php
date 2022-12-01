@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 use Laminas\ServiceManager\AbstractFactory\ConfigAbstractFactory;
 use Laminas\ServiceManager\ServiceManager;
+use MZierdt\Albion\commands\DeleteDataCommand;
 use MZierdt\Albion\commands\UpdateItemsCommand;
 use MZierdt\Albion\commands\UpdateJournalsCommand;
-use MZierdt\Albion\commands\UpdatePricesCommand;
 use MZierdt\Albion\commands\UpdateResourcesCommand;
+use MZierdt\Albion\factories\DeleteDataRepositoryFactory;
 use MZierdt\Albion\factories\ItemRepositoryFactory;
 use MZierdt\Albion\factories\JournalRepositoryFactory;
 use MZierdt\Albion\factories\ResourceRepositoryFactory;
@@ -17,6 +18,7 @@ use MZierdt\Albion\Handler\AdminHandler;
 use MZierdt\Albion\Handler\BlackMarketCraftingHandler;
 use MZierdt\Albion\Handler\BlackMarketTransportingHandler;
 use MZierdt\Albion\Handler\listDataHandler;
+use MZierdt\Albion\repositories\DeleteDataRepository;
 use MZierdt\Albion\repositories\JournalRepository;
 use MZierdt\Albion\Service\BlackMarketCraftingService;
 use MZierdt\Albion\Service\BlackMarketTransportingService;
@@ -65,8 +67,8 @@ $serviceManager = new ServiceManager([
                 AdminHandler::class => [
                     Environment::class,
                 ],
-                UpdatePricesCommand::class => [
-                    UploadHelper::class
+                DeleteDataCommand::class => [
+                    DeleteDataRepository::class
                 ],
                 UpdateJournalsCommand::class => [
                     ApiService::class,
@@ -90,6 +92,7 @@ $serviceManager = new ServiceManager([
         ResourceRepository::class => ResourceRepositoryFactory::class,
         ItemRepository::class => ItemRepositoryFactory::class,
         JournalRepository::class => JournalRepositoryFactory::class,
+        DeleteDataRepository::class => DeleteDataRepositoryFactory::class,
         'abstract_factories' => [ConfigAbstractFactory::class],
     ],
 ]);
