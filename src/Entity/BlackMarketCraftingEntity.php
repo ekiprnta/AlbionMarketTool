@@ -5,507 +5,191 @@ declare(strict_types=1);
 namespace MZierdt\Albion\Entity;
 
 use DateTimeImmutable;
+use MZierdt\Albion\factories\ResourceEntityFactory;
 use RuntimeException;
-
+/*
+ * beide Resourcen
+ * Item
+ * Preis
+ * Journal
+ * Gewicht
+ * AMount
+ * Profit
+ * Etc
+ *
+ */
 class BlackMarketCraftingEntity
 {
-    private const PREMIUM_FACTOR = 1.5;
+    private ResourceEntity $primResource;
+    private ResourceEntity $secResource;
 
-    private string $tier;
-    private string $name;
-    private string $weaponGroup;
-    private string $realName;
-    private int $itemSellOrderPrice;
-    private DateTimeImmutable $itemSellOrderPriceDate;
-    private float $fameAmount;
-    private float $itemWeight;
+    private JournalEntity $journalEntityEmpty;
+    private JournalEntity $journalEntityFull;
+    private float $journalAmountPerItem;
 
-    private string $primaryResource;
-    private int $primaryResourceAmount;
-    private int $primarySellOrderPrice;
-    private DateTimeImmutable $primarySellOrderPriceDate;
-    private int $primaryBuyOrderPrice;
-    private DateTimeImmutable $primaryBuyOrderPriceDate;
-    private float $primaryTotalAmount;
+    private int $totalAmount;
+    private int $primResourceAmount;
+    private int $secResourceAmount;
+    private int $journalAmount;
+    private float $totalItemWeight;
 
-    private ?string $secondaryResource;
-    private ?int $secondaryResourceAmount;
-    private ?int $secondarySellOrderPrice = null;
-    private ?DateTimeImmutable $secondarySellOrderPriceDate = null;
-    private ?int $secondaryBuyOrderPrice = null;
-    private ?DateTimeImmutable $secondaryBuyOrderPriceDate = null;
-    private float $secondaryTotalAmount;
+    private float $craftingFee;
+    private float $profitBooks;
+    private float $profit;
+    private float $weightProfitQuotient;
 
-    private int $itemValue;
-    private float $resourceWeight;
 
-    private float $percentageProfit;
-    private float $totalWeightItems;
-    private float $totalWeightResources;
-
-    private float $WeightProfitQuotient;
-    private string $colorGrade;
-    private float $amount;
-    private int $tierColor;
-    private int $craftingFee;
-
-    private int $itemPriceAge;
-    private int $primaryPriceAge;
-    private ?int $secondaryPriceAge = null;
-
-    private int $fameToFill;
-    private string $journalName;
-    private float $journalWeight;
-    private int $fullSellOrderPrice;
-    private DateTimeImmutable $fullSellOrderPriceDate;
-    private int $emptySellOrderPrice;
-    private DateTimeImmutable $emptySellOrderPriceDate;
-    private int $emptyBuyOrderPrice;
-    private DateTimeImmutable $emptyBuyOrderPriceDate;
-    private int $amountBooks;
-
-    public function __construct(ItemEntity $itemEntity, array $resourceData, array $journalData)
+    public function __construct(private ItemEntity $item, private int $weight)
     {
-        $primaryResourceEntity = $this->getPrimaryResourceEntity($itemEntity, $resourceData);
-
-        $craftingFame = $this->calculateCraftingFame($itemEntity);
-        $resourceWeight = $this->calculateResourceWeight($itemEntity, $primaryResourceEntity);
-
-        $this->tier = $itemEntity->getTier();
-        $this->name = $itemEntity->getName();
-        $this->weaponGroup = $itemEntity->getWeaponGroup();
-        $this->realName = $itemEntity->getRealName();
-        $this->itemSellOrderPrice = $itemEntity->getSellOrderPrice();
-        $this->itemSellOrderPriceDate = $itemEntity->getSellOrderPriceDate();
-        $this->fameAmount = $craftingFame;
-        $this->itemWeight = $itemEntity->getWeight();
-        $this->itemValue = $itemEntity->getItemValue();
-
-        $this->primaryResource = $itemEntity->getPrimaryResource();
-        $this->primaryResourceAmount = $itemEntity->getPrimaryResourceAmount();
-        $this->primarySellOrderPrice = $primaryResourceEntity->getSellOrderPrice();
-        $this->primarySellOrderPriceDate = $primaryResourceEntity->getSellOrderPriceDate();
-        $this->primaryBuyOrderPrice = $primaryResourceEntity->getBuyOrderPrice();
-        $this->primaryBuyOrderPriceDate = $primaryResourceEntity->getBuyOrderPriceDate();
-
-        $this->secondaryResource = $itemEntity->getSecondaryResource();
-        $this->secondaryResourceAmount = $itemEntity->getSecondaryResourceAmount();
-        if ($this->secondaryResource !== null) {
-            $secondaryResourceEntity = $this->getSecondaryResourceEntity($itemEntity, $resourceData);
-            $this->secondarySellOrderPrice = $secondaryResourceEntity->getSellOrderPrice();
-            $this->secondarySellOrderPriceDate = $secondaryResourceEntity->getSellOrderPriceDate();
-            $this->secondaryBuyOrderPrice = $secondaryResourceEntity->getBuyOrderPrice();
-            $this->secondaryBuyOrderPriceDate = $secondaryResourceEntity->getBuyOrderPriceDate();
-        }
-
-        $this->tierColor = $this->setTierColor();
-        $this->resourceWeight = $resourceWeight;
-
-        $journalInfo = $this->getJournalInfo($itemEntity, $journalData);
-        $this->fameToFill = $journalInfo['full']->getFameToFill();
-        $this->journalName = $journalInfo['full']->getName();
-        $this->fullSellOrderPrice = $journalInfo['full']->getSellOrderPrice();
-        $this->fullSellOrderPriceDate = $journalInfo['full']->getSellOrderPriceDate();
-        $this->emptySellOrderPrice = $journalInfo['empty']->getSellOrderPrice();
-        $this->emptySellOrderPriceDate = $journalInfo['empty']->getSellOrderPriceDate();
-        $this->emptyBuyOrderPrice = $journalInfo['empty']->getBuyOrderPrice();
-        $this->emptyBuyOrderPriceDate = $journalInfo['empty']->getBuyOrderPriceDate();
-
-        $this->journalWeight = $this->getCalculatedJournalWeight($journalInfo['full']);
-    }
-
-    public function getCraftingFee(): int
-    {
-        return $this->craftingFee;
-    }
-
-    public function setCraftingFee(int $craftingFee): void
-    {
-        $this->craftingFee = $craftingFee;
-    }
-
-    public function getItemValue(): int
-    {
-        return $this->itemValue;
-    }
-
-    public function getPrimaryTotalAmount(): float
-    {
-        return $this->primaryTotalAmount;
-    }
-
-    public function setPrimaryTotalAmount(float $primaryTotalAmount): void
-    {
-        $this->primaryTotalAmount = $primaryTotalAmount;
-    }
-
-    public function getSecondaryTotalAmount(): float
-    {
-        return $this->secondaryTotalAmount;
-    }
-
-    public function setSecondaryTotalAmount(float $secondaryTotalAmount): void
-    {
-        $this->secondaryTotalAmount = $secondaryTotalAmount;
-    }
-
-    public function getAmountBooks(): int
-    {
-        return $this->amountBooks;
-    }
-
-    public function setAmountBooks(float $totalAmount): void
-    {
-        $this->amountBooks = (int) (($totalAmount * $this->fameAmount) / $this->fameToFill);
-    }
-
-    public function getFameToFill(): int
-    {
-        return $this->fameToFill;
-    }
-
-    public function getJournalName(): string
-    {
-        return $this->journalName;
-    }
-
-    public function getJournalWeight(): float
-    {
-        return $this->journalWeight;
-    }
-
-    public function getFullSellOrderPrice(): int
-    {
-        return $this->fullSellOrderPrice;
-    }
-
-    public function getFullSellOrderPriceDate(): DateTimeImmutable
-    {
-        return $this->fullSellOrderPriceDate;
-    }
-
-    public function getEmptySellOrderPrice(): int
-    {
-        return $this->emptySellOrderPrice;
-    }
-
-    public function getEmptySellOrderPriceDate(): DateTimeImmutable
-    {
-        return $this->emptySellOrderPriceDate;
-    }
-
-    public function getEmptyBuyOrderPrice(): int
-    {
-        return $this->emptyBuyOrderPrice;
-    }
-
-    public function getEmptyBuyOrderPriceDate(): DateTimeImmutable
-    {
-        return $this->emptyBuyOrderPriceDate;
-    }
-
-    public function getPrimaryBuyOrderPrice(): int
-    {
-        return $this->primaryBuyOrderPrice;
-    }
-
-    public function getPrimaryBuyOrderPriceDate(): DateTimeImmutable
-    {
-        return $this->primaryBuyOrderPriceDate;
-    }
-
-    public function getSecondaryBuyOrderPrice(): ?int
-    {
-        return $this->secondaryBuyOrderPrice;
-    }
-
-    public function getSecondaryBuyOrderPriceDate(): ?DateTimeImmutable
-    {
-        return $this->secondaryBuyOrderPriceDate;
-    }
-
-    public function getItemPriceAge(): int
-    {
-        return $this->itemPriceAge;
-    }
-
-    public function setItemPriceAge(int $itemPriceAge): void
-    {
-        $this->itemPriceAge = $itemPriceAge;
-    }
-
-    public function getPrimaryPriceAge(): int
-    {
-        return $this->primaryPriceAge;
-    }
-
-    public function setPrimaryPriceAge(int $primaryPriceAge): void
-    {
-        $this->primaryPriceAge = $primaryPriceAge;
-    }
-
-    public function getSecondaryPriceAge(): ?int
-    {
-        return $this->secondaryPriceAge;
-    }
-
-    public function setSecondaryPriceAge(int $secondaryPriceAge): void
-    {
-        $this->secondaryPriceAge = $secondaryPriceAge;
-    }
-
-    public function getItemSellOrderPriceDate(): DateTimeImmutable
-    {
-        return $this->itemSellOrderPriceDate;
-    }
-
-    public function getPrimarySellOrderPriceDate(): DateTimeImmutable
-    {
-        return $this->primarySellOrderPriceDate;
-    }
-
-    public function getSecondarySellOrderPriceDate(): ?DateTimeImmutable
-    {
-        return $this->secondarySellOrderPriceDate;
-    }
-
-    public function getAmount(): float
-    {
-        return $this->amount;
-    }
-
-    public function setAmount(float $amount): void
-    {
-        $this->amount = $amount;
-    }
-
-    public function getColorGrade(): string
-    {
-        return $this->colorGrade;
-    }
-
-    public function setColorGrade(string $colorGrade): void
-    {
-        $this->colorGrade = $colorGrade;
     }
 
     public function getWeightProfitQuotient(): float
     {
-        return $this->WeightProfitQuotient;
+        return $this->weightProfitQuotient;
     }
 
-    public function setWeightProfitQuotient(float $WeightProfitQuotient): void
+    public function setWeightProfitQuotient(float $weightProfitQuotient): void
     {
-        $this->WeightProfitQuotient = $WeightProfitQuotient;
+        $this->weightProfitQuotient = $weightProfitQuotient;
     }
 
-    public function getTotalWeightItems(): float
+    public function getProfitBooks(): float
     {
-        return $this->totalWeightItems;
+        return $this->profitBooks;
     }
 
-    public function setTotalWeightItems(float $totalWeightItems): void
+    public function setProfitBooks(float $profitBooks): void
     {
-        $this->totalWeightItems = $totalWeightItems;
+        $this->profitBooks = $profitBooks;
     }
 
-    public function getTotalWeightResources(): float
+    public function getProfit(): float
     {
-        return $this->totalWeightResources;
+        return $this->profit;
     }
 
-    public function setTotalWeightResources(float $totalWeightResources): void
+    public function setProfit(float $profit): void
     {
-        $this->totalWeightResources = $totalWeightResources;
+        $this->profit = $profit;
     }
 
-    public function getPercentageProfit(): float
+    public function getCraftingFee(): float
     {
-        return $this->percentageProfit;
+        return $this->craftingFee;
     }
 
-    public function setPercentageProfit(float $percentageProfit): void
+    public function setCraftingFee(float $craftingFee): void
     {
-        $this->percentageProfit = $percentageProfit;
+        $this->craftingFee = $craftingFee;
     }
 
-    public function getTier(): string
+    public function getWeight(): int
     {
-        return $this->tier;
+        return $this->weight;
     }
 
-    public function getName(): string
+    public function getTotalItemWeight(): float
     {
-        return $this->name;
+        return $this->totalItemWeight;
     }
 
-    public function getWeaponGroup(): mixed
+    public function setTotalItemWeight(float $totalItemWeight): void
     {
-        return $this->weaponGroup;
+        $this->totalItemWeight = $totalItemWeight;
     }
 
-    public function getItemSellOrderPrice(): int
+    public function getTotalAmount(): int
     {
-        return $this->itemSellOrderPrice;
+        return $this->totalAmount;
     }
 
-    public function getFameAmount(): float
+    public function setTotalAmount(int $totalAmount): void
     {
-        return $this->fameAmount;
+        $this->totalAmount = $totalAmount;
     }
 
-    public function getItemWeight(): float
+    public function getPrimResourceAmount(): int
     {
-        return $this->itemWeight;
+        return $this->primResourceAmount;
     }
 
-    public function getPrimaryResource(): string
+    public function setPrimResourceAmount(int $primResourceAmount): void
     {
-        return $this->primaryResource;
+        $this->primResourceAmount = $primResourceAmount;
     }
 
-    public function getPrimaryResourceAmount(): int
+    public function getSecResourceAmount(): int
     {
-        return $this->primaryResourceAmount;
+        return $this->secResourceAmount;
     }
 
-    public function getPrimarySellOrderPrice(): int
+    public function setSecResourceAmount(int $secResourceAmount): void
     {
-        return $this->primarySellOrderPrice;
+        $this->secResourceAmount = $secResourceAmount;
     }
 
-    public function getSecondaryResource(): ?string
+    public function getJournalAmount(): int
     {
-        return $this->secondaryResource;
+        return $this->journalAmount;
     }
 
-    public function getSecondaryResourceAmount(): ?int
+    public function setJournalAmount(int $journalAmount): void
     {
-        return $this->secondaryResourceAmount;
+        $this->journalAmount = $journalAmount;
     }
 
-    public function getSecondarySellOrderPrice(): ?int
+    public function getItem(): ItemEntity
     {
-        return $this->secondarySellOrderPrice;
+        return $this->item;
     }
 
-    public function getResourceWeight(): float
+    public function getPrimResource(): ResourceEntity
     {
-        return $this->resourceWeight;
+        return $this->primResource;
     }
 
-
-    private function getPrimaryResourceEntity(ItemEntity $item, array $resourceData): ResourceEntity
+    public function setPrimResource(ResourceEntity $primResource): void
     {
-        /** @var ResourceEntity $resourceEntity */
-        foreach ($resourceData as $resourceEntity) {
-            if (($resourceEntity->getTier() === $item->getTier()) && strcasecmp(
-                $resourceEntity->getName(),
-                $item->getPrimaryResource()
-            ) === 0) {
-                return $resourceEntity;
-            }
-        }
-        throw new RuntimeException('No Primary Resource found');
+        $this->primResource = $primResource;
     }
 
-    private function getJournalInfo(ItemEntity $itemEntity, array $journalData): array
+    public function getSecResource(): ResourceEntity
     {
-        $journalInfo = [];
-        /** @var JournalEntity $journalEntity */
-        foreach ($journalData as $journalEntity) {
-            if ($journalEntity->getClass() === $itemEntity->getClass() &&
-                (str_starts_with($itemEntity->getTier(), $journalEntity->getTier()))
-                //Todo rename journal Entity to weaponGroup > class
-            ) {
-                if ($journalEntity->getFillStatus() === 'full') {
-                    $journalInfo['full'] = $journalEntity;
-                }
-                if ($journalEntity->getFillStatus() === 'empty') {
-                    $journalInfo['empty'] = $journalEntity;
-                }
-            }
-        }
-        return $journalInfo;
+        return $this->secResource;
     }
 
-    private function getSecondaryResourceEntity(ItemEntity $item, array $resourceData): ResourceEntity
+    public function setSecResource(?ResourceEntity $secResource): void
     {
-        /** @var ResourceEntity $resourceEntity */
-        foreach ($resourceData as $resourceEntity) {
-            if (($resourceEntity->getTier() === $item->getTier()) && strcasecmp(
-                $resourceEntity->getName(),
-                $item->getSecondaryResource()
-            ) === 0) {
-                return $resourceEntity;
-            }
-        }
-        throw new RuntimeException('No Secondary Resource found');
+        $this->secResource = $secResource ?? ResourceEntityFactory::getEmtpyResourceEntity();
     }
 
-    private function calculateCraftingFame(ItemEntity $item): float
+    public function getJournalEntityEmpty(): JournalEntity
     {
-        return (
-                $item->getPrimaryResourceAmount() +
-                $item->getSecondaryResourceAmount()) *
-            $item->getFameFactor() *
-            self::PREMIUM_FACTOR;
+        return $this->journalEntityEmpty;
     }
 
-    private function calculateResourceWeight(ItemEntity $itemEntity, ResourceEntity $resourceEntity): float
+    public function setJournalEntityEmpty(JournalEntity $journalEntityEmpty): void
     {
-        $amountSecondary = $itemEntity->getSecondaryResourceAmount();
-        $amountPrimary = $itemEntity->getPrimaryResourceAmount();
-        $weightResource = $resourceEntity->getWeight();
-        return ($amountPrimary + $amountSecondary) * $weightResource;
+        $this->journalEntityEmpty = $journalEntityEmpty;
     }
 
-    private function setTierColor(): int
+    public function getJournalEntityFull(): JournalEntity
     {
-        if (str_starts_with($this->tier, '2')) {
-            return 2;
-        }
-        if (str_starts_with($this->tier, '3')) {
-            return 3;
-        }
-        if (str_starts_with($this->tier, '4')) {
-            return 4;
-        }
-        if (str_starts_with($this->tier, '5')) {
-            return 5;
-        }
-        if (str_starts_with($this->tier, '6')) {
-            return 6;
-        }
-        if (str_starts_with($this->tier, '7')) {
-            return 7;
-        }
-        if (str_starts_with($this->tier, '8')) {
-            return 8;
-        }
-        throw new \RuntimeException('No string found');
+        return $this->journalEntityFull;
     }
 
-    public function getTierColor(): int
+    public function setJournalEntityFull(JournalEntity $journalEntityFull): void
     {
-        return $this->tierColor;
+        $this->journalEntityFull = $journalEntityFull;
     }
 
-    public function getPrice()
+    public function getJournalAmountPerItem(): float
     {
-        if ($this->itemSellOrderPrice === 0) {
-            return 'X';
-        }
-        return '0';
+        return $this->journalAmountPerItem;
     }
 
-    public function getRealName(): string
+    public function setJournalAmountPerItem(float $journalAmount): void
     {
-        return $this->realName;
-    }
-
-    private function getCalculatedJournalWeight(JournalEntity $journal): float
-    {
-        return ($this->fameAmount / $this->fameToFill) * $journal->getWeight();
+        $this->journalAmountPerItem = $journalAmount;
     }
 }
