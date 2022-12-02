@@ -306,14 +306,14 @@ class ItemEntity
         return $this->primaryResourceAmount;
     }
 
-    public function getSecondaryResource(): ?string
+    public function getSecondaryResource(): string
     {
-        return $this->secondaryResource;
+        return $this->secondaryResource ?? ' - ';
     }
 
-    public function getSecondaryResourceAmount(): ?int
+    public function getSecondaryResourceAmount(): int
     {
-        return $this->secondaryResourceAmount;
+        return $this->secondaryResourceAmount ?? 0;
     }
 
     public function getBonusCity(): string

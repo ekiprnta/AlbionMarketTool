@@ -129,7 +129,7 @@ class ResourceEntity
 
     public function getSellOrderPrice(): int
     {
-        return $this->sellOrderPrice;
+        return $this->sellOrderPrice ?? 0;
     }
 
     public function getSellOrderPriceDate(): DateTimeImmutable
