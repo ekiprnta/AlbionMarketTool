@@ -39,7 +39,7 @@ class UpdateItemsCommand extends Command
             $progressBar->setMessage('Get Item:' . $itemStats['realName']);
             $progressBar->advance();
             $progressBar->display();
-            $itemsData = $this->apiService->getItems($itemStats['realName']);
+            $itemsData = $this->apiService->getItems($itemStats['id_snippet']);
             $progressBar->setMessage('preparing Item' . $itemStats['realName']);
             $progressBar->display();
             $adjustedItems = UploadHelper::adjustItems($itemsData, $itemStats);
