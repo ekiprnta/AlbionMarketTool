@@ -52,7 +52,7 @@ class UpdateItemsCommand extends Command
         return self::SUCCESS;
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this->setName('update:items');
         $this->setDescription('update Prices of Items');

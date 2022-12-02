@@ -55,7 +55,7 @@ class UpdateJournalsCommand extends Command
         return self::SUCCESS;
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this->setName('update:journal');
         $this->setDescription('update Prices of Journals');
