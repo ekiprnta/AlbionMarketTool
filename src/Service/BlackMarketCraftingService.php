@@ -73,8 +73,8 @@ class BlackMarketCraftingService
             $bmcEntity->setColorGrade(BlackMarketCraftingHelper::calculateCraftingGrade($bmcEntity));
         }
 
-//        return $this->filterCalculateEntityArray($calculateEntityArray);
-        return  $calculateEntityArray;
+        return $this->filterCalculateEntityArray($calculateEntityArray);
+//        return  $calculateEntityArray;
     }
 
 
@@ -83,7 +83,7 @@ class BlackMarketCraftingService
         $array = [];
         /** @var BlackMarketCraftingEntity $calculateEntity */
         foreach ($calculateEntityArray as $calculateEntity) {
-            $array[$calculateEntity->getWeaponGroup() . '_' . $calculateEntity->getRealName()][] = $calculateEntity;
+            $array[$calculateEntity->getItem()->getWeaponGroup() . '_' . $calculateEntity->getItem()->getRealName()][] = $calculateEntity;
         }
         krsort($array);
         return $array;

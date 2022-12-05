@@ -13,6 +13,8 @@ class ItemRepositoryFactory
     public function __invoke(ContainerInterface $container): ItemRepository
     {
         $password = 'qwert';
-        return new ItemRepository(DatabaseService::getConnection($password));
+
+        $pdoConnection = DatabaseService::getConnection($password);
+        return new ItemRepository($pdoConnection);
     }
 }

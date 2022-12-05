@@ -41,9 +41,11 @@ class BlackMarketCraftingEntity
 
     private int $primAge;
     private int $secAge;
+    private int $itemAge;
 
-    public function __construct(private ItemEntity $item, private int $weight)
+    public function __construct(private ItemEntity $item, private int $totalWeightResources)
     {
+
         $this->secResource = ResourceEntityFactory::getEmptyResourceEntity();
     }
 
@@ -109,9 +111,9 @@ class BlackMarketCraftingEntity
         $this->craftingFee = $craftingFee;
     }
 
-    public function getWeight(): int
+    public function getTotalWeightResources(): int
     {
-        return $this->weight;
+        return $this->totalWeightResources;
     }
 
     public function getTotalItemWeight(): float

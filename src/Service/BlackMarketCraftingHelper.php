@@ -160,7 +160,7 @@ class BlackMarketCraftingHelper
             return 0.0;
         }
 
-        return $bmcEntity->getWeight() / $bmcEntity->getProfit();
+        return $bmcEntity->getTotalWeightResources() / $bmcEntity->getProfit();
     }
 
     public static function calculateCraftingGrade(BlackMarketCraftingEntity $bmcEntity): string

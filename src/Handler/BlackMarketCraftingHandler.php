@@ -6,7 +6,9 @@ namespace MZierdt\Albion\Handler;
 
 use InvalidArgumentException;
 use Laminas\Diactoros\Response\HtmlResponse;
+use MZierdt\Albion\repositories\ItemRepository;
 use MZierdt\Albion\Service\BlackMarketCraftingService;
+use MZierdt\Albion\Service\DatabaseService;
 use Twig\Environment;
 
 class BlackMarketCraftingHandler
@@ -19,6 +21,11 @@ class BlackMarketCraftingHandler
 
     public function handler(): HtmlResponse
     {
+        $pdo = DatabaseService::getConnection('qwert');
+        $itemRepo = new ItemRepository($pdo);
+
+        dd($itemRepo);
+
         $cityData = [];
         $alertMessage = null;
         if (! empty($_GET)) {
@@ -41,6 +48,7 @@ class BlackMarketCraftingHandler
                 $alertMessage = $invalidArgumentExceptionException->getMessage();
             }
         }
+
         $htmlContent = $this->twigEnvironment->render('BlackMarketCrafting.html.twig', [
             'dataArray' => $cityData,
             'infoService' => $this->blackMarketCraftingService,

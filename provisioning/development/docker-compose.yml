@@ -75,5 +75,6 @@ services:
 volumes:
   db_data_local:
   db_data_test:
+  db_local:
 
 
