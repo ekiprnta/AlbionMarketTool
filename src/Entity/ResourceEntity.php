@@ -6,6 +6,7 @@ namespace MZierdt\Albion\Entity;
 
 use DateTimeImmutable;
 use DateTimeZone;
+use MZierdt\Albion\factories\ResourceEntityFactory;
 
 class ResourceEntity
 {
@@ -77,7 +78,7 @@ class ResourceEntity
     {
         $sellOrderPriceDate = $this->getDateTimeImmutable($resourceData['sellOrderPriceDate']);
         $buyOrderPriceDate = $this->getDateTimeImmutable($resourceData['buyOrderPriceDate']);
-        $weight = $this->setWeight($resourceData);
+        $weight = $this->setWeight($resourceData['tier']);
 
         $this->tier = $resourceData['tier'];
         $this->name = $resourceData['name'];
@@ -88,11 +89,11 @@ class ResourceEntity
         $this->buyOrderPrice = (int) $resourceData['buyOrderPrice'];
         $this->buyOrderPriceDate = $buyOrderPriceDate;
         $this->bonusCity = $resourceData['bonusCity'];
-        $this->amountInStorage = $resourceData['amountInStorage'];
+        $this->amountInStorage = (int)$resourceData['amountInStorage'];
         $this->weight = $weight;
     }
 
-    public function setAmountInStorage(mixed $amountInStorage): void
+    public function setAmountInStorage(?int $amountInStorage): void
     {
         $this->amountInStorage = $amountInStorage;
     }
@@ -102,7 +103,7 @@ class ResourceEntity
         return $this->bonusCity;
     }
 
-    public function getAmountInStorage(): mixed
+    public function getAmountInStorage(): ?int
     {
         return $this->amountInStorage;
     }
@@ -166,9 +167,9 @@ class ResourceEntity
         return DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $date, new DateTimeZone('Europe/London'));
     }
 
-    private function setWeight(array $resourceData): float
+    private function setWeight(string $tier): float
     {
-        return match ($resourceData['tier']) {
+        return match ($tier) {
             self::TIER_T2 => self::T20_WEIGHT_FACTOR,
             self::TIER_T3 => self::T30_WEIGHT_FACTOR,
             self::TIER_T4 => self::T40_WEIGHT_FACTOR,
@@ -191,7 +192,8 @@ class ResourceEntity
             self::TIER_T8_1 => self::T81_WEIGHT_FACTOR,
             self::TIER_T8_2 => self::T82_WEIGHT_FACTOR,
             self::TIER_T8_3 => self::T83_WEIGHT_FACTOR,
-            default => throw new \InvalidArgumentException('wrong tier in Resource Entity' . $resourceData['tier']),
+            '0' => 0.1,
+            default => throw new \InvalidArgumentException('wrong tier in Resource Entity: ' . $tier),
         };
     }
 
