@@ -8,7 +8,7 @@ class ResourceEntityFactory
 {
 
 
-    public static function getEmtpyResourceEntity()
+    public static function getEmptyResourceEntity()
     {
         return new ResourceEntity([
             'tier' => '0',
