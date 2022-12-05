@@ -7,7 +7,6 @@ namespace MZierdt\Albion\commands;
 use MZierdt\Albion\repositories\ItemRepository;
 use MZierdt\Albion\Service\ApiService;
 use MZierdt\Albion\Service\ConfigService;
-use MZierdt\Albion\Service\DatabaseService;
 use MZierdt\Albion\Service\ProgressBarService;
 use MZierdt\Albion\Service\UploadHelper;
 use Symfony\Component\Console\Command\Command;
@@ -25,7 +24,6 @@ class UpdateItemsCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-//        $this->itemRepository = new ItemRepository(DatabaseService::getConnection('qwert'));
         $message = 'successfully updated all Prices';
         try {
             $itemList = ConfigService::getItemConfig();
