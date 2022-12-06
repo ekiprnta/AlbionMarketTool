@@ -183,7 +183,7 @@ class ItemEntity
         $this->fameFactor = $this->setFameFactor();
         $this->amountInStorage = $itemData['amountInStorage'];
         $this->weight = $weight;
-        $this->itemValue = ($this->primaryResourceAmount + $this->secondaryResourceAmount) * $this->getNutritonFactor();
+        $this->itemValue = ($this->primaryResourceAmount + $this->secondaryResourceAmount) * $this->getNutritionFactor();
     }
 
     public function getItemValue(): int
@@ -371,7 +371,7 @@ class ItemEntity
         return $this->realName;
     }
 
-    private function getNutritonFactor()
+    private function getNutritionFactor(): int
     {
         return match ($this->tier) {
             self::TIER_T2 => self::T20_NUTRITION_FACTOR,
