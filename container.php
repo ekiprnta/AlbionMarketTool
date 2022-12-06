@@ -43,7 +43,7 @@ $serviceManager = new ServiceManager([
                 BlackMarketCraftingService::class => [
                     ItemRepository::class,
                     ResourceRepository::class,
-                    JournalRepository::class
+                    JournalRepository::class,
                 ],
                 BlackMarketTransportingService::class => [
                     ItemRepository::class

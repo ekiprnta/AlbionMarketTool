@@ -21,11 +21,6 @@ class BlackMarketCraftingHandler
 
     public function handler(): HtmlResponse
     {
-        $pdo = DatabaseService::getConnection('qwert');
-        $itemRepo = new ItemRepository($pdo);
-
-        dd($itemRepo);
-
         $cityData = [];
         $alertMessage = null;
         if (! empty($_GET)) {
