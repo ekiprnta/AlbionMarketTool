@@ -157,8 +157,11 @@ class ResourceEntity
         return $this->buyOrderPriceDate->format('Y-m-d H:i:s');
     }
 
-    private function getDateTimeImmutable(string $date): DateTimeImmutable|bool
+    private function getDateTimeImmutable(?string $date): DateTimeImmutable|bool
     {
+        if ($date === null) {
+            return DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '2000-00-00 00:00:00');
+        }
         $date = str_replace('T', ' ', $date);
         return DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $date, new DateTimeZone('Europe/London'));
     }
