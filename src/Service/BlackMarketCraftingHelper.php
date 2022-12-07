@@ -86,7 +86,7 @@ class BlackMarketCraftingHelper
             'totalAmount' => ($totalAmount),
             'primResourceAmount' => ($totalAmount * $bmcEntity->getItem()->getPrimaryResourceAmount()),
             'secResourceAmount' => ($totalAmount * $bmcEntity->getItem()->getSecondaryResourceAmount()),
-            'journalAmount' => ((int)ceil($totalAmount * $bmcEntity->getJournalEntityEmpty()->getWeight())),
+            'journalAmount' => ((int)ceil($totalAmount * $bmcEntity->getJournalAmountPerItem())),
             'totalItemWeight' => ($totalAmount * $bmcEntity->getItem()->getWeight()),
         ];
     }
