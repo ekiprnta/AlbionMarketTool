@@ -181,4 +181,9 @@ class BlackMarketCraftingHelper
     {
         return TimeHelper::calculateAgeOfPrices($itemPriceDate);
     }
+
+    public static function calculateItemValue(BlackMarketCraftingEntity $bmcEntity): int
+    {
+           return $bmcEntity->getItem()->getSellOrderPrice()* $bmcEntity->getTotalAmount();
+    }
 }

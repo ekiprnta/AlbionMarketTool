@@ -125,6 +125,7 @@
                         <th>Weight Items</th>
                         <th>Weight Resources</th>
                         <th>Profit/Weight</th>
+                        <th>Value</th>
                         <th>Info</th>
                     </tr>
                     </thead>
@@ -156,6 +157,7 @@
                                 <td>{{ bmcEntity.totalItemWeight|number_format }}</td>
                                 <td>{{ bmcEntity.totalWeightResources|number_format }}</td>
                                 <td>{{ bmcEntity.weightProfitQuotient|number_format }}</td>
+                                <td>{{ bmcEntity.itemValue|number_format }}</td>
                                 <td>
                                     <button type="button" class="btn btn-primary" data-toggle="modal"
                                             data-target="#{{ weaponGroupName }}">
