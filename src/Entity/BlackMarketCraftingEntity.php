@@ -49,6 +49,16 @@ class BlackMarketCraftingEntity
         $this->secResource = ResourceEntityFactory::getEmptyResourceEntity();
     }
 
+    public function getItemAge(): int
+    {
+        return $this->itemAge;
+    }
+
+    public function setItemAge(int $itemAge): void
+    {
+        $this->itemAge = $itemAge;
+    }
+
     public function getSecAge(): int
     {
         return $this->secAge;

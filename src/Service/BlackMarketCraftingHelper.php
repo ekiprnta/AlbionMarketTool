@@ -174,4 +174,9 @@ class BlackMarketCraftingHelper
             default => 'D',
         };
     }
+
+    public static function calculateItemPriceAge(\DateTimeImmutable $itemPriceDate): int
+    {
+        return TimeHelper::calculateAgeOfPrices($itemPriceDate);
+    }
 }
