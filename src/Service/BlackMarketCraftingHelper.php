@@ -16,7 +16,7 @@ class BlackMarketCraftingHelper
 
     private const RRR_BASE_PERCENTAGE = 100;
 
-    public static function calculateResources(BlackMarketCraftingEntity $bmcEntity, array $resources)
+    public static function calculateResources(BlackMarketCraftingEntity $bmcEntity, array $resources): array
     {
         $primResourceName = $bmcEntity->getItem()->getPrimaryResource();
         $secResourceName = $bmcEntity->getItem()->getSecondaryResource();
@@ -45,12 +45,7 @@ class BlackMarketCraftingHelper
 
     public static function calculateJournals(BlackMarketCraftingEntity $bmcEntity, array $journals): array
     {
-        $fameFactor = $bmcEntity->getItem()->getFameFactor();
         $tier = $bmcEntity->getItem()->getTier();
-        $primAmount = $bmcEntity->getItem()->getPrimaryResourceAmount();
-        $secAmount = $bmcEntity->getItem()->getSecondaryResourceAmount();
-
-        $totalAmount = $primAmount + $secAmount;
 
         $journalAmountPerItem = null;
         $emptyJournal = null;
@@ -59,7 +54,7 @@ class BlackMarketCraftingHelper
         foreach ($journals as $journal) {
             if ($tier[0] === $journal->getTier()) {
                 if ($journal->getFillStatus() === 'empty') {
-                    $journalAmountPerItem = ($fameFactor * $totalAmount) / $journal->getFameToFill();
+                    $journalAmountPerItem = $bmcEntity->getItem()->getFame() / $journal->getFameToFill();
                     $emptyJournal = $journal;
                 }
                 if ($journal->getFillStatus() === 'full') {
@@ -76,7 +71,7 @@ class BlackMarketCraftingHelper
 
     public static function calculateFameAmount(BlackMarketCraftingEntity $bmcEntity): int
     {
-        return $bmcEntity->getTotalAmount() * $bmcEntity->getJournalAmountPerItem() * self::PREMIUM_FACTOR;
+        return $bmcEntity->getTotalAmount() * $bmcEntity->getItem()->getFame() * self::PREMIUM_FACTOR;
     }
 
     public static function calculateTotalAmount(BlackMarketCraftingEntity $bmcEntity, int $weight): array
