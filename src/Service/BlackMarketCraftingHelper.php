@@ -12,6 +12,8 @@ class BlackMarketCraftingHelper
     public const MARKET_SETUP = 0.025;
     public const MARKET_FEE = 0.04;
 
+    private const PREMIUM_FACTOR = 1.5;
+
     private const RRR_BASE_PERCENTAGE = 100;
 
     public static function calculateResources(BlackMarketCraftingEntity $bmcEntity, array $resources)
@@ -70,6 +72,11 @@ class BlackMarketCraftingHelper
             'empty' => $emptyJournal,
             'amount' => $journalAmountPerItem,
         ];
+    }
+
+    public static function calculateFameAmount(BlackMarketCraftingEntity $bmcEntity): int
+    {
+        return $bmcEntity->getTotalAmount() * $bmcEntity->getJournalAmountPerItem() * self::PREMIUM_FACTOR;
     }
 
     public static function calculateTotalAmount(BlackMarketCraftingEntity $bmcEntity, int $weight): array

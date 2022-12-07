@@ -146,8 +146,8 @@
                                 </td>
                                 <td>{{ bmcEntity.secResourceAmount|number_format }}</td>
                                 <td>{{ bmcEntity.item.sellOrderPrice|number_format }}</td>
-                                <td {% if bmcEntity.item.PriceAge > 1440 %} class="bg-D" {% endif %}>
-                                    {{ bmcEntity.item.PriceAge|number_format }} min
+                                <td {% if bmcEntity.itemAge > 1440 %} class="bg-D" {% endif %}>
+                                    {{ bmcEntity.itemAge|number_format }} min
                                 </td>
                                 <td>{{ bmcEntity.totalAmount|number_format }}</td>
                                 <td>{{ bmcEntity.journalAmount|round(1,'ceil') }}</td>
@@ -191,7 +191,7 @@
                                                         Silver
                                                     </div>
                                                     <div class="badge-info badge standard-badge">
-                                                        fameAmount: {{ bmcEntity.fameAmount|number_format }}TODO</div>
+                                                        fameAmount: {{ bmcEntity.fameAmount|number_format }}</div>
                                                     <div class="badge-info badge standard-badge">
                                                         bmcEntityWeight: {{ bmcEntity.item.weight|number_format }}kg
                                                     </div>

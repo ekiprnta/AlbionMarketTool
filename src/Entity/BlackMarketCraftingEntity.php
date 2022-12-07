@@ -43,10 +43,21 @@ class BlackMarketCraftingEntity
     private int $secAge;
     private int $itemAge;
 
+    private int $fameAmount;
+
     public function __construct(private ItemEntity $item, private int $totalWeightResources)
     {
-
         $this->secResource = ResourceEntityFactory::getEmptyResourceEntity();
+    }
+
+    public function getFameAmount(): int
+    {
+        return $this->fameAmount;
+    }
+
+    public function setFameAmount(int $fameAmount): void
+    {
+        $this->fameAmount = $fameAmount;
     }
 
     public function getItemAge(): int

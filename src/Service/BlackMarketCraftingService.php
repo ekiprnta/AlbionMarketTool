@@ -18,7 +18,6 @@ class BlackMarketCraftingService
     private const RRR_NO_BONUS_CITY_NO_FOCUS = 15.2;
     private const RRR_NO_BONUS_CITY_FOCUS = 43.5;
 
-    private const PREMIUM_FACTOR = 1.5;
 
     public function __construct(
         private ItemRepository $itemRepository,
@@ -64,12 +63,13 @@ class BlackMarketCraftingService
             $bmcEntity->setResources(BlackMarketCraftingHelper::calculateResources($bmcEntity, $resources));
             $bmcEntity->setJournals(BlackMarketCraftingHelper::calculateJournals($bmcEntity, $journals));
             $bmcEntity->setAmounts(BlackMarketCraftingHelper::calculateTotalAmount($bmcEntity, $weight));
+            $bmcEntity->setFameAmount(BlackMarketCraftingHelper::calculateFameAmount($bmcEntity));
             $bmcEntity->setCraftingFee(BlackMarketCraftingHelper::calculateCraftingFee($bmcEntity, $feeProHundredNutrition));
             $bmcEntity->setProfitBooks(BlackMarketCraftingHelper::calculateProfitBooks($bmcEntity));
             $bmcEntity->setProfit(BlackMarketCraftingHelper::calculateProfit($bmcEntity, $percentage, $order));
             $bmcEntity->setItemAge(BlackMarketCraftingHelper::calculateItemPriceAge($bmcEntity->getItem()->getSellOrderPriceDate()));
             $bmcEntity->setWeightProfitQuotient(BlackMarketCraftingHelper::calculateWeightProfitQuotient($bmcEntity));
-            $bmcEntity->setColorGrade(BlackMarketCraftingHelper::calculateCraftingGrade($bmcEntity));
+            $bmcEntity->setColorGrade(BlackMarketCraftingHelper::calculateCraftingGrade($bmcEntity)); //Todo Total Cost and total Value after
         }
 
         return $this->filterCalculateEntityArray($calculateEntityArray);
