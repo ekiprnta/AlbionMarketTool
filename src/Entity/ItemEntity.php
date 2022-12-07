@@ -156,6 +156,7 @@ class ItemEntity
     private ?int $amountInStorage;
     private float $weight;
     private int $itemValue;
+    private float $fame;
 
 
     public function __construct(array $itemData)
@@ -184,6 +185,12 @@ class ItemEntity
         $this->amountInStorage = $itemData['amountInStorage'];
         $this->weight = $weight;
         $this->itemValue = ($this->primaryResourceAmount + $this->secondaryResourceAmount) * $this->getNutritionFactor();
+        $this->fame = $this->fameFactor * ($this->primaryResourceAmount + $this->secondaryResourceAmount);
+    }
+
+    public function getFame(): float
+    {
+        return $this->fame;
     }
 
     public function getItemValue(): int
