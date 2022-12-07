@@ -8,193 +8,71 @@ use DateTimeImmutable;
 
 class BlackMarketTransportEntity
 {
-    private string $tier;
-    private string $name;
-    private string $realName;
-    private int $quality;
-    private float $weight;
-    private int $tierColor;
+    private ItemEntity $bmItem;
 
-    private int $bmPrice;
-    private DateTimeImmutable $bmPriceDate;
-    private ?int $bmPriceAge = null;
+    private ItemEntity $fsItem;
+    private ItemEntity $lymItem;
+    private ItemEntity $bwItem;
+    private ItemEntity $mlItem;
+    private ItemEntity $thItem;
 
-    private ?int $cityPrice = null;
-    private ?DateTimeImmutable $cityPriceDate = null;
-    private ?int $cityPriceAge = null;
-    private ?int $cityProfit = null;
-    private ?float $cityWeightProfitQuotient = null;
-    private string $cityColorGrade = 'D';
-
-    private ?int $amount = null;
-    private ?int $totalProfit = null;
-
-    public function __construct(ItemEntity $bmItemData)
+    public function __construct(ItemEntity $bmItem)
     {
-        $this->tier = $bmItemData->getTier();
-        $this->name = $bmItemData->getName();
-        $this->realName = $bmItemData->getRealName();
-        $this->quality = $bmItemData->getQuality();
-        $this->weight = $bmItemData->getWeight();
-        $this->tierColor = $this->setTierColor();
-
-        $this->bmPrice = $bmItemData->getSellOrderPrice();
-        $this->bmPriceDate = $bmItemData->getSellOrderPriceDate();
+        $this->bmItem = $bmItem;
     }
 
-    public function getBmPriceAge(): ?int
+    public function getFsItem(): ItemEntity
     {
-        return $this->bmPriceAge;
+        return $this->fsItem;
     }
 
-    public function setBmPriceAge(?int $bmPriceAge): void
+    public function setFsItem(ItemEntity $fsItem): void
     {
-        $this->bmPriceAge = $bmPriceAge;
+        $this->fsItem = $fsItem;
     }
 
-    public function getCityPriceAge(): ?int
+    public function getLymItem(): ItemEntity
     {
-        return $this->cityPriceAge;
+        return $this->lymItem;
     }
 
-    public function getTotalProfit(): ?int
+    public function setLymItem(ItemEntity $lymItem): void
     {
-        return $this->totalProfit;
+        $this->lymItem = $lymItem;
     }
 
-    public function setTotalProfit(int $totalProfit): void
+    public function getBwItem(): ItemEntity
     {
-        $this->totalProfit = $totalProfit;
+        return $this->bwItem;
     }
 
-    public function setCityPriceAge(?int $cityPriceAge): void
+    public function setBwItem(ItemEntity $bwItem): void
     {
-        $this->cityPriceAge = $cityPriceAge;
+        $this->bwItem = $bwItem;
     }
 
-    public function getTierColor(): int
+    public function getMlItem(): ItemEntity
     {
-        return $this->tierColor;
+        return $this->mlItem;
     }
 
-    private function setTierColor(): int
+    public function setMlItem(ItemEntity $mlItem): void
     {
-        if (str_starts_with($this->tier, '2')) {
-            return 2;
-        }
-        if (str_starts_with($this->tier, '3')) {
-            return 3;
-        }
-        if (str_starts_with($this->tier, '4')) {
-            return 4;
-        }
-        if (str_starts_with($this->tier, '5')) {
-            return 5;
-        }
-        if (str_starts_with($this->tier, '6')) {
-            return 6;
-        }
-        if (str_starts_with($this->tier, '7')) {
-            return 7;
-        }
-        if (str_starts_with($this->tier, '8')) {
-            return 8;
-        }
-        throw new \RuntimeException('No string found');
+        $this->mlItem = $mlItem;
     }
 
-    public function getTier(): string
+    public function getThItem(): ItemEntity
     {
-        return $this->tier;
+        return $this->thItem;
     }
 
-    public function getName(): string
+    public function setThItem(ItemEntity $thItem): void
     {
-        return $this->name;
+        $this->thItem = $thItem;
     }
 
-    public function getRealName(): string
+    public function getBmItem(): ItemEntity
     {
-        return $this->realName;
-    }
-
-    public function getQuality(): int
-    {
-        return $this->quality;
-    }
-
-    public function getWeight(): float
-    {
-        return $this->weight;
-    }
-
-    public function getBmPrice(): int
-    {
-        return $this->bmPrice;
-    }
-
-    public function getBmPriceDate(): DateTimeImmutable|bool
-    {
-        return $this->bmPriceDate;
-    }
-
-    public function getCityPrice(): ?int
-    {
-        return $this->cityPrice;
-    }
-
-    public function setCityPrice(?int $cityPrice): void
-    {
-        $this->cityPrice = $cityPrice;
-    }
-
-    public function getCityPriceDate(): ?DateTimeImmutable
-    {
-        return $this->cityPriceDate;
-    }
-
-    public function setCityPriceDate(?DateTimeImmutable $cityPriceDate): void
-    {
-        $this->cityPriceDate = $cityPriceDate;
-    }
-
-    public function getCityProfit(): ?int
-    {
-        return $this->cityProfit;
-    }
-
-    public function setCityProfit(?int $cityProfit): void
-    {
-        $this->cityProfit = $cityProfit;
-    }
-
-    public function getCityWeightProfitQuotient(): ?float
-    {
-        return $this->cityWeightProfitQuotient;
-    }
-
-    public function setCityWeightProfitQuotient(?float $cityWeightProfitQuotient): void
-    {
-        $this->cityWeightProfitQuotient = $cityWeightProfitQuotient;
-    }
-
-    public function getCityColorGrade(): string
-    {
-        return $this->cityColorGrade;
-    }
-
-    public function setCityColorGrade(string $cityColorGrade): void
-    {
-        $this->cityColorGrade = $cityColorGrade;
-    }
-
-    public function getAmount(): ?int
-    {
-        return $this->amount;
-    }
-
-    public function setAmount(int $amount): void
-    {
-        $this->amount = $amount;
+        return $this->bmItem;
     }
 }

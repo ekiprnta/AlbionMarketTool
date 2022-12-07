@@ -30,8 +30,29 @@ class BlackMarketTransportingService
             throw new InvalidArgumentException('Please insert your maximum carry Weight');
         }
         $this->maxWeight = $weight;
-        $cityItems = $this->itemRepository->getItemsForTransport($itemCity);
+        $fsItems = $this->itemRepository->getItemsForTransport('Fort Sterling');
+        $lymItems = $this->itemRepository->getItemsForTransport('Lymhurst');
+        $bwItems = $this->itemRepository->getItemsForTransport('Bridgewatch');
+        $mlItems = $this->itemRepository->getItemsForTransport('Martlock');
+        $thItems = $this->itemRepository->getItemsForTransport('Thetford');
         $bmItems = $this->itemRepository->getItemsForTransport('Black Market');
+
+        $bmtEntities = [];
+        foreach ($bmItems as $bmItem) {
+            $bmtEntities[] = new BlackMarketTransportEntity($bmItem);
+        }
+
+        /** @var BlackMarketTransportEntity $bmtEntity */
+        foreach ($bmtEntities as $bmtEntity) {
+            $bmtEntity->setFsItem(BlackMarketTransportingHelper::calculateCityItem($bmtEntity, $fsItems));
+            $bmtEntity->setLymItem(BlackMarketTransportingHelper::calculateCityItem($bmtEntity, $lymItems));
+            $bmtEntity->setBwItem(BlackMarketTransportingHelper::calculateCityItem($bmtEntity, $bwItems));
+            $bmtEntity->setMlItem(BlackMarketTransportingHelper::calculateCityItem($bmtEntity, $mlItems));
+            $bmtEntity->setThItem(BlackMarketTransportingHelper::calculateCityItem($bmtEntity, $thItems));
+
+        }
+
+
         $combinedItems = $this->combineItems($cityItems, $bmItems);
         return $this->filterItems($combinedItems, $tierList);
     }
