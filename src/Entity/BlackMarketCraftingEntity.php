@@ -43,7 +43,7 @@ class BlackMarketCraftingEntity
     private int $secAge;
     private int $itemAge;
 
-    private int $fameAmount;
+    private float $fameAmount;
 
     private int $itemValue;
 
@@ -62,12 +62,12 @@ class BlackMarketCraftingEntity
         return $this->itemValue;
     }
 
-    public function getFameAmount(): int
+    public function getFameAmount(): float
     {
         return $this->fameAmount;
     }
 
-    public function setFameAmount(int $fameAmount): void
+    public function setFameAmount(float $fameAmount): void
     {
         $this->fameAmount = $fameAmount;
     }

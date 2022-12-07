@@ -6,25 +6,17 @@ use MZierdt\Albion\Entity\BlackMarketCraftingEntity;
 use MZierdt\Albion\Entity\JournalEntity;
 use MZierdt\Albion\Entity\ResourceEntity;
 
-class BlackMarketCraftingHelper
+class BlackMarketCraftingHelper implements MarketInterface
 {
-    private const NUTRITION_FACTOR = 0.1125;
-    public const MARKET_SETUP = 0.025;
-    public const MARKET_FEE = 0.04;
-
-    private const PREMIUM_FACTOR = 1.5;
-
-    private const RRR_BASE_PERCENTAGE = 100;
-
     public static function calculateResources(BlackMarketCraftingEntity $bmcEntity, array $resources): array
     {
         $primResourceName = $bmcEntity->getItem()->getPrimaryResource();
         $secResourceName = $bmcEntity->getItem()->getSecondaryResource();
         $tier = $bmcEntity->getItem()->getTier();
 
-        /** @var ResourceEntity $resource */
         $primResource = null;
         $secResource = null;
+        /** @var ResourceEntity $resource */
         foreach ($resources as $resource) {
             if ($tier === $resource->getTier()) {
                 if ($resource->getRealName() === $primResourceName) {
@@ -69,7 +61,7 @@ class BlackMarketCraftingHelper
         ];
     }
 
-    public static function calculateFameAmount(BlackMarketCraftingEntity $bmcEntity): int
+    public static function calculateFameAmount(BlackMarketCraftingEntity $bmcEntity): float
     {
         return $bmcEntity->getTotalAmount() * $bmcEntity->getItem()->getFame() * self::PREMIUM_FACTOR;
     }
