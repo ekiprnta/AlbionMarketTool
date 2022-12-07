@@ -137,7 +137,7 @@ class BlackMarketCraftingHelper
 
     public static function calculateProfitBooks(BlackMarketCraftingEntity $bmcEntity): float
     {
-        return (($bmcEntity->getJournalEntityFull()->getSellOrderPrice() *
+        return (($bmcEntity->getJournalEntityFull()->getBuyOrderPrice() *
                     (1 - self::MARKET_FEE - self::MARKET_SETUP)) -
                 $bmcEntity->getJournalEntityEmpty()->getSellOrderPrice()) *
             $bmcEntity->getJournalAmount();
@@ -160,16 +160,16 @@ class BlackMarketCraftingHelper
             return 0.0;
         }
 
-        return $bmcEntity->getTotalWeightResources() / $bmcEntity->getProfit();
+        return $bmcEntity->getProfit() / $bmcEntity->getTotalWeightResources();
     }
 
     public static function calculateCraftingGrade(BlackMarketCraftingEntity $bmcEntity): string
     {
         $quotient = $bmcEntity->getWeightProfitQuotient();
         return match (true) {
-            $quotient >= 1000 => 'S',
-            $quotient >= 400 => 'A',
-            $quotient >= 100 => 'B',
+            $quotient >= 1800 => 'S',
+            $quotient >= 900 => 'A',
+            $quotient >= 350 => 'B',
             $quotient >= 0 => 'C',
             default => 'D',
         };
