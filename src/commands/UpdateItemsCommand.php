@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\commands;
 
-use MZierdt\Albion\repositories\UploadRepository;
+use MZierdt\Albion\repositories\ItemRepository;
 use MZierdt\Albion\Service\ApiService;
 use MZierdt\Albion\Service\ConfigService;
 use MZierdt\Albion\Service\ProgressBarService;
@@ -17,7 +17,7 @@ class UpdateItemsCommand extends Command
 {
     public function __construct(
         private ApiService $apiService,
-        private UploadRepository $uploadRepository,
+        private ItemRepository $itemRepository,
     ) {
         parent::__construct();
     }
@@ -38,20 +38,20 @@ class UpdateItemsCommand extends Command
             $progressBar->setMessage('Get Item:' . $itemStats['realName']);
             $progressBar->advance();
             $progressBar->display();
-            $itemsData = $this->apiService->getItems($itemStats['realName']);
+            $itemsData = $this->apiService->getItems($itemStats['id_snippet']);
             $progressBar->setMessage('preparing Item' . $itemStats['realName']);
             $progressBar->display();
             $adjustedItems = UploadHelper::adjustItems($itemsData, $itemStats);
             $progressBar->setMessage('Upload Item ' . $itemStats['realName'] . ' into Database');
             $progressBar->display();
-            $this->uploadRepository->updatePricesFromItem($adjustedItems);
+            $this->itemRepository->updatePricesFromItem($adjustedItems);
         }
 
         $output->writeln(PHP_EOL . $message);
         return self::SUCCESS;
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this->setName('update:items');
         $this->setDescription('update Prices of Items');

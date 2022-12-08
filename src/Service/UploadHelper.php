@@ -33,7 +33,7 @@ class UploadHelper
         foreach ($journalData as $journal) {
             $nameAndTier = TierService::splitIntoTierAndName($journal['item_id']);
             $stats = $journalStats[$nameAndTier['tier']];
-            [$name, $fillStatus] = explode('_', $nameAndTier['name']);
+            [$prefix, $name, $fillStatus] = explode('_', $nameAndTier['name']);
             $adjustedJournalsArray[] = [
                 'tier' => $nameAndTier['tier'],
                 'name' => $nameAndTier['name'],

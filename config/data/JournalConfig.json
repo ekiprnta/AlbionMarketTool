@@ -30,8 +30,8 @@
     }
   },
   "names": {
-    "warrior": "blacksmith",
-    "mage": "imbuer",
-    "hunter": "fletcher"
+    "warrior": "Journal_Warrior",
+    "mage": "Journal_Mage",
+    "hunter": "Journal_Hunter"
   }
 }

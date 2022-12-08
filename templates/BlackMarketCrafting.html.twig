@@ -105,17 +105,17 @@
                 <div class="card-title">
                     <h3> {{ weaponGroupName }}</h3>
                 </div>
-                <table class="table table-sm">
+                <table class="table table-sm table-bordered">
                     <thead class="thead-default">
                     <tr>
                         <th>Tier</th>
                         <th>Name</th>
-                        <th>Price {{ infoService.getPrimResource(weaponGroupName) }}</th>
+                        <th>Price PrimResource</th>
                         <th>Price Age</th>
-                        <th>Amount {{ infoService.getPrimResource(weaponGroupName) }}</th>
-                        <th>Price {{ infoService.getSecResource(weaponGroupName) }}</th>
+                        <th>Amount PrimResource</th>
+                        <th>Price SecResource</th>
                         <th>Price Age</th>
-                        <th>Amount {{ infoService.getSecResource(weaponGroupName) }}</th>
+                        <th>Amount SecResource</th>
                         <th>Price</th>
                         <th>Price Age</th>
                         <th>Amount Crafted</th>
@@ -125,41 +125,43 @@
                         <th>Weight Items</th>
                         <th>Weight Resources</th>
                         <th>Profit/Weight</th>
+                        <th>Value</th>
                         <th>Info</th>
                     </tr>
                     </thead>
                     <tbody class="text-right">
-                    {# @var item \MZierdt\Albion\Entity\BlackMarketCraftingEntity #}
-                    {% for item in weaponGroup %}
-                        {% if item.itemSellOrderPrice != 0 %}
-                            <tr class="bg-{{ item.colorGrade }} bg-{{ item.getPrice }}">
-                                <td class="text-left tier-{{ item.tierColor }} tier">{{ item.tier }}</td>
-                                <td>{{ item.realName }}</td>
-                                <td>{{ item.primarySellOrderPrice|number_format }}</td>
-                                <td {% if item.primaryPriceAge > 720 %} class="bg-D" {% endif %}>
-                                    {{ item.primaryPriceAge|number_format }} min
+                    {# @var bmcEntity \MZierdt\Albion\Entity\BlackMarketCraftingEntity #}
+                    {% for bmcEntity in weaponGroup %}
+                        {% if bmcEntity.item.sellOrderPrice != 0 %}
+                            <tr class="bg-{{ bmcEntity.colorGrade }} bg-{{ bmcEntity.item.getPrice }}">
+                                <td class="text-left tier-{{ bmcEntity.tierColor }} tier">{{ bmcEntity.item.tier }}</td>
+                                <td>{{ bmcEntity.item.realName }}</td>
+                                <td>{{ bmcEntity.primResource.sellOrderPrice|number_format }}</td>
+                                <td {% if bmcEntity.primAge > 720 %} class="bg-D" {% endif %}>
+                                    {{ bmcEntity.primAge|number_format }} min
                                 </td>
-                                <td>{{ item.primaryTotalAmount|number_format }}</td>
-                                <td>{{ item.secondarySellOrderPrice|number_format }}</td>
-                                <td {% if item.secondaryPriceAge > 720 %} class="bg-D" {% endif %}>
-                                    {{ item.secondaryPriceAge|number_format }} min
+                                <td>{{ bmcEntity.primResourceAmount|number_format }}</td>
+                                <td>{{ bmcEntity.secResource.sellOrderPrice|number_format }}</td>
+                                <td {% if bmcEntity.secAge > 720 %} class="bg-D" {% endif %}>
+                                    {{ bmcEntity.secAge|number_format }} min
                                 </td>
-                                <td>{{ item.secondaryTotalAmount|number_format }}</td>
-                                <td>{{ item.itemSellOrderPrice|number_format }}</td>
-                                <td {% if item.itemPriceAge > 1440 %} class="bg-D" {% endif %}>
-                                    {{ item.itemPriceAge|number_format }} min
+                                <td>{{ bmcEntity.secResourceAmount|number_format }}</td>
+                                <td>{{ bmcEntity.item.sellOrderPrice|number_format }}</td>
+                                <td {% if bmcEntity.itemAge > 1440 %} class="bg-D" {% endif %}>
+                                    {{ bmcEntity.itemAge|number_format }} min
                                 </td>
-                                <td>{{ item.amount|number_format }}</td>
-                                <td>{{ item.amountBooks|round(1,'ceil') }}</td>
-                                <td>{{ item.getCraftingFee|number_format }}</td>
-                                <td>{{ item.percentageProfit|number_format }}</td>
-                                <td>{{ item.totalWeightItems|number_format }}</td>
-                                <td>{{ item.totalWeightResources|number_format }}</td>
-                                <td>{{ item.weightProfitQuotient|number_format }}</td>
+                                <td>{{ bmcEntity.totalAmount|number_format }}</td>
+                                <td>{{ bmcEntity.journalAmount|round(1,'ceil') }}</td>
+                                <td>{{ bmcEntity.craftingFee|number_format }}</td>
+                                <td>{{ bmcEntity.profit|number_format }}</td>
+                                <td>{{ bmcEntity.totalItemWeight|number_format }}</td>
+                                <td>{{ bmcEntity.totalWeightResources|number_format }}</td>
+                                <td>{{ bmcEntity.weightProfitQuotient|number_format }}</td>
+                                <td>{{ bmcEntity.itemValue|number_format }}</td>
                                 <td>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal"
+                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
                                             data-target="#{{ weaponGroupName }}">
-                                        more Info
+                                        ?
                                     </button>
                                 </td>
                             </tr>
@@ -171,7 +173,7 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title"
-                                            id="exampleModalLabel">{{ item.realName }}</h5> {# todo make it look better #}
+                                            id="exampleModalLabel">{{ bmcEntity.item.realName }}</h5> {# todo make it look better #}
                                     </div>
                                     <div class="modal-body">
                                         <div class="card">
@@ -179,26 +181,26 @@
                                                 <div class="card-title"><h4>Item Info</h4></div>
                                                 <div class="d-flex flex-column">
                                                     <div class="badge-info badge standard-badge">
-                                                        tier: {{ item.tier }}</div>
+                                                        tier: {{ bmcEntity.item.tier }}</div>
                                                     <div class="badge-info badge standard-badge">
-                                                        name: {{ item.name }}</div>
+                                                        name: {{ bmcEntity.item.name }}</div>
                                                     <div class="badge-info badge standard-badge">
-                                                        weaponGroup: {{ item.weaponGroup }}</div>
+                                                        weaponGroup: {{ bmcEntity.item.weaponGroup }}</div>
                                                     <div class="badge-info badge standard-badge">
-                                                        realName: {{ item.realName }}</div>
+                                                        realName: {{ bmcEntity.item.realName }}</div>
                                                     <div class="badge-info badge standard-badge">
-                                                        itemSellOrderPrice: {{ item.itemSellOrderPrice|number_format }}
+                                                        bmcEntitySellOrderPrice: {{ bmcEntity.item.sellOrderPrice|number_format }}
                                                         Silver
                                                     </div>
                                                     <div class="badge-info badge standard-badge">
-                                                        fameAmount: {{ item.fameAmount|number_format }}</div>
+                                                        fameAmount: {{ bmcEntity.fameAmount|number_format }}</div>
                                                     <div class="badge-info badge standard-badge">
-                                                        itemWeight: {{ item.itemWeight|number_format }}kg
+                                                        bmcEntityWeight: {{ bmcEntity.item.weight|number_format }}kg
                                                     </div>
                                                     <div class="badge-info badge standard-badge">
-                                                        amount: {{ item.amount|number_format }}</div>
+                                                        amount: {{ bmcEntity.totalAmount|number_format }}</div>
                                                     <div class="badge-info badge standard-badge">
-                                                        itemPriceAge: {{ item.itemPriceAge }}min
+                                                        bmcEntityPriceAge: {{ bmcEntity.itemAge }}min
                                                     </div>
                                                 </div>
                                             </div>
@@ -206,54 +208,54 @@
                                         <div class="card">
                                             <div class="card-body">
                                                 <div class="card-title"><h4>Primär
-                                                        Resource {{ item.primaryResource }}</h4>
+                                                        Resource {{ bmcEntity.item.primaryResource }}</h4>
                                                 </div>
                                                 <div class="d-flex flex-column">
                                                     <div class="badge-info badge standard-badge">
-                                                        primaryResource: {{ item.primaryResource }}</div>
+                                                        primaryResource: {{ bmcEntity.item.primaryResource }}</div>
                                                     <div class="badge-info badge standard-badge">
-                                                        primaryResourceAmount: {{ item.primaryResourceAmount|number_format }}
+                                                        primaryResourceAmount: {{ bmcEntity.item.primaryResourceAmount|number_format }}
                                                         Silver
                                                     </div>
                                                     <div class="badge-info badge standard-badge">
-                                                        primarySellOrderPrice: {{ item.primarySellOrderPrice|number_format }}
+                                                        primarySellOrderPrice: {{ bmcEntity.primResource.sellOrderPrice|number_format }}
                                                         Silver
                                                     </div>
                                                     <div class="badge-info badge standard-badge">
-                                                        primaryBuyOrderPrice: {{ item.primaryBuyOrderPrice|number_format }}
+                                                        primaryBuyOrderPrice: {{ bmcEntity.primResource.buyOrderPrice|number_format }}
                                                         Silver
                                                     </div>
                                                     <div class="badge-info badge standard-badge">
-                                                        primaryPriceAge: {{ item.primaryPriceAge }}min
+                                                        primaryPriceAge: {{ bmcEntity.primaryAge }}min
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        {% if item.secondaryResource is not null %}
+                                        {% if bmcEntity.secondaryResource is not null %}
                                             <div class="card">
                                                 <div class="card-body">
                                                     <div class="card-title"><h4>Secondary
-                                                            Resource {{ item.secondaryResource }}</h4></div>
+                                                            Resource {{ bmcEntity.item.secondaryResource }}</h4></div>
                                                     <div class="d-flex flex-column">
                                                         <div class="badge-info badge standard-badge">
-                                                            secondaryResource: {{ item.secondaryResource }}</div>
+                                                            secondaryResource: {{ bmcEntity.item.secondaryResource }}</div>
                                                         <div class="badge-info badge standard-badge">
-                                                            secondaryResourceAmount: {{ item.secondaryResourceAmount|number_format }}
+                                                            secondaryResourceAmount: {{ bmcEntity.item.secondaryResourceAmount|number_format }}
                                                             Silver
                                                         </div>
                                                         <div class="badge-info badge standard-badge">
-                                                            secondarySellOrderPrice: {{ item.secondarySellOrderPrice|number_format }}
+                                                            secondarySellOrderPrice: {{ bmcEntity.secResource.sellOrderPrice|number_format }}
                                                             Silver
                                                         </div>
                                                         <div class="badge-info badge standard-badge">
-                                                            secondaryBuyOrderPrice: {{ item.secondaryBuyOrderPrice|number_format }}
+                                                            secondaryBuyOrderPrice: {{ bmcEntity.secResource.buyOrderPrice|number_format }}
                                                             Silver
                                                         </div>
                                                         <div class="badge-info badge standard-badge">
-                                                            resourceWeight: {{ item.resourceWeight }}kg
+                                                            resourceWeight: {{ bmcEntity.secResource.weight }}kg
                                                         </div>
                                                         <div class="badge-info badge standard-badge">
-                                                            secondaryPriceAge: {{ item.secondaryPriceAge }}min
+                                                            secondaryPriceAge: {{ bmcEntity.secAge }}min
                                                         </div>
                                                     </div>
                                                 </div>
@@ -264,17 +266,17 @@
                                                 <div class="card-title"><h4>Journal Info</h4></div>
                                                 <div class="d-flex flex-column">
                                                     <div class="badge-info badge standard-badge">
-                                                        journalName: {{ item.journalName }}</div>
+                                                        journalName: {{ bmcEntity.journalEntityEmpty.name }}</div>
                                                     <div class="badge-info badge standard-badge">
-                                                        fameToFill: {{ item.fameToFill }}</div>
+                                                        fameToFill: {{ bmcEntity.journalEntityEmpty.fameToFill }}</div>
                                                     <div class="badge-info badge standard-badge">
-                                                        fullSellOrderPrice: {{ item.fullSellOrderPrice }}</div>
+                                                        fullSellOrderPrice: {{ bmcEntity.journalEntotyFull.sellOrderPrice }}</div>
                                                     <div class="badge-info badge standard-badge">
-                                                        emptySellOrderPrice: {{ item.emptySellOrderPrice }}</div>
+                                                        emptySellOrderPrice: {{ bmcEntity.journalEntityEmpty.sellOrderPrice }}</div>
                                                     <div class="badge-info badge standard-badge">
-                                                        emptyBuyOrderPrice: {{ item.emptyBuyOrderPrice }}</div>
+                                                        emptyBuyOrderPrice: {{ bmcEntity.journalEntityEmpty.buyOrderPrice }}</div>
                                                     <div class="badge-info badge standard-badge">
-                                                        amountBooks: {{ item.amountBooks|number_format }}</div>
+                                                        amountBooks: {{ bmcEntity.journalAmount|number_format }}</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -283,18 +285,18 @@
                                                 <div class="card-title"><h4>Miscellaneous</h4></div>
                                                 <div class="d-flex flex-column">
                                                     <div class="badge-info badge standard-badge">
-                                                        percentageProfit: {{ item.percentageProfit|number_format }}
+                                                        percentageProfit: {{ bmcEntity.profit|number_format }}
                                                         Silver
                                                     </div>
                                                     <div class="badge-info badge standard-badge">
-                                                        totalWeightItems: {{ item.totalWeightItems|number_format }}kg
+                                                        totalWeightItems: {{ bmcEntity.totalItemWeight|number_format }}kg
                                                     </div>
                                                     <div class="badge-info badge standard-badge">
-                                                        totalWeightResources: {{ item.totalWeightResources|number_format }}
+                                                        totalWeightResources: {{ bmcEntity.totalWeightResources|number_format }}
                                                         kg
                                                     </div>
                                                     <div class="badge-info badge standard-badge">
-                                                        WeightProfitQuotient: {{ item.WeightProfitQuotient|number_format }}
+                                                        WeightProfitQuotient: {{ bmcEntity.weightProfitQuotient|number_format }}
                                                         s/kg
                                                     </div>
                                                 </div>

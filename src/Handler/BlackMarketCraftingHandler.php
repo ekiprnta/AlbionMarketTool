@@ -41,6 +41,7 @@ class BlackMarketCraftingHandler
                 $alertMessage = $invalidArgumentExceptionException->getMessage();
             }
         }
+
         $htmlContent = $this->twigEnvironment->render('BlackMarketCrafting.html.twig', [
             'dataArray' => $cityData,
             'infoService' => $this->blackMarketCraftingService,
