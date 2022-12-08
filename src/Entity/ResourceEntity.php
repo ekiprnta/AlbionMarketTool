@@ -7,6 +7,7 @@ namespace MZierdt\Albion\Entity;
 use DateTimeImmutable;
 use DateTimeZone;
 use MZierdt\Albion\factories\ResourceEntityFactory;
+use MZierdt\Albion\Service\TimeHelper;
 
 class ResourceEntity
 {
@@ -67,17 +68,15 @@ class ResourceEntity
     private string $city;
     private ?string $realName;
     private int $sellOrderPrice;
-    private DateTimeImmutable $sellOrderPriceDate;
+    private int $sellOrderAge;
     private int $buyOrderPrice;
-    private DateTimeImmutable $buyOrderPriceDate;
+    private int $buyOrderAge;
     private ?string $bonusCity;
     private ?int $amountInStorage;
     private float $weight;
 
     public function __construct(array $resourceData)
     {
-        $sellOrderPriceDate = $this->getDateTimeImmutable($resourceData['sellOrderPriceDate']);
-        $buyOrderPriceDate = $this->getDateTimeImmutable($resourceData['buyOrderPriceDate']);
         $weight = $this->setWeight($resourceData['tier']);
 
         $this->tier = $resourceData['tier'];
@@ -85,9 +84,9 @@ class ResourceEntity
         $this->city = $resourceData['city'];
         $this->realName = $resourceData['realName'];
         $this->sellOrderPrice = (int) $resourceData['sellOrderPrice'];
-        $this->sellOrderPriceDate = $sellOrderPriceDate;
+        $this->sellOrderAge = TimeHelper::calculateAge($resourceData['sellOrderPriceDate']);
         $this->buyOrderPrice = (int) $resourceData['buyOrderPrice'];
-        $this->buyOrderPriceDate = $buyOrderPriceDate;
+        $this->buyOrderAge = TimeHelper::calculateAge($resourceData['buyOrderPriceDate']);
         $this->bonusCity = $resourceData['bonusCity'];
         $this->amountInStorage = (int)$resourceData['amountInStorage'];
         $this->weight = $weight;
@@ -133,14 +132,9 @@ class ResourceEntity
         return $this->sellOrderPrice ?? 0;
     }
 
-    public function getSellOrderPriceDate(): DateTimeImmutable
+    public function getSellOrderAge(): int
     {
-        return $this->sellOrderPriceDate;
-    }
-
-    public function getSellOrderPriceDateString(): string
-    {
-        return $this->sellOrderPriceDate->format('Y-m-d H:i:s');
+        return $this->sellOrderAge;
     }
 
     public function getBuyOrderPrice(): int
@@ -148,23 +142,9 @@ class ResourceEntity
         return $this->buyOrderPrice;
     }
 
-    public function getBuyOrderPriceDate(): DateTimeImmutable
+    public function getBuyOrderAge(): int
     {
-        return $this->buyOrderPriceDate;
-    }
-
-    public function getBuyOrderPriceDateString(): string
-    {
-        return $this->buyOrderPriceDate->format('Y-m-d H:i:s');
-    }
-
-    private function getDateTimeImmutable(?string $date): DateTimeImmutable|bool
-    {
-        if ( empty($date)) {
-            return DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '1970-01-01 00:00:00');
-        }
-        $date = str_replace('T', ' ', $date);
-        return DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $date, new DateTimeZone('Europe/London'));
+        return $this->buyOrderAge;
     }
 
     private function setWeight(string $tier): float
