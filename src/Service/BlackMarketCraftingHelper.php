@@ -70,7 +70,6 @@ class BlackMarketCraftingHelper extends Market
         return $totalAmount * $weight;
     }
 
-
     public function calculateCraftingFee(
         BlackMarketCraftingEntity $bmcEntity,
         int $feeProHundredNutrition
@@ -95,10 +94,6 @@ class BlackMarketCraftingHelper extends Market
                 $bmcEntity->getItem()
                     ->getSecondaryResourceAmount();
 
-            $primAge = $bmcEntity->getPrimResource()
-                ->getSellOrderAge();
-            $secAge = $bmcEntity->getSecResource()
-                ->getSellOrderAge();
         } else {
             $itemCost = $this->calculateBuyOrder(
                 $bmcEntity->getPrimResource()->getBuyOrderPrice() *
@@ -109,22 +104,13 @@ class BlackMarketCraftingHelper extends Market
                 $bmcEntity->getItem()
                     ->getSecondaryResourceAmount()
             );
-
-            $primAge = $bmcEntity->getPrimResource()
-                ->getBuyOrderAge();
-            $secAge = $bmcEntity->getSecResource()
-                ->getBuyOrderAge();
         }
 
         $profit = $this->calculateProfitByPercentage($bmcEntity, $itemCost, $percentage);
         $craftingFee = $bmcEntity->getCraftingFee();
         $profitJournals = $bmcEntity->getProfitBooks();
 
-        return [
-            'profit' => $profit - $craftingFee + $profitJournals,
-            'primAge' => $primAge,
-            'secAge' => $secAge,
-        ];
+        return $profit - $craftingFee + $profitJournals;
     }
 
     public function calculateProfitBooks(BlackMarketCraftingEntity $bmcEntity): float

@@ -110,7 +110,6 @@ class BlackMarketCraftingService
             $bmcEntity->setProfitBooks($this->bmtHelper->calculateProfitBooks($bmcEntity));
             $bmcEntity->setProfit($this->bmtHelper->calculateProfit($bmcEntity, $percentage, $order));
             $bmcEntity->setItemValue($this->bmtHelper->calculateItemValue($bmcEntity));
-            $bmcEntity->setItemAge($bmcEntity->getItem()->getSellOrderAge());
             $bmcEntity->setWeightProfitQuotient(
                 $this->bmtHelper->calculateWeightProfitQuotient(
                     $bmcEntity->getProfit(),

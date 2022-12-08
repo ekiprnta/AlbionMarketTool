@@ -38,10 +38,6 @@ class BlackMarketCraftingEntity
     private float $weightProfitQuotient;
     private string $colorGrade;
 
-    private int $primAge;
-    private int $secAge;
-    private int $itemAge;
-
     private float $fameAmount;
     private string $tierColor;
     private int $itemValue;
@@ -104,26 +100,6 @@ class BlackMarketCraftingEntity
         $this->fameAmount = $fameAmount;
     }
 
-    public function getItemAge(): int
-    {
-        return $this->itemAge;
-    }
-
-    public function setItemAge(int $itemAge): void
-    {
-        $this->itemAge = $itemAge;
-    }
-
-    public function getSecAge(): int
-    {
-        return $this->secAge;
-    }
-
-    public function getPrimAge(): int
-    {
-        return $this->primAge;
-    }
-
     public function getColorGrade(): string
     {
         return $this->colorGrade;
@@ -159,11 +135,9 @@ class BlackMarketCraftingEntity
         return $this->profit;
     }
 
-    public function setProfit(array $profitArray): void
+    public function setProfit(float $profit): void
     {
-        $this->profit = $profitArray['profit'];
-        $this->primAge = $profitArray['primAge'];
-        $this->secAge = $profitArray['secAge'];
+        $this->profit = $profit;
     }
 
     public function getCraftingFee(): float
