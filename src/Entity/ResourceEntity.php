@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\Entity;
 
-use DateTimeImmutable;
-use DateTimeZone;
+use MZierdt\Albion\Service\TimeHelper;
 
 class ResourceEntity
 {
@@ -18,25 +17,25 @@ class ResourceEntity
     private const TIER_T2 = '2';
     private const TIER_T3 = '3';
     private const TIER_T4 = '4';
-    private const TIER_T4_1 = '4.1';
-    private const TIER_T4_2 = '4.2';
-    private const TIER_T4_3 = '4.3';
+    private const TIER_T4_1 = '41';
+    private const TIER_T4_2 = '42';
+    private const TIER_T4_3 = '43';
     private const TIER_T5 = '5';
-    private const TIER_T5_1 = '5.1';
-    private const TIER_T5_2 = '5.2';
-    private const TIER_T5_3 = '5.3';
+    private const TIER_T5_1 = '51';
+    private const TIER_T5_2 = '52';
+    private const TIER_T5_3 = '53';
     private const TIER_T6 = '6';
-    private const TIER_T6_1 = '6.1';
-    private const TIER_T6_2 = '6.2';
-    private const TIER_T6_3 = '6.3';
+    private const TIER_T6_1 = '61';
+    private const TIER_T6_2 = '62';
+    private const TIER_T6_3 = '63';
     private const TIER_T7 = '7';
-    private const TIER_T7_1 = '7.1';
-    private const TIER_T7_2 = '7.2';
-    private const TIER_T7_3 = '7.3';
+    private const TIER_T7_1 = '71';
+    private const TIER_T7_2 = '72';
+    private const TIER_T7_3 = '73';
     private const TIER_T8 = '8';
-    private const TIER_T8_1 = '8.1';
-    private const TIER_T8_2 = '8.2';
-    private const TIER_T8_3 = '8.3';
+    private const TIER_T8_1 = '81';
+    private const TIER_T8_2 = '82';
+    private const TIER_T8_3 = '83';
 
     private const T20_WEIGHT_FACTOR = 0.23;
     private const T30_WEIGHT_FACTOR = 0.34;
@@ -64,35 +63,33 @@ class ResourceEntity
     private string $tier;
     private string $name;
     private string $city;
-    private string $realName;
+    private ?string $realName;
     private int $sellOrderPrice;
-    private DateTimeImmutable $sellOrderPriceDate;
+    private int $sellOrderAge;
     private int $buyOrderPrice;
-    private DateTimeImmutable $buyOrderPriceDate;
-    private string $bonusCity;
+    private int $buyOrderAge;
+    private ?string $bonusCity;
     private ?int $amountInStorage;
     private float $weight;
 
     public function __construct(array $resourceData)
     {
-        $sellOrderPriceDate = $this->getDateTimeImmutable($resourceData['sellOrderPriceDate']);
-        $buyOrderPriceDate = $this->getDateTimeImmutable($resourceData['buyOrderPriceDate']);
-        $weight = $this->setWeight($resourceData);
+        $weight = $this->setWeight($resourceData['tier']);
 
         $this->tier = $resourceData['tier'];
         $this->name = $resourceData['name'];
         $this->city = $resourceData['city'];
         $this->realName = $resourceData['realName'];
         $this->sellOrderPrice = (int) $resourceData['sellOrderPrice'];
-        $this->sellOrderPriceDate = $sellOrderPriceDate;
+        $this->sellOrderAge = TimeHelper::calculateAge($resourceData['sellOrderPriceDate']);
         $this->buyOrderPrice = (int) $resourceData['buyOrderPrice'];
-        $this->buyOrderPriceDate = $buyOrderPriceDate;
+        $this->buyOrderAge = TimeHelper::calculateAge($resourceData['buyOrderPriceDate']);
         $this->bonusCity = $resourceData['bonusCity'];
-        $this->amountInStorage = $resourceData['amountInStorage'];
+        $this->amountInStorage = (int) $resourceData['amountInStorage'];
         $this->weight = $weight;
     }
 
-    public function setAmountInStorage(mixed $amountInStorage): void
+    public function setAmountInStorage(?int $amountInStorage): void
     {
         $this->amountInStorage = $amountInStorage;
     }
@@ -102,7 +99,7 @@ class ResourceEntity
         return $this->bonusCity;
     }
 
-    public function getAmountInStorage(): mixed
+    public function getAmountInStorage(): ?int
     {
         return $this->amountInStorage;
     }
@@ -129,17 +126,12 @@ class ResourceEntity
 
     public function getSellOrderPrice(): int
     {
-        return $this->sellOrderPrice;
+        return $this->sellOrderPrice ?? 0;
     }
 
-    public function getSellOrderPriceDate(): DateTimeImmutable
+    public function getSellOrderAge(): int
     {
-        return $this->sellOrderPriceDate;
-    }
-
-    public function getSellOrderPriceDateString(): string
-    {
-        return $this->sellOrderPriceDate->format('Y-m-d H:i:s');
+        return $this->sellOrderAge;
     }
 
     public function getBuyOrderPrice(): int
@@ -147,25 +139,14 @@ class ResourceEntity
         return $this->buyOrderPrice;
     }
 
-    public function getBuyOrderPriceDate(): DateTimeImmutable
+    public function getBuyOrderAge(): int
     {
-        return $this->buyOrderPriceDate;
+        return $this->buyOrderAge;
     }
 
-    public function getBuyOrderPriceDateString(): string
+    private function setWeight(string $tier): float
     {
-        return $this->buyOrderPriceDate->format('Y-m-d H:i:s');
-    }
-
-    private function getDateTimeImmutable(string $date): DateTimeImmutable|bool
-    {
-        $date = str_replace('T', ' ', $date);
-        return DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $date, new DateTimeZone('Europe/London'));
-    }
-
-    private function setWeight(array $resourceData): float
-    {
-        return match ($resourceData['tier']) {
+        return match ($tier) {
             self::TIER_T2 => self::T20_WEIGHT_FACTOR,
             self::TIER_T3 => self::T30_WEIGHT_FACTOR,
             self::TIER_T4 => self::T40_WEIGHT_FACTOR,
@@ -188,7 +169,8 @@ class ResourceEntity
             self::TIER_T8_1 => self::T81_WEIGHT_FACTOR,
             self::TIER_T8_2 => self::T82_WEIGHT_FACTOR,
             self::TIER_T8_3 => self::T83_WEIGHT_FACTOR,
-            default => throw new \InvalidArgumentException('wrong tier in Resource Entity')
+            '0' => 0.1,
+            default => throw new \InvalidArgumentException('wrong tier in Resource Entity: ' . $tier),
         };
     }
 

@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\Entity;
 
-use DateTimeImmutable;
-use DateTimeZone;
+use MZierdt\Albion\Service\TimeHelper;
 
 class ItemEntity
 {
@@ -43,25 +42,25 @@ class ItemEntity
     private const TIER_T2 = '2';
     private const TIER_T3 = '3';
     private const TIER_T4 = '4';
-    private const TIER_T4_1 = '4.1';
-    private const TIER_T4_2 = '4.2';
-    private const TIER_T4_3 = '4.3';
+    private const TIER_T4_1 = '41';
+    private const TIER_T4_2 = '42';
+    private const TIER_T4_3 = '43';
     private const TIER_T5 = '5';
-    private const TIER_T5_1 = '5.1';
-    private const TIER_T5_2 = '5.2';
-    private const TIER_T5_3 = '5.3';
+    private const TIER_T5_1 = '51';
+    private const TIER_T5_2 = '52';
+    private const TIER_T5_3 = '53';
     private const TIER_T6 = '6';
-    private const TIER_T6_1 = '6.1';
-    private const TIER_T6_2 = '6.2';
-    private const TIER_T6_3 = '6.3';
+    private const TIER_T6_1 = '61';
+    private const TIER_T6_2 = '62';
+    private const TIER_T6_3 = '63';
     private const TIER_T7 = '7';
-    private const TIER_T7_1 = '7.1';
-    private const TIER_T7_2 = '7.2';
-    private const TIER_T7_3 = '7.3';
+    private const TIER_T7_1 = '71';
+    private const TIER_T7_2 = '72';
+    private const TIER_T7_3 = '73';
     private const TIER_T8 = '8';
-    private const TIER_T8_1 = '8.1';
-    private const TIER_T8_2 = '8.2';
-    private const TIER_T8_3 = '8.3';
+    private const TIER_T8_1 = '81';
+    private const TIER_T8_2 = '82';
+    private const TIER_T8_3 = '83';
 
     private const T20_WEIGHT_FACTOR = 0.1;
     private const T30_WEIGHT_FACTOR = 0.14;
@@ -109,28 +108,28 @@ class ItemEntity
     public const T82_NUTRITION_FACTOR = 1024;
     public const T83_NUTRITION_FACTOR = 2048;
 
-    private const T20_FACTOR_FAME = 1;
-    private const T30_FACTOR_FAME = 5;
-    private const T40_FACTOR_FAME = 15;
-    private const T41_FACTOR_FAME = 30;
-    private const T42_FACTOR_FAME = 60;
-    private const T43_FACTOR_FAME = 120;
-    private const T50_FACTOR_FAME = 60;
-    private const T51_FACTOR_FAME = 120;
-    private const T52_FACTOR_FAME = 240;
-    private const T53_FACTOR_FAME = 480;
-    private const T60_FACTOR_FAME = 180;
-    private const T61_FACTOR_FAME = 360;
-    private const T62_FACTOR_FAME = 720;
-    private const T63_FACTOR_FAME = 1440;
-    private const T70_FACTOR_FAME = 430;
-    private const T71_FACTOR_FAME = 860;
-    private const T72_FACTOR_FAME = 1720;
-    private const T73_FACTOR_FAME = 3440;
-    private const T80_FACTOR_FAME = 930;
-    private const T81_FACTOR_FAME = 1860;
-    private const T82_FACTOR_FAME = 3720;
-    private const T83_FACTOR_FAME = 7440;
+    private const T20_FACTOR_FAME = 1.5;
+    private const T30_FACTOR_FAME = 7.5;
+    private const T40_FACTOR_FAME = 22.5;
+    private const T41_FACTOR_FAME = 45;
+    private const T42_FACTOR_FAME = 90;
+    private const T43_FACTOR_FAME = 180;
+    private const T50_FACTOR_FAME = 90;
+    private const T51_FACTOR_FAME = 180;
+    private const T52_FACTOR_FAME = 360;
+    private const T53_FACTOR_FAME = 720;
+    private const T60_FACTOR_FAME = 270;
+    private const T61_FACTOR_FAME = 540;
+    private const T62_FACTOR_FAME = 1080;
+    private const T63_FACTOR_FAME = 2160;
+    private const T70_FACTOR_FAME = 645;
+    private const T71_FACTOR_FAME = 1290;
+    private const T72_FACTOR_FAME = 2580;
+    private const T73_FACTOR_FAME = 5160;
+    private const T80_FACTOR_FAME = 1395;
+    private const T81_FACTOR_FAME = 2790;
+    private const T82_FACTOR_FAME = 5580;
+    private const T83_FACTOR_FAME = 11160;
 
     public const CLASS_WARRIOR = 'warrior';
     public const CLASS_MAGE = 'mage';
@@ -144,9 +143,9 @@ class ItemEntity
     private string $city;
     private int $quality;
     private int $sellOrderPrice;
-    private DateTimeImmutable $sellOrderPriceDate;
+    private int $sellOrderAge;
     private int $buyOrderPrice;
-    private DateTimeImmutable $buyOrderPriceDate;
+    private int $buyOrderAge;
     private string $primaryResource;
     private int $primaryResourceAmount;
     private ?string $secondaryResource;
@@ -156,12 +155,11 @@ class ItemEntity
     private ?int $amountInStorage;
     private float $weight;
     private int $itemValue;
+    private float $fame;
 
 
     public function __construct(array $itemData)
     {
-        $sellOrderPriceDate = $this->getDateTimeImmutable($itemData['sellOrderPriceDate']);
-        $buyOrderPriceDate = $this->getDateTimeImmutable($itemData['buyOrderPriceDate']);
         $weight = $this->setWeight($itemData);
 
         $this->tier = $itemData['tier'];
@@ -172,9 +170,9 @@ class ItemEntity
         $this->city = $itemData['city'];
         $this->quality = (int) $itemData['quality'];
         $this->sellOrderPrice = (int) $itemData['sellOrderPrice'];
-        $this->sellOrderPriceDate = $sellOrderPriceDate;
+        $this->sellOrderAge = TimeHelper::calculateAge($itemData['sellOrderPriceDate']);
         $this->buyOrderPrice = (int) $itemData['buyOrderPrice'];
-        $this->buyOrderPriceDate = $buyOrderPriceDate;
+        $this->buyOrderAge = TimeHelper::calculateAge($itemData['buyOrderPriceDate']);
         $this->primaryResource = $itemData['primaryResource'] ?? 'primR';
         $this->primaryResourceAmount = (int) $itemData['primaryResourceAmount'];
         $this->secondaryResource = $itemData['secondaryResource'];
@@ -183,7 +181,13 @@ class ItemEntity
         $this->fameFactor = $this->setFameFactor();
         $this->amountInStorage = $itemData['amountInStorage'];
         $this->weight = $weight;
-        $this->itemValue = ($this->primaryResourceAmount + $this->secondaryResourceAmount) * $this->getNutritonFactor();
+        $this->itemValue = ($this->primaryResourceAmount + $this->secondaryResourceAmount) * $this->getNutritionFactor();
+        $this->fame = $this->fameFactor * ($this->primaryResourceAmount + $this->secondaryResourceAmount);
+    }
+
+    public function getFame(): float
+    {
+        return $this->fame;
     }
 
     public function getItemValue(): int
@@ -271,14 +275,9 @@ class ItemEntity
         return $this->sellOrderPrice;
     }
 
-    public function getSellOrderPriceDate(): DateTimeImmutable|bool
+    public function getSellOrderAge(): int
     {
-        return $this->sellOrderPriceDate;
-    }
-
-    public function getSellOrderPriceDateString(): string
-    {
-        return $this->sellOrderPriceDate->format('Y-m-d H:i:s');
+        return $this->sellOrderAge;
     }
 
     public function getBuyOrderPrice(): int
@@ -286,14 +285,9 @@ class ItemEntity
         return $this->buyOrderPrice;
     }
 
-    public function getBuyOrderPriceDate(): DateTimeImmutable|bool
+    public function getBuyOrderAge(): int
     {
-        return $this->buyOrderPriceDate;
-    }
-
-    public function getBuyOrderPriceDateString(): string
-    {
-        return $this->buyOrderPriceDate->format('Y-m-d H:i:s');
+        return $this->buyOrderAge;
     }
 
     public function getPrimaryResource(): string
@@ -306,14 +300,14 @@ class ItemEntity
         return $this->primaryResourceAmount;
     }
 
-    public function getSecondaryResource(): ?string
+    public function getSecondaryResource(): string
     {
-        return $this->secondaryResource;
+        return $this->secondaryResource ?? ' - ';
     }
 
-    public function getSecondaryResourceAmount(): ?int
+    public function getSecondaryResourceAmount(): int
     {
-        return $this->secondaryResourceAmount;
+        return $this->secondaryResourceAmount ?? 0;
     }
 
     public function getBonusCity(): string
@@ -324,15 +318,6 @@ class ItemEntity
     public function getFameFactor(): float
     {
         return $this->fameFactor;
-    }
-
-    private function getDateTimeImmutable(mixed $date): DateTimeImmutable|bool
-    {
-        if ($date === null) {
-            return DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '2000-00-00 00:00:00');
-        }
-        $date = str_replace('T', ' ', $date);
-        return DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $date, new DateTimeZone('Europe/London'));
     }
 
     private function setWeight(array $itemData): float
@@ -371,7 +356,7 @@ class ItemEntity
         return $this->realName;
     }
 
-    private function getNutritonFactor()
+    private function getNutritionFactor(): int
     {
         return match ($this->tier) {
             self::TIER_T2 => self::T20_NUTRITION_FACTOR,

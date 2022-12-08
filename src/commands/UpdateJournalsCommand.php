@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\commands;
 
-use MZierdt\Albion\repositories\UploadRepository;
+use MZierdt\Albion\repositories\JournalRepository;
 use MZierdt\Albion\Service\ApiService;
 use MZierdt\Albion\Service\ConfigService;
 use MZierdt\Albion\Service\ProgressBarService;
@@ -17,7 +17,7 @@ class UpdateJournalsCommand extends Command
 {
     public function __construct(
         private ApiService $apiService,
-        private UploadRepository $uploadRepository,
+        private JournalRepository $journalRepository,
     ) {
         parent::__construct();
     }
@@ -47,14 +47,14 @@ class UpdateJournalsCommand extends Command
             $adjustedJournals = UploadHelper::adjustJournals($journalsData, $journalList['stats']);
             $progressBar->setMessage('Upload Resource ' . $journalNames . ' into Database');
             $progressBar->display();
-            $this->uploadRepository->updatePricesFromJournals($adjustedJournals);
+            $this->journalRepository->updatePricesFromJournals($adjustedJournals);
         }
 
         $output->writeln(PHP_EOL . $message);
         return self::SUCCESS;
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this->setName('update:journal');
         $this->setDescription('update Prices of Journals');

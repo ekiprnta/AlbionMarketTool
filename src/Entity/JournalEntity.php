@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\Entity;
 
-use DateTimeImmutable;
-use DateTimeZone;
+use MZierdt\Albion\Service\TimeHelper;
 
 class JournalEntity
 {
@@ -18,26 +17,23 @@ class JournalEntity
     private string $city;
     private int $fameToFill;
     private int $sellOrderPrice;
-    private DateTimeImmutable $sellOrderPriceDate;
+    private int $sellOrderAge;
     private int $buyOrderPrice;
-    private DateTimeImmutable $buyOrderPriceDate;
+    private int $buyOrderAge;
     private float $weight;
     private string $fillStatus; //full empty
     private string $class; //warrior mage
 
     public function __construct(array $journalData)
     {
-        $sellOrderPriceDate = $this->getDateTimeImmutable($journalData['sellOrderPriceDate']);
-        $buyOrderPriceDate = $this->getDateTimeImmutable($journalData['buyOrderPriceDate']);
-
         $this->tier = $journalData['tier'];
         $this->name = $journalData['name'];
         $this->city = $journalData['city'];
         $this->fameToFill = (int) $journalData['fameToFill'];
         $this->sellOrderPrice = (int) $journalData['sellOrderPrice'];
-        $this->sellOrderPriceDate = $sellOrderPriceDate;
+        $this->sellOrderAge = TimeHelper::calculateAge($journalData['sellOrderPriceDate']);
         $this->buyOrderPrice = (int) $journalData['buyOrderPrice'];
-        $this->buyOrderPriceDate = $buyOrderPriceDate;
+        $this->buyOrderAge = TimeHelper::calculateAge($journalData['buyOrderPriceDate']);
         $this->weight = (float) $journalData['weight'];
         $this->fillStatus = $journalData['fillStatus'];
         $this->class = $journalData['class'];
@@ -68,9 +64,9 @@ class JournalEntity
         return $this->sellOrderPrice;
     }
 
-    public function getSellOrderPriceDate(): DateTimeImmutable
+    public function getSellOrderAge(): int
     {
-        return $this->sellOrderPriceDate;
+        return $this->sellOrderAge;
     }
 
     public function getBuyOrderPrice(): int
@@ -78,9 +74,9 @@ class JournalEntity
         return $this->buyOrderPrice;
     }
 
-    public function getBuyOrderPriceDate(): DateTimeImmutable
+    public function getBuyOrderAge(): int
     {
-        return $this->buyOrderPriceDate;
+        return $this->buyOrderAge;
     }
 
     public function getWeight(): float
@@ -96,11 +92,5 @@ class JournalEntity
     public function getClass(): string
     {
         return $this->class;
-    }
-
-    private function getDateTimeImmutable(string $date): DateTimeImmutable|bool
-    {
-        $date = str_replace('T', ' ', $date);
-        return DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $date, new DateTimeZone('Europe/London'));
     }
 }
