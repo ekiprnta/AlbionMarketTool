@@ -61,7 +61,10 @@ class BlackMarketCraftingService
         }
         /** @var BlackMarketCraftingEntity $bmcEntity */
         foreach ($calculateEntityArray as $bmcEntity) {
-            $bmcEntity->setResources($this->bmtHelper->calculateResources($bmcEntity, $resources));
+            $bmcEntity->setPrimResource($this->bmtHelper->calculateResources($bmcEntity->getItem()->getPrimaryResource(), $bmcEntity->getItem()->getTier(), $resources));
+            $bmcEntity->setSecResource($this->bmtHelper->calculateResources($bmcEntity->getItem()->getSecondaryResource(), $bmcEntity->getItem()->getTier(), $resources));
+
+
             $bmcEntity->setJournals($this->bmtHelper->calculateJournals($bmcEntity, $journals));
             $bmcEntity->setAmounts($this->bmtHelper->calculateTotalAmount($bmcEntity, $weight));
             $bmcEntity->setFameAmount($this->bmtHelper->calculateFameAmount($bmcEntity));

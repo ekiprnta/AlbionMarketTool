@@ -8,33 +8,15 @@ use MZierdt\Albion\Entity\ResourceEntity;
 
 class BlackMarketCraftingHelper extends Market
 {
-    public function calculateResources(BlackMarketCraftingEntity $bmcEntity, array $resources): array
+    public function calculateResources(string $resourceName,string $tier, array $resources): ?ResourceEntity
     {
-        $primResourceName = $bmcEntity->getItem()
-            ->getPrimaryResource();
-        $secResourceName = $bmcEntity->getItem()
-            ->getSecondaryResource();
-        $tier = $bmcEntity->getItem()
-            ->getTier();
-
-        $primResource = null;
-        $secResource = null;
         /** @var ResourceEntity $resource */
         foreach ($resources as $resource) {
-            if ($tier === $resource->getTier()) {
-                if ($resource->getRealName() === $primResourceName) {
-                    $primResource = $resource;
-                }
-                if ($resource->getRealName() === $secResourceName) {
-                    $secResource = $resource;
-                }
+            if (($tier === $resource->getTier()) && $resource->getRealName() === $resourceName) {
+                return $resource;
             }
         }
-
-        return [
-            'primaryResource' => $primResource,
-            'secondaryResource' => $secResource,
-        ];
+        return null;
     }
 
 

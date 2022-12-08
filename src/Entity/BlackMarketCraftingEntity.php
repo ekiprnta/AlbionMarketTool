@@ -54,6 +54,16 @@ class BlackMarketCraftingEntity
         $this->tierColor = $item->getTier()[0];
     }
 
+    public function setPrimResource(ResourceEntity $primResource): void
+    {
+        $this->primResource = $primResource;
+    }
+
+    public function setSecResource(ResourceEntity $secResource): void
+    {
+        $this->secResource = $secResource;
+    }
+
     public function getTierColor(): string
     {
         return $this->tierColor;
@@ -195,12 +205,6 @@ class BlackMarketCraftingEntity
     public function getSecResource(): ResourceEntity
     {
         return $this->secResource;
-    }
-
-    public function setResources(array $resources): void
-    {
-        $this->primResource = $resources['primaryResource'] ?? ResourceEntityFactory::getEmptyResourceEntity();
-        $this->secResource = $resources['secondaryResource'] ?? ResourceEntityFactory::getEmptyResourceEntity();
     }
 
     public function getJournalEntityEmpty(): JournalEntity
