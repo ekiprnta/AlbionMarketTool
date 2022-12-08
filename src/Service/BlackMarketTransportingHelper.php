@@ -5,7 +5,8 @@ namespace MZierdt\Albion\Service;
 use MZierdt\Albion\Entity\BlackMarketTransportEntity;
 use MZierdt\Albion\Entity\ItemEntity;
 
-class BlackMarketTransportingHelper implements MarketInterface
+
+class BlackMarketTransportingHelper extends Market
 {
 
     public static function calculateCityItem(BlackMarketTransportEntity $bmtEntity, array $Items): ItemEntity
@@ -14,7 +15,7 @@ class BlackMarketTransportingHelper implements MarketInterface
         /** @var ItemEntity $item */
         foreach ($Items as $item) {
             if ($item->getTier() === $bmItem->getTier() &&
-            $item->getName() === $bmItem->getName()) {
+                $item->getName() === $bmItem->getName()) {
                 return $item;
             }
         }

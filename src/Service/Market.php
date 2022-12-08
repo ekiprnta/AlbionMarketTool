@@ -2,7 +2,7 @@
 
 namespace MZierdt\Albion\Service;
 
-interface MarketInterface
+class Market
 {
     public const NUTRITION_FACTOR = 0.1125;
     public const MARKET_SETUP = 0.025;
@@ -11,4 +11,7 @@ interface MarketInterface
     public const PREMIUM_FACTOR = 1.5;
 
     public const RRR_BASE_PERCENTAGE = 100;
+
+
+
 }

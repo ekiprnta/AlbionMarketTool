@@ -6,7 +6,7 @@ use MZierdt\Albion\Entity\BlackMarketCraftingEntity;
 use MZierdt\Albion\Entity\JournalEntity;
 use MZierdt\Albion\Entity\ResourceEntity;
 
-class BlackMarketCraftingHelper implements MarketInterface
+class BlackMarketCraftingHelper extends Market
 {
     public static function calculateResources(BlackMarketCraftingEntity $bmcEntity, array $resources): array
     {
