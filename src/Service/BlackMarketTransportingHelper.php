@@ -22,12 +22,11 @@ class BlackMarketTransportingHelper extends Market
         throw new \RuntimeException('No Item found for ' . $bmItem->getRealName());
     }
 
-    public static function calculateProfit(BlackMarketTransportEntity $bmtEntity, string $city): array
+    public static function calculateProfit(BlackMarketTransportEntity $bmtEntity): array
     {
         $amount = $bmtEntity->getWeight() / $bmtEntity->getBmItem()->getWeight();
-        $cityItem = self::getCityItem($bmtEntity, $city);
 
-        $singleProfit = parent::calculateSellOrder($bmtEntity->getBmItem()->getSellOrderPrice()) - $cityItem->getSellOrderPrice();
+        $singleProfit = parent::calculateSellOrder($bmtEntity->getBmItem()->getSellOrderPrice()) - $bmtEntity->getCityItem()->getSellOrderPrice();
         $profit = $singleProfit * $amount;
 
         return [

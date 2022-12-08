@@ -38,7 +38,7 @@ class BlackMarketTransportingService
         /** @var BlackMarketTransportEntity $bmtEntity */
         foreach ($bmtEntities as $bmtEntity) {
             $bmtEntity->setCityItem(BlackMarketTransportingHelper::calculateCityItem($bmtEntity, $cityItem));
-            $bmtEntity->setProfit(BlackMarketTransportingHelper::calculateProfit($bmtEntity, 'Fort Sterling'));
+            $bmtEntity->setProfit(BlackMarketTransportingHelper::calculateProfit($bmtEntity));
             $bmtEntity->setWeightProfitQuotient(BlackMarketTransportingHelper::calculateWeightProfitQuotient($bmtEntity->getProfit(), $weight));
             $bmtEntity->setProfitGrade(BlackMarketTransportingHelper::calculateProfitGrade($bmtEntity->getWeightProfitQuotient()));
 
