@@ -48,15 +48,4 @@ class BlackMarketTransportingHelper extends Market
     {
         return parent::calculateProfitGrade($quotient);
     }
-
-    private static function getCityItem(BlackMarketTransportEntity $bmtEntity, string $city): ItemEntity
-    {
-        return match ($city) {
-            'Fort Sterling' => $bmtEntity->getCityItem(),
-            'Lymhurst' => $bmtEntity->getLymItem(),
-            'Bridgewatch' => $bmtEntity->getBwItem(),
-            'Martlock' => $bmtEntity->getMlItem(),
-            'Thetford' => $bmtEntity->getThItem(),
-        };
-    }
 }
