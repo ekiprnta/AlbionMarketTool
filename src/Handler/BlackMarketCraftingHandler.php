@@ -40,6 +40,7 @@ class BlackMarketCraftingHandler
             } catch (InvalidArgumentException $invalidArgumentExceptionException) {
                 $alertMessage = $invalidArgumentExceptionException->getMessage();
             }
+            dd($cityData['spear_spear'][0]);
         }
 
         $htmlContent = $this->twigEnvironment->render('BlackMarketCrafting.html.twig', [

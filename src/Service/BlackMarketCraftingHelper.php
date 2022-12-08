@@ -10,7 +10,7 @@ class BlackMarketCraftingHelper extends Market
 {
     public function calculateResource(string $resourceName, string $tier, array $resources): ResourceEntity
     {
-        dd($resourceName, $tier, $resources);
+        dump($resourceName, $tier, $resources);
         /** @var ResourceEntity $resource */
         foreach ($resources as $resource) {
             if (($tier === $resource->getTier()) && $resource->getRealName() === $resourceName) {
