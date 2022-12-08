@@ -45,6 +45,7 @@ class UpdateResourcesCommand extends Command
             $progressBar->setMessage('preparing resource ' . $resourceStats['realName']);
             $progressBar->display();
             $adjustedResources = UploadHelper::adjustResourceArray($resourcesData, $resourceStats);
+            dd($resourcesData);
             $progressBar->setMessage('Upload Resource ' . $resourceStats['realName'] . ' into Database');
             $progressBar->display();
             $this->resourceRepository->updatePricesFromResources($adjustedResources);
