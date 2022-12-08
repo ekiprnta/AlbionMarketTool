@@ -20,22 +20,18 @@ class BlackMarketTransportingHelper extends Market
         throw new \RuntimeException('No Item found for ' . $bmItem->getRealName());
     }
 
-    public function calculateProfit(BlackMarketTransportEntity $bmtEntity): array
+    public function calculateProfit(float $singleProfit, int $amount): float
     {
-        $amount = $bmtEntity->getWeight() / $bmtEntity->getBmItem()
-            ->getWeight();
+        return $singleProfit * $amount;
+    }
 
-        $singleProfit = $this->calculateSellOrder(
-                $bmtEntity->getBmItem()
-                    ->getSellOrderPrice()
-            ) - $bmtEntity->getCityItem()
-            ->getSellOrderPrice();
-        $profit = $singleProfit * $amount;
+    public function calculateAmount(int $totalWeight, float $itemWeight): int
+    {
+        return (int)($totalWeight / $itemWeight);
+    }
 
-        return [
-            'amount' => (int) $amount,
-            'singleProfit' => $singleProfit,
-            'profit' => $profit,
-        ];
+    public function calculateSingleProfit(int $bmPrice, int $cityPrice): float
+    {
+        return $this->calculateSellOrder($bmPrice) - $cityPrice;
     }
 }

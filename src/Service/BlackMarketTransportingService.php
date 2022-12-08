@@ -10,8 +10,10 @@ use MZierdt\Albion\repositories\ItemRepository;
 
 class BlackMarketTransportingService
 {
-    public function __construct(private ItemRepository $itemRepository, private BlackMarketTransportingHelper $bmtHelper)
-    {
+    public function __construct(
+        private ItemRepository $itemRepository,
+        private BlackMarketTransportingHelper $bmtHelper
+    ) {
     }
 
     public function getDataForCity(string $itemCity, int $weight, array $tierList): array
@@ -36,7 +38,9 @@ class BlackMarketTransportingService
         /** @var BlackMarketTransportEntity $bmtEntity */
         foreach ($bmtEntities as $bmtEntity) {
             $bmtEntity->setCityItem($this->bmtHelper->calculateCityItem($bmtEntity, $cityItem));
-            $bmtEntity->setProfit($this->bmtHelper->calculateProfit($bmtEntity));
+            $bmtEntity->setAmount($this->bmtHelper->calculateAmount($bmtEntity->getWeight(), $bmtEntity->getBmItem()->getWeight()));
+            $bmtEntity->setSingleProfit($this->bmtHelper->calculateSingleProfit($bmtEntity->getBmItem()->getSellOrderPrice(), $bmtEntity->getCityItem()->getSellOrderPrice()));
+            $bmtEntity->setProfit($this->bmtHelper->calculateProfit($bmtEntity->getSingleProfit(), $bmtEntity->getAmount()));
             $bmtEntity->setWeightProfitQuotient(
                 $this->bmtHelper->calculateWeightProfitQuotient($bmtEntity->getProfit(), $weight)
             );
@@ -52,7 +56,7 @@ class BlackMarketTransportingService
     {
         /** @var BlackMarketTransportEntity $bmtEntity */
         foreach ($bmtEntities as $key => $bmtEntity) {
-            if (! in_array($bmtEntity->getBmItem()->getTier(), $tierList, true)) {
+            if (!in_array($bmtEntity->getBmItem()->getTier(), $tierList, true)) {
                 unset($bmtEntities[$key]);
             }
         }
