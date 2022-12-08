@@ -105,17 +105,16 @@ class BlackMarketCraftingHelper extends Market
                 $bmcEntity->getSecResource()->getSellOrderPrice() *
                 $bmcEntity->getItem()->getSecondaryResourceAmount();
 
-            $primAge = TimeHelper::calculateAgeOfPrices($bmcEntity->getPrimResource()->getSellOrderPriceDate());
-            $secAge = TimeHelper::calculateAgeOfPrices($bmcEntity->getSecResource()->getSellOrderPriceDate());
+            $primAge = parent::calculateAge($bmcEntity->getPrimResource()->getSellOrderPriceDate());
+            $secAge = parent::calculateAge($bmcEntity->getSecResource()->getSellOrderPriceDate());
         } else {
-            $itemCost = ($bmcEntity->getPrimResource()->getBuyOrderPrice() *
+            $itemCost = parent::calculateBuyOrder($bmcEntity->getPrimResource()->getBuyOrderPrice() *
                     $bmcEntity->getItem()->getPrimaryResourceAmount() +
                     $bmcEntity->getSecResource()->getBuyOrderPrice() *
-                    $bmcEntity->getItem()->getSecondaryResourceAmount()) *
-                (1 + self::MARKET_SETUP);
+                    $bmcEntity->getItem()->getSecondaryResourceAmount());
 
-            $primAge = TimeHelper::calculateAgeOfPrices($bmcEntity->getPrimResource()->getBuyOrderPriceDate());
-            $secAge = TimeHelper::calculateAgeOfPrices($bmcEntity->getSecResource()->getBuyOrderPriceDate());
+            $primAge = parent::calculateAge($bmcEntity->getPrimResource()->getBuyOrderPriceDate());
+            $secAge = parent::calculateAge($bmcEntity->getSecResource()->getBuyOrderPriceDate());
         }
 
         $profit = self:: calculateProfitByPercentage($bmcEntity, $itemCost, $percentage);
@@ -131,9 +130,8 @@ class BlackMarketCraftingHelper extends Market
 
     public static function calculateProfitBooks(BlackMarketCraftingEntity $bmcEntity): float
     {
-        return (($bmcEntity->getJournalEntityFull()->getBuyOrderPrice() *
-                    (1 - self::MARKET_FEE - self::MARKET_SETUP)) -
-                $bmcEntity->getJournalEntityEmpty()->getSellOrderPrice()) *
+        return (parent::calculateSellOrder($bmcEntity->getJournalEntityFull()->getSellOrderPrice()) -
+                $bmcEntity->getJournalEntityEmpty()->getBuyOrderPrice()) *
             $bmcEntity->getJournalAmount();
     }
 
@@ -144,33 +142,23 @@ class BlackMarketCraftingHelper extends Market
     ): float {
         $rate = (self::RRR_BASE_PERCENTAGE - $percentage) / 100;
         $amount = $bmcEntity->getTotalAmount();
-        $itemSellPrice = $bmcEntity->getItem()->getSellOrderPrice() * (1 - self::MARKET_SETUP - self::MARKET_FEE);
+        $itemSellPrice = parent::calculateSellOrder($bmcEntity->getItem()->getSellOrderPrice());
         return ($itemSellPrice - ($itemCost * $rate)) * $amount;
     }
 
-    public static function calculateWeightProfitQuotient(BlackMarketCraftingEntity $bmcEntity): float
+    public static function calculateWeightProfitQuotient(float|int $profit, int $weight): float
     {
-        if ($bmcEntity->getProfit() === 0.0) {
-            return 0.0;
-        }
-
-        return $bmcEntity->getProfit() / $bmcEntity->getTotalWeightResources();
+        return parent::calculateWeightProfitQuotient($profit, $weight);
     }
 
-    public static function calculateCraftingGrade(BlackMarketCraftingEntity $bmcEntity): string
+    public static function calculateProfitGrade(float $quotient): string
     {
-        $quotient = $bmcEntity->getWeightProfitQuotient();
-        return match (true) {
-            $quotient >= 1800 => 'S',
-            $quotient >= 900 => 'A',
-            $quotient >= 350 => 'B',
-            $quotient >= 0 => 'C',
-            default => 'D',
-        };
+        return parent::calculateProfitGrade($quotient);
     }
 
     public static function calculateItemPriceAge(\DateTimeImmutable $itemPriceDate): int
     {
+        return parent::calculateAge($itemPriceDate);
     }
 
     public static function calculateItemValue(BlackMarketCraftingEntity $bmcEntity): int

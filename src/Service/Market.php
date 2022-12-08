@@ -14,22 +14,22 @@ class Market
 
     public const RRR_BASE_PERCENTAGE = 100;
 
-    protected function calculateSell(float|int $price): float
+    protected static function calculateSell(float|int $price): float
     {
         return $price * (1 - self::MARKET_FEE);
     }
 
-    protected function calculateSellOrder(float|int $price): float
+    protected static function calculateSellOrder(float|int $price): float
     {
         return $price * (1 - self::MARKET_FEE - self::MARKET_SETUP);
     }
 
-    protected function calculateBuyOrder(float|int $price): float
+    protected static function calculateBuyOrder(float|int $price): float
     {
         return $price * (1 - self::MARKET_SETUP);
     }
 
-    protected function calculateCraftingGrade(float $quotient): string
+    protected static function calculateProfitGrade(float $quotient): string
     {
         return match (true) {
             $quotient >= 1800 => 'S',
@@ -40,7 +40,7 @@ class Market
         };
     }
 
-    protected function calculateWeightProfitQuotient(float|int $profit, int $weight): float
+    protected static function calculateWeightProfitQuotient(float|int $profit, int $weight): float
     {
         if ($profit === 0) {
             return 0.0;
@@ -48,7 +48,7 @@ class Market
         return $profit / $weight;
     }
 
-    protected function calculateAge(DateTimeImmutable $priceDate): int
+    protected static function calculateAge(DateTimeImmutable $priceDate): int
     {
         $now = DateTimeImmutable::createFromFormat('Y-m-d H:i:s', Date('Y-m-d H:i:s'));
 
