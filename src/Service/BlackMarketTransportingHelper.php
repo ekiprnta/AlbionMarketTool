@@ -2,14 +2,12 @@
 
 namespace MZierdt\Albion\Service;
 
-use MZierdt\Albion\Entity\BlackMarketTransportEntity;
 use MZierdt\Albion\Entity\ItemEntity;
 
 class BlackMarketTransportingHelper extends Market
 {
-    public function calculateCityItem(BlackMarketTransportEntity $bmtEntity, array $Items): ItemEntity
+    public function calculateCityItem(ItemEntity $bmItem, array $Items): ItemEntity
     {
-        $bmItem = $bmtEntity->getBmItem();
         /** @var ItemEntity $item */
         foreach ($Items as $item) {
             if ($item->getTier() === $bmItem->getTier() &&
@@ -17,7 +15,7 @@ class BlackMarketTransportingHelper extends Market
                 return $item;
             }
         }
-        throw new \RuntimeException('No Item found for ' . $bmItem->getRealName());
+        throw new \RuntimeException('No Item found for ' . $bmItem->getName());
     }
 
     public function calculateProfit(float $singleProfit, int $amount): float
