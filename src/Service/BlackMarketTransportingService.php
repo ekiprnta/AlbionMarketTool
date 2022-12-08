@@ -77,7 +77,7 @@ class BlackMarketTransportingService
         /** @var BlackMarketTransportEntity $bmtEntity */
         foreach ($bmtEntities as $key => $bmtEntity) {
             if (! in_array($bmtEntity->getBmItem()->getTier(), $tierList, true)) {
-                unset($bmtEntity[$key]);
+                unset($bmtEntities[$key]);
             }
         }
         return $bmtEntities;
