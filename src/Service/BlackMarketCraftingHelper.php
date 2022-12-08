@@ -20,32 +20,21 @@ class BlackMarketCraftingHelper extends Market
     }
 
 
-    public function calculateJournals(BlackMarketCraftingEntity $bmcEntity, array $journals): array
+    public function calculateJournals(string $tier, string $fillStatus, array $journals): ?JournalEntity
     {
-        $tier = $bmcEntity->getItem()
-            ->getTier();
 
-        $journalAmountPerItem = null;
-        $emptyJournal = null;
-        $fullJournal = null;
         /** @var JournalEntity $journal */
         foreach ($journals as $journal) {
-            if ($tier[0] === $journal->getTier()) {
-                if ($journal->getFillStatus() === 'empty') {
-                    $journalAmountPerItem = $bmcEntity->getItem()
-                        ->getFame() / $journal->getFameToFill();
-                    $emptyJournal = $journal;
-                }
-                if ($journal->getFillStatus() === 'full') {
-                    $fullJournal = $journal;
-                }
+            if (($tier[0] === $journal->getTier()) && $journal->getFillStatus() === $fillStatus) {
+                return $journal;
             }
         }
-        return [
-            'full' => $fullJournal,
-            'empty' => $emptyJournal,
-            'amount' => $journalAmountPerItem,
-        ];
+        return null;
+    }
+
+    public function calculateJournalAmountPerItem(float $fame, int $fameToFill): float
+    {
+        return $fame / $fameToFill;
     }
 
     public function calculateFameAmount(BlackMarketCraftingEntity $bmcEntity): float

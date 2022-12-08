@@ -63,9 +63,10 @@ class BlackMarketCraftingService
         foreach ($calculateEntityArray as $bmcEntity) {
             $bmcEntity->setPrimResource($this->bmtHelper->calculateResources($bmcEntity->getItem()->getPrimaryResource(), $bmcEntity->getItem()->getTier(), $resources));
             $bmcEntity->setSecResource($this->bmtHelper->calculateResources($bmcEntity->getItem()->getSecondaryResource(), $bmcEntity->getItem()->getTier(), $resources));
+            $bmcEntity->setJournalEntityFull($this->bmtHelper->calculateJournals($bmcEntity->getItem()->getTier(),'full', $journals));
+            $bmcEntity->setJournalEntityEmpty($this->bmtHelper->calculateJournals($bmcEntity->getItem()->getTier(),'empty', $journals));
+            $bmcEntity->setJournalAmountPerItem($this->bmtHelper->calculateJournalAmountPerItem($bmcEntity->getItem()->getFame(), $bmcEntity->getJournalEntityEmpty()->getFameToFill()));
 
-
-            $bmcEntity->setJournals($this->bmtHelper->calculateJournals($bmcEntity, $journals));
             $bmcEntity->setAmounts($this->bmtHelper->calculateTotalAmount($bmcEntity, $weight));
             $bmcEntity->setFameAmount($this->bmtHelper->calculateFameAmount($bmcEntity));
             $bmcEntity->setCraftingFee(

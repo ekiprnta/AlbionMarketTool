@@ -54,6 +54,21 @@ class BlackMarketCraftingEntity
         $this->tierColor = $item->getTier()[0];
     }
 
+    public function setJournalEntityEmpty(JournalEntity $journalEntityEmpty): void
+    {
+        $this->journalEntityEmpty = $journalEntityEmpty;
+    }
+
+    public function setJournalEntityFull(JournalEntity $journalEntityFull): void
+    {
+        $this->journalEntityFull = $journalEntityFull;
+    }
+
+    public function setJournalAmountPerItem(float $journalAmountPerItem): void
+    {
+        $this->journalAmountPerItem = $journalAmountPerItem;
+    }
+
     public function setPrimResource(ResourceEntity $primResource): void
     {
         $this->primResource = $primResource;
@@ -222,13 +237,6 @@ class BlackMarketCraftingEntity
     public function getJournalAmountPerItem(): float
     {
         return $this->journalAmountPerItem;
-    }
-
-    public function setJournals(array $journals): void
-    {
-        $this->journalAmountPerItem = $journals['amount'];
-        $this->journalEntityFull = $journals['full'];
-        $this->journalEntityEmpty = $journals['empty'];
     }
 
     public function setAmounts(array $amounts): void
