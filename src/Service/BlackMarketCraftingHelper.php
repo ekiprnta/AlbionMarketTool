@@ -105,16 +105,16 @@ class BlackMarketCraftingHelper extends Market
                 $bmcEntity->getSecResource()->getSellOrderPrice() *
                 $bmcEntity->getItem()->getSecondaryResourceAmount();
 
-            $primAge = parent::calculateAge($bmcEntity->getPrimResource()->getSellOrderPriceDate());
-            $secAge = parent::calculateAge($bmcEntity->getSecResource()->getSellOrderPriceDate());
+            $primAge = $bmcEntity->getPrimResource()->getSellOrderAge();
+            $secAge = $bmcEntity->getSecResource()->getSellOrderAge();
         } else {
             $itemCost = parent::calculateBuyOrder($bmcEntity->getPrimResource()->getBuyOrderPrice() *
                     $bmcEntity->getItem()->getPrimaryResourceAmount() +
                     $bmcEntity->getSecResource()->getBuyOrderPrice() *
                     $bmcEntity->getItem()->getSecondaryResourceAmount());
 
-            $primAge = parent::calculateAge($bmcEntity->getPrimResource()->getBuyOrderPriceDate());
-            $secAge = parent::calculateAge($bmcEntity->getSecResource()->getBuyOrderPriceDate());
+            $primAge = $bmcEntity->getPrimResource()->getBuyOrderAge();
+            $secAge = $bmcEntity->getSecResource()->getBuyOrderAge();
         }
 
         $profit = self:: calculateProfitByPercentage($bmcEntity, $itemCost, $percentage);
@@ -154,11 +154,6 @@ class BlackMarketCraftingHelper extends Market
     public static function calculateProfitGrade(float $quotient): string
     {
         return parent::calculateProfitGrade($quotient);
-    }
-
-    public static function calculateItemPriceAge(\DateTimeImmutable $itemPriceDate): int
-    {
-        return parent::calculateAge($itemPriceDate);
     }
 
     public static function calculateItemValue(BlackMarketCraftingEntity $bmcEntity): int
