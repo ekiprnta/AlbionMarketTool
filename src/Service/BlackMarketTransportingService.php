@@ -74,9 +74,9 @@ class BlackMarketTransportingService
 
     private function filterItems(array $bmtEntities, array $tierList): array
     {
-        /** @var BlackMarketTransportEntity $combinedItem */
+        /** @var BlackMarketTransportEntity $bmtEntity */
         foreach ($bmtEntities as $key => $bmtEntity) {
-            if (! in_array($combinedItem->getBmItem()->getTier(), $tierList, true)) {
+            if (! in_array($bmtEntity->getBmItem()->getTier(), $tierList, true)) {
                 unset($bmtEntity[$key]);
             }
         }
