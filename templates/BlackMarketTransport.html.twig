@@ -67,18 +67,18 @@
                     {%if TransportEntity.cityPrice != 0 and TransportEntity.cityWeightProfitQuotient > 500%}
                     <tr class="bg-{{ TransportEntity.cityColorGrade }}">
                         <td class="text-left tier-{{ TransportEntity.tierColor }} tier">{{ TransportEntity.tier }}</td>
-                        <td>{{ TransportEntity.realName }}</td>
-                        <td>{% if TransportEntity.bmPrice == 0 %} - {% else %} {{ TransportEntity.bmPrice|number_format }} {% endif %}</td>
-                        <td {% if TransportEntity.bmPriceAge > 720 %} class="bg-D" {% endif %}>{{ TransportEntity.bmPriceAge|number_format }}
+                        <td>{{ TransportEntity.bmItem.realName }}</td>
+                        <td>{% if TransportEntity.bmItem.sellOrderPrice == 0 %} - {% else %} {{ TransportEntity.bmItem.sellOrderPrice|number_format }} {% endif %}</td>
+                        <td {% if TransportEntity.bmItem.sellOrderAge > 720 %} class="bg-D" {% endif %}>{{ TransportEntity.bmItem.sellOrderAge|number_format }}
                             min
                         </td>
-                        <td>{% if TransportEntity.cityPrice == 0 %} - {% else %} {{ TransportEntity.cityPrice|number_format }} {% endif %}</td>
-                        <td {% if TransportEntity.cityPriceAge > 720 %} class="bg-D" {% endif %}>{{ TransportEntity.cityPriceAge|number_format }}
+                        <td>{% if TransportEntity.cityItem.sellOrderPrice == 0 %} - {% else %} {{ TransportEntity.cityItem.sellOrderPrice|number_format }} {% endif %}</td>
+                        <td {% if TransportEntity.cityItem.sellOrderAge > 720 %} class="bg-D" {% endif %}>{{ TransportEntity.cityItem.sellOrderAge|number_format }}
                             min
                         </td>
-                        <td>{% if TransportEntity.cityWeightProfitQuotient == 0 %} - {% else %} {{ TransportEntity.cityWeightProfitQuotient|number_format }} {% endif %}</td>
-                        <td>{% if TransportEntity.cityProfit == 0 %} - {% else %} {{ TransportEntity.cityProfit|number_format }} {% endif %}</td>
-                        <td>{% if TransportEntity.totalProfit == 0 %} - {% else %} {{ TransportEntity.totalProfit|number_format }} {% endif %}</td>
+                        <td>{% if TransportEntity.weightProfitQuotient == 0 %} - {% else %} {{ TransportEntity.weightProfitQuotient|number_format }} {% endif %}</td>
+                        <td>{% if TransportEntity.singleProfit == 0 %} - {% else %} {{ TransportEntity.singleProfit|number_format }} {% endif %}</td>
+                        <td>{% if TransportEntity.profit == 0 %} - {% else %} {{ TransportEntity.profit|number_format }} {% endif %}</td>
                         <td>{% if TransportEntity.amount == 0 %} - {% else %} {{ TransportEntity.amount|number_format }} {% endif %}</td>
                     </tr>
                     {%endif%}
