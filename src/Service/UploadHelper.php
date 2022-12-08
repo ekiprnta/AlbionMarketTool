@@ -37,7 +37,7 @@ class UploadHelper
         foreach ($journalData as $journal) {
             $nameAndTier = $this->tierService->splitIntoTierAndName($journal['item_id']);
             $stats = $journalStats[$nameAndTier['tier']];
-            [$prefix, $name, $fillStatus] = explode('_', $nameAndTier['name']);
+            $split = $this->tierService->journalSplitter($nameAndTier['name']);
             $adjustedJournalsArray[] = [
                 'tier' => $nameAndTier['tier'],
                 'name' => $nameAndTier['name'],
@@ -48,8 +48,8 @@ class UploadHelper
                 'buyOrderPrice' => $journal['buy_price_max'],
                 'buyOrderPriceDate' => $journal['buy_price_max_date'],
                 'weight' => $stats['weight'],
-                'fillStatus' => $fillStatus,
-                'class' => $name,
+                'fillStatus' => $split['fillStatus'],
+                'class' => $split['class'],
             ];
         }
         return $adjustedJournalsArray;

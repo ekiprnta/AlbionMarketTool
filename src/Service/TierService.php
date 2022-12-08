@@ -21,7 +21,7 @@ class TierService
         $preTier = array_shift($itemIdArray);
         $itemName = implode('_', $itemIdArray);
 
-        if (! str_contains($itemName, '@')) {
+        if (!str_contains($itemName, '@')) {
             return [
                 'tier' => $this->tierConverter($preTier),
                 'name' => $itemName,
@@ -38,6 +38,15 @@ class TierService
 
     private function tierConverter(string $tierString): int
     {
-        return (int) ltrim($tierString, 't');
+        return (int)ltrim($tierString, 't');
+    }
+
+    public function journalSplitter(string $journalName): array
+    {
+        [$prefix, $class, $fillStatus] = explode('_', $journalName);
+        return [
+            'class' => $class,
+            'fillStatus' => $fillStatus
+        ];
     }
 }
