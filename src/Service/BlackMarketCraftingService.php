@@ -70,7 +70,7 @@ class BlackMarketCraftingService
             $bmcEntity->setItemValue(BlackMarketCraftingHelper::calculateItemValue($bmcEntity));
             $bmcEntity->setItemAge($bmcEntity->getItem()->getSellOrderAge());
             $bmcEntity->setWeightProfitQuotient(BlackMarketCraftingHelper::calculateWeightProfitQuotient($bmcEntity->getProfit(), $bmcEntity->getTotalWeightResources()));
-            $bmcEntity->setColorGrade(BlackMarketCraftingHelper::calculateProfitGrade($bmcEntity->getProfit()));
+            $bmcEntity->setColorGrade(BlackMarketCraftingHelper::calculateProfitGrade($bmcEntity->getWeightProfitQuotient()));
         }
 
         return $this->filterCalculateEntityArray($calculateEntityArray);

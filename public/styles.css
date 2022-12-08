@@ -70,3 +70,9 @@
     margin: 2px;
     text-align: center;
 }
+
+tr {
+    height: 15px;
+    max-height: 15px;
+    line-height: 15px;
+}
