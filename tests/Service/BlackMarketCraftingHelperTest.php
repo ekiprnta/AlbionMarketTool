@@ -4,6 +4,7 @@ namespace Service;
 
 use MZierdt\Albion\Entity\JournalEntity;
 use MZierdt\Albion\Entity\ResourceEntity;
+use MZierdt\Albion\factories\ResourceEntityFactory;
 use MZierdt\Albion\Service\BlackMarketCraftingHelper;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
@@ -52,7 +53,7 @@ class BlackMarketCraftingHelperTest extends TestCase
         $expectedResourceEntity->getRealName()->willReturn($entityName);
 
         $this->assertEquals(
-            null,
+            ResourceEntityFactory::getEmptyResourceEntity(),
             $this->bmcHelper->calculateResource($name, $tier, [$expectedResourceEntity->reveal()])
         );
     }

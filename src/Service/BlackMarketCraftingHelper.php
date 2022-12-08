@@ -4,18 +4,20 @@ namespace MZierdt\Albion\Service;
 
 use MZierdt\Albion\Entity\JournalEntity;
 use MZierdt\Albion\Entity\ResourceEntity;
+use MZierdt\Albion\factories\ResourceEntityFactory;
 
 class BlackMarketCraftingHelper extends Market
 {
-    public function calculateResource(string $resourceName, string $tier, array $resources): ?ResourceEntity
+    public function calculateResource(string $resourceName, string $tier, array $resources): ResourceEntity
     {
+        dd($resourceName, $tier, $resources);
         /** @var ResourceEntity $resource */
         foreach ($resources as $resource) {
             if (($tier === $resource->getTier()) && $resource->getRealName() === $resourceName) {
                 return $resource;
             }
         }
-        return null;
+        return ResourceEntityFactory::getEmptyResourceEntity();
     }
 
 
