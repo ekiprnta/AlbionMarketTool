@@ -39,7 +39,7 @@ class BlackMarketTransportingService
 
         $bmtEntities = [];
         foreach ($bmItems as $bmItem) {
-            $bmtEntities[] = new BlackMarketTransportEntity($bmItem);
+            $bmtEntities[] = new BlackMarketTransportEntity($bmItem, $weight);
         }
 
         /** @var BlackMarketTransportEntity $bmtEntity */
@@ -50,11 +50,13 @@ class BlackMarketTransportingService
             $bmtEntity->setMlItem(BlackMarketTransportingHelper::calculateCityItem($bmtEntity, $mlItems));
             $bmtEntity->setThItem(BlackMarketTransportingHelper::calculateCityItem($bmtEntity, $thItems));
 
+
+            $bmtEntity->setProfit(BlackMarketTransportingHelper::calculateProfit($bmtEntity));
         }
 
 
-        $combinedItems = $this->combineItems($cityItems, $bmItems);
-        return $this->filterItems($combinedItems, $tierList);
+//        $combinedItems = $this->combineItems($cityItems, $bmItems);
+//        return $this->filterItems($combinedItems, $tierList);
     }
 
     private function combineItems(array $cityItems, array $bmItems): array

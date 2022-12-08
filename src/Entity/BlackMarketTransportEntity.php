@@ -16,9 +16,14 @@ class BlackMarketTransportEntity
     private ItemEntity $mlItem;
     private ItemEntity $thItem;
 
-    public function __construct(ItemEntity $bmItem)
+    public function __construct(ItemEntity $bmItem, private int $weight)
     {
         $this->bmItem = $bmItem;
+    }
+
+    public function getWeight(): int
+    {
+        return $this->weight;
     }
 
     public function getFsItem(): ItemEntity

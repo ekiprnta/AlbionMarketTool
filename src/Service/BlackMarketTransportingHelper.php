@@ -21,4 +21,35 @@ class BlackMarketTransportingHelper extends Market
         }
         throw new \RuntimeException('No Item found for ' . $bmItem->getRealName());
     }
+
+    public static function calculateProfit(BlackMarketTransportEntity $bmtEntity, string $city)
+    {
+        $amount = $bmtEntity->getWeight() / $bmtEntity->getBmItem()->getWeight();
+        $cityItem = self::getCityItem($bmtEntity, $city);
+
+        $singleProfit = $bmtEntity->getBmItem()->getSellOrderPrice()* (1- parent::MARKET_FEE - parent::MARKET_SETUP) - $cityItem->getSellOrderPrice();
+        $profit = $singleProfit * $amount;
+
+        $weightProfitQuotient = $profit / $bmtEntity->getWeight();
+
+
+        return [
+            'amount' => $amount,
+            'singleProfit'
+            'profit'
+            'quotient'
+            'colorGrade'
+        ]
+    }
+
+    private static function getCityItem(BlackMarketTransportEntity $bmtEntity, string $city): ItemEntity
+    {
+        return match ($city) {
+            'Fort Sterling' => $bmtEntity->getFsItem(),
+            'Lymhurst' => $bmtEntity->getLymItem(),
+            'Bridgewatch' => $bmtEntity->getBwItem(),
+            'Martlock' => $bmtEntity->getMlItem(),
+            'Thetford' => $bmtEntity->getThItem(),
+        };
+    }
 }
