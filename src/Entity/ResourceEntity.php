@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\Entity;
 
-use MZierdt\Albion\Service\TimeHelper;
-
-class ResourceEntity
+class ResourceEntity extends AlbionItemEntity
 {
     public const RESOURCE_METAL_BAR = 'metalBar';
     public const RESOURCE_PLANKS = 'planks';
@@ -81,9 +79,9 @@ class ResourceEntity
         $this->city = $resourceData['city'];
         $this->realName = $resourceData['realName'];
         $this->sellOrderPrice = (int) $resourceData['sellOrderPrice'];
-        $this->sellOrderAge = TimeHelper::calculateAge($resourceData['sellOrderPriceDate']);
+        $this->sellOrderAge = $this->calculateAge($resourceData['sellOrderPriceDate']);
         $this->buyOrderPrice = (int) $resourceData['buyOrderPrice'];
-        $this->buyOrderAge = TimeHelper::calculateAge($resourceData['buyOrderPriceDate']);
+        $this->buyOrderAge = $this->calculateAge($resourceData['buyOrderPriceDate']);
         $this->bonusCity = $resourceData['bonusCity'];
         $this->amountInStorage = (int) $resourceData['amountInStorage'];
         $this->weight = $weight;

@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\Entity;
 
-use MZierdt\Albion\Service\TimeHelper;
-
-class ItemEntity
+class ItemEntity extends AlbionItemEntity
 {
     public const ITEM_WARRIOR_HELMET = 'plateHelmet';
     public const ITEM_WARRIOR_ARMOR = 'plateArmor';
@@ -170,9 +168,9 @@ class ItemEntity
         $this->city = $itemData['city'];
         $this->quality = (int) $itemData['quality'];
         $this->sellOrderPrice = (int) $itemData['sellOrderPrice'];
-        $this->sellOrderAge = TimeHelper::calculateAge($itemData['sellOrderPriceDate']);
+        $this->sellOrderAge = $this->calculateAge($itemData['sellOrderPriceDate']);
         $this->buyOrderPrice = (int) $itemData['buyOrderPrice'];
-        $this->buyOrderAge = TimeHelper::calculateAge($itemData['buyOrderPriceDate']);
+        $this->buyOrderAge = $this->calculateAge($itemData['buyOrderPriceDate']);
         $this->primaryResource = $itemData['primaryResource'] ?? 'primR';
         $this->primaryResourceAmount = (int) $itemData['primaryResourceAmount'];
         $this->secondaryResource = $itemData['secondaryResource'];

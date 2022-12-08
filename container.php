@@ -17,18 +17,18 @@ use MZierdt\Albion\Handler\AdminHandler;
 use MZierdt\Albion\Handler\BlackMarketCraftingHandler;
 use MZierdt\Albion\Handler\BlackMarketTransportingHandler;
 use MZierdt\Albion\Handler\listDataHandler;
-use MZierdt\Albion\repositories\DeleteDataRepository;
-use MZierdt\Albion\repositories\JournalRepository;
-use MZierdt\Albion\Service\BlackMarketCraftingHelper;
-use MZierdt\Albion\Service\BlackMarketCraftingService;
-use MZierdt\Albion\Service\BlackMarketTransportingService;
 use MZierdt\Albion\HttpClient;
+use MZierdt\Albion\repositories\DeleteDataRepository;
 use MZierdt\Albion\repositories\ItemRepository;
+use MZierdt\Albion\repositories\JournalRepository;
 use MZierdt\Albion\repositories\ResourceRepository;
 use MZierdt\Albion\Service\ApiService;
+use MZierdt\Albion\Service\BlackMarketCraftingHelper;
+use MZierdt\Albion\Service\BlackMarketCraftingService;
+use MZierdt\Albion\Service\BlackMarketTransportingHelper;
+use MZierdt\Albion\Service\BlackMarketTransportingService;
 use MZierdt\Albion\Service\ConfigService;
 use MZierdt\Albion\Service\TierService;
-use MZierdt\Albion\Service\TimeHelper;
 use MZierdt\Albion\Service\UploadHelper;
 use Twig\Environment;
 
@@ -49,7 +49,6 @@ $serviceManager = new ServiceManager([
                     TierService::class
                 ],
                 BlackMarketCraftingHelper::class => [],
-                TimeHelper::class => [],
                 ConfigService::class => [],
                 BlackMarketCraftingService::class => [
                     ItemRepository::class,
@@ -58,8 +57,10 @@ $serviceManager = new ServiceManager([
                     BlackMarketCraftingHelper::class,
                 ],
                 TierService::class => [],
+                BlackMarketTransportingHelper::class => [],
                 BlackMarketTransportingService::class => [
-                    ItemRepository::class
+                    ItemRepository::class,
+                    BlackMarketTransportingHelper::class,
                 ],
                 BlackMarketTransportingHandler::class => [
                     Environment::class,

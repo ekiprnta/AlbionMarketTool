@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\Entity;
 
-use MZierdt\Albion\Service\TimeHelper;
-
-class JournalEntity
+class JournalEntity extends AlbionItemEntity
 {
     public const JOURNAL_WARRIOR = 'JOURNAL_WARRIOR';
     public const JOURNAL_MAGE = 'JOURNAL_MAGE';
@@ -31,9 +29,9 @@ class JournalEntity
         $this->city = $journalData['city'];
         $this->fameToFill = (int) $journalData['fameToFill'];
         $this->sellOrderPrice = (int) $journalData['sellOrderPrice'];
-        $this->sellOrderAge = TimeHelper::calculateAge($journalData['sellOrderPriceDate']);
+        $this->sellOrderAge = $this->calculateAge($journalData['sellOrderPriceDate']);
         $this->buyOrderPrice = (int) $journalData['buyOrderPrice'];
-        $this->buyOrderAge = TimeHelper::calculateAge($journalData['buyOrderPriceDate']);
+        $this->buyOrderAge = $this->calculateAge($journalData['buyOrderPriceDate']);
         $this->weight = (float) $journalData['weight'];
         $this->fillStatus = $journalData['fillStatus'];
         $this->class = $journalData['class'];

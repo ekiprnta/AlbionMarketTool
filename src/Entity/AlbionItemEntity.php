@@ -1,13 +1,13 @@
 <?php
 
-namespace MZierdt\Albion\Service;
+namespace MZierdt\Albion\Entity;
 
 use DateTimeImmutable;
 use DateTimeZone;
 
-class TimeHelper
+class AlbionItemEntity
 {
-    public function calculateAge(?string $dateString): int
+    protected function calculateAge(?string $dateString): int
     {
         $priceDate = $this->calculateDateTimeImmutable($dateString);
 
