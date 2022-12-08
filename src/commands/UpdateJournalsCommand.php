@@ -18,6 +18,8 @@ class UpdateJournalsCommand extends Command
     public function __construct(
         private ApiService $apiService,
         private JournalRepository $journalRepository,
+        private ConfigService $configService,
+        private UploadHelper $uploadHelper,
     ) {
         parent::__construct();
     }
@@ -27,7 +29,7 @@ class UpdateJournalsCommand extends Command
         $message = 'successfully updated all Prices';
 
         try {
-            $journalList = ConfigService::getJournalConfig();
+            $journalList = $this->configService->getJournalConfig();
         } catch (\JsonException $jsonException) {
             $output->writeln($jsonException->getMessage());
             return self::FAILURE;
@@ -44,7 +46,7 @@ class UpdateJournalsCommand extends Command
             $journalsData = $this->apiService->getJournals($journalNames);
             $progressBar->setMessage('preparing resource ' . $journalNames);
             $progressBar->display();
-            $adjustedJournals = UploadHelper::adjustJournals($journalsData, $journalList['stats']);
+            $adjustedJournals = $this->uploadHelper->adjustJournals($journalsData, $journalList['stats']);
             $progressBar->setMessage('Upload Resource ' . $journalNames . ' into Database');
             $progressBar->display();
             $this->journalRepository->updatePricesFromJournals($adjustedJournals);

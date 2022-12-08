@@ -11,7 +11,7 @@ class DeleteDataRepository
     }
 
 
-    public function deleteDataFromTable(string $table)
+    public function deleteDataFromTable(string $table): void
     {
         $query = sprintf('TRUNCATE TABLE %s', $table);
 

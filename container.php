@@ -78,14 +78,20 @@ $serviceManager = new ServiceManager([
                 UpdateJournalsCommand::class => [
                     ApiService::class,
                     JournalRepository::class,
+                    ConfigService::class,
+                    UploadHelper::class,
                 ],
                 UpdateItemsCommand::class => [
                     ApiService::class,
                     ItemRepository::class,
+                    ConfigService::class,
+                    UploadHelper::class,
                 ],
                 UpdateResourcesCommand::class => [
                     ApiService::class,
                     ResourceRepository::class,
+                    ConfigService::class,
+                    UploadHelper::class,
                 ],
             ]
         ],

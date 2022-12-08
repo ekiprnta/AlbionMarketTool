@@ -31,11 +31,11 @@ class UploadHelper
         return $adjustedResourceArray;
     }
 
-    public static function adjustJournals(array $journalData, array $journalStats): array
+    public function adjustJournals(array $journalData, array $journalStats): array
     {
         $adjustedJournalsArray = [];
         foreach ($journalData as $journal) {
-            $nameAndTier = TierService::splitIntoTierAndName($journal['item_id']);
+            $nameAndTier = $this->tierService->splitIntoTierAndName($journal['item_id']);
             $stats = $journalStats[$nameAndTier['tier']];
             [$prefix, $name, $fillStatus] = explode('_', $nameAndTier['name']);
             $adjustedJournalsArray[] = [
@@ -55,11 +55,11 @@ class UploadHelper
         return $adjustedJournalsArray;
     }
 
-    public static function adjustItems(array $itemData, array $itemStats): array
+    public function adjustItems(array $itemData, array $itemStats): array
     {
         $adjustedItems = [];
         foreach ($itemData as $item) {
-            $nameAndTier = TierService::splitIntoTierAndName($item['item_id']);
+            $nameAndTier = $this->tierService->splitIntoTierAndName($item['item_id']);
             $adjustedItems[] = [
                 'tier' => $nameAndTier['tier'],
                 'name' => $nameAndTier['name'],

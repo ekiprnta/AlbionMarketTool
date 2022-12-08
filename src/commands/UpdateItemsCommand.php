@@ -18,6 +18,8 @@ class UpdateItemsCommand extends Command
     public function __construct(
         private ApiService $apiService,
         private ItemRepository $itemRepository,
+        private ConfigService $configService,
+        private UploadHelper $uploadHelper,
     ) {
         parent::__construct();
     }
@@ -26,7 +28,7 @@ class UpdateItemsCommand extends Command
     {
         $message = 'successfully updated all Prices';
         try {
-            $itemList = ConfigService::getItemConfig();
+            $itemList = $this->configService->getItemConfig();
         } catch (\JsonException $jsonException) {
             $output->writeln($jsonException->getMessage());
             return self::FAILURE;
@@ -41,7 +43,7 @@ class UpdateItemsCommand extends Command
             $itemsData = $this->apiService->getItems($itemStats['id_snippet']);
             $progressBar->setMessage('preparing Item' . $itemStats['realName']);
             $progressBar->display();
-            $adjustedItems = UploadHelper::adjustItems($itemsData, $itemStats);
+            $adjustedItems = $this->uploadHelper->adjustItems($itemsData, $itemStats);
             $progressBar->setMessage('Upload Item ' . $itemStats['realName'] . ' into Database');
             $progressBar->display();
             $this->itemRepository->updatePricesFromItem($adjustedItems);
