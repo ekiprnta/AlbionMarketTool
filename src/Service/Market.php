@@ -12,6 +12,19 @@ class Market
 
     public const RRR_BASE_PERCENTAGE = 100;
 
+    protected function calculateSell(float|int $price)
+    {
+        return $price * (1 - self::MARKET_FEE);
+    }
 
+    protected function calculateSellOrder(float|int $price)
+    {
+        return $price * (1 - self::MARKET_FEE - self::MARKET_SETUP);
+    }
+
+    protected function calculateBuyOrder(float|int $price)
+    {
+        return $price * (1 - self::MARKET_SETUP);
+    }
 
 }
