@@ -8,7 +8,7 @@ use MZierdt\Albion\Entity\ResourceEntity;
 
 class BlackMarketCraftingHelper extends Market
 {
-    public function calculateResources(string $resourceName,string $tier, array $resources): ?ResourceEntity
+    public function calculateResources(string $resourceName, string $tier, array $resources): ?ResourceEntity
     {
         /** @var ResourceEntity $resource */
         foreach ($resources as $resource) {
@@ -22,7 +22,6 @@ class BlackMarketCraftingHelper extends Market
 
     public function calculateJournals(string $tier, string $fillStatus, array $journals): ?JournalEntity
     {
-
         /** @var JournalEntity $journal */
         foreach ($journals as $journal) {
             if (($tier[0] === $journal->getTier()) && $journal->getFillStatus() === $fillStatus) {
@@ -40,29 +39,35 @@ class BlackMarketCraftingHelper extends Market
     public function calculateFameAmount(BlackMarketCraftingEntity $bmcEntity): float
     {
         return $bmcEntity->getTotalAmount() * $bmcEntity->getItem()
-            ->getFame() * self::PREMIUM_FACTOR;
+                ->getFame() * self::PREMIUM_FACTOR;
     }
 
-    public function calculateTotalAmount(BlackMarketCraftingEntity $bmcEntity, int $weight): array
+    public function calculateTotalAmount(
+        float $resourceWeight,
+        int $resourceAmount,
+        float $journalWeight,
+        float $journalAmountPerItem,
+        float $weight
+    ): int {
+        $resourceWeightForItem = $resourceWeight * $resourceAmount;
+        $journalWeightForItem = $journalWeight * $journalAmountPerItem;
+
+        return (int)($weight / ($resourceWeightForItem + $journalWeightForItem));
+    }
+
+    public function calculateResourceAmount(int $totalAmount, int $resourceAmount): int
     {
-        $resourceWeightForItem = $bmcEntity->getPrimResource()
-            ->getWeight() *
-            ($bmcEntity->getItem()->getPrimaryResourceAmount() +
-                $bmcEntity->getItem()
-                    ->getSecondaryResourceAmount());
-        $journalWeightForItem = $bmcEntity->getJournalEntityEmpty()
-            ->getWeight() *
-            $bmcEntity->getJournalAmountPerItem();
+        return $totalAmount * $resourceAmount;
+    }
 
-        $totalAmount = (int) ($weight / ($resourceWeightForItem + $journalWeightForItem));
+    public function calculateJournalAmount(int $totalAmount, float $journalAmountPerItem): int
+    {
+        return (int)ceil($totalAmount * $journalAmountPerItem);
+    }
 
-        return [
-            'totalAmount' => ($totalAmount),
-            'primResourceAmount' => ($totalAmount * $bmcEntity->getItem()->getPrimaryResourceAmount()),
-            'secResourceAmount' => ($totalAmount * $bmcEntity->getItem()->getSecondaryResourceAmount()),
-            'journalAmount' => ((int) ceil($totalAmount * $bmcEntity->getJournalAmountPerItem())),
-            'totalItemWeight' => ($totalAmount * $bmcEntity->getItem()->getWeight()),
-        ];
+    public function calculateTotalItemWeight(int $totalAmount, float $weight): float
+    {
+        return $totalAmount * $weight;
     }
 
 
@@ -71,7 +76,7 @@ class BlackMarketCraftingHelper extends Market
         int $feeProHundredNutrition
     ): float {
         $nutrition = $bmcEntity->getItem()
-            ->getItemValue() * self::NUTRITION_FACTOR;
+                ->getItemValue() * self::NUTRITION_FACTOR;
         return $nutrition * $feeProHundredNutrition / 100;
     }
 
@@ -82,7 +87,7 @@ class BlackMarketCraftingHelper extends Market
     ): array {
         if ($order === '1') {
             $itemCost = $bmcEntity->getPrimResource()
-                ->getSellOrderPrice() *
+                    ->getSellOrderPrice() *
                 $bmcEntity->getItem()
                     ->getPrimaryResourceAmount() +
                 $bmcEntity->getSecResource()
@@ -144,6 +149,6 @@ class BlackMarketCraftingHelper extends Market
     public function calculateItemValue(BlackMarketCraftingEntity $bmcEntity): int
     {
         return $bmcEntity->getItem()
-            ->getSellOrderPrice() * $bmcEntity->getTotalAmount();
+                ->getSellOrderPrice() * $bmcEntity->getTotalAmount();
     }
 }

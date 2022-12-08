@@ -239,12 +239,28 @@ class BlackMarketCraftingEntity
         return $this->journalAmountPerItem;
     }
 
-    public function setAmounts(array $amounts): void
+    public function setTotalAmount(int $totalAmount): void
     {
-        $this->totalAmount = $amounts['totalAmount'];
-        $this->primResourceAmount = $amounts['primResourceAmount'];
-        $this->secResourceAmount = $amounts['secResourceAmount'];
-        $this->journalAmount = $amounts['journalAmount'];
-        $this->totalItemWeight = $amounts['totalItemWeight'];
+        $this->totalAmount = $totalAmount;
+    }
+
+    public function setPrimResourceAmount(int $primResourceAmount): void
+    {
+        $this->primResourceAmount = $primResourceAmount;
+    }
+
+    public function setSecResourceAmount(int $secResourceAmount): void
+    {
+        $this->secResourceAmount = $secResourceAmount;
+    }
+
+    public function setJournalAmount(int $journalAmount): void
+    {
+        $this->journalAmount = $journalAmount;
+    }
+
+    public function setTotalItemWeight(float $totalItemWeight): void
+    {
+        $this->totalItemWeight = $totalItemWeight;
     }
 }

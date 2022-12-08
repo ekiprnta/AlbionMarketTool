@@ -61,13 +61,48 @@ class BlackMarketCraftingService
         }
         /** @var BlackMarketCraftingEntity $bmcEntity */
         foreach ($calculateEntityArray as $bmcEntity) {
-            $bmcEntity->setPrimResource($this->bmtHelper->calculateResources($bmcEntity->getItem()->getPrimaryResource(), $bmcEntity->getItem()->getTier(), $resources));
-            $bmcEntity->setSecResource($this->bmtHelper->calculateResources($bmcEntity->getItem()->getSecondaryResource(), $bmcEntity->getItem()->getTier(), $resources));
-            $bmcEntity->setJournalEntityFull($this->bmtHelper->calculateJournals($bmcEntity->getItem()->getTier(),'full', $journals));
-            $bmcEntity->setJournalEntityEmpty($this->bmtHelper->calculateJournals($bmcEntity->getItem()->getTier(),'empty', $journals));
-            $bmcEntity->setJournalAmountPerItem($this->bmtHelper->calculateJournalAmountPerItem($bmcEntity->getItem()->getFame(), $bmcEntity->getJournalEntityEmpty()->getFameToFill()));
+            $bmcEntity->setPrimResource(
+                $this->bmtHelper->calculateResources(
+                    $bmcEntity->getItem()->getPrimaryResource(),
+                    $bmcEntity->getItem()->getTier(),
+                    $resources
+                )
+            );
+            $bmcEntity->setSecResource(
+                $this->bmtHelper->calculateResources(
+                    $bmcEntity->getItem()->getSecondaryResource(),
+                    $bmcEntity->getItem()->getTier(),
+                    $resources
+                )
+            );
+            $bmcEntity->setJournalEntityFull(
+                $this->bmtHelper->calculateJournals($bmcEntity->getItem()->getTier(), 'full', $journals)
+            );
+            $bmcEntity->setJournalEntityEmpty(
+                $this->bmtHelper->calculateJournals($bmcEntity->getItem()->getTier(), 'empty', $journals)
+            );
+            $bmcEntity->setJournalAmountPerItem(
+                $this->bmtHelper->calculateJournalAmountPerItem(
+                    $bmcEntity->getItem()->getFame(),
+                    $bmcEntity->getJournalEntityEmpty()->getFameToFill()
+                )
+            );
 
-            $bmcEntity->setAmounts($this->bmtHelper->calculateTotalAmount($bmcEntity, $weight));
+            $bmcEntity->setTotalAmount(
+                $this->bmtHelper->calculateTotalAmount(
+                    $bmcEntity->getPrimResource()->getWeight(),
+                    $bmcEntity->getItem()->getPrimaryResourceAmount() +
+                    $bmcEntity->getItem()->getSecondaryResourceAmount(),
+                    $bmcEntity->getJournalEntityEmpty()->getWeight(),
+                    $bmcEntity->getJournalAmountPerItem(),
+                    $weight
+                )
+            );
+            $bmcEntity->setPrimResourceAmount($this->bmtHelper->calculateResourceAmount($bmcEntity->getTotalAmount(), $bmcEntity->getItem()->getPrimaryResourceAmount()));
+            $bmcEntity->setSecResourceAmount($this->bmtHelper->calculateResourceAmount($bmcEntity->getTotalAmount(), $bmcEntity->getItem()->getSecondaryResourceAmount()));
+            $bmcEntity->setJournalAmount($this->bmtHelper->calculateJournalAmount($bmcEntity->getTotalAmount(), $bmcEntity->getJournalAmountPerItem()));
+            $bmcEntity->setTotalItemWeight($this->bmtHelper->calculateTotalItemWeight($bmcEntity->getTotalAmount(), $bmcEntity->getItem()->getWeight()));
+
             $bmcEntity->setFameAmount($this->bmtHelper->calculateFameAmount($bmcEntity));
             $bmcEntity->setCraftingFee(
                 $this->bmtHelper->calculateCraftingFee($bmcEntity, $feeProHundredNutrition)
@@ -97,7 +132,8 @@ class BlackMarketCraftingService
         $array = [];
         /** @var BlackMarketCraftingEntity $calculateEntity */
         foreach ($calculateEntityArray as $calculateEntity) {
-            $array[$calculateEntity->getItem()->getWeaponGroup() . '_' . $calculateEntity->getItem()->getRealName()][] = $calculateEntity;
+            $array[$calculateEntity->getItem()->getWeaponGroup() . '_' . $calculateEntity->getItem()->getRealName(
+            )][] = $calculateEntity;
         }
         krsort($array);
         return $array;
