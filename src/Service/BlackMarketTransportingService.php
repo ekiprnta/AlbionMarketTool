@@ -51,12 +51,22 @@ class BlackMarketTransportingService
             $bmtEntity->setThItem(BlackMarketTransportingHelper::calculateCityItem($bmtEntity, $thItems));
 
 
-            $bmtEntity->setProfit(BlackMarketTransportingHelper::calculateProfit($bmtEntity));
+            $bmtEntity->setFsProfit(BlackMarketTransportingHelper::calculateProfit($bmtEntity, 'Fort Sterling'));
+            $bmtEntity->setLymProfit(BlackMarketTransportingHelper::calculateProfit($bmtEntity, 'Lymhurst'));
+            $bmtEntity->setBwProfit(BlackMarketTransportingHelper::calculateProfit($bmtEntity, 'Bridgewatch'));
+            $bmtEntity->setMlProfit(BlackMarketTransportingHelper::calculateProfit($bmtEntity, 'Martlock'));
+            $bmtEntity->setThProfit(BlackMarketTransportingHelper::calculateProfit($bmtEntity, 'Thetford'));
+
+            $bmtEntity->setFsWeightProfitQuotient(BlackMarketTransportingHelper::calculateWeightProfitQuotient($bmtEntity->getFsProfit(), $weight))
+            $bmtEntity->setLymWeightProfitQuotient(BlackMarketTransportingHelper::calculateWeightProfitQuotient($bmtEntity->getLymProfit(), $weight))
+            $bmtEntity->setBwWeightProfitQuotient(BlackMarketTransportingHelper::calculateWeightProfitQuotient($bmtEntity->getBwProfit(), $weight))
+            $bmtEntity->setMlWeightProfitQuotient(BlackMarketTransportingHelper::calculateWeightProfitQuotient($bmtEntity->getMlProfit(), $weight))
+            $bmtEntity->setThWeightProfitQuotient(BlackMarketTransportingHelper::calculateWeightProfitQuotient($bmtEntity->getThProfit(), $weight))
         }
 
 
 //        $combinedItems = $this->combineItems($cityItems, $bmItems);
-//        return $this->filterItems($combinedItems, $tierList);
+        return $this->filterItems($bmtEntities, $tierList);
     }
 
     private function combineItems(array $cityItems, array $bmItems): array
