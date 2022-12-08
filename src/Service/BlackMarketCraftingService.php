@@ -64,13 +64,22 @@ class BlackMarketCraftingService
             $bmcEntity->setJournals(BlackMarketCraftingHelper::calculateJournals($bmcEntity, $journals));
             $bmcEntity->setAmounts(BlackMarketCraftingHelper::calculateTotalAmount($bmcEntity, $weight));
             $bmcEntity->setFameAmount(BlackMarketCraftingHelper::calculateFameAmount($bmcEntity));
-            $bmcEntity->setCraftingFee(BlackMarketCraftingHelper::calculateCraftingFee($bmcEntity, $feeProHundredNutrition));
+            $bmcEntity->setCraftingFee(
+                BlackMarketCraftingHelper::calculateCraftingFee($bmcEntity, $feeProHundredNutrition)
+            );
             $bmcEntity->setProfitBooks(BlackMarketCraftingHelper::calculateProfitBooks($bmcEntity));
             $bmcEntity->setProfit(BlackMarketCraftingHelper::calculateProfit($bmcEntity, $percentage, $order));
             $bmcEntity->setItemValue(BlackMarketCraftingHelper::calculateItemValue($bmcEntity));
             $bmcEntity->setItemAge($bmcEntity->getItem()->getSellOrderAge());
-            $bmcEntity->setWeightProfitQuotient(BlackMarketCraftingHelper::calculateWeightProfitQuotient($bmcEntity->getProfit(), $bmcEntity->getTotalWeightResources()));
-            $bmcEntity->setColorGrade(BlackMarketCraftingHelper::calculateProfitGrade($bmcEntity->getWeightProfitQuotient()));
+            $bmcEntity->setWeightProfitQuotient(
+                BlackMarketCraftingHelper::calculateWeightProfitQuotient(
+                    $bmcEntity->getProfit(),
+                    $bmcEntity->getTotalWeightResources()
+                )
+            );
+            $bmcEntity->setColorGrade(
+                BlackMarketCraftingHelper::calculateProfitGrade($bmcEntity->getWeightProfitQuotient())
+            );
         }
 
         return $this->filterCalculateEntityArray($calculateEntityArray);
@@ -98,5 +107,4 @@ class BlackMarketCraftingService
             'City Bonus Focus' => self::RRR_BONUS_CITY_FOCUS,
         ];
     }
-
 }

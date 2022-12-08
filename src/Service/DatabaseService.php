@@ -20,7 +20,7 @@ class DatabaseService
         try {
             return new PDO(self::DSN, self::USER, 'qwert');
         } catch (PDOException $PDOException) {
-            echo 'cant connect to database with: ' .  self::DSN . PHP_EOL . self::USER . PHP_EOL . $password . PHP_EOL;
+            echo 'cant connect to database with: ' . self::DSN . PHP_EOL . self::USER . PHP_EOL . $password . PHP_EOL;
             throw $PDOException;
         }
     }

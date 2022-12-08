@@ -19,7 +19,6 @@ class DeleteDataCommand extends Command
     {
         $message = 'successfully emptied the tables';
 
-
         $this->deleteDataRepository->deleteDataFromTable('items');
         $this->deleteDataRepository->deleteDataFromTable('resource');
         $this->deleteDataRepository->deleteDataFromTable('journals');

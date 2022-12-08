@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\Entity;
 
-use DateTimeImmutable;
 use MZierdt\Albion\factories\ResourceEntityFactory;
-use RuntimeException;
+
 /*
  * beide Resourcen
  * Item
@@ -47,8 +46,10 @@ class BlackMarketCraftingEntity
     private string $tierColor;
     private int $itemValue;
 
-    public function __construct(private ItemEntity $item, private int $totalWeightResources)
-    {
+    public function __construct(
+        private ItemEntity $item,
+        private int $totalWeightResources
+    ) {
         $this->secResource = ResourceEntityFactory::getEmptyResourceEntity();
         $this->tierColor = $item->getTier()[0];
     }

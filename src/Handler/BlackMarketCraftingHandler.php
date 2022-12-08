@@ -6,10 +6,7 @@ namespace MZierdt\Albion\Handler;
 
 use InvalidArgumentException;
 use Laminas\Diactoros\Response\HtmlResponse;
-use MZierdt\Albion\Entity\BlackMarketCraftingEntity;
-use MZierdt\Albion\repositories\ItemRepository;
 use MZierdt\Albion\Service\BlackMarketCraftingService;
-use MZierdt\Albion\Service\DatabaseService;
 use Twig\Environment;
 
 class BlackMarketCraftingHandler

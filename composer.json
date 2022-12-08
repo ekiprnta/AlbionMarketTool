@@ -39,11 +39,11 @@
     "rector/rector": "^0.13.8"
   },
   "scripts": {
-    "stan-pipeline": "phpstan analyse -c phpstan.neon --no-progress -n --error-format=junit --ansi",
+    "stan": "phpstan analyse -c phpstan.neon",
     "stan5": "vendor/bin/phpstan analyze -l 5 src",
     "stan4": "vendor/bin/phpstan analyze -l 4 src",
     "stan6": "vendor/bin/phpstan analyze -l 6 src",
-    "ecs": "vendor/bin/ecs --fix"
+    "ecs-fix": "vendor/bin/ecs --fix"
   },
   "config": {
     "allow-plugins": {

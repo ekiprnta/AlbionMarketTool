@@ -5,10 +5,8 @@ namespace MZierdt\Albion\Service;
 use MZierdt\Albion\Entity\BlackMarketTransportEntity;
 use MZierdt\Albion\Entity\ItemEntity;
 
-
 class BlackMarketTransportingHelper extends Market
 {
-
     public static function calculateCityItem(BlackMarketTransportEntity $bmtEntity, array $Items): ItemEntity
     {
         $bmItem = $bmtEntity->getBmItem();
@@ -24,13 +22,18 @@ class BlackMarketTransportingHelper extends Market
 
     public static function calculateProfit(BlackMarketTransportEntity $bmtEntity): array
     {
-        $amount = $bmtEntity->getWeight() / $bmtEntity->getBmItem()->getWeight();
+        $amount = $bmtEntity->getWeight() / $bmtEntity->getBmItem()
+            ->getWeight();
 
-        $singleProfit = parent::calculateSellOrder($bmtEntity->getBmItem()->getSellOrderPrice()) - $bmtEntity->getCityItem()->getSellOrderPrice();
+        $singleProfit = parent::calculateSellOrder(
+            $bmtEntity->getBmItem()
+                ->getSellOrderPrice()
+        ) - $bmtEntity->getCityItem()
+            ->getSellOrderPrice();
         $profit = $singleProfit * $amount;
 
         return [
-            'amount' =>(int) $amount,
+            'amount' => (int) $amount,
             'singleProfit' => $singleProfit,
             'profit' => $profit,
         ];

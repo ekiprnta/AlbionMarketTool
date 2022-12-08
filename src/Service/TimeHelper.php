@@ -7,7 +7,6 @@ use DateTimeZone;
 
 class TimeHelper
 {
-
     public static function calculateAge(?string $dateString): int
     {
         $priceDate = self::calculateDateTimeImmutable($dateString);

@@ -18,8 +18,10 @@ class BlackMarketTransportEntity
 
     private string $tierColor;
 
-    public function __construct(ItemEntity $bmItem, private int $weight)
-    {
+    public function __construct(
+        ItemEntity $bmItem,
+        private int $weight
+    ) {
         $this->bmItem = $bmItem;
         $this->tierColor = $bmItem->getTier()[0];
     }

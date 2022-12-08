@@ -6,8 +6,6 @@ use MZierdt\Albion\Entity\ResourceEntity;
 
 class ResourceEntityFactory
 {
-
-
     public static function getEmptyResourceEntity()
     {
         return new ResourceEntity([

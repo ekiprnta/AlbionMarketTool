@@ -2,7 +2,6 @@
 
 namespace MZierdt\Albion\Service;
 
-
 class Market
 {
     public const NUTRITION_FACTOR = 0.1125;

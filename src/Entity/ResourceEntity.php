@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\Entity;
 
-use DateTimeImmutable;
-use DateTimeZone;
-use MZierdt\Albion\factories\ResourceEntityFactory;
 use MZierdt\Albion\Service\TimeHelper;
 
 class ResourceEntity
@@ -88,7 +85,7 @@ class ResourceEntity
         $this->buyOrderPrice = (int) $resourceData['buyOrderPrice'];
         $this->buyOrderAge = TimeHelper::calculateAge($resourceData['buyOrderPriceDate']);
         $this->bonusCity = $resourceData['bonusCity'];
-        $this->amountInStorage = (int)$resourceData['amountInStorage'];
+        $this->amountInStorage = (int) $resourceData['amountInStorage'];
         $this->weight = $weight;
     }
 

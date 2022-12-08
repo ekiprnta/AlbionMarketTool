@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\Service;
 
-use DateTimeImmutable;
 use InvalidArgumentException;
 use MZierdt\Albion\Entity\BlackMarketTransportEntity;
-use MZierdt\Albion\Entity\ItemEntity;
 use MZierdt\Albion\repositories\ItemRepository;
 
 class BlackMarketTransportingService
@@ -39,9 +37,12 @@ class BlackMarketTransportingService
         foreach ($bmtEntities as $bmtEntity) {
             $bmtEntity->setCityItem(BlackMarketTransportingHelper::calculateCityItem($bmtEntity, $cityItem));
             $bmtEntity->setProfit(BlackMarketTransportingHelper::calculateProfit($bmtEntity));
-            $bmtEntity->setWeightProfitQuotient(BlackMarketTransportingHelper::calculateWeightProfitQuotient($bmtEntity->getProfit(), $weight));
-            $bmtEntity->setProfitGrade(BlackMarketTransportingHelper::calculateProfitGrade($bmtEntity->getWeightProfitQuotient()));
-
+            $bmtEntity->setWeightProfitQuotient(
+                BlackMarketTransportingHelper::calculateWeightProfitQuotient($bmtEntity->getProfit(), $weight)
+            );
+            $bmtEntity->setProfitGrade(
+                BlackMarketTransportingHelper::calculateProfitGrade($bmtEntity->getWeightProfitQuotient())
+            );
         }
 //        $combinedItems = $this->combineItems($cityItems, $bmItems);
         return $this->filterItems($bmtEntities, $tierList);
