@@ -55,4 +55,5 @@ class Market
         $dateDiff = date_diff($now, $priceDate);
         return $dateDiff->d * 24 * 60 + $dateDiff->h * 60 + $dateDiff->i;
     }
+
 }

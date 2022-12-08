@@ -57,11 +57,18 @@ class BlackMarketTransportingService
             $bmtEntity->setMlProfit(BlackMarketTransportingHelper::calculateProfit($bmtEntity, 'Martlock'));
             $bmtEntity->setThProfit(BlackMarketTransportingHelper::calculateProfit($bmtEntity, 'Thetford'));
 
-            $bmtEntity->setFsWeightProfitQuotient(BlackMarketTransportingHelper::calculateWeightProfitQuotient($bmtEntity->getFsProfit(), $weight))
-            $bmtEntity->setLymWeightProfitQuotient(BlackMarketTransportingHelper::calculateWeightProfitQuotient($bmtEntity->getLymProfit(), $weight))
-            $bmtEntity->setBwWeightProfitQuotient(BlackMarketTransportingHelper::calculateWeightProfitQuotient($bmtEntity->getBwProfit(), $weight))
-            $bmtEntity->setMlWeightProfitQuotient(BlackMarketTransportingHelper::calculateWeightProfitQuotient($bmtEntity->getMlProfit(), $weight))
-            $bmtEntity->setThWeightProfitQuotient(BlackMarketTransportingHelper::calculateWeightProfitQuotient($bmtEntity->getThProfit(), $weight))
+            $bmtEntity->setFsWeightProfitQuotient(BlackMarketTransportingHelper::calculateWeightProfitQuotient($bmtEntity->getFsProfit(), $weight));
+            $bmtEntity->setLymWeightProfitQuotient(BlackMarketTransportingHelper::calculateWeightProfitQuotient($bmtEntity->getLymProfit(), $weight));
+            $bmtEntity->setBwWeightProfitQuotient(BlackMarketTransportingHelper::calculateWeightProfitQuotient($bmtEntity->getBwProfit(), $weight));
+            $bmtEntity->setMlWeightProfitQuotient(BlackMarketTransportingHelper::calculateWeightProfitQuotient($bmtEntity->getMlProfit(), $weight));
+            $bmtEntity->setThWeightProfitQuotient(BlackMarketTransportingHelper::calculateWeightProfitQuotient($bmtEntity->getThProfit(), $weight));
+
+            $bmtEntity->setFsProfitGrade(BlackMarketTransportingHelper::calculateProfitGrade($bmtEntity->getFsWeightProfitQuotient()));
+            $bmtEntity->setLymProfitGrade(BlackMarketTransportingHelper::calculateProfitGrade($bmtEntity->getFsWeightProfitQuotient()));
+            $bmtEntity->setBwProfitGrade(BlackMarketTransportingHelper::calculateProfitGrade($bmtEntity->getFsWeightProfitQuotient()));
+            $bmtEntity->setMlProfitGrade(BlackMarketTransportingHelper::calculateProfitGrade($bmtEntity->getFsWeightProfitQuotient()));
+            $bmtEntity->setThProfitGrade(BlackMarketTransportingHelper::calculateProfitGrade($bmtEntity->getFsWeightProfitQuotient()));
+
         }
 
 
@@ -69,17 +76,6 @@ class BlackMarketTransportingService
         return $this->filterItems($bmtEntities, $tierList);
     }
 
-    private function combineItems(array $cityItems, array $bmItems): array
-    {
-        $transportList = [];
-        /** @var ItemEntity $bmItem */
-        foreach ($bmItems as $bmItem) {
-            $transportList[$bmItem->getName() . '#' . $bmItem->getTier()] = new BlackMarketTransportEntity($bmItem);
-            $this->addCityItems($transportList[$bmItem->getName() . '#' . $bmItem->getTier()], $cityItems);
-        }
-        ksort($transportList);
-        return $transportList;
-    }
 
     private function calculateColorGrade(?float $quotient): string
     {

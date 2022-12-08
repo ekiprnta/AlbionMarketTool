@@ -42,6 +42,11 @@ class BlackMarketTransportingHelper extends Market
         return parent::calculateWeightProfitQuotient($profit, $weight);
     }
 
+    public static function calculateProfitGrade(float $quotient): string
+    {
+        return parent::calculateProfitGrade($quotient);
+    }
+
     private static function getCityItem(BlackMarketTransportEntity $bmtEntity, string $city): ItemEntity
     {
         return match ($city) {

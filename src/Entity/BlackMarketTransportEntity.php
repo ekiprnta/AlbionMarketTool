@@ -20,30 +20,85 @@ class BlackMarketTransportEntity
     private float $fsProfit;
     private float $fsSingleProfit;
     private float $fsWeightProfitQuotient;
+    private string $fsProfitGrade;
 
     private int $lymAmount;
     private float $lymProfit;
     private float $lymSingleProfit;
     private float $lymWeightProfitQuotient;
+    private string $lymProfitGrade;
 
     private int $bwAmount;
     private float $bwProfit;
     private float $bwSingleProfit;
     private float $bwWeightProfitQuotient;
+    private string $bwProfitGrade;
 
     private int $mlAmount;
     private float $mlProfit;
     private float $mlSingleProfit;
     private float $mlWeightProfitQuotient;
+    private string $mlProfitGrade;
 
     private int $thAmount;
     private float $thProfit;
     private float $thSingleProfit;
     private float $thWeightProfitQuotient;
+    private string $thProfitGrade;
 
     public function __construct(ItemEntity $bmItem, private int $weight)
     {
         $this->bmItem = $bmItem;
+    }
+
+    public function getFsProfitGrade(): string
+    {
+        return $this->fsProfitGrade;
+    }
+
+    public function setFsProfitGrade(string $fsProfitGrade): void
+    {
+        $this->fsProfitGrade = $fsProfitGrade;
+    }
+
+    public function getLymProfitGrade(): string
+    {
+        return $this->lymProfitGrade;
+    }
+
+    public function setLymProfitGrade(string $lymProfitGrade): void
+    {
+        $this->lymProfitGrade = $lymProfitGrade;
+    }
+
+    public function getBwProfitGrade(): string
+    {
+        return $this->bwProfitGrade;
+    }
+
+    public function setBwProfitGrade(string $bwProfitGrade): void
+    {
+        $this->bwProfitGrade = $bwProfitGrade;
+    }
+
+    public function getMlProfitGrade(): string
+    {
+        return $this->mlProfitGrade;
+    }
+
+    public function setMlProfitGrade(string $mlProfitGrade): void
+    {
+        $this->mlProfitGrade = $mlProfitGrade;
+    }
+
+    public function getThProfitGrade(): string
+    {
+        return $this->thProfitGrade;
+    }
+
+    public function setThProfitGrade(string $thProfitGrade): void
+    {
+        $this->thProfitGrade = $thProfitGrade;
     }
 
     public function getFsWeightProfitQuotient(): float
