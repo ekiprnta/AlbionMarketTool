@@ -35,6 +35,7 @@ class BlackMarketTransportingHandler
             } catch (\InvalidArgumentException $invalidArgumentException) {
                 $alertMessage = $invalidArgumentException->getMessage();
             }
+            dd($cityData);
         }
 
         $htmlContent = $this->twigEnvironment->render('BlackMarketTransport.html.twig', [

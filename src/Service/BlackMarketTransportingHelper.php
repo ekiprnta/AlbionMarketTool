@@ -50,7 +50,7 @@ class BlackMarketTransportingHelper extends Market
     private static function getCityItem(BlackMarketTransportEntity $bmtEntity, string $city): ItemEntity
     {
         return match ($city) {
-            'Fort Sterling' => $bmtEntity->getFsItem(),
+            'Fort Sterling' => $bmtEntity->getCityItem(),
             'Lymhurst' => $bmtEntity->getLymItem(),
             'Bridgewatch' => $bmtEntity->getBwItem(),
             'Martlock' => $bmtEntity->getMlItem(),

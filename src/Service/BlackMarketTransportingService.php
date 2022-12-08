@@ -27,12 +27,7 @@ class BlackMarketTransportingService
         if (empty($weight)) {
             throw new InvalidArgumentException('Please insert your maximum carry Weight');
         }
-        $this->maxWeight = $weight;
-        $fsItems = $this->itemRepository->getItemsForTransport('Fort Sterling');
-        $lymItems = $this->itemRepository->getItemsForTransport('Lymhurst');
-        $bwItems = $this->itemRepository->getItemsForTransport('Bridgewatch');
-        $mlItems = $this->itemRepository->getItemsForTransport('Martlock');
-        $thItems = $this->itemRepository->getItemsForTransport('Thetford');
+        $cityItem = $this->itemRepository->getItemsForTransport($itemCity);
         $bmItems = $this->itemRepository->getItemsForTransport('Black Market');
 
         $bmtEntities = [];
@@ -42,30 +37,10 @@ class BlackMarketTransportingService
 
         /** @var BlackMarketTransportEntity $bmtEntity */
         foreach ($bmtEntities as $bmtEntity) {
-            $bmtEntity->setFsItem(BlackMarketTransportingHelper::calculateCityItem($bmtEntity, $fsItems));
-            $bmtEntity->setLymItem(BlackMarketTransportingHelper::calculateCityItem($bmtEntity, $lymItems));
-            $bmtEntity->setBwItem(BlackMarketTransportingHelper::calculateCityItem($bmtEntity, $bwItems));
-            $bmtEntity->setMlItem(BlackMarketTransportingHelper::calculateCityItem($bmtEntity, $mlItems));
-            $bmtEntity->setThItem(BlackMarketTransportingHelper::calculateCityItem($bmtEntity, $thItems));
-
-
-            $bmtEntity->setFsProfit(BlackMarketTransportingHelper::calculateProfit($bmtEntity, 'Fort Sterling'));
-            $bmtEntity->setLymProfit(BlackMarketTransportingHelper::calculateProfit($bmtEntity, 'Lymhurst'));
-            $bmtEntity->setBwProfit(BlackMarketTransportingHelper::calculateProfit($bmtEntity, 'Bridgewatch'));
-            $bmtEntity->setMlProfit(BlackMarketTransportingHelper::calculateProfit($bmtEntity, 'Martlock'));
-            $bmtEntity->setThProfit(BlackMarketTransportingHelper::calculateProfit($bmtEntity, 'Thetford'));
-
-            $bmtEntity->setFsWeightProfitQuotient(BlackMarketTransportingHelper::calculateWeightProfitQuotient($bmtEntity->getFsProfit(), $weight));
-            $bmtEntity->setLymWeightProfitQuotient(BlackMarketTransportingHelper::calculateWeightProfitQuotient($bmtEntity->getLymProfit(), $weight));
-            $bmtEntity->setBwWeightProfitQuotient(BlackMarketTransportingHelper::calculateWeightProfitQuotient($bmtEntity->getBwProfit(), $weight));
-            $bmtEntity->setMlWeightProfitQuotient(BlackMarketTransportingHelper::calculateWeightProfitQuotient($bmtEntity->getMlProfit(), $weight));
-            $bmtEntity->setThWeightProfitQuotient(BlackMarketTransportingHelper::calculateWeightProfitQuotient($bmtEntity->getThProfit(), $weight));
-
-            $bmtEntity->setFsProfitGrade(BlackMarketTransportingHelper::calculateProfitGrade($bmtEntity->getFsWeightProfitQuotient()));
-            $bmtEntity->setLymProfitGrade(BlackMarketTransportingHelper::calculateProfitGrade($bmtEntity->getFsWeightProfitQuotient()));
-            $bmtEntity->setBwProfitGrade(BlackMarketTransportingHelper::calculateProfitGrade($bmtEntity->getFsWeightProfitQuotient()));
-            $bmtEntity->setMlProfitGrade(BlackMarketTransportingHelper::calculateProfitGrade($bmtEntity->getFsWeightProfitQuotient()));
-            $bmtEntity->setThProfitGrade(BlackMarketTransportingHelper::calculateProfitGrade($bmtEntity->getFsWeightProfitQuotient()));
+            $bmtEntity->setCityItem(BlackMarketTransportingHelper::calculateCityItem($bmtEntity, $cityItem));
+            $bmtEntity->setProfit(BlackMarketTransportingHelper::calculateProfit($bmtEntity, 'Fort Sterling'));
+            $bmtEntity->setWeightProfitQuotient(BlackMarketTransportingHelper::calculateWeightProfitQuotient($bmtEntity->getProfit(), $weight));
+            $bmtEntity->setProfitGrade(BlackMarketTransportingHelper::calculateProfitGrade($bmtEntity->getWeightProfitQuotient()));
 
         }
 //        $combinedItems = $this->combineItems($cityItems, $bmItems);
