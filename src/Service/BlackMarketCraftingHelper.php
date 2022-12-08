@@ -83,7 +83,7 @@ class BlackMarketCraftingHelper extends Market
         BlackMarketCraftingEntity $bmcEntity,
         float $percentage,
         string $order,
-    ): array {
+    ): float {
         if ($order === '1') {
             $itemCost = $bmcEntity->getPrimResource()
                     ->getSellOrderPrice() *
@@ -93,7 +93,6 @@ class BlackMarketCraftingHelper extends Market
                     ->getSellOrderPrice() *
                 $bmcEntity->getItem()
                     ->getSecondaryResourceAmount();
-
         } else {
             $itemCost = $this->calculateBuyOrder(
                 $bmcEntity->getPrimResource()->getBuyOrderPrice() *
@@ -132,9 +131,8 @@ class BlackMarketCraftingHelper extends Market
         return ($itemSellPrice - ($itemCost * $rate)) * $amount;
     }
 
-    public function calculateItemValue(BlackMarketCraftingEntity $bmcEntity): int
+    public function calculateItemValue(int $totalAmount, int $price): int
     {
-        return $bmcEntity->getItem()
-                ->getSellOrderPrice() * $bmcEntity->getTotalAmount();
+        return $totalAmount * $price;
     }
 }
