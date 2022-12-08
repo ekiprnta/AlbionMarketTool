@@ -46,9 +46,17 @@ class BlackMarketTransportEntity
     private float $thWeightProfitQuotient;
     private string $thProfitGrade;
 
+    private string $tierColor;
+
     public function __construct(ItemEntity $bmItem, private int $weight)
     {
         $this->bmItem = $bmItem;
+        $this->tierColor = $bmItem->getTier()[0];
+    }
+
+    public function getTierColor(): string
+    {
+        return $this->tierColor;
     }
 
     public function getFsProfitGrade(): string

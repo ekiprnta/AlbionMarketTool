@@ -44,12 +44,18 @@ class BlackMarketCraftingEntity
     private int $itemAge;
 
     private float $fameAmount;
-
+    private string $tierColor;
     private int $itemValue;
 
     public function __construct(private ItemEntity $item, private int $totalWeightResources)
     {
         $this->secResource = ResourceEntityFactory::getEmptyResourceEntity();
+        $this->tierColor = $item->getTier()[0];
+    }
+
+    public function getTierColor(): string
+    {
+        return $this->tierColor;
     }
 
     public function setItemValue(int $itemValue): void
