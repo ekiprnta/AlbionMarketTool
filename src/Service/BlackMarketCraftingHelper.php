@@ -2,7 +2,6 @@
 
 namespace MZierdt\Albion\Service;
 
-use MZierdt\Albion\Entity\BlackMarketCraftingEntity;
 use MZierdt\Albion\Entity\JournalEntity;
 use MZierdt\Albion\Entity\ResourceEntity;
 
@@ -70,11 +69,10 @@ class BlackMarketCraftingHelper extends Market
     }
 
     public function calculateCraftingFee(
-        BlackMarketCraftingEntity $bmcEntity,
+        int $itemValue,
         int $feeProHundredNutrition
     ): float {
-        $nutrition = $bmcEntity->getItem()
-                ->getItemValue() * self::NUTRITION_FACTOR;
+        $nutrition = $itemValue * self::NUTRITION_FACTOR;
         return $nutrition * $feeProHundredNutrition / 100;
     }
 
@@ -91,12 +89,9 @@ class BlackMarketCraftingHelper extends Market
         return $profit - $craftingFee + $profitJournals;
     }
 
-    public function calculateProfitBooks(BlackMarketCraftingEntity $bmcEntity): float
+    public function calculateProfitBooks(int $emptyJournalPrice, int $fullJournalPrice, int $journalAmount): float
     {
-        return ($this->calculateSellOrder($bmcEntity->getJournalEntityFull()->getSellOrderPrice()) -
-                $bmcEntity->getJournalEntityEmpty()
-                    ->getBuyOrderPrice()) *
-            $bmcEntity->getJournalAmount();
+        return ($this->calculateSellOrder($fullJournalPrice) - $emptyJournalPrice) * $journalAmount;
     }
 
     public function calculateProfitByPercentage(
@@ -121,8 +116,10 @@ class BlackMarketCraftingHelper extends Market
         int $secResourcePrice,
         int $secResourceAmount
     ): float {
-        return $this->calculateBuyOrder($primResourcePrice * $primResourceAmount +
-                $secResourcePrice * $secResourceAmount);
+        return $this->calculateBuyOrder(
+            $primResourcePrice * $primResourceAmount +
+            $secResourcePrice * $secResourceAmount
+        );
     }
 
     public function calculateSellOrderItemCost(
@@ -130,7 +127,7 @@ class BlackMarketCraftingHelper extends Market
         int $primResourceAmount,
         int $secResourcePrice,
         int $secResourceAmount
-    ): float{
+    ): float {
         return $primResourcePrice * $primResourceAmount +
             $secResourcePrice * $secResourceAmount;
     }

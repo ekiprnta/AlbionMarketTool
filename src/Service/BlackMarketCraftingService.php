@@ -123,11 +123,19 @@ class BlackMarketCraftingService
                 )
             );
 
-            $bmcEntity->setFameAmount($this->bmtHelper->calculateFameAmount($bmcEntity->getTotalAmount(), $bmcEntity->getItem()->getFame()));
-            $bmcEntity->setCraftingFee(
-                $this->bmtHelper->calculateCraftingFee($bmcEntity, $feeProHundredNutrition)
+            $bmcEntity->setFameAmount(
+                $this->bmtHelper->calculateFameAmount($bmcEntity->getTotalAmount(), $bmcEntity->getItem()->getFame())
             );
-            $bmcEntity->setProfitJournals($this->bmtHelper->calculateProfitBooks($bmcEntity));
+            $bmcEntity->setCraftingFee(
+                $this->bmtHelper->calculateCraftingFee($bmcEntity->getItem()->getItemValue(), $feeProHundredNutrition)
+            );
+            $bmcEntity->setProfitJournals(
+                $this->bmtHelper->calculateProfitBooks(
+                    $bmcEntity->getJournalEntityEmpty()->getBuyOrderPrice(),
+                    $bmcEntity->getJournalEntityFull()->getSellOrderPrice(),
+                    $bmcEntity->getJournalAmount()
+                )
+            );
 
             $itemCost = $this->calculateItemCost($bmcEntity, $order);
             $bmcEntity->setProfit(
