@@ -2,6 +2,8 @@
 
 namespace MZierdt\Albion\Service;
 
+use DateTimeImmutable;
+
 class Market
 {
     public const NUTRITION_FACTOR = 0.1125;
@@ -12,19 +14,45 @@ class Market
 
     public const RRR_BASE_PERCENTAGE = 100;
 
-    protected function calculateSell(float|int $price)
+    protected function calculateSell(float|int $price): float
     {
         return $price * (1 - self::MARKET_FEE);
     }
 
-    protected function calculateSellOrder(float|int $price)
+    protected function calculateSellOrder(float|int $price): float
     {
         return $price * (1 - self::MARKET_FEE - self::MARKET_SETUP);
     }
 
-    protected function calculateBuyOrder(float|int $price)
+    protected function calculateBuyOrder(float|int $price): float
     {
         return $price * (1 - self::MARKET_SETUP);
     }
 
+    protected function calculateCraftingGrade(float $quotient): string
+    {
+        return match (true) {
+            $quotient >= 1800 => 'S',
+            $quotient >= 900 => 'A',
+            $quotient >= 350 => 'B',
+            $quotient >= 0 => 'C',
+            default => 'D',
+        };
+    }
+
+    protected function calculateWeightProfitQuotient(float|int $profit, int $weight): float
+    {
+        if ($profit === 0) {
+            return 0.0;
+        }
+        return $profit / $weight;
+    }
+
+    protected function calculateAge(DateTimeImmutable $priceDate): int
+    {
+        $now = DateTimeImmutable::createFromFormat('Y-m-d H:i:s', Date('Y-m-d H:i:s'));
+
+        $dateDiff = date_diff($now, $priceDate);
+        return $dateDiff->d * 24 * 60 + $dateDiff->h * 60 + $dateDiff->i;
+    }
 }

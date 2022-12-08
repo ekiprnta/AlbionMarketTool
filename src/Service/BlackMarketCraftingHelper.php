@@ -171,7 +171,6 @@ class BlackMarketCraftingHelper extends Market
 
     public static function calculateItemPriceAge(\DateTimeImmutable $itemPriceDate): int
     {
-        return TimeHelper::calculateAgeOfPrices($itemPriceDate);
     }
 
     public static function calculateItemValue(BlackMarketCraftingEntity $bmcEntity): int
