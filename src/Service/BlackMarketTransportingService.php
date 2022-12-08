@@ -10,7 +10,7 @@ use MZierdt\Albion\repositories\ItemRepository;
 
 class BlackMarketTransportingService
 {
-    public function __construct(private ItemRepository $itemRepository)
+    public function __construct(private ItemRepository $itemRepository, private BlackMarketTransportingHelper $bmtHelper)
     {
     }
 
@@ -35,13 +35,13 @@ class BlackMarketTransportingService
 
         /** @var BlackMarketTransportEntity $bmtEntity */
         foreach ($bmtEntities as $bmtEntity) {
-            $bmtEntity->setCityItem(BlackMarketTransportingHelper::calculateCityItem($bmtEntity, $cityItem));
-            $bmtEntity->setProfit(BlackMarketTransportingHelper::calculateProfit($bmtEntity));
+            $bmtEntity->setCityItem($this->bmtHelper->calculateCityItem($bmtEntity, $cityItem));
+            $bmtEntity->setProfit($this->bmtHelper->calculateProfit($bmtEntity));
             $bmtEntity->setWeightProfitQuotient(
-                BlackMarketTransportingHelper::calculateWeightProfitQuotient($bmtEntity->getProfit(), $weight)
+                $this->bmtHelper->calculateWeightProfitQuotient($bmtEntity->getProfit(), $weight)
             );
             $bmtEntity->setProfitGrade(
-                BlackMarketTransportingHelper::calculateProfitGrade($bmtEntity->getWeightProfitQuotient())
+                $this->bmtHelper->calculateProfitGrade($bmtEntity->getWeightProfitQuotient())
             );
         }
 //        $combinedItems = $this->combineItems($cityItems, $bmItems);

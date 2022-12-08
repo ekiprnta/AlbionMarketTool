@@ -12,22 +12,22 @@ class Market
 
     public const RRR_BASE_PERCENTAGE = 100;
 
-    protected static function calculateSell(float|int $price): float
+    protected function calculateSell(float|int $price): float
     {
         return $price * (1 - self::MARKET_FEE);
     }
 
-    protected static function calculateSellOrder(float|int $price): float
+    protected function calculateSellOrder(float|int $price): float
     {
         return $price * (1 - self::MARKET_FEE - self::MARKET_SETUP);
     }
 
-    protected static function calculateBuyOrder(float|int $price): float
+    protected function calculateBuyOrder(float|int $price): float
     {
         return $price * (1 - self::MARKET_SETUP);
     }
 
-    protected static function calculateProfitGrade(float $quotient): string
+    public function calculateProfitGrade(float $quotient): string
     {
         return match (true) {
             $quotient >= 1800 => 'S',
@@ -38,7 +38,7 @@ class Market
         };
     }
 
-    protected static function calculateWeightProfitQuotient(float|int $profit, int $weight): float
+    public function calculateWeightProfitQuotient(float|int $profit, int $weight): float
     {
         if ($profit === 0) {
             return 0.0;

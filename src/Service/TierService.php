@@ -6,14 +6,14 @@ namespace MZierdt\Albion\Service;
 
 class TierService
 {
-    public static function splitIntoTierAndName(string $itemId): array
+    public function splitIntoTierAndName(string $itemId): array
     {
         $itemId = strtolower($itemId);
         $itemIdArray = explode('_', $itemId);
 
         if ($itemIdArray[0] === 't2' || $itemIdArray[0] === 't3') {
             return [
-                'tier' => self::tierConverter(array_shift($itemIdArray)),
+                'tier' => $this->tierConverter(array_shift($itemIdArray)),
                 'name' => implode('_', $itemIdArray),
             ];
         }
@@ -23,7 +23,7 @@ class TierService
 
         if (! str_contains($itemName, '@')) {
             return [
-                'tier' => self::tierConverter($preTier),
+                'tier' => $this->tierConverter($preTier),
                 'name' => $itemName,
             ];
         }
@@ -31,12 +31,12 @@ class TierService
         $explodedNameEnchantment = explode('@', $itemName);
 
         return [
-            'tier' => self::tierConverter($preTier . $explodedNameEnchantment[1]),
+            'tier' => $this->tierConverter($preTier . $explodedNameEnchantment[1]),
             'name' => $explodedNameEnchantment[0],
         ];
     }
 
-    private static function tierConverter(string $tierString): int
+    private function tierConverter(string $tierString): int
     {
         return (int) ltrim($tierString, 't');
     }

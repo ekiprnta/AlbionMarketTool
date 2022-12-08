@@ -7,9 +7,9 @@ use DateTimeZone;
 
 class TimeHelper
 {
-    public static function calculateAge(?string $dateString): int
+    public function calculateAge(?string $dateString): int
     {
-        $priceDate = self::calculateDateTimeImmutable($dateString);
+        $priceDate = $this->calculateDateTimeImmutable($dateString);
 
         $now = DateTimeImmutable::createFromFormat('Y-m-d H:i:s', Date('Y-m-d H:i:s'));
 
@@ -17,7 +17,7 @@ class TimeHelper
         return $dateDiff->d * 24 * 60 + $dateDiff->h * 60 + $dateDiff->i;
     }
 
-    private static function calculateDateTimeImmutable(?string $dateString): DateTimeImmutable
+    private function calculateDateTimeImmutable(?string $dateString): DateTimeImmutable
     {
         if ($dateString === null) {
             return DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '2000-00-00 00:00:00');

@@ -19,12 +19,17 @@ use MZierdt\Albion\Handler\BlackMarketTransportingHandler;
 use MZierdt\Albion\Handler\listDataHandler;
 use MZierdt\Albion\repositories\DeleteDataRepository;
 use MZierdt\Albion\repositories\JournalRepository;
+use MZierdt\Albion\Service\BlackMarketCraftingHelper;
 use MZierdt\Albion\Service\BlackMarketCraftingService;
 use MZierdt\Albion\Service\BlackMarketTransportingService;
 use MZierdt\Albion\HttpClient;
 use MZierdt\Albion\repositories\ItemRepository;
 use MZierdt\Albion\repositories\ResourceRepository;
 use MZierdt\Albion\Service\ApiService;
+use MZierdt\Albion\Service\ConfigService;
+use MZierdt\Albion\Service\TierService;
+use MZierdt\Albion\Service\TimeHelper;
+use MZierdt\Albion\Service\UploadHelper;
 use Twig\Environment;
 
 $serviceManager = new ServiceManager([
@@ -40,11 +45,19 @@ $serviceManager = new ServiceManager([
                     ItemRepository::class,
                     ResourceRepository::class,
                 ],
+                UploadHelper::class => [
+                    TierService::class
+                ],
+                BlackMarketCraftingHelper::class => [],
+                TimeHelper::class => [],
+                ConfigService::class => [],
                 BlackMarketCraftingService::class => [
                     ItemRepository::class,
                     ResourceRepository::class,
                     JournalRepository::class,
+                    BlackMarketCraftingHelper::class,
                 ],
+                TierService::class => [],
                 BlackMarketTransportingService::class => [
                     ItemRepository::class
                 ],

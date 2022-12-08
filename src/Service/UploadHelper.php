@@ -6,12 +6,16 @@ namespace MZierdt\Albion\Service;
 
 class UploadHelper
 {
-    public static function adjustResourceArray(array $resourceData, array $resourceStats): array
+    public function __construct(private TierService $tierService)
+    {
+    }
+
+    public function adjustResourceArray(array $resourceData, array $resourceStats): array
     {
         $adjustedResourceArray = [];
         foreach ($resourceData as $resource) {
-            $nameAndTier = TierService::splitIntoTierAndName($resource['item_id']);
-            $name = self::getResourceName($nameAndTier['name']);
+            $nameAndTier = $this->tierService->splitIntoTierAndName($resource['item_id']);
+            $name = $this->getResourceName($nameAndTier['name']);
             $adjustedResourceArray[] = [
                 'tier' => $nameAndTier['tier'],
                 'name' => $name,
@@ -79,7 +83,7 @@ class UploadHelper
         return $adjustedItems;
     }
 
-    private static function getResourceName(string $name): string
+    private function getResourceName(string $name): string
     {
         if (str_contains($name, 'level')) {
             return substr($name, 0, -7);

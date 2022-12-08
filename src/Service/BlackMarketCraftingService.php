@@ -23,6 +23,7 @@ class BlackMarketCraftingService
         private ItemRepository $itemRepository,
         private ResourceRepository $resourceRepository,
         private JournalRepository $journalRepository,
+        private BlackMarketCraftingHelper $bmtHelper
     ) {
     }
 
@@ -60,25 +61,25 @@ class BlackMarketCraftingService
         }
         /** @var BlackMarketCraftingEntity $bmcEntity */
         foreach ($calculateEntityArray as $bmcEntity) {
-            $bmcEntity->setResources(BlackMarketCraftingHelper::calculateResources($bmcEntity, $resources));
-            $bmcEntity->setJournals(BlackMarketCraftingHelper::calculateJournals($bmcEntity, $journals));
-            $bmcEntity->setAmounts(BlackMarketCraftingHelper::calculateTotalAmount($bmcEntity, $weight));
-            $bmcEntity->setFameAmount(BlackMarketCraftingHelper::calculateFameAmount($bmcEntity));
+            $bmcEntity->setResources($this->bmtHelper->calculateResources($bmcEntity, $resources));
+            $bmcEntity->setJournals($this->bmtHelper->calculateJournals($bmcEntity, $journals));
+            $bmcEntity->setAmounts($this->bmtHelper->calculateTotalAmount($bmcEntity, $weight));
+            $bmcEntity->setFameAmount($this->bmtHelper->calculateFameAmount($bmcEntity));
             $bmcEntity->setCraftingFee(
-                BlackMarketCraftingHelper::calculateCraftingFee($bmcEntity, $feeProHundredNutrition)
+                $this->bmtHelper->calculateCraftingFee($bmcEntity, $feeProHundredNutrition)
             );
-            $bmcEntity->setProfitBooks(BlackMarketCraftingHelper::calculateProfitBooks($bmcEntity));
-            $bmcEntity->setProfit(BlackMarketCraftingHelper::calculateProfit($bmcEntity, $percentage, $order));
-            $bmcEntity->setItemValue(BlackMarketCraftingHelper::calculateItemValue($bmcEntity));
+            $bmcEntity->setProfitBooks($this->bmtHelper->calculateProfitBooks($bmcEntity));
+            $bmcEntity->setProfit($this->bmtHelper->calculateProfit($bmcEntity, $percentage, $order));
+            $bmcEntity->setItemValue($this->bmtHelper->calculateItemValue($bmcEntity));
             $bmcEntity->setItemAge($bmcEntity->getItem()->getSellOrderAge());
             $bmcEntity->setWeightProfitQuotient(
-                BlackMarketCraftingHelper::calculateWeightProfitQuotient(
+                $this->bmtHelper->calculateWeightProfitQuotient(
                     $bmcEntity->getProfit(),
                     $bmcEntity->getTotalWeightResources()
                 )
             );
             $bmcEntity->setColorGrade(
-                BlackMarketCraftingHelper::calculateProfitGrade($bmcEntity->getWeightProfitQuotient())
+                $this->bmtHelper->calculateProfitGrade($bmcEntity->getWeightProfitQuotient())
             );
         }
 
