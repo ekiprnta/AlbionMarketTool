@@ -80,34 +80,14 @@ class BlackMarketCraftingHelper extends Market
     }
 
     public function calculateProfit(
-        BlackMarketCraftingEntity $bmcEntity,
+        int $totalAmount,
+        int $itemPrice,
+        float $itemCost,
         float $percentage,
-        string $order,
+        float $craftingFee,
+        float $profitJournals,
     ): float {
-        if ($order === '1') {
-            $itemCost = $bmcEntity->getPrimResource()
-                    ->getSellOrderPrice() *
-                $bmcEntity->getItem()
-                    ->getPrimaryResourceAmount() +
-                $bmcEntity->getSecResource()
-                    ->getSellOrderPrice() *
-                $bmcEntity->getItem()
-                    ->getSecondaryResourceAmount();
-        } else {
-            $itemCost = $this->calculateBuyOrder(
-                $bmcEntity->getPrimResource()->getBuyOrderPrice() *
-                $bmcEntity->getItem()
-                    ->getPrimaryResourceAmount() +
-                $bmcEntity->getSecResource()
-                    ->getBuyOrderPrice() *
-                $bmcEntity->getItem()
-                    ->getSecondaryResourceAmount()
-            );
-        }
-
-        $profit = $this->calculateProfitByPercentage($bmcEntity, $itemCost, $percentage);
-        $craftingFee = $bmcEntity->getCraftingFee();
-        $profitJournals = $bmcEntity->getProfitBooks();
+        $profit = $this->calculateProfitByPercentage($totalAmount, $itemPrice, $itemCost, $percentage);
 
         return $profit - $craftingFee + $profitJournals;
     }
@@ -121,18 +101,38 @@ class BlackMarketCraftingHelper extends Market
     }
 
     public function calculateProfitByPercentage(
-        BlackMarketCraftingEntity $bmcEntity,
+        int $totalAmount,
+        int $itemPrice,
         float $itemCost,
         float $percentage
     ): float {
         $rate = (self::RRR_BASE_PERCENTAGE - $percentage) / 100;
-        $amount = $bmcEntity->getTotalAmount();
-        $itemSellPrice = $this->calculateSellOrder($bmcEntity->getItem()->getSellOrderPrice());
-        return ($itemSellPrice - ($itemCost * $rate)) * $amount;
+        $itemSellPrice = $this->calculateSellOrder($itemPrice);
+        return ($itemSellPrice - ($itemCost * $rate)) * $totalAmount;
     }
 
     public function calculateItemValue(int $totalAmount, int $price): int
     {
         return $totalAmount * $price;
+    }
+
+    public function calculateBuyOrderItemCost(
+        int $primResourcePrice,
+        int $primResourceAmount,
+        int $secResourcePrice,
+        int $secResourceAmount
+    ): float {
+        return $this->calculateBuyOrder($primResourcePrice * $primResourceAmount +
+                $secResourcePrice * $secResourceAmount);
+    }
+
+    public function calculateSellOrderItemCost(
+        int $primResourcePrice,
+        int $primResourceAmount,
+        int $secResourcePrice,
+        int $secResourceAmount
+    ): float{
+        return $primResourcePrice * $primResourceAmount +
+            $secResourcePrice * $secResourceAmount;
     }
 }

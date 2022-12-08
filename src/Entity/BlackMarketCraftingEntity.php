@@ -33,7 +33,7 @@ class BlackMarketCraftingEntity
     private float $totalItemWeight;
 
     private float $craftingFee;
-    private float $profitBooks;
+    private float $profitJournals;
     private float $profit;
     private float $weightProfitQuotient;
     private string $colorGrade;
@@ -120,14 +120,14 @@ class BlackMarketCraftingEntity
         $this->weightProfitQuotient = $weightProfitQuotient;
     }
 
-    public function getProfitBooks(): float
+    public function getProfitJournals(): float
     {
-        return $this->profitBooks;
+        return $this->profitJournals;
     }
 
-    public function setProfitBooks(float $profitBooks): void
+    public function setProfitJournals(float $profitJournals): void
     {
-        $this->profitBooks = $profitBooks;
+        $this->profitJournals = $profitJournals;
     }
 
     public function getProfit(): float
