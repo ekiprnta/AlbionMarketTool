@@ -36,10 +36,9 @@ class BlackMarketCraftingHelper extends Market
         return $fame / $fameToFill;
     }
 
-    public function calculateFameAmount(BlackMarketCraftingEntity $bmcEntity): float
+    public function calculateFameAmount(int $totalAmount, float $fame): float
     {
-        return $bmcEntity->getTotalAmount() * $bmcEntity->getItem()
-                ->getFame() * self::PREMIUM_FACTOR;
+        return $totalAmount * $fame * self::PREMIUM_FACTOR;
     }
 
     public function calculateTotalAmount(

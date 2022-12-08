@@ -123,7 +123,7 @@ class BlackMarketCraftingService
                 )
             );
 
-            $bmcEntity->setFameAmount($this->bmtHelper->calculateFameAmount($bmcEntity));
+            $bmcEntity->setFameAmount($this->bmtHelper->calculateFameAmount($bmcEntity->getTotalAmount(), $bmcEntity->getItem()->getFame()));
             $bmcEntity->setCraftingFee(
                 $this->bmtHelper->calculateCraftingFee($bmcEntity, $feeProHundredNutrition)
             );
