@@ -62,24 +62,24 @@ class BlackMarketCraftingService
         /** @var BlackMarketCraftingEntity $bmcEntity */
         foreach ($calculateEntityArray as $bmcEntity) {
             $bmcEntity->setPrimResource(
-                $this->bmtHelper->calculateResources(
+                $this->bmtHelper->calculateResource(
                     $bmcEntity->getItem()->getPrimaryResource(),
                     $bmcEntity->getItem()->getTier(),
                     $resources
                 )
             );
             $bmcEntity->setSecResource(
-                $this->bmtHelper->calculateResources(
+                $this->bmtHelper->calculateResource(
                     $bmcEntity->getItem()->getSecondaryResource(),
                     $bmcEntity->getItem()->getTier(),
                     $resources
                 )
             );
             $bmcEntity->setJournalEntityFull(
-                $this->bmtHelper->calculateJournals($bmcEntity->getItem()->getTier(), 'full', $journals)
+                $this->bmtHelper->calculateJournal($bmcEntity->getItem()->getTier(), 'full', $journals)
             );
             $bmcEntity->setJournalEntityEmpty(
-                $this->bmtHelper->calculateJournals($bmcEntity->getItem()->getTier(), 'empty', $journals)
+                $this->bmtHelper->calculateJournal($bmcEntity->getItem()->getTier(), 'empty', $journals)
             );
             $bmcEntity->setJournalAmountPerItem(
                 $this->bmtHelper->calculateJournalAmountPerItem(
@@ -130,7 +130,7 @@ class BlackMarketCraftingService
                 $this->bmtHelper->calculateCraftingFee($bmcEntity->getItem()->getItemValue(), $feeProHundredNutrition)
             );
             $bmcEntity->setProfitJournals(
-                $this->bmtHelper->calculateProfitBooks(
+                $this->bmtHelper->calculateProfitJournals(
                     $bmcEntity->getJournalEntityEmpty()->getBuyOrderPrice(),
                     $bmcEntity->getJournalEntityFull()->getSellOrderPrice(),
                     $bmcEntity->getJournalAmount()

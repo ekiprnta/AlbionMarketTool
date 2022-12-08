@@ -7,7 +7,7 @@ use MZierdt\Albion\Entity\ResourceEntity;
 
 class BlackMarketCraftingHelper extends Market
 {
-    public function calculateResources(string $resourceName, string $tier, array $resources): ?ResourceEntity
+    public function calculateResource(string $resourceName, string $tier, array $resources): ?ResourceEntity
     {
         /** @var ResourceEntity $resource */
         foreach ($resources as $resource) {
@@ -19,7 +19,7 @@ class BlackMarketCraftingHelper extends Market
     }
 
 
-    public function calculateJournals(string $tier, string $fillStatus, array $journals): ?JournalEntity
+    public function calculateJournal(string $tier, string $fillStatus, array $journals): ?JournalEntity
     {
         /** @var JournalEntity $journal */
         foreach ($journals as $journal) {
@@ -89,12 +89,12 @@ class BlackMarketCraftingHelper extends Market
         return $profit - $craftingFee + $profitJournals;
     }
 
-    public function calculateProfitBooks(int $emptyJournalPrice, int $fullJournalPrice, int $journalAmount): float
+    public function calculateProfitJournals(int $emptyJournalPrice, int $fullJournalPrice, int $journalAmount): float
     {
         return ($this->calculateSellOrder($fullJournalPrice) - $emptyJournalPrice) * $journalAmount;
     }
 
-    public function calculateProfitByPercentage(
+    private function calculateProfitByPercentage(
         int $totalAmount,
         int $itemPrice,
         float $itemCost,
