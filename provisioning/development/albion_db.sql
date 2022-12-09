@@ -112,8 +112,8 @@ COMMIT;
 
 INSERT INTO `items` (tier, name, weaponGroup, realName, class, city, quality, sellOrderPrice, sellOrderPriceDate, buyOrderPrice, buyOrderPriceDate, primaryResource, primaryResourceAmount, secondaryResource, secondaryResourceAmount, bonusCity)
 VALUES
-    ('71', '3h_axe','axe','greatAxe', 'warrior', 'TestCity', 2,341992, '2022-12-06 21:15:00', 198594,'2022-12-06 21:15:00', 'metalBar', 20, 'Planks', 12,'TestCity'),
-    ('71', '3h_axe','axe','greatAxe', 'warrior', 'Black Market',2, 341992, '2022-12-06 21:15:00', 198594,'2022-12-06 21:15:00', 'metalBar', 20, 'Planks', 12,'TestCity');
+    ('71', '3h_axe','axe','greatAxe', 'warrior', 'TestCity', 2,341992, '2022-12-06 21:15:00', 198594,'2022-12-06 21:15:00', 'metalBar', 20, 'planks', 12,'TestCity'),
+    ('71', '3h_axe','axe','greatAxe', 'warrior', 'Black Market',2, 341992, '2022-12-06 21:15:00', 198594,'2022-12-06 21:15:00', 'metalBar', 20, 'planks', 12,'TestCity');
 
 INSERT INTO journals (tier, name, city, fameToFill, sellOrderPrice, sellOrderPriceDate, buyOrderPrice, buyOrderPriceDate, weight, fillStatus, class)
 VALUES
