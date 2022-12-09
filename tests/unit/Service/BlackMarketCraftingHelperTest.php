@@ -1,6 +1,6 @@
 <?php
 
-namespace Service;
+namespace unit\Service;
 
 use MZierdt\Albion\Entity\JournalEntity;
 use MZierdt\Albion\Entity\ResourceEntity;

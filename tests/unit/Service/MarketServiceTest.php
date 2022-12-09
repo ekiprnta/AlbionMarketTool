@@ -1,6 +1,6 @@
 <?php
 
-namespace Service;
+namespace unit\Service;
 
 use MZierdt\Albion\Service\Market;
 use PHPUnit\Framework\TestCase;

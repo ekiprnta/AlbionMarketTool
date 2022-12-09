@@ -1,6 +1,6 @@
 <?php
 
-namespace Service;
+namespace unit\Service;
 
 use MZierdt\Albion\Entity\ItemEntity;
 use MZierdt\Albion\Service\BlackMarketTransportingHelper;

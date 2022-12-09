@@ -1,11 +1,7 @@
 <?php
 
-namespace Service;
+namespace unit\Service;
 
-use MZierdt\Albion\Entity\BlackMarketCraftingEntity;
-use MZierdt\Albion\Entity\ItemEntity;
-use MZierdt\Albion\Entity\JournalEntity;
-use MZierdt\Albion\Entity\ResourceEntity;
 use MZierdt\Albion\repositories\ItemRepository;
 use MZierdt\Albion\repositories\JournalRepository;
 use MZierdt\Albion\repositories\ResourceRepository;
