@@ -164,5 +164,4 @@ class ItemEntityTest extends TestCase
             'amountInStorage' => null,
         ]);
     }
-
 }

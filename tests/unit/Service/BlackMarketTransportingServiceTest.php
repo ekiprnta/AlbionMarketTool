@@ -28,20 +28,18 @@ class BlackMarketTransportingServiceTest extends TestCase
         );
     }
 
-/** @dataProvider exceptionData */
+    /**
+     * @dataProvider exceptionData
+     */
     public function testGetDataForCityException(string $itemCity, int $weight, array $tierList): void
     {
         $this->expectException('InvalidArgumentException');
 
-        $this->bmtService->getDataForCity($itemCity,$weight, $tierList);
+        $this->bmtService->getDataForCity($itemCity, $weight, $tierList);
     }
 
     public function exceptionData(): array
     {
-        return [
-            ['',5,['1','2']],
-            ['a',0,['1','2']],
-            ['a',5,[]],
-        ];
+        return [['', 5, ['1', '2']], ['a', 0, ['1', '2']], ['a', 5, []]];
     }
 }

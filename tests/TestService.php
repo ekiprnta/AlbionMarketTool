@@ -6,11 +6,11 @@ class TestService
     {
         return [
             'item_id' => '',
-            'city' =>'',
-            'sell_price_min' =>'',
-            'sell_price_min_date' =>'',
-            'buy_price_max' =>'',
-            'buy_price_max_date' =>'',
+            'city' => '',
+            'sell_price_min' => '',
+            'sell_price_min_date' => '',
+            'buy_price_max' => '',
+            'buy_price_max_date' => '',
         ];
     }
 
@@ -18,11 +18,11 @@ class TestService
     {
         return [
             'item_id' => '',
-            'city' =>'',
-            'sell_price_min' =>'',
-            'sell_price_min_date' =>'',
-            'buy_price_max' =>'',
-            'buy_price_max_date' =>'',
+            'city' => '',
+            'sell_price_min' => '',
+            'sell_price_min_date' => '',
+            'buy_price_max' => '',
+            'buy_price_max_date' => '',
         ];
     }
 
@@ -30,11 +30,11 @@ class TestService
     {
         return [
             'item_id' => '',
-            'city' =>'',
-            'sell_price_min' =>'',
-            'sell_price_min_date' =>'',
-            'buy_price_max' =>'',
-            'buy_price_max_date' =>'',
+            'city' => '',
+            'sell_price_min' => '',
+            'sell_price_min_date' => '',
+            'buy_price_max' => '',
+            'buy_price_max_date' => '',
         ];
     }
 
@@ -42,12 +42,11 @@ class TestService
     {
         return [
             'item_id' => '',
-            'city' =>'',
-            'sell_price_min' =>'',
-            'sell_price_min_date' =>'',
-            'buy_price_max' =>'',
-            'buy_price_max_date' =>'',
+            'city' => '',
+            'sell_price_min' => '',
+            'sell_price_min_date' => '',
+            'buy_price_max' => '',
+            'buy_price_max_date' => '',
         ];
     }
-
 }

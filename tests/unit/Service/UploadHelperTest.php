@@ -48,13 +48,22 @@ class UploadHelperTest extends TestCase
         $this->uploadHelper = new UploadHelper($this->tierService->reveal());
     }
 
-    /** @dataProvider dataForAdjustResource */
+    /**
+     * @dataProvider dataForAdjustResource
+     */
     public function testAdjustResourceArray(array $expectedArray, array $testData): void
     {
-        $this->tierService->splitIntoTierAndName($testData[0]['item_id'])->willReturn(['name' => 'alfred', 'tier' => 2]
+        $this->tierService->splitIntoTierAndName($testData[0]['item_id'])->willReturn(
+            [
+                'name' => 'alfred',
+                'tier' => 2,
+            ]
         );
 
-        $stats = ['bonusCity' => '', 'realName' => ''];
+        $stats = [
+            'bonusCity' => '',
+            'realName' => '',
+        ];
         $this->assertEquals($expectedArray, $this->uploadHelper->adjustResourceArray($testData, $stats));
     }
 
@@ -73,9 +82,9 @@ class UploadHelperTest extends TestCase
                         'buyOrderPrice' => '',
                         'buyOrderPriceDate' => '',
                         'bonusCity' => '',
-                    ]
+                    ],
                 ],
-                [$this->testDataEmpty]
+                [$this->testDataEmpty],
             ],
             [
                 [
@@ -89,9 +98,9 @@ class UploadHelperTest extends TestCase
                         'buyOrderPrice' => '10',
                         'buyOrderPriceDate' => '2000-00-00T00:00:00',
                         'bonusCity' => '',
-                    ]
+                    ],
                 ],
-                [$this->testDataA]
+                [$this->testDataA],
             ],
             [
                 [
@@ -105,23 +114,27 @@ class UploadHelperTest extends TestCase
                         'buyOrderPrice' => '1000',
                         'buyOrderPriceDate' => '2000-00-00T12:00:00',
                         'bonusCity' => '',
-                    ]
+                    ],
                 ],
-                [$this->testDataB]
+                [$this->testDataB],
             ],
         ];
     }
 
-    /** @dataProvider dataForAdjustJournals */
+    /**
+     * @dataProvider dataForAdjustJournals
+     */
     public function testAdjustJournals(array $expectedArray, array $testData): void
     {
         $stats = [
             '2' => ['fameToFill' => '900', 'weight' => '10'],
         ];
 
-        $this->tierService->splitIntoTierAndName($testData[0]['item_id'])->willReturn(['name' => 'alfred', 'tier' => 2]
+        $this->tierService->splitIntoTierAndName($testData[0]['item_id'])->willReturn(
+            ['name' => 'alfred', 'tier' => 2]
         );
-        $this->tierService->journalSplitter('alfred')->willReturn(['class' => 'alfred', 'fillStatus' => 'full']);
+        $this->tierService->journalSplitter('alfred')
+            ->willReturn(['class' => 'alfred', 'fillStatus' => 'full']);
 
         $this->assertEquals($expectedArray, $this->uploadHelper->adjustJournals($testData, $stats));
     }
@@ -143,9 +156,9 @@ class UploadHelperTest extends TestCase
                         'weight' => '10',
                         'fillStatus' => 'full',
                         'class' => 'alfred',
-                    ]
+                    ],
                 ],
-                [$this->testDataEmpty]
+                [$this->testDataEmpty],
             ],
             [
                 [
@@ -161,9 +174,9 @@ class UploadHelperTest extends TestCase
                         'weight' => '10',
                         'fillStatus' => 'full',
                         'class' => 'alfred',
-                    ]
+                    ],
                 ],
-                [$this->testDataA]
+                [$this->testDataA],
             ],
             [
                 [
@@ -179,14 +192,16 @@ class UploadHelperTest extends TestCase
                         'weight' => '10',
                         'fillStatus' => 'full',
                         'class' => 'alfred',
-                    ]
+                    ],
                 ],
-                [$this->testDataB]
+                [$this->testDataB],
             ],
         ];
     }
 
-    /** @dataProvider dataForAdjustItems */
+    /**
+     * @dataProvider dataForAdjustItems
+     */
     public function testAdjustItems(array $expectedArray, array $testData): void
     {
         $stats = [
@@ -201,7 +216,8 @@ class UploadHelperTest extends TestCase
             'weaponGroup' => 'Hammer',
         ];
 
-        $this->tierService->splitIntoTierAndName($testData[0]['item_id'])->willReturn(['name' => 'alfred', 'tier' => 2]
+        $this->tierService->splitIntoTierAndName($testData[0]['item_id'])->willReturn(
+            ['name' => 'alfred', 'tier' => 2]
         );
 
         $this->assertEquals($expectedArray, $this->uploadHelper->adjustItems($testData, $stats));
@@ -231,9 +247,9 @@ class UploadHelperTest extends TestCase
                         'bonusCity' => 'cityB',
                         'fameFactor' => null,
 
-                    ]
+                    ],
                 ],
-                [$this->testDataEmpty]
+                [$this->testDataEmpty],
             ],
             [
                 [
@@ -256,9 +272,9 @@ class UploadHelperTest extends TestCase
                         'bonusCity' => 'cityB',
                         'fameFactor' => null,
 
-                    ]
+                    ],
                 ],
-                [$this->testDataA]
+                [$this->testDataA],
             ],
             [
                 [
@@ -281,9 +297,9 @@ class UploadHelperTest extends TestCase
                         'bonusCity' => 'cityB',
                         'fameFactor' => null,
 
-                    ]
+                    ],
                 ],
-                [$this->testDataB]
+                [$this->testDataB],
             ],
         ];
     }

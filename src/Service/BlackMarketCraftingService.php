@@ -62,15 +62,19 @@ class BlackMarketCraftingService
         foreach ($calculateEntityArray as $bmcEntity) {
             $bmcEntity->setPrimResource(
                 $this->bmtHelper->calculateResource(
-                    $bmcEntity->getItem()->getPrimaryResource(),
-                    $bmcEntity->getItem()->getTier(),
+                    $bmcEntity->getItem()
+                        ->getPrimaryResource(),
+                    $bmcEntity->getItem()
+                        ->getTier(),
                     $resources
                 )
             );
             $bmcEntity->setSecResource(
                 $this->bmtHelper->calculateResource(
-                    $bmcEntity->getItem()->getSecondaryResource(),
-                    $bmcEntity->getItem()->getTier(),
+                    $bmcEntity->getItem()
+                        ->getSecondaryResource(),
+                    $bmcEntity->getItem()
+                        ->getTier(),
                     $resources
                 )
             );
@@ -82,17 +86,23 @@ class BlackMarketCraftingService
             );
             $bmcEntity->setJournalAmountPerItem(
                 $this->bmtHelper->calculateJournalAmountPerItem(
-                    $bmcEntity->getItem()->getFame(),
-                    $bmcEntity->getJournalEntityEmpty()->getFameToFill()
+                    $bmcEntity->getItem()
+                        ->getFame(),
+                    $bmcEntity->getJournalEntityEmpty()
+                        ->getFameToFill()
                 )
             );
 
             $bmcEntity->setTotalAmount(
                 $this->bmtHelper->calculateTotalAmount(
-                    $bmcEntity->getPrimResource()->getWeight(),
-                    $bmcEntity->getItem()->getPrimaryResourceAmount() +
-                    $bmcEntity->getItem()->getSecondaryResourceAmount(),
-                    $bmcEntity->getJournalEntityEmpty()->getWeight(),
+                    $bmcEntity->getPrimResource()
+                        ->getWeight(),
+                    $bmcEntity->getItem()
+                        ->getPrimaryResourceAmount() +
+                    $bmcEntity->getItem()
+                        ->getSecondaryResourceAmount(),
+                    $bmcEntity->getJournalEntityEmpty()
+                        ->getWeight(),
                     $bmcEntity->getJournalAmountPerItem(),
                     $weight
                 )
@@ -100,13 +110,15 @@ class BlackMarketCraftingService
             $bmcEntity->setPrimResourceAmount(
                 $this->bmtHelper->calculateResourceAmount(
                     $bmcEntity->getTotalAmount(),
-                    $bmcEntity->getItem()->getPrimaryResourceAmount()
+                    $bmcEntity->getItem()
+                        ->getPrimaryResourceAmount()
                 )
             );
             $bmcEntity->setSecResourceAmount(
                 $this->bmtHelper->calculateResourceAmount(
                     $bmcEntity->getTotalAmount(),
-                    $bmcEntity->getItem()->getSecondaryResourceAmount()
+                    $bmcEntity->getItem()
+                        ->getSecondaryResourceAmount()
                 )
             );
             $bmcEntity->setJournalAmount(
@@ -118,7 +130,8 @@ class BlackMarketCraftingService
             $bmcEntity->setTotalItemWeight(
                 $this->bmtHelper->calculateTotalItemWeight(
                     $bmcEntity->getTotalAmount(),
-                    $bmcEntity->getItem()->getWeight()
+                    $bmcEntity->getItem()
+                        ->getWeight()
                 )
             );
 
@@ -130,8 +143,10 @@ class BlackMarketCraftingService
             );
             $bmcEntity->setProfitJournals(
                 $this->bmtHelper->calculateProfitJournals(
-                    $bmcEntity->getJournalEntityEmpty()->getBuyOrderPrice(),
-                    $bmcEntity->getJournalEntityFull()->getSellOrderPrice(),
+                    $bmcEntity->getJournalEntityEmpty()
+                        ->getBuyOrderPrice(),
+                    $bmcEntity->getJournalEntityFull()
+                        ->getSellOrderPrice(),
                     $bmcEntity->getJournalAmount()
                 )
             );
@@ -140,7 +155,8 @@ class BlackMarketCraftingService
             $bmcEntity->setProfit(
                 $this->bmtHelper->calculateProfit(
                     $bmcEntity->getTotalAmount(),
-                    $bmcEntity->getItem()->getSellOrderPrice(),
+                    $bmcEntity->getItem()
+                        ->getSellOrderPrice(),
                     $itemCost,
                     $percentage,
                     $bmcEntity->getCraftingFee(),
@@ -150,7 +166,8 @@ class BlackMarketCraftingService
             $bmcEntity->setItemValue(
                 $this->bmtHelper->calculateItemValue(
                     $bmcEntity->getTotalAmount(),
-                    $bmcEntity->getItem()->getSellOrderPrice()
+                    $bmcEntity->getItem()
+                        ->getSellOrderPrice()
                 )
             );
             $bmcEntity->setWeightProfitQuotient(
@@ -195,17 +212,25 @@ class BlackMarketCraftingService
     {
         if ($order === '1') {
             $itemCost = $this->bmtHelper->calculateSellOrderItemCost(
-                $bmcEntity->getPrimResource()->getSellOrderPrice(),
-                $bmcEntity->getItem()->getPrimaryResourceAmount(),
-                $bmcEntity->getSecResource()->getSellOrderPrice(),
-                $bmcEntity->getItem()->getSecondaryResourceAmount()
+                $bmcEntity->getPrimResource()
+                    ->getSellOrderPrice(),
+                $bmcEntity->getItem()
+                    ->getPrimaryResourceAmount(),
+                $bmcEntity->getSecResource()
+                    ->getSellOrderPrice(),
+                $bmcEntity->getItem()
+                    ->getSecondaryResourceAmount()
             );
         } else {
             $itemCost = $this->bmtHelper->calculateBuyOrderItemCost(
-                $bmcEntity->getPrimResource()->getBuyOrderPrice(),
-                $bmcEntity->getItem()->getPrimaryResourceAmount(),
-                $bmcEntity->getSecResource()->getBuyOrderPrice(),
-                $bmcEntity->getItem()->getSecondaryResourceAmount()
+                $bmcEntity->getPrimResource()
+                    ->getBuyOrderPrice(),
+                $bmcEntity->getItem()
+                    ->getPrimaryResourceAmount(),
+                $bmcEntity->getSecResource()
+                    ->getBuyOrderPrice(),
+                $bmcEntity->getItem()
+                    ->getSecondaryResourceAmount()
             );
         }
         return $itemCost;

@@ -51,7 +51,7 @@ class BlackMarketCraftingHelper extends Market
         $resourceWeightForItem = $resourceWeight * $resourceAmount;
         $journalWeightForItem = $journalWeight * $journalAmountPerItem;
 
-        return (int)($weight / ($resourceWeightForItem + $journalWeightForItem));
+        return (int) ($weight / ($resourceWeightForItem + $journalWeightForItem));
     }
 
     public function calculateResourceAmount(int $totalAmount, int $resourceAmount): int
@@ -61,7 +61,7 @@ class BlackMarketCraftingHelper extends Market
 
     public function calculateJournalAmount(int $totalAmount, float $journalAmountPerItem): int
     {
-        return (int)ceil($totalAmount * $journalAmountPerItem);
+        return (int) ceil($totalAmount * $journalAmountPerItem);
     }
 
     public function calculateTotalItemWeight(int $totalAmount, float $weight): float
@@ -69,10 +69,8 @@ class BlackMarketCraftingHelper extends Market
         return $totalAmount * $weight;
     }
 
-    public function calculateCraftingFee(
-        int $itemValue,
-        int $feeProHundredNutrition
-    ): float {
+    public function calculateCraftingFee(int $itemValue, int $feeProHundredNutrition): float
+    {
         $nutrition = $itemValue * self::NUTRITION_FACTOR;
         return $nutrition * $feeProHundredNutrition / 100;
     }

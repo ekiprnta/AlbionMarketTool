@@ -27,9 +27,12 @@ class BlackMarketCraftingServiceITest extends TestCase
         /** @var ResourceRepository|ObjectProphecy $resourceRepository */
         $resourceRepository = $this->prophesize(ResourceRepository::class);
 
-        $itemRepository->getBlackMarketItemsFromCity('TestCity')->willReturn($this->getItems());
-        $resourceRepository->getResourcesByCity('TestCity')->willReturn($this->getResources());
-        $journalRepository->getJournalsFromCity('TestCity')->willReturn($this->getJournals());
+        $itemRepository->getBlackMarketItemsFromCity('TestCity')
+            ->willReturn($this->getItems());
+        $resourceRepository->getResourcesByCity('TestCity')
+            ->willReturn($this->getResources());
+        $journalRepository->getJournalsFromCity('TestCity')
+            ->willReturn($this->getJournals());
 
         $bmcService = new BlackMarketCraftingService(
             $itemRepository->reveal(),
@@ -37,7 +40,6 @@ class BlackMarketCraftingServiceITest extends TestCase
             $journalRepository->reveal(),
             new BlackMarketCraftingHelper()
         );
-
 
         $delta = 0.00000001;
         $testData = $bmcService->getDataForCity('TestCity', 500, 25.2, 1200, 'TestCity', 1);
@@ -114,7 +116,8 @@ class BlackMarketCraftingServiceITest extends TestCase
                 'weight' => 1.71,
                 'class' => '',
             ]),
-            new ResourceEntity([
+            new ResourceEntity(
+                [
                     'bonusCity' => 'Testcity',
                     'amountInStorage' => 0,
                     'tier' => '71',

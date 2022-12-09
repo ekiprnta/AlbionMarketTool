@@ -2,8 +2,6 @@
 
 namespace integration\Service;
 
-use Laminas\Cache\Pattern\ObjectCache;
-use MZierdt\Albion\Entity\BlackMarketCraftingEntity;
 use MZierdt\Albion\Entity\BlackMarketTransportEntity;
 use MZierdt\Albion\Entity\ItemEntity;
 use MZierdt\Albion\repositories\ItemRepository;
@@ -22,8 +20,10 @@ class BlackMarketTransportingServiceITest extends TestCase
         /** @var ItemRepository|ObjectProphecy $itemRepository */
         $itemRepository = $this->prophesize(ItemRepository::class);
 
-        $itemRepository->getItemsForTransport('TestCity')->willReturn($this->getCityItems());
-        $itemRepository->getItemsForTransport('Black Market')->willReturn($this->getBmItems());
+        $itemRepository->getItemsForTransport('TestCity')
+            ->willReturn($this->getCityItems());
+        $itemRepository->getItemsForTransport('Black Market')
+            ->willReturn($this->getBmItems());
 
         $bmtService = new BlackMarketTransportingService(
             $itemRepository->reveal(),
@@ -31,14 +31,14 @@ class BlackMarketTransportingServiceITest extends TestCase
         );
 
         $delta = 0.00000001;
-        $testData = $bmtService->getDataForCity('TestCity', 500,['71']);
+        $testData = $bmtService->getDataForCity('TestCity', 500, ['71']);
 
         /** @var BlackMarketTransportEntity $bmtEntity */
         foreach ($testData as $bmtEntity) {
             $this->assertEquals(21, $bmtEntity->getAmount());
-            $this->assertEqualsWithDelta(3596680.92, $bmtEntity->getProfit(),$delta);
-            $this->assertEqualsWithDelta(171270.52, $bmtEntity->getSingleProfit(),$delta);
-            $this->assertEqualsWithDelta(7193.36184, $bmtEntity->getWeightProfitQuotient(),$delta);
+            $this->assertEqualsWithDelta(3596680.92, $bmtEntity->getProfit(), $delta);
+            $this->assertEqualsWithDelta(171270.52, $bmtEntity->getSingleProfit(), $delta);
+            $this->assertEqualsWithDelta(7193.36184, $bmtEntity->getWeightProfitQuotient(), $delta);
             $this->assertEquals('S', $bmtEntity->getProfitGrade());
             $this->assertEquals('7', $bmtEntity->getTierColor());
             $this->assertEquals(500, $bmtEntity->getWeight());

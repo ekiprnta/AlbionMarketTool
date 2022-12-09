@@ -65,48 +65,48 @@ class ResourceEntityTest extends TestCase
     public function getResourceEntityA(): ResourceEntity
     {
         return new ResourceEntity([
-            "tier" => "2",
-            "name" => "cloth",
-            "city" => "Fort Sterling",
-            "realName" => "cloth",
-            "sellOrderPrice" => "27",
-            "sellOrderPriceDate" => "2022-12-08 10:45:00",
-            "buyOrderPrice" => "26",
-            "buyOrderPriceDate" => "2022-12-08 10:45:00",
-            "bonusCity" => "Lymhurst",
-            "amountInStorage" => null,
+            'tier' => '2',
+            'name' => 'cloth',
+            'city' => 'Fort Sterling',
+            'realName' => 'cloth',
+            'sellOrderPrice' => '27',
+            'sellOrderPriceDate' => '2022-12-08 10:45:00',
+            'buyOrderPrice' => '26',
+            'buyOrderPriceDate' => '2022-12-08 10:45:00',
+            'bonusCity' => 'Lymhurst',
+            'amountInStorage' => null,
         ]);
     }
 
     public function getResourceEntityB(): ResourceEntity
     {
         return new ResourceEntity([
-            "tier" => "41",
-            "name" => "leather",
-            "city" => "Bridgewatch",
-            "realName" => "cloth",
-            "sellOrderPrice" => "376",
-            "sellOrderPriceDate" => "2022-02-08 10:45:00",
-            "buyOrderPrice" => "87",
-            "buyOrderPriceDate" => "2022-01-08 10:45:00",
-            "bonusCity" => "Lymhurst",
-            "amountInStorage" => null,
+            'tier' => '41',
+            'name' => 'leather',
+            'city' => 'Bridgewatch',
+            'realName' => 'cloth',
+            'sellOrderPrice' => '376',
+            'sellOrderPriceDate' => '2022-02-08 10:45:00',
+            'buyOrderPrice' => '87',
+            'buyOrderPriceDate' => '2022-01-08 10:45:00',
+            'bonusCity' => 'Lymhurst',
+            'amountInStorage' => null,
         ]);
     }
 
     public function getResourceEntityC(): ResourceEntity
     {
         return new ResourceEntity([
-            "tier" => "73",
-            "name" => "metalBar",
-            "city" => "city",
-            "realName" => "realName",
-            "sellOrderPrice" => "4567",
-            "sellOrderPriceDate" => null,
-            "buyOrderPrice" => "3476543",
-            "buyOrderPriceDate" => null,
-            "bonusCity" => "bonusCity",
-            "amountInStorage" => 23456,
+            'tier' => '73',
+            'name' => 'metalBar',
+            'city' => 'city',
+            'realName' => 'realName',
+            'sellOrderPrice' => '4567',
+            'sellOrderPriceDate' => null,
+            'buyOrderPrice' => '3476543',
+            'buyOrderPriceDate' => null,
+            'bonusCity' => 'bonusCity',
+            'amountInStorage' => 23456,
         ]);
     }
 }

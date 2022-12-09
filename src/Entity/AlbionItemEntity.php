@@ -47,7 +47,7 @@ class AlbionItemEntity
         $this->tier = $resourceData['tier'];
         $this->name = $resourceData['name'];
         $this->city = $resourceData['city'];
-        $this->sellOrderPrice = $resourceData['sellOrderPrice']?? 0;
+        $this->sellOrderPrice = $resourceData['sellOrderPrice'] ?? 0;
         $this->sellOrderAge = $this->calculateAge($resourceData['sellOrderPriceDate']);
         $this->buyOrderPrice = $resourceData['buyOrderPrice'] ?? 0;
         $this->buyOrderAge = $this->calculateAge($resourceData['buyOrderPriceDate']);
@@ -73,9 +73,8 @@ class AlbionItemEntity
     private function calculateDateTimeImmutable(?string $dateString): DateTimeImmutable|false
     {
         if ($dateString === null) {
-            $bla =  DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '1970-03-22 12:12:12');
+            $bla = DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '1970-03-22 12:12:12');
             return $bla;
-
         }
         $dateString = str_replace('T', ' ', $dateString);
         return DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $dateString, new DateTimeZone('Europe/London'));

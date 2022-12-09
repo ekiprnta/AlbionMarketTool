@@ -18,7 +18,9 @@ class TierServiceTest extends TestCase
         $this->tierService = new TierService();
     }
 
-    /** @dataProvider itemIds */
+    /**
+     * @dataProvider itemIds
+     */
     public function testSplitIntoTierAndName(string $testData, array $expectedResult): void
     {
         $this->assertEquals($expectedResult, $this->tierService->splitIntoTierAndName($testData));
@@ -32,33 +34,35 @@ class TierServiceTest extends TestCase
                 [
                     'tier' => 2,
                     'name' => 'metalbar',
-                ]
+                ],
             ],
             [
                 'T8_Journal_Hunter_FULL',
                 [
                     'tier' => 8,
                     'name' => 'journal_hunter_full',
-                ]
+                ],
             ],
             [
                 'T8_SHOES_PLATE_SET3@3',
                 [
                     'tier' => 83,
                     'name' => 'shoes_plate_set3',
-                ]
+                ],
             ],
             [
                 'Bla_BLu',
                 [
                     'tier' => 0,
                     'name' => 'blu',
-                ]
+                ],
             ],
         ];
     }
 
-    /** @dataProvider journalSplitData */
+    /**
+     * @dataProvider journalSplitData
+     */
     public function testJournalSplitter(string $testData, array $expectedResult): void
     {
         $this->assertEquals($expectedResult, $this->tierService->journalSplitter($testData));
@@ -72,21 +76,21 @@ class TierServiceTest extends TestCase
                 [
                     'class' => 'hunter',
                     'fillStatus' => 'empty',
-                ]
+                ],
             ],
             [
                 'journal_warrior_full',
                 [
                     'class' => 'warrior',
                     'fillStatus' => 'full',
-                ]
+                ],
             ],
             [
                 'abc_DEF_ghi',
                 [
                     'class' => 'DEF',
                     'fillStatus' => 'ghi',
-                ]
+                ],
             ],
         ];
     }

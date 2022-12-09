@@ -28,7 +28,6 @@ class BlackMarketCraftingServiceTest extends TestCase
         $this->journalRepository = $this->prophesize(JournalRepository::class);
         $this->bmcHelper = $this->prophesize(BlackMarketCraftingHelper::class);
 
-
         $this->bmcService = new BlackMarketCraftingService(
             $this->itemRepository->reveal(),
             $this->resourceRepository->reveal(),
@@ -47,11 +46,11 @@ class BlackMarketCraftingServiceTest extends TestCase
         ], $this->bmcService->getCraftingRates());
     }
 
-    /** @dataProvider getExceptionValues */
-    public function testGetDataForCityException(
-        string $itemCity,
-        int $weight,
-    ): void {
+    /**
+     * @dataProvider getExceptionValues
+     */
+    public function testGetDataForCityException(string $itemCity, int $weight): void
+    {
         $this->expectException('InvalidArgumentException');
 
         $this->bmcService->getDataForCity($itemCity, $weight, 0.0, 0, '', '');
@@ -59,11 +58,7 @@ class BlackMarketCraftingServiceTest extends TestCase
 
     public function getExceptionValues(): array
     {
-        return [
-            ['', 0],
-            ['asd', 0],
-            ['', 5],
-        ];
+        return [['', 0], ['asd', 0], ['', 5]];
     }
 //
 //    /** @dataProvider getValuesForCityData */
