@@ -53,7 +53,7 @@ class AlbionItemEntity
         $this->buyOrderAge = $this->calculateAge($resourceData['buyOrderPriceDate']);
         $this->realName = $resourceData['realName'] ?? '';
         $this->weight = $resourceData['weight'] ?? 0;
-        $this->class = $resourceData['class'] ?? 0;
+        $this->class = $resourceData['class'] ?? '';
     }
 
     private function calculateAge(?string $dateString): int
