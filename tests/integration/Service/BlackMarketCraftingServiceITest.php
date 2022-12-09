@@ -55,13 +55,13 @@ class BlackMarketCraftingServiceITest extends TestCase
 
             $this->assertEqualsWithDelta(11059.2, $bmcEntity[0]->getCraftingFee(), $delta);
             $this->assertEqualsWithDelta(452940.0, $bmcEntity[0]->getProfitJournals(), $delta);
-            $this->assertEqualsWithDelta(1069829.7919999997, $bmcEntity[0]->getProfit(), $delta);
+            $this->assertEqualsWithDelta(1_069_829.7919999997, $bmcEntity[0]->getProfit(), $delta);
             $this->assertEqualsWithDelta(2139.6595839999995, $bmcEntity[0]->getWeightProfitQuotient(), $delta);
 
             $this->assertEquals('S', $bmcEntity[0]->getColorGrade());
             $this->assertEqualsWithDelta(495360.0, $bmcEntity[0]->getFameAmount(), $delta);
             $this->assertEquals('7', $bmcEntity[0]->getTierColor());
-            $this->assertEquals(3535936, $bmcEntity[0]->getItemValue());
+            $this->assertEquals(3_535_936, $bmcEntity[0]->getItemValue());
 
             $this->assertEquals('3h_axe', $bmcEntity[0]->getItem()->getName());
             $this->assertEquals('metalBar', $bmcEntity[0]->getPrimResource()->getName());

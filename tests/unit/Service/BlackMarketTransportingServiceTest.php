@@ -33,7 +33,7 @@ class BlackMarketTransportingServiceTest extends TestCase
      */
     public function testGetDataForCityException(string $itemCity, int $weight, array $tierList): void
     {
-        $this->expectException('InvalidArgumentException');
+        $this->expectException(\InvalidArgumentException::class);
 
         $this->bmtService->getDataForCity($itemCity, $weight, $tierList);
     }

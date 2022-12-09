@@ -77,16 +77,6 @@ Code Style Checks:
   tags:
     - dind
 
-Rector:
-  stage: analyze
-  needs: [ "Install Composer dependencies" ]
-  image: registry.mehrkanal.com/docker/phpx/cli:8.0-build
-  dependencies: [ "Install Composer dependencies" ]
-  script:
-    - vendor/bin/rector process src
-  tags:
-    - dind
-
 PHP Unit Tests:
   stage: test
   image: registry.mehrkanal.com/docker/phpx/cli:${PHP_VERSION}-build

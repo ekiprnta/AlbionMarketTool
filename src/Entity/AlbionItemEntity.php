@@ -73,8 +73,7 @@ class AlbionItemEntity
     private function calculateDateTimeImmutable(?string $dateString): DateTimeImmutable|false
     {
         if ($dateString === null) {
-            $bla = DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '1970-03-22 12:12:12');
-            return $bla;
+            return DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '1970-03-22 12:12:12');
         }
         $dateString = str_replace('T', ' ', $dateString);
         return DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $dateString, new DateTimeZone('Europe/London'));

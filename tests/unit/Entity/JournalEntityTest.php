@@ -57,7 +57,7 @@ class JournalEntityTest extends TestCase
         $this->assertEquals('', $entity->getRealName());
         $this->assertEquals(0.2, $entity->getWeight());
         $this->assertEquals('warrior', $entity->getClass());
-        $this->assertEquals(2345465, $entity->getFameToFill());
+        $this->assertEquals(2_345_465, $entity->getFameToFill());
         $this->assertEquals('full', $entity->getFillStatus());
     }
 

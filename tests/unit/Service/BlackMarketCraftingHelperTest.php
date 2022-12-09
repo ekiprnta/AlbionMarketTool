@@ -280,8 +280,8 @@ class BlackMarketCraftingHelperTest extends TestCase
     public function getProfit(): array
     {
         return [
-            [150, 62399, 5610, 24.8, 400, 40200, 8158451.749999999],
-            [2345, 987654, 345345, 50.3, 1800, 9654, 1763025812.6249998],
+            [150, 62399, 5610, 24.8, 400, 40200, 8_158_451.749999999],
+            [2345, 987654, 345345, 50.3, 1800, 9654, 1_763_025_812.6249998],
             [65, 333, 5610, 24.8, 4100, 300000, 41921.274999999994],
         ];
     }
@@ -304,7 +304,7 @@ class BlackMarketCraftingHelperTest extends TestCase
 
     public function getProfitJournals(): array
     {
-        return [[9876, 62398, 40, 1938645.2], [98765, 34567, 7, -465113.985], [157650, 2344, 365, -56742301.4]];
+        return [[9876, 62398, 40, 1_938_645.2], [98765, 34567, 7, -465113.985], [157650, 2344, 365, -56_742_301.4]];
     }
 
     /**
@@ -321,7 +321,7 @@ class BlackMarketCraftingHelperTest extends TestCase
 
     public function getItemValue(): array
     {
-        return [[150, 62398, 9359700], [3, 7, 21], [23456, 234, 5488704]];
+        return [[150, 62398, 9_359_700], [3, 7, 21], [23456, 234, 5_488_704]];
     }
 
     /**
@@ -348,7 +348,7 @@ class BlackMarketCraftingHelperTest extends TestCase
 
     public function getBuyOrderItemCost(): array
     {
-        return [[42000, 16, 44300, 8, 1000740.0], [1343, 12, 65, 20, 16980.6], [2345, 8, 3456, 6, 38508.6]];
+        return [[42000, 16, 44300, 8, 1_000_740.0], [1343, 12, 65, 20, 16980.6], [2345, 8, 3456, 6, 38508.6]];
     }
     /**
      * @dataProvider getSellOrderItemCost
@@ -374,6 +374,6 @@ class BlackMarketCraftingHelperTest extends TestCase
 
     public function getSellOrderItemCost(): array
     {
-        return [[42000, 16, 44300, 8, 1026400.0], [1343, 12, 65, 20, 17416.0], [2345, 8, 3456, 6, 39496.0]];
+        return [[42000, 16, 44300, 8, 1_026_400.0], [1343, 12, 65, 20, 17416.0], [2345, 8, 3456, 6, 39496.0]];
     }
 }

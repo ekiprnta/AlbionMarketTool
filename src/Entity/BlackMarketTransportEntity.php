@@ -6,8 +6,6 @@ namespace MZierdt\Albion\Entity;
 
 class BlackMarketTransportEntity
 {
-    private ItemEntity $bmItem;
-
     private ItemEntity $cityItem;
 
     private int $amount;
@@ -19,10 +17,9 @@ class BlackMarketTransportEntity
     private string $tierColor;
 
     public function __construct(
-        ItemEntity $bmItem,
+        private ItemEntity $bmItem,
         private int $weight
     ) {
-        $this->bmItem = $bmItem;
         $this->tierColor = $bmItem->getTier()[0];
     }
 
