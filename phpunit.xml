@@ -9,9 +9,9 @@
         <testsuite name="UnitTests">
             <directory>./tests/unit</directory>
         </testsuite>
-        <!--        <testsuite name="IntegrationTests">-->
-        <!--            <directory>./tests/integrationTests</directory>-->
-        <!--        </testsuite>-->
+        <testsuite name="IntegrationTests">
+            <directory>./tests/integration</directory>
+        </testsuite>
     </testsuites>
     <coverage>
         <include>
