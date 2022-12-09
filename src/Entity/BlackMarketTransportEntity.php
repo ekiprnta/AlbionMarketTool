@@ -26,6 +26,16 @@ class BlackMarketTransportEntity
         $this->tierColor = $bmItem->getTier()[0];
     }
 
+    public function setAmount(int $amount): void
+    {
+        $this->amount = $amount;
+    }
+
+    public function setSingleProfit(float $singleProfit): void
+    {
+        $this->singleProfit = $singleProfit;
+    }
+
     public function getBmItem(): ItemEntity
     {
         return $this->bmItem;
@@ -56,11 +66,9 @@ class BlackMarketTransportEntity
         $this->weightProfitQuotient = $weightProfitQuotient;
     }
 
-    public function setProfit(array $profitArray): void
+    public function setProfit(float $profit): void
     {
-        $this->amount = $profitArray['amount'];
-        $this->profit = $profitArray['profit'];
-        $this->singleProfit = $profitArray['singleProfit'];
+        $this->profit = $profit;
     }
 
     public function getAmount(): int

@@ -2,14 +2,12 @@
 
 namespace MZierdt\Albion\Service;
 
-use MZierdt\Albion\Entity\BlackMarketTransportEntity;
 use MZierdt\Albion\Entity\ItemEntity;
 
 class BlackMarketTransportingHelper extends Market
 {
-    public static function calculateCityItem(BlackMarketTransportEntity $bmtEntity, array $Items): ItemEntity
+    public function calculateCityItem(ItemEntity $bmItem, array $Items): ItemEntity
     {
-        $bmItem = $bmtEntity->getBmItem();
         /** @var ItemEntity $item */
         foreach ($Items as $item) {
             if ($item->getTier() === $bmItem->getTier() &&
@@ -17,35 +15,21 @@ class BlackMarketTransportingHelper extends Market
                 return $item;
             }
         }
-        throw new \RuntimeException('No Item found for ' . $bmItem->getRealName());
+        throw new \RuntimeException('No Item found for ' . $bmItem->getName());
     }
 
-    public static function calculateProfit(BlackMarketTransportEntity $bmtEntity): array
+    public function calculateProfit(float $singleProfit, int $amount): float
     {
-        $amount = $bmtEntity->getWeight() / $bmtEntity->getBmItem()
-            ->getWeight();
-
-        $singleProfit = parent::calculateSellOrder(
-            $bmtEntity->getBmItem()
-                ->getSellOrderPrice()
-        ) - $bmtEntity->getCityItem()
-            ->getSellOrderPrice();
-        $profit = $singleProfit * $amount;
-
-        return [
-            'amount' => (int) $amount,
-            'singleProfit' => $singleProfit,
-            'profit' => $profit,
-        ];
+        return $singleProfit * $amount;
     }
 
-    public static function calculateWeightProfitQuotient(float|int $profit, int $weight): float
+    public function calculateAmount(int $totalWeight, float $itemWeight): int
     {
-        return parent::calculateWeightProfitQuotient($profit, $weight);
+        return (int) ($totalWeight / $itemWeight);
     }
 
-    public static function calculateProfitGrade(float $quotient): string
+    public function calculateSingleProfit(int $bmPrice, int $cityPrice): float
     {
-        return parent::calculateProfitGrade($quotient);
+        return $this->calculateSellOrder($bmPrice) - $cityPrice;
     }
 }

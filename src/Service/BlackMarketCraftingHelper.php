@@ -2,185 +2,132 @@
 
 namespace MZierdt\Albion\Service;
 
-use MZierdt\Albion\Entity\BlackMarketCraftingEntity;
 use MZierdt\Albion\Entity\JournalEntity;
 use MZierdt\Albion\Entity\ResourceEntity;
+use MZierdt\Albion\factories\ResourceEntityFactory;
 
 class BlackMarketCraftingHelper extends Market
 {
-    public static function calculateResources(BlackMarketCraftingEntity $bmcEntity, array $resources): array
+    public function calculateResource(string $resourceName, string $tier, array $resources): ResourceEntity
     {
-        $primResourceName = $bmcEntity->getItem()
-            ->getPrimaryResource();
-        $secResourceName = $bmcEntity->getItem()
-            ->getSecondaryResource();
-        $tier = $bmcEntity->getItem()
-            ->getTier();
-
-        $primResource = null;
-        $secResource = null;
         /** @var ResourceEntity $resource */
         foreach ($resources as $resource) {
-            if ($tier === $resource->getTier()) {
-                if ($resource->getRealName() === $primResourceName) {
-                    $primResource = $resource;
-                }
-                if ($resource->getRealName() === $secResourceName) {
-                    $secResource = $resource;
-                }
+            if (($tier === $resource->getTier()) && $resource->getRealName() === $resourceName) {
+                return $resource;
             }
         }
-
-        return [
-            'primaryResource' => $primResource,
-            'secondaryResource' => $secResource,
-        ];
+        return ResourceEntityFactory::getEmptyResourceEntity();
     }
 
 
-    public static function calculateJournals(BlackMarketCraftingEntity $bmcEntity, array $journals): array
+    public function calculateJournal(string $tier, string $fillStatus, array $journals): ?JournalEntity
     {
-        $tier = $bmcEntity->getItem()
-            ->getTier();
-
-        $journalAmountPerItem = null;
-        $emptyJournal = null;
-        $fullJournal = null;
         /** @var JournalEntity $journal */
         foreach ($journals as $journal) {
-            if ($tier[0] === $journal->getTier()) {
-                if ($journal->getFillStatus() === 'empty') {
-                    $journalAmountPerItem = $bmcEntity->getItem()
-                        ->getFame() / $journal->getFameToFill();
-                    $emptyJournal = $journal;
-                }
-                if ($journal->getFillStatus() === 'full') {
-                    $fullJournal = $journal;
-                }
+            if (($tier[0] === $journal->getTier()) && $journal->getFillStatus() === $fillStatus) {
+                return $journal;
             }
         }
-        return [
-            'full' => $fullJournal,
-            'empty' => $emptyJournal,
-            'amount' => $journalAmountPerItem,
-        ];
+        return null;
     }
 
-    public static function calculateFameAmount(BlackMarketCraftingEntity $bmcEntity): float
+    public function calculateJournalAmountPerItem(float $fame, int $fameToFill): float
     {
-        return $bmcEntity->getTotalAmount() * $bmcEntity->getItem()
-            ->getFame() * self::PREMIUM_FACTOR;
+        return $fame / $fameToFill;
     }
 
-    public static function calculateTotalAmount(BlackMarketCraftingEntity $bmcEntity, int $weight): array
+    public function calculateFameAmount(int $totalAmount, float $fame): float
     {
-        $resourceWeightForItem = $bmcEntity->getPrimResource()
-            ->getWeight() *
-            ($bmcEntity->getItem()->getPrimaryResourceAmount() +
-                $bmcEntity->getItem()
-                    ->getSecondaryResourceAmount());
-        $journalWeightForItem = $bmcEntity->getJournalEntityEmpty()
-            ->getWeight() *
-            $bmcEntity->getJournalAmountPerItem();
-
-        $totalAmount = (int) ($weight / ($resourceWeightForItem + $journalWeightForItem));
-
-        return [
-            'totalAmount' => ($totalAmount),
-            'primResourceAmount' => ($totalAmount * $bmcEntity->getItem()->getPrimaryResourceAmount()),
-            'secResourceAmount' => ($totalAmount * $bmcEntity->getItem()->getSecondaryResourceAmount()),
-            'journalAmount' => ((int) ceil($totalAmount * $bmcEntity->getJournalAmountPerItem())),
-            'totalItemWeight' => ($totalAmount * $bmcEntity->getItem()->getWeight()),
-        ];
+        return $totalAmount * $fame * self::PREMIUM_FACTOR;
     }
 
+    public function calculateTotalAmount(
+        float $resourceWeight,
+        int $resourceAmount,
+        float $journalWeight,
+        float $journalAmountPerItem,
+        float $weight
+    ): int {
+        $resourceWeightForItem = $resourceWeight * $resourceAmount;
+        $journalWeightForItem = $journalWeight * $journalAmountPerItem;
 
-    public static function calculateCraftingFee(
-        BlackMarketCraftingEntity $bmcEntity,
-        int $feeProHundredNutrition
-    ): float {
-        $nutrition = $bmcEntity->getItem()
-            ->getItemValue() * self::NUTRITION_FACTOR;
+        return (int) ($weight / ($resourceWeightForItem + $journalWeightForItem));
+    }
+
+    public function calculateResourceAmount(int $totalAmount, int $resourceAmount): int
+    {
+        return $totalAmount * $resourceAmount;
+    }
+
+    public function calculateJournalAmount(int $totalAmount, float $journalAmountPerItem): int
+    {
+        return (int) ceil($totalAmount * $journalAmountPerItem);
+    }
+
+    public function calculateTotalItemWeight(int $totalAmount, float $weight): float
+    {
+        return $totalAmount * $weight;
+    }
+
+    public function calculateCraftingFee(int $itemValue, int $feeProHundredNutrition): float
+    {
+        $nutrition = $itemValue * self::NUTRITION_FACTOR;
         return $nutrition * $feeProHundredNutrition / 100;
     }
 
-    public static function calculateProfit(
-        BlackMarketCraftingEntity $bmcEntity,
+    public function calculateProfit(
+        int $totalAmount,
+        int $itemPrice,
+        float $itemCost,
         float $percentage,
-        string $order,
-    ): array {
-        if ($order === '1') {
-            $itemCost = $bmcEntity->getPrimResource()
-                ->getSellOrderPrice() *
-                $bmcEntity->getItem()
-                    ->getPrimaryResourceAmount() +
-                $bmcEntity->getSecResource()
-                    ->getSellOrderPrice() *
-                $bmcEntity->getItem()
-                    ->getSecondaryResourceAmount();
+        float $craftingFee,
+        float $profitJournals,
+    ): float {
+        $profit = $this->calculateProfitByPercentage($totalAmount, $itemPrice, $itemCost, $percentage);
 
-            $primAge = $bmcEntity->getPrimResource()
-                ->getSellOrderAge();
-            $secAge = $bmcEntity->getSecResource()
-                ->getSellOrderAge();
-        } else {
-            $itemCost = parent::calculateBuyOrder($bmcEntity->getPrimResource()->getBuyOrderPrice() *
-                    $bmcEntity->getItem()
-                        ->getPrimaryResourceAmount() +
-                    $bmcEntity->getSecResource()
-                        ->getBuyOrderPrice() *
-                    $bmcEntity->getItem()
-                        ->getSecondaryResourceAmount());
-
-            $primAge = $bmcEntity->getPrimResource()
-                ->getBuyOrderAge();
-            $secAge = $bmcEntity->getSecResource()
-                ->getBuyOrderAge();
-        }
-
-        $profit = self:: calculateProfitByPercentage($bmcEntity, $itemCost, $percentage);
-        $craftingFee = $bmcEntity->getCraftingFee();
-        $profitJournals = $bmcEntity->getProfitBooks();
-
-        return [
-            'profit' => $profit - $craftingFee + $profitJournals,
-            'primAge' => $primAge,
-            'secAge' => $secAge,
-        ];
+        return $profit - $craftingFee + $profitJournals;
     }
 
-    public static function calculateProfitBooks(BlackMarketCraftingEntity $bmcEntity): float
+    public function calculateProfitJournals(int $emptyJournalPrice, int $fullJournalPrice, int $journalAmount): float
     {
-        return (parent::calculateSellOrder($bmcEntity->getJournalEntityFull()->getSellOrderPrice()) -
-                $bmcEntity->getJournalEntityEmpty()
-                    ->getBuyOrderPrice()) *
-            $bmcEntity->getJournalAmount();
+        return ($this->calculateSellOrder($fullJournalPrice) - $emptyJournalPrice) * $journalAmount;
     }
 
-    public static function calculateProfitByPercentage(
-        BlackMarketCraftingEntity $bmcEntity,
+    private function calculateProfitByPercentage(
+        int $totalAmount,
+        int $itemPrice,
         float $itemCost,
         float $percentage
     ): float {
         $rate = (self::RRR_BASE_PERCENTAGE - $percentage) / 100;
-        $amount = $bmcEntity->getTotalAmount();
-        $itemSellPrice = parent::calculateSellOrder($bmcEntity->getItem()->getSellOrderPrice());
-        return ($itemSellPrice - ($itemCost * $rate)) * $amount;
+        $itemSellPrice = $this->calculateSellOrder($itemPrice);
+        return ($itemSellPrice - ($itemCost * $rate)) * $totalAmount;
     }
 
-    public static function calculateWeightProfitQuotient(float|int $profit, int $weight): float
+    public function calculateItemValue(int $totalAmount, int $price): int
     {
-        return parent::calculateWeightProfitQuotient($profit, $weight);
+        return $totalAmount * $price;
     }
 
-    public static function calculateProfitGrade(float $quotient): string
-    {
-        return parent::calculateProfitGrade($quotient);
+    public function calculateBuyOrderItemCost(
+        int $primResourcePrice,
+        int $primResourceAmount,
+        int $secResourcePrice,
+        int $secResourceAmount
+    ): float {
+        return $this->calculateBuyOrder(
+            $primResourcePrice * $primResourceAmount +
+            $secResourcePrice * $secResourceAmount
+        );
     }
 
-    public static function calculateItemValue(BlackMarketCraftingEntity $bmcEntity): int
-    {
-        return $bmcEntity->getItem()
-            ->getSellOrderPrice() * $bmcEntity->getTotalAmount();
+    public function calculateSellOrderItemCost(
+        int $primResourcePrice,
+        int $primResourceAmount,
+        int $secResourcePrice,
+        int $secResourceAmount
+    ): float {
+        return $primResourcePrice * $primResourceAmount +
+            $secResourcePrice * $secResourceAmount;
     }
 }

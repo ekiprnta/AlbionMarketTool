@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         colors="true"
+         bootstrap="tests/bootstrap.php">
+    <php>
+        <env name="APPLICATION_ENV" value="development"/>
+    </php>
+    <testsuites>
+        <testsuite name="UnitTests">
+            <directory>./tests</directory>
+        </testsuite>
+        <testsuite name="IntegrationTests">
+            <directory>./tests/integration</directory>
+        </testsuite>
+    </testsuites>
+    <coverage>
+        <include>
+            <directory suffix=".php">./src</directory>
+            <directory suffix=".php">./source</directory>
+        </include>
+        <report>
+            <text outputFile="php://stdout" showUncoveredFiles="false" showOnlySummary="true"/>
+        </report>
+    </coverage>
+</phpunit>

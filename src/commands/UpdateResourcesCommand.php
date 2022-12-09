@@ -18,6 +18,8 @@ class UpdateResourcesCommand extends Command
     public function __construct(
         private ApiService $apiService,
         private ResourceRepository $resourceRepository,
+        private ConfigService $configService,
+        private UploadHelper $uploadHelper,
     ) {
         parent::__construct();
     }
@@ -26,7 +28,7 @@ class UpdateResourcesCommand extends Command
     {
         $message = 'successfully updated all Prices';
         try {
-            $resourceList = ConfigService::getResourceConfig();
+            $resourceList = $this->configService->getResourceConfig();
         } catch (\JsonException $jsonException) {
             $output->writeln($jsonException->getMessage());
             return self::FAILURE;
@@ -41,10 +43,10 @@ class UpdateResourcesCommand extends Command
             $progressBar->setMessage('Get Resource ' . $resourceStats['realName']);
             $progressBar->advance();
             $progressBar->display();
-            $resourcesData = $this->apiService->getResource($resourceStats['realName']);
+            $resourcesData = $this->apiService->getResources($resourceStats['realName']);
             $progressBar->setMessage('preparing resource ' . $resourceStats['realName']);
             $progressBar->display();
-            $adjustedResources = UploadHelper::adjustResourceArray($resourcesData, $resourceStats);
+            $adjustedResources = $this->uploadHelper->adjustResourceArray($resourcesData, $resourceStats);
             $progressBar->setMessage('Upload Resource ' . $resourceStats['realName'] . ' into Database');
             $progressBar->display();
             $this->resourceRepository->updatePricesFromResources($adjustedResources);

@@ -137,13 +137,13 @@
                                 <td class="text-left tier-{{ bmcEntity.tierColor }} tier">{{ bmcEntity.item.tier }}</td>
                                 <td>{{ bmcEntity.item.realName }}</td>
                                 <td>{{ bmcEntity.primResource.sellOrderPrice|number_format }}</td>
-                                <td {% if bmcEntity.primAge > 720 %} class="bg-D" {% endif %}>
-                                    {{ bmcEntity.primAge|number_format }} min
+                                <td {% if bmcEntity.primResource.sellOrderAge > 720 %} class="bg-D" {% endif %}>
+                                    {{ bmcEntity.primResource.sellOrderAge|number_format }} min
                                 </td>
                                 <td>{{ bmcEntity.primResourceAmount|number_format }}</td>
                                 <td>{{ bmcEntity.secResource.sellOrderPrice|number_format }}</td>
-                                <td {% if bmcEntity.secAge > 720 %} class="bg-D" {% endif %}>
-                                    {{ bmcEntity.secAge|number_format }} min
+                                <td {% if bmcEntity.secResource.sellOrderAge > 720 %} class="bg-D" {% endif %}>
+                                    {{ bmcEntity.secResource.sellOrderAge|number_format }} min
                                 </td>
                                 <td>{{ bmcEntity.secResourceAmount|number_format }}</td>
                                 <td>{{ bmcEntity.item.sellOrderPrice|number_format }}</td>
@@ -226,7 +226,7 @@
                                                         Silver
                                                     </div>
                                                     <div class="badge-info badge standard-badge">
-                                                        primaryPriceAge: {{ bmcEntity.primaryAge }}min
+                                                        primaryPriceAge: {{ bmcEntity.primResource.sellOrderAge }}min
                                                     </div>
                                                 </div>
                                             </div>
@@ -255,7 +255,7 @@
                                                             resourceWeight: {{ bmcEntity.secResource.weight }}kg
                                                         </div>
                                                         <div class="badge-info badge standard-badge">
-                                                            secondaryPriceAge: {{ bmcEntity.secAge }}min
+                                                            secondaryPriceAge: {{ bmcEntity.secResource.sellOrderAge }}min
                                                         </div>
                                                     </div>
                                                 </div>

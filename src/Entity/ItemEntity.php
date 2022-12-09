@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\Entity;
 
-use MZierdt\Albion\Service\TimeHelper;
-
-class ItemEntity
+class ItemEntity extends AlbionItemEntity
 {
     public const ITEM_WARRIOR_HELMET = 'plateHelmet';
     public const ITEM_WARRIOR_ARMOR = 'plateArmor';
@@ -38,29 +36,6 @@ class ItemEntity
     public const ITEM_HUNTER_DAGGER = 'dagger';
     public const ITEM_HUNTER_QUARTERSTAFF = 'quarterstaff';
     public const ITEM_HUNTER_TORCH = 'torch';
-
-    private const TIER_T2 = '2';
-    private const TIER_T3 = '3';
-    private const TIER_T4 = '4';
-    private const TIER_T4_1 = '41';
-    private const TIER_T4_2 = '42';
-    private const TIER_T4_3 = '43';
-    private const TIER_T5 = '5';
-    private const TIER_T5_1 = '51';
-    private const TIER_T5_2 = '52';
-    private const TIER_T5_3 = '53';
-    private const TIER_T6 = '6';
-    private const TIER_T6_1 = '61';
-    private const TIER_T6_2 = '62';
-    private const TIER_T6_3 = '63';
-    private const TIER_T7 = '7';
-    private const TIER_T7_1 = '71';
-    private const TIER_T7_2 = '72';
-    private const TIER_T7_3 = '73';
-    private const TIER_T8 = '8';
-    private const TIER_T8_1 = '81';
-    private const TIER_T8_2 = '82';
-    private const TIER_T8_3 = '83';
 
     private const T20_WEIGHT_FACTOR = 0.1;
     private const T30_WEIGHT_FACTOR = 0.14;
@@ -135,54 +110,35 @@ class ItemEntity
     public const CLASS_MAGE = 'mage';
     public const CLASS_HUNTER = 'hunter';
 
-    private string $tier;
-    private string $name;
     private string $weaponGroup;
-    private string $realName;
-    private string $class;
-    private string $city;
     private int $quality;
-    private int $sellOrderPrice;
-    private int $sellOrderAge;
-    private int $buyOrderPrice;
-    private int $buyOrderAge;
     private string $primaryResource;
     private int $primaryResourceAmount;
     private ?string $secondaryResource;
     private ?int $secondaryResourceAmount;
     private string $bonusCity;
-    private float $fameFactor;
     private ?int $amountInStorage;
-    private float $weight;
     private int $itemValue;
     private float $fame;
 
 
-    public function __construct(array $itemData)
+    public function __construct(array $itemResourceData)
     {
-        $weight = $this->setWeight($itemData);
+        parent::__construct($itemResourceData);
 
-        $this->tier = $itemData['tier'];
-        $this->name = $itemData['name'];
-        $this->weaponGroup = $itemData['weaponGroup'];
-        $this->realName = $itemData['realName'] ?? 'No Name given WTF';
-        $this->class = $itemData['class'] ?? 'No CLass ? wrong input?';
-        $this->city = $itemData['city'];
-        $this->quality = (int) $itemData['quality'];
-        $this->sellOrderPrice = (int) $itemData['sellOrderPrice'];
-        $this->sellOrderAge = TimeHelper::calculateAge($itemData['sellOrderPriceDate']);
-        $this->buyOrderPrice = (int) $itemData['buyOrderPrice'];
-        $this->buyOrderAge = TimeHelper::calculateAge($itemData['buyOrderPriceDate']);
-        $this->primaryResource = $itemData['primaryResource'] ?? 'primR';
-        $this->primaryResourceAmount = (int) $itemData['primaryResourceAmount'];
-        $this->secondaryResource = $itemData['secondaryResource'];
-        $this->secondaryResourceAmount = (int) $itemData['secondaryResourceAmount'];
-        $this->bonusCity = $itemData['bonusCity'] ?? 'bonusCity';
-        $this->fameFactor = $this->setFameFactor();
-        $this->amountInStorage = $itemData['amountInStorage'];
-        $this->weight = $weight;
+        $this->weight = $this->setWeight($itemResourceData);
+        $this->weaponGroup = $itemResourceData['weaponGroup'];
+        $this->quality = (int) $itemResourceData['quality'];
+
+        $this->primaryResource = $itemResourceData['primaryResource'] ?? 'primR';
+        $this->primaryResourceAmount = (int) $itemResourceData['primaryResourceAmount'];
+        $this->secondaryResource = $itemResourceData['secondaryResource'];
+        $this->secondaryResourceAmount = (int) $itemResourceData['secondaryResourceAmount'];
+
+        $this->bonusCity = $itemResourceData['bonusCity'] ?? 'bonusCity';
+        $this->amountInStorage = $itemResourceData['amountInStorage'];
         $this->itemValue = ($this->primaryResourceAmount + $this->secondaryResourceAmount) * $this->getNutritionFactor();
-        $this->fame = $this->fameFactor * ($this->primaryResourceAmount + $this->secondaryResourceAmount);
+        $this->fame = $this->calculateFameFactor() * ($this->primaryResourceAmount + $this->secondaryResourceAmount);
     }
 
     public function getFame(): float
@@ -195,7 +151,7 @@ class ItemEntity
         return $this->itemValue;
     }
 
-    private function setFameFactor(): float
+    private function calculateFameFactor(): float
     {
         return match ($this->tier) {
             self::TIER_T2 => self::T20_FACTOR_FAME,
@@ -235,34 +191,9 @@ class ItemEntity
         return $this->weaponGroup;
     }
 
-    public function getClass(): mixed
-    {
-        return $this->class;
-    }
-
     public function getAmountInStorage(): mixed
     {
         return $this->amountInStorage;
-    }
-
-    public function getTier(): string
-    {
-        return $this->tier;
-    }
-
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    public function getWeight(): float
-    {
-        return $this->weight;
-    }
-
-    public function getCity(): string
-    {
-        return $this->city;
     }
 
     public function getQuality(): int
@@ -270,25 +201,6 @@ class ItemEntity
         return $this->quality;
     }
 
-    public function getSellOrderPrice(): int
-    {
-        return $this->sellOrderPrice;
-    }
-
-    public function getSellOrderAge(): int
-    {
-        return $this->sellOrderAge;
-    }
-
-    public function getBuyOrderPrice(): int
-    {
-        return $this->buyOrderPrice;
-    }
-
-    public function getBuyOrderAge(): int
-    {
-        return $this->buyOrderAge;
-    }
 
     public function getPrimaryResource(): string
     {
@@ -313,11 +225,6 @@ class ItemEntity
     public function getBonusCity(): string
     {
         return $this->bonusCity;
-    }
-
-    public function getFameFactor(): float
-    {
-        return $this->fameFactor;
     }
 
     private function setWeight(array $itemData): float
@@ -349,11 +256,6 @@ class ItemEntity
         };
 
         return ($itemData['primaryResourceAmount'] + $itemData['secondaryResourceAmount']) * $weightFactor;
-    }
-
-    public function getRealName(): string
-    {
-        return $this->realName;
     }
 
     private function getNutritionFactor(): int

@@ -33,14 +33,10 @@ class BlackMarketCraftingEntity
     private float $totalItemWeight;
 
     private float $craftingFee;
-    private float $profitBooks;
+    private float $profitJournals;
     private float $profit;
     private float $weightProfitQuotient;
     private string $colorGrade;
-
-    private int $primAge;
-    private int $secAge;
-    private int $itemAge;
 
     private float $fameAmount;
     private string $tierColor;
@@ -52,6 +48,31 @@ class BlackMarketCraftingEntity
     ) {
         $this->secResource = ResourceEntityFactory::getEmptyResourceEntity();
         $this->tierColor = $item->getTier()[0];
+    }
+
+    public function setJournalEntityEmpty(JournalEntity $journalEntityEmpty): void
+    {
+        $this->journalEntityEmpty = $journalEntityEmpty;
+    }
+
+    public function setJournalEntityFull(JournalEntity $journalEntityFull): void
+    {
+        $this->journalEntityFull = $journalEntityFull;
+    }
+
+    public function setJournalAmountPerItem(float $journalAmountPerItem): void
+    {
+        $this->journalAmountPerItem = $journalAmountPerItem;
+    }
+
+    public function setPrimResource(ResourceEntity $primResource): void
+    {
+        $this->primResource = $primResource;
+    }
+
+    public function setSecResource(ResourceEntity $secResource): void
+    {
+        $this->secResource = $secResource;
     }
 
     public function getTierColor(): string
@@ -79,26 +100,6 @@ class BlackMarketCraftingEntity
         $this->fameAmount = $fameAmount;
     }
 
-    public function getItemAge(): int
-    {
-        return $this->itemAge;
-    }
-
-    public function setItemAge(int $itemAge): void
-    {
-        $this->itemAge = $itemAge;
-    }
-
-    public function getSecAge(): int
-    {
-        return $this->secAge;
-    }
-
-    public function getPrimAge(): int
-    {
-        return $this->primAge;
-    }
-
     public function getColorGrade(): string
     {
         return $this->colorGrade;
@@ -119,14 +120,14 @@ class BlackMarketCraftingEntity
         $this->weightProfitQuotient = $weightProfitQuotient;
     }
 
-    public function getProfitBooks(): float
+    public function getProfitJournals(): float
     {
-        return $this->profitBooks;
+        return $this->profitJournals;
     }
 
-    public function setProfitBooks(float $profitBooks): void
+    public function setProfitJournals(float $profitJournals): void
     {
-        $this->profitBooks = $profitBooks;
+        $this->profitJournals = $profitJournals;
     }
 
     public function getProfit(): float
@@ -134,11 +135,9 @@ class BlackMarketCraftingEntity
         return $this->profit;
     }
 
-    public function setProfit(array $profitArray): void
+    public function setProfit(float $profit): void
     {
-        $this->profit = $profitArray['profit'];
-        $this->primAge = $profitArray['primAge'];
-        $this->secAge = $profitArray['secAge'];
+        $this->profit = $profit;
     }
 
     public function getCraftingFee(): float
@@ -197,12 +196,6 @@ class BlackMarketCraftingEntity
         return $this->secResource;
     }
 
-    public function setResources(array $resources): void
-    {
-        $this->primResource = $resources['primaryResource'] ?? ResourceEntityFactory::getEmptyResourceEntity();
-        $this->secResource = $resources['secondaryResource'] ?? ResourceEntityFactory::getEmptyResourceEntity();
-    }
-
     public function getJournalEntityEmpty(): JournalEntity
     {
         return $this->journalEntityEmpty;
@@ -220,19 +213,28 @@ class BlackMarketCraftingEntity
         return $this->journalAmountPerItem;
     }
 
-    public function setJournals(array $journals): void
+    public function setTotalAmount(int $totalAmount): void
     {
-        $this->journalAmountPerItem = $journals['amount'];
-        $this->journalEntityFull = $journals['full'];
-        $this->journalEntityEmpty = $journals['empty'];
+        $this->totalAmount = $totalAmount;
     }
 
-    public function setAmounts(array $amounts): void
+    public function setPrimResourceAmount(int $primResourceAmount): void
     {
-        $this->totalAmount = $amounts['totalAmount'];
-        $this->primResourceAmount = $amounts['primResourceAmount'];
-        $this->secResourceAmount = $amounts['secResourceAmount'];
-        $this->journalAmount = $amounts['journalAmount'];
-        $this->totalItemWeight = $amounts['totalItemWeight'];
+        $this->primResourceAmount = $primResourceAmount;
+    }
+
+    public function setSecResourceAmount(int $secResourceAmount): void
+    {
+        $this->secResourceAmount = $secResourceAmount;
+    }
+
+    public function setJournalAmount(int $journalAmount): void
+    {
+        $this->journalAmount = $journalAmount;
+    }
+
+    public function setTotalItemWeight(float $totalItemWeight): void
+    {
+        $this->totalItemWeight = $totalItemWeight;
     }
 }

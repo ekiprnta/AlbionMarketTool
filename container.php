@@ -17,14 +17,19 @@ use MZierdt\Albion\Handler\AdminHandler;
 use MZierdt\Albion\Handler\BlackMarketCraftingHandler;
 use MZierdt\Albion\Handler\BlackMarketTransportingHandler;
 use MZierdt\Albion\Handler\listDataHandler;
-use MZierdt\Albion\repositories\DeleteDataRepository;
-use MZierdt\Albion\repositories\JournalRepository;
-use MZierdt\Albion\Service\BlackMarketCraftingService;
-use MZierdt\Albion\Service\BlackMarketTransportingService;
 use MZierdt\Albion\HttpClient;
+use MZierdt\Albion\repositories\DeleteDataRepository;
 use MZierdt\Albion\repositories\ItemRepository;
+use MZierdt\Albion\repositories\JournalRepository;
 use MZierdt\Albion\repositories\ResourceRepository;
 use MZierdt\Albion\Service\ApiService;
+use MZierdt\Albion\Service\BlackMarketCraftingHelper;
+use MZierdt\Albion\Service\BlackMarketCraftingService;
+use MZierdt\Albion\Service\BlackMarketTransportingHelper;
+use MZierdt\Albion\Service\BlackMarketTransportingService;
+use MZierdt\Albion\Service\ConfigService;
+use MZierdt\Albion\Service\TierService;
+use MZierdt\Albion\Service\UploadHelper;
 use Twig\Environment;
 
 $serviceManager = new ServiceManager([
@@ -40,13 +45,22 @@ $serviceManager = new ServiceManager([
                     ItemRepository::class,
                     ResourceRepository::class,
                 ],
+                UploadHelper::class => [
+                    TierService::class
+                ],
+                BlackMarketCraftingHelper::class => [],
+                ConfigService::class => [],
                 BlackMarketCraftingService::class => [
                     ItemRepository::class,
                     ResourceRepository::class,
                     JournalRepository::class,
+                    BlackMarketCraftingHelper::class,
                 ],
+                TierService::class => [],
+                BlackMarketTransportingHelper::class => [],
                 BlackMarketTransportingService::class => [
-                    ItemRepository::class
+                    ItemRepository::class,
+                    BlackMarketTransportingHelper::class,
                 ],
                 BlackMarketTransportingHandler::class => [
                     Environment::class,
@@ -65,14 +79,20 @@ $serviceManager = new ServiceManager([
                 UpdateJournalsCommand::class => [
                     ApiService::class,
                     JournalRepository::class,
+                    ConfigService::class,
+                    UploadHelper::class,
                 ],
                 UpdateItemsCommand::class => [
                     ApiService::class,
                     ItemRepository::class,
+                    ConfigService::class,
+                    UploadHelper::class,
                 ],
                 UpdateResourcesCommand::class => [
                     ApiService::class,
                     ResourceRepository::class,
+                    ConfigService::class,
+                    UploadHelper::class,
                 ],
             ]
         ],

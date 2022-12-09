@@ -6,12 +6,16 @@ namespace MZierdt\Albion\Service;
 
 class UploadHelper
 {
-    public static function adjustResourceArray(array $resourceData, array $resourceStats): array
+    public function __construct(private TierService $tierService)
+    {
+    }
+
+    public function adjustResourceArray(array $resourceData, array $resourceStats): array
     {
         $adjustedResourceArray = [];
         foreach ($resourceData as $resource) {
-            $nameAndTier = TierService::splitIntoTierAndName($resource['item_id']);
-            $name = self::getResourceName($nameAndTier['name']);
+            $nameAndTier = $this->tierService->splitIntoTierAndName($resource['item_id']);
+            $name = $this->getResourceName($nameAndTier['name']);
             $adjustedResourceArray[] = [
                 'tier' => $nameAndTier['tier'],
                 'name' => $name,
@@ -27,13 +31,13 @@ class UploadHelper
         return $adjustedResourceArray;
     }
 
-    public static function adjustJournals(array $journalData, array $journalStats): array
+    public function adjustJournals(array $journalData, array $journalStats): array
     {
         $adjustedJournalsArray = [];
         foreach ($journalData as $journal) {
-            $nameAndTier = TierService::splitIntoTierAndName($journal['item_id']);
+            $nameAndTier = $this->tierService->splitIntoTierAndName($journal['item_id']);
             $stats = $journalStats[$nameAndTier['tier']];
-            [$prefix, $name, $fillStatus] = explode('_', $nameAndTier['name']);
+            $split = $this->tierService->journalSplitter($nameAndTier['name']);
             $adjustedJournalsArray[] = [
                 'tier' => $nameAndTier['tier'],
                 'name' => $nameAndTier['name'],
@@ -44,18 +48,18 @@ class UploadHelper
                 'buyOrderPrice' => $journal['buy_price_max'],
                 'buyOrderPriceDate' => $journal['buy_price_max_date'],
                 'weight' => $stats['weight'],
-                'fillStatus' => $fillStatus,
-                'class' => $name,
+                'fillStatus' => $split['fillStatus'],
+                'class' => $split['class'],
             ];
         }
         return $adjustedJournalsArray;
     }
 
-    public static function adjustItems(array $itemData, array $itemStats): array
+    public function adjustItems(array $itemData, array $itemStats): array
     {
         $adjustedItems = [];
         foreach ($itemData as $item) {
-            $nameAndTier = TierService::splitIntoTierAndName($item['item_id']);
+            $nameAndTier = $this->tierService->splitIntoTierAndName($item['item_id']);
             $adjustedItems[] = [
                 'tier' => $nameAndTier['tier'],
                 'name' => $nameAndTier['name'],
@@ -79,7 +83,7 @@ class UploadHelper
         return $adjustedItems;
     }
 
-    private static function getResourceName(string $name): string
+    private function getResourceName(string $name): string
     {
         if (str_contains($name, 'level')) {
             return substr($name, 0, -7);

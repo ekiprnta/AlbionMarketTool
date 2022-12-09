@@ -36,7 +36,8 @@
     "infection/infection": "^0.26.10",
     "symfony/var-dumper": "^6.0",
     "symplify/easy-coding-standard": "^10.2.3",
-    "rector/rector": "^0.13.8"
+    "rector/rector": "^0.13.8",
+    "dg/bypass-finals": "^1.4"
   },
   "scripts": {
     "stan": "phpstan analyse -c phpstan.neon",

@@ -10,8 +10,10 @@ use MZierdt\Albion\repositories\ItemRepository;
 
 class BlackMarketTransportingService
 {
-    public function __construct(private ItemRepository $itemRepository)
-    {
+    public function __construct(
+        private ItemRepository $itemRepository,
+        private BlackMarketTransportingHelper $bmtHelper
+    ) {
     }
 
     public function getDataForCity(string $itemCity, int $weight, array $tierList): array
@@ -35,13 +37,26 @@ class BlackMarketTransportingService
 
         /** @var BlackMarketTransportEntity $bmtEntity */
         foreach ($bmtEntities as $bmtEntity) {
-            $bmtEntity->setCityItem(BlackMarketTransportingHelper::calculateCityItem($bmtEntity, $cityItem));
-            $bmtEntity->setProfit(BlackMarketTransportingHelper::calculateProfit($bmtEntity));
+            $bmtEntity->setCityItem($this->bmtHelper->calculateCityItem($bmtEntity->getBmItem(), $cityItem));
+            $bmtEntity->setAmount(
+                $this->bmtHelper->calculateAmount($bmtEntity->getWeight(), $bmtEntity->getBmItem()->getWeight())
+            );
+            $bmtEntity->setSingleProfit(
+                $this->bmtHelper->calculateSingleProfit(
+                    $bmtEntity->getBmItem()
+                        ->getSellOrderPrice(),
+                    $bmtEntity->getCityItem()
+                        ->getSellOrderPrice()
+                )
+            );
+            $bmtEntity->setProfit(
+                $this->bmtHelper->calculateProfit($bmtEntity->getSingleProfit(), $bmtEntity->getAmount())
+            );
             $bmtEntity->setWeightProfitQuotient(
-                BlackMarketTransportingHelper::calculateWeightProfitQuotient($bmtEntity->getProfit(), $weight)
+                $this->bmtHelper->calculateWeightProfitQuotient($bmtEntity->getProfit(), $weight)
             );
             $bmtEntity->setProfitGrade(
-                BlackMarketTransportingHelper::calculateProfitGrade($bmtEntity->getWeightProfitQuotient())
+                $this->bmtHelper->calculateProfitGrade($bmtEntity->getWeightProfitQuotient())
             );
         }
 //        $combinedItems = $this->combineItems($cityItems, $bmItems);
