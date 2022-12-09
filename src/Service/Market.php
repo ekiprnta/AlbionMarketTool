@@ -32,7 +32,7 @@ class Market
         return match (true) {
             $quotient >= 1800 => 'S',
             $quotient >= 900 => 'A',
-            $quotient >= 350 => 'B',
+            $quotient >= 300 => 'B',
             $quotient >= 0 => 'C',
             default => 'D',
         };

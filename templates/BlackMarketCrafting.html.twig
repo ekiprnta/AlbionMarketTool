@@ -111,13 +111,13 @@
                         <th>Tier</th>
                         <th>Name</th>
                         <th>Price PrimResource</th>
-                        <th>Price Age</th>
+                        <th class="age-width">Price Age</th>
                         <th>Amount PrimResource</th>
                         <th>Price SecResource</th>
-                        <th>Price Age</th>
+                        <th class="age-width">Price Age</th>
                         <th>Amount SecResource</th>
                         <th>Price</th>
-                        <th>Price Age</th>
+                        <th class="age-width">Price Age</th>
                         <th>Amount Crafted</th>
                         <th>Amount Books</th>
                         <th>Crafting Fee</th>
@@ -138,17 +138,17 @@
                                 <td>{{ bmcEntity.item.realName }}</td>
                                 <td>{{ bmcEntity.primResource.sellOrderPrice|number_format }}</td>
                                 <td {% if bmcEntity.primResource.sellOrderAge > 720 %} class="bg-D" {% endif %}>
-                                    {{ bmcEntity.primResource.sellOrderAge|number_format }} min
+                                    {{ bmcEntity.primResource.sellOrderAge|number_format }}min
                                 </td>
                                 <td>{{ bmcEntity.primResourceAmount|number_format }}</td>
                                 <td>{{ bmcEntity.secResource.sellOrderPrice|number_format }}</td>
                                 <td {% if bmcEntity.secResource.sellOrderAge > 720 %} class="bg-D" {% endif %}>
-                                    {{ bmcEntity.secResource.sellOrderAge|number_format }} min
+                                    {% if bmcEntity.secResource.sellOrderAge < 10000 %}{{ bmcEntity.secResource.sellOrderAge|number_format }}min {% else %} / {% endif %}
                                 </td>
                                 <td>{{ bmcEntity.secResourceAmount|number_format }}</td>
                                 <td>{{ bmcEntity.item.sellOrderPrice|number_format }}</td>
-                                <td {% if bmcEntity.itemAge > 1440 %} class="bg-D" {% endif %}>
-                                    {{ bmcEntity.itemAge|number_format }} min
+                                <td {% if bmcEntity.item.sellOrderAge > 10000 %} class="bg-D" {% endif %}>
+                                    {{ bmcEntity.item.sellOrderAge|number_format }}min
                                 </td>
                                 <td>{{ bmcEntity.totalAmount|number_format }}</td>
                                 <td>{{ bmcEntity.journalAmount|round(1,'ceil') }}</td>
@@ -200,7 +200,7 @@
                                                     <div class="badge-info badge standard-badge">
                                                         amount: {{ bmcEntity.totalAmount|number_format }}</div>
                                                     <div class="badge-info badge standard-badge">
-                                                        bmcEntityPriceAge: {{ bmcEntity.itemAge }}min
+                                                        bmcEntityPriceAge: {{ bmcEntity.item.sellOrderAge }}min
                                                     </div>
                                                 </div>
                                             </div>
@@ -255,7 +255,8 @@
                                                             resourceWeight: {{ bmcEntity.secResource.weight }}kg
                                                         </div>
                                                         <div class="badge-info badge standard-badge">
-                                                            secondaryPriceAge: {{ bmcEntity.secResource.sellOrderAge }}min
+                                                            secondaryPriceAge: {{ bmcEntity.secResource.sellOrderAge }}
+                                                            min
                                                         </div>
                                                     </div>
                                                 </div>
@@ -289,7 +290,8 @@
                                                         Silver
                                                     </div>
                                                     <div class="badge-info badge standard-badge">
-                                                        totalWeightItems: {{ bmcEntity.totalItemWeight|number_format }}kg
+                                                        totalWeightItems: {{ bmcEntity.totalItemWeight|number_format }}
+                                                        kg
                                                     </div>
                                                     <div class="badge-info badge standard-badge">
                                                         totalWeightResources: {{ bmcEntity.totalWeightResources|number_format }}

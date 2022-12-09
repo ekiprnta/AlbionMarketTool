@@ -76,3 +76,7 @@ tr {
     max-height: 15px;
     line-height: 15px;
 }
+
+.age-width {
+    width: 70px;
+}
