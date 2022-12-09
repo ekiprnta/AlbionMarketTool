@@ -43,7 +43,7 @@ class UpdateResourcesCommand extends Command
             $progressBar->setMessage('Get Resource ' . $resourceStats['realName']);
             $progressBar->advance();
             $progressBar->display();
-            $resourcesData = $this->apiService->getResource($resourceStats['realName']);
+            $resourcesData = $this->apiService->getResources($resourceStats['realName']);
             $progressBar->setMessage('preparing resource ' . $resourceStats['realName']);
             $progressBar->display();
             $adjustedResources = $this->uploadHelper->adjustResourceArray($resourcesData, $resourceStats);

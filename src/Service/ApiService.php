@@ -33,7 +33,7 @@ class ApiService // Buy Order ist buy_price_max
         self::CITY_THETFORD . ',' .
         self::CITY_BLACKMARKET . ',';
 
-    private const QUALITY_GOOD = 2;
+    public const QUALITY_GOOD = 2;
 
     public function __construct(
         private HttpClient $httpClient
@@ -47,10 +47,9 @@ class ApiService // Buy Order ist buy_price_max
         return $this->jsonDecode($this->httpClient->get($apiUrl, ['locations' => self::CITY_ALL]));
     }
 
-    public function getResource(string $resourceType)
+    public function getResources(string $resourceType)
     {
         $apiUrl = $this->apiUrlAssembler($resourceType, self::RESOURCE_TIERS_WITH_PLACEHOLDER);
-
         $json = $this->httpClient->get($apiUrl, ['locations' => self::CITY_ALL]);
         return $this->jsonDecode($json);
     }

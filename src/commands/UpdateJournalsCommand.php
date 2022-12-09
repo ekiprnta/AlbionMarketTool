@@ -39,15 +39,15 @@ class UpdateJournalsCommand extends Command
             is_countable($journalList['names']) ? count($journalList['names']) : 0
         );
 
-        foreach ($journalList['names'] as $journalNames) {
-            $progressBar->setMessage('Get Resource ' . $journalNames);
+        foreach ($journalList['names'] as $journalName) {
+            $progressBar->setMessage('Get Resource ' . $journalName);
             $progressBar->advance();
             $progressBar->display();
-            $journalsData = $this->apiService->getJournals($journalNames);
-            $progressBar->setMessage('preparing resource ' . $journalNames);
+            $journalsData = $this->apiService->getJournals($journalName);
+            $progressBar->setMessage('preparing resource ' . $journalName);
             $progressBar->display();
             $adjustedJournals = $this->uploadHelper->adjustJournals($journalsData, $journalList['stats']);
-            $progressBar->setMessage('Upload Resource ' . $journalNames . ' into Database');
+            $progressBar->setMessage('Upload Resource ' . $journalName . ' into Database');
             $progressBar->display();
             $this->journalRepository->updatePricesFromJournals($adjustedJournals);
         }
