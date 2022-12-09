@@ -147,7 +147,7 @@
                                 </td>
                                 <td>{{ bmcEntity.secResourceAmount|number_format }}</td>
                                 <td>{{ bmcEntity.item.sellOrderPrice|number_format }}</td>
-                                <td {% if bmcEntity.item.sellOrderAge > 1440 %} class="bg-D" {% endif %}>
+                                <td {% if bmcEntity.item.sellOrderAge > 10000 %} class="bg-D" {% endif %}>
                                     {{ bmcEntity.item.sellOrderAge|number_format }}min
                                 </td>
                                 <td>{{ bmcEntity.totalAmount|number_format }}</td>
