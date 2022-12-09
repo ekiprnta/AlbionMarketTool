@@ -53,7 +53,6 @@ class BlackMarketCraftingService
         $items = $this->itemRepository->getBlackMarketItemsFromCity($itemCity);
         $resources = $this->resourceRepository->getResourcesByCity($resourceCity);
         $journals = $this->journalRepository->getJournalsFromCity($resourceCity);
-
         $calculateEntityArray = [];
         /** @var ItemEntity $item */
         foreach ($items as $item) {
