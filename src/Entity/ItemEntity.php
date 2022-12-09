@@ -37,29 +37,6 @@ class ItemEntity extends AlbionItemEntity
     public const ITEM_HUNTER_QUARTERSTAFF = 'quarterstaff';
     public const ITEM_HUNTER_TORCH = 'torch';
 
-    private const TIER_T2 = '2';
-    private const TIER_T3 = '3';
-    private const TIER_T4 = '4';
-    private const TIER_T4_1 = '41';
-    private const TIER_T4_2 = '42';
-    private const TIER_T4_3 = '43';
-    private const TIER_T5 = '5';
-    private const TIER_T5_1 = '51';
-    private const TIER_T5_2 = '52';
-    private const TIER_T5_3 = '53';
-    private const TIER_T6 = '6';
-    private const TIER_T6_1 = '61';
-    private const TIER_T6_2 = '62';
-    private const TIER_T6_3 = '63';
-    private const TIER_T7 = '7';
-    private const TIER_T7_1 = '71';
-    private const TIER_T7_2 = '72';
-    private const TIER_T7_3 = '73';
-    private const TIER_T8 = '8';
-    private const TIER_T8_1 = '81';
-    private const TIER_T8_2 = '82';
-    private const TIER_T8_3 = '83';
-
     private const T20_WEIGHT_FACTOR = 0.1;
     private const T30_WEIGHT_FACTOR = 0.14;
     private const T40_WEIGHT_FACTOR = 0.21;
@@ -133,17 +110,8 @@ class ItemEntity extends AlbionItemEntity
     public const CLASS_MAGE = 'mage';
     public const CLASS_HUNTER = 'hunter';
 
-    private string $tier;
-    private string $name;
     private string $weaponGroup;
-    private string $realName;
-    private string $class;
-    private string $city;
     private int $quality;
-    private int $sellOrderPrice;
-    private int $sellOrderAge;
-    private int $buyOrderPrice;
-    private int $buyOrderAge;
     private string $primaryResource;
     private int $primaryResourceAmount;
     private ?string $secondaryResource;
@@ -151,34 +119,26 @@ class ItemEntity extends AlbionItemEntity
     private string $bonusCity;
     private float $fameFactor;
     private ?int $amountInStorage;
-    private float $weight;
     private int $itemValue;
     private float $fame;
 
 
-    public function __construct(array $itemData)
+    public function __construct(array $itemResourceData)
     {
-        $weight = $this->setWeight($itemData);
+        parent::__construct($itemResourceData);
 
-        $this->tier = $itemData['tier'];
-        $this->name = $itemData['name'];
-        $this->weaponGroup = $itemData['weaponGroup'];
-        $this->realName = $itemData['realName'] ?? 'No Name given WTF';
-        $this->class = $itemData['class'] ?? 'No CLass ? wrong input?';
-        $this->city = $itemData['city'];
-        $this->quality = (int) $itemData['quality'];
-        $this->sellOrderPrice = (int) $itemData['sellOrderPrice'];
-        $this->sellOrderAge = $this->calculateAge($itemData['sellOrderPriceDate']);
-        $this->buyOrderPrice = (int) $itemData['buyOrderPrice'];
-        $this->buyOrderAge = $this->calculateAge($itemData['buyOrderPriceDate']);
-        $this->primaryResource = $itemData['primaryResource'] ?? 'primR';
-        $this->primaryResourceAmount = (int) $itemData['primaryResourceAmount'];
-        $this->secondaryResource = $itemData['secondaryResource'];
-        $this->secondaryResourceAmount = (int) $itemData['secondaryResourceAmount'];
-        $this->bonusCity = $itemData['bonusCity'] ?? 'bonusCity';
+        $this->weight = $this->setWeight($itemResourceData);
+        $this->weaponGroup = $itemResourceData['weaponGroup'];
+        $this->quality = (int) $itemResourceData['quality'];
+
+        $this->primaryResource = $itemResourceData['primaryResource'] ?? 'primR';
+        $this->primaryResourceAmount = (int) $itemResourceData['primaryResourceAmount'];
+        $this->secondaryResource = $itemResourceData['secondaryResource'];
+        $this->secondaryResourceAmount = (int) $itemResourceData['secondaryResourceAmount'];
+
+        $this->bonusCity = $itemResourceData['bonusCity'] ?? 'bonusCity';
         $this->fameFactor = $this->setFameFactor();
-        $this->amountInStorage = $itemData['amountInStorage'];
-        $this->weight = $weight;
+        $this->amountInStorage = $itemResourceData['amountInStorage'];
         $this->itemValue = ($this->primaryResourceAmount + $this->secondaryResourceAmount) * $this->getNutritionFactor();
         $this->fame = $this->fameFactor * ($this->primaryResourceAmount + $this->secondaryResourceAmount);
     }
@@ -233,34 +193,9 @@ class ItemEntity extends AlbionItemEntity
         return $this->weaponGroup;
     }
 
-    public function getClass(): mixed
-    {
-        return $this->class;
-    }
-
     public function getAmountInStorage(): mixed
     {
         return $this->amountInStorage;
-    }
-
-    public function getTier(): string
-    {
-        return $this->tier;
-    }
-
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    public function getWeight(): float
-    {
-        return $this->weight;
-    }
-
-    public function getCity(): string
-    {
-        return $this->city;
     }
 
     public function getQuality(): int
@@ -268,25 +203,6 @@ class ItemEntity extends AlbionItemEntity
         return $this->quality;
     }
 
-    public function getSellOrderPrice(): int
-    {
-        return $this->sellOrderPrice;
-    }
-
-    public function getSellOrderAge(): int
-    {
-        return $this->sellOrderAge;
-    }
-
-    public function getBuyOrderPrice(): int
-    {
-        return $this->buyOrderPrice;
-    }
-
-    public function getBuyOrderAge(): int
-    {
-        return $this->buyOrderAge;
-    }
 
     public function getPrimaryResource(): string
     {
@@ -347,11 +263,6 @@ class ItemEntity extends AlbionItemEntity
         };
 
         return ($itemData['primaryResourceAmount'] + $itemData['secondaryResourceAmount']) * $weightFactor;
-    }
-
-    public function getRealName(): string
-    {
-        return $this->realName;
     }
 
     private function getNutritionFactor(): int
