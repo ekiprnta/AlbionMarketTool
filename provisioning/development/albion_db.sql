@@ -110,17 +110,17 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
-INSERT INTO `items` (tier, name, weaponGroup, realName, class, city, quality, sellOrderPrice, sellOrderPriceDate, buyOrderPrice, buyOrderPriceDate, primaryResource, primaryResourceAmount, secondaryResource, secondaryResourceAmount, bonusCity)
-VALUES
-    ('71', '3h_axe','axe','greatAxe', 'warrior', 'TestCity', 2,241992, '2022-12-06 21:15:00', 178594,'2022-12-06 21:15:00', 'metalBar', 20, 'planks', 12,'TestCity'),
-    ('71', '3h_axe','axe','greatAxe', 'warrior', 'Black Market',2, 441992, '2022-12-06 21:15:00', 168594,'2022-12-06 21:15:00', 'metalBar', 20, 'planks', 12,'TestCity');
-
-INSERT INTO journals (tier, name, city, fameToFill, sellOrderPrice, sellOrderPriceDate, buyOrderPrice, buyOrderPriceDate, weight, fillStatus, class)
-VALUES
-    ('7', 'journal_warrior_empty', 'Testcity',28380,9559,'2022-12-06 21:15:00',9005,'2022-12-06 21:15:00',1.1,'empty', 'warrior'),
-    ('7', 'journal_warrior_full', 'Testcity',28380,50000,'2022-12-06 21:15:00',43000,'2022-12-06 21:15:00',1.1,'full', 'warrior');
-
-Insert INTO resource (tier, name, city, realName, sellOrderPrice, sellOrderPriceDate, buyOrderPrice, buyOrderPriceDate,bonusCity)
-VALUES
-    ('71', 'planks', 'TestCity', 'planks', 13986,'2022-12-06 21:15:00', 12235,'2022-12-06 21:15:00','Testcity'),
-    ('71', 'metalBar', 'TestCity', 'metalBar', 13986,'2022-12-06 21:15:00', 12235,'2022-12-06 21:15:00','Testcity');
+# INSERT INTO `items` (tier, name, weaponGroup, realName, class, city, quality, sellOrderPrice, sellOrderPriceDate, buyOrderPrice, buyOrderPriceDate, primaryResource, primaryResourceAmount, secondaryResource, secondaryResourceAmount, bonusCity)
+# VALUES
+#     ('71', '3h_axe','axe','greatAxe', 'warrior', 'TestCity', 2,241992, '2022-12-06 21:15:00', 178594,'2022-12-06 21:15:00', 'metalBar', 20, 'planks', 12,'TestCity'),
+#     ('71', '3h_axe','axe','greatAxe', 'warrior', 'Black Market',2, 441992, '2022-12-06 21:15:00', 168594,'2022-12-06 21:15:00', 'metalBar', 20, 'planks', 12,'TestCity');
+#
+# INSERT INTO journals (tier, name, city, fameToFill, sellOrderPrice, sellOrderPriceDate, buyOrderPrice, buyOrderPriceDate, weight, fillStatus, class)
+# VALUES
+#     ('7', 'journal_warrior_empty', 'Testcity',28380,9559,'2022-12-06 21:15:00',9005,'2022-12-06 21:15:00',1.1,'empty', 'warrior'),
+#     ('7', 'journal_warrior_full', 'Testcity',28380,50000,'2022-12-06 21:15:00',43000,'2022-12-06 21:15:00',1.1,'full', 'warrior');
+#
+# Insert INTO resource (tier, name, city, realName, sellOrderPrice, sellOrderPriceDate, buyOrderPrice, buyOrderPriceDate,bonusCity)
+# VALUES
+#     ('71', 'planks', 'TestCity', 'planks', 13986,'2022-12-06 21:15:00', 12235,'2022-12-06 21:15:00','Testcity'),
+#     ('71', 'metalBar', 'TestCity', 'metalBar', 13986,'2022-12-06 21:15:00', 12235,'2022-12-06 21:15:00','Testcity');
