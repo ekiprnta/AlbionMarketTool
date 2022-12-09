@@ -117,7 +117,6 @@ class ItemEntity extends AlbionItemEntity
     private ?string $secondaryResource;
     private ?int $secondaryResourceAmount;
     private string $bonusCity;
-    private float $fameFactor;
     private ?int $amountInStorage;
     private int $itemValue;
     private float $fame;
@@ -137,10 +136,9 @@ class ItemEntity extends AlbionItemEntity
         $this->secondaryResourceAmount = (int) $itemResourceData['secondaryResourceAmount'];
 
         $this->bonusCity = $itemResourceData['bonusCity'] ?? 'bonusCity';
-        $this->fameFactor = $this->setFameFactor();
         $this->amountInStorage = $itemResourceData['amountInStorage'];
         $this->itemValue = ($this->primaryResourceAmount + $this->secondaryResourceAmount) * $this->getNutritionFactor();
-        $this->fame = $this->fameFactor * ($this->primaryResourceAmount + $this->secondaryResourceAmount);
+        $this->fame = $this->calculateFameFactor() * ($this->primaryResourceAmount + $this->secondaryResourceAmount);
     }
 
     public function getFame(): float
@@ -153,7 +151,7 @@ class ItemEntity extends AlbionItemEntity
         return $this->itemValue;
     }
 
-    private function setFameFactor(): float
+    private function calculateFameFactor(): float
     {
         return match ($this->tier) {
             self::TIER_T2 => self::T20_FACTOR_FAME,
@@ -227,11 +225,6 @@ class ItemEntity extends AlbionItemEntity
     public function getBonusCity(): string
     {
         return $this->bonusCity;
-    }
-
-    public function getFameFactor(): float
-    {
-        return $this->fameFactor;
     }
 
     private function setWeight(array $itemData): float

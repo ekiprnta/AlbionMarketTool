@@ -43,6 +43,7 @@ class AlbionItemEntity
 
     public function __construct(array $resourceData)
     {
+//        if (!$resourceData['buyOrderPriceDate']|| !$resourceData['sellOrderPriceDate']) {dump($resourceData);}
         $this->tier = $resourceData['tier'];
         $this->name = $resourceData['name'];
         $this->city = $resourceData['city'];
@@ -55,20 +56,26 @@ class AlbionItemEntity
         $this->class = $resourceData['class'] ?? 0;
     }
 
-    protected function calculateAge(?string $dateString): int
+    private function calculateAge(?string $dateString): int
     {
         $priceDate = $this->calculateDateTimeImmutable($dateString);
 
         $now = DateTimeImmutable::createFromFormat('Y-m-d H:i:s', Date('Y-m-d H:i:s'));
 
+//        if(!$priceDate) {
+//            dd( $dateString);
+//        }
+
         $dateDiff = date_diff($now, $priceDate);
         return $dateDiff->d * 24 * 60 + $dateDiff->h * 60 + $dateDiff->i;
     }
 
-    private function calculateDateTimeImmutable(?string $dateString): DateTimeImmutable
+    private function calculateDateTimeImmutable(?string $dateString): DateTimeImmutable|false
     {
         if ($dateString === null) {
-            return DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '2000-00-00 00:00:00');
+            $bla =  DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '1970-03-22 12:12:12');
+            return $bla;
+
         }
         $dateString = str_replace('T', ' ', $dateString);
         return DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $dateString, new DateTimeZone('Europe/London'));
