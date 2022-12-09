@@ -52,7 +52,7 @@ class ResourceEntityTest extends TestCase
         $this->assertEquals('city', $entity->getCity());
         $this->assertEquals(4567, $entity->getSellOrderPrice());
 //        $this->assertEquals(25765, $entity->getSellOrderAge());
-        $this->assertEquals(3476543, $entity->getBuyOrderPrice());
+        $this->assertEquals(3_476_543, $entity->getBuyOrderPrice());
 //        $this->assertEquals(25765, $entity->getBuyOrderAge());
         $this->assertEquals('realName', $entity->getRealName());
         $this->assertEquals(1.71, $entity->getWeight());

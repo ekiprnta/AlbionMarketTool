@@ -44,7 +44,8 @@
     "stan5": "vendor/bin/phpstan analyze -l 5 src",
     "stan4": "vendor/bin/phpstan analyze -l 4 src",
     "stan6": "vendor/bin/phpstan analyze -l 6 src",
-    "ecs-fix": "vendor/bin/ecs --fix"
+    "ecs-fix": "vendor/bin/ecs --fix",
+    "rector": "vendor/bin/rector process src"
   },
   "config": {
     "allow-plugins": {

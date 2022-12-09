@@ -34,7 +34,7 @@ class BlackMarketTransportingHelperTest extends TestCase
         string $bmTier,
         string $bmItem,
     ): void {
-        $this->expectException('RuntimeException');
+        $this->expectException(\RuntimeException::class);
         $this->cityItem->getTier()
             ->willReturn($cityTier);
         $this->cityItem->getName()
