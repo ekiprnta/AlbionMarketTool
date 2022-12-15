@@ -34,6 +34,26 @@ SQL
         return $resourceArray;
     }
 
+    public function getResourcesByBonusCity(string $city): array
+    {
+        $statement = $this->pdoConnection->prepare(
+            <<<SQL
+            SELECT * 
+            FROM albion_db.resource
+            WHERE albion_db.resource.bonusCity = :city
+SQL
+        );
+
+        $statement->bindParam(':city', $city);
+        $statement->execute();
+
+        $resourceArray = [];
+        foreach ($statement->getIterator() as $resourceInformation) {
+            $resourceArray[] = new ResourceEntity($resourceInformation);
+        }
+        return $resourceArray;
+    }
+
     public function updatePricesFromResources(array $resourceInformation): void
     {
         foreach ($resourceInformation as $resource) {

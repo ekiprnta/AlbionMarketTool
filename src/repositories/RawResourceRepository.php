@@ -11,13 +11,13 @@ class RawResourceRepository
     {
     }
 
-    public function getResourcesByCity(string $city): array
+    public function getRawResourcesByBonusCity(string $city): array
     {
         $statement = $this->pdoConnection->prepare(
             <<<SQL
             SELECT * 
             FROM albion_db.rawResource
-            WHERE albion_db.rawResource.city = :city
+            WHERE albion_db.rawResource.bonusCity = :city
 SQL
         );
 
@@ -31,7 +31,7 @@ SQL
         return $rawResourceArray;
     }
 
-    public function updatePricesFromResources(array $rawResourceInformation): void
+    public function updatePricesFromRawResources(array $rawResourceInformation): void
     {
         foreach ($rawResourceInformation as $rawResource) {
             $statement = $this->pdoConnection->prepare(
