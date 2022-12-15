@@ -11,6 +11,7 @@ use MZierdt\Albion\commands\UpdateResourcesCommand;
 use MZierdt\Albion\factories\DeleteDataRepositoryFactory;
 use MZierdt\Albion\factories\ItemRepositoryFactory;
 use MZierdt\Albion\factories\JournalRepositoryFactory;
+use MZierdt\Albion\factories\RawResourceRepositoryFactory;
 use MZierdt\Albion\factories\ResourceRepositoryFactory;
 use MZierdt\Albion\factories\TwigEnvironmentFactory;
 use MZierdt\Albion\Handler\AdminHandler;
@@ -21,6 +22,7 @@ use MZierdt\Albion\HttpClient;
 use MZierdt\Albion\repositories\DeleteDataRepository;
 use MZierdt\Albion\repositories\ItemRepository;
 use MZierdt\Albion\repositories\JournalRepository;
+use MZierdt\Albion\repositories\RawResourceRepository;
 use MZierdt\Albion\repositories\ResourceRepository;
 use MZierdt\Albion\Service\ApiService;
 use MZierdt\Albion\Service\BlackMarketCraftingHelper;
@@ -101,6 +103,7 @@ $serviceManager = new ServiceManager([
     'factories' => [
         Environment::class => TwigEnvironmentFactory::class,
         ResourceRepository::class => ResourceRepositoryFactory::class,
+        RawResourceRepository::class => RawResourceRepositoryFactory::class,
         ItemRepository::class => ItemRepositoryFactory::class,
         JournalRepository::class => JournalRepositoryFactory::class,
         DeleteDataRepository::class => DeleteDataRepositoryFactory::class,
