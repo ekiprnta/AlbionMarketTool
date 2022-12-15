@@ -18,6 +18,7 @@ class RawResourceRepository
             SELECT * 
             FROM albion_db.rawResource
             WHERE albion_db.rawResource.bonusCity = :city
+            AND albion_db.rawResource.city = :city
 SQL
         );
 
@@ -26,7 +27,7 @@ SQL
 
         $rawResourceArray = [];
         foreach ($statement->getIterator() as $rawResourceInformation) {
-            $rawResourceArray[] = new ResourceEntity($rawResourceInformation);
+            $rawResourceArray[] = new ResourceEntity($rawResourceInformation, true);
         }
         return $rawResourceArray;
     }

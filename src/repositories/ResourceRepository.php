@@ -41,6 +41,7 @@ SQL
             SELECT * 
             FROM albion_db.resource
             WHERE albion_db.resource.bonusCity = :city
+            AND albion_db.resource.city = :city
 SQL
         );
 
