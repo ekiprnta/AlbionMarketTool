@@ -105,26 +105,23 @@
                 <div class="card-title">
                     <h3> {{ weaponGroupName }}</h3>
                 </div>
-                <table class="table table-sm table-bordered">
+                <table class="table table-sm table-bordered align-middle">
                     <thead class="thead-default">
                     <tr>
                         <th>Tier</th>
                         <th>Name</th>
+                        <th class="amount-col">Weight Resources</th>
                         <th>Price PrimResource</th>
-                        <th class="age-width">Price Age</th>
-                        <th>Amount PrimResource</th>
+                        <th class="amount-col">Amount PrimResource</th>
                         <th>Price SecResource</th>
-                        <th class="age-width">Price Age</th>
-                        <th>Amount SecResource</th>
+                        <th class="amount-col">Amount SecResource</th>
+                        <th class="amount-col">Amount Journals</th>
                         <th>Price</th>
-                        <th class="age-width">Price Age</th>
-                        <th>Amount Crafted</th>
-                        <th>Amount Books</th>
+                        <th class="amount-col">Amount Crafted</th>
                         <th>Crafting Fee</th>
                         <th>Profit when rrr: {{ rrr }}</th>
-                        <th>Weight Items</th>
-                        <th>Weight Resources</th>
                         <th>Profit/Weight</th>
+                        <th>Weight Items</th>
                         <th>Value</th>
                         <th>Info</th>
                     </tr>
@@ -134,36 +131,35 @@
                     {% for bmcEntity in weaponGroup %}
                         {% if bmcEntity.item.sellOrderPrice != 0 %}
                             <tr class="bg-{{ bmcEntity.colorGrade }} bg-{{ bmcEntity.item.getPrice }}">
-                                <td class="text-left tier-{{ bmcEntity.tierColor }} tier">{{ bmcEntity.item.tier }}</td>
-                                <td>{{ bmcEntity.item.realName }}</td>
-                                <td>{{ bmcEntity.primResource.sellOrderPrice|number_format }}</td>
-                                <td {% if bmcEntity.primResource.sellOrderAge > 720 %} class="bg-D" {% endif %}>
-                                    {{ bmcEntity.primResource.sellOrderAge|number_format }}min
+                                <td class="align-middle text-left tier-{{ bmcEntity.tierColor }} tier">{{ bmcEntity.item.tier }}</td>
+                                <td class="align-middle">{{ bmcEntity.item.realName }}</td>
+                                <td class="align-middle ">{{ bmcEntity.totalWeightResources|number_format }}kg</td>
+                                <td class="align-middle {% if bmcEntity.primResource.sellOrderAge > 720 %} bg-D {% endif %}">
+                                    <a class="btn text-right w-100" title="{{ bmcEntity.primResource.sellOrderAge|number_format }}min">
+                                        {{ bmcEntity.primResource.sellOrderPrice|number_format }}
+                                    </a>
                                 </td>
-                                <td>{{ bmcEntity.primResourceAmount|number_format }}</td>
-                                <td>{{ bmcEntity.secResource.sellOrderPrice|number_format }}</td>
-                                <td {% if bmcEntity.secResource.sellOrderAge > 720 %} class="bg-D" {% endif %}>
-                                    {% if bmcEntity.secResource.sellOrderAge < 10000 %}{{ bmcEntity.secResource.sellOrderAge|number_format }}min {% else %} / {% endif %}
+                                <td class="align-middle">{{ bmcEntity.primResourceAmount|number_format }}x</td>
+                                <td class="align-middle {% if bmcEntity.secResource.sellOrderAge > 720 %}bg-D{% endif %}">
+                                    <a class="btn text-right w-100" title="{% if bmcEntity.secResource.sellOrderAge < 10000 %}{{ bmcEntity.secResource.sellOrderAge|number_format }}min{% endif %}">
+                                        {{ bmcEntity.secResource.sellOrderPrice|number_format }}
+                                    </a>
                                 </td>
-                                <td>{{ bmcEntity.secResourceAmount|number_format }}</td>
-                                <td>{{ bmcEntity.item.sellOrderPrice|number_format }}</td>
-                                <td {% if bmcEntity.item.sellOrderAge > 10000 %} class="bg-D" {% endif %}>
-                                    {{ bmcEntity.item.sellOrderAge|number_format }}min
+                                <td class="align-middle">{{ bmcEntity.secResourceAmount|number_format }}x</td>
+                                <td class="align-middle">{{ bmcEntity.journalAmount|round(1,'ceil') }}x</td>
+                                <td class="align-middle {% if bmcEntity.item.sellOrderAge > 10000 %}bg-D{% endif %}">
+                                    <a class="btn text-right w-100" title="{{ bmcEntity.item.sellOrderAge|number_format }}min">
+                                        {{ bmcEntity.item.sellOrderPrice|number_format }}
+                                    </a>
                                 </td>
-                                <td>{{ bmcEntity.totalAmount|number_format }}</td>
-                                <td>{{ bmcEntity.journalAmount|round(1,'ceil') }}</td>
-                                <td>{{ bmcEntity.craftingFee|number_format }}</td>
-                                <td>{{ bmcEntity.profit|number_format }}</td>
-                                <td>{{ bmcEntity.totalItemWeight|number_format }}</td>
-                                <td>{{ bmcEntity.totalWeightResources|number_format }}</td>
-                                <td>{{ bmcEntity.weightProfitQuotient|number_format }}</td>
-                                <td>{{ bmcEntity.itemValue|number_format }}</td>
-                                <td>
-                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
-                                            data-target="#{{ weaponGroupName }}">
-                                        ?
-                                    </button>
-                                </td>
+                                <td class="align-middle">{{ bmcEntity.totalAmount|number_format }}x</td>
+                                <td class="align-middle">{{ bmcEntity.craftingFee|number_format }}</td>
+                                <td class="align-middle">{{ bmcEntity.profit|number_format }}</td>
+                                <td class="align-middle">{{ bmcEntity.weightProfitQuotient|number_format }}</td>
+                                <td class="align-middle">{{ bmcEntity.totalItemWeight|number_format }}</td>
+                                <td class="align-middle">{{ bmcEntity.itemValue|number_format }}</td>
+                                <td class="align-middle">
+                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#{{ weaponGroupName }}">?</button></td>
                             </tr>
                         {% endif %}
                         <div class="modal fade bd-example-modal-lg" id="{{ weaponGroupName }}" tabindex="-1"

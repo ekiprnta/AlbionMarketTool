@@ -72,11 +72,15 @@
 }
 
 tr {
-    height: 15px;
-    max-height: 15px;
-    line-height: 15px;
+    height: 15px!important;
+    max-height: 15px!important;
+    line-height: 15px!important;
 }
 
 .age-width {
     width: 70px;
+}
+
+.amount-col {
+    width: 120px;
 }
