@@ -47,7 +47,7 @@ class UpdateRawResourcesCommand extends Command
             $adjustedRawResources = $this->uploadHelper->adjustResourceArray($rawResourcesData, $rawResourceStat);
             $progressBar->setMessage('Upload raw ' . $rawResourceStat['realName'] . ' into Database');
             $progressBar->display();
-            $this->rawResourceRepository->updatePricesFromResources($adjustedRawResources);
+            $this->rawResourceRepository->updatePricesFromRawResources($adjustedRawResources);
         }
 
         $output->writeln(PHP_EOL . $message);
