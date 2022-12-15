@@ -7,6 +7,7 @@ use Laminas\ServiceManager\ServiceManager;
 use MZierdt\Albion\commands\DeleteDataCommand;
 use MZierdt\Albion\commands\UpdateItemsCommand;
 use MZierdt\Albion\commands\UpdateJournalsCommand;
+use MZierdt\Albion\commands\UpdateRawResourcesCommand;
 use MZierdt\Albion\commands\UpdateResourcesCommand;
 use MZierdt\Albion\factories\DeleteDataRepositoryFactory;
 use MZierdt\Albion\factories\ItemRepositoryFactory;
@@ -95,6 +96,12 @@ $serviceManager = new ServiceManager([
                     ResourceRepository::class,
                     ConfigService::class,
                     UploadHelper::class,
+                ],
+                UpdateRawResourcesCommand::class => [
+                  ApiService::class,
+                  RawResourceRepository::class,
+                  ConfigService::class,
+                  UploadHelper::class,
                 ],
             ]
         ],

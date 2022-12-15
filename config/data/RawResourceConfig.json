@@ -1,0 +1,22 @@
+{
+  "ore": {
+    "bonusCity": "Thetford",
+    "realName": "ore"
+  },
+  "fiber": {
+    "bonusCity": "Lymhurst",
+    "realName": "fiber"
+  },
+  "wood": {
+    "bonusCity": "Fort Sterling",
+    "realName": "wood"
+  },
+  "hide": {
+    "bonusCity": "Martlock",
+    "realName": "hide"
+  },
+  "rock": {
+    "bonusCity": "Bridgewatch",
+    "realName": "rock"
+  }
+}
