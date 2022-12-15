@@ -20,6 +20,18 @@
                                 </div>
                             </div>
                             <div class="col-2">
+                                <label for="percentage">
+                                    Resource Return Rate*
+                                </label>
+                                <input class="form-control"
+                                       id="percentage"
+                                       max="100"
+                                       min="0"
+                                       name="rrr"
+                                       step="0.1"
+                                       type="number">
+                            </div>
+                            <div class="col-2">
                                 <label for="craftingFee">
                                     Crafting Fee / 100 Nutrition
                                 </label>
@@ -57,20 +69,30 @@
                 <tr>
                     <th>Tier</th>
                     <th>Name</th>
-                    <td>Crafting Fee</td>
-                    <td>...</td>
+                    <th>Sell Price</th>
+                    <th>Amount</th>
+                    <th>Profit</th>
+                    <th>Amount/Profit</th>
+                    {#                    <td>Crafting Fee</td> #}
                 </tr>
                 </thead>
                 <tbody class="text-right">
-                {% for bmcEntity in weaponGroup %}
-                    {% if bmcEntity.item.sellOrderPrice != 0 %}
-                        <tr>
-                            <td>Tier</td>
-                            <td>Name</td>
-                            <td>Crafting Fee</td>
-                            <td></td>
-                        </tr>
-                    {% endif %}
+                {# @var refiningEntity \MZierdt\Albion\Entity\RefiningEntity #}
+                {% for refiningEntity in dataArray %}
+                    <tr class="bg-{{ refiningEntity.profitGrade }}">
+                        <td class="align-middle text-left tier-{{ refiningEntity.tierColor }} tier">{{ refiningEntity.resourceEntity.tier }}</td>
+                        <td class="align-middle">{{ refiningEntity.resourceEntity.realName }}</td>
+                        <td class="align-middle {% if refiningEntity.resourceEntity.sellOrderAge > 720 %} bg-D {% endif %}">
+                            <a class="btn text-right w-100"
+                               title="{{ refiningEntity.resourceEntity.sellOrderAge|number_format }}min">
+                                {{ refiningEntity.resourceEntity.sellOrderPrice|number_format }}
+                            </a>
+                        </td>
+                        <td class="align-middle">{{ refiningEntity.amount|number_format }}</td>
+                        <td class="align-middle">{{ refiningEntity.profit|number_format }}</td>
+                        <td class="align-middle">{{ refiningEntity.weightAmountQuotient|number_format }}</td>
+                        {#                        <td class="align-middle">{{ refiningEntity.craftingFee }}</td> #}
+                    </tr>
                 {% endfor %}
                 </tbody>
             </table>

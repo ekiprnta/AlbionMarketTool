@@ -19,6 +19,7 @@ use MZierdt\Albion\Handler\AdminHandler;
 use MZierdt\Albion\Handler\BlackMarketCraftingHandler;
 use MZierdt\Albion\Handler\BlackMarketTransportingHandler;
 use MZierdt\Albion\Handler\listDataHandler;
+use MZierdt\Albion\Handler\OldRefiningHandler;
 use MZierdt\Albion\Handler\RefiningHandler;
 use MZierdt\Albion\HttpClient;
 use MZierdt\Albion\repositories\DeleteDataRepository;
@@ -66,7 +67,7 @@ $serviceManager = new ServiceManager([
                 RefiningService::class => [
                     ResourceRepository::class,
                     RawResourceRepository::class,
-                    RefiningHandler::class,
+                    RefiningHelper::class,
                 ],
                 TierService::class => [],
                 BlackMarketTransportingHelper::class => [],

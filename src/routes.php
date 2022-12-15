@@ -17,7 +17,7 @@ $dispatcher = FastRoute\simpleDispatcher(
     function (FastRoute\RouteCollector $r) use ($serviceManager): void {
         $r->addRoute(['GET', 'POST'], '/[info]', $serviceManager->get(listDataHandler::class));
         $r->addRoute(['GET', 'POST'], '/resource/refining', $serviceManager->get(RefiningHandler::class));
-        $r->addRoute(['GET', 'POST'], '/resource/transmutation', $serviceManager->get(RefiningHandler::class));
+//        $r->addRoute(['GET', 'POST'], '/resource/transmutation', $serviceManager->get(RefiningHandler::class));
         $r->addRoute(['GET', 'POST'], '/blackmarket/crafting', $serviceManager->get(BlackMarketCraftingHandler::class));
         $r->addRoute(
             ['GET', 'POST'],
