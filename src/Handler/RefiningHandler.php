@@ -19,12 +19,14 @@ class RefiningHandler
     {
         $cityData = [];
         $alertMessage = null;
+
         if (! empty($_GET)) {
             $request = $_GET;
             $itemCity = $request['itemCity'];
             $craftingFee = (int) $request['craftingFee'];
+            $percentage = (float) $request['rrr'];
             try {
-                $cityData = $this->refiningService->getRefiningForCity($itemCity, $craftingFee);
+                $cityData = $this->refiningService->getRefiningForCity($itemCity, $percentage);
             } catch (\InvalidArgumentException $invalidArgumentException) {
                 $alertMessage = $invalidArgumentException->getMessage();
             }

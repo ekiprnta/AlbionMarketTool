@@ -16,13 +16,13 @@ class RefiningService
     ) {
     }
 
-    public function getRefiningForCity(string $itemCity, int $feeProHundredNutrition): array
+    public function getRefiningForCity(string $itemCity, float $percentage): array
     {
         if (empty($itemCity)) {
             throw new InvalidArgumentException('Please select a city');
         }
-        if (empty($feeProHundredNutrition)) {
-            $feeProHundredNutrition = 0;
+        if (empty($percentage)) {
+            $percentage = 47.9;
         }
 
         $resources = $this->resourceRepository->getResourcesByBonusCity($itemCity);
@@ -54,7 +54,8 @@ class RefiningService
                     $refiningEntity->getResourceEntity()->getSellOrderPrice(),
                     $refiningEntity->getRawResource()->getSellOrderPrice(),
                     $refiningEntity->getLowerResource()->getSellOrderPrice(),
-                    $refiningEntity->getAmountRawResource()
+                    $refiningEntity->getAmountRawResource(),
+                    $percentage
                 )
             );
             $refiningEntity->setAmount(

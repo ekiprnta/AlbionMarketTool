@@ -49,10 +49,11 @@ class RefiningHelper extends Market
         int $rawResourcePrice,
         int $lowerResourcePrice,
         int $AmountRawResource,
+        float $percentage
     ) {
-        return $this->calculateSellOrder(
-                $refinedResourcePrice
-            ) - ($AmountRawResource * $rawResourcePrice + $lowerResourcePrice);
+        $rate = (self::RRR_BASE_PERCENTAGE - $percentage) / 100;
+        $itemCost = $AmountRawResource * $rawResourcePrice + $lowerResourcePrice;
+        return $this->calculateSellOrder($refinedResourcePrice) - $itemCost * $rate;
     }
 
     public function calculateRefiningAmount(string $tier)
