@@ -17,7 +17,7 @@ class RefiningHelper extends Market
         };
     }
 
-    public function calculateResource(string $tier, array $rawResources)
+    public function calculateResource(string $tier, array $rawResources): ResourceEntity
     {
         /** @var ResourceEntity $rawResource */
         foreach ($rawResources as $rawResource) {
@@ -48,11 +48,11 @@ class RefiningHelper extends Market
         int $refinedResourcePrice,
         int $rawResourcePrice,
         int $lowerResourcePrice,
-        int $AmountRawResource,
+        int $amountRawResource,
         float $percentage
     ) {
         $rate = (self::RRR_BASE_PERCENTAGE - $percentage) / 100;
-        $itemCost = $AmountRawResource * $rawResourcePrice + $lowerResourcePrice;
+        $itemCost = $amountRawResource * $rawResourcePrice + $lowerResourcePrice;
         return $this->calculateSellOrder($refinedResourcePrice) - $itemCost * $rate;
     }
 

@@ -35,6 +35,7 @@ class RefiningHandler
         $htmlContent = $this->twigEnvironment->render('Refining.html.twig', [
             'dataArray' => $cityData,
             'alertMessage' => $alertMessage,
+            'rates' => $this->refiningService->getRefiningRates(),
         ]);
         return new HtmlResponse($htmlContent);
     }
