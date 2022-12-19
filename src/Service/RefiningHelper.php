@@ -79,9 +79,9 @@ class RefiningHelper extends Market
         };
     }
 
-    public function calculateTotalProfit(int $Amount, float $SingleProfit)
+    public function calculateTotalProfit(int $Amount, float $singleProfit)
     {
-        return $Amount * $SingleProfit;
+        return $Amount * $singleProfit;
     }
 
 }
