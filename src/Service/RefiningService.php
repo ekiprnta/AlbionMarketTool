@@ -33,6 +33,8 @@ class RefiningService
         $resources = $this->resourceRepository->getResourcesByBonusCity($itemCity);
         $rawResources = $this->rawRepository->getRawResourcesByBonusCity($itemCity);
 
+
+
         $refiningArray = [];
         foreach ($resources as $resource) {
             if ($resource->getTier() !== '2') {
@@ -78,7 +80,7 @@ class RefiningService
                     $refiningEntity->getAmount()
                 )
             );
-            $refiningEntity->setProfitGrade($refiningEntity->getWeightAmountQuotient());
+            $refiningEntity->setProfitGrade($this->refiningHelper->calculateProfitGrade($refiningEntity->getWeightAmountQuotient()));
         }
         return $refiningArray;
     }
