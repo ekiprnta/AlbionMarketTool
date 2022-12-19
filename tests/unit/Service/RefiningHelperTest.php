@@ -159,7 +159,7 @@ class RefiningHelperTest extends TestCase
     public function getRefiningAmount(): array
     {
         return [
-            ['3', 1250],
+            ['3', 968],
             ['4', 10000],
             ['41', 5000],
             ['42', 3333],

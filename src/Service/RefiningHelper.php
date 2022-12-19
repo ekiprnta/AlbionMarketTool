@@ -59,24 +59,29 @@ class RefiningHelper extends Market
     public function calculateRefiningAmount(string $tier): int
     {
         return match ($tier) {
-            '3' => 1250,
+            '3' => 968,
             '4' => 10000,
             '41', '5' => 5000,
             '42' => 3333,
             '43' => 2000,
+            '44' => 968,
             '51', '6' => 3000,
             '52' => 1765,
             '53' => 1035,
+            '54' => 566,
             '61', '7' => 1667,
             '62' => 1000,
             '63' => 566,
+            '64' => 319,
             '71', '8' => 968,
             '72' => 556,
             '73' => 319,
+            '74' => 180,
             '81' => 545,
             '82' => 316,
             '83' => 180,
-            default => throw new \InvalidArgumentException('Wrong tier: ' . $tier),
+            '84' => 101,
+            default => throw new \InvalidArgumentException('Wrong tier for Refining Amount: ' . $tier),
         };
     }
 

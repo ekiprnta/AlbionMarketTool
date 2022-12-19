@@ -19,22 +19,27 @@ class ResourceEntity extends AlbionItemEntity
     private const T41_WEIGHT_FACTOR = 0.51;
     private const T42_WEIGHT_FACTOR = 0.51;
     private const T43_WEIGHT_FACTOR = 0.51;
+    private const T44_WEIGHT_FACTOR = 0.51;
     private const T50_WEIGHT_FACTOR = 0.76;
     private const T51_WEIGHT_FACTOR = 0.76;
     private const T52_WEIGHT_FACTOR = 0.76;
     private const T53_WEIGHT_FACTOR = 0.76;
+    private const T54_WEIGHT_FACTOR = 0.76;
     private const T60_WEIGHT_FACTOR = 1.14;
     private const T61_WEIGHT_FACTOR = 1.14;
     private const T62_WEIGHT_FACTOR = 1.14;
     private const T63_WEIGHT_FACTOR = 1.14;
+    private const T64_WEIGHT_FACTOR = 1.14;
     private const T70_WEIGHT_FACTOR = 1.71;
     private const T71_WEIGHT_FACTOR = 1.71;
     private const T72_WEIGHT_FACTOR = 1.71;
     private const T73_WEIGHT_FACTOR = 1.71;
+    private const T74_WEIGHT_FACTOR = 1.71;
     private const T80_WEIGHT_FACTOR = 2.56;
     private const T81_WEIGHT_FACTOR = 2.56;
     private const T82_WEIGHT_FACTOR = 2.56;
     private const T83_WEIGHT_FACTOR = 2.56;
+    private const T84_WEIGHT_FACTOR = 2.56;
 
     private ?string $bonusCity;
     private ?int $amountInStorage;
@@ -80,22 +85,27 @@ class ResourceEntity extends AlbionItemEntity
             self::TIER_T4_1 => self::T41_WEIGHT_FACTOR,
             self::TIER_T4_2 => self::T42_WEIGHT_FACTOR,
             self::TIER_T4_3 => self::T43_WEIGHT_FACTOR,
+            self::TIER_T4_4 => self::T44_WEIGHT_FACTOR,
             self::TIER_T5 => self::T50_WEIGHT_FACTOR,
             self::TIER_T5_1 => self::T51_WEIGHT_FACTOR,
             self::TIER_T5_2 => self::T52_WEIGHT_FACTOR,
             self::TIER_T5_3 => self::T53_WEIGHT_FACTOR,
+            self::TIER_T5_4 => self::T54_WEIGHT_FACTOR,
             self::TIER_T6 => self::T60_WEIGHT_FACTOR,
             self::TIER_T6_1 => self::T61_WEIGHT_FACTOR,
             self::TIER_T6_2 => self::T62_WEIGHT_FACTOR,
             self::TIER_T6_3 => self::T63_WEIGHT_FACTOR,
+            self::TIER_T6_4 => self::T64_WEIGHT_FACTOR,
             self::TIER_T7 => self::T70_WEIGHT_FACTOR,
             self::TIER_T7_1 => self::T71_WEIGHT_FACTOR,
             self::TIER_T7_2 => self::T72_WEIGHT_FACTOR,
             self::TIER_T7_3 => self::T73_WEIGHT_FACTOR,
+            self::TIER_T7_4 => self::T74_WEIGHT_FACTOR,
             self::TIER_T8 => self::T80_WEIGHT_FACTOR,
             self::TIER_T8_1 => self::T81_WEIGHT_FACTOR,
             self::TIER_T8_2 => self::T82_WEIGHT_FACTOR,
             self::TIER_T8_3 => self::T83_WEIGHT_FACTOR,
+            self::TIER_T8_4 => self::T84_WEIGHT_FACTOR,
             '0' => 0.1,
             default => throw new \InvalidArgumentException('wrong tier in Resource Entity: ' . $tier),
         };

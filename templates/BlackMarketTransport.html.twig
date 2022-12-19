@@ -63,7 +63,7 @@
                 </thead>
                 <tbody>
                 {% for transportEntity in dataArray %}
-                    {% if transportEntity.bmItem.sellOrderPrice != 0 and transportEntity.cityItem.sellOrderPrice != 0 and transportEntity.profit >= 0%}
+{#                    {% if transportEntity.bmItem.sellOrderPrice != 0 and transportEntity.cityItem.sellOrderPrice != 0 and transportEntity.profit >= 0%}#}
                         <tr class="bg-{{ transportEntity.profitGrade }}">
                             <td class="text-left tier-{{ transportEntity.tierColor }} tier">{{ transportEntity.bmItem.tier }}</td>
                             <td>{{ transportEntity.bmItem.realName }}</td>
@@ -80,7 +80,7 @@
                             <td>{{ transportEntity.profit|number_format }}</td>
                             <td>{{ transportEntity.amount|number_format }}</td>
                         </tr>
-                    {% endif %}
+{#                    {% endif %}#}
                 {% endfor %}
                 </tbody>
             </table>

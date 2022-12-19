@@ -34,7 +34,7 @@ class RefiningServiceITest extends TestCase
             new RefiningHelper()
         );
 
-        $delta = 0.00000001;
+        $delta = 0.00001;
         $testData = $refiningService->getRefiningForCity('TestCity', 500);
 
         /** @var RefiningEntity $refiningEntity */
@@ -42,8 +42,8 @@ class RefiningServiceITest extends TestCase
             $this->assertEquals('3', $refiningEntity->getTierColor());
             $this->assertEquals(2, $refiningEntity->getAmountRawResource());
             $this->assertEquals(80204.91, $refiningEntity->getSingleProfit());
-            $this->assertEquals(1250, $refiningEntity->getAmount());
-            $this->assertEquals(100256137.5, $refiningEntity->getProfit());
+            $this->assertEquals(968, $refiningEntity->getAmount());
+            $this->assertEqualsWithDelta(77638352.88, $refiningEntity->getProfit(), $delta);
             $this->assertEquals(80204.91, $refiningEntity->getWeightAmountQuotient());
             $this->assertEquals('S', $refiningEntity->getProfitGrade());
         }
