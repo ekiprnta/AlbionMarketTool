@@ -1,0 +1,110 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <div class="card mt-3">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-10">
+                    <form action="" method="get">
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label for="itemCity">Choose the City to Refine</label>
+                                    <select name="itemCity" id="itemCity" class="form-control">
+                                        <option value="Fort Sterling">Fort Sterling</option>
+                                        <option value="Lymhurst">Lymhurst</option>
+                                        <option value="Bridgewatch">Bridgewatch</option>
+                                        <option value="Martlock">Martlock</option>
+                                        <option value="Thetford">Thetford</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <label for="percentage">
+                                    Resource Return Rate*
+                                </label>
+                                <input class="form-control"
+                                       id="percentage"
+                                       max="100"
+                                       min="0"
+                                       name="rrr"
+                                       step="0.1"
+                                       type="number"
+                                       placeholder="Default 53.9%">
+                            </div>
+                            <div class="col-2">
+                                <label for="craftingFee">
+                                    Crafting Fee / 100 Nutrition
+                                </label>
+                                <input class="form-control"
+                                       id="craftingFee"
+                                       max="9999"
+                                       min="0"
+                                       name="craftingFee"
+                                       step="1"
+                                       type="number">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3">
+                                <button class="btn btn-primary" type="submit">Calculate</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="d-flex">
+                    {% for name,rate in rates %}
+                        <small class="badge badge-secondary standard-badge">*{{ name }}: {{ rate }}%</small>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="row mt-3">
+                {% if alertMessage is not null %}
+                    <div class="alert alert-danger standard-alert">{{ alertMessage }}</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="card mt-3">
+        <div class="card-body">
+            <div class="card-title">
+                <h3> ?PH Resource</h3>
+            </div>
+            <table class="table table-sm table-bordered align-middle">
+                <thead class="thead-default">
+                <tr>
+                    <th>Tier</th>
+                    <th>Name</th>
+                    <th>Sell Price</th>
+                    <th>Amount</th>
+                    <th>Profit</th>
+                    <th>Amount/Profit</th>
+                    {#                    <td>Crafting Fee</td> #}
+                </tr>
+                </thead>
+                <tbody class="text-right">
+                {# @var refiningEntity \MZierdt\Albion\Entity\RefiningEntity #}
+                {% for refiningEntity in dataArray %}
+                    <tr class="bg-{{ refiningEntity.profitGrade }}">
+                        <td class="align-middle text-left tier-{{ refiningEntity.tierColor }} tier">{{ refiningEntity.resourceEntity.tier }}</td>
+                        <td class="align-middle">{{ refiningEntity.resourceEntity.realName }}</td>
+                        <td class="align-middle {% if refiningEntity.resourceEntity.sellOrderAge > 720 %} bg-D {% endif %}">
+                            <a class="btn text-right w-100"
+                               title="{{ refiningEntity.resourceEntity.sellOrderAge|number_format }}min">
+                                {{ refiningEntity.resourceEntity.sellOrderPrice|number_format }}
+                            </a>
+                        </td>
+                        <td class="align-middle">{{ refiningEntity.amount|number_format }}</td>
+                        <td class="align-middle">{{ refiningEntity.profit|number_format }}</td>
+                        <td class="align-middle">{{ refiningEntity.weightAmountQuotient|number_format }}</td>
+                        {#                        <td class="align-middle">{{ refiningEntity.craftingFee }}</td> #}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+

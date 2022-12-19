@@ -13,7 +13,6 @@ class ResourceEntity extends AlbionItemEntity
     public const RESOURCE_STONE_BLOCK = 'stoneBLock';
 
 
-
     private const T20_WEIGHT_FACTOR = 0.23;
     private const T30_WEIGHT_FACTOR = 0.34;
     private const T40_WEIGHT_FACTOR = 0.51;
@@ -41,13 +40,20 @@ class ResourceEntity extends AlbionItemEntity
     private ?int $amountInStorage;
 
 
-    public function __construct(array $resourceData)
-    {
+    public function __construct(
+        array $resourceData,
+        private bool $raw = false
+    ) {
         parent::__construct($resourceData);
 
         $this->bonusCity = $resourceData['bonusCity'];
         $this->amountInStorage = (int) $resourceData['amountInStorage'];
         $this->weight = $this->setWeight($resourceData['tier']);
+    }
+
+    public function isRaw(): bool
+    {
+        return $this->raw;
     }
 
     public function setAmountInStorage(?int $amountInStorage): void

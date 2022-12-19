@@ -83,12 +83,31 @@ CREATE TABLE `resource` (
                             `bonusCity` varchar(64) DEFAULT NULL,
                             `amountInStorage` int(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `rawResource`
+--
+
+CREATE TABLE `rawResource` (
+                               `tier` varchar(64) NOT NULL,
+                               `name` varchar(64) NOT NULL,
+                               `city` varchar(64) NOT NULL,
+                               `realName` varchar(64) DEFAULT NULL,
+                               `sellOrderPrice` int(11) DEFAULT NULL,
+                               `sellOrderPriceDate` datetime DEFAULT NULL,
+                               `buyOrderPrice` int(11) DEFAULT NULL,
+                               `buyOrderPriceDate` datetime DEFAULT NULL,
+                               `bonusCity` varchar(64) DEFAULT NULL,
+                               `amountInStorage` int(10) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 --
 -- Indizes der exportierten Tabellen
 --
 
 --
--- Indizes für die Tabelle `items`
+-- Indizes für die Tabelle `rawResource`
 --
 ALTER TABLE `items`
     ADD PRIMARY KEY (`tier`,`name`,`weaponGroup`);
@@ -103,6 +122,10 @@ ALTER TABLE `journals`
 -- Indizes für die Tabelle `resource`
 --
 ALTER TABLE `resource`
+    ADD PRIMARY KEY (`tier`,`name`,`city`);
+COMMIT;
+
+ALTER TABLE `rawResource`
     ADD PRIMARY KEY (`tier`,`name`,`city`);
 COMMIT;
 
