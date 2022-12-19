@@ -19,7 +19,9 @@ class RefiningHelperTest extends TestCase
         $this->refiningHelper = new RefiningHelper();
     }
 
-    /** @dataProvider tierList */
+    /**
+     * @dataProvider tierList
+     */
     public function testCalculateAmountRawResource(string $tier, int $expectedResult): void
     {
         $this->assertEquals($expectedResult, $this->refiningHelper->calculateAmountRawResource($tier));
@@ -27,25 +29,18 @@ class RefiningHelperTest extends TestCase
 
     public function tierList(): array
     {
-        return [
-            ['2', 0],
-            ['3', 2],
-            ['41', 2],
-            ['43', 2],
-            ['5', 3],
-            ['56', 3],
-            ['6', 4],
-            ['7', 5],
-            ['8', 5],
-        ];
+        return [['2', 0], ['3', 2], ['41', 2], ['43', 2], ['5', 3], ['56', 3], ['6', 4], ['7', 5], ['8', 5]];
     }
 
-    /** @dataProvider getResource */
+    /**
+     * @dataProvider getResource
+     */
     public function testCalculateResource(string $tier, string $expectedTier): void
     {
         /** @var ResourceEntity|ObjectProphecy $expectedResourceEntity */
         $expectedResourceEntity = $this->prophesize(ResourceEntity::class);
-        $expectedResourceEntity->getTier()->willReturn($expectedTier);
+        $expectedResourceEntity->getTier()
+            ->willReturn($expectedTier);
 
         $this->assertEquals(
             $expectedResourceEntity->reveal(),
@@ -55,42 +50,37 @@ class RefiningHelperTest extends TestCase
 
     public function getResource(): array
     {
-        return [
-            ['3', '3'],
-            ['4', '4'],
-            ['52', '52'],
-            ['83', '83'],
-        ];
+        return [['3', '3'], ['4', '4'], ['52', '52'], ['83', '83']];
     }
 
-    /** @dataProvider getResourceNull */
+    /**
+     * @dataProvider getResourceNull
+     */
     public function testCalculateResourceNull(string $tier, string $expectedTier): void
     {
         $this->expectException('InvalidArgumentException');
         /** @var ResourceEntity|ObjectProphecy $expectedResourceEntity */
         $expectedResourceEntity = $this->prophesize(ResourceEntity::class);
-        $expectedResourceEntity->getTier()->willReturn($expectedTier);
-
+        $expectedResourceEntity->getTier()
+            ->willReturn($expectedTier);
 
         $this->refiningHelper->calculateResource($tier, [$expectedResourceEntity->reveal()]);
     }
 
     public function getResourceNull(): array
     {
-        return [
-            ['3', '4'],
-            ['4', '41'],
-            ['52', '53'],
-            ['83', '8'],
-        ];
+        return [['3', '4'], ['4', '41'], ['52', '53'], ['83', '8']];
     }
 
-    /** @dataProvider getLowerResource */
+    /**
+     * @dataProvider getLowerResource
+     */
     public function testCalculateLowerResource(string $tier, string $expectedTier): void
     {
         /** @var ResourceEntity|ObjectProphecy $expectedResourceEntity */
         $expectedResourceEntity = $this->prophesize(ResourceEntity::class);
-        $expectedResourceEntity->getTier()->willReturn($expectedTier);
+        $expectedResourceEntity->getTier()
+            ->willReturn($expectedTier);
 
         $this->assertEquals(
             $expectedResourceEntity->reveal(),
@@ -100,37 +90,31 @@ class RefiningHelperTest extends TestCase
 
     public function getLowerResource(): array
     {
-        return [
-            ['3', '3'],
-            ['4', '4'],
-            ['52', '52'],
-            ['83', '83'],
-        ];
+        return [['3', '3'], ['4', '4'], ['52', '52'], ['83', '83']];
     }
 
-    /** @dataProvider getLowerResourceNull */
+    /**
+     * @dataProvider getLowerResourceNull
+     */
     public function testCalculateLowerResourceNull(string $tier, string $expectedTier): void
     {
         $this->expectException('InvalidArgumentException');
         /** @var ResourceEntity|ObjectProphecy $expectedResourceEntity */
         $expectedResourceEntity = $this->prophesize(ResourceEntity::class);
-        $expectedResourceEntity->getTier()->willReturn($expectedTier);
-
+        $expectedResourceEntity->getTier()
+            ->willReturn($expectedTier);
 
         $this->refiningHelper->calculateLowerResource($tier, [$expectedResourceEntity->reveal()]);
     }
 
     public function getLowerResourceNull(): array
     {
-        return [
-            ['3', '4'],
-            ['4', '41'],
-            ['52', '53'],
-            ['83', '8'],
-        ];
+        return [['3', '4'], ['4', '41'], ['52', '53'], ['83', '8']];
     }
 
-    /** @dataProvider getProfit */
+    /**
+     * @dataProvider getProfit
+     */
     public function testCalculateProfit(
         int $refinedResourcePrice,
         int $rawResourcePrice,
@@ -164,7 +148,9 @@ class RefiningHelperTest extends TestCase
         ];
     }
 
-    /** @dataProvider getRefiningAmount */
+    /**
+     * @dataProvider getRefiningAmount
+     */
     public function testCalculateRefiningAmount(string $tier, int $expectedAmount): void
     {
         $this->assertEquals($expectedAmount, $this->refiningHelper->calculateRefiningAmount($tier));
@@ -187,7 +173,7 @@ class RefiningHelperTest extends TestCase
             ['62', 1000],
             ['63', 566],
             ['7', 1667],
-            ['71',  968],
+            ['71', 968],
             ['72', 556],
             ['73', 319],
             ['8', 968],
@@ -197,18 +183,16 @@ class RefiningHelperTest extends TestCase
         ];
     }
 
-    /** @dataProvider getTotalProfit */
-    public function testCalculateTotalProfit(int $amount, float $singleProfit,float $expectedProfit): void
+    /**
+     * @dataProvider getTotalProfit
+     */
+    public function testCalculateTotalProfit(int $amount, float $singleProfit, float $expectedProfit): void
     {
         $this->assertEquals($expectedProfit, $this->refiningHelper->calculateTotalProfit($amount, $singleProfit));
     }
 
     public function getTotalProfit(): array
     {
-        return [
-            [5, 1250, 6250.0],
-            [3, 36.67, 110.01],
-            [25, 25, 625.0],
-        ];
+        return [[5, 1250, 6250.0], [3, 36.67, 110.01], [25, 25, 625.0]];
     }
 }

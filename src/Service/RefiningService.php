@@ -33,8 +33,6 @@ class RefiningService
         $resources = $this->resourceRepository->getResourcesByBonusCity($itemCity);
         $rawResources = $this->rawRepository->getRawResourcesByBonusCity($itemCity);
 
-
-
         $refiningArray = [];
         foreach ($resources as $resource) {
             if ($resource->getTier() !== '2') {
@@ -52,15 +50,19 @@ class RefiningService
             );
             $refiningEntity->setLowerResource(
                 $this->refiningHelper->calculateLowerResource(
-                    $refiningEntity->getResourceEntity()->getTier(),
+                    $refiningEntity->getResourceEntity()
+                        ->getTier(),
                     $resources
                 )
             );
             $refiningEntity->setSingleProfit(
                 $this->refiningHelper->calculateProfit(
-                    $refiningEntity->getResourceEntity()->getSellOrderPrice(),
-                    $refiningEntity->getRawResource()->getSellOrderPrice(),
-                    $refiningEntity->getLowerResource()->getSellOrderPrice(),
+                    $refiningEntity->getResourceEntity()
+                        ->getSellOrderPrice(),
+                    $refiningEntity->getRawResource()
+                        ->getSellOrderPrice(),
+                    $refiningEntity->getLowerResource()
+                        ->getSellOrderPrice(),
                     $refiningEntity->getAmountRawResource(),
                     $percentage
                 )
@@ -80,7 +82,9 @@ class RefiningService
                     $refiningEntity->getAmount()
                 )
             );
-            $refiningEntity->setProfitGrade($this->refiningHelper->calculateProfitGrade($refiningEntity->getWeightAmountQuotient()));
+            $refiningEntity->setProfitGrade(
+                $this->refiningHelper->calculateProfitGrade($refiningEntity->getWeightAmountQuotient())
+            );
         }
         return $refiningArray;
     }

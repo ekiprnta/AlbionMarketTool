@@ -54,8 +54,6 @@ class RefiningServiceTest extends TestCase
 
     public function getExceptionValues(): array
     {
-        return [
-            [''],
-        ];
+        return [['']];
     }
 }

@@ -40,12 +40,14 @@ class ResourceEntity extends AlbionItemEntity
     private ?int $amountInStorage;
 
 
-    public function __construct(array $resourceData, private bool $raw = false)
-    {
+    public function __construct(
+        array $resourceData,
+        private bool $raw = false
+    ) {
         parent::__construct($resourceData);
 
         $this->bonusCity = $resourceData['bonusCity'];
-        $this->amountInStorage = (int)$resourceData['amountInStorage'];
+        $this->amountInStorage = (int) $resourceData['amountInStorage'];
         $this->weight = $this->setWeight($resourceData['tier']);
     }
 

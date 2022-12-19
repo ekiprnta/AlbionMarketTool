@@ -6,7 +6,7 @@ use MZierdt\Albion\Entity\ResourceEntity;
 
 class RefiningHelper extends Market
 {
-    public function calculateAmountRawResource(string $tier)
+    public function calculateAmountRawResource(string $tier): int
     {
         return match ($tier[0]) {
             '3', '4' => 2,
@@ -28,14 +28,14 @@ class RefiningHelper extends Market
         throw new \InvalidArgumentException('No Resource found for ' . $tier);
     }
 
-    public function calculateLowerResource(string $tier, array $resources)
+    public function calculateLowerResource(string $tier, array $resources): ResourceEntity
     {
-        $lowerMainTier = (int)$tier[0] - 1;
+        $lowerMainTier = (int) $tier[0] - 1;
         if (strlen($tier) > 1) {
             $subTier = substr($tier, -1);
             $tier = $lowerMainTier . $subTier;
         } else {
-            $tier = (string)$lowerMainTier;
+            $tier = (string) $lowerMainTier;
         }
         if (str_starts_with($tier, '3') && strlen($tier) > 1) {
             $tier = $tier[0];
@@ -50,13 +50,13 @@ class RefiningHelper extends Market
         int $lowerResourcePrice,
         int $amountRawResource,
         float $percentage
-    ) {
+    ): float {
         $rate = (self::RRR_BASE_PERCENTAGE - $percentage) / 100;
         $itemCost = $amountRawResource * $rawResourcePrice + $lowerResourcePrice;
         return $this->calculateSellOrder($refinedResourcePrice) - $itemCost * $rate;
     }
 
-    public function calculateRefiningAmount(string $tier)
+    public function calculateRefiningAmount(string $tier): int
     {
         return match ($tier) {
             '3' => 1250,
@@ -76,12 +76,12 @@ class RefiningHelper extends Market
             '81' => 545,
             '82' => 316,
             '83' => 180,
+            default => throw new \InvalidArgumentException('Wrong tier: ' . $tier),
         };
     }
 
-    public function calculateTotalProfit(int $Amount, float $singleProfit)
+    public function calculateTotalProfit(int $Amount, float $singleProfit): float
     {
         return $Amount * $singleProfit;
     }
-
 }

@@ -23,23 +23,29 @@ class RefiningServiceITest extends TestCase
         /** @var RawResourceRepository|ObjectProphecy $rawResourceRepo */
         $rawResourceRepo = $this->prophesize(RawResourceRepository::class);
 
-        $resourceRepo->getResourcesByBonusCity('TestCity')->willReturn($this->getResources());
-        $rawResourceRepo->getRawResourcesByBonusCity('TestCity')->willReturn($this->getRawResources());
+        $resourceRepo->getResourcesByBonusCity('TestCity')
+            ->willReturn($this->getResources());
+        $rawResourceRepo->getRawResourcesByBonusCity('TestCity')
+            ->willReturn($this->getRawResources());
 
-        $refiningService = new RefiningService($resourceRepo->reveal(),$rawResourceRepo->reveal(),new RefiningHelper());
+        $refiningService = new RefiningService(
+            $resourceRepo->reveal(),
+            $rawResourceRepo->reveal(),
+            new RefiningHelper()
+        );
 
         $delta = 0.00000001;
         $testData = $refiningService->getRefiningForCity('TestCity', 500);
 
         /** @var RefiningEntity $refiningEntity */
         foreach ($testData as $refiningEntity) {
-            $this->assertEquals('3',$refiningEntity->getTierColor());
-            $this->assertEquals(2,$refiningEntity->getAmountRawResource());
-            $this->assertEquals(80204.91,$refiningEntity->getSingleProfit());
-            $this->assertEquals(1250,$refiningEntity->getAmount());
-            $this->assertEquals(100256137.5,$refiningEntity->getProfit());
-            $this->assertEquals(80204.91,$refiningEntity->getWeightAmountQuotient());
-            $this->assertEquals('S',$refiningEntity->getProfitGrade());
+            $this->assertEquals('3', $refiningEntity->getTierColor());
+            $this->assertEquals(2, $refiningEntity->getAmountRawResource());
+            $this->assertEquals(80204.91, $refiningEntity->getSingleProfit());
+            $this->assertEquals(1250, $refiningEntity->getAmount());
+            $this->assertEquals(100256137.5, $refiningEntity->getProfit());
+            $this->assertEquals(80204.91, $refiningEntity->getWeightAmountQuotient());
+            $this->assertEquals('S', $refiningEntity->getProfitGrade());
         }
     }
 
@@ -95,7 +101,7 @@ class RefiningServiceITest extends TestCase
                 'realName' => 'planks',
                 'weight' => 1.71,
                 'class' => '',
-            ], true)
+            ], true),
         ];
     }
 }

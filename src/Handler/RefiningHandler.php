@@ -11,7 +11,6 @@ class RefiningHandler
     public function __construct(
         private Environment $twigEnvironment,
         private RefiningService $refiningService,
-
     ) {
     }
 
@@ -23,7 +22,6 @@ class RefiningHandler
         if (! empty($_GET)) {
             $request = $_GET;
             $itemCity = $request['itemCity'];
-            $craftingFee = (int) $request['craftingFee'];
             $percentage = (float) $request['rrr'];
             try {
                 $cityData = $this->refiningService->getRefiningForCity($itemCity, $percentage);

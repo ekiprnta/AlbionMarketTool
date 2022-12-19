@@ -3,7 +3,6 @@
 namespace MZierdt\Albion\commands;
 
 use MZierdt\Albion\repositories\RawResourceRepository;
-use MZierdt\Albion\repositories\ResourceRepository;
 use MZierdt\Albion\Service\ApiService;
 use MZierdt\Albion\Service\ConfigService;
 use MZierdt\Albion\Service\ProgressBarService;
