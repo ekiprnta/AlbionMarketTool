@@ -27,7 +27,7 @@ class RefiningService
             throw new InvalidArgumentException('Please select a city');
         }
         if (empty($percentage)) {
-            $percentage = 47.9;
+            $percentage = self::RRR_BONUS_CITY_FOCUS;
         }
 
         $resources = $this->resourceRepository->getResourcesByBonusCity($itemCity);
