@@ -52,9 +52,7 @@
                     <th>Tier</th>
                     <th>Name</th>
                     <th>Bm Price</th>
-                    <th>Bm Age</th>
                     <th>City Price</th>
-                    <th>City Age</th>
                     <th>Weight/Profit</th>
                     <th>Item Profit</th>
                     <th>Profit</th>
@@ -63,24 +61,24 @@
                 </thead>
                 <tbody>
                 {% for transportEntity in dataArray %}
-{#                    {% if transportEntity.bmItem.sellOrderPrice != 0 and transportEntity.cityItem.sellOrderPrice != 0 and transportEntity.profit >= 0%}#}
+                    {% if transportEntity.bmItem.sellOrderPrice != 0 and transportEntity.cityItem.sellOrderPrice != 0 and transportEntity.profit >= 0 %}
                         <tr class="bg-{{ transportEntity.profitGrade }}">
-                            <td class="text-left tier-{{ transportEntity.tierColor }} tier">{{ transportEntity.bmItem.tier }}</td>
-                            <td>{{ transportEntity.bmItem.realName }}</td>
-                            <td>{{ transportEntity.bmItem.sellOrderPrice|number_format }}</td>
-                            <td {% if transportEntity.bmItem.sellOrderAge > 720 %} class="bg-D" {% endif %}>{{ transportEntity.bmItem.sellOrderAge|number_format }}
-                                min
+                            <td class="align-middle text-left tier-{{ transportEntity.tierColor }} tier">{{ transportEntity.bmItem.tier }}</td>
+                            <td class="align-middle">{{ transportEntity.bmItem.realName }}</td>
+                            <td class="align-middle {% if transportEntity.bmItem.sellOrderAge > 720 %} bg-D {% endif %}">
+                                <a class="btn text-right w-100"
+                                   title="{{ transportEntity.bmItem.sellOrderAge|number_format }}min">{{ transportEntity.bmItem.sellOrderPrice|number_format }}</a>
                             </td>
-                            <td>{{ transportEntity.cityItem.sellOrderPrice|number_format }}</td>
-                            <td {% if transportEntity.cityItem.sellOrderAge > 720 %} class="bg-D" {% endif %}>{{ transportEntity.cityItem.sellOrderAge|number_format }}
-                                min
+                            <td class="align-middle {% if transportEntity.cityItem.sellOrderAge > 720 %} bg-D {% endif %}">
+                                <a class="btn text-right w-100"
+                                   title="{{ transportEntity.cityItem.sellOrderAge|number_format }}min">{{ transportEntity.cityItem.sellOrderPrice|number_format }}</a>
                             </td>
-                            <td>{{ transportEntity.weightProfitQuotient|number_format }}</td>
-                            <td>{{ transportEntity.singleProfit|number_format }}</td>
-                            <td>{{ transportEntity.profit|number_format }}</td>
-                            <td>{{ transportEntity.amount|number_format }}</td>
+                            <td class="align-middle">{{ transportEntity.weightProfitQuotient|number_format }}</td>
+                            <td class="align-middle">{{ transportEntity.singleProfit|number_format }}</td>
+                            <td class="align-middle">{{ transportEntity.profit|number_format }}</td>
+                            <td class="align-middle">{{ transportEntity.amount|number_format }}</td>
                         </tr>
-{#                    {% endif %}#}
+                    {% endif %}
                 {% endfor %}
                 </tbody>
             </table>
