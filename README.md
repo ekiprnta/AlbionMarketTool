@@ -30,3 +30,11 @@ php bin/cli.php update:journal
 ## Team
 
 [private](https://confluence.mehrkanal.com/#recently-worked)
+
+## Changelogger
+
+```shell
+changelogger new
+changelogger release <tag>
+changelogger clean
+```
