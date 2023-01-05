@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6da735e2f0856aa87607374849fcabaa",
+    "content-hash": "251d43daed857827608176bff1c7c260",
     "packages": [
         {
             "name": "brick/varexporter",
@@ -5347,6 +5347,70 @@
         }
     ],
     "packages-dev": [
+        {
+            "name": "churchtools/changelogger",
+            "version": "v0.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/churchtools/changelogger.git",
+                "reference": "a1de444140721e3ce7be5a26b6317c8cc9ad01fd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/churchtools/changelogger/zipball/a1de444140721e3ce7be5a26b6317c8cc9ad01fd",
+                "reference": "a1de444140721e3ce7be5a26b6317c8cc9ad01fd",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": "^7.4 || ^8.0"
+            },
+            "require-dev": {
+                "laravel-zero/framework": "^8.9",
+                "mockery/mockery": "^1.4",
+                "phpunit/phpunit": "^9.5",
+                "symfony/yaml": "^5.3"
+            },
+            "bin": [
+                "builds/changelogger"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "App\\": "app/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "ChurchTools Innovations GmbH",
+                    "email": "support@churchtools.de",
+                    "role": "Company"
+                },
+                {
+                    "name": "Hans-Helge Buerger",
+                    "email": "hhbuerger@churchtools.de",
+                    "role": "Developer"
+                }
+            ],
+            "description": "CLI Tool for creating consistent and committable changelog entries.",
+            "homepage": "https://github.com/churchtools/changelogger",
+            "keywords": [
+                "changelog",
+                "churchtools",
+                "cli",
+                "console",
+                "keepachangelog"
+            ],
+            "support": {
+                "issues": "https://github.com/churchtools/changelogger/issues",
+                "source": "https://github.com/churchtools/changelogger"
+            },
+            "time": "2022-01-12T13:46:33+00:00"
+        },
         {
             "name": "colinodell/json5",
             "version": "v2.2.2",
