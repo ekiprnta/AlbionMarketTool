@@ -19,7 +19,7 @@
             <directory suffix=".php">./source</directory>
         </include>
         <report>
-            <text outputFile="php://stdout" showUncoveredFiles="false" showOnlySummary="true"/>
+            <text outputFile="php://stdout" showUncoveredFiles="true" showOnlySummary="true"/>
         </report>
     </coverage>
 </phpunit>
