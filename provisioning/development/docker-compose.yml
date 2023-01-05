@@ -4,7 +4,7 @@ services:
 
   php-fpm:
     tty: true # Enables debugging capabilities when attached to this container.
-    image: registry.mehrkanal.com/docker/phpx/fpm:8.1-dev-workspace
+    image: registry.mehrkanal.com/docker/phpx/fpm:8.1-dev
     volumes:
       - ../../:/app
       - $SSH_AUTH_SOCK:$SSH_AUTH_SOCK
