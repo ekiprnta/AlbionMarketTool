@@ -13,10 +13,13 @@
             <directory>./tests/integration</directory>
         </testsuite>
     </testsuites>
-    <coverage cacheDirectory="build/code-coverage"
-              processUncoveredFiles="true">
+    <coverage>
         <include>
-            <directory suffix=".php">src</directory>
+            <directory suffix=".php">./src</directory>
+            <directory suffix=".php">./source</directory>
         </include>
+        <report>
+            <text outputFile="php://stdout" showUncoveredFiles="false" showOnlySummary="true"/>
+        </report>
     </coverage>
 </phpunit>
