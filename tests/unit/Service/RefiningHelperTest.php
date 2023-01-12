@@ -58,7 +58,7 @@ class RefiningHelperTest extends TestCase
      */
     public function testCalculateResourceNull(string $tier, string $expectedTier): void
     {
-        $this->expectException('InvalidArgumentException');
+        $this->expectException(\InvalidArgumentException::class);
         /** @var ResourceEntity|ObjectProphecy $expectedResourceEntity */
         $expectedResourceEntity = $this->prophesize(ResourceEntity::class);
         $expectedResourceEntity->getTier()
@@ -98,7 +98,7 @@ class RefiningHelperTest extends TestCase
      */
     public function testCalculateLowerResourceNull(string $tier, string $expectedTier): void
     {
-        $this->expectException('InvalidArgumentException');
+        $this->expectException(\InvalidArgumentException::class);
         /** @var ResourceEntity|ObjectProphecy $expectedResourceEntity */
         $expectedResourceEntity = $this->prophesize(ResourceEntity::class);
         $expectedResourceEntity->getTier()

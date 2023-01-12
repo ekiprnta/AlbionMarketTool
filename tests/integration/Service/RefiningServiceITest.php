@@ -43,7 +43,7 @@ class RefiningServiceITest extends TestCase
             $this->assertEquals(2, $refiningEntity->getAmountRawResource());
             $this->assertEquals(80204.91, $refiningEntity->getSingleProfit());
             $this->assertEquals(968, $refiningEntity->getAmount());
-            $this->assertEqualsWithDelta(77638352.88, $refiningEntity->getProfit(), $delta);
+            $this->assertEqualsWithDelta(77_638_352.88, $refiningEntity->getProfit(), $delta);
             $this->assertEquals(80204.91, $refiningEntity->getWeightAmountQuotient());
             $this->assertEquals('S', $refiningEntity->getProfitGrade());
         }
