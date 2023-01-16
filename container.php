@@ -19,8 +19,8 @@ use MZierdt\Albion\Handler\AdminHandler;
 use MZierdt\Albion\Handler\BlackMarketCraftingHandler;
 use MZierdt\Albion\Handler\BlackMarketTransportingHandler;
 use MZierdt\Albion\Handler\listDataHandler;
-use MZierdt\Albion\Handler\OldRefiningHandler;
 use MZierdt\Albion\Handler\RefiningHandler;
+use MZierdt\Albion\Handler\TransmutationHandler;
 use MZierdt\Albion\HttpClient;
 use MZierdt\Albion\repositories\DeleteDataRepository;
 use MZierdt\Albion\repositories\ItemRepository;
@@ -36,6 +36,7 @@ use MZierdt\Albion\Service\ConfigService;
 use MZierdt\Albion\Service\RefiningHelper;
 use MZierdt\Albion\Service\RefiningService;
 use MZierdt\Albion\Service\TierService;
+use MZierdt\Albion\Service\TransmutationService;
 use MZierdt\Albion\Service\UploadHelper;
 use Twig\Environment;
 
@@ -86,6 +87,14 @@ $serviceManager = new ServiceManager([
                 RefiningHandler::class => [
                     Environment::class,
                     RefiningService::class,
+                ],
+                TransmutationHandler::class => [
+                    Environment::class,
+                    TransmutationService::class,
+                ],
+                TransmutationService::class => [
+                    RawResourceRepository::class,
+                    ConfigService::class
                 ],
                 AdminHandler::class => [
                     Environment::class,
