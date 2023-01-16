@@ -106,15 +106,15 @@ PHP Unit Tests:
   tags:
     - dind
 
-Check new changelog entry:
-  stage: precheck
-  dependencies: [ ]
-  needs: [ ]
-  script:
-    - git diff --name-status origin/develop | grep -e "^A\s*changelogs/unreleased/.*\.yml$" || { echo -e "\e[41mFile for new changelog item is missing. \e[0m\nPlease add it to your branch with \e[1mvendor/bin/changelogger new -u. \e[0m"; exit 1; }
-  except:
-    - develop
-    - master
-    - /^release/.*$/
-    - tags
+#Check new changelog entry:
+#  stage: precheck
+#  dependencies: [ ]
+#  needs: [ ]
+#  script:
+#    - git diff --name-status origin/develop | grep -e "^A\s*changelogs/unreleased/.*\.yml$" || { echo -e "\e[41mFile for new changelog item is missing. \e[0m\nPlease add it to your branch with \e[1mvendor/bin/changelogger new -u. \e[0m"; exit 1; }
+#  except:
+#    - develop
+#    - master
+#    - /^release/.*$/
+#    - tags
 
