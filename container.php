@@ -36,6 +36,7 @@ use MZierdt\Albion\Service\ConfigService;
 use MZierdt\Albion\Service\RefiningHelper;
 use MZierdt\Albion\Service\RefiningService;
 use MZierdt\Albion\Service\TierService;
+use MZierdt\Albion\Service\TransmutationHelper;
 use MZierdt\Albion\Service\TransmutationService;
 use MZierdt\Albion\Service\UploadHelper;
 use Twig\Environment;
@@ -94,8 +95,10 @@ $serviceManager = new ServiceManager([
                 ],
                 TransmutationService::class => [
                     RawResourceRepository::class,
+                    TransmutationHelper::class,
                     ConfigService::class
                 ],
+                TransmutationHelper::class => [],
                 AdminHandler::class => [
                     Environment::class,
                 ],
