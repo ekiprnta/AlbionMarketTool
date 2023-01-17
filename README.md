@@ -34,7 +34,7 @@ php bin/cli.php update:journal
 ## Changelogger
 
 ```shell
-changelogger new
+changelogger new -u
 changelogger release <tag>
 changelogger clean
 ```
