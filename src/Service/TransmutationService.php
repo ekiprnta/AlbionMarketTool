@@ -40,6 +40,6 @@ class TransmutationService
                 $transmutationEntityList
             );
         }
-        return $resources;
+        return $transmutationEntityList;
     }
 }
