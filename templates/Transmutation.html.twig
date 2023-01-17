@@ -1,7 +1,59 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-    bla test
+    <div class="card mt-3">
+        <div class="card-body">
+            <form action="" method="get">
+                <div class="row">
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label for="itemCity">Choose City to transport from</label>
+                            <select name="itemCity" id="itemCity" class="form-control">
+                                <option value="Fort Sterling">Fort Sterling</option>
+                                <option value="Lymhurst">Lymhurst</option>
+                                <option value="Bridgewatch">Bridgewatch</option>
+                                <option value="Martlock">Martlock</option>
+                                <option value="Thetford">Thetford</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <button class="btn btn-primary" type="submit">Calculate</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        {% if alertMessage is not null %}
+            <div class="alert alert-danger standard-alert">{{ alertMessage }}</div>
+        {% endif %}
+    </div>
+    <div class="card mt-3">
+        <div class="card-body">
+            <div class="card-title"><h3>Profit</h3></div>
+            <table class="table table-sm table-bordered" id="sortTable">
+                <thead>
+                <tr>
+                    <th>Tier</th>
+                    <th>Name</th>
+                    <th>Path</th>
+                    <th>Profit</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for TransmutationEntity in dataArray %}
+                    <tr class="">
+                        <td class="align-middle text-left"> {{ TransmutationEntity.startResource.tier }}</td>
+                        <td class="align-middle text-left"> {{ TransmutationEntity.startResource. }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 {% endblock %}
 
 
