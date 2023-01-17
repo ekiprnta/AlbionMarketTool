@@ -9,8 +9,8 @@ use Twig\Environment;
 class RefiningHandler
 {
     public function __construct(
-        private Environment $twigEnvironment,
-        private RefiningService $refiningService,
+        private readonly Environment $twigEnvironment,
+        private readonly RefiningService $refiningService,
     ) {
     }
 
@@ -29,7 +29,7 @@ class RefiningHandler
                 $alertMessage = $invalidArgumentException->getMessage();
             }
         }
-//    dd($cityData);
+
         $htmlContent = $this->twigEnvironment->render('Refining.html.twig', [
             'dataArray' => $cityData,
             'alertMessage' => $alertMessage,
