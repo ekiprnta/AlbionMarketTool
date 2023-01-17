@@ -9,8 +9,8 @@ use Twig\Environment;
 class TransmutationHandler
 {
     public function __construct(
-        private Environment $twigEnvironment,
-        private TransmutationService $transmutationService,
+        private readonly Environment $twigEnvironment,
+        private readonly TransmutationService $transmutationService,
     ) {
     }
 
@@ -19,15 +19,19 @@ class TransmutationHandler
         $cityData = [];
         $alertMessage = null;
 
-        $city = "Martlock";
-        $cityData = $this->transmutationService->getTransmutationByCity($city);
-
-        dd($cityData);
+        if (!empty($_GET)) {
+            $city = $_GET['city'];
+            try {
+                $cityData = $this->transmutationService->getTransmutationByCity($city);
+            } catch (\InvalidArgumentException $invalidArgumentException) {
+                $alertMessage = $invalidArgumentException->getMessage();
+            }
+            dd($cityData);
+        }
 
         $htmlContent = $this->twigEnvironment->render('Transmutation.html.twig', [
             'dataArray' => $cityData,
             'alertMessage' => $alertMessage,
-            'rates' => $this->refiningService->getRefiningRates(),
         ]);
         return new HtmlResponse($htmlContent);
     }

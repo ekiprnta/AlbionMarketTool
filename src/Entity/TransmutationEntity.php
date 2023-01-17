@@ -9,7 +9,7 @@ class TransmutationEntity
     public function __construct(
         private readonly ResourceEntity $startResource,
         private readonly ResourceEntity $endResource,
-        private readonly int $transmutePrice
+        private readonly float $transmutePrice
     ) {
         $this->profit = $startResource->getSellOrderPrice() + $endResource->getSellOrderPrice() + $this->transmutePrice;
     }

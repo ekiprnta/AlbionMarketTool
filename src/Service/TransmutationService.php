@@ -10,7 +10,8 @@ class TransmutationService
     public function __construct(
         private RawResourceRepository $rawResourceRepository,
         private TransmutationHelper $transmutationHelper,
-        private ConfigService $configService
+        private ConfigService $configService,
+        private GlobalDiscountService $discountService,
     ) {
     }
 
@@ -32,7 +33,8 @@ class TransmutationService
             $transmutePricing = $this->transmutationHelper->transmute(
                 $transmutationWay,
                 $resources[$key],
-                $transmutationCost
+                $transmutationCost,
+                $this->discountService->getGlobalDiscount(),
             );
             $transmutationEntityList = $this->transmutationHelper->getEntityList(
                 $transmutePricing,

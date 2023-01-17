@@ -16,7 +16,7 @@ class TransmutationHelper extends Market
         return $formatResource;
     }
 
-    public function transmute(array $transmutationWays, ResourceEntity $resource, array $cost): array
+    public function transmute(array $transmutationWays, ResourceEntity $resource, array $cost, float $discount): array
     {
         $transmutation = [];
         foreach ($transmutationWays as $path => $transmutationWay) {
@@ -24,9 +24,9 @@ class TransmutationHelper extends Market
             $transmutation[$path] = 0;
             foreach ($transmutationWay as $tier) {
                 if ($this->sameTier($currentTier, $tier)) {
-                    $transmutation[$path] += $cost[$tier]['enchantment'];
+                    $transmutation[$path] += $cost[$tier]['enchantment'] * (1 - $discount);
                 } else {
-                    $transmutation[$path] += $cost[$tier]['tier'];
+                    $transmutation[$path] += $cost[$tier]['tier'] * (1 - $discount);
                     $currentTier++;
                 }
             }
@@ -48,6 +48,11 @@ class TransmutationHelper extends Market
             $list[] = new TransmutationEntity($resources[$startTier], $resources[$endTier], $transmutePrice);
         }
         return $list;
+    }
+
+    private function applyGlobalDiscount(float $transmuteCost, $globalDiscount): float
+    {
+        return $transmuteCost * (1 - $globalDiscount);
     }
 
     private function getStartAndEndTier(string $path)
