@@ -4,11 +4,19 @@ namespace MZierdt\Albion\Entity;
 
 class TransmutationEntity
 {
+    private float $profit;
+
     public function __construct(
         private readonly ResourceEntity $startResource,
         private readonly ResourceEntity $endResource,
         private readonly int $transmutePrice
     ) {
+        $this->profit = $startResource->getSellOrderPrice() + $endResource->getSellOrderPrice() + $this->transmutePrice;
+    }
+
+    public function getProfit(): float
+    {
+        return $this->profit;
     }
 
     public function getStartResource(): ResourceEntity

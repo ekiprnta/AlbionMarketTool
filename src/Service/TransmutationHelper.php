@@ -40,15 +40,14 @@ class TransmutationHelper extends Market
     }
 
     /** @var ResourceEntity[] $resources */
-    public function getEntityList(array $transmutePricing, array $resources): array
+    public function getEntityList(array $transmutePricing, array $resources, $list): array
     {
-        $entityList = [];
         foreach ($transmutePricing as $path => $transmutePrice) {
             [$startTier, $endTier] = $this->getStartAndEndTier($path);
 
-            $entityList[] = new TransmutationEntity($resources[$startTier], $resources[$endTier], $transmutePrice);
+            $list[] = new TransmutationEntity($resources[$startTier], $resources[$endTier], $transmutePrice);
         }
-        return $entityList;
+        return $list;
     }
 
     private function getStartAndEndTier(string $path)

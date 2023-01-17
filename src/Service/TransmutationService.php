@@ -3,7 +3,6 @@
 namespace MZierdt\Albion\Service;
 
 use InvalidArgumentException;
-use MZierdt\Albion\Entity\TransmutationEntity;
 use MZierdt\Albion\repositories\RawResourceRepository;
 
 class TransmutationService
@@ -15,7 +14,7 @@ class TransmutationService
     ) {
     }
 
-    public function getTransmutationByCity(string $city)
+    public function getTransmutationByCity(string $city): array
     {
         if (empty($city)) {
             throw new InvalidArgumentException('Please select a city');
@@ -28,18 +27,19 @@ class TransmutationService
         $transmutationWays = $this->configService->getTransmutationWays();
         $transmutationCost = $this->configService->getTransmutationCost();
 
+        $transmutationEntityList = [];
         foreach ($transmutationWays as $key => $transmutationWay) {
             $transmutePricing = $this->transmutationHelper->transmute(
                 $transmutationWay,
                 $resources[$key],
                 $transmutationCost
             );
-            $transmutationEntityList = $this->transmutationHelper->getEntityList($transmutePricing, $resources);
+            $transmutationEntityList = $this->transmutationHelper->getEntityList(
+                $transmutePricing,
+                $resources,
+                $transmutationEntityList
+            );
         }
-        /** @var TransmutationEntity $transmutationEntity */
-        foreach ($transmutationEntityList as $transmutationEntity) {
-        }
-        dd($resources);
         return $resources;
     }
 }
