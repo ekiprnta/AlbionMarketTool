@@ -33,6 +33,7 @@ use MZierdt\Albion\Service\BlackMarketCraftingService;
 use MZierdt\Albion\Service\BlackMarketTransportingHelper;
 use MZierdt\Albion\Service\BlackMarketTransportingService;
 use MZierdt\Albion\Service\ConfigService;
+use MZierdt\Albion\Service\GlobalDiscountService;
 use MZierdt\Albion\Service\RefiningHelper;
 use MZierdt\Albion\Service\RefiningService;
 use MZierdt\Albion\Service\TierService;
@@ -96,11 +97,15 @@ $serviceManager = new ServiceManager([
                 TransmutationService::class => [
                     RawResourceRepository::class,
                     TransmutationHelper::class,
-                    ConfigService::class
+                    ConfigService::class,
+                    GlobalDiscountService::class,
                 ],
                 TransmutationHelper::class => [],
                 AdminHandler::class => [
                     Environment::class,
+                ],
+                GlobalDiscountService::class => [
+                    ApiService::class
                 ],
                 DeleteDataCommand::class => [
                     DeleteDataRepository::class
@@ -124,10 +129,10 @@ $serviceManager = new ServiceManager([
                     UploadHelper::class,
                 ],
                 UpdateRawResourcesCommand::class => [
-                  ApiService::class,
-                  RawResourceRepository::class,
-                  ConfigService::class,
-                  UploadHelper::class,
+                    ApiService::class,
+                    RawResourceRepository::class,
+                    ConfigService::class,
+                    UploadHelper::class,
                 ],
             ]
         ],
