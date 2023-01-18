@@ -56,6 +56,8 @@
                     <th>Weight/Profit</th>
                     <th>Item Profit</th>
                     <th>Profit</th>
+                    <th>Percentage</th>
+                    <th>TotalCost</th>
                     <th>Amount</th>
                 </tr>
                 </thead>
@@ -76,6 +78,8 @@
                             <td class="align-middle">{{ transportEntity.weightProfitQuotient|number_format }}</td>
                             <td class="align-middle">{{ transportEntity.singleProfit|number_format }}</td>
                             <td class="align-middle">{{ transportEntity.profit|number_format }}</td>
+                            <td class="align-middle">{{ transportEntity.profitPercentage|number_format }}</td>
+                            <td class="align-middle">{{ transportEntity.totalCost|number_format }}</td>
                             <td class="align-middle">{{ transportEntity.amount|number_format }}</td>
                         </tr>
                     {% endif %}
