@@ -87,6 +87,40 @@ class BlackMarketTransportingHelperTest extends TestCase
     }
 
     /**
+     * @dataProvider getProfitPercentageDat
+     */
+    public function testCalculateProfitPercentage(int $bmPrice, int $cityPrice, float $expectedResult): void
+    {
+        $this->assertEqualsWithDelta(
+            $expectedResult,
+            $this->bmtHelper->calculateProfitPercentage($bmPrice, $cityPrice),
+            0.0000001
+        );
+    }
+
+    public function getProfitPercentageDat(): array
+    {
+        return [[1000, 1000, 100.0], [2310, 1000, 231.0], [1000, 5445, 18.365472910927455]];
+    }
+
+    /**
+     * @dataProvider getTotalCostDat
+     */
+    public function testCalculateTotalCost(int $bmPrice, int $cityPrice, float $expectedResult): void
+    {
+        $this->assertEqualsWithDelta(
+            $expectedResult,
+            $this->bmtHelper->calculateTotalCost($bmPrice, $cityPrice),
+            0.0000001
+        );
+    }
+
+    public function getTotalCostDat(): array
+    {
+        return [[1000, 1000, 1000000], [2310, 1000, 2310000], [1000, 5445, 5445000]];
+    }
+
+    /**
      * @dataProvider getProfitDat
      */
     public function testCalculateProfit(float $singleProfit, int $amount, float $expectedResult): void
