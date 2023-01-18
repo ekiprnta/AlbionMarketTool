@@ -60,14 +60,17 @@ class BlackMarketTransportingService
             );
             $bmtEntity->setProfitPercentage(
                 $this->bmtHelper->calculateProfitPercentage(
-                    $bmtEntity->getBmItem()->getSellOrderPrice(),
-                    $bmtEntity->getCityItem()->getSellOrderPrice()
+                    $bmtEntity->getBmItem()
+                        ->getSellOrderPrice(),
+                    $bmtEntity->getCityItem()
+                        ->getSellOrderPrice()
                 )
             );
             $bmtEntity->setTotalCost(
                 $this->bmtHelper->calculateTotalCost(
                     $bmtEntity->getAmount(),
-                    $bmtEntity->getCityItem()->getSellOrderPrice()
+                    $bmtEntity->getCityItem()
+                        ->getSellOrderPrice()
                 )
             );
         }
@@ -79,7 +82,7 @@ class BlackMarketTransportingService
     {
         /** @var BlackMarketTransportEntity $bmtEntity */
         foreach ($bmtEntities as $key => $bmtEntity) {
-            if (!in_array($bmtEntity->getBmItem()->getTier(), $tierList, true)) {
+            if (! in_array($bmtEntity->getBmItem()->getTier(), $tierList, true)) {
                 unset($bmtEntities[$key]);
             }
         }
