@@ -43,7 +43,7 @@ class BlackMarketTransportingServiceITest extends TestCase
             $this->assertEquals('7', $bmtEntity->getTierColor());
             $this->assertEquals(500, $bmtEntity->getWeight());
             $this->assertEquals(5081832.0, $bmtEntity->getTotalCost());
-            $this->assertEquals(182.64736024331384, $bmtEntity->getProfitPercentage());
+            $this->assertEquals(182.6466054803238, $bmtEntity->getProfitPercentage());
 
             $this->assertEquals('3h_axe', $bmtEntity->getCityItem()->getName());
             $this->assertEquals('3h_axe', $bmtEntity->getBmItem()->getName());

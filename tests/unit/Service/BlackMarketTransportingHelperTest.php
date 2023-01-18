@@ -100,7 +100,7 @@ class BlackMarketTransportingHelperTest extends TestCase
 
     public function getProfitPercentageDat(): array
     {
-        return [[1000, 1000, 100.0], [2310, 1000, 231.0], [1000, 5445, 18.365472910927455]];
+        return [[1000, 999, 100.0], [2310, 999, 231.0], [1000, 5444, 18.365472910927455]];
     }
 
     /**

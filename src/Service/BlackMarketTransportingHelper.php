@@ -35,7 +35,7 @@ class BlackMarketTransportingHelper extends Market
 
     public function calculateProfitPercentage(int $bmPrice, int $royalPrice): float
     {
-        return ($bmPrice / $royalPrice) * 100;
+        return ($bmPrice / ($royalPrice + 1)) * 100;
     }
 
     public function calculateTotalCost(int $amount, int $cityPrice): int
