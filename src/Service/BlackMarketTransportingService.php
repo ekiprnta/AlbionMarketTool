@@ -58,6 +58,21 @@ class BlackMarketTransportingService
             $bmtEntity->setProfitGrade(
                 $this->bmtHelper->calculateProfitGrade($bmtEntity->getWeightProfitQuotient())
             );
+            $bmtEntity->setProfitPercentage(
+                $this->bmtHelper->calculateProfitPercentage(
+                    $bmtEntity->getBmItem()
+                        ->getSellOrderPrice(),
+                    $bmtEntity->getCityItem()
+                        ->getSellOrderPrice()
+                )
+            );
+            $bmtEntity->setTotalCost(
+                $this->bmtHelper->calculateTotalCost(
+                    $bmtEntity->getAmount(),
+                    $bmtEntity->getCityItem()
+                        ->getSellOrderPrice()
+                )
+            );
         }
 //        $combinedItems = $this->combineItems($cityItems, $bmItems);
         return $this->filterItems($bmtEntities, $tierList);

@@ -74,4 +74,16 @@ class BlackMarketTransportingEntityTest extends TestCase
     {
         $this->assertEquals('4', $this->bmtEntity->getTierColor());
     }
+
+    public function testTotalCost(): void
+    {
+        $this->bmtEntity->setTotalCost(5);
+        $this->assertEquals(5, $this->bmtEntity->getTotalCost());
+    }
+
+    public function testProfitPercentage(): void
+    {
+        $this->bmtEntity->setProfitPercentage(130.3);
+        $this->assertEquals(130.3, $this->bmtEntity->getProfitPercentage());
+    }
 }
