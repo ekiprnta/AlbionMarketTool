@@ -24,7 +24,6 @@ class BlackMarketTransportingHelperTest extends TestCase
         $this->cityItem = $this->prophesize(ItemEntity::class);
     }
 
-
     /**
      * @dataProvider getNameAndTierData
      */
@@ -140,17 +139,21 @@ class BlackMarketTransportingHelperTest extends TestCase
     /**
      * @dataProvider getAmountDat
      */
-    public function testCalculateAmount(int $weight, float $itemWeight, float $expectedResult): void
+    public function testCalculateAmount(int $primAmount, int $secAmount, array $config, float $expectedResult): void
     {
         $this->assertEqualsWithDelta(
             $expectedResult,
-            $this->bmtHelper->calculateAmount($weight, $itemWeight),
+            $this->bmtHelper->calculateAmount($primAmount, $secAmount, $config),
             0.0000001
         );
     }
 
     public function getAmountDat(): array
     {
-        return [[2700, 15, 180], [2000, 6.3, 317], [2700, 14.7, 183], [25000, 12, 2083]];
+        return [
+            [8, 8, ['16' => 20], 20],
+            [12, 20, ['32' => 10990], 10990],
+            [1, 99, ['100' => 2345], 2345],
+        ];
     }
 }

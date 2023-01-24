@@ -23,9 +23,10 @@ class BlackMarketTransportingHelper extends Market
         return $singleProfit * $amount;
     }
 
-    public function calculateAmount(int $totalWeight, float $itemWeight): int
+    public function calculateAmount(int $primAmount, int $secAmount, array $amountConfig): int
     {
-        return (int) ($totalWeight / $itemWeight);
+        $totalAmount = $primAmount + $secAmount;
+        return $amountConfig[$totalAmount];
     }
 
     public function calculateSingleProfit(int $bmPrice, int $cityPrice): float
