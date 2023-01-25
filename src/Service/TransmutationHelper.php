@@ -39,7 +39,9 @@ class TransmutationHelper extends Market
         return $tier[0] === $currentTier[0];
     }
 
-    /** @var ResourceEntity[] $resources */
+    /**
+     * @var ResourceEntity[]
+     */
     public function getEntityList(array $transmutePricing, array $resources, $list): array
     {
         foreach ($transmutePricing as $path => $transmutePrice) {

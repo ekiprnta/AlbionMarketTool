@@ -47,8 +47,10 @@ class TransmutationService
         foreach ($transmutationEntityList as $transEntity) {
             $transEntity->setProfit(
                 $this->transmutationHelper->calculateProfit(
-                    $transEntity->getStartResource()->getSellOrderPrice(),
-                    $transEntity->getEndResource()->getSellOrderPrice(),
+                    $transEntity->getStartResource()
+                        ->getSellOrderPrice(),
+                    $transEntity->getEndResource()
+                        ->getSellOrderPrice(),
                     $transEntity->getTransmutePrice()
                 )
             );

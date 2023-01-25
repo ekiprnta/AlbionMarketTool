@@ -58,7 +58,8 @@ class ApiServiceTest extends TestCase
     {
         $apiUrl = 'https://www.albion-online-data.com/api/v2/stats/gold/';
         $parameters = ['count' => 1];
-        $this->httpClient->get($apiUrl, $parameters)->willReturn('[{"price": 12345}]');
+        $this->httpClient->get($apiUrl, $parameters)
+            ->willReturn('[{"price": 12345}]');
 
         $this->assertEquals(12345, $this->apiService->getGoldPrice());
     }

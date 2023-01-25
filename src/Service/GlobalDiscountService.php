@@ -13,7 +13,6 @@ class GlobalDiscountService
     public function getGlobalDiscount(): float
     {
         $goldPrice = $this->apiService->getGoldPrice();
-        return (1 - $goldPrice / self::BASE_GOLD_PRICE);
+        return 1 - $goldPrice / self::BASE_GOLD_PRICE;
     }
-
 }

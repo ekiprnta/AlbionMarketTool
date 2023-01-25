@@ -12,13 +12,16 @@ class GlobalDiscountServiceTest extends TestCase
 {
     use ProphecyTrait;
 
-    /** @dataProvider getGoldPriceDataProvider */
+    /**
+     * @dataProvider getGoldPriceDataProvider
+     */
     public function testGetGlobalDiscount(float $result, int $goldPrice): void
     {
         /** @var ApiService|ObjectProphecy $apiService */
         $apiService = $this->prophesize(ApiService::class);
 
-        $apiService->getGoldPrice()->willReturn($goldPrice);
+        $apiService->getGoldPrice()
+            ->willReturn($goldPrice);
         $globalDiscountService = new GlobalDiscountService($apiService->reveal());
 
         $this->assertEqualsWithDelta($result, $globalDiscountService->getGlobalDiscount(), 0.0000001);
@@ -26,11 +29,6 @@ class GlobalDiscountServiceTest extends TestCase
 
     public function getGoldPriceDataProvider(): array
     {
-        return [
-            [0, 5000],
-            [0.1, 4500],
-            [-0.1, 5500],
-            [0.02, 4900],
-        ];
+        return [[0, 5000], [0.1, 4500], [-0.1, 5500], [0.02, 4900]];
     }
 }
