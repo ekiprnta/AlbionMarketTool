@@ -19,8 +19,8 @@ class BlackMarketTransportEntity
     private float $profitPercentage;
 
     public function __construct(
-        private ItemEntity $bmItem,
-        private int $weight
+        private readonly ItemEntity $bmItem,
+        private readonly int $weight
     ) {
         $this->tierColor = $bmItem->getTier()[0];
     }
