@@ -25,7 +25,7 @@ class ResourceEntityTest extends TestCase
         $this->assertEquals('', $entity->getClass());
         $this->assertEquals('Lymhurst', $entity->getBonusCity());
         $this->assertEquals(0, $entity->getAmountInStorage());
-        $this->assertEquals(false, $entity->isRaw());
+        $this->assertEquals(true, $entity->isRaw());
     }
 
     public function testGettersB(): void
@@ -61,7 +61,7 @@ class ResourceEntityTest extends TestCase
         $this->assertEquals('', $entity->getClass());
         $this->assertEquals('bonusCity', $entity->getBonusCity());
         $this->assertEquals(23456, $entity->getAmountInStorage());
-        $this->assertEquals(true, $entity->isRaw());
+        $this->assertEquals(false, $entity->isRaw());
     }
 
 
