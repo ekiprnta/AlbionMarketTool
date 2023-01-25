@@ -7,8 +7,8 @@
                 <div class="row">
                     <div class="col-3">
                         <div class="form-group">
-                            <label for="itemCity">Choose City to transport from</label>
-                            <select name="itemCity" id="itemCity" class="form-control">
+                            <label for="city">Choose City to transport from</label>
+                            <select name="city" id="city" class="form-control">
                                 <option value="Fort Sterling">Fort Sterling</option>
                                 <option value="Lymhurst">Lymhurst</option>
                                 <option value="Bridgewatch">Bridgewatch</option>
@@ -38,16 +38,23 @@
                 <thead>
                 <tr>
                     <th>Tier</th>
-                    <th>Name</th>
                     <th>Path</th>
                     <th>Profit</th>
+                    <th>Start Resource</th>
+                    <th>End Resource</th>
+                    <th>TransmuteCost</th>
                 </tr>
                 </thead>
                 <tbody>
-                {% for TransmutationEntity in dataArray %}
-                    <tr class="">
-                        <td class="align-middle text-left"> {{ TransmutationEntity.startResource.tier }}</td>
-                        <td class="align-middle text-left"> {{ TransmutationEntity.startResource. }}</td>
+                {# @var transmutationEntity \MZierdt\Albion\Entity\TransmutationEntity #}
+                {% for transmutationEntity in dataArray %}
+                    <tr class="bg-{{ transmutationEntity.profitGrade }}">
+                        <td class="align-middle text-left tier tier-{{ transmutationEntity.tierColor }}"> {{ transmutationEntity.startResource.tier }}</td>
+                        <td class="align-middle text-left"> {{ transmutationEntity.startResource.tier ~ 'To' ~ transmutationEntity.endResource.tier }}</td>
+                        <td class="align-middle text-left"> {{ transmutationEntity.profit|number_format }}</td>
+                        <td class="align-middle text-left"> {{ transmutationEntity.startResource.sellOrderPrice|number_format }}</td>
+                        <td class="align-middle text-left"> {{ transmutationEntity.endResource.sellOrderPrice|number_format }}</td>
+                        <td class="align-middle text-left"> {{ transmutationEntity.transmutePrice|number_format }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>

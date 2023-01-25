@@ -3,6 +3,7 @@
 namespace MZierdt\Albion\Service;
 
 use InvalidArgumentException;
+use MZierdt\Albion\Entity\TransmutationEntity;
 use MZierdt\Albion\repositories\RawResourceRepository;
 
 class TransmutationService
@@ -42,6 +43,18 @@ class TransmutationService
                 $transmutationEntityList
             );
         }
+        /** @var TransmutationEntity $transEntity */
+        foreach ($transmutationEntityList as $transEntity) {
+            $transEntity->setProfit(
+                $this->transmutationHelper->calculateProfit(
+                    $transEntity->getStartResource()->getSellOrderPrice(),
+                    $transEntity->getEndResource()->getSellOrderPrice(),
+                    $transEntity->getTransmutePrice()
+                )
+            );
+            $transEntity->setProfitGrade($this->transmutationHelper->calculateProfitGrade($transEntity->getProfit()));
+        }
+
         return $transmutationEntityList;
     }
 }

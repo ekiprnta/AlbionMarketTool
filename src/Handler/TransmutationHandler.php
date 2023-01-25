@@ -26,7 +26,7 @@ class TransmutationHandler
             } catch (\InvalidArgumentException $invalidArgumentException) {
                 $alertMessage = $invalidArgumentException->getMessage();
             }
-            dd($cityData);
+//            dd($cityData);
         }
 
         $htmlContent = $this->twigEnvironment->render('Transmutation.html.twig', [

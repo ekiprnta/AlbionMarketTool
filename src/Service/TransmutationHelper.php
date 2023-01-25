@@ -50,12 +50,17 @@ class TransmutationHelper extends Market
         return $list;
     }
 
+    public function calculateProfit(int $startPrice, int $endPrice, float $transmuteCost): float
+    {
+        return $startPrice + $endPrice + $transmuteCost;
+    }
+
     private function applyGlobalDiscount(float $transmuteCost, $globalDiscount): float
     {
         return $transmuteCost * (1 - $globalDiscount);
     }
 
-    private function getStartAndEndTier(string $path)
+    private function getStartAndEndTier(string $path): array
     {
         return explode('to', $path);
     }
