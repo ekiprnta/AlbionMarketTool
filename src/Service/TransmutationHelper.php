@@ -52,7 +52,7 @@ class TransmutationHelper extends Market
 
     public function calculateProfit(int $startPrice, int $endPrice, float $transmuteCost): float
     {
-        return $startPrice + $endPrice + $transmuteCost;
+        return $endPrice - ($startPrice + $transmuteCost);
     }
 
     private function applyGlobalDiscount(float $transmuteCost, $globalDiscount): float
