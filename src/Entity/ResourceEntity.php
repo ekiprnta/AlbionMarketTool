@@ -61,11 +61,6 @@ class ResourceEntity extends AlbionItemEntity
         return $this->raw;
     }
 
-    public function setAmountInStorage(?int $amountInStorage): void
-    {
-        $this->amountInStorage = $amountInStorage;
-    }
-
     public function getBonusCity(): mixed
     {
         return $this->bonusCity;
