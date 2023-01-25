@@ -24,9 +24,9 @@ class TransmutationHelper extends Market
             $transmutation[$path] = 0;
             foreach ($transmutationWay as $tier) {
                 if ($this->sameTier($currentTier, $tier)) {
-                    $transmutation[$path] += $cost[$tier]['enchantment'] * (1 - $discount);
+                    $transmutation[$path] += $this->applyGlobalDiscount($cost[$tier]['enchantment'], $discount);
                 } else {
-                    $transmutation[$path] += $cost[$tier]['tier'] * (1 - $discount);
+                    $transmutation[$path] += $this->applyGlobalDiscount($cost[$tier]['tier'], $discount);
                     $currentTier++;
                 }
             }
@@ -39,9 +39,6 @@ class TransmutationHelper extends Market
         return $tier[0] === $currentTier[0];
     }
 
-    /**
-     * @var ResourceEntity[]
-     */
     public function getEntityList(array $transmutePricing, array $resources, $list): array
     {
         foreach ($transmutePricing as $path => $transmutePrice) {

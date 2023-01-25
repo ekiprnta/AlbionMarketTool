@@ -9,10 +9,10 @@ use MZierdt\Albion\repositories\RawResourceRepository;
 class TransmutationService
 {
     public function __construct(
-        private RawResourceRepository $rawResourceRepository,
-        private TransmutationHelper $transmutationHelper,
-        private ConfigService $configService,
-        private GlobalDiscountService $discountService,
+        private readonly RawResourceRepository $rawResourceRepository,
+        private readonly TransmutationHelper $transmutationHelper,
+        private readonly ConfigService $configService,
+        private readonly GlobalDiscountService $discountService,
     ) {
     }
 
