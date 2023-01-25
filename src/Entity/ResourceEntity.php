@@ -47,7 +47,7 @@ class ResourceEntity extends AlbionItemEntity
 
     public function __construct(
         array $resourceData,
-        private bool $raw = false
+        private readonly bool $raw = false
     ) {
         parent::__construct($resourceData);
 
