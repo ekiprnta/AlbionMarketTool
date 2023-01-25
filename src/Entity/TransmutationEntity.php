@@ -6,7 +6,8 @@ class TransmutationEntity
 {
     private float $profit;
     private string $profitGrade;
-    private string $tierColor;
+    private string $startTierColor;
+    private string $endTierColor;
     private string $pathToTransmute;
 
     public function __construct(
@@ -14,7 +15,13 @@ class TransmutationEntity
         private readonly ResourceEntity $endResource,
         private readonly float $transmutePrice
     ) {
-        $this->tierColor = $this->startResource->getTier();
+        $this->startTierColor = $this->startResource->getTier()[0];
+        $this->endTierColor = $this->endResource->getTier()[0];
+    }
+
+    public function getEndTierColor(): string
+    {
+        return $this->endTierColor;
     }
 
     public function getPathToTransmute(): string
@@ -42,9 +49,9 @@ class TransmutationEntity
         $this->profitGrade = $profitGrade;
     }
 
-    public function getTierColor(): string
+    public function getStartTierColor(): string
     {
-        return $this->tierColor;
+        return $this->startTierColor;
     }
 
     public function getProfit(): float

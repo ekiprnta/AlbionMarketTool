@@ -37,8 +37,8 @@
             <table class="table table-sm table-bordered" id="sortTable">
                 <thead>
                 <tr>
-                    <th>Tier</th>
-                    <th>Path</th>
+                    <th>StartTier</th>
+                    <th>EndTierPath</th>
                     <th>Profit</th>
                     <th>Start Resource</th>
                     <th>End Resource</th>
@@ -49,12 +49,12 @@
                 {# @var transmutationEntity \MZierdt\Albion\Entity\TransmutationEntity #}
                 {% for transmutationEntity in dataArray %}
                     <tr class="bg-{{ transmutationEntity.profitGrade }}">
-                        <td class="align-middle text-left tier tier-{{ transmutationEntity.tierColor }}"> {{ transmutationEntity.startResource.tier }}</td>
-                        <td class="align-middle text-left"> {{ transmutationEntity.startResource.tier ~ 'To' ~ transmutationEntity.endResource.tier }}</td>
-                        <td class="align-middle text-left"> {{ transmutationEntity.profit|number_format }}</td>
-                        <td class="align-middle text-left"> {{ transmutationEntity.startResource.sellOrderPrice|number_format }}</td>
-                        <td class="align-middle text-left"> {{ transmutationEntity.endResource.sellOrderPrice|number_format }}</td>
-                        <td class="align-middle text-left"> {{ transmutationEntity.transmutePrice|number_format }}</td>
+                        <td class="align-middle text-left tier tier-{{ transmutationEntity.startTierColor }}"> {{ transmutationEntity.startResource.tier }}</td>
+                        <td class="align-middle text-left tier tier-{{ transmutationEntity.endTierColor }}"> {{ transmutationEntity.endResource.tier }}</td>
+                        <td class="align-middle text-right"> {{ transmutationEntity.profit|number_format }}</td>
+                        <td class="align-middle text-right"> {{ transmutationEntity.startResource.sellOrderPrice|number_format }}</td>
+                        <td class="align-middle text-right"> {{ transmutationEntity.endResource.sellOrderPrice|number_format }}</td>
+                        <td class="align-middle text-right"> {{ transmutationEntity.transmutePrice|number_format }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>
