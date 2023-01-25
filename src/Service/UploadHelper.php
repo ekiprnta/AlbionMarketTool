@@ -6,7 +6,7 @@ namespace MZierdt\Albion\Service;
 
 class UploadHelper
 {
-    public function __construct(private TierService $tierService)
+    public function __construct(private readonly TierService $tierService)
     {
     }
 
@@ -83,7 +83,8 @@ class UploadHelper
         return $adjustedItems;
     }
 
-    private function getResourceName(string $name): string
+    // Input Either MetalBar or MetalBar_level1 Output: MetalBar
+    public function getResourceName(string $name): string
     {
         if (str_contains($name, 'level')) {
             return substr($name, 0, -7);

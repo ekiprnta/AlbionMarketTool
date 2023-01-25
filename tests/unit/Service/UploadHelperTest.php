@@ -51,11 +51,11 @@ class UploadHelperTest extends TestCase
     /**
      * @dataProvider dataForAdjustResource
      */
-    public function testAdjustResourceArray(array $expectedArray, array $testData): void
+    public function testAdjustResourceArray(array $expectedArray, array $testData, string $testName): void
     {
         $this->tierService->splitIntoTierAndName($testData[0]['item_id'])->willReturn(
             [
-                'name' => 'alfred',
+                'name' => $testName,
                 'tier' => 2,
             ]
         );
@@ -85,6 +85,7 @@ class UploadHelperTest extends TestCase
                     ],
                 ],
                 [$this->testDataEmpty],
+                'alfred'
             ],
             [
                 [
@@ -101,6 +102,7 @@ class UploadHelperTest extends TestCase
                     ],
                 ],
                 [$this->testDataA],
+                'alfred_level1'
             ],
             [
                 [
@@ -117,6 +119,7 @@ class UploadHelperTest extends TestCase
                     ],
                 ],
                 [$this->testDataB],
+                'alfred'
             ],
         ];
     }

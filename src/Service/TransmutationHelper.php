@@ -2,7 +2,6 @@
 
 namespace MZierdt\Albion\Service;
 
-use MZierdt\Albion\Entity\ResourceEntity;
 use MZierdt\Albion\Entity\TransmutationEntity;
 
 class TransmutationHelper extends Market
@@ -16,11 +15,11 @@ class TransmutationHelper extends Market
         return $formatResource;
     }
 
-    public function transmute(array $transmutationWays, ResourceEntity $resource, array $cost, float $discount): array
+    public function transmute(array $transmutationWays, string $startTier, array $cost, float $discount): array
     {
         $transmutation = [];
         foreach ($transmutationWays as $path => $transmutationWay) {
-            $currentTier = $resource->getTier();
+            $currentTier = $startTier;
             $transmutation[$path] = 0;
             foreach ($transmutationWay as $tier) {
                 if ($this->sameTier($currentTier, $tier)) {

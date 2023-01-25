@@ -33,7 +33,7 @@ class TransmutationService
         foreach ($transmutationWays as $key => $transmutationWay) {
             $transmutePricing = $this->transmutationHelper->transmute(
                 $transmutationWay,
-                $resources[$key],
+                $resources[$key]->getTier(),
                 $transmutationCost,
                 $this->discountService->getGlobalDiscount(),
             );
