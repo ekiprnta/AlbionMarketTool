@@ -44,8 +44,10 @@ class BlackMarketTransportingService
             $bmtEntity->setCityItem($this->bmtHelper->calculateCityItem($bmtEntity->getBmItem(), $cityItem));
             $bmtEntity->setAmount(
                 $this->bmtHelper->calculateAmount(
-                    $bmtEntity->getCityItem()->getPrimaryResourceAmount(),
-                    $bmtEntity->getCityItem()->getSecondaryResourceAmount(),
+                    $bmtEntity->getCityItem()
+                        ->getPrimaryResourceAmount(),
+                    $bmtEntity->getCityItem()
+                        ->getSecondaryResourceAmount(),
                     $amountConfig[$bmtEntity->getCityItem()->getTier()]
                 )
             );

@@ -44,9 +44,6 @@ class BlackMarketTransportingServiceTest extends TestCase
 
     public function exceptionData(): array
     {
-        return [
-            ['', ['1', '2']],
-            ['a', []]
-        ];
+        return [['', ['1', '2']], ['a', []]];
     }
 }
