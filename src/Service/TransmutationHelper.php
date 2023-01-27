@@ -2,6 +2,7 @@
 
 namespace MZierdt\Albion\Service;
 
+use MZierdt\Albion\Entity\ResourceEntity;
 use MZierdt\Albion\Entity\TransmutationEntity;
 
 class TransmutationHelper extends Market
@@ -61,5 +62,39 @@ class TransmutationHelper extends Market
     private function getStartAndEndTier(string $path): array
     {
         return explode('to', $path);
+    }
+
+    public function calculateStartAndEnd(string $pathName): array
+    {
+        return explode('to', $pathName);
+    }
+
+    public function calculateTransmutationPrice(
+        array $transmutationPath,
+        string $startTier,
+        array $transmutationCost,
+        float $discount
+    ): float {
+        $currentTier = $startTier;
+        $cost = 0;
+        foreach ($transmutationPath as $transmutationStep) {
+            if ($this->sameTier($currentTier, $transmutationStep)) {
+                $cost += $this->applyGlobalDiscount($transmutationCost[$transmutationStep]['enchantment'], $discount);
+            } else {
+                $cost += $this->applyGlobalDiscount($transmutationCost[$transmutationStep]['tier'], $discount);
+                ++$currentTier;
+            }
+        }
+        return $cost;
+    }
+
+    public function calculateResource(array $resources, string $tier)
+    {
+        /** @var ResourceEntity $resource */
+        foreach ($resources as $resource) {
+            if ($resource->getTier() === $tier) {
+                return $resource;
+            }
+        }
     }
 }

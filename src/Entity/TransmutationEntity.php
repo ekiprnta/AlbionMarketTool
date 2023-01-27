@@ -8,30 +8,54 @@ class TransmutationEntity
     private string $profitGrade;
     private string $startTierColor;
     private string $endTierColor;
-    private string $pathToTransmute;
+    private ResourceEntity $startResource;
+    private ResourceEntity $endResource;
+    private float $transmutePrice;
 
     public function __construct(
-        private readonly ResourceEntity $startResource,
-        private readonly ResourceEntity $endResource,
-        private readonly float $transmutePrice
+        private readonly string $pathName,
+        private readonly array $transmutationPath
     ) {
-        $this->startTierColor = $this->startResource->getTier()[0];
-        $this->endTierColor = $this->endResource->getTier()[0];
+    }
+
+    public function setStartTierColor(string $startTierColor): void
+    {
+        $this->startTierColor = $startTierColor;
+    }
+
+    public function setEndTierColor(string $endTierColor): void
+    {
+        $this->endTierColor = $endTierColor;
+    }
+
+    public function setStartResource(ResourceEntity $startResource): void
+    {
+        $this->startResource = $startResource;
+    }
+
+    public function setEndResource(ResourceEntity $endResource): void
+    {
+        $this->endResource = $endResource;
+    }
+
+    public function setTransmutePrice(float $transmutePrice): void
+    {
+        $this->transmutePrice = $transmutePrice;
+    }
+
+    public function getPathName(): string
+    {
+        return $this->pathName;
+    }
+
+    public function getTransmutationPath(): array
+    {
+        return $this->transmutationPath;
     }
 
     public function getEndTierColor(): string
     {
         return $this->endTierColor;
-    }
-
-    public function getPathToTransmute(): string
-    {
-        return $this->pathToTransmute;
-    }
-
-    public function setPathToTransmute(string $pathToTransmute): void
-    {
-        $this->pathToTransmute = $pathToTransmute;
     }
 
     public function setProfit(float $profit): void

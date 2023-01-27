@@ -28,23 +28,26 @@ class TransmutationService
 
         $transmutationWays = $this->configService->getTransmutationWays();
         $transmutationCost = $this->configService->getTransmutationCost();
-
+        $globalDiscount = $this->discountService->getGlobalDiscount();
         $transmutationEntityList = [];
-        foreach ($transmutationWays as $key => $transmutationWay) {
-            $transmutePricing = $this->transmutationHelper->transmute(
-                $transmutationWay,
-                $resources[$key]->getTier(),
-                $transmutationCost,
-                $this->discountService->getGlobalDiscount(),
-            );
-            $transmutationEntityList = $this->transmutationHelper->getEntityList(
-                $transmutePricing,
-                $resources,
-                $transmutationEntityList
-            );
+        foreach ($transmutationWays as $pathName => $transmutationWay) {
+            $transmutationEntityList[] = new TransmutationEntity($pathName, $transmutationWay);
         }
+
         /** @var TransmutationEntity $transEntity */
         foreach ($transmutationEntityList as $transEntity) {
+            [$startTier, $endTier] = $this->transmutationHelper->calculateStartAndEnd($transEntity->getPathName());
+            $transEntity->setStartResource($this->transmutationHelper->calculateResource($resources, $startTier));
+            $transEntity->setEndResource($this->transmutationHelper->calculateResource($resources, $endTier));
+            $transEntity->setTransmutePrice(
+                $this->transmutationHelper->calculateTransmutationPrice(
+                    $transEntity->getTransmutationPath(),
+                    $startTier,
+                    $transmutationCost,
+                    $globalDiscount
+                )
+            );
+
             $transEntity->setProfit(
                 $this->transmutationHelper->calculateProfit(
                     $transEntity->getStartResource()
@@ -55,6 +58,8 @@ class TransmutationService
                 )
             );
             $transEntity->setProfitGrade($this->transmutationHelper->calculateProfitGrade($transEntity->getProfit()));
+            $transEntity->setStartTierColor($transEntity->getStartResource()->getTier()[0]);
+            $transEntity->setEndTierColor($transEntity->getEndResource()->getTier()[0]);
         }
 
         return $transmutationEntityList;
