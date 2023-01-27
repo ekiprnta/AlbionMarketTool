@@ -29,6 +29,7 @@ class TransmutationService
         $transmutationWays = $this->configService->getTransmutationWays();
         $transmutationCost = $this->configService->getTransmutationCost();
         $globalDiscount = $this->discountService->getGlobalDiscount();
+
         $transmutationEntityList = [];
         foreach ($transmutationWays as $pathName => $transmutationWay) {
             $transmutationEntityList[] = new TransmutationEntity($pathName, $transmutationWay);
