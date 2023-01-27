@@ -85,7 +85,7 @@ class UploadHelperTest extends TestCase
                     ],
                 ],
                 [$this->testDataEmpty],
-                'alfred'
+                'alfred',
             ],
             [
                 [
@@ -102,7 +102,7 @@ class UploadHelperTest extends TestCase
                     ],
                 ],
                 [$this->testDataA],
-                'alfred_level1'
+                'alfred_level1',
             ],
             [
                 [
@@ -119,7 +119,7 @@ class UploadHelperTest extends TestCase
                     ],
                 ],
                 [$this->testDataB],
-                'alfred'
+                'alfred',
             ],
         ];
     }

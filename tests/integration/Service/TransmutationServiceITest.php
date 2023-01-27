@@ -34,10 +34,16 @@ class TransmutationServiceITest extends TestCase
             $discountService->reveal(),
         );
 
-        $rawResourceRepository->getRawResourcesByBonusCity('Sterling')->willReturn($this->getRawResources());
-        $configService->getTransmutationWays()->willReturn(['4to6' => ['5', '6']]);
-        $configService->getTransmutationCost()->willReturn(['5' => ['tier' => 1000], '6' => ['tier' => 2000]]);
-        $discountService->getGlobalDiscount()->willReturn(0.01);
+        $rawResourceRepository->getRawResourcesByBonusCity('Sterling')
+            ->willReturn($this->getRawResources());
+        $configService->getTransmutationWays()
+            ->willReturn([
+                '4to6' => ['5', '6'],
+            ]);
+        $configService->getTransmutationCost()
+            ->willReturn(['5' => ['tier' => 1000], '6' => ['tier' => 2000]]);
+        $discountService->getGlobalDiscount()
+            ->willReturn(0.01);
 
         $testData = $transmutationService->getTransmutationByCity('Sterling');
 
@@ -80,9 +86,6 @@ class TransmutationServiceITest extends TestCase
             'amountInStorage' => null,
         ]);
 
-        return [
-            $resourceA,
-            $resourceB
-        ];
+        return [$resourceA, $resourceB];
     }
 }
