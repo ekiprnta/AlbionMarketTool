@@ -22,9 +22,7 @@ class TransmutationService
             throw new InvalidArgumentException('Please select a city');
         }
 
-        $resources = $this->transmutationHelper->reformatResources(
-            $this->rawResourceRepository->getRawResourcesByBonusCity($city)
-        );
+        $resources = $this->rawResourceRepository->getRawResourcesByCity($city);
 
         $transmutationWays = $this->configService->getTransmutationWays();
         $transmutationCost = $this->configService->getTransmutationCost();
@@ -32,14 +30,26 @@ class TransmutationService
 
         $transmutationEntityList = [];
         foreach ($transmutationWays as $pathName => $transmutationWay) {
-            $transmutationEntityList[] = new TransmutationEntity($pathName, $transmutationWay);
+            $transmutationEntityList[] = new TransmutationEntity($pathName, $transmutationWay, 'fiber');
         }
-
+        foreach ($transmutationWays as $pathName => $transmutationWay) {
+            $transmutationEntityList[] = new TransmutationEntity($pathName, $transmutationWay, 'wood');
+        }
+        foreach ($transmutationWays as $pathName => $transmutationWay) {
+            $transmutationEntityList[] = new TransmutationEntity($pathName, $transmutationWay, 'hide');
+        }
+        foreach ($transmutationWays as $pathName => $transmutationWay) {
+            $transmutationEntityList[] = new TransmutationEntity($pathName, $transmutationWay, 'ore');
+        }
         /** @var TransmutationEntity $transEntity */
         foreach ($transmutationEntityList as $transEntity) {
             [$startTier, $endTier] = $this->transmutationHelper->calculateStartAndEnd($transEntity->getPathName());
-            $transEntity->setStartResource($this->transmutationHelper->calculateResource($resources, $startTier));
-            $transEntity->setEndResource($this->transmutationHelper->calculateResource($resources, $endTier));
+            $transEntity->setStartResource(
+                $this->transmutationHelper->calculateResource($resources, $startTier, $transEntity->getResourceType())
+            );
+            $transEntity->setEndResource(
+                $this->transmutationHelper->calculateResource($resources, $endTier, $transEntity->getResourceType())
+            );
             $transEntity->setTransmutePrice(
                 $this->transmutationHelper->calculateTransmutationPrice(
                     $transEntity->getTransmutationPath(),

@@ -6,15 +6,6 @@ use MZierdt\Albion\Entity\ResourceEntity;
 
 class TransmutationHelper extends Market
 {
-    public function reformatResources(array $resources): array
-    {
-        $formatResource = [];
-        foreach ($resources as $resource) {
-            $formatResource[$resource->getTier()] = $resource;
-        }
-        return $formatResource;
-    }
-
     private function sameTier(string $currentTier, string $tier): bool
     {
         return $tier[0] === $currentTier[0];
@@ -54,11 +45,11 @@ class TransmutationHelper extends Market
         return $cost;
     }
 
-    public function calculateResource(array $resources, string $tier): ?ResourceEntity
+    public function calculateResource(array $resources, string $tier, string $name): ?ResourceEntity
     {
         /** @var ResourceEntity $resource */
         foreach ($resources as $resource) {
-            if ($resource->getTier() === $tier) {
+            if ($resource->getTier() === $tier && $resource->getRealName() === $name) {
                 return $resource;
             }
         }

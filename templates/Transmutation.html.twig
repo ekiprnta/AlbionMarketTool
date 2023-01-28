@@ -39,6 +39,7 @@
                 <tr>
                     <th>StartTier</th>
                     <th>EndTierPath</th>
+                    <th>Typ</th>
                     <th>Profit</th>
                     <th>Start Resource</th>
                     <th>End Resource</th>
@@ -52,6 +53,7 @@
                         <tr class="bg-{{ transmutationEntity.profitGrade }}">
                             <td class="align-middle text-left tier tier-{{ transmutationEntity.startTierColor }}"> {{ transmutationEntity.startResource.tier }}</td>
                             <td class="align-middle text-left tier tier-{{ transmutationEntity.endTierColor }}"> {{ transmutationEntity.endResource.tier }}</td>
+                            <td class="align-middle text-right"> {{ transmutationEntity.resourceType }}</td>
                             <td class="align-middle text-right"> {{ transmutationEntity.profit|number_format }}</td>
                             <td class="align-middle text-right"> {{ transmutationEntity.startResource.sellOrderPrice|number_format }}</td>
                             <td class="align-middle text-right"> {{ transmutationEntity.endResource.sellOrderPrice|number_format }}</td>

@@ -13,24 +13,7 @@ class TransmutationHelperTest extends TestCase
 
     private TransmutationHelper $tranHelper;
 
-    /**
-     * @dataProvider provideResources
-     */
-    public function testReformatResources(array $result, array $resources): void
-    {
-        $this->assertEquals($result, $this->tranHelper->reformatResources($resources));
-    }
-
-    public function provideResources(): array
-    {
-        [$resourceA, $resourceB] = $this->getResources();
-        return [
-            [['2' => $resourceA], [$resourceA]],
-            [['41' => $resourceB], [$resourceB]],
-        ];
-    }
-
-    private function getResources()
+    private function getResources(): array
     {
         $resourceA = new ResourceEntity([
             'tier' => '2',
@@ -145,7 +128,7 @@ class TransmutationHelperTest extends TestCase
     {
         $resources = $this->getResources();
 
-        $this->assertEquals($result, $this->tranHelper->calculateResource($resources, $tier));
+        $this->assertEquals($result, $this->tranHelper->calculateResource($resources, $tier, 'cloth'));
     }
 
     public function provideResourceTier(): array

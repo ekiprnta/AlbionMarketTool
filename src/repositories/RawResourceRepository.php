@@ -21,15 +21,23 @@ class RawResourceRepository
             AND albion_db.rawResource.city = :city
 SQL
         );
-
         $statement->bindParam(':city', $city);
-        $statement->execute();
 
-        $rawResourceArray = [];
-        foreach ($statement->getIterator() as $rawResourceInformation) {
-            $rawResourceArray[] = new ResourceEntity($rawResourceInformation, true);
-        }
-        return $rawResourceArray;
+        return $this->getRawResourcesByStatement($statement);
+    }
+
+    public function getRawResourcesByCity(string $city): array
+    {
+        $statement = $this->pdoConnection->prepare(
+            <<<SQL
+            SELECT * 
+            FROM albion_db.rawResource
+            WHERE albion_db.rawResource.city = :city
+SQL
+        );
+        $statement->bindParam(':city', $city);
+
+        return $this->getRawResourcesByStatement($statement);
     }
 
     public function updatePricesFromRawResources(array $rawResourceInformation): void
@@ -87,5 +95,16 @@ SQL
                 $statement->execute();
             }
         }
+    }
+
+    public function getRawResourcesByStatement(bool|\PDOStatement $statement): array
+    {
+        $statement->execute();
+
+        $rawResourceArray = [];
+        foreach ($statement->getIterator() as $rawResourceInformation) {
+            $rawResourceArray[] = new ResourceEntity($rawResourceInformation, true);
+        }
+        return $rawResourceArray;
     }
 }
