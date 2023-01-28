@@ -158,15 +158,6 @@ class TransmutationServiceITest extends TestCase
             'amountInStorage' => null,
         ]);
 
-        return [
-            $resourceA,
-            $resourceB,
-            $resourceC,
-            $resourceD,
-            $resourceE,
-            $resourceF,
-            $resourceG,
-            $resourceH,
-        ];
+        return [$resourceA, $resourceB, $resourceC, $resourceD, $resourceE, $resourceF, $resourceG, $resourceH];
     }
 }

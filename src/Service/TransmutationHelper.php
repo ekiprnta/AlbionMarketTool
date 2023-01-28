@@ -6,7 +6,6 @@ use MZierdt\Albion\Entity\ResourceEntity;
 
 class TransmutationHelper extends Market
 {
-
     private function sameTier(string $currentTier, string $tier): bool
     {
         return $tier[0] === $currentTier[0];
