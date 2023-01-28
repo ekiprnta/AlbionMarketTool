@@ -14,8 +14,14 @@ class TransmutationEntity
 
     public function __construct(
         private readonly string $pathName,
-        private readonly array $transmutationPath
+        private readonly array $transmutationPath,
+        private readonly string $resourceType,
     ) {
+    }
+
+    public function getResourceType(): string
+    {
+        return $this->resourceType;
     }
 
     public function setStartTierColor(string $startTierColor): void
