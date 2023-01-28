@@ -46,7 +46,6 @@
                     <th>Name</th>
                     <th>Bm Price</th>
                     <th>City Price</th>
-                    <th>Weight/Profit</th>
                     <th>Item Profit</th>
                     <th>Profit</th>
                     <th>Percentage</th>
@@ -68,7 +67,6 @@
                                 <a class="btn text-right w-100"
                                    title="{{ transportEntity.cityItem.sellOrderAge|number_format }}min">{{ transportEntity.cityItem.sellOrderPrice|number_format }}</a>
                             </td>
-                            <td class="align-middle">{{ transportEntity.weightProfitQuotient|number_format }}</td>
                             <td class="align-middle">{{ transportEntity.singleProfit|number_format }}</td>
                             <td class="align-middle">{{ transportEntity.profit|number_format }}</td>
                             <td class="align-middle">{{ transportEntity.profitPercentage|number_format }}</td>
