@@ -18,7 +18,7 @@ class BlackMarketCraftingServiceITest extends TestCase
 {
     use ProphecyTrait;
 
-    public function testBlackMarketCraftingService(): void // TOdo full Integration!
+    public function testBlackMarketCraftingServiceA(): void // TOdo full Integration!
     {
         /** @var JournalRepository|ObjectProphecy $journalRepository */
         $journalRepository = $this->prophesize(JournalRepository::class);
@@ -57,6 +57,59 @@ class BlackMarketCraftingServiceITest extends TestCase
             $this->assertEqualsWithDelta(452940.0, $bmcEntity[0]->getProfitJournals(), $delta);
             $this->assertEqualsWithDelta(1_069_829.7919999997, $bmcEntity[0]->getProfit(), $delta);
             $this->assertEqualsWithDelta(2139.6595839999995, $bmcEntity[0]->getWeightProfitQuotient(), $delta);
+
+            $this->assertEquals('S', $bmcEntity[0]->getColorGrade());
+            $this->assertEqualsWithDelta(495360.0, $bmcEntity[0]->getFameAmount(), $delta);
+            $this->assertEquals('7', $bmcEntity[0]->getTierColor());
+            $this->assertEquals(3_535_936, $bmcEntity[0]->getItemValue());
+
+            $this->assertEquals('3h_axe', $bmcEntity[0]->getItem()->getName());
+            $this->assertEquals('metalBar', $bmcEntity[0]->getPrimResource()->getName());
+            $this->assertEquals('planks', $bmcEntity[0]->getSecResource()->getName());
+            $this->assertEquals('journal_warrior_empty', $bmcEntity[0]->getJournalEntityEmpty()->getName());
+            $this->assertEquals('journal_warrior_full', $bmcEntity[0]->getJournalEntityFull()->getName());
+        }
+    }
+
+    public function testBlackMarketCraftingServiceB(): void // TOdo full Integration!
+    {
+        /** @var JournalRepository|ObjectProphecy $journalRepository */
+        $journalRepository = $this->prophesize(JournalRepository::class);
+        /** @var ItemRepository|ObjectProphecy $itemRepository */
+        $itemRepository = $this->prophesize(ItemRepository::class);
+        /** @var ResourceRepository|ObjectProphecy $resourceRepository */
+        $resourceRepository = $this->prophesize(ResourceRepository::class);
+
+        $itemRepository->getBlackMarketItemsFromCity('TestCity')
+            ->willReturn($this->getItems());
+        $resourceRepository->getResourcesByCity('TestCity')
+            ->willReturn($this->getResources());
+        $journalRepository->getJournalsFromCity('TestCity')
+            ->willReturn($this->getJournals());
+
+        $bmcService = new BlackMarketCraftingService(
+            $itemRepository->reveal(),
+            $resourceRepository->reveal(),
+            $journalRepository->reveal(),
+            new BlackMarketCraftingHelper()
+        );
+
+        $delta = 0.00000001;
+        $testData = $bmcService->getDataForCity('TestCity', 500, 0, 0, '', 2);
+
+        foreach ($testData as $bmcEntity) {
+            $this->assertEqualsWithDelta(1.4545454545455, $bmcEntity[0]->getJournalAmountPerItem(), $delta);
+
+            $this->assertEquals(8, $bmcEntity[0]->getTotalAmount());
+            $this->assertEquals(160, $bmcEntity[0]->getPrimResourceAmount());
+            $this->assertEquals(96, $bmcEntity[0]->getSecResourceAmount());
+            $this->assertEquals(12, $bmcEntity[0]->getJournalAmount());
+            $this->assertEqualsWithDelta(182.4, $bmcEntity[0]->getTotalItemWeight(), $delta);
+
+            $this->assertEqualsWithDelta(0, $bmcEntity[0]->getCraftingFee(), $delta);
+            $this->assertEqualsWithDelta(452940.0, $bmcEntity[0]->getProfitJournals(), $delta);
+            $this->assertEqualsWithDelta(1462540.448, $bmcEntity[0]->getProfit(), $delta);
+            $this->assertEqualsWithDelta(2925.080896, $bmcEntity[0]->getWeightProfitQuotient(), $delta);
 
             $this->assertEquals('S', $bmcEntity[0]->getColorGrade());
             $this->assertEqualsWithDelta(495360.0, $bmcEntity[0]->getFameAmount(), $delta);

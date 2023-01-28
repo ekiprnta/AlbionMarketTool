@@ -200,12 +200,6 @@ class ItemEntity extends AlbionItemEntity
         };
     }
 
-    public function setAmountInStorage(mixed $amountInStorage): void
-    {
-        $this->amountInStorage = $amountInStorage;
-    }
-
-
     public function getWeaponGroup(): mixed
     {
         return $this->weaponGroup;

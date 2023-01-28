@@ -1,0 +1,91 @@
+{
+  "4": {},
+  "41": {
+    "enchantment": 1980
+  },
+  "42": {
+    "enchantment": 3951
+  },
+  "43": {
+    "enchantment": 7923
+  },
+  "44": {
+    "enchantment": 79275
+  },
+  "5": {
+    "tier": 1180
+  },
+  "51": {
+    "enchantment": 1760,
+    "tier": 2351
+  },
+  "52": {
+    "enchantment": 3531,
+    "tier": 4701
+  },
+  "53": {
+    "enchantment": 7042,
+    "tier": 9394
+  },
+  "54": {
+    "enchantment": 70440,
+    "tier": 93921
+  },
+  "6": {
+    "tier": 1760
+  },
+  "61": {
+    "enchantment": 2640,
+    "tier": 3521
+  },
+  "62": {
+    "enchantment": 5282,
+    "tier": 7042
+  },
+  "63": {
+    "enchantment": 10564,
+    "tier": 14085
+  },
+  "64": {
+    "enchantment": 105646,
+    "tier": 140928
+  },
+  "7": {
+    "tier": 2821
+  },
+  "71": {
+    "enchantment": 4231,
+    "tier": 5642
+  },
+  "72": {
+    "enchantment": 8454,
+    "tier": 11274
+  },
+  "73": {
+    "enchantment": 16907,
+    "tier": 22540
+  },
+  "74": {
+    "enchantment": 169029,
+    "tier": 225379
+  },
+  "8": {
+    "tier": 5642
+  },
+  "81": {
+    "enchantment": 8454,
+    "tier": 11274
+  },
+  "82": {
+    "enchantment": 16907,
+    "tier": 22540
+  },
+  "83": {
+    "enchantment": 33814,
+    "tier": 45080
+  },
+  "84": {
+    "enchantment": 338069,
+    "tier": 450759
+  }
+}

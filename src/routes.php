@@ -1,11 +1,11 @@
 <?php
 
-
 use MZierdt\Albion\Handler\AdminHandler;
 use MZierdt\Albion\Handler\BlackMarketCraftingHandler;
 use MZierdt\Albion\Handler\BlackMarketTransportingHandler;
 use MZierdt\Albion\Handler\listDataHandler;
 use MZierdt\Albion\Handler\RefiningHandler;
+use MZierdt\Albion\Handler\TransmutationHandler;
 use Twig\Environment;
 
 $serviceManager = require __DIR__ . '/../container.php';
@@ -17,7 +17,7 @@ $dispatcher = FastRoute\simpleDispatcher(
     function (FastRoute\RouteCollector $r) use ($serviceManager): void {
         $r->addRoute(['GET', 'POST'], '/[info]', $serviceManager->get(listDataHandler::class));
         $r->addRoute(['GET', 'POST'], '/resource/refining', $serviceManager->get(RefiningHandler::class));
-//        $r->addRoute(['GET', 'POST'], '/resource/transmutation', $serviceManager->get(RefiningHandler::class));
+        $r->addRoute(['GET', 'POST'], '/resource/transmutation', $serviceManager->get(TransmutationHandler::class));
         $r->addRoute(['GET', 'POST'], '/blackmarket/crafting', $serviceManager->get(BlackMarketCraftingHandler::class));
         $r->addRoute(
             ['GET', 'POST'],

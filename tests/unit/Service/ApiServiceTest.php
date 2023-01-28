@@ -13,7 +13,6 @@ class ApiServiceTest extends TestCase
 {
     use ProphecyTrait;
 
-
     private ApiService $apiService;
     private ObjectProphecy|HttpClient $httpClient;
 
@@ -53,5 +52,15 @@ class ApiServiceTest extends TestCase
             ->willReturn('{"a": "b"}');
 
         $this->assertEquals(['a' => 'b'], $this->apiService->getItems('HEAD_PLATE_SET1'));
+    }
+
+    public function testGetGoldPrice(): void
+    {
+        $apiUrl = 'https://www.albion-online-data.com/api/v2/stats/gold/';
+        $parameters = ['count' => 1];
+        $this->httpClient->get($apiUrl, $parameters)
+            ->willReturn('[{"price": 12345}]');
+
+        $this->assertEquals(12345, $this->apiService->getGoldPrice());
     }
 }

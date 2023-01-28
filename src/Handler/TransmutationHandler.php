@@ -3,37 +3,35 @@
 namespace MZierdt\Albion\Handler;
 
 use Laminas\Diactoros\Response\HtmlResponse;
-use MZierdt\Albion\Service\RefiningService;
+use MZierdt\Albion\Service\TransmutationService;
 use Twig\Environment;
 
-class RefiningHandler
+class TransmutationHandler
 {
     public function __construct(
         private readonly Environment $twigEnvironment,
-        private readonly RefiningService $refiningService,
+        private readonly TransmutationService $transmutationService,
     ) {
     }
 
-    public function handler()
+    public function handler(): HtmlResponse
     {
         $cityData = [];
         $alertMessage = null;
 
         if (! empty($_GET)) {
-            $request = $_GET;
-            $itemCity = $request['itemCity'];
-            $percentage = (float) $request['rrr'];
+            $city = $_GET['city'];
             try {
-                $cityData = $this->refiningService->getRefiningForCity($itemCity, $percentage);
+                $cityData = $this->transmutationService->getTransmutationByCity($city);
             } catch (\InvalidArgumentException $invalidArgumentException) {
                 $alertMessage = $invalidArgumentException->getMessage();
             }
+//            dd($cityData);
         }
 
-        $htmlContent = $this->twigEnvironment->render('Refining.html.twig', [
+        $htmlContent = $this->twigEnvironment->render('Transmutation.html.twig', [
             'dataArray' => $cityData,
             'alertMessage' => $alertMessage,
-            'rates' => $this->refiningService->getRefiningRates(),
         ]);
         return new HtmlResponse($htmlContent);
     }
