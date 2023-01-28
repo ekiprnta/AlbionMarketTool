@@ -34,7 +34,7 @@ class TransmutationServiceITest extends TestCase
             $discountService->reveal(),
         );
 
-        $rawResourceRepository->getRawResourcesByBonusCity('Sterling')
+        $rawResourceRepository->getRawResourcesByCity('Sterling')
             ->willReturn($this->getRawResources());
         $configService->getTransmutationWays()
             ->willReturn([

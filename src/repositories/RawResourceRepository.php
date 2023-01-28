@@ -7,18 +7,17 @@ use PDO;
 
 class RawResourceRepository
 {
-    public function __construct(private PDO $pdoConnection)
+    public function __construct(private readonly PDO $pdoConnection)
     {
     }
 
-    public function getRawResourcesByBonusCity(string $city): array
+    public function getRawResourcesByCity(string $city): array
     {
         $statement = $this->pdoConnection->prepare(
             <<<SQL
             SELECT * 
             FROM albion_db.rawResource
-            WHERE albion_db.rawResource.bonusCity = :city
-            AND albion_db.rawResource.city = :city
+            WHERE albion_db.rawResource.city = :city
 SQL
         );
 

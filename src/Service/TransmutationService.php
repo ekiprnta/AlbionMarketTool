@@ -23,7 +23,7 @@ class TransmutationService
         }
 
         $resources = $this->transmutationHelper->reformatResources(
-            $this->rawResourceRepository->getRawResourcesByBonusCity($city)
+            $this->rawResourceRepository->getRawResourcesByCity($city)
         );
 
         $transmutationWays = $this->configService->getTransmutationWays();
