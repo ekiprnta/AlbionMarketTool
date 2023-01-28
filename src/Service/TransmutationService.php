@@ -41,7 +41,6 @@ class TransmutationService
         foreach ($transmutationWays as $pathName => $transmutationWay) {
             $transmutationEntityList[] = new TransmutationEntity($pathName, $transmutationWay, 'ore');
         }
-
         /** @var TransmutationEntity $transEntity */
         foreach ($transmutationEntityList as $transEntity) {
             [$startTier, $endTier] = $this->transmutationHelper->calculateStartAndEnd($transEntity->getPathName());
