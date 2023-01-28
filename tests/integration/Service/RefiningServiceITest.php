@@ -25,7 +25,7 @@ class RefiningServiceITest extends TestCase
 
         $resourceRepo->getResourcesByBonusCity('TestCity')
             ->willReturn($this->getResources());
-        $rawResourceRepo->getRawResourcesByCity('TestCity')
+        $rawResourceRepo->getRawResourcesByBonusCity('TestCity')
             ->willReturn($this->getRawResources());
 
         $refiningService = new RefiningService(
@@ -58,7 +58,7 @@ class RefiningServiceITest extends TestCase
 
         $resourceRepo->getResourcesByBonusCity('TestCity')
             ->willReturn($this->getResources());
-        $rawResourceRepo->getRawResourcesByCity('TestCity')
+        $rawResourceRepo->getRawResourcesByBonusCity('TestCity')
             ->willReturn($this->getRawResources());
 
         $refiningService = new RefiningService(

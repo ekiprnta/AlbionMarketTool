@@ -25,6 +25,7 @@ class TransmutationService
         $resources = $this->transmutationHelper->reformatResources(
             $this->rawResourceRepository->getRawResourcesByCity($city)
         );
+        dd($resources);
 
         $transmutationWays = $this->configService->getTransmutationWays();
         $transmutationCost = $this->configService->getTransmutationCost();

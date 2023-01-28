@@ -31,7 +31,7 @@ class RefiningService
         }
 
         $resources = $this->resourceRepository->getResourcesByBonusCity($itemCity);
-        $rawResources = $this->rawRepository->getRawResourcesByCity($itemCity);
+        $rawResources = $this->rawRepository->getRawResourcesByBonusCity($itemCity);
 
         $refiningArray = [];
         foreach ($resources as $resource) {
