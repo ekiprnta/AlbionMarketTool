@@ -65,7 +65,7 @@ class TransmutationServiceITest extends TestCase
             'tier' => '4',
             'name' => 'leather',
             'city' => 'Sterling',
-            'realName' => 'cloth',
+            'realName' => 'fiber',
             'sellOrderPrice' => '61',
             'sellOrderPriceDate' => '2022-02-08 10:45:00',
             'buyOrderPrice' => '58',
@@ -77,7 +77,79 @@ class TransmutationServiceITest extends TestCase
             'tier' => '6',
             'name' => 'leather',
             'city' => 'Sterling',
-            'realName' => 'cloth',
+            'realName' => 'fiber',
+            'sellOrderPrice' => '1099',
+            'sellOrderPriceDate' => '2022-02-08 10:45:00',
+            'buyOrderPrice' => '1098',
+            'buyOrderPriceDate' => '2022-01-08 10:45:00',
+            'bonusCity' => 'Lymhurst',
+            'amountInStorage' => null,
+        ]);
+        $resourceC = new ResourceEntity([
+            'tier' => '4',
+            'name' => 'leather',
+            'city' => 'Sterling',
+            'realName' => 'ore',
+            'sellOrderPrice' => '61',
+            'sellOrderPriceDate' => '2022-02-08 10:45:00',
+            'buyOrderPrice' => '58',
+            'buyOrderPriceDate' => '2022-01-08 10:45:00',
+            'bonusCity' => 'Lymhurst',
+            'amountInStorage' => null,
+        ]);
+        $resourceD = new ResourceEntity([
+            'tier' => '6',
+            'name' => 'leather',
+            'city' => 'Sterling',
+            'realName' => 'ore',
+            'sellOrderPrice' => '1099',
+            'sellOrderPriceDate' => '2022-02-08 10:45:00',
+            'buyOrderPrice' => '1098',
+            'buyOrderPriceDate' => '2022-01-08 10:45:00',
+            'bonusCity' => 'Lymhurst',
+            'amountInStorage' => null,
+        ]);
+        $resourceE = new ResourceEntity([
+            'tier' => '4',
+            'name' => 'leather',
+            'city' => 'Sterling',
+            'realName' => 'hide',
+            'sellOrderPrice' => '61',
+            'sellOrderPriceDate' => '2022-02-08 10:45:00',
+            'buyOrderPrice' => '58',
+            'buyOrderPriceDate' => '2022-01-08 10:45:00',
+            'bonusCity' => 'Lymhurst',
+            'amountInStorage' => null,
+        ]);
+        $resourceF = new ResourceEntity([
+            'tier' => '6',
+            'name' => 'leather',
+            'city' => 'Sterling',
+            'realName' => 'hide',
+            'sellOrderPrice' => '1099',
+            'sellOrderPriceDate' => '2022-02-08 10:45:00',
+            'buyOrderPrice' => '1098',
+            'buyOrderPriceDate' => '2022-01-08 10:45:00',
+            'bonusCity' => 'Lymhurst',
+            'amountInStorage' => null,
+        ]);
+        $resourceG = new ResourceEntity([
+            'tier' => '4',
+            'name' => 'leather',
+            'city' => 'Sterling',
+            'realName' => 'wood',
+            'sellOrderPrice' => '61',
+            'sellOrderPriceDate' => '2022-02-08 10:45:00',
+            'buyOrderPrice' => '58',
+            'buyOrderPriceDate' => '2022-01-08 10:45:00',
+            'bonusCity' => 'Lymhurst',
+            'amountInStorage' => null,
+        ]);
+        $resourceH = new ResourceEntity([
+            'tier' => '6',
+            'name' => 'leather',
+            'city' => 'Sterling',
+            'realName' => 'wood',
             'sellOrderPrice' => '1099',
             'sellOrderPriceDate' => '2022-02-08 10:45:00',
             'buyOrderPrice' => '1098',
@@ -86,6 +158,15 @@ class TransmutationServiceITest extends TestCase
             'amountInStorage' => null,
         ]);
 
-        return [$resourceA, $resourceB];
+        return [
+            $resourceA,
+            $resourceB,
+            $resourceC,
+            $resourceD,
+            $resourceE,
+            $resourceF,
+            $resourceG,
+            $resourceH,
+        ];
     }
 }

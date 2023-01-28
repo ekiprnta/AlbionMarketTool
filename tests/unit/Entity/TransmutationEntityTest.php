@@ -15,7 +15,12 @@ class TransmutationEntityTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->transEntity = new TransmutationEntity('4to62', ['5', '6', '61', '62']);
+        $this->transEntity = new TransmutationEntity('4to62', ['5', '6', '61', '62'], 'cloth');
+    }
+
+    public function testGetResourceType(): void
+    {
+        $this->assertEquals('cloth', $this->transEntity->getResourceType());
     }
 
     public function testGetStartTierColor(): void
