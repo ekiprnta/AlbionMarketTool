@@ -109,7 +109,7 @@ class RefiningHelperTest extends TestCase
 
     public function getLowerResourceNull(): array
     {
-        return [['3', '4'], ['4', '41'], ['52', '53'], ['83', '8']];
+        return [['3', '4'], ['4', '41'], ['52', '53'], ['83', '8'], ['2', '31']];
     }
 
     /**

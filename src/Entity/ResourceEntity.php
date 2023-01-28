@@ -47,7 +47,7 @@ class ResourceEntity extends AlbionItemEntity
 
     public function __construct(
         array $resourceData,
-        private bool $raw = false
+        private readonly bool $raw = false
     ) {
         parent::__construct($resourceData);
 
@@ -59,11 +59,6 @@ class ResourceEntity extends AlbionItemEntity
     public function isRaw(): bool
     {
         return $this->raw;
-    }
-
-    public function setAmountInStorage(?int $amountInStorage): void
-    {
-        $this->amountInStorage = $amountInStorage;
     }
 
     public function getBonusCity(): mixed

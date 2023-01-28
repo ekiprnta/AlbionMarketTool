@@ -16,15 +16,26 @@ dc up -d
 
 ```shell
 composer up
-composer run stan5
+
 ```
 
 ## Jobs
-```shell 
-php bin/cli.php update:item
-php bin/cli.php update:all
-php bin/cli.php update:resource
-php bin/cli.php update:journal
+
+```shell script
+rcli update:items  # update items 
+rcli update:raw  # update raw 
+rcli update:resource  # update resource 
+rcli update:journal  # update journal
+```
+
+## Composer
+
+```shell script
+rcomposer up 
+rcomposer ecs # ecs-fix
+rcomposer stan
+rcomposer rector
+rcomposer phpunit
 ```
 
 ## Team
@@ -34,7 +45,7 @@ php bin/cli.php update:journal
 ## Changelogger
 
 ```shell
-changelogger new
+changelogger new -u
 changelogger release <tag>
 changelogger clean
 ```

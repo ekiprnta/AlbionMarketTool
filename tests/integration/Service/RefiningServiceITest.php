@@ -16,7 +16,7 @@ class RefiningServiceITest extends TestCase
 {
     use ProphecyTrait;
 
-    public function testRefiningService(): void
+    public function testRefiningServiceA(): void
     {
         /** @var ResourceRepository|ObjectProphecy $resourceRepo */
         $resourceRepo = $this->prophesize(ResourceRepository::class);
@@ -45,6 +45,39 @@ class RefiningServiceITest extends TestCase
             $this->assertEquals(968, $refiningEntity->getAmount());
             $this->assertEqualsWithDelta(77_638_352.88, $refiningEntity->getProfit(), $delta);
             $this->assertEquals(80204.91, $refiningEntity->getWeightAmountQuotient());
+            $this->assertEquals('S', $refiningEntity->getProfitGrade());
+        }
+    }
+
+    public function testRefiningServiceB(): void
+    {
+        /** @var ResourceRepository|ObjectProphecy $resourceRepo */
+        $resourceRepo = $this->prophesize(ResourceRepository::class);
+        /** @var RawResourceRepository|ObjectProphecy $rawResourceRepo */
+        $rawResourceRepo = $this->prophesize(RawResourceRepository::class);
+
+        $resourceRepo->getResourcesByBonusCity('TestCity')
+            ->willReturn($this->getResources());
+        $rawResourceRepo->getRawResourcesByBonusCity('TestCity')
+            ->willReturn($this->getRawResources());
+
+        $refiningService = new RefiningService(
+            $resourceRepo->reveal(),
+            $rawResourceRepo->reveal(),
+            new RefiningHelper()
+        );
+
+        $delta = 0.00001;
+        $testData = $refiningService->getRefiningForCity('TestCity', 0);
+
+        /** @var RefiningEntity $refiningEntity */
+        foreach ($testData as $refiningEntity) {
+            $this->assertEquals('3', $refiningEntity->getTierColor());
+            $this->assertEquals(2, $refiningEntity->getAmountRawResource());
+            $this->assertEqualsWithDelta(5340.408, $refiningEntity->getSingleProfit(), $delta);
+            $this->assertEquals(968, $refiningEntity->getAmount());
+            $this->assertEqualsWithDelta(5169514.943999999, $refiningEntity->getProfit(), $delta);
+            $this->assertEqualsWithDelta(5340.408, $refiningEntity->getWeightAmountQuotient(), $delta);
             $this->assertEquals('S', $refiningEntity->getProfitGrade());
         }
     }

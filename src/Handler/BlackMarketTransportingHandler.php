@@ -11,8 +11,8 @@ use Twig\Environment;
 class BlackMarketTransportingHandler
 {
     public function __construct(
-        private Environment $twigEnvironment,
-        private BlackMarketTransportingService $blackMarketTransportingService,
+        private readonly Environment $twigEnvironment,
+        private readonly BlackMarketTransportingService $blackMarketTransportingService,
     ) {
     }
 

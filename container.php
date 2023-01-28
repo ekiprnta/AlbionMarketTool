@@ -19,8 +19,8 @@ use MZierdt\Albion\Handler\AdminHandler;
 use MZierdt\Albion\Handler\BlackMarketCraftingHandler;
 use MZierdt\Albion\Handler\BlackMarketTransportingHandler;
 use MZierdt\Albion\Handler\listDataHandler;
-use MZierdt\Albion\Handler\OldRefiningHandler;
 use MZierdt\Albion\Handler\RefiningHandler;
+use MZierdt\Albion\Handler\TransmutationHandler;
 use MZierdt\Albion\HttpClient;
 use MZierdt\Albion\repositories\DeleteDataRepository;
 use MZierdt\Albion\repositories\ItemRepository;
@@ -33,9 +33,12 @@ use MZierdt\Albion\Service\BlackMarketCraftingService;
 use MZierdt\Albion\Service\BlackMarketTransportingHelper;
 use MZierdt\Albion\Service\BlackMarketTransportingService;
 use MZierdt\Albion\Service\ConfigService;
+use MZierdt\Albion\Service\GlobalDiscountService;
 use MZierdt\Albion\Service\RefiningHelper;
 use MZierdt\Albion\Service\RefiningService;
 use MZierdt\Albion\Service\TierService;
+use MZierdt\Albion\Service\TransmutationHelper;
+use MZierdt\Albion\Service\TransmutationService;
 use MZierdt\Albion\Service\UploadHelper;
 use Twig\Environment;
 
@@ -87,8 +90,22 @@ $serviceManager = new ServiceManager([
                     Environment::class,
                     RefiningService::class,
                 ],
+                TransmutationHandler::class => [
+                    Environment::class,
+                    TransmutationService::class,
+                ],
+                TransmutationService::class => [
+                    RawResourceRepository::class,
+                    TransmutationHelper::class,
+                    ConfigService::class,
+                    GlobalDiscountService::class,
+                ],
+                TransmutationHelper::class => [],
                 AdminHandler::class => [
                     Environment::class,
+                ],
+                GlobalDiscountService::class => [
+                    ApiService::class
                 ],
                 DeleteDataCommand::class => [
                     DeleteDataRepository::class
@@ -112,10 +129,10 @@ $serviceManager = new ServiceManager([
                     UploadHelper::class,
                 ],
                 UpdateRawResourcesCommand::class => [
-                  ApiService::class,
-                  RawResourceRepository::class,
-                  ConfigService::class,
-                  UploadHelper::class,
+                    ApiService::class,
+                    RawResourceRepository::class,
+                    ConfigService::class,
+                    UploadHelper::class,
                 ],
             ]
         ],

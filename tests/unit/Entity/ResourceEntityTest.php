@@ -25,6 +25,7 @@ class ResourceEntityTest extends TestCase
         $this->assertEquals('', $entity->getClass());
         $this->assertEquals('Lymhurst', $entity->getBonusCity());
         $this->assertEquals(0, $entity->getAmountInStorage());
+        $this->assertEquals(true, $entity->isRaw());
     }
 
     public function testGettersB(): void
@@ -42,6 +43,7 @@ class ResourceEntityTest extends TestCase
         $this->assertEquals('', $entity->getClass());
         $this->assertEquals('Lymhurst', $entity->getBonusCity());
         $this->assertEquals(0, $entity->getAmountInStorage());
+        $this->assertEquals(false, $entity->isRaw());
     }
 
     public function testGettersC(): void
@@ -59,6 +61,7 @@ class ResourceEntityTest extends TestCase
         $this->assertEquals('', $entity->getClass());
         $this->assertEquals('bonusCity', $entity->getBonusCity());
         $this->assertEquals(23456, $entity->getAmountInStorage());
+        $this->assertEquals(false, $entity->isRaw());
     }
 
 
@@ -75,7 +78,7 @@ class ResourceEntityTest extends TestCase
             'buyOrderPriceDate' => '2022-12-08 10:45:00',
             'bonusCity' => 'Lymhurst',
             'amountInStorage' => null,
-        ]);
+        ], true);
     }
 
     public function getResourceEntityB(): ResourceEntity
