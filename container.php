@@ -77,6 +77,7 @@ $serviceManager = new ServiceManager([
                 BlackMarketTransportingService::class => [
                     ItemRepository::class,
                     BlackMarketTransportingHelper::class,
+                    ConfigService::class,
                 ],
                 BlackMarketTransportingHandler::class => [
                     Environment::class,

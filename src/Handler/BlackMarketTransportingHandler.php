@@ -24,12 +24,9 @@ class BlackMarketTransportingHandler
             $request = $_GET;
             $itemCity = $request['itemCity'];
             unset($request['itemCity']);
-            $weight = (int) $request['weight'];
-            unset($request['weight']);
             try {
                 $cityData = $this->blackMarketTransportingService->getDataForCity(
                     $itemCity,
-                    $weight,
                     array_filter($request)
                 );
             } catch (\InvalidArgumentException $invalidArgumentException) {

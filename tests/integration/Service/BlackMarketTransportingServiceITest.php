@@ -7,6 +7,7 @@ use MZierdt\Albion\Entity\ItemEntity;
 use MZierdt\Albion\repositories\ItemRepository;
 use MZierdt\Albion\Service\BlackMarketTransportingHelper;
 use MZierdt\Albion\Service\BlackMarketTransportingService;
+use MZierdt\Albion\Service\ConfigService;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
@@ -27,22 +28,22 @@ class BlackMarketTransportingServiceITest extends TestCase
 
         $bmtService = new BlackMarketTransportingService(
             $itemRepository->reveal(),
-            new BlackMarketTransportingHelper()
+            new BlackMarketTransportingHelper(),
+            new ConfigService()
         );
 
         $delta = 0.00000001;
-        $testData = $bmtService->getDataForCity('TestCity', 500, ['71']);
+        $testData = $bmtService->getDataForCity('TestCity', ['71']);
 
         /** @var BlackMarketTransportEntity $bmtEntity */
         foreach ($testData as $bmtEntity) {
-            $this->assertEquals(21, $bmtEntity->getAmount());
-            $this->assertEqualsWithDelta(3_596_680.92, $bmtEntity->getProfit(), $delta);
+            $this->assertEquals(20, $bmtEntity->getAmount());
+            $this->assertEqualsWithDelta(3425410.4, $bmtEntity->getProfit(), $delta);
             $this->assertEqualsWithDelta(171270.52, $bmtEntity->getSingleProfit(), $delta);
-            $this->assertEqualsWithDelta(7193.36184, $bmtEntity->getWeightProfitQuotient(), $delta);
+            $this->assertEqualsWithDelta(171270.52, $bmtEntity->getWeightProfitQuotient(), $delta);
             $this->assertEquals('S', $bmtEntity->getProfitGrade());
             $this->assertEquals('7', $bmtEntity->getTierColor());
-            $this->assertEquals(500, $bmtEntity->getWeight());
-            $this->assertEquals(5081832.0, $bmtEntity->getTotalCost());
+            $this->assertEquals(4839840.0, $bmtEntity->getTotalCost());
             $this->assertEquals(182.6466054803238, $bmtEntity->getProfitPercentage());
 
             $this->assertEquals('3h_axe', $bmtEntity->getCityItem()->getName());

@@ -20,7 +20,6 @@ class BlackMarketTransportEntity
 
     public function __construct(
         private readonly ItemEntity $bmItem,
-        private readonly int $weight
     ) {
         $this->tierColor = $bmItem->getTier()[0];
     }
@@ -103,11 +102,6 @@ class BlackMarketTransportEntity
     public function getSingleProfit(): float
     {
         return $this->singleProfit;
-    }
-
-    public function getWeight(): int
-    {
-        return $this->weight;
     }
 
     public function getCityItem(): ItemEntity
