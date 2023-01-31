@@ -3,6 +3,11 @@ include:
     ref: master
     file:
       - '/templates/.metrics.yml'
+      - '/templates/.composer.yml'
+      - '/templates/.php-lint.yml'
+      - '/templates/.phpstan.yml'
+      - '/templates/.ecs.yml'
+      - '/templates/.phpunit.yml'
 
 stages:
   - precheck
@@ -12,99 +17,6 @@ stages:
 
 variables:
   PHP_VERSION: "8.1"
-
-Syntax Check:
-  needs: [ ]
-  dependencies: [ ]
-  cache: []
-  stage: precheck
-  image: php:${PHP_VERSION}
-  script:
-    - find . -name '*.php' -print0 | xargs -0 -n1 -P4 php -l -n | (! grep -v "No syntax errors detected" )
-
-Install Composer dependencies:
-  stage: dependencies
-  image: registry.mehrkanal.com/docker/phpx/cli:${PHP_VERSION}-build
-  script:
-    - mkdir -p ~/.ssh
-    - echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-    - chmod 600 ~/.ssh/id_rsa
-    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
-    - composer install --prefer-dist --no-progress
-  cache:
-    key: "$CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR"
-    paths:
-      - vendor/
-  artifacts:
-    expire_in: 1 days
-    paths:
-      - vendor/
-      - c3.php
-      - composer.lock
-      - config/config.php
-      - config/webpack/
-
-PHPStan:
-  stage: analyze
-  image: registry.mehrkanal.com/docker/phpx/cli:${PHP_VERSION}-build
-  cache:
-    key: "$CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR"
-    paths:
-      - vendor/
-    policy: pull
-  dependencies: [ ]
-  needs: [ "Install Composer dependencies" ]
-  before_script:
-    - mkdir ./build
-  script:
-    - php -d memory_limit=2G -d max_execution_time=600 vendor/bin/phpstan analyse -c phpstan.neon --no-progress --error-format=junit -n --ansi > build/junit-phpstan.xml
-  artifacts:
-    paths:
-      - build/junit-phpstan.xml
-    reports:
-      junit: build/junit-phpstan.xml
-    when: always
-  tags:
-    - dind
-
-Code Style Checks:
-  stage: analyze
-  image: registry.mehrkanal.com/docker/phpx/cli:${PHP_VERSION}-build
-  dependencies: [ "Install Composer dependencies" ]
-  needs: [ "Install Composer dependencies" ]
-  script:
-    - vendor/bin/ecs
-  tags:
-    - dind
-
-PHP Unit Tests:
-  stage: test
-  image: registry.mehrkanal.com/docker/phpx/cli:${PHP_VERSION}-build
-  cache:
-    key: "$CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR"
-    paths:
-      - vendor/
-    policy: pull
-  dependencies: [ ]
-  needs: [ "Install Composer dependencies" ]
-  coverage: '/^\s*Lines:\s*\d+.\d+\%/'
-  before_script:
-    - mkdir ./build
-  script:
-    - php -dpcov.enabled=1 -dpcov.directory=src -dpcov.exclude="~vendor~" vendor/bin/phpunit tests --coverage-text --colors=never --coverage-cobertura build/cobertura-coverage.xml --log-junit build/phpunit-report-unit.xml
-  artifacts:
-    expire_in: 3 days
-    paths:
-      - build/phpunit-report-unit.xml
-      - build/cobertura-coverage.xml
-    reports:
-      junit: build/phpunit-report-unit.xml
-      coverage_report:
-        coverage_format: cobertura
-        path: build/cobertura-coverage.xml
-    when: always
-  tags:
-    - dind
 
 #Check new changelog entry:
 #  stage: precheck
