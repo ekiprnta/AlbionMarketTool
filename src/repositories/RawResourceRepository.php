@@ -97,7 +97,7 @@ SQL
         }
     }
 
-    public function getRawResourcesByStatement(bool|\PDOStatement $statement): array
+    private function getRawResourcesByStatement(bool|\PDOStatement $statement): array
     {
         $statement->execute();
 
