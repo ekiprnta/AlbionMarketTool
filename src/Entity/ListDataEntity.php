@@ -16,8 +16,16 @@ class ListDataEntity
     private string $cheapestObjectCityBuyOrder;
     private string $mostExpensiveObjectCityBuyOrder;
 
+    private string $tierColor;
+
     public function __construct(private readonly ItemEntity|ResourceEntity $fortsterlingObject)
     {
+        $this->tierColor = $this->fortsterlingObject->getTier()[0];
+    }
+
+    public function getTierColor(): string
+    {
+        return $this->tierColor;
     }
 
     public function getCheapestObjectCityBuyOrder(): string

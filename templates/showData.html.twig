@@ -1,12 +1,12 @@
 {% extends "layout.html.twig" %}
 
 {% block content %}
-    <div class="card">
+    <div class="card mt-3">
         <div class="card-body">
             <div class="card-title">
                 <h3>Resources in {{ city }}</h3>
             </div>
-            <table class="table table-striped table-sm" id="sortTable">
+            <table class="table table-sm table-bordered" id="sortTable">
                 <thead class="thead-default">
                 <tr>
                     <th>Tier</th>
@@ -23,7 +23,7 @@
                 {% for listDataEntity in items %}
                     {% if listDataEntity.lymhurstObject.sellOrderPrice != 0 and listDataEntity.fortSterlingObject.sellOrderPrice != 0 and listDataEntity.bridgewatchObject.sellOrderPrice != 0 and listDataEntity.martlockObject.sellOrderPrice != 0 and listDataEntity.thetfordObject.sellOrderPrice != 0 %}
                         <tr>
-                            <td>{{ listDataEntity.fortSterlingObject.tier }}</td>
+                            <td class="tier tier-{{ listDataEntity.tierColor }}">{{ listDataEntity.fortSterlingObject.tier }}</td>
                             <td>{{ listDataEntity.fortSterlingObject.realname }}</td>
                             <td class="{% if listDataEntity.fortSterlingObject.city == listDataEntity.cheapestObjectCitySellOrder %} bg-A {% elseif listDataEntity.fortSterlingObject.city == listDataEntity.mostExpensiveObjectCitySellOrder %} bg-D {% endif %}">{{ listDataEntity.fortSterlingObject.sellOrderPrice|number_format }}</td>
                             <td class="{% if listDataEntity.lymhurstObject.city == listDataEntity.cheapestObjectCitySellOrder %} bg-A {% elseif listDataEntity.lymhurstObject.city == listDataEntity.mostExpensiveObjectCitySellOrder %} bg-D {% endif %}">{{ listDataEntity.lymhurstObject.sellOrderPrice|number_format }}</td>
