@@ -14,7 +14,7 @@ class ItemRepository
     ) {
     }
 
-    public function getItemsForTransport(string $city): array
+    public function getItemsByLocation(string $city): array
     {
         $statement = $this->pdoConnection->prepare(
             <<<SQL
