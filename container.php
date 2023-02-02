@@ -57,7 +57,6 @@ $serviceManager = new ServiceManager([
                     ListDataService::class
                 ],
                 ListDataService::class => [
-                    ItemRepository::class,
                     ResourceRepository::class,
                     RawResourceRepository::class,
                     ListDataHelper::class

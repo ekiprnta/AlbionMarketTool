@@ -3,14 +3,12 @@
 namespace MZierdt\Albion\Service;
 
 use MZierdt\Albion\Entity\ListDataEntity;
-use MZierdt\Albion\repositories\ItemRepository;
 use MZierdt\Albion\repositories\RawResourceRepository;
 use MZierdt\Albion\repositories\ResourceRepository;
 
 class ListDataService
 {
     public function __construct(
-        private readonly ItemRepository $itemRepository,
         private readonly ResourceRepository $resourceRepository,
         private readonly RawResourceRepository $rawResourceRepository,
         private readonly ListDataHelper $listDataHelper,
@@ -41,23 +39,6 @@ class ListDataService
         $bridgewatchItems = $this->resourceRepository->getResourcesByCity('Bridgewatch');
         $martlockItems = $this->resourceRepository->getResourcesByCity('Martlock');
         $thetfordItems = $this->resourceRepository->getResourcesByCity('Thetford');
-
-        return $this->getListDataEntities(
-            $fortSterlingItems,
-            $lymhurstItems,
-            $bridgewatchItems,
-            $martlockItems,
-            $thetfordItems
-        );
-    }
-
-    public function getAllItems(): array
-    {
-        $fortSterlingItems = $this->itemRepository->getItemsByLocation('Fort Sterling');
-        $lymhurstItems = $this->itemRepository->getItemsByLocation('Lymhurst');
-        $bridgewatchItems = $this->itemRepository->getItemsByLocation('Bridgewatch');
-        $martlockItems = $this->itemRepository->getItemsByLocation('Martlock');
-        $thetfordItems = $this->itemRepository->getItemsByLocation('Thetford');
 
         return $this->getListDataEntities(
             $fortSterlingItems,

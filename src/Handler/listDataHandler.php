@@ -18,11 +18,12 @@ class listDataHandler
 
     public function handler(): HtmlResponse
     {
-        $allItems = $this->listDataHandler->getAllItems();
-
+        $allResources = $this->listDataHandler->getAllResources();
+        $allRawResources = $this->listDataHandler->getAllRawResources();
 
         $htmlContent = $this->twigEnvironment->render('showData.html.twig', [
-            'items' => $allItems,
+            'resources' => $allResources,
+            'resource' => $allResources,
         ]);
         return new HtmlResponse($htmlContent);
     }

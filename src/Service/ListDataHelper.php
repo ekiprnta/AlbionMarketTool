@@ -2,7 +2,6 @@
 
 namespace MZierdt\Albion\Service;
 
-use MZierdt\Albion\Entity\ItemEntity;
 use MZierdt\Albion\Entity\ListDataEntity;
 use MZierdt\Albion\Entity\ResourceEntity;
 
@@ -11,8 +10,8 @@ class ListDataHelper extends Market
     public function calculateSameItemObject(
         ListDataEntity $ldEntity,
         array $cityObjects
-    ): ResourceEntity|ItemEntity|null {
-        /** @var ItemEntity|ResourceEntity $cityObject */
+    ): ResourceEntity|null {
+        /** @var ResourceEntity $cityObject */
         foreach ($cityObjects as $cityObject) {
             if ($cityObject->getTier() === $ldEntity->getFortsterlingObject()->getTier() &&
                 $cityObject->getName() === $ldEntity->getFortsterlingObject()->getName()

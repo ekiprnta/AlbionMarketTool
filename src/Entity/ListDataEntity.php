@@ -5,10 +5,10 @@ namespace MZierdt\Albion\Entity;
 class ListDataEntity
 {
 
-    private ItemEntity|ResourceEntity $martlockObject;
-    private ItemEntity|ResourceEntity $bridgewatchObject;
-    private ItemEntity|ResourceEntity $lymhurstObject;
-    private ItemEntity|ResourceEntity $thetfordObject;
+    private ResourceEntity $martlockObject;
+    private ResourceEntity $bridgewatchObject;
+    private ResourceEntity $lymhurstObject;
+    private ResourceEntity $thetfordObject;
 
     private string $cheapestObjectCitySellOrder;
     private string $mostExpensiveObjectCitySellOrder;
@@ -18,7 +18,7 @@ class ListDataEntity
 
     private string $tierColor;
 
-    public function __construct(private readonly ItemEntity|ResourceEntity $fortsterlingObject)
+    public function __construct(private readonly ResourceEntity $fortsterlingObject)
     {
         $this->tierColor = $this->fortsterlingObject->getTier()[0];
     }
