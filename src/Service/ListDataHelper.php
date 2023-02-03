@@ -7,14 +7,13 @@ use MZierdt\Albion\Entity\ResourceEntity;
 
 class ListDataHelper extends Market
 {
-    public function calculateSameItemObject(
-        ListDataEntity $ldEntity,
-        array $cityObjects
-    ): ResourceEntity|null {
+    public function calculateSameItemObject(ListDataEntity $ldEntity, array $cityObjects): ResourceEntity|null
+    {
         /** @var ResourceEntity $cityObject */
         foreach ($cityObjects as $cityObject) {
             if ($cityObject->getTier() === $ldEntity->getFortsterlingObject()->getTier() &&
-                $cityObject->getName() === $ldEntity->getFortsterlingObject()->getName()
+                $cityObject->getName() === $ldEntity->getFortsterlingObject()
+                    ->getName()
             ) {
                 return $cityObject;
             }

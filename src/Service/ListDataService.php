@@ -70,43 +70,62 @@ class ListDataService
 
             $item->setCheapestObjectCitySellOrder(
                 $this->listDataHelper->calculateCheapestCity(
-                    $item->getFortsterlingObject()->getSellOrderPrice(),
-                    $item->getLymhurstObject()->getSellOrderPrice(),
-                    $item->getBridgewatchObject()->getSellOrderPrice(),
-                    $item->getMartlockObject()->getSellOrderPrice(),
-                    $item->getThetfordObject()->getSellOrderPrice()
+                    $item->getFortsterlingObject()
+                        ->getSellOrderPrice(),
+                    $item->getLymhurstObject()
+                        ->getSellOrderPrice(),
+                    $item->getBridgewatchObject()
+                        ->getSellOrderPrice(),
+                    $item->getMartlockObject()
+                        ->getSellOrderPrice(),
+                    $item->getThetfordObject()
+                        ->getSellOrderPrice()
                 )
             );
             $item->setCheapestObjectCityBuyOrder(
                 $this->listDataHelper->calculateCheapestCity(
-                    $item->getFortsterlingObject()->getBuyOrderPrice(),
-                    $item->getLymhurstObject()->getBuyOrderPrice(),
-                    $item->getBridgewatchObject()->getBuyOrderPrice(),
-                    $item->getMartlockObject()->getBuyOrderPrice(),
-                    $item->getThetfordObject()->getBuyOrderPrice()
+                    $item->getFortsterlingObject()
+                        ->getBuyOrderPrice(),
+                    $item->getLymhurstObject()
+                        ->getBuyOrderPrice(),
+                    $item->getBridgewatchObject()
+                        ->getBuyOrderPrice(),
+                    $item->getMartlockObject()
+                        ->getBuyOrderPrice(),
+                    $item->getThetfordObject()
+                        ->getBuyOrderPrice()
                 )
             );
             $item->setMostExpensiveObjectCitySellOrder(
                 $this->listDataHelper->calculateMostExpensiveCity(
-                    $item->getFortsterlingObject()->getSellOrderPrice(),
-                    $item->getLymhurstObject()->getSellOrderPrice(),
-                    $item->getBridgewatchObject()->getSellOrderPrice(),
-                    $item->getMartlockObject()->getSellOrderPrice(),
-                    $item->getThetfordObject()->getSellOrderPrice()
+                    $item->getFortsterlingObject()
+                        ->getSellOrderPrice(),
+                    $item->getLymhurstObject()
+                        ->getSellOrderPrice(),
+                    $item->getBridgewatchObject()
+                        ->getSellOrderPrice(),
+                    $item->getMartlockObject()
+                        ->getSellOrderPrice(),
+                    $item->getThetfordObject()
+                        ->getSellOrderPrice()
                 )
             );
             $item->setMostExpensiveObjectCityBuyOrder(
                 $this->listDataHelper->calculateMostExpensiveCity(
-                    $item->getFortsterlingObject()->getBuyOrderPrice(),
-                    $item->getLymhurstObject()->getBuyOrderPrice(),
-                    $item->getBridgewatchObject()->getBuyOrderPrice(),
-                    $item->getMartlockObject()->getBuyOrderPrice(),
-                    $item->getThetfordObject()->getBuyOrderPrice()
+                    $item->getFortsterlingObject()
+                        ->getBuyOrderPrice(),
+                    $item->getLymhurstObject()
+                        ->getBuyOrderPrice(),
+                    $item->getBridgewatchObject()
+                        ->getBuyOrderPrice(),
+                    $item->getMartlockObject()
+                        ->getBuyOrderPrice(),
+                    $item->getThetfordObject()
+                        ->getBuyOrderPrice()
                 )
             );
         }
 
         return $allItems;
     }
-
 }

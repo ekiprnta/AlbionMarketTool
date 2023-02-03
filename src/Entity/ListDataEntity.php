@@ -4,7 +4,6 @@ namespace MZierdt\Albion\Entity;
 
 class ListDataEntity
 {
-
     private ResourceEntity $martlockObject;
     private ResourceEntity $bridgewatchObject;
     private ResourceEntity $lymhurstObject;

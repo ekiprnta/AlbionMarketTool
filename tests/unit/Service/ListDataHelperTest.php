@@ -16,7 +16,9 @@ class ListDataHelperTest extends TestCase
 
     private ListDataHelper $listDataHelper;
 
-    /** @dataProvider provideItemObjects */
+    /**
+     * @dataProvider provideItemObjects
+     */
     public function testCalculateSameItemObject(
         ?ResourceEntity $result,
         ResourceEntity $startResource,
@@ -41,13 +43,12 @@ class ListDataHelperTest extends TestCase
             'bonusCity' => 'Lymhurst',
             'amountInStorage' => null,
         ]);
-        return [
-            [$resourceA, $resourceA, [$resourceA]],
-            [null, $resourceA, []],
-        ];
+        return [[$resourceA, $resourceA, [$resourceA]], [null, $resourceA, []]];
     }
 
-    /** @dataProvider provideCheapPrices */
+    /**
+     * @dataProvider provideCheapPrices
+     */
     public function testCalculateCheapestCity(
         string $result,
         int $fsPrice,
@@ -73,7 +74,9 @@ class ListDataHelperTest extends TestCase
         ];
     }
 
-    /** @dataProvider providePrices */
+    /**
+     * @dataProvider providePrices
+     */
     public function testCalculateMOstExpensiveCity(
         string $result,
         int $fsPrice,

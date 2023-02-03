@@ -36,14 +36,19 @@ class ListDataServiceTest extends TestCase
                 'buyOrderPriceDate' => '2022-12-08 10:45:00',
                 'bonusCity' => 'Lymhurst',
                 'amountInStorage' => null,
-            ])
+            ]),
         ];
 
-        $this->rawResourceRepository->getRawResourcesByCity('Fort Sterling')->willReturn($resources);
-        $this->rawResourceRepository->getRawResourcesByCity('Lymhurst')->willReturn($resources);
-        $this->rawResourceRepository->getRawResourcesByCity('Bridgewatch')->willReturn($resources);
-        $this->rawResourceRepository->getRawResourcesByCity('Martlock')->willReturn($resources);
-        $this->rawResourceRepository->getRawResourcesByCity('Thetford')->willReturn($resources);
+        $this->rawResourceRepository->getRawResourcesByCity('Fort Sterling')
+            ->willReturn($resources);
+        $this->rawResourceRepository->getRawResourcesByCity('Lymhurst')
+            ->willReturn($resources);
+        $this->rawResourceRepository->getRawResourcesByCity('Bridgewatch')
+            ->willReturn($resources);
+        $this->rawResourceRepository->getRawResourcesByCity('Martlock')
+            ->willReturn($resources);
+        $this->rawResourceRepository->getRawResourcesByCity('Thetford')
+            ->willReturn($resources);
 
         $rawResources = $this->listDataService->getAllRawResources();
         /** @var ListDataEntity $ldEntity */
@@ -70,14 +75,19 @@ class ListDataServiceTest extends TestCase
                 'buyOrderPriceDate' => '2022-12-08 10:45:00',
                 'bonusCity' => 'Lymhurst',
                 'amountInStorage' => null,
-            ])
+            ]),
         ];
 
-        $this->resourceRepository->getResourcesByCity('Fort Sterling')->willReturn($resources);
-        $this->resourceRepository->getResourcesByCity('Lymhurst')->willReturn($resources);
-        $this->resourceRepository->getResourcesByCity('Bridgewatch')->willReturn($resources);
-        $this->resourceRepository->getResourcesByCity('Martlock')->willReturn($resources);
-        $this->resourceRepository->getResourcesByCity('Thetford')->willReturn($resources);
+        $this->resourceRepository->getResourcesByCity('Fort Sterling')
+            ->willReturn($resources);
+        $this->resourceRepository->getResourcesByCity('Lymhurst')
+            ->willReturn($resources);
+        $this->resourceRepository->getResourcesByCity('Bridgewatch')
+            ->willReturn($resources);
+        $this->resourceRepository->getResourcesByCity('Martlock')
+            ->willReturn($resources);
+        $this->resourceRepository->getResourcesByCity('Thetford')
+            ->willReturn($resources);
 
         $rawResources = $this->listDataService->getAllResources();
         /** @var ListDataEntity $ldEntity */
