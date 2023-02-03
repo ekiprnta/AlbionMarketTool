@@ -49,3 +49,10 @@ changelogger new -u
 changelogger release <tag>
 changelogger clean
 ```
+
+## ToDO
+
+* Tier überarbeiten
+* Farming
+* Javascript überall
+* No Spec Crafting

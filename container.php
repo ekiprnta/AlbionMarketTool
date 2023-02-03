@@ -34,6 +34,8 @@ use MZierdt\Albion\Service\BlackMarketTransportingHelper;
 use MZierdt\Albion\Service\BlackMarketTransportingService;
 use MZierdt\Albion\Service\ConfigService;
 use MZierdt\Albion\Service\GlobalDiscountService;
+use MZierdt\Albion\Service\ListDataHelper;
+use MZierdt\Albion\Service\ListDataService;
 use MZierdt\Albion\Service\RefiningHelper;
 use MZierdt\Albion\Service\RefiningService;
 use MZierdt\Albion\Service\TierService;
@@ -52,9 +54,14 @@ $serviceManager = new ServiceManager([
                 ],
                 listDataHandler::class => [
                     Environment::class,
-                    ItemRepository::class,
-                    ResourceRepository::class,
+                    ListDataService::class
                 ],
+                ListDataService::class => [
+                    ResourceRepository::class,
+                    RawResourceRepository::class,
+                    ListDataHelper::class
+                ],
+                ListDataHelper::class => [],
                 UploadHelper::class => [
                     TierService::class
                 ],
