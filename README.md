@@ -55,4 +55,4 @@ changelogger clean
 * Tier überarbeiten
 * Farming
 * Javascript überall
-* K
+* No Spec Crafting
