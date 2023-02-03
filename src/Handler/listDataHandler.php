@@ -23,7 +23,7 @@ class listDataHandler
 
         $htmlContent = $this->twigEnvironment->render('showData.html.twig', [
             'resources' => $allResources,
-            'resource' => $allResources,
+            'rawResources' => $allRawResources,
         ]);
         return new HtmlResponse($htmlContent);
     }

@@ -1,5 +1,5 @@
 $(function() {
-  $('#sortTable').DataTable({'pageLength': 50});
+  $('.sortTable').DataTable({'pageLength': 50});
 
   $('#toggleSellBuy').on('click', function() {
     $('#resourceSell').toggle();

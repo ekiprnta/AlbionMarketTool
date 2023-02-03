@@ -3,7 +3,31 @@
 {% block content %}
     <div class="card mt-3">
         <div class="card-body">
-            <div class="btn btn-primary" id="toggleSellBuy">Toggle Buy Or SellOrder</div>
+            <div class="row">
+                <div class="col-4">
+                    <div class="btn btn-primary" id="toggleSellBuy">Toggle Buy Or SellOrder</div>
+                </div>
+                <div class="col-8">
+                    <form action="" method="get">
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label for="refined">Choose City to transport from</label>
+                                    <select name="refined" id="refined" class="form-control">
+                                        <option value="rawResource">Raw Resource</option>
+                                        <option value="resource">Resource</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3">
+                                <button class="btn btn-primary" type="submit">Calculate</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
     <div class="card mt-3" id="resourceSell">
@@ -11,7 +35,7 @@
             <div class="card-title">
                 <h3>Resources SellOrder</h3>
             </div>
-            <table class="table table-sm table-bordered" id="sortTable">
+            <table class="table table-sm table-bordered sortTable">
                 <thead class="thead-default">
                 <tr>
                     <th>Tier</th>
@@ -47,7 +71,7 @@
             <div class="card-title">
                 <h3>Resources BuyOrder</h3>
             </div>
-            <table class="table table-sm table-bordered" id="sortTable">
+            <table class="table table-sm table-bordered sortTable">
                 <thead class="thead-default">
                 <tr>
                     <th>Tier</th>
