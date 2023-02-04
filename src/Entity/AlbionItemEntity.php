@@ -7,29 +7,29 @@ use DateTimeZone;
 
 class AlbionItemEntity
 {
-    public const TIER_T2 = '2';
-    public const TIER_T3 = '3';
-    public const TIER_T4 = '4';
+    public const TIER_T2 = '20';
+    public const TIER_T3 = '30';
+    public const TIER_T4 = '40';
     public const TIER_T4_1 = '41';
     public const TIER_T4_2 = '42';
     public const TIER_T4_3 = '43';
     public const TIER_T4_4 = '44';
-    public const TIER_T5 = '5';
+    public const TIER_T5 = '50';
     public const TIER_T5_1 = '51';
     public const TIER_T5_2 = '52';
     public const TIER_T5_3 = '53';
     public const TIER_T5_4 = '54';
-    public const TIER_T6 = '6';
+    public const TIER_T6 = '60';
     public const TIER_T6_1 = '61';
     public const TIER_T6_2 = '62';
     public const TIER_T6_3 = '63';
     public const TIER_T6_4 = '64';
-    public const TIER_T7 = '7';
+    public const TIER_T7 = '70';
     public const TIER_T7_1 = '71';
     public const TIER_T7_2 = '72';
     public const TIER_T7_3 = '73';
     public const TIER_T7_4 = '74';
-    public const TIER_T8 = '8';
+    public const TIER_T8 = '80';
     public const TIER_T8_1 = '81';
     public const TIER_T8_2 = '82';
     public const TIER_T8_3 = '83';
