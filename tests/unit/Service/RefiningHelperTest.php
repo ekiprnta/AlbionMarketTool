@@ -75,41 +75,23 @@ class RefiningHelperTest extends TestCase
     /**
      * @dataProvider getLowerResource
      */
-    public function testCalculateLowerResource(string $tier, string $expectedTier): void
+    public function testCalculateLowerResourceTier(string $tier, string $expectedTier): void
     {
-        /** @var ResourceEntity|ObjectProphecy $expectedResourceEntity */
-        $expectedResourceEntity = $this->prophesize(ResourceEntity::class);
-        $expectedResourceEntity->getTier()
-            ->willReturn($expectedTier);
-
         $this->assertEquals(
-            $expectedResourceEntity->reveal(),
-            $this->refiningHelper->calculateResource($tier, [$expectedResourceEntity->reveal()])
+            $expectedTier,
+            $this->refiningHelper->calculateLowerResourceTier($tier)
         );
     }
 
     public function getLowerResource(): array
     {
-        return [['3', '3'], ['4', '4'], ['52', '52'], ['83', '83']];
-    }
-
-    /**
-     * @dataProvider getLowerResourceNull
-     */
-    public function testCalculateLowerResourceNull(string $tier, string $expectedTier): void
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        /** @var ResourceEntity|ObjectProphecy $expectedResourceEntity */
-        $expectedResourceEntity = $this->prophesize(ResourceEntity::class);
-        $expectedResourceEntity->getTier()
-            ->willReturn($expectedTier);
-
-        $this->refiningHelper->calculateLowerResource($tier, [$expectedResourceEntity->reveal()]);
-    }
-
-    public function getLowerResourceNull(): array
-    {
-        return [['3', '4'], ['4', '41'], ['52', '53'], ['83', '8'], ['2', '31']];
+        return [
+            ['40', '30'],
+            ['41', '30'],
+            ['42', '30'],
+            ['50', '40'],
+            ['53', '43']
+        ];
     }
 
     /**
