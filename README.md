@@ -56,3 +56,4 @@ changelogger clean
 * Farming
 * Javascript überall
 * No Spec Crafting
+* Stone
