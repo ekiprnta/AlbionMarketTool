@@ -43,6 +43,7 @@ class TransmutationService
         }
         /** @var TransmutationEntity $transEntity */
         foreach ($transmutationEntityList as $transEntity) {
+            dump($transEntity->getPathName());
             [$startTier, $endTier] = $this->transmutationHelper->calculateStartAndEnd($transEntity->getPathName());
             $transEntity->setStartResource(
                 $this->transmutationHelper->calculateResource($resources, $startTier, $transEntity->getResourceType())
