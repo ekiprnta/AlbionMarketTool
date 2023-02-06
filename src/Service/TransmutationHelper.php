@@ -47,7 +47,6 @@ class TransmutationHelper extends Market
 
     public function calculateResource(array $resources, string $tier, string $name): ?ResourceEntity
     {
-        dump($tier, $name);
         /** @var ResourceEntity $resource */
         foreach ($resources as $resource) {
             if ($resource->getTier() === $tier && $resource->getRealName() === $name) {
