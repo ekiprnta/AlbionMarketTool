@@ -23,7 +23,7 @@ class ItemEntityTest extends TestCase
 
     public function testGettersA(): void
     {
-        $this->assertEquals('2', $this->entityA->getTier());
+        $this->assertEquals('20', $this->entityA->getTier());
         $this->assertEquals('2h_divinestaff', $this->entityA->getName());
         $this->assertEquals('Black Market', $this->entityA->getCity());
         $this->assertEquals(0, $this->entityA->getSellOrderPrice());
@@ -96,7 +96,7 @@ class ItemEntityTest extends TestCase
     private function getItemEntityA(): ItemEntity
     {
         return new ItemEntity([
-            'tier' => '2',
+            'tier' => '20',
             'name' => '2h_divinestaff',
             'weaponGroup' => 'holyStaff',
             'realName' => 'divineStaff',

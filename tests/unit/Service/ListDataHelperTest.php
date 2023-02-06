@@ -25,14 +25,13 @@ class ListDataHelperTest extends TestCase
         array $resources
     ): void {
         $ldEntity = new ListDataEntity($startResource);
-
         $this->assertEquals($result, $this->listDataHelper->calculateSameItemObject($ldEntity, $resources));
     }
 
     public function provideItemObjects(): array
     {
         $resourceA = new ResourceEntity([
-            'tier' => '2',
+            'tier' => '20',
             'name' => 'cloth',
             'city' => 'Fort Sterling',
             'realName' => 'cloth',

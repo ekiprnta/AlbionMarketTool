@@ -77,7 +77,7 @@ class ListDataEntityTest extends TestCase
     protected function setUp(): void
     {
         $this->resource = new ResourceEntity([
-            'tier' => '2',
+            'tier' => '20',
             'name' => 'cloth',
             'city' => 'Fort Sterling',
             'realName' => 'cloth',

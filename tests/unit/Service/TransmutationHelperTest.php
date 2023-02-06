@@ -16,7 +16,7 @@ class TransmutationHelperTest extends TestCase
     private function getResources(): array
     {
         $resourceA = new ResourceEntity([
-            'tier' => '2',
+            'tier' => '20',
             'name' => 'cloth',
             'city' => 'Fort Sterling',
             'realName' => 'cloth',
@@ -134,7 +134,7 @@ class TransmutationHelperTest extends TestCase
     public function provideResourceTier(): array
     {
         [$resourceA, $resourceB] = $this->getResources();
-        return [[$resourceA, '2'], [$resourceB, '41'], [null, '52']];
+        return [[$resourceA, '20'], [$resourceB, '41'], [null, '52']];
     }
 
     protected function setUp(): void
