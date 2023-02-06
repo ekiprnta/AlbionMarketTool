@@ -77,21 +77,12 @@ class RefiningHelperTest extends TestCase
      */
     public function testCalculateLowerResourceTier(string $tier, string $expectedTier): void
     {
-        $this->assertEquals(
-            $expectedTier,
-            $this->refiningHelper->calculateLowerResourceTier($tier)
-        );
+        $this->assertEquals($expectedTier, $this->refiningHelper->calculateLowerResourceTier($tier));
     }
 
     public function getLowerResource(): array
     {
-        return [
-            ['40', '30'],
-            ['41', '30'],
-            ['42', '30'],
-            ['50', '40'],
-            ['53', '43']
-        ];
+        return [['40', '30'], ['41', '30'], ['42', '30'], ['50', '40'], ['53', '43']];
     }
 
     /**

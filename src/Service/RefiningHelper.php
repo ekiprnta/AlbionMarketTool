@@ -33,8 +33,8 @@ class RefiningHelper extends Market
         if ($tier[0] === '4') {
             return '30';
         }
-
-        return $tier - 10;
+        $lowerTier = (int) $tier - 10;
+        return (string) $lowerTier;
     }
 
     public function calculateProfit(

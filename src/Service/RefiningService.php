@@ -48,7 +48,8 @@ class RefiningService
                 $this->refiningHelper->calculateResource($refiningEntity->getResourceEntity()->getTier(), $rawResources)
             );
             $lowerTier = $this->refiningHelper->calculateLowerResourceTier(
-                $refiningEntity->getResourceEntity()->getTier()
+                $refiningEntity->getResourceEntity()
+                    ->getTier()
             );
             $refiningEntity->setLowerResource($this->refiningHelper->calculateResource($lowerTier, $resources));
             $refiningEntity->setSingleProfit(
