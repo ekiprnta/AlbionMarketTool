@@ -18,6 +18,7 @@ use MZierdt\Albion\factories\TwigEnvironmentFactory;
 use MZierdt\Albion\Handler\AdminHandler;
 use MZierdt\Albion\Handler\BlackMarketCraftingHandler;
 use MZierdt\Albion\Handler\BlackMarketTransportingHandler;
+use MZierdt\Albion\Handler\CapesCraftingHandler;
 use MZierdt\Albion\Handler\listDataHandler;
 use MZierdt\Albion\Handler\RefiningHandler;
 use MZierdt\Albion\Handler\TransmutationHandler;
@@ -32,6 +33,7 @@ use MZierdt\Albion\Service\BlackMarketCraftingHelper;
 use MZierdt\Albion\Service\BlackMarketCraftingService;
 use MZierdt\Albion\Service\BlackMarketTransportingHelper;
 use MZierdt\Albion\Service\BlackMarketTransportingService;
+use MZierdt\Albion\Service\CapesCraftingService;
 use MZierdt\Albion\Service\ConfigService;
 use MZierdt\Albion\Service\GlobalDiscountService;
 use MZierdt\Albion\Service\ListDataHelper;
@@ -80,6 +82,8 @@ $serviceManager = new ServiceManager([
                     RefiningHelper::class,
                 ],
                 TierService::class => [],
+                CapesCraftingHandler::class => [Environment::class, CapesCraftingService::class],
+                CapesCraftingService::class => [],
                 BlackMarketTransportingHelper::class => [],
                 BlackMarketTransportingService::class => [
                     ItemRepository::class,
