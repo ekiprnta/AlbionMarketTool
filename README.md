@@ -61,3 +61,4 @@ changelogger clean
   * Enchanting (and/or BM)
 * Stone
 * Bags BM Crafting / Capes
+* Rework That there is only One Item with x- Prices

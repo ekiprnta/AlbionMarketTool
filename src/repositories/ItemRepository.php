@@ -10,7 +10,7 @@ use PDO;
 class ItemRepository
 {
     public function __construct(
-        private PDO $pdoConnection
+        private readonly PDO $pdoConnection
     ) {
     }
 
