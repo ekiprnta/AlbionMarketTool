@@ -60,4 +60,4 @@ changelogger clean
   * Royal Items
   * Enchanting (and/or BM)
 * Stone
-* 
+* Bags BM Crafting / Capes

@@ -19,6 +19,7 @@ $dispatcher = FastRoute\simpleDispatcher(
         $r->addRoute(['GET', 'POST'], '/resource/refining', $serviceManager->get(RefiningHandler::class));
         $r->addRoute(['GET', 'POST'], '/resource/transmutation', $serviceManager->get(TransmutationHandler::class));
         $r->addRoute(['GET', 'POST'], '/blackmarket/crafting', $serviceManager->get(BlackMarketCraftingHandler::class));
+        $r->addRoute(['GET', 'POST'], '/noSpec/capes', $serviceManager->get(CapesCraftingHandler::class));
         $r->addRoute(
             ['GET', 'POST'],
             '/blackmarket/transporting',
