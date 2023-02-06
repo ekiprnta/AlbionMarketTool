@@ -52,8 +52,12 @@ changelogger clean
 
 ## ToDO
 
-* Tier überarbeiten
+* ~~Tier überarbeiten~~
 * Farming
 * Javascript überall
 * No Spec Crafting
+  * Capes
+  * Royal Items
+  * Enchanting (and/or BM)
 * Stone
+* 

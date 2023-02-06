@@ -59,9 +59,9 @@ class BlackMarketCraftingHelper extends Market
         return $totalAmount * $resourceAmount;
     }
 
-    public function calculateJournalAmount(int $totalAmount, float $journalAmountPerItem): int
+    public function calculateJournalAmount(int $totalAmount, float $journalAmountPerItem): float
     {
-        return (int) ceil($totalAmount * $journalAmountPerItem);
+        return $totalAmount * $journalAmountPerItem;
     }
 
     public function calculateTotalItemWeight(int $totalAmount, float $weight): float
@@ -88,7 +88,7 @@ class BlackMarketCraftingHelper extends Market
         return $profit - $craftingFee + $profitJournals;
     }
 
-    public function calculateProfitJournals(int $emptyJournalPrice, int $fullJournalPrice, int $journalAmount): float
+    public function calculateProfitJournals(int $emptyJournalPrice, int $fullJournalPrice, float $journalAmount): float
     {
         return ($this->calculateSellOrder($fullJournalPrice) - $emptyJournalPrice) * $journalAmount;
     }

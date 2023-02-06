@@ -203,8 +203,11 @@ class BlackMarketCraftingHelperTest extends TestCase
     /**
      * @dataProvider getJournalAmount
      */
-    public function testCalculateJournalAmount(int $totalAmount, float $journalAmountPerItem, int $expectedResult): void
-    {
+    public function testCalculateJournalAmount(
+        int $totalAmount,
+        float $journalAmountPerItem,
+        float $expectedResult
+    ): void {
         $this->assertEqualsWithDelta(
             $expectedResult,
             $this->bmcHelper->calculateJournalAmount($totalAmount, $journalAmountPerItem),
@@ -214,7 +217,7 @@ class BlackMarketCraftingHelperTest extends TestCase
 
     public function getJournalAmount(): array
     {
-        return [[150, 34, 5100], [3, 7, 21], [2345, 0.025, 59]];
+        return [[150, 34, 5100], [3, 7, 21], [2345, 0.025, 58.625]];
     }
 
     /**
@@ -283,6 +286,7 @@ class BlackMarketCraftingHelperTest extends TestCase
             [150, 62399, 5610, 24.8, 400, 40200, 8_158_451.749999999],
             [2345, 987654, 345345, 50.3, 1800, 9654, 1_763_025_812.6249998],
             [65, 333, 5610, 24.8, 4100, 300000, 41921.274999999994],
+            [1, 162998, 310656, 47.9, 500, 40200, 30251.354],
         ];
     }
 
@@ -350,6 +354,7 @@ class BlackMarketCraftingHelperTest extends TestCase
     {
         return [[42000, 16, 44300, 8, 1_000_740.0], [1343, 12, 65, 20, 16980.6], [2345, 8, 3456, 6, 38508.6]];
     }
+
     /**
      * @dataProvider getSellOrderItemCost
      */
