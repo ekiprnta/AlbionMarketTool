@@ -26,7 +26,7 @@ class ListDataServiceTest extends TestCase
     {
         $resources = [
             new ResourceEntity([
-                'tier' => '2',
+                'tier' => '20',
                 'name' => 'cloth',
                 'city' => 'Fort Sterling',
                 'realName' => 'cloth',
@@ -65,7 +65,7 @@ class ListDataServiceTest extends TestCase
     {
         $resources = [
             new ResourceEntity([
-                'tier' => '2',
+                'tier' => '20',
                 'name' => 'cloth',
                 'city' => 'Fort Sterling',
                 'realName' => 'cloth',

@@ -35,11 +35,10 @@ class RefiningService
 
         $refiningArray = [];
         foreach ($resources as $resource) {
-            if ($resource->getTier() !== '2') {
+            if ($resource->getTier() !== '20') {
                 $refiningArray[] = new RefiningEntity($resource);
             }
         }
-
         /** @var RefiningEntity $refiningEntity */
         foreach ($refiningArray as $refiningEntity) {
             $refiningEntity->setAmountRawResource(
@@ -48,13 +47,11 @@ class RefiningService
             $refiningEntity->setRawResource(
                 $this->refiningHelper->calculateResource($refiningEntity->getResourceEntity()->getTier(), $rawResources)
             );
-            $refiningEntity->setLowerResource(
-                $this->refiningHelper->calculateLowerResource(
-                    $refiningEntity->getResourceEntity()
-                        ->getTier(),
-                    $resources
-                )
+            $lowerTier = $this->refiningHelper->calculateLowerResourceTier(
+                $refiningEntity->getResourceEntity()
+                    ->getTier()
             );
+            $refiningEntity->setLowerResource($this->refiningHelper->calculateResource($lowerTier, $resources));
             $refiningEntity->setSingleProfit(
                 $this->refiningHelper->calculateProfit(
                     $refiningEntity->getResourceEntity()

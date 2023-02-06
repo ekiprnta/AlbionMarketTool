@@ -28,20 +28,13 @@ class RefiningHelper extends Market
         throw new \InvalidArgumentException('No Resource found for ' . $tier);
     }
 
-    public function calculateLowerResource(string $tier, array $resources): ResourceEntity
+    public function calculateLowerResourceTier(string $tier): string
     {
-        $lowerMainTier = (int) $tier[0] - 1;
-        if (strlen($tier) > 1) {
-            $subTier = substr($tier, -1);
-            $tier = $lowerMainTier . $subTier;
-        } else {
-            $tier = (string) $lowerMainTier;
+        if ($tier[0] === '4') {
+            return '30';
         }
-        if (str_starts_with($tier, '3') && strlen($tier) > 1) {
-            $tier = $tier[0];
-        }
-
-        return $this->calculateResource($tier, $resources);
+        $lowerTier = (int) $tier - 10;
+        return (string) $lowerTier;
     }
 
     public function calculateProfit(
@@ -59,21 +52,21 @@ class RefiningHelper extends Market
     public function calculateRefiningAmount(string $tier): int
     {
         return match ($tier) {
-            '3' => 968,
-            '4' => 10000,
-            '41', '5' => 5000,
+            '30' => 968,
+            '40' => 10000,
+            '41', '50' => 5000,
             '42' => 3333,
             '43' => 2000,
             '44' => 968,
-            '51', '6' => 3000,
+            '51', '60' => 3000,
             '52' => 1765,
             '53' => 1035,
             '54' => 566,
-            '61', '7' => 1667,
+            '61', '70' => 1667,
             '62' => 1000,
             '63' => 566,
             '64' => 319,
-            '71', '8' => 968,
+            '71', '80' => 968,
             '72' => 556,
             '73' => 319,
             '74' => 180,
@@ -81,7 +74,7 @@ class RefiningHelper extends Market
             '82' => 316,
             '83' => 180,
             '84' => 101,
-            default => throw new \InvalidArgumentException('Wrong tier for Refining Amount: ' . $tier),
+            default => throw new \InvalidArgumentException('Wrong tier for Refining Amount: ' . $tier . '(Amount)'),
         };
     }
 

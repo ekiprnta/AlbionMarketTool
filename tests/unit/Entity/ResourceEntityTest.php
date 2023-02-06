@@ -13,7 +13,7 @@ class ResourceEntityTest extends TestCase
     public function testGettersA(): void
     {
         $entity = $this->getResourceEntityA();
-        $this->assertEquals('2', $entity->getTier());
+        $this->assertEquals('20', $entity->getTier());
         $this->assertEquals('cloth', $entity->getName());
         $this->assertEquals('Fort Sterling', $entity->getCity());
         $this->assertEquals(27, $entity->getSellOrderPrice());
@@ -68,7 +68,7 @@ class ResourceEntityTest extends TestCase
     public function getResourceEntityA(): ResourceEntity
     {
         return new ResourceEntity([
-            'tier' => '2',
+            'tier' => '20',
             'name' => 'cloth',
             'city' => 'Fort Sterling',
             'realName' => 'cloth',

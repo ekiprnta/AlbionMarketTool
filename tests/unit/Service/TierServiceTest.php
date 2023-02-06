@@ -32,14 +32,14 @@ class TierServiceTest extends TestCase
             [
                 'T2_metalBar',
                 [
-                    'tier' => 2,
+                    'tier' => 20,
                     'name' => 'metalbar',
                 ],
             ],
             [
                 'T8_Journal_Hunter_FULL',
                 [
-                    'tier' => 8,
+                    'tier' => 80,
                     'name' => 'journal_hunter_full',
                 ],
             ],

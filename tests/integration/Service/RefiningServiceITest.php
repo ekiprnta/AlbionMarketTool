@@ -88,7 +88,7 @@ class RefiningServiceITest extends TestCase
             new ResourceEntity([
                 'bonusCity' => 'Testcity',
                 'amountInStorage' => 0,
-                'tier' => '3',
+                'tier' => '30',
                 'name' => 'planks',
                 'city' => 'TestCity',
                 'sellOrderPrice' => 13986,
@@ -103,7 +103,7 @@ class RefiningServiceITest extends TestCase
                 [
                     'bonusCity' => 'Testcity',
                     'amountInStorage' => 0,
-                    'tier' => '2',
+                    'tier' => '20',
                     'name' => 'planks',
                     'city' => 'TestCity',
                     'sellOrderPrice' => 13986,
@@ -124,7 +124,7 @@ class RefiningServiceITest extends TestCase
             new ResourceEntity([
                 'bonusCity' => 'Testcity',
                 'amountInStorage' => 0,
-                'tier' => '3',
+                'tier' => '30',
                 'name' => 'planks',
                 'city' => 'TestCity',
                 'sellOrderPrice' => 1398,

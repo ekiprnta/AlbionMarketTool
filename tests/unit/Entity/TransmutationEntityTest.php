@@ -15,7 +15,7 @@ class TransmutationEntityTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->transEntity = new TransmutationEntity('4to62', ['5', '6', '61', '62'], 'cloth');
+        $this->transEntity = new TransmutationEntity('40to62', ['50', '60', '61', '62'], 'cloth');
     }
 
     public function testGetResourceType(): void
@@ -57,7 +57,7 @@ class TransmutationEntityTest extends TestCase
     {
         $this->transEntity->setStartResource(
             new ResourceEntity([
-                'tier' => '2',
+                'tier' => '20',
                 'name' => 'cloth',
                 'city' => 'Fort Sterling',
                 'realName' => 'cloth',
@@ -71,7 +71,7 @@ class TransmutationEntityTest extends TestCase
         );
         $this->assertEquals(
             new ResourceEntity([
-                'tier' => '2',
+                'tier' => '20',
                 'name' => 'cloth',
                 'city' => 'Fort Sterling',
                 'realName' => 'cloth',
@@ -90,7 +90,7 @@ class TransmutationEntityTest extends TestCase
     {
         $this->transEntity->setEndResource(
             new ResourceEntity([
-                'tier' => '2',
+                'tier' => '20',
                 'name' => 'cloth',
                 'city' => 'Fort Sterling',
                 'realName' => 'cloth',
@@ -104,7 +104,7 @@ class TransmutationEntityTest extends TestCase
         );
         $this->assertEquals(
             new ResourceEntity([
-                'tier' => '2',
+                'tier' => '20',
                 'name' => 'cloth',
                 'city' => 'Fort Sterling',
                 'realName' => 'cloth',
@@ -121,11 +121,11 @@ class TransmutationEntityTest extends TestCase
 
     public function testGetPathName(): void
     {
-        $this->assertEquals('4to62', $this->transEntity->getPathName());
+        $this->assertEquals('40to62', $this->transEntity->getPathName());
     }
 
     public function testGetTransmutationPath(): void
     {
-        $this->assertEquals(['5', '6', '61', '62'], $this->transEntity->getTransmutationPath());
+        $this->assertEquals(['50', '60', '61', '62'], $this->transEntity->getTransmutationPath());
     }
 }

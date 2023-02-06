@@ -24,7 +24,7 @@ class BlackMarketCraftingHelper extends Market
     {
         /** @var JournalEntity $journal */
         foreach ($journals as $journal) {
-            if (($tier[0] === $journal->getTier()) && $journal->getFillStatus() === $fillStatus) {
+            if (($tier[0] === $journal->getTier()[0]) && $journal->getFillStatus() === $fillStatus) {
                 return $journal;
             }
         }

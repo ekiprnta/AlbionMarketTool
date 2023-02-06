@@ -13,7 +13,7 @@ class TierService
 
         if ($itemIdArray[0] === 't2' || $itemIdArray[0] === 't3') {
             return [
-                'tier' => $this->tierConverter(array_shift($itemIdArray)),
+                'tier' => $this->tierConverter(array_shift($itemIdArray)) . '0',
                 'name' => implode('_', $itemIdArray),
             ];
         }
@@ -23,7 +23,7 @@ class TierService
 
         if (! str_contains($itemName, '@')) {
             return [
-                'tier' => $this->tierConverter($preTier),
+                'tier' => $this->tierConverter($preTier) . '0',
                 'name' => $itemName,
             ];
         }

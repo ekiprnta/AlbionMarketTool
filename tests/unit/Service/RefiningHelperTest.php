@@ -75,41 +75,14 @@ class RefiningHelperTest extends TestCase
     /**
      * @dataProvider getLowerResource
      */
-    public function testCalculateLowerResource(string $tier, string $expectedTier): void
+    public function testCalculateLowerResourceTier(string $tier, string $expectedTier): void
     {
-        /** @var ResourceEntity|ObjectProphecy $expectedResourceEntity */
-        $expectedResourceEntity = $this->prophesize(ResourceEntity::class);
-        $expectedResourceEntity->getTier()
-            ->willReturn($expectedTier);
-
-        $this->assertEquals(
-            $expectedResourceEntity->reveal(),
-            $this->refiningHelper->calculateResource($tier, [$expectedResourceEntity->reveal()])
-        );
+        $this->assertEquals($expectedTier, $this->refiningHelper->calculateLowerResourceTier($tier));
     }
 
     public function getLowerResource(): array
     {
-        return [['3', '3'], ['4', '4'], ['52', '52'], ['83', '83']];
-    }
-
-    /**
-     * @dataProvider getLowerResourceNull
-     */
-    public function testCalculateLowerResourceNull(string $tier, string $expectedTier): void
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        /** @var ResourceEntity|ObjectProphecy $expectedResourceEntity */
-        $expectedResourceEntity = $this->prophesize(ResourceEntity::class);
-        $expectedResourceEntity->getTier()
-            ->willReturn($expectedTier);
-
-        $this->refiningHelper->calculateLowerResource($tier, [$expectedResourceEntity->reveal()]);
-    }
-
-    public function getLowerResourceNull(): array
-    {
-        return [['3', '4'], ['4', '41'], ['52', '53'], ['83', '8'], ['2', '31']];
+        return [['40', '30'], ['41', '30'], ['42', '30'], ['50', '40'], ['53', '43']];
     }
 
     /**
@@ -159,24 +132,24 @@ class RefiningHelperTest extends TestCase
     public function getRefiningAmount(): array
     {
         return [
-            ['3', 968],
-            ['4', 10000],
+            ['30', 968],
+            ['40', 10000],
             ['41', 5000],
             ['42', 3333],
             ['43', 2000],
-            ['5', 5000],
+            ['50', 5000],
             ['51', 3000],
             ['52', 1765],
             ['53', 1035],
-            ['6', 3000],
+            ['60', 3000],
             ['61', 1667],
             ['62', 1000],
             ['63', 566],
-            ['7', 1667],
+            ['70', 1667],
             ['71', 968],
             ['72', 556],
             ['73', 319],
-            ['8', 968],
+            ['80', 968],
             ['81', 545],
             ['82', 316],
             ['83', 180],

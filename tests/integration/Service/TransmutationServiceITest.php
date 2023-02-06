@@ -38,10 +38,10 @@ class TransmutationServiceITest extends TestCase
             ->willReturn($this->getRawResources());
         $configService->getTransmutationWays()
             ->willReturn([
-                '4to6' => ['5', '6'],
+                '40to60' => ['50', '60'],
             ]);
         $configService->getTransmutationCost()
-            ->willReturn(['5' => ['tier' => 1000], '6' => ['tier' => 2000]]);
+            ->willReturn(['50' => ['tier' => 1000], '60' => ['tier' => 2000]]);
         $discountService->getGlobalDiscount()
             ->willReturn(0.01);
 
@@ -54,15 +54,15 @@ class TransmutationServiceITest extends TestCase
             $this->assertEquals('4', $transEntity->getStartTierColor());
             $this->assertEquals('6', $transEntity->getEndTierColor());
             $this->assertEquals(2970.0, $transEntity->getTransmutePrice());
-            $this->assertEquals('4to6', $transEntity->getPathName());
-            $this->assertEquals([5, 6], $transEntity->getTransmutationPath());
+            $this->assertEquals('40to60', $transEntity->getPathName());
+            $this->assertEquals([50, 60], $transEntity->getTransmutationPath());
         }
     }
 
     private function getRawResources(): array
     {
         $resourceA = new ResourceEntity([
-            'tier' => '4',
+            'tier' => '40',
             'name' => 'leather',
             'city' => 'Sterling',
             'realName' => 'fiber',
@@ -74,7 +74,7 @@ class TransmutationServiceITest extends TestCase
             'amountInStorage' => null,
         ]);
         $resourceB = new ResourceEntity([
-            'tier' => '6',
+            'tier' => '60',
             'name' => 'leather',
             'city' => 'Sterling',
             'realName' => 'fiber',
@@ -86,7 +86,7 @@ class TransmutationServiceITest extends TestCase
             'amountInStorage' => null,
         ]);
         $resourceC = new ResourceEntity([
-            'tier' => '4',
+            'tier' => '40',
             'name' => 'leather',
             'city' => 'Sterling',
             'realName' => 'ore',
@@ -98,7 +98,7 @@ class TransmutationServiceITest extends TestCase
             'amountInStorage' => null,
         ]);
         $resourceD = new ResourceEntity([
-            'tier' => '6',
+            'tier' => '60',
             'name' => 'leather',
             'city' => 'Sterling',
             'realName' => 'ore',
@@ -110,7 +110,7 @@ class TransmutationServiceITest extends TestCase
             'amountInStorage' => null,
         ]);
         $resourceE = new ResourceEntity([
-            'tier' => '4',
+            'tier' => '40',
             'name' => 'leather',
             'city' => 'Sterling',
             'realName' => 'hide',
@@ -122,7 +122,7 @@ class TransmutationServiceITest extends TestCase
             'amountInStorage' => null,
         ]);
         $resourceF = new ResourceEntity([
-            'tier' => '6',
+            'tier' => '60',
             'name' => 'leather',
             'city' => 'Sterling',
             'realName' => 'hide',
@@ -134,7 +134,7 @@ class TransmutationServiceITest extends TestCase
             'amountInStorage' => null,
         ]);
         $resourceG = new ResourceEntity([
-            'tier' => '4',
+            'tier' => '40',
             'name' => 'leather',
             'city' => 'Sterling',
             'realName' => 'wood',
@@ -146,7 +146,7 @@ class TransmutationServiceITest extends TestCase
             'amountInStorage' => null,
         ]);
         $resourceH = new ResourceEntity([
-            'tier' => '6',
+            'tier' => '60',
             'name' => 'leather',
             'city' => 'Sterling',
             'realName' => 'wood',
