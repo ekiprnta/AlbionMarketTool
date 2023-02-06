@@ -52,7 +52,7 @@ changelogger clean
 
 ## ToDO
 
-* Tier überarbeiten
+* ~~Tier überarbeiten~~
 * Farming
 * Javascript überall
 * No Spec Crafting

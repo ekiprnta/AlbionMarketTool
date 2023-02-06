@@ -41,7 +41,7 @@ class BlackMarketCraftingServiceITest extends TestCase
             new BlackMarketCraftingHelper()
         );
 
-        $delta = 0.00000001;
+        $delta = 0.00001;
         $testData = $bmcService->getDataForCity('TestCity', 500, 25.2, 1200, 'TestCity', 1);
 
         foreach ($testData as $bmcEntity) {
@@ -50,13 +50,13 @@ class BlackMarketCraftingServiceITest extends TestCase
             $this->assertEquals(8, $bmcEntity[0]->getTotalAmount());
             $this->assertEquals(160, $bmcEntity[0]->getPrimResourceAmount());
             $this->assertEquals(96, $bmcEntity[0]->getSecResourceAmount());
-            $this->assertEquals(12, $bmcEntity[0]->getJournalAmount());
+            $this->assertEqualsWithDelta(11.636363636364, $bmcEntity[0]->getJournalAmount(), $delta);
             $this->assertEqualsWithDelta(182.4, $bmcEntity[0]->getTotalItemWeight(), $delta);
 
             $this->assertEqualsWithDelta(11059.2, $bmcEntity[0]->getCraftingFee(), $delta);
-            $this->assertEqualsWithDelta(452940.0, $bmcEntity[0]->getProfitJournals(), $delta);
-            $this->assertEqualsWithDelta(1_069_829.7919999997, $bmcEntity[0]->getProfit(), $delta);
-            $this->assertEqualsWithDelta(2139.6595839999995, $bmcEntity[0]->getWeightProfitQuotient(), $delta);
+            $this->assertEqualsWithDelta(439214.54545455, $bmcEntity[0]->getProfitJournals(), $delta);
+            $this->assertEqualsWithDelta(1056104.3374545, $bmcEntity[0]->getProfit(), $delta);
+            $this->assertEqualsWithDelta(2112.2086749091, $bmcEntity[0]->getWeightProfitQuotient(), $delta);
 
             $this->assertEquals('S', $bmcEntity[0]->getColorGrade());
             $this->assertEqualsWithDelta(495360.0, $bmcEntity[0]->getFameAmount(), $delta);
@@ -94,7 +94,7 @@ class BlackMarketCraftingServiceITest extends TestCase
             new BlackMarketCraftingHelper()
         );
 
-        $delta = 0.00000001;
+        $delta = 0.000001;
         $testData = $bmcService->getDataForCity('TestCity', 500, 0, 0, '', 2);
 
         foreach ($testData as $bmcEntity) {
@@ -103,13 +103,13 @@ class BlackMarketCraftingServiceITest extends TestCase
             $this->assertEquals(8, $bmcEntity[0]->getTotalAmount());
             $this->assertEquals(160, $bmcEntity[0]->getPrimResourceAmount());
             $this->assertEquals(96, $bmcEntity[0]->getSecResourceAmount());
-            $this->assertEquals(12, $bmcEntity[0]->getJournalAmount());
+            $this->assertEqualsWithDelta(11.636363636364, $bmcEntity[0]->getJournalAmount(), $delta);
             $this->assertEqualsWithDelta(182.4, $bmcEntity[0]->getTotalItemWeight(), $delta);
 
             $this->assertEqualsWithDelta(0, $bmcEntity[0]->getCraftingFee(), $delta);
-            $this->assertEqualsWithDelta(452940.0, $bmcEntity[0]->getProfitJournals(), $delta);
-            $this->assertEqualsWithDelta(1462540.448, $bmcEntity[0]->getProfit(), $delta);
-            $this->assertEqualsWithDelta(2925.080896, $bmcEntity[0]->getWeightProfitQuotient(), $delta);
+            $this->assertEqualsWithDelta(439214.54545455, $bmcEntity[0]->getProfitJournals(), $delta);
+            $this->assertEqualsWithDelta(1448814.9934545, $bmcEntity[0]->getProfit(), $delta);
+            $this->assertEqualsWithDelta(2897.6299869091, $bmcEntity[0]->getWeightProfitQuotient(), $delta);
 
             $this->assertEquals('S', $bmcEntity[0]->getColorGrade());
             $this->assertEqualsWithDelta(495360.0, $bmcEntity[0]->getFameAmount(), $delta);
