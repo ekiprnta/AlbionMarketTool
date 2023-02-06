@@ -41,19 +41,16 @@ class RefiningService
         }
         /** @var RefiningEntity $refiningEntity */
         foreach ($refiningArray as $refiningEntity) {
-            dump('a');
             $refiningEntity->setAmountRawResource(
                 $this->refiningHelper->calculateAmountRawResource($refiningEntity->getResourceEntity()->getTier())
             );
             $refiningEntity->setRawResource(
                 $this->refiningHelper->calculateResource($refiningEntity->getResourceEntity()->getTier(), $rawResources)
             );
-            dump('b');
             $lowerTier = $this->refiningHelper->calculateLowerResourceTier(
                 $refiningEntity->getResourceEntity()->getTier()
             );
             $refiningEntity->setLowerResource($this->refiningHelper->calculateResource($lowerTier, $resources));
-            dump('2');
             $refiningEntity->setSingleProfit(
                 $this->refiningHelper->calculateProfit(
                     $refiningEntity->getResourceEntity()
@@ -66,18 +63,15 @@ class RefiningService
                     $percentage
                 )
             );
-            dump('c');
             $refiningEntity->setAmount(
                 $this->refiningHelper->calculateRefiningAmount($refiningEntity->getResourceEntity()->getTier())
             );
-            dump('1');
             $refiningEntity->setProfit(
                 $this->refiningHelper->calculateTotalProfit(
                     $refiningEntity->getAmount(),
                     $refiningEntity->getSingleProfit()
                 )
             );
-            dump('d');
             $refiningEntity->setWeightAmountQuotient(
                 $this->refiningHelper->calculateWeightProfitQuotient(
                     $refiningEntity->getProfit(),
@@ -87,7 +81,6 @@ class RefiningService
             $refiningEntity->setProfitGrade(
                 $this->refiningHelper->calculateProfitGrade($refiningEntity->getWeightAmountQuotient())
             );
-            dump('e');
         }
         return $refiningArray;
     }
