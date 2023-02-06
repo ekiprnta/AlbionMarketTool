@@ -56,4 +56,8 @@ changelogger clean
 * Farming
 * Javascript überall
 * No Spec Crafting
+  * Capes
+  * Royal Items
+  * Enchanting (and/or BM)
 * Stone
+* 
