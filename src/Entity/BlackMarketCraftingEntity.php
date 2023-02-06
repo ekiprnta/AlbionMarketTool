@@ -29,7 +29,7 @@ class BlackMarketCraftingEntity
     private int $totalAmount;
     private int $primResourceAmount;
     private int $secResourceAmount;
-    private int $journalAmount;
+    private float $journalAmount;
     private float $totalItemWeight;
 
     private float $craftingFee;
@@ -175,7 +175,7 @@ class BlackMarketCraftingEntity
         return $this->secResourceAmount;
     }
 
-    public function getJournalAmount(): int
+    public function getJournalAmount(): float
     {
         return $this->journalAmount;
     }
@@ -228,7 +228,7 @@ class BlackMarketCraftingEntity
         $this->secResourceAmount = $secResourceAmount;
     }
 
-    public function setJournalAmount(int $journalAmount): void
+    public function setJournalAmount(float $journalAmount): void
     {
         $this->journalAmount = $journalAmount;
     }
