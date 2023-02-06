@@ -18,12 +18,11 @@ class BlackMarketCraftingService
     private const RRR_NO_BONUS_CITY_NO_FOCUS = 15.2;
     private const RRR_NO_BONUS_CITY_FOCUS = 43.5;
 
-
     public function __construct(
-        private ItemRepository $itemRepository,
-        private ResourceRepository $resourceRepository,
-        private JournalRepository $journalRepository,
-        private BlackMarketCraftingHelper $bmtHelper
+        private readonly ItemRepository $itemRepository,
+        private readonly ResourceRepository $resourceRepository,
+        private readonly JournalRepository $journalRepository,
+        private readonly BlackMarketCraftingHelper $bmtHelper
     ) {
     }
 
@@ -182,9 +181,7 @@ class BlackMarketCraftingService
         }
 
         return $this->filterCalculateEntityArray($calculateEntityArray);
-//        return  $calculateEntityArray;
     }
-
 
     private function filterCalculateEntityArray(array $calculateEntityArray): array
     {
