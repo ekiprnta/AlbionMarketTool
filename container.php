@@ -113,9 +113,6 @@ $serviceManager = new ServiceManager([
                 GlobalDiscountService::class => [
                     ApiService::class
                 ],
-                DeleteDataCommand::class => [
-                    DeleteDataRepository::class
-                ],
                 UpdateJournalsCommand::class => [
                     ApiService::class,
                     JournalRepository::class,
@@ -150,7 +147,6 @@ $serviceManager = new ServiceManager([
         ResourceRepository::class => ResourceRepositoryFactory::class,
         ItemRepository::class => ItemRepositoryFactory::class,
         JournalRepository::class => JournalRepositoryFactory::class,
-        DeleteDataRepository::class => DeleteDataRepositoryFactory::class,
         'abstract_factories' => [ConfigAbstractFactory::class],
     ],
 ]);
