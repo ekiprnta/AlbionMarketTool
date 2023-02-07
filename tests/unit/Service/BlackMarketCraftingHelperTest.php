@@ -47,7 +47,7 @@ class BlackMarketCraftingHelperTest extends TestCase
     /**
      * @dataProvider getResourceDataNull
      */
-    public function testCalculateResourceNull(string $entityName, string $entityTier, string $name, string $tier): void
+    public function testCalculateResourceNull(string $entityName, string $entityTier, string $name, int $tier): void
     {
         /** @var ResourceEntity|ObjectProphecy $expectedResourceEntity */
         $expectedResourceEntity = $this->prophesize(ResourceEntity::class);
@@ -64,7 +64,7 @@ class BlackMarketCraftingHelperTest extends TestCase
 
     public function getResourceDataNull(): array
     {
-        return [['r1', '3', 'r1', '2'], ['a 3', '5', 'a bc', '5'], ['t81_item', '82', 't82_item', '82']];
+        return [['r1', '3', 'r1', 20], ['a 3', '5', 'a bc', 50], ['t81_item', '82', 't82_item', 82]];
     }
 
     /**
@@ -91,7 +91,7 @@ class BlackMarketCraftingHelperTest extends TestCase
 
     public function getJournalDataNull(): array
     {
-        return [['full', '3', 'full', '2'], ['full', '51', 'empty', '5'], ['empty', '82', 'full', '82']];
+        return [['full', '3', 'full', 20], ['full', '51', 'empty', 50], ['empty', '82', 'full', 82]];
     }
 
     /**
@@ -118,7 +118,7 @@ class BlackMarketCraftingHelperTest extends TestCase
 
     public function getJournalData(): array
     {
-        return [['full', '2', 'full', '2'], ['full', '5', 'full', '5'], ['empty', '8', 'empty', '82']];
+        return [['full', '2', 'full', 20], ['full', '5', 'full', 50], ['empty', '8', 'empty', 82]];
     }
 
     /**

@@ -8,7 +8,7 @@ use MZierdt\Albion\factories\ResourceEntityFactory;
 
 class BlackMarketCraftingHelper extends Market
 {
-    public function calculateResource(string $resourceName, string $tier, array $resources): ResourceEntity
+    public function calculateResource(string $resourceName, int $tier, array $resources): ResourceEntity
     {
         /** @var ResourceEntity $resource */
         foreach ($resources as $resource) {

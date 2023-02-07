@@ -56,7 +56,7 @@ class UploadHelperTest extends TestCase
         $this->tierService->splitIntoTierAndName($testData[0]['item_id'])->willReturn(
             [
                 'name' => $testName,
-                'tier' => 2,
+                'tier' => 20,
             ]
         );
 
@@ -73,7 +73,7 @@ class UploadHelperTest extends TestCase
             [
                 [
                     [
-                        'tier' => 2,
+                        'tier' => 20,
                         'name' => 'alfred',
                         'city' => '',
                         'realName' => '',
@@ -90,7 +90,7 @@ class UploadHelperTest extends TestCase
             [
                 [
                     [
-                        'tier' => 2,
+                        'tier' => 20,
                         'name' => 'alfred',
                         'city' => 'city',
                         'realName' => '',
@@ -107,7 +107,7 @@ class UploadHelperTest extends TestCase
             [
                 [
                     [
-                        'tier' => 2,
+                        'tier' => 20,
                         'name' => 'alfred',
                         'city' => 'city',
                         'realName' => '',

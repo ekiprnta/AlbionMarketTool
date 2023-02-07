@@ -36,7 +36,6 @@ class ItemEntityTest extends TestCase
         $this->assertEquals(48, $this->entityA->getFame());
         $this->assertEquals(128, $this->entityA->getItemValue());
         $this->assertEquals('holyStaff', $this->entityA->getWeaponGroup());
-        $this->assertEquals(null, $this->entityA->getAmountInStorage());
         $this->assertEquals('2', $this->entityA->getQuality());
         $this->assertEquals('planks', $this->entityA->getPrimaryResource());
         $this->assertEquals(20, $this->entityA->getPrimaryResourceAmount());
@@ -60,7 +59,6 @@ class ItemEntityTest extends TestCase
         $this->assertEquals(1440.0, $this->entityB->getFame());
         $this->assertEquals(1024, $this->entityB->getItemValue());
         $this->assertEquals('123', $this->entityB->getWeaponGroup());
-        $this->assertEquals(null, $this->entityB->getAmountInStorage());
         $this->assertEquals('2', $this->entityB->getQuality());
         $this->assertEquals('planks', $this->entityB->getPrimaryResource());
         $this->assertEquals(20, $this->entityB->getPrimaryResourceAmount());
@@ -84,7 +82,6 @@ class ItemEntityTest extends TestCase
         $this->assertEquals(129000.0, $this->entityC->getFame());
         $this->assertEquals(25600, $this->entityC->getItemValue());
         $this->assertEquals('weaponGroup', $this->entityC->getWeaponGroup());
-        $this->assertEquals(null, $this->entityC->getAmountInStorage());
         $this->assertEquals('0', $this->entityC->getQuality());
         $this->assertEquals('primResource', $this->entityC->getPrimaryResource());
         $this->assertEquals(12, $this->entityC->getPrimaryResourceAmount());
@@ -96,7 +93,7 @@ class ItemEntityTest extends TestCase
     private function getItemEntityA(): ItemEntity
     {
         return new ItemEntity([
-            'tier' => '20',
+            'tier' => 20,
             'name' => '2h_divinestaff',
             'weaponGroup' => 'holyStaff',
             'realName' => 'divineStaff',
@@ -120,7 +117,7 @@ class ItemEntityTest extends TestCase
     private function getItemEntityB(): ItemEntity
     {
         return new ItemEntity([
-            'tier' => '41',
+            'tier' => 41,
             'name' => 'ABC',
             'weaponGroup' => '123',
             'realName' => 'test',
@@ -144,7 +141,7 @@ class ItemEntityTest extends TestCase
     private function getItemEntityC(): ItemEntity
     {
         return new ItemEntity([
-            'tier' => '73',
+            'tier' => 73,
             'name' => 'name',
             'weaponGroup' => 'weaponGroup',
             'realName' => 'realName',

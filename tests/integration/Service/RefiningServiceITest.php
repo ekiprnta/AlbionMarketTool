@@ -20,17 +20,14 @@ class RefiningServiceITest extends TestCase
     {
         /** @var ResourceRepository|ObjectProphecy $resourceRepo */
         $resourceRepo = $this->prophesize(ResourceRepository::class);
-        /** @var RawResourceRepository|ObjectProphecy $rawResourceRepo */
-        $rawResourceRepo = $this->prophesize(RawResourceRepository::class);
 
         $resourceRepo->getResourcesByBonusCity('TestCity')
             ->willReturn($this->getResources());
-        $rawResourceRepo->getRawResourcesByBonusCity('TestCity')
+        $resourceRepo->getRawResourcesByBonusCity('TestCity')
             ->willReturn($this->getRawResources());
 
         $refiningService = new RefiningService(
             $resourceRepo->reveal(),
-            $rawResourceRepo->reveal(),
             new RefiningHelper()
         );
 
@@ -53,17 +50,14 @@ class RefiningServiceITest extends TestCase
     {
         /** @var ResourceRepository|ObjectProphecy $resourceRepo */
         $resourceRepo = $this->prophesize(ResourceRepository::class);
-        /** @var RawResourceRepository|ObjectProphecy $rawResourceRepo */
-        $rawResourceRepo = $this->prophesize(RawResourceRepository::class);
 
         $resourceRepo->getResourcesByBonusCity('TestCity')
             ->willReturn($this->getResources());
-        $rawResourceRepo->getRawResourcesByBonusCity('TestCity')
+        $resourceRepo->getRawResourcesByBonusCity('TestCity')
             ->willReturn($this->getRawResources());
 
         $refiningService = new RefiningService(
             $resourceRepo->reveal(),
-            $rawResourceRepo->reveal(),
             new RefiningHelper()
         );
 

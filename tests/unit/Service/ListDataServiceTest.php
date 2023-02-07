@@ -20,13 +20,12 @@ class ListDataServiceTest extends TestCase
 
     private ListDataService $listDataService;
     private ResourceRepository|ObjectProphecy $resourceRepository;
-    private RawResourceRepository|ObjectProphecy $rawResourceRepository;
 
     public function testGetAllRawResources(): void
     {
         $resources = [
             new ResourceEntity([
-                'tier' => '20',
+                'tier' => 20,
                 'name' => 'cloth',
                 'city' => 'Fort Sterling',
                 'realName' => 'cloth',
@@ -103,10 +102,8 @@ class ListDataServiceTest extends TestCase
     protected function setUp(): void
     {
         $this->resourceRepository = $this->prophesize(ResourceRepository::class);
-        $this->rawResourceRepository = $this->prophesize(RawResourceRepository::class);
         $this->listDataService = new ListDataService(
             $this->resourceRepository->reveal(),
-            $this->rawResourceRepository->reveal(),
             new ListDataHelper(),
         );
     }

@@ -16,18 +16,15 @@ class RefiningServiceTest extends TestCase
 
     private RefiningService $refiningService;
     private ObjectProphecy|ResourceRepository $resourceRepository;
-    private ObjectProphecy|RawResourceRepository $rawResourceRepository;
     private ObjectProphecy|RefiningHelper $refiningHelper;
 
     protected function setUp(): void
     {
         $this->resourceRepository = $this->prophesize(ResourceRepository::class);
-        $this->rawResourceRepository = $this->prophesize(RawResourceRepository::class);
         $this->refiningHelper = $this->prophesize(RefiningHelper::class);
 
         $this->refiningService = new RefiningService(
             $this->resourceRepository->reveal(),
-            $this->rawResourceRepository->reveal(),
             $this->refiningHelper->reveal(),
         );
     }

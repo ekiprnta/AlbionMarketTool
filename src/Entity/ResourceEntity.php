@@ -105,7 +105,7 @@ class ResourceEntity extends AlbionItemEntity
             self::TIER_T8_2 => self::T82_WEIGHT_FACTOR,
             self::TIER_T8_3 => self::T83_WEIGHT_FACTOR,
             self::TIER_T8_4 => self::T84_WEIGHT_FACTOR,
-            '0' => 0.1,
+            0 => 0.1,
             default => throw new \InvalidArgumentException('wrong tier in Resource Entity: ' . $tier),
         };
     }

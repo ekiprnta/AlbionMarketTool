@@ -5,6 +5,7 @@ namespace integration\Service;
 use MZierdt\Albion\Entity\ResourceEntity;
 use MZierdt\Albion\Entity\TransmutationEntity;
 use MZierdt\Albion\repositories\RawResourceRepository;
+use MZierdt\Albion\repositories\ResourceRepository;
 use MZierdt\Albion\Service\ConfigService;
 use MZierdt\Albion\Service\GlobalDiscountService;
 use MZierdt\Albion\Service\TransmutationHelper;
@@ -19,8 +20,8 @@ class TransmutationServiceITest extends TestCase
 
     public function testGetTransmutationByCityException(): void
     {
-        /** @var RawResourceRepository|ObjectProphecy $rawResourceRepository */
-        $rawResourceRepository = $this->prophesize(RawResourceRepository::class);
+        /** @var ResourceRepository|ObjectProphecy $resourceRepository */
+        $resourceRepository = $this->prophesize(ResourceRepository::class);
         $transmutationHelper = new TransmutationHelper();
         /** @var ConfigService|ObjectProphecy $configService */
         $configService = $this->prophesize(ConfigService::class);
@@ -28,13 +29,13 @@ class TransmutationServiceITest extends TestCase
         $discountService = $this->prophesize(GlobalDiscountService::class);
 
         $transmutationService = new TransmutationService(
-            $rawResourceRepository->reveal(),
+            $resourceRepository->reveal(),
             $transmutationHelper,
             $configService->reveal(),
             $discountService->reveal(),
         );
 
-        $rawResourceRepository->getRawResourcesByCity('Sterling')
+        $resourceRepository->getRawResourcesByCity('Sterling')
             ->willReturn($this->getRawResources());
         $configService->getTransmutationWays()
             ->willReturn([

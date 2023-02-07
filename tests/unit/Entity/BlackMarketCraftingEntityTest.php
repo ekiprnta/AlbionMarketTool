@@ -17,7 +17,7 @@ class BlackMarketCraftingEntityTest extends TestCase
     {
         $this->bmcEntity = new BlackMarketCraftingEntity(
             new ItemEntity([
-                'tier' => '41',
+                'tier' => 41,
                 'name' => 'ABC',
                 'weaponGroup' => '123',
                 'realName' => 'test',
