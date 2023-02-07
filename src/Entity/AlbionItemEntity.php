@@ -5,51 +5,45 @@ namespace MZierdt\Albion\Entity;
 use DateTimeImmutable;
 use DateTimeZone;
 use Doctrine\ORM\Mapping\Column;
-use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\MappedSuperclass;
 
 #[MappedSuperclass]
 class AlbionItemEntity
 {
-    public const TIER_T2 = '20';
-    public const TIER_T3 = '30';
-    public const TIER_T4 = '40';
-    public const TIER_T4_1 = '41';
-    public const TIER_T4_2 = '42';
-    public const TIER_T4_3 = '43';
-    public const TIER_T4_4 = '44';
-    public const TIER_T5 = '50';
-    public const TIER_T5_1 = '51';
-    public const TIER_T5_2 = '52';
-    public const TIER_T5_3 = '53';
-    public const TIER_T5_4 = '54';
-    public const TIER_T6 = '60';
-    public const TIER_T6_1 = '61';
-    public const TIER_T6_2 = '62';
-    public const TIER_T6_3 = '63';
-    public const TIER_T6_4 = '64';
-    public const TIER_T7 = '70';
-    public const TIER_T7_1 = '71';
-    public const TIER_T7_2 = '72';
-    public const TIER_T7_3 = '73';
-    public const TIER_T7_4 = '74';
-    public const TIER_T8 = '80';
-    public const TIER_T8_1 = '81';
-    public const TIER_T8_2 = '82';
-    public const TIER_T8_3 = '83';
-    public const TIER_T8_4 = '84';
+    public const TIER_T2 = 20;
+    public const TIER_T3 = 30;
+    public const TIER_T4 = 40;
+    public const TIER_T4_1 = 41;
+    public const TIER_T4_2 = 42;
+    public const TIER_T4_3 = 43;
+    public const TIER_T4_4 = 44;
+    public const TIER_T5 = 50;
+    public const TIER_T5_1 = 51;
+    public const TIER_T5_2 = 52;
+    public const TIER_T5_3 = 53;
+    public const TIER_T5_4 = 54;
+    public const TIER_T6 = 60;
+    public const TIER_T6_1 = 61;
+    public const TIER_T6_2 = 62;
+    public const TIER_T6_3 = 63;
+    public const TIER_T6_4 = 64;
+    public const TIER_T7 = 70;
+    public const TIER_T7_1 = 71;
+    public const TIER_T7_2 = 72;
+    public const TIER_T7_3 = 73;
+    public const TIER_T7_4 = 74;
+    public const TIER_T8 = 80;
+    public const TIER_T8_1 = 81;
+    public const TIER_T8_2 = 82;
+    public const TIER_T8_3 = 83;
+    public const TIER_T8_4 = 84;
 
-    #[Id,
-        Column(type: 'integer'),
-        GeneratedValue(strategy: 'AUTO')
-    ]
-    protected ?int $id = null;
-    #[Column(type: 'string')]
-    protected string $tier;
-    #[Column(type: 'string')]
+    #[Id, Column(type: 'integer')]
+    protected int $tier;
+    #[Id, Column(type: 'string')]
     protected string $name;
-    #[Column(type: 'string')]
+    #[Id, Column(type: 'string')]
     protected string $city;
     #[Column(type: 'integer')]
     protected int $sellOrderPrice;
@@ -79,6 +73,26 @@ class AlbionItemEntity
         $this->realName = $resourceData['realName'] ?? '';
         $this->weight = $resourceData['weight'] ?? 0;
         $this->class = $resourceData['class'] ?? '';
+    }
+
+    public function setSellOrderPrice(int $sellOrderPrice): void
+    {
+        $this->sellOrderPrice = $sellOrderPrice;
+    }
+
+    public function setSellOrderAge(int $sellOrderAge): void
+    {
+        $this->sellOrderAge = $sellOrderAge;
+    }
+
+    public function setBuyOrderPrice(int $buyOrderPrice): void
+    {
+        $this->buyOrderPrice = $buyOrderPrice;
+    }
+
+    public function setBuyOrderAge(int $buyOrderAge): void
+    {
+        $this->buyOrderAge = $buyOrderAge;
     }
 
     private function calculateAge(?string $dateString): int

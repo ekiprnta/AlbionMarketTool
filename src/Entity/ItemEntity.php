@@ -7,6 +7,7 @@ namespace MZierdt\Albion\Entity;
 use Doctrine\ORM\Mapping\ChangeTrackingPolicy;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\Table;
 
 #[Entity]
@@ -102,7 +103,7 @@ class ItemEntity extends AlbionItemEntity
     public const CLASS_MAGE = 'mage';
     public const CLASS_HUNTER = 'hunter';
 
-    #[Column(type: 'string')]
+    #[Id, Column(type: 'string')]
     private string $weaponGroup;
     #[Column(type: 'integer')]
     private int $quality;
@@ -221,7 +222,7 @@ class ItemEntity extends AlbionItemEntity
 
     private function setWeight(array $itemData): float
     {
-        $weightFactor = match ($itemData['tier']) {
+        $weightFactor = match ((int) $itemData['tier']) {
             self::TIER_T2 => self::T20_WEIGHT_FACTOR,
             self::TIER_T3 => self::T30_WEIGHT_FACTOR,
             self::TIER_T4 => self::T40_WEIGHT_FACTOR,

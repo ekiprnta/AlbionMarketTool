@@ -49,7 +49,9 @@ class UpdateResourcesCommand extends Command
             $adjustedResources = $this->uploadHelper->adjustResourceArray($resourcesData, $resourceStats);
             $progressBar->setMessage('Upload Resource ' . $resourceStats['realName'] . ' into Database');
             $progressBar->display();
-            $this->resourceRepository->updatePricesFromResources($adjustedResources);
+            foreach ($adjustedResources as $adjustedResource) {
+                $this->resourceRepository->createOrUpdate($adjustedResource);
+            }
         }
 
         $output->writeln(PHP_EOL . $message);

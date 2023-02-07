@@ -49,7 +49,9 @@ class UpdateJournalsCommand extends Command
             $adjustedJournals = $this->uploadHelper->adjustJournals($journalsData, $journalList['stats']);
             $progressBar->setMessage('Upload Resource ' . $journalName . ' into Database');
             $progressBar->display();
-            $this->journalRepository->updatePricesFromJournals($adjustedJournals);
+            foreach ($adjustedJournals as $adjustedJournal) {
+                $this->journalRepository->createOrUpdate($adjustedJournal);
+            }
         }
 
         $output->writeln(PHP_EOL . $message);

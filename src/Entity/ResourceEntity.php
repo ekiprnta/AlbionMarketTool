@@ -7,6 +7,7 @@ namespace MZierdt\Albion\Entity;
 use Doctrine\ORM\Mapping\ChangeTrackingPolicy;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\Table;
 
 #[Entity]
@@ -50,7 +51,7 @@ class ResourceEntity extends AlbionItemEntity
 
     #[Column(type: 'string', nullable: true)]
     private ?string $bonusCity;
-    #[Column(type: 'boolean')]
+    #[Id, Column(type: 'boolean')]
     private bool $raw;
 
     public function __construct(
@@ -61,7 +62,7 @@ class ResourceEntity extends AlbionItemEntity
 
         $this->raw = $raw;
         $this->bonusCity = $resourceData['bonusCity'];
-        $this->weight = $this->setWeight($resourceData['tier']);
+        $this->weight = $this->setWeight((int) $resourceData['tier']);
     }
 
     public function isRaw(): bool
@@ -74,7 +75,7 @@ class ResourceEntity extends AlbionItemEntity
         return $this->bonusCity;
     }
 
-    private function setWeight(string $tier): float
+    private function setWeight(int $tier): float
     {
         return match ($tier) {
             self::TIER_T2 => self::T20_WEIGHT_FACTOR,

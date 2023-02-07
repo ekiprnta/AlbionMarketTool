@@ -4,19 +4,23 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\Service;
 
+use MZierdt\Albion\Entity\ItemEntity;
+use MZierdt\Albion\Entity\JournalEntity;
+use MZierdt\Albion\Entity\ResourceEntity;
+
 class UploadHelper
 {
     public function __construct(private readonly TierService $tierService)
     {
     }
 
-    public function adjustResourceArray(array $resourceData, array $resourceStats): array
+    public function adjustResourceArray(array $resourceData, array $resourceStats, bool $raw = false): array
     {
         $adjustedResourceArray = [];
         foreach ($resourceData as $resource) {
             $nameAndTier = $this->tierService->splitIntoTierAndName($resource['item_id']);
             $name = $this->getResourceName($nameAndTier['name']);
-            $adjustedResourceArray[] = [
+            $adjustedResourceArray[] = new ResourceEntity([
                 'tier' => $nameAndTier['tier'],
                 'name' => $name,
                 'city' => $resource['city'],
@@ -26,7 +30,7 @@ class UploadHelper
                 'buyOrderPrice' => $resource['buy_price_max'],
                 'buyOrderPriceDate' => $resource['buy_price_max_date'],
                 'bonusCity' => $resourceStats['bonusCity'],
-            ];
+            ], $raw);
         }
         return $adjustedResourceArray;
     }
@@ -38,7 +42,7 @@ class UploadHelper
             $nameAndTier = $this->tierService->splitIntoTierAndName($journal['item_id']);
             $stats = $journalStats[$nameAndTier['tier']];
             $split = $this->tierService->journalSplitter($nameAndTier['name']);
-            $adjustedJournalsArray[] = [
+            $adjustedJournalsArray[] = new JournalEntity([
                 'tier' => $nameAndTier['tier'],
                 'name' => $nameAndTier['name'],
                 'city' => $journal['city'],
@@ -50,7 +54,7 @@ class UploadHelper
                 'weight' => $stats['weight'],
                 'fillStatus' => $split['fillStatus'],
                 'class' => $split['class'],
-            ];
+            ]);
         }
         return $adjustedJournalsArray;
     }
@@ -60,7 +64,7 @@ class UploadHelper
         $adjustedItems = [];
         foreach ($itemData as $item) {
             $nameAndTier = $this->tierService->splitIntoTierAndName($item['item_id']);
-            $adjustedItems[] = [
+            $adjustedItems[] = new ItemEntity([
                 'tier' => $nameAndTier['tier'],
                 'name' => $nameAndTier['name'],
                 'weaponGroup' => $itemStats['weaponGroup'],
@@ -78,7 +82,7 @@ class UploadHelper
                 'secondaryResourceAmount' => $itemStats['secondaryResourceAmount'],
                 'bonusCity' => $itemStats['bonusCity'],
                 'fameFactor' => null,
-            ];
+            ]);
         }
         return $adjustedItems;
     }

@@ -43,10 +43,12 @@ class UpdateRawResourcesCommand extends Command
             $rawResourcesData = $this->apiService->getResources($rawResourceStat['realName']);
             $progressBar->setMessage('preparing raw ' . $rawResourceStat['realName']);
             $progressBar->display();
-            $adjustedRawResources = $this->uploadHelper->adjustResourceArray($rawResourcesData, $rawResourceStat);
+            $adjustedRawResources = $this->uploadHelper->adjustResourceArray($rawResourcesData, $rawResourceStat, true);
             $progressBar->setMessage('Upload raw ' . $rawResourceStat['realName'] . ' into Database');
             $progressBar->display();
-            $this->rawResourceRepository->updatePricesFromRawResources($adjustedRawResources);
+            foreach ($adjustedRawResources as $adjustedRawResource) {
+                $this->rawResourceRepository->createOrUpdate($adjustedRawResource);
+            }
         }
 
         $output->writeln(PHP_EOL . $message);

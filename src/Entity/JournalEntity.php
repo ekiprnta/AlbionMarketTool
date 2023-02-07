@@ -7,6 +7,7 @@ namespace MZierdt\Albion\Entity;
 use Doctrine\ORM\Mapping\ChangeTrackingPolicy;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\Table;
 
 #[Entity]
@@ -20,7 +21,7 @@ class JournalEntity extends AlbionItemEntity
 
     #[Column(type: 'integer')]
     private int $fameToFill;
-    #[Column(type: 'string')]
+    #[Id, Column(type: 'string')]
     private string $fillStatus; //full empty
 
     public function __construct(array $journalData)

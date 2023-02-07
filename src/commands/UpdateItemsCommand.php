@@ -46,7 +46,9 @@ class UpdateItemsCommand extends Command
             $adjustedItems = $this->uploadHelper->adjustItems($itemsData, $itemStats);
             $progressBar->setMessage('Upload Item ' . $itemStats['realName'] . ' into Database');
             $progressBar->display();
-            $this->itemRepository->updatePricesFromItem($adjustedItems);
+            foreach ($adjustedItems as $adjustedItem) {
+                $this->itemRepository->createOrUpdate($adjustedItem);
+            }
         }
 
         $output->writeln(PHP_EOL . $message);
