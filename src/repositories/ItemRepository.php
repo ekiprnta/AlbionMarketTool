@@ -34,21 +34,6 @@ class ItemRepository
     public function getItemsByLocation(string $city): array
     {
         return $this->findBy(['city' => $city]) ?? [];
-//        $statement = $this->pdoConnection->prepare(
-//            <<<SQL
-//            SELECT *
-//            FROM albion_db.items
-//            WHERE albion_db.items.city = :city
-//SQL
-//        );
-//        $statement->bindParam(':city', $city);
-//        $statement->execute();
-//
-//        $itemsArray = [];
-//        foreach ($statement->getIterator() as $itemInformation) {
-//            $itemsArray[] = new ItemEntity($itemInformation);
-//        }
-//        return $itemsArray;
     }
 
     public function createOrUpdate(ItemEntity $itemEntity): void
