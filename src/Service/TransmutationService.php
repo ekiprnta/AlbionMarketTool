@@ -5,11 +5,12 @@ namespace MZierdt\Albion\Service;
 use InvalidArgumentException;
 use MZierdt\Albion\Entity\TransmutationEntity;
 use MZierdt\Albion\repositories\RawResourceRepository;
+use MZierdt\Albion\repositories\ResourceRepository;
 
 class TransmutationService
 {
     public function __construct(
-        private readonly RawResourceRepository $rawResourceRepository,
+        private readonly ResourceRepository $resourceRepository,
         private readonly TransmutationHelper $transmutationHelper,
         private readonly ConfigService $configService,
         private readonly GlobalDiscountService $discountService,
@@ -22,7 +23,7 @@ class TransmutationService
             throw new InvalidArgumentException('Please select a city');
         }
 
-        $resources = $this->rawResourceRepository->getRawResourcesByCity($city);
+        $resources = $this->resourceRepository->getRawResourcesByCity($city);
 
         $transmutationWays = $this->configService->getTransmutationWays();
         $transmutationCost = $this->configService->getTransmutationCost();

@@ -25,8 +25,6 @@ use MZierdt\Albion\repositories\ItemRepository;
 use MZierdt\Albion\repositories\ItemRepositoryFactory;
 use MZierdt\Albion\repositories\JournalRepository;
 use MZierdt\Albion\repositories\JournalRepositoryFactory;
-use MZierdt\Albion\repositories\RawResourceRepository;
-use MZierdt\Albion\repositories\RawResourceRepositoryFactory;
 use MZierdt\Albion\repositories\ResourceRepository;
 use MZierdt\Albion\repositories\ResourceRepositoryFactory;
 use MZierdt\Albion\Service\ApiService;
@@ -60,7 +58,6 @@ $serviceManager = new ServiceManager([
                 ],
                 ListDataService::class => [
                     ResourceRepository::class,
-                    RawResourceRepository::class,
                     ListDataHelper::class
                 ],
                 ListDataHelper::class => [],
@@ -78,7 +75,6 @@ $serviceManager = new ServiceManager([
                 RefiningHelper::class => [],
                 RefiningService::class => [
                     ResourceRepository::class,
-                    RawResourceRepository::class,
                     RefiningHelper::class,
                 ],
                 TierService::class => [],
@@ -105,7 +101,7 @@ $serviceManager = new ServiceManager([
                     TransmutationService::class,
                 ],
                 TransmutationService::class => [
-                    RawResourceRepository::class,
+                    ResourceRepository::class,
                     TransmutationHelper::class,
                     ConfigService::class,
                     GlobalDiscountService::class,
@@ -140,7 +136,7 @@ $serviceManager = new ServiceManager([
                 ],
                 UpdateRawResourcesCommand::class => [
                     ApiService::class,
-                    RawResourceRepository::class,
+                    ResourceRepository::class,
                     ConfigService::class,
                     UploadHelper::class,
                 ],
@@ -152,7 +148,6 @@ $serviceManager = new ServiceManager([
         EntityManager::class => EntityManagerFactory::class,
         Environment::class => TwigEnvironmentFactory::class,
         ResourceRepository::class => ResourceRepositoryFactory::class,
-        RawResourceRepository::class => RawResourceRepositoryFactory::class,
         ItemRepository::class => ItemRepositoryFactory::class,
         JournalRepository::class => JournalRepositoryFactory::class,
         DeleteDataRepository::class => DeleteDataRepositoryFactory::class,

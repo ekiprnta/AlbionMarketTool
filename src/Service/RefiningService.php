@@ -16,7 +16,6 @@ class RefiningService
 
     public function __construct(
         private ResourceRepository $resourceRepository,
-        private RawResourceRepository $rawRepository,
         private RefiningHelper $refiningHelper,
     ) {
     }
@@ -31,7 +30,7 @@ class RefiningService
         }
 
         $resources = $this->resourceRepository->getResourcesByBonusCity($itemCity);
-        $rawResources = $this->rawRepository->getRawResourcesByBonusCity($itemCity);
+        $rawResources = $this->resourceRepository->getRawResourcesByBonusCity($itemCity);
 
         $refiningArray = [];
         foreach ($resources as $resource) {

@@ -3,6 +3,7 @@
 namespace MZierdt\Albion\commands;
 
 use MZierdt\Albion\repositories\RawResourceRepository;
+use MZierdt\Albion\repositories\ResourceRepository;
 use MZierdt\Albion\Service\ApiService;
 use MZierdt\Albion\Service\ConfigService;
 use MZierdt\Albion\Service\ProgressBarService;
@@ -15,7 +16,7 @@ class UpdateRawResourcesCommand extends Command
 {
     public function __construct(
         private ApiService $apiService,
-        private RawResourceRepository $rawResourceRepository,
+        private ResourceRepository $resourceRepository,
         private ConfigService $configService,
         private UploadHelper $uploadHelper,
     ) {
@@ -47,7 +48,7 @@ class UpdateRawResourcesCommand extends Command
             $progressBar->setMessage('Upload raw ' . $rawResourceStat['realName'] . ' into Database');
             $progressBar->display();
             foreach ($adjustedRawResources as $adjustedRawResource) {
-                $this->rawResourceRepository->createOrUpdate($adjustedRawResource);
+                $this->resourceRepository->createOrUpdate($adjustedRawResource);
             }
         }
 

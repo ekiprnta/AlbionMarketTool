@@ -51,6 +51,16 @@ class ResourceRepository
         }
     }
 
+    public function getRawResourcesByBonusCity(string $city): array
+    {
+        return $this->findBy(['bonusCity' => $city, 'raw' => true]);
+    }
+
+    public function getRawResourcesByCity(string $city): array
+    {
+        return $this->findBy(['city' => $city, 'raw' => true]);
+    }
+
     public function getResourcesByCity(string $city): array
     {
         return $this->findBy(['city' => $city, 'raw' => false]) ?? [];
