@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Doctrine\ORM\EntityManager;
 use Laminas\ServiceManager\AbstractFactory\ConfigAbstractFactory;
 use Laminas\ServiceManager\ServiceManager;
 use MZierdt\Albion\commands\DeleteDataCommand;
@@ -10,6 +11,7 @@ use MZierdt\Albion\commands\UpdateJournalsCommand;
 use MZierdt\Albion\commands\UpdateRawResourcesCommand;
 use MZierdt\Albion\commands\UpdateResourcesCommand;
 use MZierdt\Albion\factories\DeleteDataRepositoryFactory;
+use MZierdt\Albion\factories\EntityManagerFactory;
 use MZierdt\Albion\factories\ItemRepositoryFactory;
 use MZierdt\Albion\factories\JournalRepositoryFactory;
 use MZierdt\Albion\factories\RawResourceRepositoryFactory;
@@ -147,6 +149,7 @@ $serviceManager = new ServiceManager([
     ],
     'abstract_factories' => [ConfigAbstractFactory::class],
     'factories' => [
+        EntityManager::class => EntityManagerFactory::class,
         Environment::class => TwigEnvironmentFactory::class,
         ResourceRepository::class => ResourceRepositoryFactory::class,
         RawResourceRepository::class => RawResourceRepositoryFactory::class,
