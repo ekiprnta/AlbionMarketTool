@@ -4,7 +4,12 @@ namespace MZierdt\Albion\Entity;
 
 use DateTimeImmutable;
 use DateTimeZone;
+use Doctrine\ORM\Mapping\Column;
+use Doctrine\ORM\Mapping\GeneratedValue;
+use Doctrine\ORM\Mapping\Id;
+use Doctrine\ORM\Mapping\MappedSuperclass;
 
+#[MappedSuperclass]
 class AlbionItemEntity
 {
     public const TIER_T2 = '20';
@@ -35,15 +40,30 @@ class AlbionItemEntity
     public const TIER_T8_3 = '83';
     public const TIER_T8_4 = '84';
 
+    #[Id,
+        Column(type: 'integer'),
+        GeneratedValue(strategy: 'AUTO')
+    ]
+    protected ?int $id = null;
+    #[Column(type: 'string')]
     protected string $tier;
+    #[Column(type: 'string')]
     protected string $name;
+    #[Column(type: 'string')]
     protected string $city;
+    #[Column(type: 'integer')]
     protected int $sellOrderPrice;
+    #[Column(type: 'integer')]
     protected int $sellOrderAge;
+    #[Column(type: 'integer')]
     protected int $buyOrderPrice;
+    #[Column(type: 'integer')]
     protected int $buyOrderAge;
+    #[Column(type: 'string')]
     protected string $realName;
+    #[Column(type: 'float')]
     protected float $weight;
+    #[Column(type: 'string', nullable: true)]
     protected ?string $class;
 
     public function __construct(array $resourceData)

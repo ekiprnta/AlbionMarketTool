@@ -4,6 +4,14 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\Entity;
 
+use Doctrine\ORM\Mapping\ChangeTrackingPolicy;
+use Doctrine\ORM\Mapping\Column;
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\Table;
+
+#[Entity]
+#[ChangeTrackingPolicy('DEFERRED_EXPLICIT')]
+#[Table(name: 'resources')]
 class ResourceEntity extends AlbionItemEntity
 {
     public const RESOURCE_METAL_BAR = 'metalBar';
@@ -11,7 +19,6 @@ class ResourceEntity extends AlbionItemEntity
     public const RESOURCE_CLOTH = 'cloth';
     public const RESOURCE_LEATHER = 'leather';
     public const RESOURCE_STONE_BLOCK = 'stoneBLock';
-
 
     private const T20_WEIGHT_FACTOR = 0.23;
     private const T30_WEIGHT_FACTOR = 0.34;
@@ -41,18 +48,19 @@ class ResourceEntity extends AlbionItemEntity
     private const T83_WEIGHT_FACTOR = 2.56;
     private const T84_WEIGHT_FACTOR = 2.56;
 
+    #[Column(type: 'string', nullable: true)]
     private ?string $bonusCity;
-    private ?int $amountInStorage;
-
+    #[Column(type: 'boolean')]
+    private bool $raw;
 
     public function __construct(
         array $resourceData,
-        private readonly bool $raw = false
+        bool $raw = false
     ) {
         parent::__construct($resourceData);
 
+        $this->raw = $raw;
         $this->bonusCity = $resourceData['bonusCity'];
-        $this->amountInStorage = (int) $resourceData['amountInStorage'];
         $this->weight = $this->setWeight($resourceData['tier']);
     }
 
@@ -64,11 +72,6 @@ class ResourceEntity extends AlbionItemEntity
     public function getBonusCity(): mixed
     {
         return $this->bonusCity;
-    }
-
-    public function getAmountInStorage(): ?int
-    {
-        return $this->amountInStorage;
     }
 
     private function setWeight(string $tier): float
