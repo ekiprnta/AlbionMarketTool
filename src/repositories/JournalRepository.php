@@ -4,31 +4,10 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\repositories;
 
-use Doctrine\ORM\EntityManager;
 use MZierdt\Albion\Entity\JournalEntity;
 
-class JournalRepository
+class JournalRepository extends Repository
 {
-    public function __construct(private readonly EntityManager $entityManager
-    ) {
-    }
-
-    public function update(JournalEntity $resourceEntity): void
-    {
-        $this->entityManager->persist($resourceEntity);
-        $this->entityManager->flush($resourceEntity);
-    }
-
-    public function findBy(array $params, array $sort = []): ?array
-    {
-        return $this->entityManager->getRepository(JournalEntity::class)->findBy($params, $sort);
-    }
-
-    public function delete(JournalEntity $resourceEntity): void
-    {
-        $this->entityManager->remove($resourceEntity);
-        $this->entityManager->flush($resourceEntity);
-    }
 
     public function createOrUpdate(JournalEntity $journalEntity): void
     {
@@ -52,6 +31,6 @@ class JournalRepository
 
     public function getJournalsFromCity(string $city): array
     {
-        return $this->findBy(['city' => $city]) ?? [];
+        return $this->findBy(JournalEntity::class, ['city' => $city]) ?? [];
     }
 }

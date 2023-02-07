@@ -4,38 +4,10 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\repositories;
 
-use Doctrine\ORM\EntityManager;
 use MZierdt\Albion\Entity\ItemEntity;
 
-class ItemRepository
+class ItemRepository extends Repository
 {
-    public function __construct(
-        private readonly EntityManager $entityManager
-    ) {
-    }
-
-    public function update(ItemEntity $resourceEntity): void
-    {
-        $this->entityManager->persist($resourceEntity);
-        $this->entityManager->flush($resourceEntity);
-    }
-
-    public function findBy(array $params, array $sort = []): ?array
-    {
-        return $this->entityManager->getRepository(ItemEntity::class)->findBy($params, $sort);
-    }
-
-    public function delete(ItemEntity $resourceEntity): void
-    {
-        $this->entityManager->remove($resourceEntity);
-        $this->entityManager->flush($resourceEntity);
-    }
-
-    public function getItemsByLocation(string $city): array
-    {
-        return $this->findBy(['city' => $city]) ?? [];
-    }
-
     public function createOrUpdate(ItemEntity $itemEntity): void
     {
         $oldItemEntity = $this->entityManager->getRepository(ItemEntity::class)->findOneBy(
@@ -57,8 +29,13 @@ class ItemRepository
         }
     }
 
+    public function getItemsByLocation(string $city): array
+    {
+        return $this->findBy(ItemEntity::class, ['city' => $city]) ?? [];
+    }
+
     public function getBlackMarketItemsFromCity(string $city): array
     {
-        return $this->findBy(['bonusCity' => $city, 'city' => 'Black Market']) ?? [];
+        return $this->findBy(ItemEntity::class, ['bonusCity' => $city, 'city' => 'Black Market']) ?? [];
     }
 }
