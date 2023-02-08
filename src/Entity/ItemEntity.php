@@ -126,7 +126,6 @@ class ItemEntity extends AlbionItemEntity
     {
         parent::__construct($itemResourceData);
 
-        $this->weight = $this->setWeight($itemResourceData);
         $this->weaponGroup = $itemResourceData['weaponGroup'];
         $this->quality = (int) $itemResourceData['quality'];
 
@@ -218,42 +217,6 @@ class ItemEntity extends AlbionItemEntity
     public function getBonusCity(): string
     {
         return $this->bonusCity;
-    }
-
-    private function setWeight(array $itemData): float
-    {
-        $weightFactor = match ((int) $itemData['tier']) {
-            self::TIER_T2 => self::T20_WEIGHT_FACTOR,
-            self::TIER_T3 => self::T30_WEIGHT_FACTOR,
-            self::TIER_T4 => self::T40_WEIGHT_FACTOR,
-            self::TIER_T4_1 => self::T41_WEIGHT_FACTOR,
-            self::TIER_T4_2 => self::T42_WEIGHT_FACTOR,
-            self::TIER_T4_3 => self::T43_WEIGHT_FACTOR,
-            self::TIER_T4_4 => self::T44_WEIGHT_FACTOR,
-            self::TIER_T5 => self::T50_WEIGHT_FACTOR,
-            self::TIER_T5_1 => self::T51_WEIGHT_FACTOR,
-            self::TIER_T5_2 => self::T52_WEIGHT_FACTOR,
-            self::TIER_T5_3 => self::T53_WEIGHT_FACTOR,
-            self::TIER_T5_4 => self::T54_WEIGHT_FACTOR,
-            self::TIER_T6 => self::T60_WEIGHT_FACTOR,
-            self::TIER_T6_1 => self::T61_WEIGHT_FACTOR,
-            self::TIER_T6_2 => self::T62_WEIGHT_FACTOR,
-            self::TIER_T6_3 => self::T63_WEIGHT_FACTOR,
-            self::TIER_T6_4 => self::T64_WEIGHT_FACTOR,
-            self::TIER_T7 => self::T70_WEIGHT_FACTOR,
-            self::TIER_T7_1 => self::T71_WEIGHT_FACTOR,
-            self::TIER_T7_2 => self::T72_WEIGHT_FACTOR,
-            self::TIER_T7_3 => self::T73_WEIGHT_FACTOR,
-            self::TIER_T7_4 => self::T74_WEIGHT_FACTOR,
-            self::TIER_T8 => self::T80_WEIGHT_FACTOR,
-            self::TIER_T8_1 => self::T81_WEIGHT_FACTOR,
-            self::TIER_T8_2 => self::T82_WEIGHT_FACTOR,
-            self::TIER_T8_3 => self::T83_WEIGHT_FACTOR,
-            self::TIER_T8_4 => self::T84_WEIGHT_FACTOR,
-            default => throw new \InvalidArgumentException('wrong tier in Item Entity')
-        };
-
-        return ($itemData['primaryResourceAmount'] + $itemData['secondaryResourceAmount']) * $weightFactor;
     }
 
     private function getNutritionFactor(): int
