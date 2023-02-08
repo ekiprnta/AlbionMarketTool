@@ -56,7 +56,7 @@ class AlbionItemEntity
     #[Column(type: 'string', nullable: true)]
     protected ?string $realName = null;
     #[Column(type: 'string', nullable: true)]
-    protected ?string $class;
+    protected ?string $class = null;
 
     public function setTier(int $tier): self
     {
@@ -94,9 +94,9 @@ class AlbionItemEntity
         return $this;
     }
 
-    public function setSellOrderAge(string $dateString): self
+    public function setSellOrderAge(int $age): self
     {
-        $this->sellOrderAge = $this->calculateAge($dateString);
+        $this->sellOrderAge = $age;
         return $this;
     }
 
@@ -106,9 +106,21 @@ class AlbionItemEntity
         return $this;
     }
 
-    public function setBuyOrderAge(string $dateString): self
+    public function setBuyOrderAge(int $age): self
+    {
+        $this->buyOrderAge = $age;
+        return $this;
+    }
+
+    public function calculateBuyOrderAge(string $dateString): self
     {
         $this->buyOrderAge = $this->calculateAge($dateString);
+        return $this;
+    }
+
+    public function calculateSellOrderAge(string $dateString): self
+    {
+        $this->sellOrderAge = $this->calculateAge($dateString);
         return $this;
     }
 

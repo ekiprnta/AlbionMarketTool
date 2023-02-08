@@ -42,19 +42,19 @@ class UploadHelper
             $nameAndTier = $this->tierService->splitIntoTierAndName($journal['item_id']);
             $stats = $journalStats[$nameAndTier['tier']];
             $split = $this->tierService->journalSplitter($nameAndTier['name']);
-            $adjustedJournalsArray[] = new JournalEntity([
-                'tier' => $nameAndTier['tier'],
-                'name' => $nameAndTier['name'],
-                'city' => $journal['city'],
-                'fameToFill' => $stats['fameToFill'],
-                'sellOrderPrice' => $journal['sell_price_min'],
-                'sellOrderPriceDate' => $journal['sell_price_min_date'],
-                'buyOrderPrice' => $journal['buy_price_max'],
-                'buyOrderPriceDate' => $journal['buy_price_max_date'],
-                'weight' => $stats['weight'],
-                'fillStatus' => $split['fillStatus'],
-                'class' => $split['class'],
-            ]);
+            $journalEntity = (new JournalEntity())
+                ->setTier((int) $nameAndTier['tier'])
+                ->setName($nameAndTier['name'])
+                ->setCity($journal['city'])
+                ->calculateSellOrderAge($journal['sell_price_min_date'])
+                ->setSellOrderPrice($journal['sell_price_min'])
+                ->calculateBuyOrderAge($journal['buy_price_max_date'])
+                ->setBuyOrderPrice($journal['buy_price_max'])
+                ->setClass($split['class'])
+                ->setRealName($split['class'])
+                ->setFameToFill($stats['fameToFill'])
+                ->setFillStatus($split['fillStatus']);
+            $adjustedJournalsArray[] = $journalEntity;
         }
         return $adjustedJournalsArray;
     }

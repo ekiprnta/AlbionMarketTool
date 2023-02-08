@@ -19,7 +19,7 @@ class JournalRepository extends Repository
         );
         if ($oldJournalEntity !== null) {
             $oldJournalEntity->setSellOrderPrice($journalEntity->getSellOrderPrice());
-            $oldJournalEntity->setBuyOrderAge($journalEntity->getBuyOrderPrice());
+            $oldJournalEntity->setBuyOrderPrice($journalEntity->getBuyOrderPrice());
             $oldJournalEntity->setSellOrderAge($journalEntity->getSellOrderAge());
             $oldJournalEntity->setBuyOrderAge($journalEntity->getBuyOrderAge());
             $this->update($oldJournalEntity);
