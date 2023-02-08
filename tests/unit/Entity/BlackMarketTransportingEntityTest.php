@@ -16,27 +16,20 @@ class BlackMarketTransportingEntityTest extends TestCase
     protected function setUp(): void
     {
         $this->bmtEntity = new BlackMarketTransportEntity(
-            new ItemEntity([
-                'tier' => '41',
-                'name' => 'ABC',
-                'weaponGroup' => '123',
-                'realName' => 'test',
-                'class' => 'mage',
-                'city' => 'city',
-                'quality' => '2',
-                'sellOrderPrice' => 5,
-                'sellOrderPriceDate' => '2022-12-09 09:36:15',
-                'buyOrderPrice' => 10,
-                'buyOrderPriceDate' => '2022-12-09 09:36:15',
-                'primaryResource' => 'planks',
-                'primaryResourceAmount' => '20',
-                'secondaryResource' => 'cloth',
-                'secondaryResourceAmount' => '12',
-                'bonusCity' => 'Fort Sterling',
-                'fameFactor' => null,
-                'amountInStorage' => null,
-            ]),
-            10
+            (new ItemEntity())
+                ->setTier(71)
+                ->setName('3h_axe')
+                ->setCity('BlackMarket')
+                ->setSellOrderPrice(441992)
+                ->setBuyOrderPrice(168594)
+                ->setWeaponGroup('axe')
+                ->setRealName('greatAxe')
+                ->setPrimaryResource('metalBar')
+                ->setPrimaryResourceAmount(20)
+                ->setSecondaryResource('planks')
+                ->setSecondaryResourceAmount(12)
+                ->refreshFame()
+                ->refreshItemValue(),
         );
     }
 
@@ -72,7 +65,7 @@ class BlackMarketTransportingEntityTest extends TestCase
 
     public function testTierColor(): void
     {
-        $this->assertEquals('4', $this->bmtEntity->getTierColor());
+        $this->assertEquals('7', $this->bmtEntity->getTierColor());
     }
 
     public function testTotalCost(): void
