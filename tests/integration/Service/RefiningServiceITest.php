@@ -4,7 +4,6 @@ namespace integration\Service;
 
 use MZierdt\Albion\Entity\RefiningEntity;
 use MZierdt\Albion\Entity\ResourceEntity;
-use MZierdt\Albion\repositories\RawResourceRepository;
 use MZierdt\Albion\repositories\ResourceRepository;
 use MZierdt\Albion\Service\RefiningHelper;
 use MZierdt\Albion\Service\RefiningService;
@@ -26,10 +25,7 @@ class RefiningServiceITest extends TestCase
         $resourceRepo->getRawResourcesByBonusCity('TestCity')
             ->willReturn($this->getRawResources());
 
-        $refiningService = new RefiningService(
-            $resourceRepo->reveal(),
-            new RefiningHelper()
-        );
+        $refiningService = new RefiningService($resourceRepo->reveal(), new RefiningHelper());
 
         $delta = 0.00001;
         $testData = $refiningService->getRefiningForCity('TestCity', 500);
@@ -56,10 +52,7 @@ class RefiningServiceITest extends TestCase
         $resourceRepo->getRawResourcesByBonusCity('TestCity')
             ->willReturn($this->getRawResources());
 
-        $refiningService = new RefiningService(
-            $resourceRepo->reveal(),
-            new RefiningHelper()
-        );
+        $refiningService = new RefiningService($resourceRepo->reveal(), new RefiningHelper());
 
         $delta = 0.00001;
         $testData = $refiningService->getRefiningForCity('TestCity', 0);

@@ -10,7 +10,6 @@ class Repository
 {
     public function __construct(
         protected readonly EntityManager $entityManager
-
     ) {
     }
 
@@ -22,7 +21,8 @@ class Repository
 
     public function findBy(string $class, array $params, array $sort = []): ?array
     {
-        return $this->entityManager->getRepository($class)->findBy($params, $sort);
+        return $this->entityManager->getRepository($class)
+            ->findBy($params, $sort);
     }
 
     public function delete(mixed $entity): void

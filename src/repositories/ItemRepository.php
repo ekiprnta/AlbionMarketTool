@@ -15,7 +15,7 @@ class ItemRepository extends Repository
                 'weaponGroup' => $itemEntity->getWeaponGroup(),
                 'tier' => $itemEntity->getTier(),
                 'name' => $itemEntity->getName(),
-                'city' => $itemEntity->getCity()
+                'city' => $itemEntity->getCity(),
             ]
         );
         if ($oldItemEntity !== null) {

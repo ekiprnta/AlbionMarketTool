@@ -6,7 +6,6 @@ namespace unit\Service;
 
 use MZierdt\Albion\Entity\ListDataEntity;
 use MZierdt\Albion\Entity\ResourceEntity;
-use MZierdt\Albion\repositories\RawResourceRepository;
 use MZierdt\Albion\repositories\ResourceRepository;
 use MZierdt\Albion\Service\ListDataHelper;
 use MZierdt\Albion\Service\ListDataService;
@@ -102,9 +101,6 @@ class ListDataServiceTest extends TestCase
     protected function setUp(): void
     {
         $this->resourceRepository = $this->prophesize(ResourceRepository::class);
-        $this->listDataService = new ListDataService(
-            $this->resourceRepository->reveal(),
-            new ListDataHelper(),
-        );
+        $this->listDataService = new ListDataService($this->resourceRepository->reveal(), new ListDataHelper(),);
     }
 }

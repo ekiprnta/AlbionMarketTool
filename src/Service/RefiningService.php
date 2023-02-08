@@ -4,7 +4,6 @@ namespace MZierdt\Albion\Service;
 
 use InvalidArgumentException;
 use MZierdt\Albion\Entity\RefiningEntity;
-use MZierdt\Albion\repositories\RawResourceRepository;
 use MZierdt\Albion\repositories\ResourceRepository;
 
 class RefiningService

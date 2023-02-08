@@ -4,7 +4,6 @@ namespace integration\Service;
 
 use MZierdt\Albion\Entity\ResourceEntity;
 use MZierdt\Albion\Entity\TransmutationEntity;
-use MZierdt\Albion\repositories\RawResourceRepository;
 use MZierdt\Albion\repositories\ResourceRepository;
 use MZierdt\Albion\Service\ConfigService;
 use MZierdt\Albion\Service\GlobalDiscountService;

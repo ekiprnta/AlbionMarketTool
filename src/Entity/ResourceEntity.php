@@ -54,10 +54,8 @@ class ResourceEntity extends AlbionItemEntity
     #[Id, Column(type: 'boolean')]
     private bool $raw;
 
-    public function __construct(
-        array $resourceData,
-        bool $raw = false
-    ) {
+    public function __construct(array $resourceData, bool $raw = false)
+    {
         parent::__construct($resourceData);
 
         $this->raw = $raw;

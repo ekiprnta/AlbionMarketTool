@@ -8,14 +8,13 @@ use MZierdt\Albion\Entity\JournalEntity;
 
 class JournalRepository extends Repository
 {
-
     public function createOrUpdate(JournalEntity $journalEntity): void
     {
         $oldJournalEntity = $this->entityManager->getRepository(JournalEntity::class)->findOneBy(
             [
                 'tier' => $journalEntity->getTier(),
                 'name' => $journalEntity->getName(),
-                'city' => $journalEntity->getCity()
+                'city' => $journalEntity->getCity(),
             ]
         );
         if ($oldJournalEntity !== null) {

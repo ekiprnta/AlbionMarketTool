@@ -12,10 +12,7 @@ class EntityManagerFactory
 {
     public function __invoke(): EntityManager
     {
-        $config = ORMSetup::createAttributeMetadataConfiguration(
-            paths: [__DIR__ . '/../../src'],
-            isDevMode: true
-        );
+        $config = ORMSetup::createAttributeMetadataConfiguration(paths: [__DIR__ . '/../../src'], isDevMode: true);
 
         $connectionParams = [
             'dbname' => 'albion_db',
@@ -23,11 +20,11 @@ class EntityManagerFactory
             'password' => 'qwert',
             'host' => 'db_local',
             'port' => '3306',
-            'driver' => 'pdo_mysql'
+            'driver' => 'pdo_mysql',
         ];
 
         $connection = DriverManager::getConnection($connectionParams);
 
-        return new  EntityManager($connection, $config);
+        return new EntityManager($connection, $config);
     }
 }

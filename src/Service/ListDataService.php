@@ -3,7 +3,6 @@
 namespace MZierdt\Albion\Service;
 
 use MZierdt\Albion\Entity\ListDataEntity;
-use MZierdt\Albion\repositories\RawResourceRepository;
 use MZierdt\Albion\repositories\ResourceRepository;
 
 class ListDataService
