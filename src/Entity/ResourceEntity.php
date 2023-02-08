@@ -54,14 +54,16 @@ class ResourceEntity extends AlbionItemEntity
     #[Id, Column(type: 'boolean')]
     private bool $raw = false;
 
-    public function setBonusCity(?string $bonusCity): void
+    public function setBonusCity(?string $bonusCity): self
     {
         $this->bonusCity = $bonusCity;
+        return $this;
     }
 
-    public function setRaw(bool $raw): void
+    public function setRaw(bool $raw): self
     {
         $this->raw = $raw;
+        return $this;
     }
 
     public function isRaw(): bool

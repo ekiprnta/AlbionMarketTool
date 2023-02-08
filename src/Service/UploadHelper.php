@@ -20,17 +20,30 @@ class UploadHelper
         foreach ($resourceData as $resource) {
             $nameAndTier = $this->tierService->splitIntoTierAndName($resource['item_id']);
             $name = $this->getResourceName($nameAndTier['name']);
-            $adjustedResourceArray[] = new ResourceEntity([
-                'tier' => $nameAndTier['tier'],
-                'name' => $name,
-                'city' => $resource['city'],
-                'realName' => $resourceStats['realName'],
-                'sellOrderPrice' => $resource['sell_price_min'],
-                'sellOrderPriceDate' => $resource['sell_price_min_date'],
-                'buyOrderPrice' => $resource['buy_price_max'],
-                'buyOrderPriceDate' => $resource['buy_price_max_date'],
-                'bonusCity' => $resourceStats['bonusCity'],
-            ], $raw);
+            $resourceEntity = (new ResourceEntity())
+                ->setTier((int) $nameAndTier['tier'])
+                ->setName($name)
+                ->setCity($resource['city'])
+                ->calculateSellOrderAge($resource['sell_price_min_date'])
+                ->setSellOrderPrice($resource['sell_price_min'])
+                ->calculateBuyOrderAge($resource['buy_price_max_date'])
+                ->setBuyOrderPrice($resource['buy_price_max'])
+                ->setClass($resourceStats['realName'])
+                ->setRealName($resourceStats['realName'])
+                ->setBonusCity($resourceStats['bonusCity'])
+                ->setRaw($raw);
+
+//                'tier' => $nameAndTier['tier'],
+//                'name' => $name,
+//                'city' => $resource['city'],
+//                'realName' => $resourceStats['realName'],
+//                'sellOrderPrice' => $resource['sell_price_min'],
+//                'sellOrderPriceDate' => $resource['sell_price_min_date'],
+//                'buyOrderPrice' => $resource['buy_price_max'],
+//                'buyOrderPriceDate' => $resource['buy_price_max_date'],
+//                'bonusCity' => $resourceStats['bonusCity'],
+//            ], $raw);
+            $adjustedResourceArray[] = $resourceEntity;
         }
         return $adjustedResourceArray;
     }
