@@ -37,7 +37,7 @@ class ResourceRepository extends Repository
         return $this->findBy(ResourceEntity::class, [
             'bonusCity' => $city,
             'raw' => true,
-            'city' => $city
+            'city' => $city,
         ]) ?? [];
     }
 
@@ -62,7 +62,7 @@ class ResourceRepository extends Repository
         return $this->findBy(ResourceEntity::class, [
             'bonusCity' => $city,
             'raw' => false,
-            'city' => $city
+            'city' => $city,
         ]) ?? [];
     }
 }
