@@ -24,14 +24,12 @@ class BlackMarketCraftingHandler
         if (! empty($_GET)) {
             $itemCity = $_GET['itemCity'];
             $resourceCity = $_GET['resourceCity'];
-            $weight = (int) $_GET['weight'];
             $rrr = (float) $_GET['rrr'];
             $feeProHundredNutrition = (int) $_GET['craftingFee'];
             $order = $_GET['order'];
             try {
                 $cityData = $this->blackMarketCraftingService->getDataForCity(
                     $itemCity,
-                    $weight,
                     $rrr,
                     $feeProHundredNutrition,
                     $resourceCity,
