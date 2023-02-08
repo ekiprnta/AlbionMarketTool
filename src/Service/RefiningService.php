@@ -28,13 +28,12 @@ class RefiningService
         if (empty($percentage)) {
             $percentage = self::RRR_BONUS_CITY_FOCUS;
         }
-
         $resources = $this->resourceRepository->getResourcesByBonusCity($itemCity);
         $rawResources = $this->resourceRepository->getRawResourcesByBonusCity($itemCity);
 
         $refiningArray = [];
         foreach ($resources as $resource) {
-            if ($resource->getTier() !== '20') {
+            if ($resource->getTier() !== 20) {
                 $refiningArray[] = new RefiningEntity($resource);
             }
         }

@@ -20,11 +20,12 @@ class BlackMarketCraftingHelper extends Market
     }
 
 
-    public function calculateJournal(string $tier, string $fillStatus, array $journals): ?JournalEntity
+    public function calculateJournal(int $tier, string $fillStatus, array $journals): ?JournalEntity
     {
+        $baseTier = (int) ($tier / 10);
         /** @var JournalEntity $journal */
         foreach ($journals as $journal) {
-            if (($tier[0] === $journal->getTier()[0]) && $journal->getFillStatus() === $fillStatus) {
+            if (($baseTier === $journal->getTier()) && $journal->getFillStatus() === $fillStatus) {
                 return $journal;
             }
         }

@@ -14,14 +14,14 @@ class BlackMarketTransportEntity
     private float $weightProfitQuotient;
     private string $profitGrade;
 
-    private string $tierColor;
+    private int $tierColor;
     private float $totalCost;
     private float $profitPercentage;
 
     public function __construct(
         private readonly ItemEntity $bmItem,
     ) {
-        $this->tierColor = $bmItem->getTier()[0];
+        $this->tierColor = (int) ($bmItem->getTier() / 10);
     }
 
     public function getTotalCost(): float
@@ -59,7 +59,7 @@ class BlackMarketTransportEntity
         return $this->bmItem;
     }
 
-    public function getTierColor(): string
+    public function getTierColor(): int
     {
         return $this->tierColor;
     }

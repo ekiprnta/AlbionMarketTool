@@ -15,14 +15,14 @@ class ListDataEntity
     private string $cheapestObjectCityBuyOrder;
     private string $mostExpensiveObjectCityBuyOrder;
 
-    private string $tierColor;
+    private int $tierColor;
 
     public function __construct(private readonly ResourceEntity $fortsterlingObject)
     {
-        $this->tierColor = $this->fortsterlingObject->getTier()[0];
+        $this->tierColor = (int) ($this->fortsterlingObject->getTier() / 10);
     }
 
-    public function getTierColor(): string
+    public function getTierColor(): int
     {
         return $this->tierColor;
     }

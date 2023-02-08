@@ -17,7 +17,7 @@ class RefiningHelper extends Market
         };
     }
 
-    public function calculateResource(string $tier, array $rawResources): ResourceEntity
+    public function calculateResource(int $tier, array $rawResources): ResourceEntity
     {
         /** @var ResourceEntity $rawResource */
         foreach ($rawResources as $rawResource) {
@@ -25,7 +25,7 @@ class RefiningHelper extends Market
                 return $rawResource;
             }
         }
-        throw new \InvalidArgumentException('No Resource found for ' . $tier);
+        throw new \InvalidArgumentException('No Resource found for Tier: ' . $tier . ' in RefiningHelper.php');
     }
 
     public function calculateLowerResourceTier(string $tier): string

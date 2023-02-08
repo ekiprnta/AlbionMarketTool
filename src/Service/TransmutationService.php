@@ -70,8 +70,8 @@ class TransmutationService
                 )
             );
             $transEntity->setProfitGrade($this->transmutationHelper->calculateProfitGrade($transEntity->getProfit()));
-            $transEntity->setStartTierColor($transEntity->getStartResource()->getTier()[0]);
-            $transEntity->setEndTierColor($transEntity->getEndResource()->getTier()[0]);
+            $transEntity->setStartTierColor((int) ($transEntity->getStartResource()->getTier() / 10));
+            $transEntity->setEndTierColor((int) ($transEntity->getEndResource()->getTier() / 10));
         }
 
         return $transmutationEntityList;

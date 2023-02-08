@@ -38,15 +38,15 @@ class ListDataServiceTest extends TestCase
             ]),
         ];
 
-        $this->rawResourceRepository->getRawResourcesByCity('Fort Sterling')
+        $this->resourceRepository->getRawResourcesByCity('Fort Sterling')
             ->willReturn($resources);
-        $this->rawResourceRepository->getRawResourcesByCity('Lymhurst')
+        $this->resourceRepository->getRawResourcesByCity('Lymhurst')
             ->willReturn($resources);
-        $this->rawResourceRepository->getRawResourcesByCity('Bridgewatch')
+        $this->resourceRepository->getRawResourcesByCity('Bridgewatch')
             ->willReturn($resources);
-        $this->rawResourceRepository->getRawResourcesByCity('Martlock')
+        $this->resourceRepository->getRawResourcesByCity('Martlock')
             ->willReturn($resources);
-        $this->rawResourceRepository->getRawResourcesByCity('Thetford')
+        $this->resourceRepository->getRawResourcesByCity('Thetford')
             ->willReturn($resources);
 
         $rawResources = $this->listDataService->getAllRawResources();

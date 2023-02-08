@@ -63,7 +63,7 @@ class AlbionItemEntity
     public function __construct(array $resourceData)
     {
 //        if (!$resourceData['buyOrderPriceDate']|| !$resourceData['sellOrderPriceDate']) {dump($resourceData);}
-        $this->tier = $resourceData['tier'];
+        $this->tier = (int) $resourceData['tier'];
         $this->name = $resourceData['name'];
         $this->city = $resourceData['city'];
         $this->sellOrderPrice = $resourceData['sellOrderPrice'] ?? 0;

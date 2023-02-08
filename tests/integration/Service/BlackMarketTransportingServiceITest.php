@@ -33,7 +33,7 @@ class BlackMarketTransportingServiceITest extends TestCase
         );
 
         $delta = 0.00000001;
-        $testData = $bmtService->getDataForCity('TestCity', ['71']);
+        $testData = $bmtService->getDataForCity('TestCity', [71]);
 
         /** @var BlackMarketTransportEntity $bmtEntity */
         foreach ($testData as $bmtEntity) {
@@ -42,7 +42,7 @@ class BlackMarketTransportingServiceITest extends TestCase
             $this->assertEqualsWithDelta(171270.52, $bmtEntity->getSingleProfit(), $delta);
             $this->assertEqualsWithDelta(171270.52, $bmtEntity->getWeightProfitQuotient(), $delta);
             $this->assertEquals('S', $bmtEntity->getProfitGrade());
-            $this->assertEquals('7', $bmtEntity->getTierColor());
+            $this->assertEquals(7, $bmtEntity->getTierColor());
             $this->assertEquals(4839840.0, $bmtEntity->getTotalCost());
             $this->assertEquals(182.6466054803238, $bmtEntity->getProfitPercentage());
 

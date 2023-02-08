@@ -36,7 +36,7 @@ class RefiningServiceITest extends TestCase
 
         /** @var RefiningEntity $refiningEntity */
         foreach ($testData as $refiningEntity) {
-            $this->assertEquals('3', $refiningEntity->getTierColor());
+            $this->assertEquals(3, $refiningEntity->getTierColor());
             $this->assertEquals(2, $refiningEntity->getAmountRawResource());
             $this->assertEquals(80204.91, $refiningEntity->getSingleProfit());
             $this->assertEquals(968, $refiningEntity->getAmount());
@@ -66,7 +66,7 @@ class RefiningServiceITest extends TestCase
 
         /** @var RefiningEntity $refiningEntity */
         foreach ($testData as $refiningEntity) {
-            $this->assertEquals('3', $refiningEntity->getTierColor());
+            $this->assertEquals(3, $refiningEntity->getTierColor());
             $this->assertEquals(2, $refiningEntity->getAmountRawResource());
             $this->assertEqualsWithDelta(5340.408, $refiningEntity->getSingleProfit(), $delta);
             $this->assertEquals(968, $refiningEntity->getAmount());

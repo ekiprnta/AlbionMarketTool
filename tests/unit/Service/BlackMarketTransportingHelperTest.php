@@ -28,9 +28,9 @@ class BlackMarketTransportingHelperTest extends TestCase
      * @dataProvider getNameAndTierData
      */
     public function testCalculateCityItemException(
-        string $cityTier,
+        int $cityTier,
         string $cityItem,
-        string $bmTier,
+        int $bmTier,
         string $bmItem,
     ): void {
         $this->expectException(\RuntimeException::class);
@@ -48,17 +48,17 @@ class BlackMarketTransportingHelperTest extends TestCase
 
     public function getNameAndTierData(): array
     {
-        return [['b', 'b', 'a', 'a'], ['a', 'b', 'c', 'd'], ['a', 'b', 'a', 'c'], ['a', 'b', 'c', 'b']];
+        return [[1, 'b', 2, 'a'], [1, 'b', 3, 'd'], [1, 'b', 1, 'c'], [1, 'b', 3, 'b']];
     }
 
     public function testCalculateCityItem(): void
     {
         $this->cityItem->getTier()
-            ->willReturn('a');
+            ->willReturn(1);
         $this->cityItem->getName()
             ->willReturn('b');
         $this->bmItem->getTier()
-            ->willReturn('a');
+            ->willReturn(1);
         $this->bmItem->getName()
             ->willReturn('b');
 

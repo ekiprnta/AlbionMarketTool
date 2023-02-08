@@ -60,7 +60,7 @@ class BlackMarketCraftingServiceITest extends TestCase
 
             $this->assertEquals('S', $bmcEntity[0]->getColorGrade());
             $this->assertEqualsWithDelta(495360.0, $bmcEntity[0]->getFameAmount(), $delta);
-            $this->assertEquals('7', $bmcEntity[0]->getTierColor());
+            $this->assertEquals(7, $bmcEntity[0]->getTierColor());
             $this->assertEquals(3_535_936, $bmcEntity[0]->getItemValue());
 
             $this->assertEquals('3h_axe', $bmcEntity[0]->getItem()->getName());
@@ -113,7 +113,7 @@ class BlackMarketCraftingServiceITest extends TestCase
 
             $this->assertEquals('S', $bmcEntity[0]->getColorGrade());
             $this->assertEqualsWithDelta(495360.0, $bmcEntity[0]->getFameAmount(), $delta);
-            $this->assertEquals('7', $bmcEntity[0]->getTierColor());
+            $this->assertEquals(7, $bmcEntity[0]->getTierColor());
             $this->assertEquals(3_535_936, $bmcEntity[0]->getItemValue());
 
             $this->assertEquals('3h_axe', $bmcEntity[0]->getItem()->getName());

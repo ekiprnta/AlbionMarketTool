@@ -74,7 +74,7 @@ class BlackMarketCraftingHelperTest extends TestCase
         string $entityFillStatus,
         string $entityTier,
         string $fillStatus,
-        string $tier
+        int $tier
     ): void {
         /** @var JournalEntity|ObjectProphecy $expectedJournalEntity */
         $expectedJournalEntity = $this->prophesize(JournalEntity::class);
@@ -101,7 +101,7 @@ class BlackMarketCraftingHelperTest extends TestCase
         string $entityFillStatus,
         string $entityTier,
         string $fillStatus,
-        string $tier
+        int $tier
     ): void {
         /** @var JournalEntity|ObjectProphecy $expectedJournalEntity */
         $expectedJournalEntity = $this->prophesize(JournalEntity::class);
