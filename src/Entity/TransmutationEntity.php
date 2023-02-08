@@ -59,7 +59,7 @@ class TransmutationEntity
         return $this->transmutationPath;
     }
 
-    public function getEndTierColor(): string
+    public function getEndTierColor(): int
     {
         return $this->endTierColor;
     }
@@ -79,7 +79,7 @@ class TransmutationEntity
         $this->profitGrade = $profitGrade;
     }
 
-    public function getStartTierColor(): string
+    public function getStartTierColor(): int
     {
         return $this->startTierColor;
     }
