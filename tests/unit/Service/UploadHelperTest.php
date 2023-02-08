@@ -19,15 +19,21 @@ class UploadHelperTest extends TestCase
     private ObjectProphecy|TierService $tierService;
     private UploadHelper $uploadHelper;
 
-    /** @dataProvider provideResources */
-    public function testAdjustResources(
-        array $result,
-        array $resourceData,
-    ): void {
-        $resourceStats = ['realName' => 'metalBar', 'bonusCity' => 'Thetford'];
+    /**
+     * @dataProvider provideResources
+     */
+    public function testAdjustResources(array $result, array $resourceData): void
+    {
+        $resourceStats = [
+            'realName' => 'metalBar',
+            'bonusCity' => 'Thetford',
+        ];
 
         $this->tierService->splitIntoTierAndName(Argument::any())->willReturn(
-            ['tier' => '71', 'name' => 'METALBAR_LEVEL1']
+            [
+                'tier' => '71',
+                'name' => 'METALBAR_LEVEL1',
+            ]
         );
 
         $this->assertEquals($result, $this->uploadHelper->adjustResources([$resourceData], $resourceStats));
@@ -55,25 +61,24 @@ class UploadHelperTest extends TestCase
             'buy_price_max_date' => '2000-00-00T12:00:00',
             'buy_price_max' => 12235,
         ];
-        return [
-            [[$resourceA], $resourceData],
-        ];
+        return [[[$resourceA], $resourceData]];
     }
 
-    /** @dataProvider provideJournals */
-    public function testAdjustJournals(
-        array $result,
-        array $journalData,
-    ): void {
+    /**
+     * @dataProvider provideJournals
+     */
+    public function testAdjustJournals(array $result, array $journalData): void
+    {
         $journalStats = [
             '70' => ['fameToFill' => 28380],
-            '40' => ['fameToFill' => 50]
+            '40' => ['fameToFill' => 50],
         ];
 
         $this->tierService->splitIntoTierAndName(Argument::any())->willReturn(
             ['tier' => '70', 'name' => 'journal_warrior_empty']
         );
-        $this->tierService->journalSplitter(Argument::any())->willReturn(['class' => 'warrior', 'fillStatus' => 'empty']
+        $this->tierService->journalSplitter(Argument::any())->willReturn(
+            ['class' => 'warrior', 'fillStatus' => 'empty']
         );
 
         $this->assertEquals($result, $this->uploadHelper->adjustJournals([$journalData], $journalStats));
@@ -102,16 +107,14 @@ class UploadHelperTest extends TestCase
             'buy_price_max_date' => '2000-00-00T12:00:00',
             'buy_price_max' => 9005,
         ];
-        return [
-            [[$journalA], $journalData],
-        ];
+        return [[[$journalA], $journalData]];
     }
 
-    /** @dataProvider provideItems */
-    public function testAdjustItems(
-        array $result,
-        array $itemData,
-    ): void {
+    /**
+     * @dataProvider provideItems
+     */
+    public function testAdjustItems(array $result, array $itemData): void
+    {
         $itemStats = [
             'class' => 'warrior',
             'weaponGroup' => 'axe',
@@ -120,7 +123,7 @@ class UploadHelperTest extends TestCase
             'primaryResourceAmount' => 20,
             'secondaryResource' => 'planks',
             'secondaryResourceAmount' => 12,
-            'bonusCity' => 'Martlock'
+            'bonusCity' => 'Martlock',
         ];
 
         $this->tierService->splitIntoTierAndName(Argument::any())->willReturn(
@@ -161,12 +164,12 @@ class UploadHelperTest extends TestCase
             'buy_price_max' => 168594,
             'quality' => 2,
         ];
-        return [
-            [[$itemA], $itemData],
-        ];
+        return [[[$itemA], $itemData]];
     }
 
-    /** @dataProvider provideResourceNames */
+    /**
+     * @dataProvider provideResourceNames
+     */
     public function testGetResourceName(string $name): void
     {
         $this->assertEquals('metalbar', $this->uploadHelper->getResourceName($name));
@@ -174,20 +177,13 @@ class UploadHelperTest extends TestCase
 
     public function provideResourceNames(): array
     {
-        return [
-            ['METALBAR'],
-            ['METALBAR_LEVEL1'],
-            ['METALBAR_LEVEL2'],
-            ['metalbar_level3'],
-        ];
+        return [['METALBAR'], ['METALBAR_LEVEL1'], ['METALBAR_LEVEL2'], ['metalbar_level3']];
     }
 
     protected function setUp(): void
     {
         $this->tierService = $this->prophesize(TierService::class);
 
-        $this->uploadHelper = new UploadHelper(
-            $this->tierService->reveal(),
-        );
+        $this->uploadHelper = new UploadHelper($this->tierService->reveal(),);
     }
 }

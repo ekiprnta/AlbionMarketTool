@@ -36,7 +36,8 @@ class AlbionItemEntityTest extends TestCase
             ->onlyMethods(['getCurrentTime'])
             ->getMock();
 
-        $albionItemEntity->method('getCurrentTime')->willReturn($now);
+        $albionItemEntity->method('getCurrentTime')
+            ->willReturn($now);
 
         $albionItemEntity->calculateBuyOrderAge('2023-02-08T10:00:00');
         $this->assertEquals(540, $albionItemEntity->getBuyOrderAge());
@@ -51,7 +52,8 @@ class AlbionItemEntityTest extends TestCase
             ->onlyMethods(['getCurrentTime'])
             ->getMock();
 
-        $albionItemEntity->method('getCurrentTime')->willReturn($now);
+        $albionItemEntity->method('getCurrentTime')
+            ->willReturn($now);
 
         $albionItemEntity->calculateSellOrderAge(null);
         $this->assertEquals(24947, $albionItemEntity->getSellOrderAge());
