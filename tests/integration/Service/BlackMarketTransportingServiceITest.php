@@ -33,7 +33,7 @@ class BlackMarketTransportingServiceITest extends TestCase
         );
 
         $delta = 0.00000001;
-        $testData = $bmtService->getDataForCity('TestCity', [71]);
+        $testData = $bmtService->getDataForCity('TestCity', ['71']);
 
         /** @var BlackMarketTransportEntity $bmtEntity */
         foreach ($testData as $bmtEntity) {
