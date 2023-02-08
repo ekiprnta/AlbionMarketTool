@@ -14,7 +14,7 @@ class UploadHelper
     {
     }
 
-    public function adjustResourceArray(array $resourceData, array $resourceStats, bool $raw = false): array
+    public function adjustResources(array $resourceData, array $resourceStats, bool $raw = false): array
     {
         $adjustedResourceArray = [];
         foreach ($resourceData as $resource) {
@@ -76,7 +76,7 @@ class UploadHelper
                 ->calculateBuyOrderAge($item['buy_price_max_date'])
                 ->setBuyOrderPrice($item['buy_price_max'])
                 ->setClass($itemStats['class'])
-                ->setRealName($itemStats['class'])
+                ->setRealName($itemStats['realName'])
                 ->setWeaponGroup($itemStats['weaponGroup'])
                 ->setQuality($item['quality'])
                 ->setPrimaryResource($itemStats['primaryResource'])
@@ -95,6 +95,7 @@ class UploadHelper
     // Input Either MetalBar or MetalBar_level1 Output: MetalBar
     public function getResourceName(string $name): string
     {
+        $name = strtolower($name);
         if (str_contains($name, 'level')) {
             return substr($name, 0, -7);
         }
