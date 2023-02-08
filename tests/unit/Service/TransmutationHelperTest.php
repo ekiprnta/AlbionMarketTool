@@ -15,30 +15,21 @@ class TransmutationHelperTest extends TestCase
 
     private function getResources(): array
     {
-        $resourceA = new ResourceEntity([
-            'tier' => '20',
-            'name' => 'cloth',
-            'city' => 'Fort Sterling',
-            'realName' => 'cloth',
-            'sellOrderPrice' => '27',
-            'sellOrderPriceDate' => '2022-12-08 10:45:00',
-            'buyOrderPrice' => '26',
-            'buyOrderPriceDate' => '2022-12-08 10:45:00',
-            'bonusCity' => 'Lymhurst',
-            'amountInStorage' => null,
-        ]);
-        $resourceB = new ResourceEntity([
-            'tier' => '41',
-            'name' => 'leather',
-            'city' => 'Bridgewatch',
-            'realName' => 'cloth',
-            'sellOrderPrice' => '376',
-            'sellOrderPriceDate' => '2022-02-08 10:45:00',
-            'buyOrderPrice' => '87',
-            'buyOrderPriceDate' => '2022-01-08 10:45:00',
-            'bonusCity' => 'Lymhurst',
-            'amountInStorage' => null,
-        ]);
+        $resourceA = (new ResourceEntity())
+            ->setTier(71)
+            ->setName('metalBar')
+            ->setCity('TestCity')
+            ->setRealName('metalBar')
+            ->setSellOrderPrice(13986)
+            ->setBuyOrderPrice(12235);
+        $resourceB = (new ResourceEntity())
+            ->setTier(60)
+            ->setName('metalBar')
+            ->setCity('Sterling')
+            ->setRealName('metalBar')
+            ->setSellOrderPrice(1099)
+            ->setBuyOrderPrice(1098)
+            ->setRaw(true);
         return [$resourceA, $resourceB];
     }
 
@@ -124,17 +115,17 @@ class TransmutationHelperTest extends TestCase
     /**
      * @dataProvider provideResourceTier
      */
-    public function testCalculateResource(?ResourceEntity $result, string $tier): void
+    public function testCalculateResource(?ResourceEntity $result, int $tier): void
     {
         $resources = $this->getResources();
 
-        $this->assertEquals($result, $this->tranHelper->calculateResource($resources, $tier, 'cloth'));
+        $this->assertEquals($result, $this->tranHelper->calculateResource($resources, $tier, 'metalBar'));
     }
 
     public function provideResourceTier(): array
     {
         [$resourceA, $resourceB] = $this->getResources();
-        return [[$resourceA, '20'], [$resourceB, '41'], [null, '52']];
+        return [[$resourceA, 71], [$resourceB, 60], [null, 52]];
     }
 
     protected function setUp(): void

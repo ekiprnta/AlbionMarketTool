@@ -99,26 +99,23 @@ class BlackMarketCraftingHelperTest extends TestCase
      */
     public function testCalculateJournal(
         string $entityFillStatus,
-        string $entityTier,
+        int $entityTier,
         string $fillStatus,
         int $tier
     ): void {
-        /** @var JournalEntity|ObjectProphecy $expectedJournalEntity */
-        $expectedJournalEntity = $this->prophesize(JournalEntity::class);
-        $expectedJournalEntity->getTier()
-            ->willReturn($entityTier);
-        $expectedJournalEntity->getFillStatus()
-            ->willReturn($entityFillStatus);
+        $journalEntity = (new JournalEntity())
+            ->setTier($entityTier)
+            ->setFillStatus($entityFillStatus);
 
         $this->assertEquals(
-            $expectedJournalEntity->reveal(),
-            $this->bmcHelper->calculateJournal($tier, $fillStatus, [$expectedJournalEntity->reveal()])
+            $journalEntity,
+            $this->bmcHelper->calculateJournal($tier, $fillStatus, [$journalEntity])
         );
     }
 
     public function getJournalData(): array
     {
-        return [['full', '2', 'full', 20], ['full', '5', 'full', 50], ['empty', '8', 'empty', 82]];
+        return [['full', 20, 'full', 20], ['full', 50, 'full', 50], ['empty', 80, 'empty', 82]];
     }
 
     /**
