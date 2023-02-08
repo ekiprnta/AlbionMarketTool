@@ -25,7 +25,7 @@ class BlackMarketCraftingHelper extends Market
         $baseTier = (int) ($tier / 10);
         /** @var JournalEntity $journal */
         foreach ($journals as $journal) {
-            if (($baseTier === $journal->getTier()) && $journal->getFillStatus() === $fillStatus) {
+            if (($baseTier * 10 === $journal->getTier()) && $journal->getFillStatus() === $fillStatus) {
                 return $journal;
             }
         }
@@ -43,16 +43,13 @@ class BlackMarketCraftingHelper extends Market
     }
 
     public function calculateTotalAmount(
-        float $resourceWeight,
-        int $resourceAmount,
-        float $journalWeight,
-        float $journalAmountPerItem,
-        float $weight
+        int $tier,
+        int $primResourceAmount,
+        int $secResourceAmount,
+        array $blackMarketSellAmount
     ): int {
-        $resourceWeightForItem = $resourceWeight * $resourceAmount;
-        $journalWeightForItem = $journalWeight * $journalAmountPerItem;
-
-        return (int) ($weight / ($resourceWeightForItem + $journalWeightForItem));
+        $totalAmount = (string) ($primResourceAmount + $secResourceAmount);
+        return $blackMarketSellAmount[$tier][$totalAmount];
     }
 
     public function calculateResourceAmount(int $totalAmount, int $resourceAmount): int
