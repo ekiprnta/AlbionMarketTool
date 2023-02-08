@@ -52,8 +52,11 @@ class ResourceEntity extends AlbionItemEntity
     #[Column(type: 'string', nullable: true)]
     private ?string $bonusCity;
 
-    public function __construct(array $resourceData, #[Id, Column(type: 'boolean')] private bool $raw = false)
-    {
+    public function __construct(
+        array $resourceData,
+        #[Id,
+        Column(type: 'boolean')] private bool $raw = false
+    ) {
         parent::__construct($resourceData);
         $this->bonusCity = $resourceData['bonusCity'];
         $this->weight = $this->setWeight((int) $resourceData['tier']);
