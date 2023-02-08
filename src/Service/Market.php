@@ -38,11 +38,11 @@ class Market
         };
     }
 
-    public function calculateWeightProfitQuotient(float|int $profit, int $weight): float
+    public function calculateProfitQuotient(float|int $profit, int $amount): float
     {
         if ($profit === 0) {
             return 0.0;
         }
-        return $profit / $weight;
+        return $profit / $amount;
     }
 }

@@ -22,13 +22,13 @@ class BlackMarketCraftingService
         private readonly ItemRepository $itemRepository,
         private readonly ResourceRepository $resourceRepository,
         private readonly JournalRepository $journalRepository,
-        private readonly BlackMarketCraftingHelper $bmtHelper
+        private readonly BlackMarketCraftingHelper $bmtHelper,
+        private readonly ConfigService $configService,
     ) {
     }
 
     public function getDataForCity(
         string $itemCity,
-        int $weight,
         float $percentage,
         int $feeProHundredNutrition,
         string $resourceCity,
@@ -36,9 +36,6 @@ class BlackMarketCraftingService
     ): array {
         if (empty($itemCity)) {
             throw new InvalidArgumentException('Please select a city');
-        }
-        if (empty($weight)) {
-            throw new InvalidArgumentException('Please insert your maximum carry Weight');
         }
         if (empty($percentage)) {
             $percentage = self::RRR_BONUS_CITY_NO_FOCUS;
@@ -55,7 +52,7 @@ class BlackMarketCraftingService
         $calculateEntityArray = [];
         /** @var ItemEntity $item */
         foreach ($items as $item) {
-            $calculateEntityArray[] = new BlackMarketCraftingEntity($item, $weight);
+            $calculateEntityArray[] = new BlackMarketCraftingEntity($item);
         }
         /** @var BlackMarketCraftingEntity $bmcEntity */
         foreach ($calculateEntityArray as $bmcEntity) {
@@ -94,18 +91,16 @@ class BlackMarketCraftingService
 
             $bmcEntity->setTotalAmount(
                 $this->bmtHelper->calculateTotalAmount(
-                    $bmcEntity->getPrimResource()
-                        ->getWeight(),
                     $bmcEntity->getItem()
-                        ->getPrimaryResourceAmount() +
+                        ->getTier(),
+                    $bmcEntity->getItem()
+                        ->getPrimaryResourceAmount(),
                     $bmcEntity->getItem()
                         ->getSecondaryResourceAmount(),
-                    $bmcEntity->getJournalEntityEmpty()
-                        ->getWeight(),
-                    $bmcEntity->getJournalAmountPerItem(),
-                    $weight
+                    $this->configService->getBlackMarketSells()
                 )
             );
+
             $bmcEntity->setPrimResourceAmount(
                 $this->bmtHelper->calculateResourceAmount(
                     $bmcEntity->getTotalAmount(),
@@ -124,13 +119,6 @@ class BlackMarketCraftingService
                 $this->bmtHelper->calculateJournalAmount(
                     $bmcEntity->getTotalAmount(),
                     $bmcEntity->getJournalAmountPerItem()
-                )
-            );
-            $bmcEntity->setTotalItemWeight(
-                $this->bmtHelper->calculateTotalItemWeight(
-                    $bmcEntity->getTotalAmount(),
-                    $bmcEntity->getItem()
-                        ->getWeight()
                 )
             );
 
@@ -169,15 +157,10 @@ class BlackMarketCraftingService
                         ->getSellOrderPrice()
                 )
             );
-            $bmcEntity->setWeightProfitQuotient(
-                $this->bmtHelper->calculateWeightProfitQuotient(
-                    $bmcEntity->getProfit(),
-                    $bmcEntity->getTotalWeightResources()
-                )
+            $bmcEntity->setProfitQuotient(
+                $this->bmtHelper->calculateProfitQuotient($bmcEntity->getProfit(), $bmcEntity->getTotalAmount())
             );
-            $bmcEntity->setColorGrade(
-                $this->bmtHelper->calculateProfitGrade($bmcEntity->getWeightProfitQuotient())
-            );
+            $bmcEntity->setColorGrade($this->bmtHelper->calculateProfitGrade($bmcEntity->getProfitQuotient()));
         }
 
         return $this->filterCalculateEntityArray($calculateEntityArray);

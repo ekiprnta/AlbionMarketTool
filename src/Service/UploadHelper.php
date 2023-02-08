@@ -20,17 +20,20 @@ class UploadHelper
         foreach ($resourceData as $resource) {
             $nameAndTier = $this->tierService->splitIntoTierAndName($resource['item_id']);
             $name = $this->getResourceName($nameAndTier['name']);
-            $adjustedResourceArray[] = new ResourceEntity([
-                'tier' => $nameAndTier['tier'],
-                'name' => $name,
-                'city' => $resource['city'],
-                'realName' => $resourceStats['realName'],
-                'sellOrderPrice' => $resource['sell_price_min'],
-                'sellOrderPriceDate' => $resource['sell_price_min_date'],
-                'buyOrderPrice' => $resource['buy_price_max'],
-                'buyOrderPriceDate' => $resource['buy_price_max_date'],
-                'bonusCity' => $resourceStats['bonusCity'],
-            ], $raw);
+            $resourceEntity = (new ResourceEntity())
+                ->setTier((int) $nameAndTier['tier'])
+                ->setName($name)
+                ->setCity($resource['city'])
+                ->calculateSellOrderAge($resource['sell_price_min_date'])
+                ->setSellOrderPrice($resource['sell_price_min'])
+                ->calculateBuyOrderAge($resource['buy_price_max_date'])
+                ->setBuyOrderPrice($resource['buy_price_max'])
+                ->setClass($resourceStats['realName'])
+                ->setRealName($resourceStats['realName'])
+                ->setBonusCity($resourceStats['bonusCity'])
+                ->setRaw($raw);
+
+            $adjustedResourceArray[] = $resourceEntity;
         }
         return $adjustedResourceArray;
     }
@@ -42,19 +45,19 @@ class UploadHelper
             $nameAndTier = $this->tierService->splitIntoTierAndName($journal['item_id']);
             $stats = $journalStats[$nameAndTier['tier']];
             $split = $this->tierService->journalSplitter($nameAndTier['name']);
-            $adjustedJournalsArray[] = new JournalEntity([
-                'tier' => $nameAndTier['tier'],
-                'name' => $nameAndTier['name'],
-                'city' => $journal['city'],
-                'fameToFill' => $stats['fameToFill'],
-                'sellOrderPrice' => $journal['sell_price_min'],
-                'sellOrderPriceDate' => $journal['sell_price_min_date'],
-                'buyOrderPrice' => $journal['buy_price_max'],
-                'buyOrderPriceDate' => $journal['buy_price_max_date'],
-                'weight' => $stats['weight'],
-                'fillStatus' => $split['fillStatus'],
-                'class' => $split['class'],
-            ]);
+            $journalEntity = (new JournalEntity())
+                ->setTier((int) $nameAndTier['tier'])
+                ->setName($nameAndTier['name'])
+                ->setCity($journal['city'])
+                ->calculateSellOrderAge($journal['sell_price_min_date'])
+                ->setSellOrderPrice($journal['sell_price_min'])
+                ->calculateBuyOrderAge($journal['buy_price_max_date'])
+                ->setBuyOrderPrice($journal['buy_price_max'])
+                ->setClass($split['class'])
+                ->setRealName($split['class'])
+                ->setFameToFill($stats['fameToFill'])
+                ->setFillStatus($split['fillStatus']);
+            $adjustedJournalsArray[] = $journalEntity;
         }
         return $adjustedJournalsArray;
     }
@@ -64,25 +67,27 @@ class UploadHelper
         $adjustedItems = [];
         foreach ($itemData as $item) {
             $nameAndTier = $this->tierService->splitIntoTierAndName($item['item_id']);
-            $adjustedItems[] = new ItemEntity([
-                'tier' => $nameAndTier['tier'],
-                'name' => $nameAndTier['name'],
-                'weaponGroup' => $itemStats['weaponGroup'],
-                'realName' => $itemStats['realName'],
-                'class' => $itemStats['class'],
-                'city' => $item['city'],
-                'quality' => $item['quality'],
-                'sellOrderPrice' => $item['sell_price_min'],
-                'sellOrderPriceDate' => $item['sell_price_min_date'],
-                'buyOrderPrice' => $item['buy_price_max'],
-                'buyOrderPriceDate' => $item['buy_price_max_date'],
-                'primaryResource' => $itemStats['primaryResource'],
-                'primaryResourceAmount' => $itemStats['primaryResourceAmount'],
-                'secondaryResource' => $itemStats['secondaryResource'],
-                'secondaryResourceAmount' => $itemStats['secondaryResourceAmount'],
-                'bonusCity' => $itemStats['bonusCity'],
-                'fameFactor' => null,
-            ]);
+            $itemEntity = (new ItemEntity())
+                ->setTier((int) $nameAndTier['tier'])
+                ->setName($nameAndTier['name'])
+                ->setCity($item['city'])
+                ->calculateSellOrderAge($item['sell_price_min_date'])
+                ->setSellOrderPrice($item['sell_price_min'])
+                ->calculateBuyOrderAge($item['buy_price_max_date'])
+                ->setBuyOrderPrice($item['buy_price_max'])
+                ->setClass($itemStats['class'])
+                ->setRealName($itemStats['class'])
+                ->setWeaponGroup($itemStats['weaponGroup'])
+                ->setQuality($item['quality'])
+                ->setPrimaryResource($itemStats['primaryResource'])
+                ->setPrimaryResourceAmount($itemStats['primaryResourceAmount'])
+                ->setSecondaryResource($itemStats['secondaryResource'])
+                ->setSecondaryResourceAmount($itemStats['secondaryResourceAmount'])
+                ->setBonusCity($itemStats['bonusCity'])
+                ->refreshFame()
+                ->refreshItemValue();
+
+            $adjustedItems[] = $itemEntity;
         }
         return $adjustedItems;
     }

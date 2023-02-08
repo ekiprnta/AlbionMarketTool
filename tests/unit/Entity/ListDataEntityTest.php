@@ -71,23 +71,18 @@ class ListDataEntityTest extends TestCase
 
     public function testGetTierColor(): void
     {
-        $this->assertEquals('2', $this->listDataEntity->getTierColor());
+        $this->assertEquals('7', $this->listDataEntity->getTierColor());
     }
 
     protected function setUp(): void
     {
-        $this->resource = new ResourceEntity([
-            'tier' => '20',
-            'name' => 'cloth',
-            'city' => 'Fort Sterling',
-            'realName' => 'cloth',
-            'sellOrderPrice' => '27',
-            'sellOrderPriceDate' => '2022-12-08 10:45:00',
-            'buyOrderPrice' => '26',
-            'buyOrderPriceDate' => '2022-12-08 10:45:00',
-            'bonusCity' => 'Lymhurst',
-            'amountInStorage' => null,
-        ]);
+        $this->resource = (new ResourceEntity())
+            ->setTier(71)
+            ->setName('metalBar')
+            ->setCity('TestCity')
+            ->setRealName('metalBar')
+            ->setSellOrderPrice(13986)
+            ->setBuyOrderPrice(12235);
         $this->listDataEntity = new ListDataEntity($this->resource);
     }
 }

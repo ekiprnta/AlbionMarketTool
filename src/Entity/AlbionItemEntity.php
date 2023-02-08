@@ -39,60 +39,89 @@ class AlbionItemEntity
     final public const TIER_T8_3 = 83;
     final public const TIER_T8_4 = 84;
 
-    #[Id, Column(type: 'integer')]
-    protected int $tier;
-    #[Id, Column(type: 'string')]
-    protected string $name;
-    #[Id, Column(type: 'string')]
-    protected string $city;
-    #[Column(type: 'integer')]
-    protected int $sellOrderPrice;
-    #[Column(type: 'integer')]
-    protected int $sellOrderAge;
-    #[Column(type: 'integer')]
-    protected int $buyOrderPrice;
-    #[Column(type: 'integer')]
-    protected int $buyOrderAge;
-    #[Column(type: 'string')]
-    protected string $realName;
-    #[Column(type: 'float')]
-    protected float $weight;
+    #[Id, Column(type: 'integer', nullable: true)]
+    protected ?int $tier = null;
+    #[Id, Column(type: 'string', nullable: true)]
+    protected ?string $name = null;
+    #[Id, Column(type: 'string', nullable: true)]
+    protected ?string $city = null;
+    #[Column(type: 'integer', nullable: true)]
+    protected ?int $sellOrderPrice = null;
+    #[Column(type: 'integer', nullable: true)]
+    protected ?int $sellOrderAge = null;
+    #[Column(type: 'integer', nullable: true)]
+    protected ?int $buyOrderPrice = null;
+    #[Column(type: 'integer', nullable: true)]
+    protected ?int $buyOrderAge = null;
     #[Column(type: 'string', nullable: true)]
-    protected ?string $class;
+    protected ?string $realName = null;
+    #[Column(type: 'string', nullable: true)]
+    protected ?string $class = null;
 
-    public function __construct(array $resourceData)
+    public function setTier(int $tier): self
     {
-//        if (!$resourceData['buyOrderPriceDate']|| !$resourceData['sellOrderPriceDate']) {dump($resourceData);}
-        $this->tier = (int) $resourceData['tier'];
-        $this->name = $resourceData['name'];
-        $this->city = $resourceData['city'];
-        $this->sellOrderPrice = $resourceData['sellOrderPrice'] ?? 0;
-        $this->sellOrderAge = $this->calculateAge($resourceData['sellOrderPriceDate']);
-        $this->buyOrderPrice = $resourceData['buyOrderPrice'] ?? 0;
-        $this->buyOrderAge = $this->calculateAge($resourceData['buyOrderPriceDate']);
-        $this->realName = $resourceData['realName'] ?? '';
-        $this->weight = $resourceData['weight'] ?? 0;
-        $this->class = $resourceData['class'] ?? '';
+        $this->tier = $tier;
+        return $this;
     }
 
-    public function setSellOrderPrice(int $sellOrderPrice): void
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    public function setCity(string $city): self
+    {
+        $this->city = $city;
+        return $this;
+    }
+
+    public function setRealName(string $realName): self
+    {
+        $this->realName = $realName;
+        return $this;
+    }
+
+    public function setClass(?string $class): self
+    {
+        $this->class = $class;
+        return $this;
+    }
+
+    public function setSellOrderPrice(int $sellOrderPrice): self
     {
         $this->sellOrderPrice = $sellOrderPrice;
+        return $this;
     }
 
-    public function setSellOrderAge(int $sellOrderAge): void
+    public function setSellOrderAge(int $age): self
     {
-        $this->sellOrderAge = $sellOrderAge;
+        $this->sellOrderAge = $age;
+        return $this;
     }
 
-    public function setBuyOrderPrice(int $buyOrderPrice): void
+    public function setBuyOrderPrice(int $buyOrderPrice): self
     {
         $this->buyOrderPrice = $buyOrderPrice;
+        return $this;
     }
 
-    public function setBuyOrderAge(int $buyOrderAge): void
+    public function setBuyOrderAge(int $age): self
     {
-        $this->buyOrderAge = $buyOrderAge;
+        $this->buyOrderAge = $age;
+        return $this;
+    }
+
+    public function calculateBuyOrderAge(string $dateString): self
+    {
+        $this->buyOrderAge = $this->calculateAge($dateString);
+        return $this;
+    }
+
+    public function calculateSellOrderAge(string $dateString): self
+    {
+        $this->sellOrderAge = $this->calculateAge($dateString);
+        return $this;
     }
 
     private function calculateAge(?string $dateString): int
@@ -100,10 +129,6 @@ class AlbionItemEntity
         $priceDate = $this->calculateDateTimeImmutable($dateString);
 
         $now = DateTimeImmutable::createFromFormat('Y-m-d H:i:s', Date('Y-m-d H:i:s'));
-
-//        if(!$priceDate) {
-//            dd( $dateString);
-//        }
 
         $dateDiff = date_diff($now, $priceDate);
         return $dateDiff->d * 24 * 60 + $dateDiff->h * 60 + $dateDiff->i;
@@ -156,11 +181,6 @@ class AlbionItemEntity
     public function getRealName(): string
     {
         return $this->realName;
-    }
-
-    public function getWeight(): float
-    {
-        return $this->weight;
     }
 
     public function getClass(): string

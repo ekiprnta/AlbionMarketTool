@@ -13,7 +13,7 @@ class RefiningEntity
     private int $amount;
     private float $profit;
 
-    private float $weightAmountQuotient;
+    private float $profitQuotient;
     private string $profitGrade;
     private readonly int $tierColor;
 
@@ -47,14 +47,14 @@ class RefiningEntity
         $this->profit = $profit;
     }
 
-    public function getWeightAmountQuotient(): float
+    public function getProfitQuotient(): float
     {
-        return $this->weightAmountQuotient;
+        return $this->profitQuotient;
     }
 
-    public function setWeightAmountQuotient(float $weightAmountQuotient): void
+    public function setProfitQuotient(float $profitQuotient): void
     {
-        $this->weightAmountQuotient = $weightAmountQuotient;
+        $this->profitQuotient = $profitQuotient;
     }
 
     public function getProfitGrade(): string

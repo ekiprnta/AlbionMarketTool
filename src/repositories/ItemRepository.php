@@ -19,10 +19,14 @@ class ItemRepository extends Repository
             ]
         );
         if ($oldItemEntity !== null) {
-            $oldItemEntity->setSellOrderPrice($itemEntity->getSellOrderPrice());
-            $oldItemEntity->setBuyOrderAge($itemEntity->getBuyOrderPrice());
-            $oldItemEntity->setSellOrderAge($itemEntity->getSellOrderAge());
-            $oldItemEntity->setBuyOrderAge($itemEntity->getBuyOrderAge());
+            if ($itemEntity->getSellOrderPrice() !== 0) {
+                $oldItemEntity->setSellOrderPrice($itemEntity->getSellOrderPrice());
+                $oldItemEntity->setBuyOrderAge($itemEntity->getBuyOrderPrice());
+            }
+            if ($itemEntity->getBuyOrderPrice() !== 0) {
+                $oldItemEntity->setSellOrderAge($itemEntity->getSellOrderAge());
+                $oldItemEntity->setBuyOrderAge($itemEntity->getBuyOrderAge());
+            }
             $this->update($oldItemEntity);
         } else {
             $this->update($itemEntity);

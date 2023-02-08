@@ -61,102 +61,70 @@ class TransmutationServiceITest extends TestCase
 
     private function getRawResources(): array
     {
-        $resourceA = new ResourceEntity([
-            'tier' => '40',
-            'name' => 'leather',
-            'city' => 'Sterling',
-            'realName' => 'fiber',
-            'sellOrderPrice' => '61',
-            'sellOrderPriceDate' => '2022-02-08 10:45:00',
-            'buyOrderPrice' => '58',
-            'buyOrderPriceDate' => '2022-01-08 10:45:00',
-            'bonusCity' => 'Lymhurst',
-            'amountInStorage' => null,
-        ]);
-        $resourceB = new ResourceEntity([
-            'tier' => '60',
-            'name' => 'leather',
-            'city' => 'Sterling',
-            'realName' => 'fiber',
-            'sellOrderPrice' => '1099',
-            'sellOrderPriceDate' => '2022-02-08 10:45:00',
-            'buyOrderPrice' => '1098',
-            'buyOrderPriceDate' => '2022-01-08 10:45:00',
-            'bonusCity' => 'Lymhurst',
-            'amountInStorage' => null,
-        ]);
-        $resourceC = new ResourceEntity([
-            'tier' => '40',
-            'name' => 'leather',
-            'city' => 'Sterling',
-            'realName' => 'ore',
-            'sellOrderPrice' => '61',
-            'sellOrderPriceDate' => '2022-02-08 10:45:00',
-            'buyOrderPrice' => '58',
-            'buyOrderPriceDate' => '2022-01-08 10:45:00',
-            'bonusCity' => 'Lymhurst',
-            'amountInStorage' => null,
-        ]);
-        $resourceD = new ResourceEntity([
-            'tier' => '60',
-            'name' => 'leather',
-            'city' => 'Sterling',
-            'realName' => 'ore',
-            'sellOrderPrice' => '1099',
-            'sellOrderPriceDate' => '2022-02-08 10:45:00',
-            'buyOrderPrice' => '1098',
-            'buyOrderPriceDate' => '2022-01-08 10:45:00',
-            'bonusCity' => 'Lymhurst',
-            'amountInStorage' => null,
-        ]);
-        $resourceE = new ResourceEntity([
-            'tier' => '40',
-            'name' => 'leather',
-            'city' => 'Sterling',
-            'realName' => 'hide',
-            'sellOrderPrice' => '61',
-            'sellOrderPriceDate' => '2022-02-08 10:45:00',
-            'buyOrderPrice' => '58',
-            'buyOrderPriceDate' => '2022-01-08 10:45:00',
-            'bonusCity' => 'Lymhurst',
-            'amountInStorage' => null,
-        ]);
-        $resourceF = new ResourceEntity([
-            'tier' => '60',
-            'name' => 'leather',
-            'city' => 'Sterling',
-            'realName' => 'hide',
-            'sellOrderPrice' => '1099',
-            'sellOrderPriceDate' => '2022-02-08 10:45:00',
-            'buyOrderPrice' => '1098',
-            'buyOrderPriceDate' => '2022-01-08 10:45:00',
-            'bonusCity' => 'Lymhurst',
-            'amountInStorage' => null,
-        ]);
-        $resourceG = new ResourceEntity([
-            'tier' => '40',
-            'name' => 'leather',
-            'city' => 'Sterling',
-            'realName' => 'wood',
-            'sellOrderPrice' => '61',
-            'sellOrderPriceDate' => '2022-02-08 10:45:00',
-            'buyOrderPrice' => '58',
-            'buyOrderPriceDate' => '2022-01-08 10:45:00',
-            'bonusCity' => 'Lymhurst',
-            'amountInStorage' => null,
-        ]);
-        $resourceH = new ResourceEntity([
-            'tier' => '60',
-            'name' => 'leather',
-            'city' => 'Sterling',
-            'realName' => 'wood',
-            'sellOrderPrice' => '1099',
-            'sellOrderPriceDate' => '2022-02-08 10:45:00',
-            'buyOrderPrice' => '1098',
-            'buyOrderPriceDate' => '2022-01-08 10:45:00',
-            'bonusCity' => 'Lymhurst',
-            'amountInStorage' => null,
-        ]);
+        $resourceA = (new ResourceEntity())
+            ->setTier(40)
+            ->setName('fiber')
+            ->setCity('Sterling')
+            ->setRealName('fiber')
+            ->setSellOrderPrice(61)
+            ->setBuyOrderPrice(58)
+            ->setRaw(true);
+        $resourceB = (new ResourceEntity())
+            ->setTier(60)
+            ->setName('fiber')
+            ->setCity('Sterling')
+            ->setRealName('fiber')
+            ->setSellOrderPrice(1099)
+            ->setBuyOrderPrice(1098)
+            ->setRaw(true);
+        $resourceC = (new ResourceEntity())
+            ->setTier(40)
+            ->setName('ore')
+            ->setCity('Sterling')
+            ->setRealName('ore')
+            ->setSellOrderPrice(61)
+            ->setBuyOrderPrice(58)
+            ->setRaw(true);
+        $resourceD = (new ResourceEntity())
+            ->setTier(60)
+            ->setName('ore')
+            ->setCity('Sterling')
+            ->setRealName('ore')
+            ->setSellOrderPrice(1099)
+            ->setBuyOrderPrice(1098)
+            ->setRaw(true);
+        $resourceE = (new ResourceEntity())
+            ->setTier(40)
+            ->setName('hide')
+            ->setCity('Sterling')
+            ->setRealName('hide')
+            ->setSellOrderPrice(61)
+            ->setBuyOrderPrice(58)
+            ->setRaw(true);
+        $resourceF = (new ResourceEntity())
+            ->setTier(60)
+            ->setName('hide')
+            ->setCity('Sterling')
+            ->setRealName('hide')
+            ->setSellOrderPrice(1099)
+            ->setBuyOrderPrice(1098)
+            ->setRaw(true);
+        $resourceG = (new ResourceEntity())
+            ->setTier(40)
+            ->setName('wood')
+            ->setCity('Sterling')
+            ->setRealName('wood')
+            ->setSellOrderPrice(61)
+            ->setBuyOrderPrice(58)
+            ->setRaw(true);
+        $resourceH = (new ResourceEntity())
+            ->setTier(60)
+            ->setName('wood')
+            ->setCity('Sterling')
+            ->setRealName('wood')
+            ->setSellOrderPrice(1099)
+            ->setBuyOrderPrice(1098)
+            ->setRaw(true);
 
         return [$resourceA, $resourceB, $resourceC, $resourceD, $resourceE, $resourceF, $resourceG, $resourceH];
     }

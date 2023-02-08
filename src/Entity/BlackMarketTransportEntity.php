@@ -11,7 +11,7 @@ class BlackMarketTransportEntity
     private int $amount;
     private float $profit;
     private float $singleProfit;
-    private float $weightProfitQuotient;
+    private float $profitQuotient;
     private string $profitGrade;
 
     private readonly int $tierColor;
@@ -74,14 +74,14 @@ class BlackMarketTransportEntity
         $this->profitGrade = $profitGrade;
     }
 
-    public function getWeightProfitQuotient(): float
+    public function getProfitQuotient(): float
     {
-        return $this->weightProfitQuotient;
+        return $this->profitQuotient;
     }
 
-    public function setWeightProfitQuotient(float $weightProfitQuotient): void
+    public function setProfitQuotient(float $profitQuotient): void
     {
-        $this->weightProfitQuotient = $weightProfitQuotient;
+        $this->profitQuotient = $profitQuotient;
     }
 
     public function setProfit(float $profit): void

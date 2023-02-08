@@ -37,7 +37,7 @@ class RefiningServiceITest extends TestCase
             $this->assertEquals(80204.91, $refiningEntity->getSingleProfit());
             $this->assertEquals(968, $refiningEntity->getAmount());
             $this->assertEqualsWithDelta(77_638_352.88, $refiningEntity->getProfit(), $delta);
-            $this->assertEquals(80204.91, $refiningEntity->getWeightAmountQuotient());
+            $this->assertEquals(80204.91, $refiningEntity->getProfitQuotient());
             $this->assertEquals('S', $refiningEntity->getProfitGrade());
         }
     }
@@ -64,7 +64,7 @@ class RefiningServiceITest extends TestCase
             $this->assertEqualsWithDelta(5340.408, $refiningEntity->getSingleProfit(), $delta);
             $this->assertEquals(968, $refiningEntity->getAmount());
             $this->assertEqualsWithDelta(5169514.943999999, $refiningEntity->getProfit(), $delta);
-            $this->assertEqualsWithDelta(5340.408, $refiningEntity->getWeightAmountQuotient(), $delta);
+            $this->assertEqualsWithDelta(5340.408, $refiningEntity->getProfitQuotient(), $delta);
             $this->assertEquals('S', $refiningEntity->getProfitGrade());
         }
     }
@@ -72,56 +72,36 @@ class RefiningServiceITest extends TestCase
     private function getResources(): array
     {
         return [
-            new ResourceEntity([
-                'bonusCity' => 'Testcity',
-                'amountInStorage' => 0,
-                'tier' => '30',
-                'name' => 'planks',
-                'city' => 'TestCity',
-                'sellOrderPrice' => 13986,
-                'sellOrderPriceDate' => '2022-12-06 21:15:00',
-                'buyOrderPrice' => 12235,
-                'buyOrderPriceDate' => '2022-12-06 21:15:00',
-                'realName' => 'planks',
-                'weight' => 1.71,
-                'class' => '',
-            ]),
-            new ResourceEntity(
-                [
-                    'bonusCity' => 'Testcity',
-                    'amountInStorage' => 0,
-                    'tier' => '20',
-                    'name' => 'planks',
-                    'city' => 'TestCity',
-                    'sellOrderPrice' => 13986,
-                    'sellOrderPriceDate' => '2022-12-06 21:15:00',
-                    'buyOrderPrice' => 12235,
-                    'buyOrderPriceDate' => '2022-12-06 21:15:00',
-                    'realName' => 'planks',
-                    'weight' => 1.71,
-                    'class' => '',
-                ]
-            ),
+            (new ResourceEntity())
+                ->setTier(30)
+                ->setName('planks')
+                ->setCity('TestCity')
+                ->setRealName('planks')
+                ->setSellOrderPrice(13986)
+                ->setBuyOrderPrice(12235)
+                ->setRaw(false),
+            (new ResourceEntity())
+                ->setTier(20)
+                ->setName('planks')
+                ->setCity('TestCity')
+                ->setRealName('planks')
+                ->setSellOrderPrice(13986)
+                ->setBuyOrderPrice(12235)
+                ->setRaw(false),
         ];
     }
 
     private function getRawResources(): array
     {
         return [
-            new ResourceEntity([
-                'bonusCity' => 'Testcity',
-                'amountInStorage' => 0,
-                'tier' => '30',
-                'name' => 'planks',
-                'city' => 'TestCity',
-                'sellOrderPrice' => 1398,
-                'sellOrderPriceDate' => '2022-12-06 21:15:00',
-                'buyOrderPrice' => 1223,
-                'buyOrderPriceDate' => '2022-12-06 21:15:00',
-                'realName' => 'planks',
-                'weight' => 1.71,
-                'class' => '',
-            ], true),
+            (new ResourceEntity())
+                ->setTier(30)
+                ->setName('planks')
+                ->setCity('TestCity')
+                ->setRealName('planks')
+                ->setSellOrderPrice(1398)
+                ->setBuyOrderPrice(1223)
+                ->setRaw(true),
         ];
     }
 }

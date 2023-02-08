@@ -19,17 +19,21 @@ class JournalEntity extends AlbionItemEntity
     final public const JOURNAL_MAGE = 'JOURNAL_MAGE';
     final public const JOURNAL_HUNTER = 'JOURNAL_HUNTER';
 
-    #[Column(type: 'integer')]
-    private int $fameToFill;
-    #[Id, Column(type: 'string')]
-    private string $fillStatus; //full empty
+    #[Column(type: 'integer', nullable: true)]
+    private ?int $fameToFill = null;
+    #[Id, Column(type: 'string', nullable: true)]
+    private ?string $fillStatus = null; //full empty
 
-    public function __construct(array $journalData)
+    public function setFameToFill(int $fameToFill): self
     {
-        parent::__construct($journalData);
+        $this->fameToFill = $fameToFill;
+        return $this;
+    }
 
-        $this->fameToFill = (int) $journalData['fameToFill'];
-        $this->fillStatus = $journalData['fillStatus'];
+    public function setFillStatus(string $fillStatus): self
+    {
+        $this->fillStatus = $fillStatus;
+        return $this;
     }
 
     public function getFameToFill(): int

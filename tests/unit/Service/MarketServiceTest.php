@@ -37,7 +37,7 @@ class MarketServiceTest extends TestCase
     {
         $this->assertEqualsWithDelta(
             $expectedResult,
-            $this->market->calculateWeightProfitQuotient($testProfit, $testWeight),
+            $this->market->calculateProfitQuotient($testProfit, $testWeight),
             0,
             000000001
         );

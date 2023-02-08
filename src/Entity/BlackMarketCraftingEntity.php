@@ -30,24 +30,32 @@ class BlackMarketCraftingEntity
     private int $primResourceAmount;
     private int $secResourceAmount;
     private float $journalAmount;
-    private float $totalItemWeight;
 
     private float $craftingFee;
     private float $profitJournals;
     private float $profit;
-    private float $weightProfitQuotient;
     private string $colorGrade;
 
     private float $fameAmount;
     private readonly int $tierColor;
     private int $itemValue;
+    private float $profitQuotient;
 
     public function __construct(
         private readonly ItemEntity $item,
-        private readonly int $totalWeightResources
     ) {
         $this->secResource = ResourceEntityFactory::getEmptyResourceEntity();
         $this->tierColor = (int) ($item->getTier() / 10);
+    }
+
+    public function getProfitQuotient(): float
+    {
+        return $this->profitQuotient;
+    }
+
+    public function setProfitQuotient(float $profitQuotient): void
+    {
+        $this->profitQuotient = $profitQuotient;
     }
 
     public function setJournalEntityEmpty(JournalEntity $journalEntityEmpty): void
@@ -110,16 +118,6 @@ class BlackMarketCraftingEntity
         $this->colorGrade = $colorGrade;
     }
 
-    public function getWeightProfitQuotient(): float
-    {
-        return $this->weightProfitQuotient;
-    }
-
-    public function setWeightProfitQuotient(float $weightProfitQuotient): void
-    {
-        $this->weightProfitQuotient = $weightProfitQuotient;
-    }
-
     public function getProfitJournals(): float
     {
         return $this->profitJournals;
@@ -148,16 +146,6 @@ class BlackMarketCraftingEntity
     public function setCraftingFee(float $craftingFee): void
     {
         $this->craftingFee = $craftingFee;
-    }
-
-    public function getTotalWeightResources(): int
-    {
-        return $this->totalWeightResources;
-    }
-
-    public function getTotalItemWeight(): float
-    {
-        return $this->totalItemWeight;
     }
 
     public function getTotalAmount(): int
@@ -231,10 +219,5 @@ class BlackMarketCraftingEntity
     public function setJournalAmount(float $journalAmount): void
     {
         $this->journalAmount = $journalAmount;
-    }
-
-    public function setTotalItemWeight(float $totalItemWeight): void
-    {
-        $this->totalItemWeight = $totalItemWeight;
     }
 }

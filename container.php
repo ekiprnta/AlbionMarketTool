@@ -68,6 +68,7 @@ $serviceManager = new ServiceManager([
                     ResourceRepository::class,
                     JournalRepository::class,
                     BlackMarketCraftingHelper::class,
+                    ConfigService::class
                 ],
                 RefiningHelper::class => [],
                 RefiningService::class => [

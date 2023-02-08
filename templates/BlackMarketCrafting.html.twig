@@ -20,13 +20,6 @@
                                 </div>
                             </div>
                             <div class="col-2">
-                                <label for="weight">Max. Carry Capacity</label>
-                                <input class="form-control"
-                                       id="weight"
-                                       name="weight"
-                                       type="number">
-                            </div>
-                            <div class="col-2">
                                 <label for="percentage">
                                     Resource Return Rate*
                                 </label>
@@ -110,7 +103,6 @@
                     <tr>
                         <th>Tier</th>
                         <th>Name</th>
-                        <th class="amount-col">Weight Resources</th>
                         <th>Price PrimResource</th>
                         <th class="amount-col">Amount PrimResource</th>
                         <th>Price SecResource</th>
@@ -120,8 +112,7 @@
                         <th class="amount-col">Amount Crafted</th>
                         <th>Crafting Fee</th>
                         <th>Profit when rrr: {{ rrr }}</th>
-                        <th>Profit/Weight</th>
-                        <th>Weight Items</th>
+                        <th>Profit Quotient</th>
                         <th>Value</th>
                         <th>Info</th>
                     </tr>
@@ -133,7 +124,6 @@
                             <tr class="bg-{{ bmcEntity.colorGrade }} bg-{{ bmcEntity.item.getPrice }}">
                                 <td class="align-middle text-left tier-{{ bmcEntity.tierColor }} tier">{{ bmcEntity.item.tier }}</td>
                                 <td class="align-middle">{{ bmcEntity.item.realName }}</td>
-                                <td class="align-middle ">{{ bmcEntity.totalWeightResources|number_format }}kg</td>
                                 <td class="align-middle {% if bmcEntity.primResource.sellOrderAge > 720 %} bg-D {% endif %}">
                                     <a class="btn text-right w-100" title="{{ bmcEntity.primResource.sellOrderAge|number_format }}min">
                                         {{ bmcEntity.primResource.sellOrderPrice|number_format }}
@@ -148,18 +138,21 @@
                                 <td class="align-middle">{{ bmcEntity.secResourceAmount|number_format }}x</td>
                                 <td class="align-middle">{{ bmcEntity.journalAmount|round(1,'ceil') }}x</td>
                                 <td class="align-middle {% if bmcEntity.item.sellOrderAge > 10000 %}bg-D{% endif %}">
-                                    <a class="btn text-right w-100" title="{{ bmcEntity.item.sellOrderAge|number_format }}min">
+                                    <a class="btn text-right w-100"
+                                       title="{{ bmcEntity.item.sellOrderAge|number_format }}min">
                                         {{ bmcEntity.item.sellOrderPrice|number_format }}
                                     </a>
                                 </td>
                                 <td class="align-middle">{{ bmcEntity.totalAmount|number_format }}x</td>
                                 <td class="align-middle">{{ bmcEntity.craftingFee|number_format }}</td>
                                 <td class="align-middle">{{ bmcEntity.profit|number_format }}</td>
-                                <td class="align-middle">{{ bmcEntity.weightProfitQuotient|number_format }}</td>
-                                <td class="align-middle">{{ bmcEntity.totalItemWeight|number_format }}</td>
+                                <td class="align-middle">{{ bmcEntity.profitQuotient|number_format }}</td>
                                 <td class="align-middle">{{ bmcEntity.itemValue|number_format }}</td>
                                 <td class="align-middle">
-                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#{{ weaponGroupName }}">?</button></td>
+                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
+                                            data-target="#{{ weaponGroupName }}">?
+                                    </button>
+                                </td>
                             </tr>
                         {% endif %}
                         <div class="modal fade bd-example-modal-lg" id="{{ weaponGroupName }}" tabindex="-1"
