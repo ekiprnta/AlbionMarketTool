@@ -159,28 +159,35 @@ class BlackMarketCraftingHelperTest extends TestCase
      * @dataProvider getTotalAmount
      */
     public function testCalculateTotalAmount(
-        float $resourceWeight,
-        int $resourceAmount,
-        float $journalWeight,
-        float $journalAmountPerItem,
-        float $weight,
-        int $expectedResult
+        int $expectedResult,
+        int $tier,
+        int $primResourceAmount,
+        int $secResourceAmount,
     ): void {
+        $bmSells = [
+            '20' => ['32' => 2000],
+            '61' => ['16' => 750],
+            '83' => ['8' => 1],
+        ];
+
         $this->assertEquals(
             $expectedResult,
             $this->bmcHelper->calculateTotalAmount(
-                $resourceWeight,
-                $resourceAmount,
-                $journalWeight,
-                $journalAmountPerItem,
-                $weight
+                $tier,
+                $primResourceAmount,
+                $secResourceAmount,
+                $bmSells
             )
         );
     }
 
     public function getTotalAmount(): array
     {
-        return [[6.3, 32, 0.3, 0.025, 2000, 9], [17.3, 8, 0.8, 0.25, 2000, 14], [76, 988, 4, 23, 400032, 5]];
+        return [
+            [2000, 20, 12, 20],
+            [750, 61, 8, 8],
+            [1, 83, 8, 0],
+        ];
     }
 
     /**

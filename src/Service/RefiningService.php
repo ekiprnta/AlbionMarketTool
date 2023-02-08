@@ -70,14 +70,14 @@ class RefiningService
                     $refiningEntity->getSingleProfit()
                 )
             );
-            $refiningEntity->setWeightAmountQuotient(
-                $this->refiningHelper->calculateWeightProfitQuotient(
+            $refiningEntity->setProfitQuotient(
+                $this->refiningHelper->calculateProfitQuotient(
                     $refiningEntity->getProfit(),
                     $refiningEntity->getAmount()
                 )
             );
             $refiningEntity->setProfitGrade(
-                $this->refiningHelper->calculateProfitGrade($refiningEntity->getWeightAmountQuotient())
+                $this->refiningHelper->calculateProfitGrade($refiningEntity->getProfitQuotient())
             );
         }
         return $refiningArray;

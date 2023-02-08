@@ -62,11 +62,11 @@ class BlackMarketTransportingService
             $bmtEntity->setProfit(
                 $this->bmtHelper->calculateProfit($bmtEntity->getSingleProfit(), $bmtEntity->getAmount())
             );
-            $bmtEntity->setWeightProfitQuotient(
-                $this->bmtHelper->calculateWeightProfitQuotient($bmtEntity->getProfit(), $bmtEntity->getAmount())
+            $bmtEntity->setProfitQuotient(
+                $this->bmtHelper->calculateProfitQuotient($bmtEntity->getProfit(), $bmtEntity->getAmount())
             );
             $bmtEntity->setProfitGrade(
-                $this->bmtHelper->calculateProfitGrade($bmtEntity->getWeightProfitQuotient())
+                $this->bmtHelper->calculateProfitGrade($bmtEntity->getProfitQuotient())
             );
             $bmtEntity->setProfitPercentage(
                 $this->bmtHelper->calculateProfitPercentage(

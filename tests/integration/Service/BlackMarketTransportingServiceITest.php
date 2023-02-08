@@ -40,7 +40,7 @@ class BlackMarketTransportingServiceITest extends TestCase
             $this->assertEquals(20, $bmtEntity->getAmount());
             $this->assertEqualsWithDelta(3425410.4, $bmtEntity->getProfit(), $delta);
             $this->assertEqualsWithDelta(171270.52, $bmtEntity->getSingleProfit(), $delta);
-            $this->assertEqualsWithDelta(171270.52, $bmtEntity->getWeightProfitQuotient(), $delta);
+            $this->assertEqualsWithDelta(171270.52, $bmtEntity->getProfitQuotient(), $delta);
             $this->assertEquals('S', $bmtEntity->getProfitGrade());
             $this->assertEquals(7, $bmtEntity->getTierColor());
             $this->assertEquals(4839840.0, $bmtEntity->getTotalCost());
