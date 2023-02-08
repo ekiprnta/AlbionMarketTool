@@ -37,7 +37,8 @@ class ResourceRepository extends Repository
         return $this->findBy(ResourceEntity::class, [
             'bonusCity' => $city,
             'raw' => true,
-        ]);
+            'city' => $city,
+        ]) ?? [];
     }
 
     public function getRawResourcesByCity(string $city): array
@@ -45,7 +46,7 @@ class ResourceRepository extends Repository
         return $this->findBy(ResourceEntity::class, [
             'city' => $city,
             'raw' => true,
-        ]);
+        ]) ?? [];
     }
 
     public function getResourcesByCity(string $city): array
@@ -58,6 +59,10 @@ class ResourceRepository extends Repository
 
     public function getResourcesByBonusCity(string $city): array
     {
-        return $this->findBy(ResourceEntity::class, ['bonusCity' => $city, 'raw' => false]) ?? [];
+        return $this->findBy(ResourceEntity::class, [
+            'bonusCity' => $city,
+            'raw' => false,
+            'city' => $city,
+        ]) ?? [];
     }
 }
