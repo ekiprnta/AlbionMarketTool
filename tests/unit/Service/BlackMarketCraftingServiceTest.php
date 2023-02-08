@@ -7,6 +7,7 @@ use MZierdt\Albion\repositories\JournalRepository;
 use MZierdt\Albion\repositories\ResourceRepository;
 use MZierdt\Albion\Service\BlackMarketCraftingHelper;
 use MZierdt\Albion\Service\BlackMarketCraftingService;
+use MZierdt\Albion\Service\ConfigService;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
@@ -20,6 +21,7 @@ class BlackMarketCraftingServiceTest extends TestCase
     private ObjectProphecy|ResourceRepository $resourceRepository;
     private ObjectProphecy|JournalRepository $journalRepository;
     private ObjectProphecy|BlackMarketCraftingHelper $bmcHelper;
+    private ObjectProphecy|ConfigService $configService;
 
     protected function setUp(): void
     {
@@ -27,12 +29,14 @@ class BlackMarketCraftingServiceTest extends TestCase
         $this->resourceRepository = $this->prophesize(ResourceRepository::class);
         $this->journalRepository = $this->prophesize(JournalRepository::class);
         $this->bmcHelper = $this->prophesize(BlackMarketCraftingHelper::class);
+        $this->configService = $this->prophesize(ConfigService::class);
 
         $this->bmcService = new BlackMarketCraftingService(
             $this->itemRepository->reveal(),
             $this->resourceRepository->reveal(),
             $this->journalRepository->reveal(),
             $this->bmcHelper->reveal(),
+            $this->configService->reveal(),
         );
     }
 
@@ -49,16 +53,16 @@ class BlackMarketCraftingServiceTest extends TestCase
     /**
      * @dataProvider getExceptionValues
      */
-    public function testGetDataForCityException(string $itemCity, int $weight): void
+    public function testGetDataForCityException(string $itemCity): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        $this->bmcService->getDataForCity($itemCity, $weight, 0.0, 0, '', '');
+        $this->bmcService->getDataForCity($itemCity, 0.0, 0, '', '');
     }
 
     public function getExceptionValues(): array
     {
-        return [['', 0], ['asd', 0], ['', 5]];
+        return [[''], [''],];
     }
 //
 //    /** @dataProvider getValuesForCityData */
