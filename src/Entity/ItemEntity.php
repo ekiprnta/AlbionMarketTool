@@ -123,10 +123,6 @@ class ItemEntity extends AlbionItemEntity
     #[Column(type: 'float', nullable: true)]
     private ?float $fame;
 
-    public function __construct(array $itemResourceData)
-    {
-    }
-
     public function refreshItemValue(): self
     {
         $this->itemValue = $this->totalResourceAmount * $this->getNutritionFactor($this->tier);
