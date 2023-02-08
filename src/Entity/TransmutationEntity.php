@@ -6,8 +6,8 @@ class TransmutationEntity
 {
     private float $profit;
     private string $profitGrade;
-    private string $startTierColor;
-    private string $endTierColor;
+    private int $startTierColor;
+    private int $endTierColor;
     private ResourceEntity $startResource;
     private ResourceEntity $endResource;
     private float $transmutePrice;
@@ -24,12 +24,12 @@ class TransmutationEntity
         return $this->resourceType;
     }
 
-    public function setStartTierColor(string $startTierColor): void
+    public function setStartTierColor(int $startTierColor): void
     {
         $this->startTierColor = $startTierColor;
     }
 
-    public function setEndTierColor(string $endTierColor): void
+    public function setEndTierColor(int $endTierColor): void
     {
         $this->endTierColor = $endTierColor;
     }
@@ -59,7 +59,7 @@ class TransmutationEntity
         return $this->transmutationPath;
     }
 
-    public function getEndTierColor(): string
+    public function getEndTierColor(): int
     {
         return $this->endTierColor;
     }
@@ -79,7 +79,7 @@ class TransmutationEntity
         $this->profitGrade = $profitGrade;
     }
 
-    public function getStartTierColor(): string
+    public function getStartTierColor(): int
     {
         return $this->startTierColor;
     }

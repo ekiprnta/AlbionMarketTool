@@ -4,39 +4,17 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\Entity;
 
+use Doctrine\ORM\Mapping\ChangeTrackingPolicy;
+use Doctrine\ORM\Mapping\Column;
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\Id;
+use Doctrine\ORM\Mapping\Table;
+
+#[Entity]
+#[ChangeTrackingPolicy('DEFERRED_EXPLICIT')]
+#[Table(name: 'items')]
 class ItemEntity extends AlbionItemEntity
 {
-    public const ITEM_WARRIOR_HELMET = 'plateHelmet';
-    public const ITEM_WARRIOR_ARMOR = 'plateArmor';
-    public const ITEM_WARRIOR_BOOTS = 'plateBoots';
-    public const ITEM_WARRIOR_SWORD = 'sword';
-    public const ITEM_WARRIOR_AXE = 'axe';
-    public const ITEM_WARRIOR_MACE = 'mace';
-    public const ITEM_WARRIOR_HAMMER = 'hammer';
-    public const ITEM_WARRIOR_WAR_GLOVE = 'warGlove';
-    public const ITEM_WARRIOR_CROSSBOW = 'crossbow';
-    public const ITEM_WARRIOR_SHIELD = 'shield';
-
-    public const ITEM_MAGE_HELMET = 'clothCowl';
-    public const ITEM_MAGE_ARMOR = 'clothRobe';
-    public const ITEM_MAGE_BOOTS = 'clothSandals';
-    public const ITEM_MAGE_FIRE_STAFF = 'fireStaff';
-    public const ITEM_MAGE_HOLY_STAFF = 'holyStaff';
-    public const ITEM_MAGE_ARCANE_STAFF = 'arcaneStaff';
-    public const ITEM_MAGE_FROST_STAFF = 'frostStaff';
-    public const ITEM_MAGE_CURSE_STAFF = 'curseStaff';
-    public const ITEM_MAGE_TOME_STAFF = 'tome';
-
-    public const ITEM_HUNTER_HELMET = 'leatherHood';
-    public const ITEM_HUNTER_ARMOR = 'leatherJacket';
-    public const ITEM_HUNTER_BOOTS = 'leatherShoes';
-    public const ITEM_HUNTER_BOW = 'bow';
-    public const ITEM_HUNTER_SPEAR = 'spear';
-    public const ITEM_HUNTER_NATURE_STAFF = 'nature';
-    public const ITEM_HUNTER_DAGGER = 'dagger';
-    public const ITEM_HUNTER_QUARTERSTAFF = 'quarterstaff';
-    public const ITEM_HUNTER_TORCH = 'torch';
-
     private const T20_WEIGHT_FACTOR = 0.1;
     private const T30_WEIGHT_FACTOR = 0.14;
     private const T40_WEIGHT_FACTOR = 0.21;
@@ -65,33 +43,33 @@ class ItemEntity extends AlbionItemEntity
     private const T83_WEIGHT_FACTOR = 1.056;
     private const T84_WEIGHT_FACTOR = 1.056;
 
-    public const T20_NUTRITION_FACTOR = 4;
-    public const T30_NUTRITION_FACTOR = 8;
-    public const T40_NUTRITION_FACTOR = 16;
-    public const T41_NUTRITION_FACTOR = 32;
-    public const T42_NUTRITION_FACTOR = 64;
-    public const T43_NUTRITION_FACTOR = 128;
-    public const T44_NUTRITION_FACTOR = 256;
-    public const T50_NUTRITION_FACTOR = 32;
-    public const T51_NUTRITION_FACTOR = 64;
-    public const T52_NUTRITION_FACTOR = 128;
-    public const T53_NUTRITION_FACTOR = 256;
-    public const T54_NUTRITION_FACTOR = 512;
-    public const T60_NUTRITION_FACTOR = 64;
-    public const T61_NUTRITION_FACTOR = 128;
-    public const T62_NUTRITION_FACTOR = 256;
-    public const T63_NUTRITION_FACTOR = 512;
-    public const T64_NUTRITION_FACTOR = 1024;
-    public const T70_NUTRITION_FACTOR = 128;
-    public const T71_NUTRITION_FACTOR = 256;
-    public const T72_NUTRITION_FACTOR = 512;
-    public const T73_NUTRITION_FACTOR = 1024;
-    public const T74_NUTRITION_FACTOR = 2048;
-    public const T80_NUTRITION_FACTOR = 256;
-    public const T81_NUTRITION_FACTOR = 512;
-    public const T82_NUTRITION_FACTOR = 1024;
-    public const T83_NUTRITION_FACTOR = 2048;
-    public const T84_NUTRITION_FACTOR = 4096;
+    final public const T20_NUTRITION_FACTOR = 4;
+    final public const T30_NUTRITION_FACTOR = 8;
+    final public const T40_NUTRITION_FACTOR = 16;
+    final public const T41_NUTRITION_FACTOR = 32;
+    final public const T42_NUTRITION_FACTOR = 64;
+    final public const T43_NUTRITION_FACTOR = 128;
+    final public const T44_NUTRITION_FACTOR = 256;
+    final public const T50_NUTRITION_FACTOR = 32;
+    final public const T51_NUTRITION_FACTOR = 64;
+    final public const T52_NUTRITION_FACTOR = 128;
+    final public const T53_NUTRITION_FACTOR = 256;
+    final public const T54_NUTRITION_FACTOR = 512;
+    final public const T60_NUTRITION_FACTOR = 64;
+    final public const T61_NUTRITION_FACTOR = 128;
+    final public const T62_NUTRITION_FACTOR = 256;
+    final public const T63_NUTRITION_FACTOR = 512;
+    final public const T64_NUTRITION_FACTOR = 1024;
+    final public const T70_NUTRITION_FACTOR = 128;
+    final public const T71_NUTRITION_FACTOR = 256;
+    final public const T72_NUTRITION_FACTOR = 512;
+    final public const T73_NUTRITION_FACTOR = 1024;
+    final public const T74_NUTRITION_FACTOR = 2048;
+    final public const T80_NUTRITION_FACTOR = 256;
+    final public const T81_NUTRITION_FACTOR = 512;
+    final public const T82_NUTRITION_FACTOR = 1024;
+    final public const T83_NUTRITION_FACTOR = 2048;
+    final public const T84_NUTRITION_FACTOR = 4096;
 
     private const T20_FACTOR_FAME = 1.5;
     private const T30_FACTOR_FAME = 7.5;
@@ -121,21 +99,28 @@ class ItemEntity extends AlbionItemEntity
     private const T83_FACTOR_FAME = 11160;
     private const T84_FACTOR_FAME = 22320;
 
-    public const CLASS_WARRIOR = 'warrior';
-    public const CLASS_MAGE = 'mage';
-    public const CLASS_HUNTER = 'hunter';
+    final public const CLASS_WARRIOR = 'warrior';
+    final public const CLASS_MAGE = 'mage';
+    final public const CLASS_HUNTER = 'hunter';
 
+    #[Id, Column(type: 'string')]
     private string $weaponGroup;
+    #[Column(type: 'integer')]
     private int $quality;
+    #[Column(type: 'string')]
     private string $primaryResource;
+    #[Column(type: 'integer')]
     private int $primaryResourceAmount;
+    #[Column(type: 'string', nullable: true)]
     private ?string $secondaryResource;
+    #[Column(type: 'integer', nullable: true)]
     private ?int $secondaryResourceAmount;
+    #[Column(type: 'string')]
     private string $bonusCity;
-    private ?int $amountInStorage;
+    #[Column(type: 'integer')]
     private int $itemValue;
+    #[Column(type: 'float')]
     private float $fame;
-
 
     public function __construct(array $itemResourceData)
     {
@@ -151,8 +136,8 @@ class ItemEntity extends AlbionItemEntity
         $this->secondaryResourceAmount = (int) $itemResourceData['secondaryResourceAmount'];
 
         $this->bonusCity = $itemResourceData['bonusCity'] ?? 'bonusCity';
-        $this->amountInStorage = $itemResourceData['amountInStorage'];
-        $this->itemValue = ($this->primaryResourceAmount + $this->secondaryResourceAmount) * $this->getNutritionFactor();
+        $this->itemValue = ($this->primaryResourceAmount + $this->secondaryResourceAmount) * $this->getNutritionFactor(
+            );
         $this->fame = $this->calculateFameFactor() * ($this->primaryResourceAmount + $this->secondaryResourceAmount);
     }
 
@@ -205,16 +190,10 @@ class ItemEntity extends AlbionItemEntity
         return $this->weaponGroup;
     }
 
-    public function getAmountInStorage(): mixed
-    {
-        return $this->amountInStorage;
-    }
-
     public function getQuality(): int
     {
         return $this->quality;
     }
-
 
     public function getPrimaryResource(): string
     {
@@ -243,7 +222,7 @@ class ItemEntity extends AlbionItemEntity
 
     private function setWeight(array $itemData): float
     {
-        $weightFactor = match ($itemData['tier']) {
+        $weightFactor = match ((int) $itemData['tier']) {
             self::TIER_T2 => self::T20_WEIGHT_FACTOR,
             self::TIER_T3 => self::T30_WEIGHT_FACTOR,
             self::TIER_T4 => self::T40_WEIGHT_FACTOR,

@@ -16,10 +16,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 class UpdateResourcesCommand extends Command
 {
     public function __construct(
-        private ApiService $apiService,
-        private ResourceRepository $resourceRepository,
-        private ConfigService $configService,
-        private UploadHelper $uploadHelper,
+        private readonly ApiService $apiService,
+        private readonly ResourceRepository $resourceRepository,
+        private readonly ConfigService $configService,
+        private readonly UploadHelper $uploadHelper,
     ) {
         parent::__construct();
     }
@@ -49,7 +49,9 @@ class UpdateResourcesCommand extends Command
             $adjustedResources = $this->uploadHelper->adjustResourceArray($resourcesData, $resourceStats);
             $progressBar->setMessage('Upload Resource ' . $resourceStats['realName'] . ' into Database');
             $progressBar->display();
-            $this->resourceRepository->updatePricesFromResources($adjustedResources);
+            foreach ($adjustedResources as $adjustedResource) {
+                $this->resourceRepository->createOrUpdate($adjustedResource);
+            }
         }
 
         $output->writeln(PHP_EOL . $message);

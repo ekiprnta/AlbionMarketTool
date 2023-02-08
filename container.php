@@ -2,18 +2,14 @@
 
 declare(strict_types=1);
 
+use Doctrine\ORM\EntityManager;
 use Laminas\ServiceManager\AbstractFactory\ConfigAbstractFactory;
 use Laminas\ServiceManager\ServiceManager;
-use MZierdt\Albion\commands\DeleteDataCommand;
 use MZierdt\Albion\commands\UpdateItemsCommand;
 use MZierdt\Albion\commands\UpdateJournalsCommand;
 use MZierdt\Albion\commands\UpdateRawResourcesCommand;
 use MZierdt\Albion\commands\UpdateResourcesCommand;
-use MZierdt\Albion\factories\DeleteDataRepositoryFactory;
-use MZierdt\Albion\factories\ItemRepositoryFactory;
-use MZierdt\Albion\factories\JournalRepositoryFactory;
-use MZierdt\Albion\factories\RawResourceRepositoryFactory;
-use MZierdt\Albion\factories\ResourceRepositoryFactory;
+use MZierdt\Albion\factories\EntityManagerFactory;
 use MZierdt\Albion\factories\TwigEnvironmentFactory;
 use MZierdt\Albion\Handler\AdminHandler;
 use MZierdt\Albion\Handler\BlackMarketCraftingHandler;
@@ -22,11 +18,12 @@ use MZierdt\Albion\Handler\listDataHandler;
 use MZierdt\Albion\Handler\RefiningHandler;
 use MZierdt\Albion\Handler\TransmutationHandler;
 use MZierdt\Albion\HttpClient;
-use MZierdt\Albion\repositories\DeleteDataRepository;
 use MZierdt\Albion\repositories\ItemRepository;
+use MZierdt\Albion\repositories\ItemRepositoryFactory;
 use MZierdt\Albion\repositories\JournalRepository;
-use MZierdt\Albion\repositories\RawResourceRepository;
+use MZierdt\Albion\repositories\JournalRepositoryFactory;
 use MZierdt\Albion\repositories\ResourceRepository;
+use MZierdt\Albion\repositories\ResourceRepositoryFactory;
 use MZierdt\Albion\Service\ApiService;
 use MZierdt\Albion\Service\BlackMarketCraftingHelper;
 use MZierdt\Albion\Service\BlackMarketCraftingService;
@@ -58,7 +55,6 @@ $serviceManager = new ServiceManager([
                 ],
                 ListDataService::class => [
                     ResourceRepository::class,
-                    RawResourceRepository::class,
                     ListDataHelper::class
                 ],
                 ListDataHelper::class => [],
@@ -76,7 +72,6 @@ $serviceManager = new ServiceManager([
                 RefiningHelper::class => [],
                 RefiningService::class => [
                     ResourceRepository::class,
-                    RawResourceRepository::class,
                     RefiningHelper::class,
                 ],
                 TierService::class => [],
@@ -103,7 +98,7 @@ $serviceManager = new ServiceManager([
                     TransmutationService::class,
                 ],
                 TransmutationService::class => [
-                    RawResourceRepository::class,
+                    ResourceRepository::class,
                     TransmutationHelper::class,
                     ConfigService::class,
                     GlobalDiscountService::class,
@@ -114,9 +109,6 @@ $serviceManager = new ServiceManager([
                 ],
                 GlobalDiscountService::class => [
                     ApiService::class
-                ],
-                DeleteDataCommand::class => [
-                    DeleteDataRepository::class
                 ],
                 UpdateJournalsCommand::class => [
                     ApiService::class,
@@ -138,7 +130,7 @@ $serviceManager = new ServiceManager([
                 ],
                 UpdateRawResourcesCommand::class => [
                     ApiService::class,
-                    RawResourceRepository::class,
+                    ResourceRepository::class,
                     ConfigService::class,
                     UploadHelper::class,
                 ],
@@ -147,12 +139,11 @@ $serviceManager = new ServiceManager([
     ],
     'abstract_factories' => [ConfigAbstractFactory::class],
     'factories' => [
+        EntityManager::class => EntityManagerFactory::class,
         Environment::class => TwigEnvironmentFactory::class,
         ResourceRepository::class => ResourceRepositoryFactory::class,
-        RawResourceRepository::class => RawResourceRepositoryFactory::class,
         ItemRepository::class => ItemRepositoryFactory::class,
         JournalRepository::class => JournalRepositoryFactory::class,
-        DeleteDataRepository::class => DeleteDataRepositoryFactory::class,
         'abstract_factories' => [ConfigAbstractFactory::class],
     ],
 ]);

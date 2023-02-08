@@ -22,14 +22,14 @@ class RefiningHelperTest extends TestCase
     /**
      * @dataProvider tierList
      */
-    public function testCalculateAmountRawResource(string $tier, int $expectedResult): void
+    public function testCalculateAmountRawResource(int $tier, int $expectedResult): void
     {
         $this->assertEquals($expectedResult, $this->refiningHelper->calculateAmountRawResource($tier));
     }
 
     public function tierList(): array
     {
-        return [['2', 0], ['3', 2], ['41', 2], ['43', 2], ['5', 3], ['56', 3], ['6', 4], ['7', 5], ['8', 5]];
+        return [[20, 0], [30, 2], [41, 2], [43, 2], [50, 3], [56, 3], [60, 4], [70, 5], [80, 5]];
     }
 
     /**

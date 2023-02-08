@@ -26,7 +26,11 @@
     "doctrine/doctrine-orm-module": "^5.2",
     "mezzio/mezzio-fastroute": "^3.7",
     "graylog2/gelf-php": "^1.7",
-    "slim/slim": "^4.11"
+    "slim/slim": "^4.11",
+    "doctrine/orm": "^2.14",
+    "doctrine/dbal": "^3.5",
+    "symfony/yaml": "^6.2",
+    "symfony/cache": "^5.4"
   },
   "require-dev": {
     "roave/security-advisories": "dev-latest",
@@ -47,7 +51,8 @@
     "stan6": "vendor/bin/phpstan analyze -l 6 src",
     "ecs": "vendor/bin/ecs --fix",
     "rector": "vendor/bin/rector process src",
-    "phpunit": "vendor/bin/phpunit"
+    "phpunit": "vendor/bin/phpunit",
+    "migrate": "bin/doctrine orm:schema-tool:update --force --complete"
   },
   "config": {
     "allow-plugins": {

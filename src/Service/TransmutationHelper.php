@@ -45,7 +45,7 @@ class TransmutationHelper extends Market
         return $cost;
     }
 
-    public function calculateResource(array $resources, string $tier, string $name): ?ResourceEntity
+    public function calculateResource(array $resources, int $tier, string $name): ?ResourceEntity
     {
         /** @var ResourceEntity $resource */
         foreach ($resources as $resource) {

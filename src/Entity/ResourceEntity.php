@@ -4,14 +4,22 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\Entity;
 
+use Doctrine\ORM\Mapping\ChangeTrackingPolicy;
+use Doctrine\ORM\Mapping\Column;
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\Id;
+use Doctrine\ORM\Mapping\Table;
+
+#[Entity]
+#[ChangeTrackingPolicy('DEFERRED_EXPLICIT')]
+#[Table(name: 'resources')]
 class ResourceEntity extends AlbionItemEntity
 {
-    public const RESOURCE_METAL_BAR = 'metalBar';
-    public const RESOURCE_PLANKS = 'planks';
-    public const RESOURCE_CLOTH = 'cloth';
-    public const RESOURCE_LEATHER = 'leather';
-    public const RESOURCE_STONE_BLOCK = 'stoneBLock';
-
+    final public const RESOURCE_METAL_BAR = 'metalBar';
+    final public const RESOURCE_PLANKS = 'planks';
+    final public const RESOURCE_CLOTH = 'cloth';
+    final public const RESOURCE_LEATHER = 'leather';
+    final public const RESOURCE_STONE_BLOCK = 'stoneBLock';
 
     private const T20_WEIGHT_FACTOR = 0.23;
     private const T30_WEIGHT_FACTOR = 0.34;
@@ -41,19 +49,17 @@ class ResourceEntity extends AlbionItemEntity
     private const T83_WEIGHT_FACTOR = 2.56;
     private const T84_WEIGHT_FACTOR = 2.56;
 
+    #[Column(type: 'string', nullable: true)]
     private ?string $bonusCity;
-    private ?int $amountInStorage;
-
 
     public function __construct(
         array $resourceData,
-        private readonly bool $raw = false
+        #[Id,
+        Column(type: 'boolean')] private bool $raw = false
     ) {
         parent::__construct($resourceData);
-
         $this->bonusCity = $resourceData['bonusCity'];
-        $this->amountInStorage = (int) $resourceData['amountInStorage'];
-        $this->weight = $this->setWeight($resourceData['tier']);
+        $this->weight = $this->setWeight((int) $resourceData['tier']);
     }
 
     public function isRaw(): bool
@@ -66,12 +72,7 @@ class ResourceEntity extends AlbionItemEntity
         return $this->bonusCity;
     }
 
-    public function getAmountInStorage(): ?int
-    {
-        return $this->amountInStorage;
-    }
-
-    private function setWeight(string $tier): float
+    private function setWeight(int $tier): float
     {
         return match ($tier) {
             self::TIER_T2 => self::T20_WEIGHT_FACTOR,
@@ -101,7 +102,7 @@ class ResourceEntity extends AlbionItemEntity
             self::TIER_T8_2 => self::T82_WEIGHT_FACTOR,
             self::TIER_T8_3 => self::T83_WEIGHT_FACTOR,
             self::TIER_T8_4 => self::T84_WEIGHT_FACTOR,
-            '0' => 0.1,
+            0 => 0.1,
             default => throw new \InvalidArgumentException('wrong tier in Resource Entity: ' . $tier),
         };
     }

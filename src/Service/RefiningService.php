@@ -4,7 +4,6 @@ namespace MZierdt\Albion\Service;
 
 use InvalidArgumentException;
 use MZierdt\Albion\Entity\RefiningEntity;
-use MZierdt\Albion\repositories\RawResourceRepository;
 use MZierdt\Albion\repositories\ResourceRepository;
 
 class RefiningService
@@ -15,9 +14,8 @@ class RefiningService
     private const RRR_NO_BONUS_CITY_FOCUS = 43.5;
 
     public function __construct(
-        private ResourceRepository $resourceRepository,
-        private RawResourceRepository $rawRepository,
-        private RefiningHelper $refiningHelper,
+        private readonly ResourceRepository $resourceRepository,
+        private readonly RefiningHelper $refiningHelper,
     ) {
     }
 
@@ -29,13 +27,12 @@ class RefiningService
         if (empty($percentage)) {
             $percentage = self::RRR_BONUS_CITY_FOCUS;
         }
-
         $resources = $this->resourceRepository->getResourcesByBonusCity($itemCity);
-        $rawResources = $this->rawRepository->getRawResourcesByBonusCity($itemCity);
+        $rawResources = $this->resourceRepository->getRawResourcesByBonusCity($itemCity);
 
         $refiningArray = [];
         foreach ($resources as $resource) {
-            if ($resource->getTier() !== '20') {
+            if ($resource->getTier() !== 20) {
                 $refiningArray[] = new RefiningEntity($resource);
             }
         }

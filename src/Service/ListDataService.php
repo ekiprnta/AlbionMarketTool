@@ -3,25 +3,23 @@
 namespace MZierdt\Albion\Service;
 
 use MZierdt\Albion\Entity\ListDataEntity;
-use MZierdt\Albion\repositories\RawResourceRepository;
 use MZierdt\Albion\repositories\ResourceRepository;
 
 class ListDataService
 {
     public function __construct(
         private readonly ResourceRepository $resourceRepository,
-        private readonly RawResourceRepository $rawResourceRepository,
         private readonly ListDataHelper $listDataHelper,
     ) {
     }
 
     public function getAllRawResources(): array
     {
-        $fortSterlingItems = $this->rawResourceRepository->getRawResourcesByCity('Fort Sterling');
-        $lymhurstItems = $this->rawResourceRepository->getRawResourcesByCity('Lymhurst');
-        $bridgewatchItems = $this->rawResourceRepository->getRawResourcesByCity('Bridgewatch');
-        $martlockItems = $this->rawResourceRepository->getRawResourcesByCity('Martlock');
-        $thetfordItems = $this->rawResourceRepository->getRawResourcesByCity('Thetford');
+        $fortSterlingItems = $this->resourceRepository->getRawResourcesByCity('Fort Sterling');
+        $lymhurstItems = $this->resourceRepository->getRawResourcesByCity('Lymhurst');
+        $bridgewatchItems = $this->resourceRepository->getRawResourcesByCity('Bridgewatch');
+        $martlockItems = $this->resourceRepository->getRawResourcesByCity('Martlock');
+        $thetfordItems = $this->resourceRepository->getRawResourcesByCity('Thetford');
 
         return $this->getListDataEntities(
             $fortSterlingItems,

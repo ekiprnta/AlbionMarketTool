@@ -32,7 +32,7 @@ class BlackMarketTransportingService
         try {
             $amountConfig = $this->configService->getBlackMarketSells();
         } catch (JsonException $e) {
-            throw new InvalidArgumentException($e->getMessage());
+            throw new InvalidArgumentException($e->getMessage(), $e->getCode(), $e);
         }
         $bmtEntities = [];
         foreach ($bmItems as $bmItem) {

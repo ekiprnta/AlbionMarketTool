@@ -4,7 +4,6 @@ namespace integration\Service;
 
 use MZierdt\Albion\Entity\RefiningEntity;
 use MZierdt\Albion\Entity\ResourceEntity;
-use MZierdt\Albion\repositories\RawResourceRepository;
 use MZierdt\Albion\repositories\ResourceRepository;
 use MZierdt\Albion\Service\RefiningHelper;
 use MZierdt\Albion\Service\RefiningService;
@@ -20,26 +19,20 @@ class RefiningServiceITest extends TestCase
     {
         /** @var ResourceRepository|ObjectProphecy $resourceRepo */
         $resourceRepo = $this->prophesize(ResourceRepository::class);
-        /** @var RawResourceRepository|ObjectProphecy $rawResourceRepo */
-        $rawResourceRepo = $this->prophesize(RawResourceRepository::class);
 
         $resourceRepo->getResourcesByBonusCity('TestCity')
             ->willReturn($this->getResources());
-        $rawResourceRepo->getRawResourcesByBonusCity('TestCity')
+        $resourceRepo->getRawResourcesByBonusCity('TestCity')
             ->willReturn($this->getRawResources());
 
-        $refiningService = new RefiningService(
-            $resourceRepo->reveal(),
-            $rawResourceRepo->reveal(),
-            new RefiningHelper()
-        );
+        $refiningService = new RefiningService($resourceRepo->reveal(), new RefiningHelper());
 
         $delta = 0.00001;
         $testData = $refiningService->getRefiningForCity('TestCity', 500);
 
         /** @var RefiningEntity $refiningEntity */
         foreach ($testData as $refiningEntity) {
-            $this->assertEquals('3', $refiningEntity->getTierColor());
+            $this->assertEquals(3, $refiningEntity->getTierColor());
             $this->assertEquals(2, $refiningEntity->getAmountRawResource());
             $this->assertEquals(80204.91, $refiningEntity->getSingleProfit());
             $this->assertEquals(968, $refiningEntity->getAmount());
@@ -53,26 +46,20 @@ class RefiningServiceITest extends TestCase
     {
         /** @var ResourceRepository|ObjectProphecy $resourceRepo */
         $resourceRepo = $this->prophesize(ResourceRepository::class);
-        /** @var RawResourceRepository|ObjectProphecy $rawResourceRepo */
-        $rawResourceRepo = $this->prophesize(RawResourceRepository::class);
 
         $resourceRepo->getResourcesByBonusCity('TestCity')
             ->willReturn($this->getResources());
-        $rawResourceRepo->getRawResourcesByBonusCity('TestCity')
+        $resourceRepo->getRawResourcesByBonusCity('TestCity')
             ->willReturn($this->getRawResources());
 
-        $refiningService = new RefiningService(
-            $resourceRepo->reveal(),
-            $rawResourceRepo->reveal(),
-            new RefiningHelper()
-        );
+        $refiningService = new RefiningService($resourceRepo->reveal(), new RefiningHelper());
 
         $delta = 0.00001;
         $testData = $refiningService->getRefiningForCity('TestCity', 0);
 
         /** @var RefiningEntity $refiningEntity */
         foreach ($testData as $refiningEntity) {
-            $this->assertEquals('3', $refiningEntity->getTierColor());
+            $this->assertEquals(3, $refiningEntity->getTierColor());
             $this->assertEquals(2, $refiningEntity->getAmountRawResource());
             $this->assertEqualsWithDelta(5340.408, $refiningEntity->getSingleProfit(), $delta);
             $this->assertEquals(968, $refiningEntity->getAmount());

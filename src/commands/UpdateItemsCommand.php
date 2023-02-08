@@ -16,10 +16,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 class UpdateItemsCommand extends Command
 {
     public function __construct(
-        private ApiService $apiService,
-        private ItemRepository $itemRepository,
-        private ConfigService $configService,
-        private UploadHelper $uploadHelper,
+        private readonly ApiService $apiService,
+        private readonly ItemRepository $itemRepository,
+        private readonly ConfigService $configService,
+        private readonly UploadHelper $uploadHelper,
     ) {
         parent::__construct();
     }
@@ -46,7 +46,9 @@ class UpdateItemsCommand extends Command
             $adjustedItems = $this->uploadHelper->adjustItems($itemsData, $itemStats);
             $progressBar->setMessage('Upload Item ' . $itemStats['realName'] . ' into Database');
             $progressBar->display();
-            $this->itemRepository->updatePricesFromItem($adjustedItems);
+            foreach ($adjustedItems as $adjustedItem) {
+                $this->itemRepository->createOrUpdate($adjustedItem);
+            }
         }
 
         $output->writeln(PHP_EOL . $message);

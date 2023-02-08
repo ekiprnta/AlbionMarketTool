@@ -6,7 +6,6 @@ namespace unit\Service;
 
 use MZierdt\Albion\Entity\ListDataEntity;
 use MZierdt\Albion\Entity\ResourceEntity;
-use MZierdt\Albion\repositories\RawResourceRepository;
 use MZierdt\Albion\repositories\ResourceRepository;
 use MZierdt\Albion\Service\ListDataHelper;
 use MZierdt\Albion\Service\ListDataService;
@@ -20,13 +19,12 @@ class ListDataServiceTest extends TestCase
 
     private ListDataService $listDataService;
     private ResourceRepository|ObjectProphecy $resourceRepository;
-    private RawResourceRepository|ObjectProphecy $rawResourceRepository;
 
     public function testGetAllRawResources(): void
     {
         $resources = [
             new ResourceEntity([
-                'tier' => '20',
+                'tier' => 20,
                 'name' => 'cloth',
                 'city' => 'Fort Sterling',
                 'realName' => 'cloth',
@@ -39,15 +37,15 @@ class ListDataServiceTest extends TestCase
             ]),
         ];
 
-        $this->rawResourceRepository->getRawResourcesByCity('Fort Sterling')
+        $this->resourceRepository->getRawResourcesByCity('Fort Sterling')
             ->willReturn($resources);
-        $this->rawResourceRepository->getRawResourcesByCity('Lymhurst')
+        $this->resourceRepository->getRawResourcesByCity('Lymhurst')
             ->willReturn($resources);
-        $this->rawResourceRepository->getRawResourcesByCity('Bridgewatch')
+        $this->resourceRepository->getRawResourcesByCity('Bridgewatch')
             ->willReturn($resources);
-        $this->rawResourceRepository->getRawResourcesByCity('Martlock')
+        $this->resourceRepository->getRawResourcesByCity('Martlock')
             ->willReturn($resources);
-        $this->rawResourceRepository->getRawResourcesByCity('Thetford')
+        $this->resourceRepository->getRawResourcesByCity('Thetford')
             ->willReturn($resources);
 
         $rawResources = $this->listDataService->getAllRawResources();
@@ -103,11 +101,6 @@ class ListDataServiceTest extends TestCase
     protected function setUp(): void
     {
         $this->resourceRepository = $this->prophesize(ResourceRepository::class);
-        $this->rawResourceRepository = $this->prophesize(RawResourceRepository::class);
-        $this->listDataService = new ListDataService(
-            $this->resourceRepository->reveal(),
-            $this->rawResourceRepository->reveal(),
-            new ListDataHelper(),
-        );
+        $this->listDataService = new ListDataService($this->resourceRepository->reveal(), new ListDataHelper(),);
     }
 }

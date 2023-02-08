@@ -12,8 +12,8 @@ use Twig\Environment;
 class BlackMarketCraftingHandler
 {
     public function __construct(
-        private Environment $twigEnvironment,
-        private BlackMarketCraftingService $blackMarketCraftingService,
+        private readonly Environment $twigEnvironment,
+        private readonly BlackMarketCraftingService $blackMarketCraftingService,
     ) {
     }
 

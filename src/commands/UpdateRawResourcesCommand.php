@@ -2,7 +2,7 @@
 
 namespace MZierdt\Albion\commands;
 
-use MZierdt\Albion\repositories\RawResourceRepository;
+use MZierdt\Albion\repositories\ResourceRepository;
 use MZierdt\Albion\Service\ApiService;
 use MZierdt\Albion\Service\ConfigService;
 use MZierdt\Albion\Service\ProgressBarService;
@@ -14,10 +14,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 class UpdateRawResourcesCommand extends Command
 {
     public function __construct(
-        private ApiService $apiService,
-        private RawResourceRepository $rawResourceRepository,
-        private ConfigService $configService,
-        private UploadHelper $uploadHelper,
+        private readonly ApiService $apiService,
+        private readonly ResourceRepository $resourceRepository,
+        private readonly ConfigService $configService,
+        private readonly UploadHelper $uploadHelper,
     ) {
         parent::__construct();
     }
@@ -43,10 +43,12 @@ class UpdateRawResourcesCommand extends Command
             $rawResourcesData = $this->apiService->getResources($rawResourceStat['realName']);
             $progressBar->setMessage('preparing raw ' . $rawResourceStat['realName']);
             $progressBar->display();
-            $adjustedRawResources = $this->uploadHelper->adjustResourceArray($rawResourcesData, $rawResourceStat);
+            $adjustedRawResources = $this->uploadHelper->adjustResourceArray($rawResourcesData, $rawResourceStat, true);
             $progressBar->setMessage('Upload raw ' . $rawResourceStat['realName'] . ' into Database');
             $progressBar->display();
-            $this->rawResourceRepository->updatePricesFromRawResources($adjustedRawResources);
+            foreach ($adjustedRawResources as $adjustedRawResource) {
+                $this->resourceRepository->createOrUpdate($adjustedRawResource);
+            }
         }
 
         $output->writeln(PHP_EOL . $message);
