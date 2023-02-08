@@ -18,10 +18,14 @@ class JournalRepository extends Repository
             ]
         );
         if ($oldJournalEntity !== null) {
-            $oldJournalEntity->setSellOrderPrice($journalEntity->getSellOrderPrice());
-            $oldJournalEntity->setBuyOrderPrice($journalEntity->getBuyOrderPrice());
-            $oldJournalEntity->setSellOrderAge($journalEntity->getSellOrderAge());
-            $oldJournalEntity->setBuyOrderAge($journalEntity->getBuyOrderAge());
+            if ($journalEntity->getSellOrderPrice() !== 0) {
+                $oldJournalEntity->setSellOrderPrice($journalEntity->getSellOrderPrice());
+                $oldJournalEntity->setBuyOrderPrice($journalEntity->getBuyOrderPrice());
+            }
+            if ($journalEntity->getBuyOrderPrice() !== 0) {
+                $oldJournalEntity->setSellOrderAge($journalEntity->getSellOrderAge());
+                $oldJournalEntity->setBuyOrderAge($journalEntity->getBuyOrderAge());
+            }
             $this->update($oldJournalEntity);
         } else {
             $this->update($journalEntity);
