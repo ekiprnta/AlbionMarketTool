@@ -33,16 +33,6 @@ class UploadHelper
                 ->setBonusCity($resourceStats['bonusCity'])
                 ->setRaw($raw);
 
-//                'tier' => $nameAndTier['tier'],
-//                'name' => $name,
-//                'city' => $resource['city'],
-//                'realName' => $resourceStats['realName'],
-//                'sellOrderPrice' => $resource['sell_price_min'],
-//                'sellOrderPriceDate' => $resource['sell_price_min_date'],
-//                'buyOrderPrice' => $resource['buy_price_max'],
-//                'buyOrderPriceDate' => $resource['buy_price_max_date'],
-//                'bonusCity' => $resourceStats['bonusCity'],
-//            ], $raw);
             $adjustedResourceArray[] = $resourceEntity;
         }
         return $adjustedResourceArray;
