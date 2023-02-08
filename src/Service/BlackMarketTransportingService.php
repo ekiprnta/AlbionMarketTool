@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace MZierdt\Albion\Service;
 
 use InvalidArgumentException;
-use JsonException;
 use MZierdt\Albion\Entity\BlackMarketTransportEntity;
 use MZierdt\Albion\repositories\ItemRepository;
 
@@ -28,12 +27,8 @@ class BlackMarketTransportingService
         }
         $cityItem = $this->itemRepository->getItemsByLocation($itemCity);
         $bmItems = $this->itemRepository->getItemsByLocation('Black Market');
+        $amountConfig = $this->configService->getBlackMarketSells();
 
-        try {
-            $amountConfig = $this->configService->getBlackMarketSells();
-        } catch (JsonException $e) {
-            throw new InvalidArgumentException($e->getMessage(), $e->getCode(), $e);
-        }
         $bmtEntities = [];
         foreach ($bmItems as $bmItem) {
             $bmtEntities[] = new BlackMarketTransportEntity($bmItem);
@@ -90,7 +85,7 @@ class BlackMarketTransportingService
     {
         /** @var BlackMarketTransportEntity $bmtEntity */
         foreach ($bmtEntities as $key => $bmtEntity) {
-            if (! in_array($bmtEntity->getBmItem()->getTier(), $tierList, true)) {
+            if (!in_array($bmtEntity->getBmItem()->getTier(), $tierList, true)) {
                 unset($bmtEntities[$key]);
             }
         }
