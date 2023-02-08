@@ -54,55 +54,39 @@ class BlackMarketTransportingServiceITest extends TestCase
     public function getBmItems(): array
     {
         return [
-            new ItemEntity([
-                'weaponGroup' => 'axe',
-                'quality' => 2,
-                'primaryResource' => 'metalBar',
-                'primaryResourceAmount' => 20,
-                'secondaryResource' => 'planks',
-                'secondaryResourceAmount' => 12,
-                'bonusCity' => 'TestCity',
-                'amountInStorage' => null,
-                'itemValue' => 8192,
-                'fame' => 41280.0,
-                'tier' => '71',
-                'name' => '3h_axe',
-                'city' => 'Black Market',
-                'sellOrderPrice' => 441992,
-                'sellOrderPriceDate' => '2022-12-06 21:15:00',
-                'buyOrderPrice' => 168594,
-                'buyOrderPriceDate' => '2022-12-06 21:15:00',
-                'realName' => 'greatAxe',
-                'weight' => 22.8,
-                'class' => 'warrior',
-            ]),
+            (new ItemEntity())
+                ->setTier(71)
+                ->setName('3h_axe')
+                ->setCity('BlackMarket')
+                ->setSellOrderPrice(441992)
+                ->setBuyOrderPrice(168594)
+                ->setWeaponGroup('axe')
+                ->setRealName('greatAxe')
+                ->setPrimaryResource('metalBar')
+                ->setPrimaryResourceAmount(20)
+                ->setSecondaryResource('planks')
+                ->setSecondaryResourceAmount(12)
+                ->refreshFame()
+                ->refreshItemValue(),
         ];
     }
     public function getCityItems(): array
     {
         return [
-            new ItemEntity([
-                'weaponGroup' => 'axe',
-                'quality' => 2,
-                'primaryResource' => 'metalBar',
-                'primaryResourceAmount' => 20,
-                'secondaryResource' => 'planks',
-                'secondaryResourceAmount' => 12,
-                'bonusCity' => 'TestCity',
-                'amountInStorage' => null,
-                'itemValue' => 8192,
-                'fame' => 41280.0,
-                'tier' => '71',
-                'name' => '3h_axe',
-                'city' => 'TestCity',
-                'sellOrderPrice' => 241992,
-                'sellOrderPriceDate' => '2022-12-06 21:15:00',
-                'buyOrderPrice' => 178594,
-                'buyOrderPriceDate' => '2022-12-06 21:15:00',
-                'realName' => 'greatAxe',
-                'weight' => 22.8,
-                'class' => 'warrior',
-            ]),
+            (new ItemEntity())
+                ->setTier(71)
+                ->setName('3h_axe')
+                ->setCity('BlackMarket')
+                ->setSellOrderPrice(241992)
+                ->setBuyOrderPrice(178594)
+                ->setWeaponGroup('axe')
+                ->setRealName('greatAxe')
+                ->setPrimaryResource('metalBar')
+                ->setPrimaryResourceAmount(20)
+                ->setSecondaryResource('planks')
+                ->setSecondaryResourceAmount(12)
+                ->refreshFame()
+                ->refreshItemValue(),
         ];
     }
 }

@@ -72,56 +72,36 @@ class RefiningServiceITest extends TestCase
     private function getResources(): array
     {
         return [
-            new ResourceEntity([
-                'bonusCity' => 'Testcity',
-                'amountInStorage' => 0,
-                'tier' => '30',
-                'name' => 'planks',
-                'city' => 'TestCity',
-                'sellOrderPrice' => 13986,
-                'sellOrderPriceDate' => '2022-12-06 21:15:00',
-                'buyOrderPrice' => 12235,
-                'buyOrderPriceDate' => '2022-12-06 21:15:00',
-                'realName' => 'planks',
-                'weight' => 1.71,
-                'class' => '',
-            ]),
-            new ResourceEntity(
-                [
-                    'bonusCity' => 'Testcity',
-                    'amountInStorage' => 0,
-                    'tier' => '20',
-                    'name' => 'planks',
-                    'city' => 'TestCity',
-                    'sellOrderPrice' => 13986,
-                    'sellOrderPriceDate' => '2022-12-06 21:15:00',
-                    'buyOrderPrice' => 12235,
-                    'buyOrderPriceDate' => '2022-12-06 21:15:00',
-                    'realName' => 'planks',
-                    'weight' => 1.71,
-                    'class' => '',
-                ]
-            ),
+            (new ResourceEntity())
+                ->setTier(30)
+                ->setName('planks')
+                ->setCity('TestCity')
+                ->setRealName('planks')
+                ->setSellOrderPrice(13986)
+                ->setBuyOrderPrice(12235)
+                ->setRaw(false),
+            (new ResourceEntity())
+                ->setTier(20)
+                ->setName('planks')
+                ->setCity('TestCity')
+                ->setRealName('planks')
+                ->setSellOrderPrice(13986)
+                ->setBuyOrderPrice(12235)
+                ->setRaw(false)
         ];
     }
 
     private function getRawResources(): array
     {
         return [
-            new ResourceEntity([
-                'bonusCity' => 'Testcity',
-                'amountInStorage' => 0,
-                'tier' => '30',
-                'name' => 'planks',
-                'city' => 'TestCity',
-                'sellOrderPrice' => 1398,
-                'sellOrderPriceDate' => '2022-12-06 21:15:00',
-                'buyOrderPrice' => 1223,
-                'buyOrderPriceDate' => '2022-12-06 21:15:00',
-                'realName' => 'planks',
-                'weight' => 1.71,
-                'class' => '',
-            ], true),
+            (new ResourceEntity())
+                ->setTier(30)
+                ->setName('planks')
+                ->setCity('TestCity')
+                ->setRealName('planks')
+                ->setSellOrderPrice(1398)
+                ->setBuyOrderPrice(1223)
+                ->setRaw(true)
         ];
     }
 }

@@ -20,7 +20,7 @@ class JournalEntityTest extends TestCase
             ->setBuyOrderPrice(200)
             ->setClass('warrior')
             ->setFameToFill(150)
-            ->setFillStatus(true);
+            ->setFillStatus('empty');
 
         $this->assertEquals(40, $journalEntity->getTier());
         $this->assertEquals('Test', $journalEntity->getName());
@@ -29,6 +29,6 @@ class JournalEntityTest extends TestCase
         $this->assertEquals(200, $journalEntity->getBuyOrderPrice());
         $this->assertEquals('warrior', $journalEntity->getClass());
         $this->assertEquals(150, $journalEntity->getFameToFill());
-        $this->assertEquals(true, $journalEntity->getFillStatus());
+        $this->assertEquals('empty', $journalEntity->getFillStatus());
     }
 }

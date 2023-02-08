@@ -10,6 +10,7 @@ use MZierdt\Albion\repositories\JournalRepository;
 use MZierdt\Albion\repositories\ResourceRepository;
 use MZierdt\Albion\Service\BlackMarketCraftingHelper;
 use MZierdt\Albion\Service\BlackMarketCraftingService;
+use MZierdt\Albion\Service\ConfigService;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
@@ -38,30 +39,30 @@ class BlackMarketCraftingServiceITest extends TestCase
             $itemRepository->reveal(),
             $resourceRepository->reveal(),
             $journalRepository->reveal(),
-            new BlackMarketCraftingHelper()
+            new BlackMarketCraftingHelper(),
+            new ConfigService()
         );
 
         $delta = 0.00001;
-        $testData = $bmcService->getDataForCity('TestCity', 500, 25.2, 1200, 'TestCity', 1);
+        $testData = $bmcService->getDataForCity('TestCity', 25.2, 1200, 'TestCity', 1);
 
         foreach ($testData as $bmcEntity) {
             $this->assertEqualsWithDelta(1.4545454545455, $bmcEntity[0]->getJournalAmountPerItem(), $delta);
 
-            $this->assertEquals(8, $bmcEntity[0]->getTotalAmount());
-            $this->assertEquals(160, $bmcEntity[0]->getPrimResourceAmount());
-            $this->assertEquals(96, $bmcEntity[0]->getSecResourceAmount());
-            $this->assertEqualsWithDelta(11.636363636364, $bmcEntity[0]->getJournalAmount(), $delta);
-            $this->assertEqualsWithDelta(182.4, $bmcEntity[0]->getTotalItemWeight(), $delta);
+            $this->assertEquals(20, $bmcEntity[0]->getTotalAmount());
+            $this->assertEquals(400, $bmcEntity[0]->getPrimResourceAmount());
+            $this->assertEquals(240, $bmcEntity[0]->getSecResourceAmount());
+            $this->assertEqualsWithDelta(29.090909090909093, $bmcEntity[0]->getJournalAmount(), $delta);
 
             $this->assertEqualsWithDelta(11059.2, $bmcEntity[0]->getCraftingFee(), $delta);
-            $this->assertEqualsWithDelta(439214.54545455, $bmcEntity[0]->getProfitJournals(), $delta);
-            $this->assertEqualsWithDelta(1056104.3374545, $bmcEntity[0]->getProfit(), $delta);
-            $this->assertEqualsWithDelta(2112.2086749091, $bmcEntity[0]->getWeightProfitQuotient(), $delta);
+            $this->assertEqualsWithDelta(-1958.8363636364, $bmcEntity[0]->getProfitJournals(), $delta);
+            $this->assertEqualsWithDelta(1556854.4436363627, $bmcEntity[0]->getProfit(), $delta);
+            $this->assertEqualsWithDelta(77842.72218181813, $bmcEntity[0]->getProfitQuotient(), $delta);
 
             $this->assertEquals('S', $bmcEntity[0]->getColorGrade());
-            $this->assertEqualsWithDelta(495360.0, $bmcEntity[0]->getFameAmount(), $delta);
+            $this->assertEqualsWithDelta(1238400.0, $bmcEntity[0]->getFameAmount(), $delta);
             $this->assertEquals(7, $bmcEntity[0]->getTierColor());
-            $this->assertEquals(3_535_936, $bmcEntity[0]->getItemValue());
+            $this->assertEquals(8839840, $bmcEntity[0]->getItemValue());
 
             $this->assertEquals('3h_axe', $bmcEntity[0]->getItem()->getName());
             $this->assertEquals('metalBar', $bmcEntity[0]->getPrimResource()->getName());
@@ -91,7 +92,8 @@ class BlackMarketCraftingServiceITest extends TestCase
             $itemRepository->reveal(),
             $resourceRepository->reveal(),
             $journalRepository->reveal(),
-            new BlackMarketCraftingHelper()
+            new BlackMarketCraftingHelper(),
+            new ConfigService()
         );
 
         $delta = 0.000001;
@@ -100,21 +102,20 @@ class BlackMarketCraftingServiceITest extends TestCase
         foreach ($testData as $bmcEntity) {
             $this->assertEqualsWithDelta(1.4545454545455, $bmcEntity[0]->getJournalAmountPerItem(), $delta);
 
-            $this->assertEquals(8, $bmcEntity[0]->getTotalAmount());
-            $this->assertEquals(160, $bmcEntity[0]->getPrimResourceAmount());
-            $this->assertEquals(96, $bmcEntity[0]->getSecResourceAmount());
-            $this->assertEqualsWithDelta(11.636363636364, $bmcEntity[0]->getJournalAmount(), $delta);
-            $this->assertEqualsWithDelta(182.4, $bmcEntity[0]->getTotalItemWeight(), $delta);
+            $this->assertEquals(20, $bmcEntity[0]->getTotalAmount());
+            $this->assertEquals(400, $bmcEntity[0]->getPrimResourceAmount());
+            $this->assertEquals(240, $bmcEntity[0]->getSecResourceAmount());
+            $this->assertEqualsWithDelta(29.090909090909093, $bmcEntity[0]->getJournalAmount(), $delta);
 
             $this->assertEqualsWithDelta(0, $bmcEntity[0]->getCraftingFee(), $delta);
-            $this->assertEqualsWithDelta(439214.54545455, $bmcEntity[0]->getProfitJournals(), $delta);
-            $this->assertEqualsWithDelta(1448814.9934545, $bmcEntity[0]->getProfit(), $delta);
-            $this->assertEqualsWithDelta(2897.6299869091, $bmcEntity[0]->getWeightProfitQuotient(), $delta);
+            $this->assertEqualsWithDelta(-1958.8363636363913, $bmcEntity[0]->getProfitJournals(), $delta);
+            $this->assertEqualsWithDelta(38801851.56363636, $bmcEntity[0]->getProfit(), $delta);
+            $this->assertEqualsWithDelta(1940092.5781818181, $bmcEntity[0]->getProfitQuotient(), $delta);
 
             $this->assertEquals('S', $bmcEntity[0]->getColorGrade());
-            $this->assertEqualsWithDelta(495360.0, $bmcEntity[0]->getFameAmount(), $delta);
+            $this->assertEqualsWithDelta(1238400.0, $bmcEntity[0]->getFameAmount(), $delta);
             $this->assertEquals(7, $bmcEntity[0]->getTierColor());
-            $this->assertEquals(3_535_936, $bmcEntity[0]->getItemValue());
+            $this->assertEquals(8839840, $bmcEntity[0]->getItemValue());
 
             $this->assertEquals('3h_axe', $bmcEntity[0]->getItem()->getName());
             $this->assertEquals('metalBar', $bmcEntity[0]->getPrimResource()->getName());
@@ -127,99 +128,63 @@ class BlackMarketCraftingServiceITest extends TestCase
     public function getItems(): array
     {
         return [
-            new ItemEntity([
-                'weaponGroup' => 'axe',
-                'quality' => 2,
-                'primaryResource' => 'metalBar',
-                'primaryResourceAmount' => 20,
-                'secondaryResource' => 'planks',
-                'secondaryResourceAmount' => 12,
-                'bonusCity' => 'TestCity',
-                'amountInStorage' => null,
-                'itemValue' => 8192,
-                'fame' => 41280.0,
-                'tier' => '71',
-                'name' => '3h_axe',
-                'city' => 'Black Market',
-                'sellOrderPrice' => 441992,
-                'sellOrderPriceDate' => '2022-12-06 21:15:00',
-                'buyOrderPrice' => 168594,
-                'buyOrderPriceDate' => '2022-12-06 21:15:00',
-                'realName' => 'greatAxe',
-                'weight' => 22.8,
-                'class' => 'warrior',
-            ]),
+            (new ItemEntity())
+                ->setTier(71)
+                ->setName('3h_axe')
+                ->setCity('BlackMarket')
+                ->setSellOrderPrice(441992)
+                ->setBuyOrderPrice(168594)
+                ->setWeaponGroup('axe')
+                ->setRealName('greatAxe')
+                ->setPrimaryResource('metalBar')
+                ->setPrimaryResourceAmount(20)
+                ->setSecondaryResource('planks')
+                ->setSecondaryResourceAmount(12)
+                ->refreshFame()
+                ->refreshItemValue(),
         ];
     }
 
     public function getResources(): array
     {
         return [
-            new ResourceEntity([
-                'bonusCity' => 'Testcity',
-                'amountInStorage' => 0,
-                'tier' => '71',
-                'name' => 'metalBar',
-                'city' => 'TestCity',
-                'sellOrderPrice' => 13986,
-                'sellOrderPriceDate' => '2022-12-06 21:15:00',
-                'buyOrderPrice' => 12235,
-                'buyOrderPriceDate' => '2022-12-06 21:15:00',
-                'realName' => 'metalBar',
-                'weight' => 1.71,
-                'class' => '',
-            ]),
-            new ResourceEntity(
-                [
-                    'bonusCity' => 'Testcity',
-                    'amountInStorage' => 0,
-                    'tier' => '71',
-                    'name' => 'planks',
-                    'city' => 'TestCity',
-                    'sellOrderPrice' => 13986,
-                    'sellOrderPriceDate' => '2022-12-06 21:15:00',
-                    'buyOrderPrice' => 12235,
-                    'buyOrderPriceDate' => '2022-12-06 21:15:00',
-                    'realName' => 'planks',
-                    'weight' => 1.71,
-                    'class' => '',
-                ]
-            ),
+            (new ResourceEntity())
+                ->setTier(71)
+                ->setName('metalBar')
+                ->setCity('TestCity')
+                ->setRealName('metalBar')
+                ->setSellOrderPrice(13986)
+                ->setBuyOrderPrice(12235)
+            ,
+            (new ResourceEntity())
+                ->setTier(71)
+                ->setName('planks')
+                ->setCity('TestCity')
+                ->setRealName('planks')
+                ->setSellOrderPrice(13986)
+                ->setBuyOrderPrice(12235),
         ];
     }
 
     public function getJournals(): array
     {
         return [
-            new JournalEntity([
-                'fameToFill' => 28380,
-                'fillStatus' => 'empty',
-                'tier' => '7',
-                'name' => 'journal_warrior_empty',
-                'city' => 'Testcity',
-                'sellOrderPrice' => 9559,
-                'sellOrderPriceDate' => '2022-12-06 21:15:00',
-                'buyOrderPrice' => 9005,
-                'buyOrderPriceDate' => '2022-12-06 21:15:00',
-                'realName' => '',
-                'weight' => 1.1,
-                'class' => 'warrior',
-            ]),
-            new JournalEntity([
-                'fameToFill' => 28380,
-                'fillStatus' => 'full',
-                'tier' => '7',
-                'name' => 'journal_warrior_full',
-                'city' => 'Testcity',
-                'sellOrderPrice' => 50000,
-                'sellOrderPriceDate' => '2022-12-06 21:15:00',
-                'buyOrderPrice' => 43000,
-                'buyOrderPriceDate' => '2022-12-06 21:15:00',
-                'realName' => '',
-                'weight' => 1.1,
-                'class' => 'warrior',
-            ]),
-
+            (new JournalEntity())
+                ->setTier(70)
+                ->setName('journal_warrior_empty')
+                ->setCity('TestCity')
+                ->setSellOrderPrice(9559)
+                ->setBuyOrderPrice(9005)
+                ->setFameToFill(28380)
+                ->setFillStatus('empty'),
+            (new JournalEntity())
+                ->setTier(70)
+                ->setName('journal_warrior_full')
+                ->setCity('TestCity')
+                ->setSellOrderPrice(9559)
+                ->setBuyOrderPrice(9005)
+                ->setFameToFill(28380)
+                ->setFillStatus('full'),
         ];
     }
 }
