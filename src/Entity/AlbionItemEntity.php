@@ -46,11 +46,11 @@ class AlbionItemEntity
     #[Id, Column(type: 'string', nullable: true)]
     protected ?string $city = null;
     #[Column(type: 'integer', nullable: true)]
-    protected ?int $sellOrderPrice = null;
+    protected ?int $sellOrderPrice = 0;
     #[Column(type: 'integer', nullable: true)]
     protected ?int $sellOrderAge = null;
     #[Column(type: 'integer', nullable: true)]
-    protected ?int $buyOrderPrice = null;
+    protected ?int $buyOrderPrice = 0;
     #[Column(type: 'integer', nullable: true)]
     protected ?int $buyOrderAge = null;
     #[Column(type: 'string', nullable: true)]
@@ -148,17 +148,17 @@ class AlbionItemEntity
         return DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $dateString, new DateTimeZone('Europe/London'));
     }
 
-    public function getTier(): int
+    public function getTier(): ?int
     {
         return $this->tier;
     }
 
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function getCity(): string
+    public function getCity(): ?string
     {
         return $this->city;
     }
@@ -168,7 +168,7 @@ class AlbionItemEntity
         return $this->sellOrderPrice;
     }
 
-    public function getSellOrderAge(): int
+    public function getSellOrderAge(): ?int
     {
         return $this->sellOrderAge;
     }
@@ -178,17 +178,17 @@ class AlbionItemEntity
         return $this->buyOrderPrice;
     }
 
-    public function getBuyOrderAge(): int
+    public function getBuyOrderAge(): ?int
     {
         return $this->buyOrderAge;
     }
 
-    public function getRealName(): string
+    public function getRealName(): ?string
     {
         return $this->realName;
     }
 
-    public function getClass(): string
+    public function getClass(): ?string
     {
         return $this->class;
     }
