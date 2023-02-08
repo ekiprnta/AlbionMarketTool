@@ -169,22 +169,13 @@ class BlackMarketCraftingHelperTest extends TestCase
 
         $this->assertEquals(
             $expectedResult,
-            $this->bmcHelper->calculateTotalAmount(
-                $tier,
-                $primResourceAmount,
-                $secResourceAmount,
-                $bmSells
-            )
+            $this->bmcHelper->calculateTotalAmount($tier, $primResourceAmount, $secResourceAmount, $bmSells)
         );
     }
 
     public function getTotalAmount(): array
     {
-        return [
-            [2000, 20, 12, 20],
-            [750, 61, 8, 8],
-            [1, 83, 8, 0],
-        ];
+        return [[2000, 20, 12, 20], [750, 61, 8, 8], [1, 83, 8, 0]];
     }
 
     /**

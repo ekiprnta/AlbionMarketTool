@@ -154,8 +154,7 @@ class BlackMarketCraftingServiceITest extends TestCase
                 ->setCity('TestCity')
                 ->setRealName('metalBar')
                 ->setSellOrderPrice(13986)
-                ->setBuyOrderPrice(12235)
-            ,
+                ->setBuyOrderPrice(12235),
             (new ResourceEntity())
                 ->setTier(71)
                 ->setName('planks')

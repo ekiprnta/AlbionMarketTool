@@ -87,7 +87,7 @@ class RefiningServiceITest extends TestCase
                 ->setRealName('planks')
                 ->setSellOrderPrice(13986)
                 ->setBuyOrderPrice(12235)
-                ->setRaw(false)
+                ->setRaw(false),
         ];
     }
 
@@ -101,7 +101,7 @@ class RefiningServiceITest extends TestCase
                 ->setRealName('planks')
                 ->setSellOrderPrice(1398)
                 ->setBuyOrderPrice(1223)
-                ->setRaw(true)
+                ->setRaw(true),
         ];
     }
 }

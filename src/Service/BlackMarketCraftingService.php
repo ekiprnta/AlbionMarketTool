@@ -91,9 +91,12 @@ class BlackMarketCraftingService
 
             $bmcEntity->setTotalAmount(
                 $this->bmtHelper->calculateTotalAmount(
-                    $bmcEntity->getItem()->getTier(),
-                    $bmcEntity->getItem()->getPrimaryResourceAmount(),
-                    $bmcEntity->getItem()->getSecondaryResourceAmount(),
+                    $bmcEntity->getItem()
+                        ->getTier(),
+                    $bmcEntity->getItem()
+                        ->getPrimaryResourceAmount(),
+                    $bmcEntity->getItem()
+                        ->getSecondaryResourceAmount(),
                     $this->configService->getBlackMarketSells()
                 )
             );
@@ -155,14 +158,9 @@ class BlackMarketCraftingService
                 )
             );
             $bmcEntity->setProfitQuotient(
-                $this->bmtHelper->calculateProfitQuotient(
-                    $bmcEntity->getProfit(),
-                    $bmcEntity->getTotalAmount()
-                )
+                $this->bmtHelper->calculateProfitQuotient($bmcEntity->getProfit(), $bmcEntity->getTotalAmount())
             );
-            $bmcEntity->setColorGrade(
-                $this->bmtHelper->calculateProfitGrade($bmcEntity->getProfitQuotient())
-            );
+            $bmcEntity->setColorGrade($this->bmtHelper->calculateProfitGrade($bmcEntity->getProfitQuotient()));
         }
 
         return $this->filterCalculateEntityArray($calculateEntityArray);

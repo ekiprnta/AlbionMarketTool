@@ -119,9 +119,9 @@ class ItemEntity extends AlbionItemEntity
     #[Column(type: 'string', nullable: true)]
     private ?string $bonusCity = null;
     #[Column(type: 'integer', nullable: true)]
-    private ?int $itemValue;
+    private ?int $itemValue = null;
     #[Column(type: 'float', nullable: true)]
-    private ?float $fame;
+    private ?float $fame = null;
 
     public function refreshItemValue(): self
     {
