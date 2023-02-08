@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace unit\Service;
+namespace integration\Service;
 
 use MZierdt\Albion\Entity\ListDataEntity;
 use MZierdt\Albion\Entity\ResourceEntity;
@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 
-class ListDataServiceTest extends TestCase
+class ListDataServiceITest extends TestCase
 {
     use ProphecyTrait;
 
