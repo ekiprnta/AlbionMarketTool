@@ -50,15 +50,18 @@ class ResourceEntity extends AlbionItemEntity
     private const T84_WEIGHT_FACTOR = 2.56;
 
     #[Column(type: 'string', nullable: true)]
-    private ?string $bonusCity;
+    private ?string $bonusCity = null;
+    #[Id, Column(type: 'boolean')]
+    private bool $raw = false;
 
-    public function __construct(
-        array $resourceData,
-        #[Id,
-        Column(type: 'boolean')] private bool $raw = false
-    ) {
-        parent::__construct($resourceData);
-        $this->bonusCity = $resourceData['bonusCity'];
+    public function setBonusCity(?string $bonusCity): void
+    {
+        $this->bonusCity = $bonusCity;
+    }
+
+    public function setRaw(bool $raw): void
+    {
+        $this->raw = $raw;
     }
 
     public function isRaw(): bool
@@ -66,7 +69,7 @@ class ResourceEntity extends AlbionItemEntity
         return $this->raw;
     }
 
-    public function getBonusCity(): mixed
+    public function getBonusCity(): ?string
     {
         return $this->bonusCity;
     }
