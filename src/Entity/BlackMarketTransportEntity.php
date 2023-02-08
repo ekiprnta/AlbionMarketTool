@@ -14,7 +14,7 @@ class BlackMarketTransportEntity
     private float $weightProfitQuotient;
     private string $profitGrade;
 
-    private int $tierColor;
+    private readonly int $tierColor;
     private float $totalCost;
     private float $profitPercentage;
 

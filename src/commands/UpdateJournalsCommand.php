@@ -16,10 +16,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 class UpdateJournalsCommand extends Command
 {
     public function __construct(
-        private ApiService $apiService,
-        private JournalRepository $journalRepository,
-        private ConfigService $configService,
-        private UploadHelper $uploadHelper,
+        private readonly ApiService $apiService,
+        private readonly JournalRepository $journalRepository,
+        private readonly ConfigService $configService,
+        private readonly UploadHelper $uploadHelper,
     ) {
         parent::__construct();
     }

@@ -15,9 +15,9 @@ use Doctrine\ORM\Mapping\Table;
 #[Table(name: 'journals')]
 class JournalEntity extends AlbionItemEntity
 {
-    public const JOURNAL_WARRIOR = 'JOURNAL_WARRIOR';
-    public const JOURNAL_MAGE = 'JOURNAL_MAGE';
-    public const JOURNAL_HUNTER = 'JOURNAL_HUNTER';
+    final public const JOURNAL_WARRIOR = 'JOURNAL_WARRIOR';
+    final public const JOURNAL_MAGE = 'JOURNAL_MAGE';
+    final public const JOURNAL_HUNTER = 'JOURNAL_HUNTER';
 
     #[Column(type: 'integer')]
     private int $fameToFill;

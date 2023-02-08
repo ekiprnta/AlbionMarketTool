@@ -32,11 +32,11 @@ $dispatcher = FastRoute\simpleDispatcher(
 $httpMethod = $_SERVER['REQUEST_METHOD'];
 $uri = $_SERVER['REQUEST_URI'];
 // Strip query string (?foo=bar) and decode URI
-$pos = strpos($uri, '?');
+$pos = strpos((string) $uri, '?');
 if ($pos !== false) {
-    $uri = substr($uri, 0, $pos);
+    $uri = substr((string) $uri, 0, $pos);
 }
-$uri = rawurldecode($uri);
+$uri = rawurldecode((string) $uri);
 $routeInfo = $dispatcher->dispatch($httpMethod, $uri);
 switch ($routeInfo[0]) {
     case FastRoute\Dispatcher::NOT_FOUND:

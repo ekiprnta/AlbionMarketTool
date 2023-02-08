@@ -43,33 +43,33 @@ class ItemEntity extends AlbionItemEntity
     private const T83_WEIGHT_FACTOR = 1.056;
     private const T84_WEIGHT_FACTOR = 1.056;
 
-    public const T20_NUTRITION_FACTOR = 4;
-    public const T30_NUTRITION_FACTOR = 8;
-    public const T40_NUTRITION_FACTOR = 16;
-    public const T41_NUTRITION_FACTOR = 32;
-    public const T42_NUTRITION_FACTOR = 64;
-    public const T43_NUTRITION_FACTOR = 128;
-    public const T44_NUTRITION_FACTOR = 256;
-    public const T50_NUTRITION_FACTOR = 32;
-    public const T51_NUTRITION_FACTOR = 64;
-    public const T52_NUTRITION_FACTOR = 128;
-    public const T53_NUTRITION_FACTOR = 256;
-    public const T54_NUTRITION_FACTOR = 512;
-    public const T60_NUTRITION_FACTOR = 64;
-    public const T61_NUTRITION_FACTOR = 128;
-    public const T62_NUTRITION_FACTOR = 256;
-    public const T63_NUTRITION_FACTOR = 512;
-    public const T64_NUTRITION_FACTOR = 1024;
-    public const T70_NUTRITION_FACTOR = 128;
-    public const T71_NUTRITION_FACTOR = 256;
-    public const T72_NUTRITION_FACTOR = 512;
-    public const T73_NUTRITION_FACTOR = 1024;
-    public const T74_NUTRITION_FACTOR = 2048;
-    public const T80_NUTRITION_FACTOR = 256;
-    public const T81_NUTRITION_FACTOR = 512;
-    public const T82_NUTRITION_FACTOR = 1024;
-    public const T83_NUTRITION_FACTOR = 2048;
-    public const T84_NUTRITION_FACTOR = 4096;
+    final public const T20_NUTRITION_FACTOR = 4;
+    final public const T30_NUTRITION_FACTOR = 8;
+    final public const T40_NUTRITION_FACTOR = 16;
+    final public const T41_NUTRITION_FACTOR = 32;
+    final public const T42_NUTRITION_FACTOR = 64;
+    final public const T43_NUTRITION_FACTOR = 128;
+    final public const T44_NUTRITION_FACTOR = 256;
+    final public const T50_NUTRITION_FACTOR = 32;
+    final public const T51_NUTRITION_FACTOR = 64;
+    final public const T52_NUTRITION_FACTOR = 128;
+    final public const T53_NUTRITION_FACTOR = 256;
+    final public const T54_NUTRITION_FACTOR = 512;
+    final public const T60_NUTRITION_FACTOR = 64;
+    final public const T61_NUTRITION_FACTOR = 128;
+    final public const T62_NUTRITION_FACTOR = 256;
+    final public const T63_NUTRITION_FACTOR = 512;
+    final public const T64_NUTRITION_FACTOR = 1024;
+    final public const T70_NUTRITION_FACTOR = 128;
+    final public const T71_NUTRITION_FACTOR = 256;
+    final public const T72_NUTRITION_FACTOR = 512;
+    final public const T73_NUTRITION_FACTOR = 1024;
+    final public const T74_NUTRITION_FACTOR = 2048;
+    final public const T80_NUTRITION_FACTOR = 256;
+    final public const T81_NUTRITION_FACTOR = 512;
+    final public const T82_NUTRITION_FACTOR = 1024;
+    final public const T83_NUTRITION_FACTOR = 2048;
+    final public const T84_NUTRITION_FACTOR = 4096;
 
     private const T20_FACTOR_FAME = 1.5;
     private const T30_FACTOR_FAME = 7.5;
@@ -99,9 +99,9 @@ class ItemEntity extends AlbionItemEntity
     private const T83_FACTOR_FAME = 11160;
     private const T84_FACTOR_FAME = 22320;
 
-    public const CLASS_WARRIOR = 'warrior';
-    public const CLASS_MAGE = 'mage';
-    public const CLASS_HUNTER = 'hunter';
+    final public const CLASS_WARRIOR = 'warrior';
+    final public const CLASS_MAGE = 'mage';
+    final public const CLASS_HUNTER = 'hunter';
 
     #[Id, Column(type: 'string')]
     private string $weaponGroup;

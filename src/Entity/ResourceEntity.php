@@ -15,11 +15,11 @@ use Doctrine\ORM\Mapping\Table;
 #[Table(name: 'resources')]
 class ResourceEntity extends AlbionItemEntity
 {
-    public const RESOURCE_METAL_BAR = 'metalBar';
-    public const RESOURCE_PLANKS = 'planks';
-    public const RESOURCE_CLOTH = 'cloth';
-    public const RESOURCE_LEATHER = 'leather';
-    public const RESOURCE_STONE_BLOCK = 'stoneBLock';
+    final public const RESOURCE_METAL_BAR = 'metalBar';
+    final public const RESOURCE_PLANKS = 'planks';
+    final public const RESOURCE_CLOTH = 'cloth';
+    final public const RESOURCE_LEATHER = 'leather';
+    final public const RESOURCE_STONE_BLOCK = 'stoneBLock';
 
     private const T20_WEIGHT_FACTOR = 0.23;
     private const T30_WEIGHT_FACTOR = 0.34;
@@ -51,14 +51,10 @@ class ResourceEntity extends AlbionItemEntity
 
     #[Column(type: 'string', nullable: true)]
     private ?string $bonusCity;
-    #[Id, Column(type: 'boolean')]
-    private bool $raw;
 
-    public function __construct(array $resourceData, bool $raw = false)
+    public function __construct(array $resourceData, #[Id, Column(type: 'boolean')] private bool $raw = false)
     {
         parent::__construct($resourceData);
-
-        $this->raw = $raw;
         $this->bonusCity = $resourceData['bonusCity'];
         $this->weight = $this->setWeight((int) $resourceData['tier']);
     }

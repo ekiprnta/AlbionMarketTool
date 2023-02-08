@@ -14,8 +14,8 @@ class RefiningService
     private const RRR_NO_BONUS_CITY_FOCUS = 43.5;
 
     public function __construct(
-        private ResourceRepository $resourceRepository,
-        private RefiningHelper $refiningHelper,
+        private readonly ResourceRepository $resourceRepository,
+        private readonly RefiningHelper $refiningHelper,
     ) {
     }
 

@@ -15,7 +15,7 @@ class ListDataEntity
     private string $cheapestObjectCityBuyOrder;
     private string $mostExpensiveObjectCityBuyOrder;
 
-    private int $tierColor;
+    private readonly int $tierColor;
 
     public function __construct(private readonly ResourceEntity $fortsterlingObject)
     {

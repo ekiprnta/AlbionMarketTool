@@ -16,10 +16,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 class UpdateItemsCommand extends Command
 {
     public function __construct(
-        private ApiService $apiService,
-        private ItemRepository $itemRepository,
-        private ConfigService $configService,
-        private UploadHelper $uploadHelper,
+        private readonly ApiService $apiService,
+        private readonly ItemRepository $itemRepository,
+        private readonly ConfigService $configService,
+        private readonly UploadHelper $uploadHelper,
     ) {
         parent::__construct();
     }

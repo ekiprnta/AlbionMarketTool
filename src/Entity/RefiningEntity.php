@@ -15,9 +15,9 @@ class RefiningEntity
 
     private float $weightAmountQuotient;
     private string $profitGrade;
-    private int $tierColor;
+    private readonly int $tierColor;
 
-    public function __construct(private ResourceEntity $resourceEntity)
+    public function __construct(private readonly ResourceEntity $resourceEntity)
     {
         $this->tierColor = (int) ($this->resourceEntity->getTier() / 10);
     }
