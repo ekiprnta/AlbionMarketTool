@@ -64,25 +64,27 @@ class UploadHelper
         $adjustedItems = [];
         foreach ($itemData as $item) {
             $nameAndTier = $this->tierService->splitIntoTierAndName($item['item_id']);
-            $adjustedItems[] = new ItemEntity([
-                'tier' => $nameAndTier['tier'],
-                'name' => $nameAndTier['name'],
-                'weaponGroup' => $itemStats['weaponGroup'],
-                'realName' => $itemStats['realName'],
-                'class' => $itemStats['class'],
-                'city' => $item['city'],
-                'quality' => $item['quality'],
-                'sellOrderPrice' => $item['sell_price_min'],
-                'sellOrderPriceDate' => $item['sell_price_min_date'],
-                'buyOrderPrice' => $item['buy_price_max'],
-                'buyOrderPriceDate' => $item['buy_price_max_date'],
-                'primaryResource' => $itemStats['primaryResource'],
-                'primaryResourceAmount' => $itemStats['primaryResourceAmount'],
-                'secondaryResource' => $itemStats['secondaryResource'],
-                'secondaryResourceAmount' => $itemStats['secondaryResourceAmount'],
-                'bonusCity' => $itemStats['bonusCity'],
-                'fameFactor' => null,
-            ]);
+            $itemEntity = (new ItemEntity())
+                ->setTier((int) $nameAndTier['tier'])
+                ->setName($nameAndTier['name'])
+                ->setCity($item['city'])
+                ->calculateSellOrderAge($item['sell_price_min_date'])
+                ->setSellOrderPrice($item['sell_price_min'])
+                ->calculateBuyOrderAge($item['buy_price_max_date'])
+                ->setBuyOrderPrice($item['buy_price_max'])
+                ->setClass($itemStats['class'])
+                ->setRealName($itemStats['class'])
+                ->setWeaponGroup($itemStats['weaponGroup'])
+                ->setQuality($item['quality'])
+                ->setPrimaryResource($itemStats['primaryResource'])
+                ->setPrimaryResourceAmount($itemStats['primaryResourceAmount'])
+                ->setSecondaryResource($itemStats['secondaryResource'])
+                ->setSecondaryResourceAmount($itemStats['secondaryResourceAmount'])
+                ->setBonusCity($itemStats['bonusCity'])
+                ->refreshFame()
+                ->refreshItemValue();
+
+            $adjustedItems[] = $itemEntity;
         }
         return $adjustedItems;
     }
