@@ -97,7 +97,7 @@ class BlackMarketCraftingServiceITest extends TestCase
         );
 
         $delta = 0.000001;
-        $testData = $bmcService->getDataForCity('TestCity', 500, 0, 0, '', 2);
+        $testData = $bmcService->getDataForCity('TestCity', 0.0, 0, 0, '', 2);
 
         foreach ($testData as $bmcEntity) {
             $this->assertEqualsWithDelta(1.4545454545455, $bmcEntity[0]->getJournalAmountPerItem(), $delta);
@@ -109,8 +109,8 @@ class BlackMarketCraftingServiceITest extends TestCase
 
             $this->assertEqualsWithDelta(0, $bmcEntity[0]->getCraftingFee(), $delta);
             $this->assertEqualsWithDelta(-1958.8363636363913, $bmcEntity[0]->getProfitJournals(), $delta);
-            $this->assertEqualsWithDelta(38801851.56363636, $bmcEntity[0]->getProfit(), $delta);
-            $this->assertEqualsWithDelta(1940092.5781818181, $bmcEntity[0]->getProfitQuotient(), $delta);
+            $this->assertEqualsWithDelta(2522042.283636363, $bmcEntity[0]->getProfit(), $delta);
+            $this->assertEqualsWithDelta(126102.11418181816, $bmcEntity[0]->getProfitQuotient(), $delta);
 
             $this->assertEquals('S', $bmcEntity[0]->getColorGrade());
             $this->assertEqualsWithDelta(1238400.0, $bmcEntity[0]->getFameAmount(), $delta);

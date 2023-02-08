@@ -112,13 +112,13 @@ class AlbionItemEntity
         return $this;
     }
 
-    public function calculateBuyOrderAge(string $dateString): self
+    public function calculateBuyOrderAge(?string $dateString): self
     {
         $this->buyOrderAge = $this->calculateAge($dateString);
         return $this;
     }
 
-    public function calculateSellOrderAge(string $dateString): self
+    public function calculateSellOrderAge(?string $dateString): self
     {
         $this->sellOrderAge = $this->calculateAge($dateString);
         return $this;
@@ -128,10 +128,15 @@ class AlbionItemEntity
     {
         $priceDate = $this->calculateDateTimeImmutable($dateString);
 
-        $now = DateTimeImmutable::createFromFormat('Y-m-d H:i:s', Date('Y-m-d H:i:s'));
+        $now = $this->getCurrentTime();
 
         $dateDiff = date_diff($now, $priceDate);
         return $dateDiff->d * 24 * 60 + $dateDiff->h * 60 + $dateDiff->i;
+    }
+
+    public function getCurrentTime(): DateTimeImmutable
+    {
+        return new DateTimeImmutable();
     }
 
     private function calculateDateTimeImmutable(?string $dateString): DateTimeImmutable|false

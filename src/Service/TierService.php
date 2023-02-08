@@ -43,6 +43,7 @@ class TierService
 
     public function journalSplitter(string $journalName): array
     {
+        $journalName = strtolower($journalName);
         [$prefix, $class, $fillStatus] = explode('_', $journalName);
         return [
             'class' => $class,

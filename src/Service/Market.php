@@ -38,9 +38,9 @@ class Market
         };
     }
 
-    public function calculateProfitQuotient(float|int $profit, int $amount): float
+    public function calculateProfitQuotient(float $profit, int $amount): float
     {
-        if ($profit === 0) {
+        if ($profit === 0.0) {
             return 0.0;
         }
         return $profit / $amount;

@@ -88,7 +88,7 @@ class TierServiceTest extends TestCase
             [
                 'abc_DEF_ghi',
                 [
-                    'class' => 'DEF',
+                    'class' => 'def',
                     'fillStatus' => 'ghi',
                 ],
             ],
