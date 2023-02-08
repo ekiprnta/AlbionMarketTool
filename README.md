@@ -50,6 +50,12 @@ changelogger release <tag>
 changelogger clean
 ```
 
+## Current Issues
+
++ Error BM Crafting
++ No Entities Transporting
++ wrong Tablesdata Refining
+
 ## ToDO
 
 * ~~Tier überarbeiten~~
