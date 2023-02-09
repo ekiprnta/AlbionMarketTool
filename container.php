@@ -15,6 +15,7 @@ use MZierdt\Albion\factories\TwigEnvironmentFactory;
 use MZierdt\Albion\Handler\AdminHandler;
 use MZierdt\Albion\Handler\BlackMarketCraftingHandler;
 use MZierdt\Albion\Handler\BlackMarketTransportingHandler;
+use MZierdt\Albion\Handler\EnchantingHandler;
 use MZierdt\Albion\Handler\listDataHandler;
 use MZierdt\Albion\Handler\RefiningHandler;
 use MZierdt\Albion\Handler\TransmutationHandler;
@@ -33,6 +34,8 @@ use MZierdt\Albion\Service\BlackMarketCraftingService;
 use MZierdt\Albion\Service\BlackMarketTransportingHelper;
 use MZierdt\Albion\Service\BlackMarketTransportingService;
 use MZierdt\Albion\Service\ConfigService;
+use MZierdt\Albion\Service\EnchantingHelper;
+use MZierdt\Albion\Service\EnchantingService;
 use MZierdt\Albion\Service\GlobalDiscountService;
 use MZierdt\Albion\Service\ListDataHelper;
 use MZierdt\Albion\Service\ListDataService;
@@ -108,6 +111,16 @@ $serviceManager = new ServiceManager([
                     GlobalDiscountService::class,
                 ],
                 TransmutationHelper::class => [],
+                EnchantingHandler::class => [
+                    Environment::class,
+                    EnchantingService::class
+                ],
+                EnchantingService::class => [
+                    MaterialRepository::class,
+                    ItemRepository::class,
+                    EnchantingHelper::class
+                ],
+                EnchantingHelper::class => [],
                 AdminHandler::class => [
                     Environment::class,
                 ],
