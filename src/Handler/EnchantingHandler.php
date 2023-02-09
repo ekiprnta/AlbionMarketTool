@@ -18,11 +18,21 @@ class EnchantingHandler
 
     public function handler(): HtmlResponse
     {
-        $cityData = $this->enchantingService->getDataForCity('Martlock');
+        $cityData = [];
+        $alertMessage = null;
+        if (!empty($_GET)) {
+            $city = $_GET['itemCity'];
+            try {
+                $cityData = $this->enchantingService->getDataForCity($city);
+            } catch (\Exception $exception) {
+                $alertMessage = $exception->getMessage();
+            }
+        }
 
-        dd($cityData);
-
-        $htmlContent = $this->environment->render('Enchanting.html.twig', []);
+        $htmlContent = $this->environment->render('Enchanting.html.twig', [
+            'dataArray' => $cityData,
+            'alertMessage' => $alertMessage,
+        ]);
         return new HtmlResponse($htmlContent);
     }
 }
