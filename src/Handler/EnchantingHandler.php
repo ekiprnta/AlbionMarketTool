@@ -18,6 +18,10 @@ class EnchantingHandler
 
     public function handler(): HtmlResponse
     {
+        $cityData = $this->enchantingService->getDataForCity('Martlock');
+
+        dd($cityData);
+
         $htmlContent = $this->environment->render('Enchanting.html.twig', []);
         return new HtmlResponse($htmlContent);
     }

@@ -33,4 +33,9 @@ class MaterialRepository extends Repository
             $this->update($materialEntity);
         }
     }
+
+    public function getMaterialsByLocation(string $city): ?array
+    {
+        return $this->findBy(MaterialEntity::class, ['city' => $city]);
+    }
 }
