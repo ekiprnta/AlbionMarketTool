@@ -7,6 +7,7 @@ use Laminas\ServiceManager\AbstractFactory\ConfigAbstractFactory;
 use Laminas\ServiceManager\ServiceManager;
 use MZierdt\Albion\commands\UpdateItemsCommand;
 use MZierdt\Albion\commands\UpdateJournalsCommand;
+use MZierdt\Albion\commands\UpdateMaterialsCommand;
 use MZierdt\Albion\commands\UpdateRawResourcesCommand;
 use MZierdt\Albion\commands\UpdateResourcesCommand;
 use MZierdt\Albion\factories\EntityManagerFactory;
@@ -22,6 +23,8 @@ use MZierdt\Albion\repositories\ItemRepository;
 use MZierdt\Albion\repositories\ItemRepositoryFactory;
 use MZierdt\Albion\repositories\JournalRepository;
 use MZierdt\Albion\repositories\JournalRepositoryFactory;
+use MZierdt\Albion\repositories\MaterialRepository;
+use MZierdt\Albion\repositories\MaterialRepositoryFactory;
 use MZierdt\Albion\repositories\ResourceRepository;
 use MZierdt\Albion\repositories\ResourceRepositoryFactory;
 use MZierdt\Albion\Service\ApiService;
@@ -135,6 +138,11 @@ $serviceManager = new ServiceManager([
                     ConfigService::class,
                     UploadHelper::class,
                 ],
+                UpdateMaterialsCommand::class => [
+                    ApiService::class,
+                    MaterialRepository::class,
+                    UploadHelper::class,
+                ]
             ]
         ],
     ],
@@ -145,6 +153,7 @@ $serviceManager = new ServiceManager([
         ResourceRepository::class => ResourceRepositoryFactory::class,
         ItemRepository::class => ItemRepositoryFactory::class,
         JournalRepository::class => JournalRepositoryFactory::class,
+        MaterialRepository::class => MaterialRepositoryFactory::class,
         'abstract_factories' => [ConfigAbstractFactory::class],
     ],
 ]);
