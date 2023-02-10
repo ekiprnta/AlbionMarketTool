@@ -26,7 +26,7 @@ class EnchantingHandler
                 $cityData = $this->enchantingService->getDataForCity($city);
             } catch (\Exception $exception) {
                 $alertMessage = $exception->getMessage();
-            }
+            } // TODo get avg amount and build better Quotient
         }
 
         $htmlContent = $this->environment->render('Enchanting.html.twig', [

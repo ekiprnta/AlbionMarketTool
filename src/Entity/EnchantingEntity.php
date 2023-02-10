@@ -6,9 +6,9 @@ namespace MZierdt\Albion\Entity;
 
 class EnchantingEntity
 {
-    private int $baseEnchantment;
     private ItemEntity $higherEnchantmentItem;
     private MaterialEntity $enchantmentMaterial;
+    private int $baseEnchantment;
     private int $materialAmount;
 
     private float $materialCost;
