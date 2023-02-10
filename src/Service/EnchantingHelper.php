@@ -16,6 +16,7 @@ class EnchantingHelper extends Market
 
     public function calculateHigherEnchantmentItem(int $tier, string $name, array $items): ItemEntity
     {
+
         /** @var ItemEntity $item */
         foreach ($items as $item) {
             if ($item->getName() === $name && $item->getTier() === ($tier + 1)) {
@@ -49,7 +50,7 @@ class EnchantingHelper extends Market
             8 => 48,
             16 => 96,
             24 => 144,
-            32 => 196,
+            32 => 192,
         };
     }
 
