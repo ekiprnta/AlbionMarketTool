@@ -23,7 +23,7 @@ class EnchantingHandler
         if (!empty($_GET)) {
             $city = $_GET['itemCity'];
             try {
-                $cityData = $this->enchantingService->getDataForCity($city);
+                $cityData = $this->enchantingService->getEnchantingForCity($city);
             } catch (\Exception $exception) {
                 $alertMessage = $exception->getMessage();
             } // TODo get avg amount and build better Quotient

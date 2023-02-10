@@ -18,7 +18,7 @@ class EnchantingService
     ) {
     }
 
-    public function getDataForCity(string $city): array
+    public function getEnchantingForCity(string $city): array
     {
         $items = $this->itemRepository->getItemsByLocation($city);
         $materials = $this->materialRepository->getMaterialsByLocation($city);
@@ -35,28 +35,30 @@ class EnchantingService
 
         /** @var EnchantingEntity $enchantingEntity */
         foreach ($enchantingEntities as $enchantingEntity) {
+            $itemEntity = $enchantingEntity->getItemEntity();
+
             $enchantingEntity->setBaseEnchantment(
-                $this->enchantingHelper->getEnchantment($enchantingEntity->getItemEntity()->getTier())
+                $this->enchantingHelper->getEnchantment($itemEntity->getTier())
             );
 
             $enchantingEntity->setHigherEnchantmentItem(
                 $this->enchantingHelper->calculateHigherEnchantmentItem(
-                    $enchantingEntity->getItemEntity()->getTier(),
-                    $enchantingEntity->getItemEntity()->getName(),
+                    $itemEntity->getTier(),
+                    $itemEntity->getName(),
                     $items
                 )
             );
 
             $enchantingEntity->setEnchantmentMaterial(
                 $this->enchantingHelper->calculateEnchantmentMaterial(
-                    $enchantingEntity->getItemEntity()->getTier(),
+                    $itemEntity->getTier(),
                     $materials
                 )
             );
 
             $enchantingEntity->setMaterialAmount(
                 $this->enchantingHelper->calculateMaterialAmount(
-                    $enchantingEntity->getItemEntity()->getTotalResourceAmount()
+                    $itemEntity->getTotalResourceAmount()
                 )
             );
 
@@ -69,7 +71,7 @@ class EnchantingService
 
             $enchantingEntity->setProfit(
                 $this->enchantingHelper->calculateProfit(
-                    $enchantingEntity->getItemEntity()->getSellOrderPrice(),
+                    $itemEntity->getSellOrderPrice(),
                     $enchantingEntity->getHigherEnchantmentItem()->getSellOrderPrice(),
                     $enchantingEntity->getMaterialCost()
                 )
@@ -82,6 +84,7 @@ class EnchantingService
             $enchantingEntity->setProfitGrade(
                 $this->enchantingHelper->calculateProfitGrade($enchantingEntity->getProfitQuotient())
             );
+//            dump($enchantingEntity->getProfitQuotient());
         }
 
         return $enchantingEntities;
