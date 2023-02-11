@@ -55,11 +55,13 @@ class EnchantingServiceITest extends TestCase
         $itemA = (new ItemEntity())->setTier(72)
             ->setName('2h_axe')
             ->setSellOrderPrice(1500)
-            ->setPrimaryResourceAmount(16)->setSecondaryResourceAmount(8);
+            ->setPrimaryResourceAmount(16)
+            ->setSecondaryResourceAmount(8);
         $itemB = (new ItemEntity())->setTier(73)
             ->setName('2h_axe')
             ->setSellOrderPrice(3000)
-            ->setPrimaryResourceAmount(16)->setSecondaryResourceAmount(8);
+            ->setPrimaryResourceAmount(16)
+            ->setSecondaryResourceAmount(8);
 
         return [$itemA, $itemB];
     }
