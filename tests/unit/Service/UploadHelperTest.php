@@ -173,9 +173,7 @@ class UploadHelperTest extends TestCase
      */
     public function testAdjustMaterials(array $result, array $itemData): void
     {
-        $this->tierService->splitIntoTierAndName(Argument::any())->willReturn(
-            ['tier' => '40', 'name' => 'rune']
-        );
+        $this->tierService->splitIntoTierAndName(Argument::any())->willReturn(['tier' => '40', 'name' => 'rune']);
 
         $this->assertEquals($result, $this->uploadHelper->adjustMaterials([$itemData]));
     }

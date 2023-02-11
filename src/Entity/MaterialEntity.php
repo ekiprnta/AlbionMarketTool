@@ -13,5 +13,4 @@ use Doctrine\ORM\Mapping\Table;
 #[Table(name: 'materials')]
 class MaterialEntity extends AlbionItemEntity
 {
-
 }

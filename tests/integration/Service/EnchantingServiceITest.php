@@ -32,8 +32,10 @@ class EnchantingServiceITest extends TestCase
             new EnchantingHelper()
         );
 
-        $itemRepository->getItemsByLocation('TestCity')->willReturn($this->getItems());
-        $materialRepository->getMaterialsByLocation('TestCity')->willReturn($this->getMaterials());
+        $itemRepository->getItemsByLocation('TestCity')
+            ->willReturn($this->getItems());
+        $materialRepository->getMaterialsByLocation('TestCity')
+            ->willReturn($this->getMaterials());
 
         $result = $enchantingService->getEnchantingForCity('TestCity');
         /** @var EnchantingEntity $enchantingEntity */
@@ -50,12 +52,14 @@ class EnchantingServiceITest extends TestCase
 
     public function getItems(): array
     {
-        $itemA = (new ItemEntity())->setTier(72)->setName('2h_axe')->setSellOrderPrice(1500)->setPrimaryResourceAmount(
-            16
-        )->setSecondaryResourceAmount(8);
-        $itemB = (new ItemEntity())->setTier(73)->setName('2h_axe')->setSellOrderPrice(3000)->setPrimaryResourceAmount(
-            16
-        )->setSecondaryResourceAmount(8);
+        $itemA = (new ItemEntity())->setTier(72)
+            ->setName('2h_axe')
+            ->setSellOrderPrice(1500)
+            ->setPrimaryResourceAmount(16)->setSecondaryResourceAmount(8);
+        $itemB = (new ItemEntity())->setTier(73)
+            ->setName('2h_axe')
+            ->setSellOrderPrice(3000)
+            ->setPrimaryResourceAmount(16)->setSecondaryResourceAmount(8);
 
         return [$itemA, $itemB];
     }

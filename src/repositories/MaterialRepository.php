@@ -8,7 +8,6 @@ use MZierdt\Albion\Entity\MaterialEntity;
 
 class MaterialRepository extends Repository
 {
-
     public function createOrUpdate(MaterialEntity $materialEntity)
     {
         $oldMaterialEntity = $this->entityManager->getRepository(MaterialEntity::class)

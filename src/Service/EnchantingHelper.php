@@ -32,7 +32,8 @@ class EnchantingHelper extends Market
         $type = match ($enchantment) {
             0 => 'rune',
             1 => 'soul',
-            2 => 'relic'
+            2 => 'relic',
+            default => throw new \InvalidArgumentException('Cannot find Material in calculateEnchantmentMaterial')
         };
 
         /** @var MaterialEntity $material */
@@ -51,6 +52,7 @@ class EnchantingHelper extends Market
             16 => 96,
             24 => 144,
             32 => 192,
+            default => throw new \InvalidArgumentException('Wrong Total Resource Amount in calculateMaterialAmount')
         };
     }
 
@@ -63,5 +65,4 @@ class EnchantingHelper extends Market
     {
         return $enchantedItemPrice - ($baseItemPrice + $materialCost);
     }
-
 }

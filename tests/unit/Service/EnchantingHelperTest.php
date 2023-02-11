@@ -23,22 +23,29 @@ class EnchantingHelperTest extends TestCase
 
     public function getItems(): array
     {
-        $itemA = (new ItemEntity)->setName('2h_axe')->setTier(71);
-        $itemB = (new ItemEntity)->setName('2h_axe')->setTier(72);
+        $itemA = (new ItemEntity())->setName('2h_axe')
+            ->setTier(71);
+        $itemB = (new ItemEntity())->setName('2h_axe')
+            ->setTier(72);
 
         return [$itemA, $itemB];
     }
 
     public function getMaterials(): array
     {
-        $materialA = (new MaterialEntity())->setName('rune')->setTier(70);
-        $materialB = (new MaterialEntity())->setName('soul')->setTier(70);
-        $materialC = (new MaterialEntity())->setName('relic')->setTier(70);
+        $materialA = (new MaterialEntity())->setName('rune')
+            ->setTier(70);
+        $materialB = (new MaterialEntity())->setName('soul')
+            ->setTier(70);
+        $materialC = (new MaterialEntity())->setName('relic')
+            ->setTier(70);
 
         return [$materialA, $materialB, $materialC];
     }
 
-    /** @dataProvider provideEnchantments */
+    /**
+     * @dataProvider provideEnchantments
+     */
     public function testGetEnchantment(int $enchantment, int $tier): void
     {
         $this->assertEquals($enchantment, $this->enchantingHelper->getEnchantment($tier));
@@ -46,17 +53,13 @@ class EnchantingHelperTest extends TestCase
 
     public function provideEnchantments(): array
     {
-        return [
-            [0, 70],
-            [1, 71],
-            [2, 72],
-            [3, 73],
-        ];
+        return [[0, 70], [1, 71], [2, 72], [3, 73]];
     }
 
     public function testCalculateHigherEnchantmentItem(): void
     {
-        $expectedItemEntity = (new ItemEntity())->setName('2h_axe')->setTier(71);
+        $expectedItemEntity = (new ItemEntity())->setName('2h_axe')
+            ->setTier(71);
 
         $this->assertEquals(
             $expectedItemEntity,
@@ -70,7 +73,9 @@ class EnchantingHelperTest extends TestCase
         $this->enchantingHelper->calculateHigherEnchantmentItem(70, '2_axe', []);
     }
 
-    /** @dataProvider provideMaterials */
+    /**
+     * @dataProvider provideMaterials
+     */
     public function testCalculateEnchantmentMaterial(MaterialEntity $expectedMaterial, int $tier): void
     {
         $this->assertEquals(
@@ -94,7 +99,9 @@ class EnchantingHelperTest extends TestCase
         $this->enchantingHelper->calculateEnchantmentMaterial(70, []);
     }
 
-    /** @dataProvider provideTotalAmount */
+    /**
+     * @dataProvider provideTotalAmount
+     */
     public function testCalculateMaterialAmount(int $materialAmount, int $resourceAmount): void
     {
         $this->assertEquals($materialAmount, $this->enchantingHelper->calculateMaterialAmount($resourceAmount));
@@ -102,15 +109,12 @@ class EnchantingHelperTest extends TestCase
 
     public function provideTotalAmount(): array
     {
-        return [
-            [48, 8],
-            [96, 16],
-            [144, 24],
-            [192, 32],
-        ];
+        return [[48, 8], [96, 16], [144, 24], [192, 32]];
     }
 
-    /** @dataProvider provideMaterialCost */
+    /**
+     * @dataProvider provideMaterialCost
+     */
     public function testCalculateMaterialCost(float $expectedCost, int $materialAmount, int $buyOrderPrice): void
     {
         $this->assertEquals(
@@ -121,15 +125,12 @@ class EnchantingHelperTest extends TestCase
 
     public function provideMaterialCost(): array
     {
-        return [
-            [1638, 48, 35],
-            [112320, 96, 1200],
-            [62478, 144, 445],
-            [1310.4, 192, 7],
-        ];
+        return [[1638, 48, 35], [112320, 96, 1200], [62478, 144, 445], [1310.4, 192, 7]];
     }
 
-    /** @dataProvider provideProfit */
+    /**
+     * @dataProvider provideProfit
+     */
     public function testCalculateProfit(
         float $expectedCost,
         int $baseItemPrice,
@@ -144,9 +145,6 @@ class EnchantingHelperTest extends TestCase
 
     public function provideProfit(): array
     {
-        return [
-            [2250, 5000, 7500, 250],
-            [-52456, 45678, 50000, 56778],
-        ];
+        return [[2250, 5000, 7500, 250], [-52456, 45678, 50000, 56778]];
     }
 }

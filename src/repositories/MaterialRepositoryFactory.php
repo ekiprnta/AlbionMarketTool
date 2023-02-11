@@ -9,7 +9,6 @@ use Psr\Container\ContainerInterface;
 
 class MaterialRepositoryFactory
 {
-
     public function __invoke(ContainerInterface $container): MaterialRepository
     {
         return new MaterialRepository($container->get(EntityManager::class));
