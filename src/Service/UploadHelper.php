@@ -6,6 +6,7 @@ namespace MZierdt\Albion\Service;
 
 use MZierdt\Albion\Entity\ItemEntity;
 use MZierdt\Albion\Entity\JournalEntity;
+use MZierdt\Albion\Entity\MaterialEntity;
 use MZierdt\Albion\Entity\ResourceEntity;
 
 class UploadHelper
@@ -100,5 +101,24 @@ class UploadHelper
             return substr($name, 0, -7);
         }
         return $name;
+    }
+
+    public function adjustMaterials(array $materials): array
+    {
+        $adjustedMaterials = [];
+        foreach ($materials as $material) {
+            $nameAndTier = $this->tierService->splitIntoTierAndName($material['item_id']);
+            $materialEntity = (new MaterialEntity())
+                ->setTier((int) $nameAndTier['tier'])
+                ->setName($nameAndTier['name'])
+                ->setCity($material['city'])
+                ->calculateSellOrderAge($material['sell_price_min_date'])
+                ->setSellOrderPrice($material['sell_price_min'])
+                ->calculateBuyOrderAge($material['buy_price_max_date'])
+                ->setBuyOrderPrice($material['buy_price_max'])
+                ->setRealName($nameAndTier['name']);
+            $adjustedMaterials[] = $materialEntity;
+        }
+        return $adjustedMaterials;
     }
 }

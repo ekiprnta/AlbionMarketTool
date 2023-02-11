@@ -5,6 +5,7 @@ declare(strict_types=1);
 
 use MZierdt\Albion\commands\UpdateItemsCommand;
 use MZierdt\Albion\commands\UpdateJournalsCommand;
+use MZierdt\Albion\commands\UpdateMaterialsCommand;
 use MZierdt\Albion\commands\UpdateRawResourcesCommand;
 use MZierdt\Albion\commands\UpdateResourcesCommand;
 use Symfony\Component\Console\Application;
@@ -18,4 +19,5 @@ $app->add($container->get(UpdateItemsCommand::class));
 $app->add($container->get(UpdateJournalsCommand::class));
 $app->add($container->get(UpdateResourcesCommand::class));
 $app->add($container->get(UpdateRawResourcesCommand::class));
+$app->add($container->get(UpdateMaterialsCommand::class));
 $app->run();

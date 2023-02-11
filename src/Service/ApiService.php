@@ -13,6 +13,7 @@ class ApiService // Buy Order ist buy_price_max
     private const RESOURCE_TIERS_WITH_PLACEHOLDER = 'T2_%s,T3_%s,T4_%s,T5_%s,T6_%s,T7_%s,T8_%s,T4_%s_level1@1,T5_%s_level1@1,T6_%s_level1@1,T7_%s_level1@1,T8_%s_level1@1,T4_%s_level2@2,T5_%s_level2@2,T6_%s_level2@2,T7_%s_level2@2,T8_%s_level2@2,T4_%s_level3@3,T5_%s_level3@3,T6_%s_level3@3,T7_%s_level3@3,T8_%s_level3@3,T4_%s_level4@4,T5_%s_level4@4,T6_%s_level4@4,T7_%s_level4@4,T8_%s_level4@4';
     final public const ITEM_TIERS_WITH_PLACEHOLDER = 'T2_%s,T3_%s,T4_%s,T5_%s,T6_%s,T7_%s,T8_%s,T4_%s@1,T5_%s@1,T6_%s@1,T7_%s@1,T8_%s@1,T4_%s@2,T5_%s@2,T6_%s@2,T7_%s@2,T8_%s@2,T4_%s@3,T5_%s@3,T6_%s@3,T7_%s@3,T8_%s@3,T4_%s@4,T5_%s@4,T6_%s@4,T7_%s@4,T8_%s@4';
     final public const JOURNAL_TIERS_WITH_PLACEHOLDER = 'T2_%s_FULL,T3_%s_FULL,T4_%s_FULL,T5_%s_FULL,T6_%s_FULL,T7_%s_FULL,T8_%s_FULL,T2_%s_EMPTY,T3_%s_EMPTY,T4_%s_EMPTY,T5_%s_EMPTY,T6_%s_EMPTY,T7_%s_EMPTY,T8_%s_EMPTY';
+    final public const MATERIAL_TIERS = 'T4_rune,T4_soul,T4_relic,T4_shard_avalonian,T5_rune,T5_soul,T5_relic,T5_shard_avalonian,T6_rune,T6_soul,T6_relic,T6_shard_avalonian,T7_rune,T7_soul,T7_relic,T7_shard_avalonian,T8_rune,T8_soul,T8_relic,T8_shard_avalonian';
 
     final public const RESOURCE_PLANKS = 'Planks';
     final public const RESOURCE_METALBAR = 'MetalBar';
@@ -39,6 +40,12 @@ class ApiService // Buy Order ist buy_price_max
     public function __construct(
         private readonly HttpClient $httpClient
     ) {
+    }
+
+    public function getMaterials()
+    {
+        $apiUrl = self::BASE_URL . self::MATERIAL_TIERS;
+        return $this->jsonDecode($this->httpClient->get($apiUrl, ['locations' => self::CITY_ALL]));
     }
 
     public function getJournals(string $journalType)

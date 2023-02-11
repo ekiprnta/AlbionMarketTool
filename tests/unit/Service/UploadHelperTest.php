@@ -4,6 +4,7 @@ namespace unit\Service;
 
 use MZierdt\Albion\Entity\ItemEntity;
 use MZierdt\Albion\Entity\JournalEntity;
+use MZierdt\Albion\Entity\MaterialEntity;
 use MZierdt\Albion\Entity\ResourceEntity;
 use MZierdt\Albion\Service\TierService;
 use MZierdt\Albion\Service\UploadHelper;
@@ -163,6 +164,39 @@ class UploadHelperTest extends TestCase
             'buy_price_max_date' => '2000-00-00T12:00:00',
             'buy_price_max' => 168594,
             'quality' => 2,
+        ];
+        return [[[$itemA], $itemData]];
+    }
+
+    /**
+     * @dataProvider provideMaterials
+     */
+    public function testAdjustMaterials(array $result, array $itemData): void
+    {
+        $this->tierService->splitIntoTierAndName(Argument::any())->willReturn(['tier' => '40', 'name' => 'rune']);
+
+        $this->assertEquals($result, $this->uploadHelper->adjustMaterials([$itemData]));
+    }
+
+    public function provideMaterials(): array
+    {
+        $itemA = (new MaterialEntity())
+            ->setTier(40)
+            ->setName('rune')
+            ->setCity('Martlock')
+            ->setSellOrderPrice(25)
+            ->calculateSellOrderAge('2000-00-00T12:00:00')
+            ->setBuyOrderPrice(23)
+            ->calculateBuyOrderAge('2000-00-00T12:00:00')
+            ->setRealName('rune');
+
+        $itemData = [
+            'item_id' => 'T4_rune',
+            'city' => 'Martlock',
+            'sell_price_min_date' => '2000-00-00T12:00:00',
+            'sell_price_min' => 25,
+            'buy_price_max_date' => '2000-00-00T12:00:00',
+            'buy_price_max' => 23,
         ];
         return [[[$itemA], $itemData]];
     }

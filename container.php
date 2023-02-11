@@ -7,6 +7,7 @@ use Laminas\ServiceManager\AbstractFactory\ConfigAbstractFactory;
 use Laminas\ServiceManager\ServiceManager;
 use MZierdt\Albion\commands\UpdateItemsCommand;
 use MZierdt\Albion\commands\UpdateJournalsCommand;
+use MZierdt\Albion\commands\UpdateMaterialsCommand;
 use MZierdt\Albion\commands\UpdateRawResourcesCommand;
 use MZierdt\Albion\commands\UpdateResourcesCommand;
 use MZierdt\Albion\factories\EntityManagerFactory;
@@ -14,6 +15,7 @@ use MZierdt\Albion\factories\TwigEnvironmentFactory;
 use MZierdt\Albion\Handler\AdminHandler;
 use MZierdt\Albion\Handler\BlackMarketCraftingHandler;
 use MZierdt\Albion\Handler\BlackMarketTransportingHandler;
+use MZierdt\Albion\Handler\EnchantingHandler;
 use MZierdt\Albion\Handler\listDataHandler;
 use MZierdt\Albion\Handler\RefiningHandler;
 use MZierdt\Albion\Handler\TransmutationHandler;
@@ -22,6 +24,8 @@ use MZierdt\Albion\repositories\ItemRepository;
 use MZierdt\Albion\repositories\ItemRepositoryFactory;
 use MZierdt\Albion\repositories\JournalRepository;
 use MZierdt\Albion\repositories\JournalRepositoryFactory;
+use MZierdt\Albion\repositories\MaterialRepository;
+use MZierdt\Albion\repositories\MaterialRepositoryFactory;
 use MZierdt\Albion\repositories\ResourceRepository;
 use MZierdt\Albion\repositories\ResourceRepositoryFactory;
 use MZierdt\Albion\Service\ApiService;
@@ -30,6 +34,8 @@ use MZierdt\Albion\Service\BlackMarketCraftingService;
 use MZierdt\Albion\Service\BlackMarketTransportingHelper;
 use MZierdt\Albion\Service\BlackMarketTransportingService;
 use MZierdt\Albion\Service\ConfigService;
+use MZierdt\Albion\Service\EnchantingHelper;
+use MZierdt\Albion\Service\EnchantingService;
 use MZierdt\Albion\Service\GlobalDiscountService;
 use MZierdt\Albion\Service\ListDataHelper;
 use MZierdt\Albion\Service\ListDataService;
@@ -105,6 +111,16 @@ $serviceManager = new ServiceManager([
                     GlobalDiscountService::class,
                 ],
                 TransmutationHelper::class => [],
+                EnchantingHandler::class => [
+                    Environment::class,
+                    EnchantingService::class
+                ],
+                EnchantingService::class => [
+                    MaterialRepository::class,
+                    ItemRepository::class,
+                    EnchantingHelper::class
+                ],
+                EnchantingHelper::class => [],
                 AdminHandler::class => [
                     Environment::class,
                 ],
@@ -135,6 +151,11 @@ $serviceManager = new ServiceManager([
                     ConfigService::class,
                     UploadHelper::class,
                 ],
+                UpdateMaterialsCommand::class => [
+                    ApiService::class,
+                    MaterialRepository::class,
+                    UploadHelper::class,
+                ]
             ]
         ],
     ],
@@ -145,6 +166,7 @@ $serviceManager = new ServiceManager([
         ResourceRepository::class => ResourceRepositoryFactory::class,
         ItemRepository::class => ItemRepositoryFactory::class,
         JournalRepository::class => JournalRepositoryFactory::class,
+        MaterialRepository::class => MaterialRepositoryFactory::class,
         'abstract_factories' => [ConfigAbstractFactory::class],
     ],
 ]);

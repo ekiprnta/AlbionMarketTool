@@ -56,4 +56,8 @@ class ConfigService
         $json = file_get_contents(self::PATH_TO_TRANSMUTATION_COST);
         return json_decode($json, true, 512, JSON_THROW_ON_ERROR);
     }
+
+    public function getMaterialConfig()
+    {
+    }
 }
