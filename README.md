@@ -61,4 +61,9 @@ changelogger clean
   * Royal Items
   * Enchanting (and/or BM)
 * Stone
-* 
+
+## Plans
+
++ make dir for Git stuff
++ add Git Entities Repository
++ improve the Frontend with Jquery
