@@ -6,6 +6,8 @@ use Doctrine\ORM\EntityManager;
 use Laminas\ServiceManager\AbstractFactory\ConfigAbstractFactory;
 use Laminas\ServiceManager\ServiceManager;
 use MZierdt\Albion\AlbionDataAPI\ApiService;
+use MZierdt\Albion\AlbionDataAPI\ItemApiService;
+use MZierdt\Albion\AlbionDataAPI\MaterialsApiService;
 use MZierdt\Albion\commands\UpdateItemsCommand;
 use MZierdt\Albion\commands\UpdateJournalsCommand;
 use MZierdt\Albion\commands\UpdateMaterialsCommand;
@@ -134,7 +136,7 @@ $serviceManager = new ServiceManager([
                     UploadHelper::class,
                 ],
                 UpdateItemsCommand::class => [
-                    ApiService::class,
+                    ItemApiService::class,
                     ItemRepository::class,
                     ConfigService::class,
                     UploadHelper::class,
@@ -152,7 +154,7 @@ $serviceManager = new ServiceManager([
                     UploadHelper::class,
                 ],
                 UpdateMaterialsCommand::class => [
-                    ApiService::class,
+                    MaterialsApiService::class,
                     MaterialRepository::class,
                     UploadHelper::class,
                 ]

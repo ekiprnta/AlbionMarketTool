@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\commands;
 
-use MZierdt\Albion\AlbionDataAPI\ApiService;
 use MZierdt\Albion\repositories\ItemRepository;
 use MZierdt\Albion\Service\ConfigService;
 use MZierdt\Albion\Service\ProgressBarService;
@@ -12,11 +11,12 @@ use MZierdt\Albion\Service\UploadHelper;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use unit\AlbionDataApi\ItemApiService;
 
 class UpdateItemsCommand extends Command
 {
     public function __construct(
-        private readonly ApiService $apiService,
+        private readonly ItemApiService $itemApiService,
         private readonly ItemRepository $itemRepository,
         private readonly ConfigService $configService,
         private readonly UploadHelper $uploadHelper,
@@ -40,7 +40,7 @@ class UpdateItemsCommand extends Command
             $progressBar->setMessage('Get Item:' . $itemStats['realName']);
             $progressBar->advance();
             $progressBar->display();
-            $itemsData = $this->apiService->getItems($itemStats['id_snippet']);
+            $itemsData = $this->itemApiService->getItems($itemStats['id_snippet']);
             $progressBar->setMessage('preparing Item' . $itemStats['realName']);
             $progressBar->display();
             $adjustedItems = $this->uploadHelper->adjustItems($itemsData, $itemStats);
