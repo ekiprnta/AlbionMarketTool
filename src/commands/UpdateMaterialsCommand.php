@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\commands;
 
+use MZierdt\Albion\AlbionDataAPI\MaterialsApiService;
 use MZierdt\Albion\repositories\MaterialRepository;
-use MZierdt\Albion\Service\ApiService;
 use MZierdt\Albion\Service\UploadHelper;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -14,7 +14,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class UpdateMaterialsCommand extends Command
 {
     public function __construct(
-        private readonly ApiService $apiService,
+        private readonly MaterialsApiService $materialsApiService,
         private readonly MaterialRepository $materialRepository,
         private readonly UploadHelper $uploadHelper,
     ) {
@@ -25,7 +25,7 @@ class UpdateMaterialsCommand extends Command
     {
         $message = 'successfully updated all Prices';
 
-        $materials = $this->apiService->getMaterials();
+        $materials = $this->materialsApiService->getMaterials();
 
         $adjustedMaterials = $this->uploadHelper->adjustMaterials($materials);
 

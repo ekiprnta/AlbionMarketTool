@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\commands;
 
+use MZierdt\Albion\AlbionDataAPI\ResourceApiService;
 use MZierdt\Albion\repositories\ResourceRepository;
-use MZierdt\Albion\Service\ApiService;
 use MZierdt\Albion\Service\ConfigService;
 use MZierdt\Albion\Service\ProgressBarService;
 use MZierdt\Albion\Service\UploadHelper;
@@ -16,7 +16,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class UpdateResourcesCommand extends Command
 {
     public function __construct(
-        private readonly ApiService $apiService,
+        private readonly ResourceApiService $resourceApiService,
         private readonly ResourceRepository $resourceRepository,
         private readonly ConfigService $configService,
         private readonly UploadHelper $uploadHelper,
@@ -43,7 +43,7 @@ class UpdateResourcesCommand extends Command
             $progressBar->setMessage('Get Resource ' . $resourceStats['realName']);
             $progressBar->advance();
             $progressBar->display();
-            $resourcesData = $this->apiService->getResources($resourceStats['realName']);
+            $resourcesData = $this->resourceApiService->getResources($resourceStats['realName']);
             $progressBar->setMessage('preparing resource ' . $resourceStats['realName']);
             $progressBar->display();
             $adjustedResources = $this->uploadHelper->adjustResources($resourcesData, $resourceStats);

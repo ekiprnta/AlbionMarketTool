@@ -1,0 +1,4 @@
+title: 'Split up the ApiService into more extendable classes'
+type: changed
+author: m-zierdt
+group: ''

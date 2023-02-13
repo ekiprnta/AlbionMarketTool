@@ -5,6 +5,10 @@ declare(strict_types=1);
 use Doctrine\ORM\EntityManager;
 use Laminas\ServiceManager\AbstractFactory\ConfigAbstractFactory;
 use Laminas\ServiceManager\ServiceManager;
+use MZierdt\Albion\AlbionDataAPI\ItemApiService;
+use MZierdt\Albion\AlbionDataAPI\MaterialsApiService;
+use MZierdt\Albion\AlbionDataAPI\MiscApiService;
+use MZierdt\Albion\AlbionDataAPI\ResourceApiService;
 use MZierdt\Albion\commands\UpdateItemsCommand;
 use MZierdt\Albion\commands\UpdateJournalsCommand;
 use MZierdt\Albion\commands\UpdateMaterialsCommand;
@@ -28,7 +32,6 @@ use MZierdt\Albion\repositories\MaterialRepository;
 use MZierdt\Albion\repositories\MaterialRepositoryFactory;
 use MZierdt\Albion\repositories\ResourceRepository;
 use MZierdt\Albion\repositories\ResourceRepositoryFactory;
-use MZierdt\Albion\Service\ApiService;
 use MZierdt\Albion\Service\BlackMarketCraftingHelper;
 use MZierdt\Albion\Service\BlackMarketCraftingService;
 use MZierdt\Albion\Service\BlackMarketTransportingHelper;
@@ -52,9 +55,10 @@ $serviceManager = new ServiceManager([
         'config' => [
             ConfigAbstractFactory::class => [
                 HttpClient::class => [],
-                ApiService::class => [
-                    HttpClient::class
-                ],
+                ItemApiService::class => [HttpClient::class],
+                MaterialsApiService::class => [HttpClient::class],
+                ResourceApiService::class => [HttpClient::class],
+                MiscApiService::class => [HttpClient::class],
                 listDataHandler::class => [
                     Environment::class,
                     ListDataService::class
@@ -125,34 +129,34 @@ $serviceManager = new ServiceManager([
                     Environment::class,
                 ],
                 GlobalDiscountService::class => [
-                    ApiService::class
+                    MiscApiService::class
                 ],
                 UpdateJournalsCommand::class => [
-                    ApiService::class,
+                    MiscApiService::class,
                     JournalRepository::class,
                     ConfigService::class,
                     UploadHelper::class,
                 ],
                 UpdateItemsCommand::class => [
-                    ApiService::class,
+                    ItemApiService::class,
                     ItemRepository::class,
                     ConfigService::class,
                     UploadHelper::class,
                 ],
                 UpdateResourcesCommand::class => [
-                    ApiService::class,
+                    ResourceApiService::class,
                     ResourceRepository::class,
                     ConfigService::class,
                     UploadHelper::class,
                 ],
                 UpdateRawResourcesCommand::class => [
-                    ApiService::class,
+                    ResourceApiService::class,
                     ResourceRepository::class,
                     ConfigService::class,
                     UploadHelper::class,
                 ],
                 UpdateMaterialsCommand::class => [
-                    ApiService::class,
+                    MaterialsApiService::class,
                     MaterialRepository::class,
                     UploadHelper::class,
                 ]

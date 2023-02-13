@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\factories;
 
+use MZierdt\Albion\AlbionDataAPI\ApiService;
 use MZierdt\Albion\HttpClient;
-use MZierdt\Albion\Service\ApiService;
 use Psr\Container\ContainerInterface;
 
 class ApiServiceFactory

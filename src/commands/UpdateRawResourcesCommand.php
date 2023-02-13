@@ -2,8 +2,8 @@
 
 namespace MZierdt\Albion\commands;
 
+use MZierdt\Albion\AlbionDataAPI\ResourceApiService;
 use MZierdt\Albion\repositories\ResourceRepository;
-use MZierdt\Albion\Service\ApiService;
 use MZierdt\Albion\Service\ConfigService;
 use MZierdt\Albion\Service\ProgressBarService;
 use MZierdt\Albion\Service\UploadHelper;
@@ -14,13 +14,14 @@ use Symfony\Component\Console\Output\OutputInterface;
 class UpdateRawResourcesCommand extends Command
 {
     public function __construct(
-        private readonly ApiService $apiService,
+        private readonly ResourceApiService $resourceApiService,
         private readonly ResourceRepository $resourceRepository,
         private readonly ConfigService $configService,
         private readonly UploadHelper $uploadHelper,
     ) {
         parent::__construct();
     }
+
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $message = 'successfully updated all Prices';
@@ -40,7 +41,7 @@ class UpdateRawResourcesCommand extends Command
             $progressBar->setMessage('Get raw ' . $rawResourceStat['realName']);
             $progressBar->advance();
             $progressBar->display();
-            $rawResourcesData = $this->apiService->getResources($rawResourceStat['realName']);
+            $rawResourcesData = $this->resourceApiService->getResources($rawResourceStat['realName']);
             $progressBar->setMessage('preparing raw ' . $rawResourceStat['realName']);
             $progressBar->display();
             $adjustedRawResources = $this->uploadHelper->adjustResources($rawResourcesData, $rawResourceStat, true);
