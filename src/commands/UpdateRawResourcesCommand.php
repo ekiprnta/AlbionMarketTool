@@ -2,8 +2,8 @@
 
 namespace MZierdt\Albion\commands;
 
+use MZierdt\Albion\AlbionDataAPI\ApiService;
 use MZierdt\Albion\repositories\ResourceRepository;
-use MZierdt\Albion\Service\ApiService;
 use MZierdt\Albion\Service\ConfigService;
 use MZierdt\Albion\Service\ProgressBarService;
 use MZierdt\Albion\Service\UploadHelper;
@@ -21,6 +21,7 @@ class UpdateRawResourcesCommand extends Command
     ) {
         parent::__construct();
     }
+
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $message = 'successfully updated all Prices';

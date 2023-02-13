@@ -2,6 +2,8 @@
 
 namespace MZierdt\Albion\Service;
 
+use MZierdt\Albion\AlbionDataAPI\ApiService;
+
 class GlobalDiscountService
 {
     private const BASE_GOLD_PRICE = 5000;

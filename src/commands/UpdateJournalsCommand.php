@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\commands;
 
+use MZierdt\Albion\AlbionDataAPI\ApiService;
 use MZierdt\Albion\repositories\JournalRepository;
-use MZierdt\Albion\Service\ApiService;
 use MZierdt\Albion\Service\ConfigService;
 use MZierdt\Albion\Service\ProgressBarService;
 use MZierdt\Albion\Service\UploadHelper;

@@ -2,7 +2,7 @@
 
 namespace unit\Service;
 
-use MZierdt\Albion\Service\ApiService;
+use MZierdt\Albion\AlbionDataAPI\ApiService;
 use MZierdt\Albion\Service\GlobalDiscountService;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;

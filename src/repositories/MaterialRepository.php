@@ -8,7 +8,7 @@ use MZierdt\Albion\Entity\MaterialEntity;
 
 class MaterialRepository extends Repository
 {
-    public function createOrUpdate(MaterialEntity $materialEntity)
+    public function createOrUpdate(MaterialEntity $materialEntity): void
     {
         $oldMaterialEntity = $this->entityManager->getRepository(MaterialEntity::class)
             ->findOneBy(
