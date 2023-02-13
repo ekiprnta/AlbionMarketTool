@@ -33,6 +33,11 @@ class ItemRepository extends Repository
         }
     }
 
+    public function getItemsByLocationForBM(string $city): array
+    {
+        return $this->findBy(ItemEntity::class, ['city' => $city, 'blackMarketSellable' => true]) ?? [];
+    }
+
     public function getItemsByLocation(string $city): array
     {
         return $this->findBy(ItemEntity::class, ['city' => $city]) ?? [];
@@ -40,6 +45,9 @@ class ItemRepository extends Repository
 
     public function getBlackMarketItemsFromCity(string $city): array
     {
-        return $this->findBy(ItemEntity::class, ['bonusCity' => $city, 'city' => 'Black Market']) ?? [];
+        return $this->findBy(
+            ItemEntity::class,
+            ['bonusCity' => $city, 'city' => 'Black Market', 'blackMarketSellable' => true]
+        ) ?? [];
     }
 }

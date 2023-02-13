@@ -63,7 +63,7 @@ class UploadHelper
         return $adjustedJournalsArray;
     }
 
-    public function adjustItems(array $itemData, array $itemStats): array
+    public function adjustItems(array $itemData, array $itemStats, bool $bmSellable): array
     {
         $adjustedItems = [];
         foreach ($itemData as $item) {
@@ -86,6 +86,7 @@ class UploadHelper
                 ->setSecondaryResourceAmount($itemStats['secondaryResourceAmount'])
                 ->setBonusCity($itemStats['bonusCity'])
                 ->setArtifact($itemStats['artifact'])
+                ->setBlackMarketSellable($bmSellable)
                 ->refreshFame()
                 ->refreshItemValue();
 

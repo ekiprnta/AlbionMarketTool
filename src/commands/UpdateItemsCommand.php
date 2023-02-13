@@ -43,7 +43,7 @@ class UpdateItemsCommand extends Command
             $itemsData = $this->itemApiService->getItems($itemStats['id_snippet']);
             $progressBar->setMessage('preparing Item' . $itemStats['realName']);
             $progressBar->display();
-            $adjustedItems = $this->uploadHelper->adjustItems($itemsData, $itemStats);
+            $adjustedItems = $this->uploadHelper->adjustItems($itemsData, $itemStats, true);
             $progressBar->setMessage('Upload Item ' . $itemStats['realName'] . ' into Database');
             $progressBar->display();
             foreach ($adjustedItems as $adjustedItem) {

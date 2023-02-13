@@ -124,10 +124,23 @@ class ItemEntity extends AlbionItemEntity
     private ?float $fame = null;
     #[Column(type: 'string', nullable: true)]
     private ?string $artifact = null;
+    #[Column(type: 'boolean')]
+    private bool $blackMarketSellable = false;
 
     public function refreshItemValue(): self
     {
         $this->itemValue = $this->totalResourceAmount * $this->getNutritionFactor($this->tier);
+        return $this;
+    }
+
+    public function isBlackMarketSellable(): bool
+    {
+        return $this->blackMarketSellable;
+    }
+
+    public function setBlackMarketSellable(bool $blackMarketSellable): self
+    {
+        $this->blackMarketSellable = $blackMarketSellable;
         return $this;
     }
 
