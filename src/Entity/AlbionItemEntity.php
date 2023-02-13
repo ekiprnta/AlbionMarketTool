@@ -57,23 +57,11 @@ class AlbionItemEntity
     protected ?string $realName = null;
     #[Column(type: 'string', nullable: true)]
     protected ?string $class = null;
-    #[Column(type: 'string', nullable: true)]
-    protected ?string $type = null;
 
     public function setTier(int $tier): self
     {
         $this->tier = $tier;
         return $this;
-    }
-
-    public function getType(): ?string
-    {
-        return $this->type;
-    }
-
-    public function setType(?string $type): void
-    {
-        $this->type = $type;
     }
 
     public function setName(string $name): self
