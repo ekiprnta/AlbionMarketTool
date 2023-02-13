@@ -21,7 +21,10 @@ class ItemApiServiceTest extends TestCase
     public function testGetItems(): void
     {
         $apiUrl = 'https://www.albion-online-data.com/api/v2/stats/prices/T2_HEAD_PLATE_SET1,T3_HEAD_PLATE_SET1,T4_HEAD_PLATE_SET1,T5_HEAD_PLATE_SET1,T6_HEAD_PLATE_SET1,T7_HEAD_PLATE_SET1,T8_HEAD_PLATE_SET1,T4_HEAD_PLATE_SET1@1,T5_HEAD_PLATE_SET1@1,T6_HEAD_PLATE_SET1@1,T7_HEAD_PLATE_SET1@1,T8_HEAD_PLATE_SET1@1,T4_HEAD_PLATE_SET1@2,T5_HEAD_PLATE_SET1@2,T6_HEAD_PLATE_SET1@2,T7_HEAD_PLATE_SET1@2,T8_HEAD_PLATE_SET1@2,T4_HEAD_PLATE_SET1@3,T5_HEAD_PLATE_SET1@3,T6_HEAD_PLATE_SET1@3,T7_HEAD_PLATE_SET1@3,T8_HEAD_PLATE_SET1@3,T4_HEAD_PLATE_SET1@4,T5_HEAD_PLATE_SET1@4,T6_HEAD_PLATE_SET1@4,T7_HEAD_PLATE_SET1@4,T8_HEAD_PLATE_SET1@4';
-        $parameters = ['locations' => ApiService::CITY_ALL, 'qualities' => ApiService::QUALITY_GOOD];
+        $parameters = [
+            'locations' => ApiService::CITY_ALL,
+            'qualities' => ApiService::QUALITY_GOOD,
+        ];
         $this->httpClient->get($apiUrl, $parameters)
             ->willReturn('{"a": "b"}');
 
