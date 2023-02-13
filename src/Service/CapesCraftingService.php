@@ -10,7 +10,7 @@ class CapesCraftingService
     {
     }
 
-    public function getCapesByCity(string $string): array
+    public function getCapesByCity(string $city): array
     {
         $allCapes = [];
 

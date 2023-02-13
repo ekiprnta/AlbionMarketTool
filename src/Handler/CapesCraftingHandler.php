@@ -18,8 +18,9 @@ class CapesCraftingHandler
 
     public function handler(): HtmlResponse
     {
-        $this->capesCraftingService->getCapesByCity('Martlock');
+        $cityData = $this->capesCraftingService->getCapesByCity('Martlock');
 
+        dd($cityData);
         $htmlContent = $this->twigEnvironment->render('CapesCrafting.html.twig');
         return new HtmlResponse($htmlContent);
     }
