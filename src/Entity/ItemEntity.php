@@ -122,10 +122,23 @@ class ItemEntity extends AlbionItemEntity
     private ?int $itemValue = null;
     #[Column(type: 'float', nullable: true)]
     private ?float $fame = null;
+    #[Column(type: 'string', nullable: true)]
+    private ?string $artifact = null;
 
     public function refreshItemValue(): self
     {
         $this->itemValue = $this->totalResourceAmount * $this->getNutritionFactor($this->tier);
+        return $this;
+    }
+
+    public function getArtifact(): ?string
+    {
+        return $this->artifact;
+    }
+
+    public function setArtifact(?string $artifact): self
+    {
+        $this->artifact = $artifact;
         return $this;
     }
 
@@ -173,7 +186,7 @@ class ItemEntity extends AlbionItemEntity
         return $this;
     }
 
-    public function setBonusCity(string $bonusCity): self
+    public function setBonusCity(?string $bonusCity): self
     {
         $this->bonusCity = $bonusCity;
         return $this;

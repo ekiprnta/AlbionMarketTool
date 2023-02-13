@@ -85,6 +85,7 @@ class UploadHelper
                 ->setSecondaryResource($itemStats['secondaryResource'])
                 ->setSecondaryResourceAmount($itemStats['secondaryResourceAmount'])
                 ->setBonusCity($itemStats['bonusCity'])
+                ->setArtifact($itemStats['artifact'])
                 ->refreshFame()
                 ->refreshItemValue();
 
