@@ -2,7 +2,7 @@
 
 namespace unit\Service;
 
-use MZierdt\Albion\Service\ApiService;
+use MZierdt\Albion\AlbionDataAPI\MiscApiService;
 use MZierdt\Albion\Service\GlobalDiscountService;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
@@ -17,12 +17,12 @@ class GlobalDiscountServiceTest extends TestCase
      */
     public function testGetGlobalDiscount(float $result, int $goldPrice): void
     {
-        /** @var ApiService|ObjectProphecy $apiService */
-        $apiService = $this->prophesize(ApiService::class);
+        /** @var MiscApiService|ObjectProphecy $miscApiService */
+        $miscApiService = $this->prophesize(MiscApiService::class);
 
-        $apiService->getGoldPrice()
+        $miscApiService->getGoldPrice()
             ->willReturn($goldPrice);
-        $globalDiscountService = new GlobalDiscountService($apiService->reveal());
+        $globalDiscountService = new GlobalDiscountService($miscApiService->reveal());
 
         $this->assertEqualsWithDelta($result, $globalDiscountService->getGlobalDiscount(), 0.0000001);
     }

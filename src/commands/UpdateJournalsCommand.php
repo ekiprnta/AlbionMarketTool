@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\commands;
 
+use MZierdt\Albion\AlbionDataAPI\MiscApiService;
 use MZierdt\Albion\repositories\JournalRepository;
-use MZierdt\Albion\Service\ApiService;
 use MZierdt\Albion\Service\ConfigService;
 use MZierdt\Albion\Service\ProgressBarService;
 use MZierdt\Albion\Service\UploadHelper;
@@ -16,10 +16,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 class UpdateJournalsCommand extends Command
 {
     public function __construct(
-        private ApiService $apiService,
-        private JournalRepository $journalRepository,
-        private ConfigService $configService,
-        private UploadHelper $uploadHelper,
+        private readonly MiscApiService $miscApiService,
+        private readonly JournalRepository $journalRepository,
+        private readonly ConfigService $configService,
+        private readonly UploadHelper $uploadHelper,
     ) {
         parent::__construct();
     }
@@ -43,13 +43,15 @@ class UpdateJournalsCommand extends Command
             $progressBar->setMessage('Get Resource ' . $journalName);
             $progressBar->advance();
             $progressBar->display();
-            $journalsData = $this->apiService->getJournals($journalName);
+            $journalsData = $this->miscApiService->getJournals($journalName);
             $progressBar->setMessage('preparing resource ' . $journalName);
             $progressBar->display();
             $adjustedJournals = $this->uploadHelper->adjustJournals($journalsData, $journalList['stats']);
             $progressBar->setMessage('Upload Resource ' . $journalName . ' into Database');
             $progressBar->display();
-            $this->journalRepository->updatePricesFromJournals($adjustedJournals);
+            foreach ($adjustedJournals as $adjustedJournal) {
+                $this->journalRepository->createOrUpdate($adjustedJournal);
+            }
         }
 
         $output->writeln(PHP_EOL . $message);
@@ -58,7 +60,7 @@ class UpdateJournalsCommand extends Command
 
     protected function configure(): void
     {
-        $this->setName('update:journal');
+        $this->setName('update:journals');
         $this->setDescription('update Prices of Journals');
         $this->setHelp('updates Prices of Journal');
     }

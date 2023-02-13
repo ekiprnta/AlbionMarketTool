@@ -16,27 +16,20 @@ class BlackMarketCraftingEntityTest extends TestCase
     protected function setUp(): void
     {
         $this->bmcEntity = new BlackMarketCraftingEntity(
-            new ItemEntity([
-                'tier' => '41',
-                'name' => 'ABC',
-                'weaponGroup' => '123',
-                'realName' => 'test',
-                'class' => 'mage',
-                'city' => 'city',
-                'quality' => '2',
-                'sellOrderPrice' => 5,
-                'sellOrderPriceDate' => '2022-12-09 09:36:15',
-                'buyOrderPrice' => 10,
-                'buyOrderPriceDate' => '2022-12-09 09:36:15',
-                'primaryResource' => 'planks',
-                'primaryResourceAmount' => '20',
-                'secondaryResource' => 'cloth',
-                'secondaryResourceAmount' => '12',
-                'bonusCity' => 'Fort Sterling',
-                'fameFactor' => null,
-                'amountInStorage' => null,
-            ]),
-            10
+            (new ItemEntity())
+                ->setTier(71)
+                ->setName('3h_axe')
+                ->setCity('BlackMarket')
+                ->setSellOrderPrice(441992)
+                ->setBuyOrderPrice(168594)
+                ->setWeaponGroup('axe')
+                ->setRealName('greatAxe')
+                ->setPrimaryResource('metalBar')
+                ->setPrimaryResourceAmount(20)
+                ->setSecondaryResource('planks')
+                ->setSecondaryResourceAmount(12)
+                ->refreshFame()
+                ->refreshItemValue(),
         );
     }
 
@@ -70,12 +63,6 @@ class BlackMarketCraftingEntityTest extends TestCase
         $this->assertEquals(35, $this->bmcEntity->getJournalAmount());
     }
 
-    public function testTotalItemWeight(): void
-    {
-        $this->bmcEntity->setTotalItemWeight(57.3);
-        $this->assertEquals(57.3, $this->bmcEntity->getTotalItemWeight());
-    }
-
     public function testCraftingFee(): void
     {
         $this->bmcEntity->setCraftingFee(56900.04);
@@ -96,8 +83,8 @@ class BlackMarketCraftingEntityTest extends TestCase
 
     public function testWeightProfitQuotient(): void
     {
-        $this->bmcEntity->setWeightProfitQuotient(1400.12);
-        $this->assertEquals(1400.12, $this->bmcEntity->getWeightProfitQuotient());
+        $this->bmcEntity->setProfitQuotient(1400.12);
+        $this->assertEquals(1400.12, $this->bmcEntity->getProfitQuotient());
     }
 
     public function testColorGrade(): void
@@ -114,7 +101,7 @@ class BlackMarketCraftingEntityTest extends TestCase
 
     public function testTierColor(): void
     {
-        $this->assertEquals('4', $this->bmcEntity->getTierColor());
+        $this->assertEquals('7', $this->bmcEntity->getTierColor());
     }
 
     public function testItemValue(): void

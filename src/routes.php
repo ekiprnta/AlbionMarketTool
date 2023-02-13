@@ -4,6 +4,7 @@ use MZierdt\Albion\Handler\AdminHandler;
 use MZierdt\Albion\Handler\BlackMarketCraftingHandler;
 use MZierdt\Albion\Handler\BlackMarketTransportingHandler;
 use MZierdt\Albion\Handler\CapesCraftingHandler;
+use MZierdt\Albion\Handler\EnchantingHandler;
 use MZierdt\Albion\Handler\listDataHandler;
 use MZierdt\Albion\Handler\RefiningHandler;
 use MZierdt\Albion\Handler\TransmutationHandler;
@@ -20,6 +21,7 @@ $dispatcher = FastRoute\simpleDispatcher(
         $r->addRoute(['GET', 'POST'], '/resource/refining', $serviceManager->get(RefiningHandler::class));
         $r->addRoute(['GET', 'POST'], '/resource/transmutation', $serviceManager->get(TransmutationHandler::class));
         $r->addRoute(['GET', 'POST'], '/blackmarket/crafting', $serviceManager->get(BlackMarketCraftingHandler::class));
+        $r->addRoute(['GET', 'POST'], '/noSpec/enchanting', $serviceManager->get(EnchantingHandler::class));
         $r->addRoute(['GET', 'POST'], '/noSpec/capes', $serviceManager->get(CapesCraftingHandler::class));
         $r->addRoute(
             ['GET', 'POST'],
@@ -34,11 +36,11 @@ $dispatcher = FastRoute\simpleDispatcher(
 $httpMethod = $_SERVER['REQUEST_METHOD'];
 $uri = $_SERVER['REQUEST_URI'];
 // Strip query string (?foo=bar) and decode URI
-$pos = strpos($uri, '?');
+$pos = strpos((string) $uri, '?');
 if ($pos !== false) {
-    $uri = substr($uri, 0, $pos);
+    $uri = substr((string) $uri, 0, $pos);
 }
-$uri = rawurldecode($uri);
+$uri = rawurldecode((string) $uri);
 $routeInfo = $dispatcher->dispatch($httpMethod, $uri);
 switch ($routeInfo[0]) {
     case FastRoute\Dispatcher::NOT_FOUND:

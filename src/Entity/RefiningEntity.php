@@ -13,16 +13,16 @@ class RefiningEntity
     private int $amount;
     private float $profit;
 
-    private float $weightAmountQuotient;
+    private float $profitQuotient;
     private string $profitGrade;
-    private string $tierColor;
+    private readonly int $tierColor;
 
-    public function __construct(private ResourceEntity $resourceEntity)
+    public function __construct(private readonly ResourceEntity $resourceEntity)
     {
-        $this->tierColor = $this->resourceEntity->getTier()[0];
+        $this->tierColor = (int) ($this->resourceEntity->getTier() / 10);
     }
 
-    public function getTierColor(): string
+    public function getTierColor(): int
     {
         return $this->tierColor;
     }
@@ -47,14 +47,14 @@ class RefiningEntity
         $this->profit = $profit;
     }
 
-    public function getWeightAmountQuotient(): float
+    public function getProfitQuotient(): float
     {
-        return $this->weightAmountQuotient;
+        return $this->profitQuotient;
     }
 
-    public function setWeightAmountQuotient(float $weightAmountQuotient): void
+    public function setProfitQuotient(float $profitQuotient): void
     {
-        $this->weightAmountQuotient = $weightAmountQuotient;
+        $this->profitQuotient = $profitQuotient;
     }
 
     public function getProfitGrade(): string

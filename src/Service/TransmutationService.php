@@ -4,12 +4,12 @@ namespace MZierdt\Albion\Service;
 
 use InvalidArgumentException;
 use MZierdt\Albion\Entity\TransmutationEntity;
-use MZierdt\Albion\repositories\RawResourceRepository;
+use MZierdt\Albion\repositories\ResourceRepository;
 
 class TransmutationService
 {
     public function __construct(
-        private readonly RawResourceRepository $rawResourceRepository,
+        private readonly ResourceRepository $resourceRepository,
         private readonly TransmutationHelper $transmutationHelper,
         private readonly ConfigService $configService,
         private readonly GlobalDiscountService $discountService,
@@ -22,7 +22,7 @@ class TransmutationService
             throw new InvalidArgumentException('Please select a city');
         }
 
-        $resources = $this->rawResourceRepository->getRawResourcesByCity($city);
+        $resources = $this->resourceRepository->getRawResourcesByCity($city);
 
         $transmutationWays = $this->configService->getTransmutationWays();
         $transmutationCost = $this->configService->getTransmutationCost();
@@ -69,8 +69,8 @@ class TransmutationService
                 )
             );
             $transEntity->setProfitGrade($this->transmutationHelper->calculateProfitGrade($transEntity->getProfit()));
-            $transEntity->setStartTierColor($transEntity->getStartResource()->getTier()[0]);
-            $transEntity->setEndTierColor($transEntity->getEndResource()->getTier()[0]);
+            $transEntity->setStartTierColor((int) ($transEntity->getStartResource()->getTier() / 10));
+            $transEntity->setEndTierColor((int) ($transEntity->getEndResource()->getTier() / 10));
         }
 
         return $transmutationEntityList;

@@ -2,11 +2,10 @@
 
 declare(strict_types=1);
 
-namespace unit\Service;
+namespace integration\Service;
 
 use MZierdt\Albion\Entity\ListDataEntity;
 use MZierdt\Albion\Entity\ResourceEntity;
-use MZierdt\Albion\repositories\RawResourceRepository;
 use MZierdt\Albion\repositories\ResourceRepository;
 use MZierdt\Albion\Service\ListDataHelper;
 use MZierdt\Albion\Service\ListDataService;
@@ -14,40 +13,34 @@ use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 
-class ListDataServiceTest extends TestCase
+class ListDataServiceITest extends TestCase
 {
     use ProphecyTrait;
 
     private ListDataService $listDataService;
     private ResourceRepository|ObjectProphecy $resourceRepository;
-    private RawResourceRepository|ObjectProphecy $rawResourceRepository;
 
     public function testGetAllRawResources(): void
     {
         $resources = [
-            new ResourceEntity([
-                'tier' => '20',
-                'name' => 'cloth',
-                'city' => 'Fort Sterling',
-                'realName' => 'cloth',
-                'sellOrderPrice' => '27',
-                'sellOrderPriceDate' => '2022-12-08 10:45:00',
-                'buyOrderPrice' => '26',
-                'buyOrderPriceDate' => '2022-12-08 10:45:00',
-                'bonusCity' => 'Lymhurst',
-                'amountInStorage' => null,
-            ]),
+            (new ResourceEntity())
+                ->setTier(71)
+                ->setName('metalBar')
+                ->setCity('TestCity')
+                ->setRealName('metalBar')
+                ->setSellOrderPrice(13986)
+                ->setBuyOrderPrice(12235),
         ];
 
-        $this->rawResourceRepository->getRawResourcesByCity('Fort Sterling')
+        $this->resourceRepository->getRawResourcesByCity('Fort Sterling')
             ->willReturn($resources);
-        $this->rawResourceRepository->getRawResourcesByCity('Lymhurst')
+        $this->resourceRepository->getRawResourcesByCity('Lymhurst')
             ->willReturn($resources);
-        $this->rawResourceRepository->getRawResourcesByCity('Bridgewatch')
+        $this->resourceRepository->getRawResourcesByCity('Bridgewatch')
             ->willReturn($resources);
-        $this->rawResourceRepository->getRawResourcesByCity('Martlock')
+        $this->resourceRepository->getRawResourcesByCity('Martlock')
             ->willReturn($resources);
-        $this->rawResourceRepository->getRawResourcesByCity('Thetford')
+        $this->resourceRepository->getRawResourcesByCity('Thetford')
             ->willReturn($resources);
 
         $rawResources = $this->listDataService->getAllRawResources();
@@ -57,25 +50,20 @@ class ListDataServiceTest extends TestCase
             $this->assertEquals('Fort Sterling', $ldEntity->getCheapestObjectCityBuyOrder());
             $this->assertEquals('Fort Sterling', $ldEntity->getMostExpensiveObjectCityBuyOrder());
             $this->assertEquals('Fort Sterling', $ldEntity->getMostExpensiveObjectCitySellOrder());
-            $this->assertEquals('2', $ldEntity->getTierColor());
+            $this->assertEquals('7', $ldEntity->getTierColor());
         }
     }
 
     public function testGetAllResources(): void
     {
         $resources = [
-            new ResourceEntity([
-                'tier' => '20',
-                'name' => 'cloth',
-                'city' => 'Fort Sterling',
-                'realName' => 'cloth',
-                'sellOrderPrice' => '27',
-                'sellOrderPriceDate' => '2022-12-08 10:45:00',
-                'buyOrderPrice' => '26',
-                'buyOrderPriceDate' => '2022-12-08 10:45:00',
-                'bonusCity' => 'Lymhurst',
-                'amountInStorage' => null,
-            ]),
+            (new ResourceEntity())
+                ->setTier(71)
+                ->setName('metalBar')
+                ->setCity('TestCity')
+                ->setRealName('metalBar')
+                ->setSellOrderPrice(13986)
+                ->setBuyOrderPrice(12235),
         ];
 
         $this->resourceRepository->getResourcesByCity('Fort Sterling')
@@ -96,18 +84,13 @@ class ListDataServiceTest extends TestCase
             $this->assertEquals('Fort Sterling', $ldEntity->getCheapestObjectCityBuyOrder());
             $this->assertEquals('Fort Sterling', $ldEntity->getMostExpensiveObjectCityBuyOrder());
             $this->assertEquals('Fort Sterling', $ldEntity->getMostExpensiveObjectCitySellOrder());
-            $this->assertEquals('2', $ldEntity->getTierColor());
+            $this->assertEquals('7', $ldEntity->getTierColor());
         }
     }
 
     protected function setUp(): void
     {
         $this->resourceRepository = $this->prophesize(ResourceRepository::class);
-        $this->rawResourceRepository = $this->prophesize(RawResourceRepository::class);
-        $this->listDataService = new ListDataService(
-            $this->resourceRepository->reveal(),
-            $this->rawResourceRepository->reveal(),
-            new ListDataHelper(),
-        );
+        $this->listDataService = new ListDataService($this->resourceRepository->reveal(), new ListDataHelper(),);
     }
 }

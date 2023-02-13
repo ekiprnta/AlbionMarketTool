@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
-use Rector\Core\Configuration\Option;
 use Rector\EarlyReturn\Rector\If_\RemoveAlwaysElseRector;
 use Rector\Php73\Rector\FuncCall\SetCookieRector;
 use Rector\Php74\Rector\Property\TypedPropertyRector;
@@ -28,6 +27,7 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(SetList::PHP_73);
     $rectorConfig->import(SetList::PHP_74);
     $rectorConfig->import(SetList::PHP_80);
+    $rectorConfig->import(SetList::PHP_81);
     $rectorConfig->import(SetList::CODE_QUALITY);
     $rectorConfig->import(SetList::DEAD_CODE);
 

@@ -17,18 +17,13 @@ class RefiningEntityTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->resourceEntity = new ResourceEntity([
-            'tier' => '20',
-            'name' => 'cloth',
-            'city' => 'Fort Sterling',
-            'realName' => 'cloth',
-            'sellOrderPrice' => '27',
-            'sellOrderPriceDate' => '2022-12-08 10:45:00',
-            'buyOrderPrice' => '26',
-            'buyOrderPriceDate' => '2022-12-08 10:45:00',
-            'bonusCity' => 'Lymhurst',
-            'amountInStorage' => null,
-        ]);
+        $this->resourceEntity = (new ResourceEntity())
+            ->setTier(71)
+            ->setName('metalBar')
+            ->setCity('TestCity')
+            ->setRealName('metalBar')
+            ->setSellOrderPrice(13986)
+            ->setBuyOrderPrice(12235);
 
         $this->refiningEntity = new RefiningEntity($this->resourceEntity);
     }
@@ -40,7 +35,7 @@ class RefiningEntityTest extends TestCase
 
     public function testGetTierColor(): void
     {
-        $this->assertEquals('2', $this->refiningEntity->getTierColor());
+        $this->assertEquals('7', $this->refiningEntity->getTierColor());
     }
 
     public function testGetRawResource(): void
@@ -69,8 +64,8 @@ class RefiningEntityTest extends TestCase
 
     public function testGetWeightAmountQuotient(): void
     {
-        $this->refiningEntity->setWeightAmountQuotient(182.24);
-        $this->assertEquals(182.24, $this->refiningEntity->getWeightAmountQuotient());
+        $this->refiningEntity->setProfitQuotient(182.24);
+        $this->assertEquals(182.24, $this->refiningEntity->getProfitQuotient());
     }
 
     public function testGetProfitGrade(): void

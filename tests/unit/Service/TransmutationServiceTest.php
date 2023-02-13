@@ -2,7 +2,7 @@
 
 namespace unit\Service;
 
-use MZierdt\Albion\repositories\RawResourceRepository;
+use MZierdt\Albion\repositories\ResourceRepository;
 use MZierdt\Albion\Service\ConfigService;
 use MZierdt\Albion\Service\GlobalDiscountService;
 use MZierdt\Albion\Service\TransmutationHelper;
@@ -16,13 +16,13 @@ class TransmutationServiceTest extends TestCase
 
     public function testGetTransmutationByCityException(): void
     {
-        $rawResourceRepository = $this->prophesize(RawResourceRepository::class);
+        $resourceRepository = $this->prophesize(ResourceRepository::class);
         $transmutationHelper = $this->prophesize(TransmutationHelper::class);
         $configService = $this->prophesize(ConfigService::class);
         $discountService = $this->prophesize(GlobalDiscountService::class);
 
         $transmutationService = new TransmutationService(
-            $rawResourceRepository->reveal(),
+            $resourceRepository->reveal(),
             $transmutationHelper->reveal(),
             $configService->reveal(),
             $discountService->reveal(),

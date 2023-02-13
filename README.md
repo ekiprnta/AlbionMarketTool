@@ -23,9 +23,9 @@ composer up
 
 ```shell script
 rcli update:items  # update items 
-rcli update:raw  # update raw 
-rcli update:resource  # update resource 
-rcli update:journal  # update journal
+rcli update:resources  # update resource 
+rcli update:journals  # update journal
+rcli update:materials  # update materials
 ```
 
 ## Composer
@@ -54,11 +54,18 @@ changelogger clean
 
 * ~~Tier überarbeiten~~
 * Farming
+* Revisit Profit Quotient
 * Javascript überall
 * No Spec Crafting
-  * Capes
+  * Capes (028)
   * Royal Items
   * Enchanting (and/or BM)
 * Stone
 * Bags BM Crafting / Capes
 * Rework That there is only One Item with x- Prices
+
+## Plans
+
++ make dir for Git stuff
++ add Git Entities Repository
++ improve the Frontend with Jquery

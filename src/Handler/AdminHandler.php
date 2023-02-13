@@ -10,7 +10,7 @@ use Twig\Environment;
 class AdminHandler
 {
     public function __construct(
-        private Environment $twigEnvironment,
+        private readonly Environment $twigEnvironment,
     ) {
     }
 

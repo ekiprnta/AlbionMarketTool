@@ -8,7 +8,7 @@ use MZierdt\Albion\factories\ResourceEntityFactory;
 
 class BlackMarketCraftingHelper extends Market
 {
-    public function calculateResource(string $resourceName, string $tier, array $resources): ResourceEntity
+    public function calculateResource(string $resourceName, int $tier, array $resources): ResourceEntity
     {
         /** @var ResourceEntity $resource */
         foreach ($resources as $resource) {
@@ -19,12 +19,12 @@ class BlackMarketCraftingHelper extends Market
         return ResourceEntityFactory::getEmptyResourceEntity();
     }
 
-
-    public function calculateJournal(string $tier, string $fillStatus, array $journals): ?JournalEntity
+    public function calculateJournal(int $tier, string $fillStatus, array $journals): ?JournalEntity
     {
+        $baseTier = (int) ($tier / 10);
         /** @var JournalEntity $journal */
         foreach ($journals as $journal) {
-            if (($tier[0] === $journal->getTier()[0]) && $journal->getFillStatus() === $fillStatus) {
+            if (($baseTier * 10 === $journal->getTier()) && $journal->getFillStatus() === $fillStatus) {
                 return $journal;
             }
         }
@@ -42,16 +42,13 @@ class BlackMarketCraftingHelper extends Market
     }
 
     public function calculateTotalAmount(
-        float $resourceWeight,
-        int $resourceAmount,
-        float $journalWeight,
-        float $journalAmountPerItem,
-        float $weight
+        int $tier,
+        int $primResourceAmount,
+        int $secResourceAmount,
+        array $blackMarketSellAmount
     ): int {
-        $resourceWeightForItem = $resourceWeight * $resourceAmount;
-        $journalWeightForItem = $journalWeight * $journalAmountPerItem;
-
-        return (int) ($weight / ($resourceWeightForItem + $journalWeightForItem));
+        $totalAmount = (string) ($primResourceAmount + $secResourceAmount);
+        return $blackMarketSellAmount[$tier][$totalAmount];
     }
 
     public function calculateResourceAmount(int $totalAmount, int $resourceAmount): int
