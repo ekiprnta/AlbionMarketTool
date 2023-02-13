@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\commands;
 
+use MZierdt\Albion\AlbionDataAPI\ItemApiService;
 use MZierdt\Albion\repositories\ItemRepository;
 use MZierdt\Albion\Service\ConfigService;
 use MZierdt\Albion\Service\ProgressBarService;
@@ -11,7 +12,6 @@ use MZierdt\Albion\Service\UploadHelper;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use unit\AlbionDataApi\ItemApiService;
 
 class UpdateItemsCommand extends Command
 {

@@ -5,9 +5,10 @@ declare(strict_types=1);
 use Doctrine\ORM\EntityManager;
 use Laminas\ServiceManager\AbstractFactory\ConfigAbstractFactory;
 use Laminas\ServiceManager\ServiceManager;
-use MZierdt\Albion\AlbionDataAPI\ApiService;
 use MZierdt\Albion\AlbionDataAPI\ItemApiService;
 use MZierdt\Albion\AlbionDataAPI\MaterialsApiService;
+use MZierdt\Albion\AlbionDataAPI\MiscApiService;
+use MZierdt\Albion\AlbionDataAPI\ResourceApiService;
 use MZierdt\Albion\commands\UpdateItemsCommand;
 use MZierdt\Albion\commands\UpdateJournalsCommand;
 use MZierdt\Albion\commands\UpdateMaterialsCommand;
@@ -54,9 +55,10 @@ $serviceManager = new ServiceManager([
         'config' => [
             ConfigAbstractFactory::class => [
                 HttpClient::class => [],
-                ApiService::class => [
-                    HttpClient::class
-                ],
+                ItemApiService::class => [HttpClient::class],
+                MaterialsApiService::class => [HttpClient::class],
+                ResourceApiService::class => [HttpClient::class],
+                MiscApiService::class => [HttpClient::class],
                 listDataHandler::class => [
                     Environment::class,
                     ListDataService::class
@@ -127,10 +129,10 @@ $serviceManager = new ServiceManager([
                     Environment::class,
                 ],
                 GlobalDiscountService::class => [
-                    ApiService::class
+                    MiscApiService::class
                 ],
                 UpdateJournalsCommand::class => [
-                    ApiService::class,
+                    MiscApiService::class,
                     JournalRepository::class,
                     ConfigService::class,
                     UploadHelper::class,
@@ -142,13 +144,13 @@ $serviceManager = new ServiceManager([
                     UploadHelper::class,
                 ],
                 UpdateResourcesCommand::class => [
-                    ApiService::class,
+                    ResourceApiService::class,
                     ResourceRepository::class,
                     ConfigService::class,
                     UploadHelper::class,
                 ],
                 UpdateRawResourcesCommand::class => [
-                    ApiService::class,
+                    ResourceApiService::class,
                     ResourceRepository::class,
                     ConfigService::class,
                     UploadHelper::class,
