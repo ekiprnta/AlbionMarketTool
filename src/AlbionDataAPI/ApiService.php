@@ -37,9 +37,7 @@ class ApiService // Buy Order ist buy_price_max
     ) {
     }
 
-    /**
-     * @throws \JsonException
-     */
+
     protected function get(string $apiUrl, array $params)
     {
         return $this->jsonDecode($this->httpClient->get($apiUrl, $params));
