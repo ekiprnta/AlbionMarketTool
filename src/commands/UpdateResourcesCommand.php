@@ -89,7 +89,7 @@ class UpdateResourcesCommand extends Command
 
     protected function configure()
     {
-        $this->setName('update:resource');
+        $this->setName('update:resources');
         $this->setDescription('update Prices of Resources');
         $this->setHelp('updates Prices of Resources');
     }

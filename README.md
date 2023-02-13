@@ -23,9 +23,9 @@ composer up
 
 ```shell script
 rcli update:items  # update items 
-rcli update:raw  # update raw 
-rcli update:resource  # update resource 
-rcli update:journal  # update journal
+rcli update:resources  # update resource 
+rcli update:journals  # update journal
+rcli update:materials  # update materials
 ```
 
 ## Composer
