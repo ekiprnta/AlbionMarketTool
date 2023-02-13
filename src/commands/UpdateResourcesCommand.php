@@ -35,6 +35,7 @@ class UpdateResourcesCommand extends Command
         }
         unset($resourceList['stoneBlock']); // Todo add Stone
 
+        $output->writeln('Updating Resources...');
         $progressBar = ProgressBarService::getProgressBar(
             $output,
             is_countable($resourceList) ? count($resourceList) : 0
@@ -51,6 +52,34 @@ class UpdateResourcesCommand extends Command
             $progressBar->display();
             foreach ($adjustedResources as $adjustedResource) {
                 $this->resourceRepository->createOrUpdate($adjustedResource);
+            }
+        }
+
+        try {
+            $rawResourceConfig = $this->configService->getRawResourceConfig();
+        } catch (\JsonException $jsonException) {
+            $output->writeln($jsonException->getMessage());
+            return self::FAILURE;
+        }
+        unset($rawResourceConfig['stoneBlock']); // Todo add Stone
+
+        $output->writeln(PHP_EOL . 'Updating Raw Resources...');
+        $progressBar = ProgressBarService::getProgressBar(
+            $output,
+            is_countable($rawResourceConfig) ? count($rawResourceConfig) : 0
+        );
+        foreach ($rawResourceConfig as $rawResourceStat) {
+            $progressBar->setMessage('Get raw ' . $rawResourceStat['realName']);
+            $progressBar->advance();
+            $progressBar->display();
+            $rawResourcesData = $this->resourceApiService->getResources($rawResourceStat['realName']);
+            $progressBar->setMessage('preparing raw ' . $rawResourceStat['realName']);
+            $progressBar->display();
+            $adjustedRawResources = $this->uploadHelper->adjustResources($rawResourcesData, $rawResourceStat, true);
+            $progressBar->setMessage('Upload raw ' . $rawResourceStat['realName'] . ' into Database');
+            $progressBar->display();
+            foreach ($adjustedRawResources as $adjustedRawResource) {
+                $this->resourceRepository->createOrUpdate($adjustedRawResource);
             }
         }
 
