@@ -34,6 +34,7 @@ class UpdateItemsCommand extends Command
             return self::FAILURE;
         }
 
+        $output->writeln('Updating Black Market Items...');
         $progressBar = ProgressBarService::getProgressBar($output, is_countable($itemList) ? count($itemList) : 0);
 
         foreach ($itemList as $itemStats) {

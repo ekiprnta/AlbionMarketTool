@@ -39,6 +39,7 @@ class UpdateJournalsCommand extends Command
             is_countable($journalList['names']) ? count($journalList['names']) : 0
         );
 
+        $output->writeln('Updating Journals...');
         foreach ($journalList['names'] as $journalName) {
             $progressBar->setMessage('Get Resource ' . $journalName);
             $progressBar->advance();

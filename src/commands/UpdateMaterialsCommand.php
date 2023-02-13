@@ -25,6 +25,7 @@ class UpdateMaterialsCommand extends Command
     {
         $message = 'successfully updated all Prices';
 
+        $output->writeln('Updating Materials...');
         $materials = $this->materialsApiService->getMaterials();
 
         $adjustedMaterials = $this->uploadHelper->adjustMaterials($materials);
