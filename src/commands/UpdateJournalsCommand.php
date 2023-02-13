@@ -60,7 +60,7 @@ class UpdateJournalsCommand extends Command
 
     protected function configure(): void
     {
-        $this->setName('update:journal');
+        $this->setName('update:journals');
         $this->setDescription('update Prices of Journals');
         $this->setHelp('updates Prices of Journal');
     }

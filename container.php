@@ -149,12 +149,6 @@ $serviceManager = new ServiceManager([
                     ConfigService::class,
                     UploadHelper::class,
                 ],
-                UpdateRawResourcesCommand::class => [
-                    ResourceApiService::class,
-                    ResourceRepository::class,
-                    ConfigService::class,
-                    UploadHelper::class,
-                ],
                 UpdateMaterialsCommand::class => [
                     MaterialsApiService::class,
                     MaterialRepository::class,
