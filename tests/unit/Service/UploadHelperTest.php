@@ -125,13 +125,14 @@ class UploadHelperTest extends TestCase
             'secondaryResource' => 'planks',
             'secondaryResourceAmount' => 12,
             'bonusCity' => 'Martlock',
+            'artifact' => null
         ];
 
         $this->tierService->splitIntoTierAndName(Argument::any())->willReturn(
             ['tier' => '71', 'name' => '2h_axe']
         );
 
-        $this->assertEquals($result, $this->uploadHelper->adjustItems([$itemData], $itemStats));
+        $this->assertEquals($result, $this->uploadHelper->adjustItems([$itemData], $itemStats, true));
     }
 
     public function provideItems(): array
@@ -153,6 +154,7 @@ class UploadHelperTest extends TestCase
             ->setPrimaryResourceAmount(20)
             ->setSecondaryResource('planks')
             ->setSecondaryResourceAmount(12)
+            ->setBlackMarketSellable(true)
             ->refreshFame()
             ->refreshItemValue();
 
@@ -175,7 +177,7 @@ class UploadHelperTest extends TestCase
     {
         $this->tierService->splitIntoTierAndName(Argument::any())->willReturn(['tier' => '40', 'name' => 'rune']);
 
-        $this->assertEquals($result, $this->uploadHelper->adjustMaterials([$itemData]));
+        $this->assertEquals($result, $this->uploadHelper->adjustMaterials([$itemData], 'materials'));
     }
 
     public function provideMaterials(): array
@@ -188,6 +190,7 @@ class UploadHelperTest extends TestCase
             ->calculateSellOrderAge('2000-00-00T12:00:00')
             ->setBuyOrderPrice(23)
             ->calculateBuyOrderAge('2000-00-00T12:00:00')
+            ->setType('materials')
             ->setRealName('rune');
 
         $itemData = [
