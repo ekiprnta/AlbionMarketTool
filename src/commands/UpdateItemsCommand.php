@@ -69,6 +69,9 @@ class UpdateItemsCommand extends Command
             $progressBar->display();
             /** @var ItemEntity $adjustedCape */
             foreach ($adjustedCapes as $adjustedCape) {
+                if ($adjustedCape->getTier() < 40) {
+                    continue;
+                }
                 $adjustedCape->setSecondaryResourceAmount(
                     $this->uploadHelper->calculateHeartAmount($adjustedCape->getTier())
                 );
