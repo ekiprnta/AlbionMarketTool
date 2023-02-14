@@ -13,7 +13,7 @@ class ConfigService
     private const PATH_TO_BLACK_MARKET_SELLS = __DIR__ . '/../../config/BlackmarketSellAmount.json';
     private const PATH_TO_TRANSMUTATION_COST = __DIR__ . '/../../config/transmutation/transmuteCost.json';
     private const PATH_TO_TRANSMUTATION_WAYS = __DIR__ . '/../../config/transmutation/transmuteWays.json';
-
+    private const PATH_TO_CAPES_CONFIG = __DIR__ . '/../../config/data/CapesConfig.json';
 
     public function getItemConfig()
     {
@@ -59,5 +59,11 @@ class ConfigService
 
     public function getMaterialConfig()
     {
+    }
+
+    public function getCapesConfig()
+    {
+        $json = file_get_contents(self::PATH_TO_CAPES_CONFIG);
+        return json_decode($json, true, 512, JSON_THROW_ON_ERROR);
     }
 }

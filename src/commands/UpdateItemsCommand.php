@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace MZierdt\Albion\commands;
 
 use MZierdt\Albion\AlbionDataAPI\ItemApiService;
+use MZierdt\Albion\Entity\ItemEntity;
 use MZierdt\Albion\repositories\ItemRepository;
 use MZierdt\Albion\Service\ConfigService;
 use MZierdt\Albion\Service\ProgressBarService;
@@ -29,6 +30,7 @@ class UpdateItemsCommand extends Command
         $message = 'successfully updated all Prices';
         try {
             $itemList = $this->configService->getItemConfig();
+            $capeList = $this->configService->getCapesConfig();
         } catch (\JsonException $jsonException) {
             $output->writeln($jsonException->getMessage());
             return self::FAILURE;
@@ -41,14 +43,36 @@ class UpdateItemsCommand extends Command
             $progressBar->setMessage('Get Item:' . $itemStats['realName']);
             $progressBar->advance();
             $progressBar->display();
-            $itemsData = $this->itemApiService->getItems($itemStats['id_snippet']);
+            $capeData = $this->itemApiService->getItems($itemStats['id_snippet']);
             $progressBar->setMessage('preparing Item' . $itemStats['realName']);
             $progressBar->display();
-            $adjustedItems = $this->uploadHelper->adjustItems($itemsData, $itemStats, true);
+            $adjustedCapes = $this->uploadHelper->adjustItems($capeData, $itemStats, true);
             $progressBar->setMessage('Upload Item ' . $itemStats['realName'] . ' into Database');
             $progressBar->display();
-            foreach ($adjustedItems as $adjustedItem) {
+            foreach ($adjustedCapes as $adjustedItem) {
                 $this->itemRepository->createOrUpdate($adjustedItem);
+            }
+        }
+
+        $output->writeln('Updating Capes...');
+        $progressBar = ProgressBarService::getProgressBar($output, is_countable($capeList) ? count($capeList) : 0);
+
+        foreach ($capeList as $capeStats) {
+            $progressBar->setMessage('Get Cape:' . $capeStats['realName']);
+            $progressBar->advance();
+            $progressBar->display();
+            $capeData = $this->itemApiService->getCapes($capeStats['id_snippet']);
+            $progressBar->setMessage('preparing Cape' . $capeStats['realName']);
+            $progressBar->display();
+            $adjustedCapes = $this->uploadHelper->adjustItems($capeData, $capeStats, false);
+            $progressBar->setMessage('Upload Cape ' . $capeStats['realName'] . ' into Database');
+            $progressBar->display();
+            /** @var ItemEntity $adjustedCape */
+            foreach ($adjustedCapes as $adjustedCape) {
+                $adjustedCape->setSecondaryResourceAmount(
+                    $this->uploadHelper->calculateHeartAmount($adjustedCape->getTier())
+                );
+                $this->itemRepository->createOrUpdate($adjustedCape);
             }
         }
 

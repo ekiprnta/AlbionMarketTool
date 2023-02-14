@@ -124,4 +124,16 @@ class UploadHelper
         }
         return $adjustedMaterials;
     }
+
+    public function calculateHeartAmount(int $tier): int
+    {
+        $tier = (int) ($tier / 10);
+        return match ($tier) {
+            4, 5 => 1,
+            6 => 3,
+            7 => 5,
+            8 => 10,
+            default => throw new \InvalidArgumentException('Wrong Tier in calculateHeartAmount ' . $tier)
+        };
+    }
 }
