@@ -25,8 +25,8 @@ class BlackMarketTransportingService
         if (empty($itemCity)) {
             throw new InvalidArgumentException('Please select a city');
         }
-        $cityItem = $this->itemRepository->getItemsByLocation($itemCity);
-        $bmItems = $this->itemRepository->getItemsByLocation('Black Market');
+        $cityItem = $this->itemRepository->getItemsByLocationForBM($itemCity);
+        $bmItems = $this->itemRepository->getItemsByLocationForBM('Black Market');
         $amountConfig = $this->configService->getBlackMarketSells();
 
         $bmtEntities = [];

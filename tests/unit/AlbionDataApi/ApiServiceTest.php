@@ -16,19 +16,19 @@ class ApiServiceTest extends TestCase
     private ApiService $apiService;
     private ObjectProphecy|HttpClient $httpClient;
 
-    protected function setUp(): void
-    {
-        BypassFinals::enable();
-        $this->httpClient = $this->prophesize(HttpClient::class);
-
-        $this->apiService = new ApiService($this->httpClient->reveal());
-    }
-
     public function testApiUrlAssembler(): void
     {
         $this->assertEquals(
             'https://www.albion-online-data.com/api/v2/stats/prices/blatestbla',
             $this->apiService->apiUrlAssembler('test', 'bla%sbla')
         );
+    }
+
+    protected function setUp(): void
+    {
+        BypassFinals::enable();
+        $this->httpClient = $this->prophesize(HttpClient::class);
+
+        $this->apiService = new ApiService($this->httpClient->reveal());
     }
 }

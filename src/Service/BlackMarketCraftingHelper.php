@@ -19,7 +19,6 @@ class BlackMarketCraftingHelper extends Market
         return ResourceEntityFactory::getEmptyResourceEntity();
     }
 
-
     public function calculateJournal(int $tier, string $fillStatus, array $journals): ?JournalEntity
     {
         $baseTier = (int) ($tier / 10);

@@ -125,13 +125,14 @@ class UploadHelperTest extends TestCase
             'secondaryResource' => 'planks',
             'secondaryResourceAmount' => 12,
             'bonusCity' => 'Martlock',
+            'artifact' => null,
         ];
 
         $this->tierService->splitIntoTierAndName(Argument::any())->willReturn(
             ['tier' => '71', 'name' => '2h_axe']
         );
 
-        $this->assertEquals($result, $this->uploadHelper->adjustItems([$itemData], $itemStats));
+        $this->assertEquals($result, $this->uploadHelper->adjustItems([$itemData], $itemStats, true));
     }
 
     public function provideItems(): array
@@ -153,6 +154,7 @@ class UploadHelperTest extends TestCase
             ->setPrimaryResourceAmount(20)
             ->setSecondaryResource('planks')
             ->setSecondaryResourceAmount(12)
+            ->setBlackMarketSellable(true)
             ->refreshFame()
             ->refreshItemValue();
 
@@ -175,7 +177,7 @@ class UploadHelperTest extends TestCase
     {
         $this->tierService->splitIntoTierAndName(Argument::any())->willReturn(['tier' => '40', 'name' => 'rune']);
 
-        $this->assertEquals($result, $this->uploadHelper->adjustMaterials([$itemData]));
+        $this->assertEquals($result, $this->uploadHelper->adjustMaterials([$itemData], 'materials'));
     }
 
     public function provideMaterials(): array
@@ -188,6 +190,7 @@ class UploadHelperTest extends TestCase
             ->calculateSellOrderAge('2000-00-00T12:00:00')
             ->setBuyOrderPrice(23)
             ->calculateBuyOrderAge('2000-00-00T12:00:00')
+            ->setType('materials')
             ->setRealName('rune');
 
         $itemData = [
@@ -212,6 +215,39 @@ class UploadHelperTest extends TestCase
     public function provideResourceNames(): array
     {
         return [['METALBAR'], ['METALBAR_LEVEL1'], ['METALBAR_LEVEL2'], ['metalbar_level3']];
+    }
+
+    /**
+     * @dataProvider provideHeartAmount
+     */
+    public function testCalculateHeartAmount(int $heartAmount, int $tier): void
+    {
+        $this->assertEquals($heartAmount, $this->uploadHelper->calculateHeartAmount($tier));
+    }
+
+    public function provideHeartAmount(): array
+    {
+        return [[1, 41], [1, 52], [3, 60], [5, 74], [10, 83]];
+    }
+
+    /**
+     * @dataProvider provideRealName
+     */
+    public function testCalculateHeartRealName(string $heartName, string $name): void
+    {
+        $this->assertEquals($heartName, $this->uploadHelper->calculateHeartRealName($name));
+    }
+
+    public function provideRealName(): array
+    {
+        return [
+            ['Treeheart', 'faction_forest_token_1'],
+            ['Rockheart', 'faction_highland_token_1'],
+            ['Beastheart', 'faction_steppe_token_1'],
+            ['Mountainheart', 'faction_mountain_token_1'],
+            ['Vineheart', 'faction_swamp_token_1'],
+            ['Shadowheart', 'faction_caerleon_token_1'],
+        ];
     }
 
     protected function setUp(): void

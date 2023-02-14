@@ -32,6 +32,7 @@
   "names": {
     "warrior": "Journal_Warrior",
     "mage": "Journal_Mage",
-    "hunter": "Journal_Hunter"
+    "hunter": "Journal_Hunter",
+    "tinker": "Journal_Toolmaker"
   }
 }

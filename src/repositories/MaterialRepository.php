@@ -33,8 +33,18 @@ class MaterialRepository extends Repository
         }
     }
 
-    public function getMaterialsByLocation(string $city): ?array
+    public function getMaterialsByLocation(string $city): array
     {
-        return $this->findBy(MaterialEntity::class, ['city' => $city]);
+        return $this->findBy(MaterialEntity::class, ['city' => $city]) ?? [];
+    }
+
+    public function getHeartsAndSigilsByCity(string $city): array
+    {
+        return $this->findBy(MaterialEntity::class, ['city' => $city, 'type' => 'heartsAndSigils']) ?? [];
+    }
+
+    public function getCapeArtifactsByCity(string $city): array
+    {
+        return $this->findBy(MaterialEntity::class, ['city' => $city, 'type' => 'capeArtifacts']) ?? [];
     }
 }

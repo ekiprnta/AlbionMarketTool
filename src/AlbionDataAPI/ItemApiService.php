@@ -17,4 +17,14 @@ class ItemApiService extends ApiService
         ];
         return $this->get($apiUrl, $params);
     }
+
+    public function getCapes(string $itemName)
+    {
+        $apiUrl = $this->apiUrlAssembler($itemName, self::ITEM_TIERS_WITH_PLACEHOLDER);
+        $params = [
+            'locations' => self::CITY_ALL,
+            'qualities' => self::QUALITY_GOOD,
+        ];
+        return $this->get($apiUrl, $params);
+    }
 }

@@ -131,7 +131,8 @@
                                 </td>
                                 <td class="align-middle">{{ bmcEntity.primResourceAmount|number_format }}x</td>
                                 <td class="align-middle {% if bmcEntity.secResource.sellOrderAge > 720 %}bg-D{% endif %}">
-                                    <a class="btn text-right w-100" title="{% if bmcEntity.secResource.sellOrderAge < 10000 %}{{ bmcEntity.secResource.sellOrderAge|number_format }}min{% endif %}">
+                                    <a class="btn text-right w-100"
+                                       title="{% if bmcEntity.secResource.sellOrderAge < 10000 %}{{ bmcEntity.secResource.sellOrderAge|number_format }}min{% endif %}">
                                         {{ bmcEntity.secResource.sellOrderPrice|number_format }}
                                     </a>
                                 </td>

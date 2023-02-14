@@ -27,6 +27,12 @@ class AlbionItemEntityTest extends TestCase
         $this->assertEquals(10, $this->entity->getBuyOrderAge());
     }
 
+    public function testGetId(): void
+    {
+        $this->entity->setId(1);
+        $this->assertEquals(1, $this->entity->getId());
+    }
+
     public function testCalculateBuyOrderAge(): void
     {
         $now = \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '2023-02-08 20:00:00');

@@ -63,7 +63,7 @@ class UploadHelper
         return $adjustedJournalsArray;
     }
 
-    public function adjustItems(array $itemData, array $itemStats): array
+    public function adjustItems(array $itemData, array $itemStats, bool $bmSellable): array
     {
         $adjustedItems = [];
         foreach ($itemData as $item) {
@@ -85,6 +85,8 @@ class UploadHelper
                 ->setSecondaryResource($itemStats['secondaryResource'])
                 ->setSecondaryResourceAmount($itemStats['secondaryResourceAmount'])
                 ->setBonusCity($itemStats['bonusCity'])
+                ->setArtifact($itemStats['artifact'])
+                ->setBlackMarketSellable($bmSellable)
                 ->refreshFame()
                 ->refreshItemValue();
 
@@ -103,7 +105,7 @@ class UploadHelper
         return $name;
     }
 
-    public function adjustMaterials(array $materials): array
+    public function adjustMaterials(array $materials, string $type): array
     {
         $adjustedMaterials = [];
         foreach ($materials as $material) {
@@ -116,9 +118,35 @@ class UploadHelper
                 ->setSellOrderPrice($material['sell_price_min'])
                 ->calculateBuyOrderAge($material['buy_price_max_date'])
                 ->setBuyOrderPrice($material['buy_price_max'])
+                ->setType($type)
                 ->setRealName($nameAndTier['name']);
             $adjustedMaterials[] = $materialEntity;
         }
         return $adjustedMaterials;
+    }
+
+    public function calculateHeartAmount(int $tier): int
+    {
+        $tier = (int) ($tier / 10);
+        return match ($tier) {
+            4, 5 => 1,
+            6 => 3,
+            7 => 5,
+            8 => 10,
+            default => throw new \InvalidArgumentException('Wrong Tier in calculateHeartAmount ' . $tier)
+        };
+    }
+
+    public function calculateHeartRealName(string $name): string
+    {
+        return match ($name) {
+            'faction_forest_token_1' => 'Treeheart',
+            'faction_highland_token_1' => 'Rockheart',
+            'faction_steppe_token_1' => 'Beastheart',
+            'faction_mountain_token_1' => 'Mountainheart',
+            'faction_swamp_token_1' => 'Vineheart',
+            'faction_caerleon_token_1' => 'Shadowheart',
+            default => throw new \InvalidArgumentException('No Heart Found in calculateRealName ' . $name)
+        };
     }
 }

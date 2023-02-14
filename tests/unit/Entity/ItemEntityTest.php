@@ -27,6 +27,8 @@ class ItemEntityTest extends TestCase
             ->setSecondaryResource('secRes')
             ->setSecondaryResourceAmount(8)
             ->setBonusCity('bonusCity')
+            ->setBlackMarketSellable(true)
+            ->setArtifact('artifact')
             ->refreshFame()
             ->refreshItemValue();
 
@@ -44,6 +46,8 @@ class ItemEntityTest extends TestCase
         $this->assertEquals('secRes', $itemEntity->getSecondaryResource());
         $this->assertEquals(8, $itemEntity->getSecondaryResourceAmount());
         $this->assertEquals('bonusCity', $itemEntity->getBonusCity());
+        $this->assertEquals(true, $itemEntity->isBlackMarketSellable());
+        $this->assertEquals('artifact', $itemEntity->getArtifact());
         $this->assertEquals(540, $itemEntity->getFame());
         $this->assertEquals(384, $itemEntity->getItemValue());
         $this->assertEquals(24, $itemEntity->getTotalResourceAmount());

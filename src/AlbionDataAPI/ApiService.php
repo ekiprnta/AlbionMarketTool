@@ -37,15 +37,14 @@ class ApiService // Buy Order ist buy_price_max
     ) {
     }
 
+    public function apiUrlAssembler(string $replacement, string $stringWithPlaceholders): string
+    {
+        return self::BASE_URL . str_replace('%s', $replacement, $stringWithPlaceholders);
+    }
 
     protected function get(string $apiUrl, array $params)
     {
         return $this->jsonDecode($this->httpClient->get($apiUrl, $params));
-    }
-
-    public function apiUrlAssembler(string $replacement, string $stringWithPlaceholders): string
-    {
-        return self::BASE_URL . str_replace('%s', $replacement, $stringWithPlaceholders);
     }
 
     private function jsonDecode(string $json)

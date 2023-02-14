@@ -1,0 +1,73 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <div class="card mt-3">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-10">
+                    <form action="" method="get">
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label for="itemCity">Choose City to transport from</label>
+                                    <select name="itemCity" id="itemCity" class="form-control">
+                                        <option value="Fort Sterling">Fort Sterling</option>
+                                        <option value="Lymhurst">Lymhurst</option>
+                                        <option value="Bridgewatch">Bridgewatch</option>
+                                        <option value="Martlock">Martlock</option>
+                                        <option value="Thetford">Thetford</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3">
+                                <button class="btn btn-primary" type="submit">Calculate</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                {% if alertMessage is not null %}
+                    <div class="alert alert-danger standard-alert">{{ alertMessage }}</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="card mt-3">
+        <div class="card-body">
+            <div class="card-title"><h3>Profit</h3></div>
+            <table class="table table-sm table-bordered sortTable">
+                <thead>
+                <tr>
+                    <th>Tier</th>
+                    <th>Name</th>
+                    <th>Sell Price</th>
+                    <th>MaterialCost</th>
+                    <th>Profit</th>
+                    <th>Quotient</th>
+                </tr>
+                </thead>
+                <tbody>
+                {# @var noSpecEntity \MZierdt\Albion\Entity\NoSpecEntity #}
+                {% for noSpecEntity in dataArray %}
+                    {% if noSpecEntity.specialCape.sellOrderPrice != 0 and noSpecEntity.defaultCape.buyOrderPrice != 0 and noSpecEntity.secondResource.sellOrderPrice !=0 and noSpecEntity.profit >= 0 %}
+                        <tr class="bg-{{ noSpecEntity.profitGrade }}">
+                            <td class="align-middle text-left tier-{{ noSpecEntity.tierColor }} tier">{{ noSpecEntity.specialCape.tier }}</td>
+                            <td class="align-middle">{{ noSpecEntity.specialCape.realName }}</td>
+                            <td class="align-middle {% if noSpecEntity.specialCape.sellOrderAge > 720 %} bg-D {% endif %}">
+                                <a class="btn text-right w-100"
+                                   title="{{ noSpecEntity.specialCape.sellOrderAge|number_format }}min">{{ noSpecEntity.specialCape.sellOrderPrice|number_format }}</a>
+                            </td>
+                            <td class="align-middle">{{ noSpecEntity.materialCost|number_format }}</td>
+                            <td class="align-middle">{{ noSpecEntity.profit|number_format }}</td>
+                            <td class="align-middle">{{ noSpecEntity.profitQuotient|number_format }}</td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

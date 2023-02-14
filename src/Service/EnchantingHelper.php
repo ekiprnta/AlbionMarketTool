@@ -9,14 +9,8 @@ use MZierdt\Albion\Entity\MaterialEntity;
 
 class EnchantingHelper extends Market
 {
-    public function getEnchantment(int $tier): int
-    {
-        return (int) substr((string) $tier, -1);
-    }
-
     public function calculateHigherEnchantmentItem(int $tier, string $name, array $items): ItemEntity
     {
-
         /** @var ItemEntity $item */
         foreach ($items as $item) {
             if ($item->getName() === $name && $item->getTier() === ($tier + 1)) {
@@ -43,6 +37,11 @@ class EnchantingHelper extends Market
             }
         }
         throw new \InvalidArgumentException('No Material found in calculateEnchantmentMaterial');
+    }
+
+    public function getEnchantment(int $tier): int
+    {
+        return (int) substr((string) $tier, -1);
     }
 
     public function calculateMaterialAmount(int $totalResourceAmount): int

@@ -16,33 +16,6 @@ class EnchantingHelperTest extends TestCase
 
     private EnchantingHelper $enchantingHelper;
 
-    protected function setUp(): void
-    {
-        $this->enchantingHelper = new EnchantingHelper();
-    }
-
-    public function getItems(): array
-    {
-        $itemA = (new ItemEntity())->setName('2h_axe')
-            ->setTier(71);
-        $itemB = (new ItemEntity())->setName('2h_axe')
-            ->setTier(72);
-
-        return [$itemA, $itemB];
-    }
-
-    public function getMaterials(): array
-    {
-        $materialA = (new MaterialEntity())->setName('rune')
-            ->setTier(70);
-        $materialB = (new MaterialEntity())->setName('soul')
-            ->setTier(70);
-        $materialC = (new MaterialEntity())->setName('relic')
-            ->setTier(70);
-
-        return [$materialA, $materialB, $materialC];
-    }
-
     /**
      * @dataProvider provideEnchantments
      */
@@ -67,6 +40,16 @@ class EnchantingHelperTest extends TestCase
         );
     }
 
+    public function getItems(): array
+    {
+        $itemA = (new ItemEntity())->setName('2h_axe')
+            ->setTier(71);
+        $itemB = (new ItemEntity())->setName('2h_axe')
+            ->setTier(72);
+
+        return [$itemA, $itemB];
+    }
+
     public function testCalculateHigherEnchantmentItemException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -82,6 +65,18 @@ class EnchantingHelperTest extends TestCase
             $expectedMaterial,
             $this->enchantingHelper->calculateEnchantmentMaterial($tier, $this->getMaterials())
         );
+    }
+
+    public function getMaterials(): array
+    {
+        $materialA = (new MaterialEntity())->setName('rune')
+            ->setTier(70);
+        $materialB = (new MaterialEntity())->setName('soul')
+            ->setTier(70);
+        $materialC = (new MaterialEntity())->setName('relic')
+            ->setTier(70);
+
+        return [$materialA, $materialB, $materialC];
     }
 
     public function provideMaterials(): array
@@ -146,5 +141,10 @@ class EnchantingHelperTest extends TestCase
     public function provideProfit(): array
     {
         return [[2250, 5000, 7500, 250], [-52456, 45678, 50000, 56778]];
+    }
+
+    protected function setUp(): void
+    {
+        $this->enchantingHelper = new EnchantingHelper();
     }
 }

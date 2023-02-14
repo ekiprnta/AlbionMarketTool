@@ -34,6 +34,8 @@ class UpdateJournalsCommand extends Command
             $output->writeln($jsonException->getMessage());
             return self::FAILURE;
         }
+
+        $output->writeln('Updating Journals...');
         $progressBar = ProgressBarService::getProgressBar(
             $output,
             is_countable($journalList['names']) ? count($journalList['names']) : 0

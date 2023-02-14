@@ -11,6 +11,11 @@ parameters:
 			path: src/Service/UploadHelper.php
 
 		-
+			message: "#^Call to an undefined method MZierdt\\\\Albion\\\\Entity\\\\AlbionItemEntity\\:\\:setType\\(\\)\\.$#"
+			count: 1
+			path: src/Service/UploadHelper.php
+
+		-
 			message: "#^Call to an undefined method MZierdt\\\\Albion\\\\Entity\\\\AlbionItemEntity\\:\\:setWeaponGroup\\(\\)\\.$#"
 			count: 1
 			path: src/Service/UploadHelper.php

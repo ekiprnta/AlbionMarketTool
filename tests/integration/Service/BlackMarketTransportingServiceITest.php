@@ -21,9 +21,9 @@ class BlackMarketTransportingServiceITest extends TestCase
         /** @var ItemRepository|ObjectProphecy $itemRepository */
         $itemRepository = $this->prophesize(ItemRepository::class);
 
-        $itemRepository->getItemsByLocation('TestCity')
+        $itemRepository->getItemsByLocationForBm('TestCity')
             ->willReturn($this->getCityItems());
-        $itemRepository->getItemsByLocation('Black Market')
+        $itemRepository->getItemsByLocationForBm('Black Market')
             ->willReturn($this->getBmItems());
 
         $bmtService = new BlackMarketTransportingService(
