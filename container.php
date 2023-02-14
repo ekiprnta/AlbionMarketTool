@@ -12,7 +12,6 @@ use MZierdt\Albion\AlbionDataAPI\ResourceApiService;
 use MZierdt\Albion\commands\UpdateItemsCommand;
 use MZierdt\Albion\commands\UpdateJournalsCommand;
 use MZierdt\Albion\commands\UpdateMaterialsCommand;
-use MZierdt\Albion\commands\UpdateRawResourcesCommand;
 use MZierdt\Albion\commands\UpdateResourcesCommand;
 use MZierdt\Albion\factories\EntityManagerFactory;
 use MZierdt\Albion\factories\TwigEnvironmentFactory;
@@ -37,6 +36,7 @@ use MZierdt\Albion\Service\BlackMarketCraftingHelper;
 use MZierdt\Albion\Service\BlackMarketCraftingService;
 use MZierdt\Albion\Service\BlackMarketTransportingHelper;
 use MZierdt\Albion\Service\BlackMarketTransportingService;
+use MZierdt\Albion\Service\CapesCraftingHelper;
 use MZierdt\Albion\Service\CapesCraftingService;
 use MZierdt\Albion\Service\ConfigService;
 use MZierdt\Albion\Service\EnchantingHelper;
@@ -89,7 +89,12 @@ $serviceManager = new ServiceManager([
                 ],
                 TierService::class => [],
                 CapesCraftingHandler::class => [Environment::class, CapesCraftingService::class],
-                CapesCraftingService::class => [],
+                CapesCraftingService::class => [
+                    ItemRepository::class,
+                    MaterialRepository::class,
+                    CapesCraftingHelper::class
+                ],
+                CapesCraftingHelper::class => [],
                 BlackMarketTransportingHelper::class => [],
                 BlackMarketTransportingService::class => [
                     ItemRepository::class,

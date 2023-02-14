@@ -50,4 +50,12 @@ class ItemRepository extends Repository
             ['bonusCity' => $city, 'city' => 'Black Market', 'blackMarketSellable' => true]
         ) ?? [];
     }
+
+    public function getArtifactCapesByCity(string $city): array
+    {
+        return $this->findBy(
+            ItemEntity::class,
+            ['city' => $city, 'weaponGroup' => 'accessories', 'blackMarketSellable' => false]
+        ) ?? [];
+    }
 }
