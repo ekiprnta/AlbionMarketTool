@@ -105,7 +105,7 @@ class UploadHelper
         return $name;
     }
 
-    public function adjustMaterials(array $materials): array
+    public function adjustMaterials(array $materials, string $type): array
     {
         $adjustedMaterials = [];
         foreach ($materials as $material) {
@@ -118,6 +118,7 @@ class UploadHelper
                 ->setSellOrderPrice($material['sell_price_min'])
                 ->calculateBuyOrderAge($material['buy_price_max_date'])
                 ->setBuyOrderPrice($material['buy_price_max'])
+                ->setType($type)
                 ->setRealName($nameAndTier['name']);
             $adjustedMaterials[] = $materialEntity;
         }
