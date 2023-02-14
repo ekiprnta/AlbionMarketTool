@@ -36,7 +36,7 @@ class UpdateMaterialsCommand extends Command
 
         $output->writeln('Updating Hearts...');
         $hearts = $this->materialsApiService->getHearts();
-        $adjustedHearts = $this->uploadHelper->adjustMaterials($hearts, 'hearts');
+        $adjustedHearts = $this->uploadHelper->adjustMaterials($hearts, 'heartsAndSigils');
         foreach ($adjustedHearts as $adjustedHeart) {
             $adjustedHeart->setRealName($this->uploadHelper->calculateRealName($adjustedHeart->getName()));
             $this->materialRepository->createOrUpdate($adjustedHeart);
