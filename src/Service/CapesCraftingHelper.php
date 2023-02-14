@@ -49,4 +49,18 @@ class CapesCraftingHelper extends Market
         }
         return null;
     }
+
+    public function calculateMaterialCost(
+        int $primaryItemCost,
+        int $secondaryMaterialCost,
+        int $secondaryMaterialAmount,
+        int $artifactCost
+    ): int {
+        return $primaryItemCost + ($secondaryMaterialCost * $secondaryMaterialAmount) + $artifactCost;
+    }
+
+    public function calculateProfit(int $specialCapePrice, int $materialCost): int
+    {
+        return $specialCapePrice - $materialCost;
+    }
 }

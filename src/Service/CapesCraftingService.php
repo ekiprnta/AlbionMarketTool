@@ -50,6 +50,29 @@ class CapesCraftingService
                     $artifacts
                 )
             );
+            if ($noSpecEntity->getArtifact() === null) {
+                $artifactPrice = 0;
+            } else {
+                $artifactPrice = $noSpecEntity->getArtifact()->getSellOrderPrice();
+            }
+
+            $noSpecEntity->setMaterialCost(
+                $this->ccHelper->calculateMaterialCost(
+                    $noSpecEntity->getDefaultCape()->getSellOrderPrice(),
+                    $noSpecEntity->getSecondResource()->getSellOrderPrice(),
+                    $noSpecEntity->getSpecialCape()->getSecondaryResourceAmount(),
+                    $artifactPrice
+                )
+            );
+            $noSpecEntity->setProfit(
+                $this->ccHelper->calculateProfit(
+                    $noSpecEntity->getSpecialCape()->getSellOrderPrice(),
+                    $noSpecEntity->getMaterialCost()
+                )
+            );
+
+            $noSpecEntity->setProfitQuotient($this->ccHelper->calculateProfitQuotient($noSpecEntity->getProfit(), 1));
+            $noSpecEntity->setProfitGrade(($this->ccHelper->calculateProfitGrade($noSpecEntity->getProfitQuotient())));
         }
 
         return $noSpecEntities;
