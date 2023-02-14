@@ -26,9 +26,9 @@ class EnchantingService
         $enchantingEntities = [];
         /** @var ItemEntity $item */
         foreach ($items as $item) {
-            if (!($item->getTier() === 30 || $item->getTier() === 20) && $this->enchantingHelper->getEnchantment(
-                    $item->getTier()
-                ) < 3) {
+            if (! ($item->getTier() === 30 || $item->getTier() === 20) && $this->enchantingHelper->getEnchantment(
+                $item->getTier()
+            ) < 3) {
                 $enchantingEntities[] = new EnchantingEntity($item);
             }
         }

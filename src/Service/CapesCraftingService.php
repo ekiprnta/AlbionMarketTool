@@ -38,35 +38,44 @@ class CapesCraftingService
 
             $noSpecEntity->setSecondResource(
                 $this->ccHelper->calculateSecondResource(
-                    $noSpecEntity->getSpecialCape()->getSecondaryResource(),
-                    $noSpecEntity->getSpecialCape()->getTier(),
+                    $noSpecEntity->getSpecialCape()
+                        ->getSecondaryResource(),
+                    $noSpecEntity->getSpecialCape()
+                        ->getTier(),
                     $heartsAndSigils
                 )
             );
             $noSpecEntity->setArtifact(
                 $this->ccHelper->calculateArtifact(
-                    $noSpecEntity->getSpecialCape()->getArtifact(),
-                    $noSpecEntity->getSpecialCape()->getTier(),
+                    $noSpecEntity->getSpecialCape()
+                        ->getArtifact(),
+                    $noSpecEntity->getSpecialCape()
+                        ->getTier(),
                     $artifacts
                 )
             );
             if ($noSpecEntity->getArtifact() === null) {
                 $artifactPrice = 0;
             } else {
-                $artifactPrice = $noSpecEntity->getArtifact()->getSellOrderPrice();
+                $artifactPrice = $noSpecEntity->getArtifact()
+                    ->getSellOrderPrice();
             }
 
             $noSpecEntity->setMaterialCost(
                 $this->ccHelper->calculateMaterialCost(
-                    $noSpecEntity->getDefaultCape()->getSellOrderPrice(),
-                    $noSpecEntity->getSecondResource()->getSellOrderPrice(),
-                    $noSpecEntity->getSpecialCape()->getSecondaryResourceAmount(),
+                    $noSpecEntity->getDefaultCape()
+                        ->getSellOrderPrice(),
+                    $noSpecEntity->getSecondResource()
+                        ->getSellOrderPrice(),
+                    $noSpecEntity->getSpecialCape()
+                        ->getSecondaryResourceAmount(),
                     $artifactPrice
                 )
             );
             $noSpecEntity->setProfit(
                 $this->ccHelper->calculateProfit(
-                    $noSpecEntity->getSpecialCape()->getSellOrderPrice(),
+                    $noSpecEntity->getSpecialCape()
+                        ->getSellOrderPrice(),
                     $noSpecEntity->getMaterialCost()
                 )
             );
@@ -77,5 +86,4 @@ class CapesCraftingService
 
         return $noSpecEntities;
     }
-
 }

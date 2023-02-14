@@ -20,7 +20,7 @@ class EnchantingHandler
     {
         $cityData = [];
         $alertMessage = null;
-        if (!empty($_GET)) {
+        if (! empty($_GET)) {
             $city = $_GET['itemCity'];
             try {
                 $cityData = $this->enchantingService->getEnchantingForCity($city);

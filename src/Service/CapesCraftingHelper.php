@@ -8,7 +8,6 @@ use MZierdt\Albion\Entity\MaterialEntity;
 
 class CapesCraftingHelper extends Market
 {
-
     public function calculateDefaultCape(int $tier, array $capes)
     {
         foreach ($capes as $cape) {

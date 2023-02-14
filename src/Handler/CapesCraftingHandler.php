@@ -20,7 +20,7 @@ class CapesCraftingHandler
     {
         $cityData = [];
         $alertMessage = null;
-        if (!empty($_GET)) {
+        if (! empty($_GET)) {
             $city = $_GET['itemCity'];
             try {
                 $cityData = $this->capesCraftingService->getCapesByCity($city);
@@ -33,7 +33,7 @@ class CapesCraftingHandler
             'CapesCrafting.html.twig',
             [
                 'dataArray' => $cityData,
-                'alertMessage' => $alertMessage
+                'alertMessage' => $alertMessage,
             ]
         );
         return new HtmlResponse($htmlContent);

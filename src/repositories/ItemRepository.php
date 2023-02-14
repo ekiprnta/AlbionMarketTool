@@ -35,7 +35,10 @@ class ItemRepository extends Repository
 
     public function getItemsByLocationForBM(string $city): array
     {
-        return $this->findBy(ItemEntity::class, ['city' => $city, 'blackMarketSellable' => true]) ?? [];
+        return $this->findBy(ItemEntity::class, [
+            'city' => $city,
+            'blackMarketSellable' => true,
+        ]) ?? [];
     }
 
     public function getItemsByLocation(string $city): array
@@ -61,9 +64,6 @@ class ItemRepository extends Repository
 
     public function getDefaultCapesByCity(string $city): array
     {
-        return $this->findBy(
-            ItemEntity::class,
-            ['city' => $city, 'name' => 'cape']
-        ) ?? [];
+        return $this->findBy(ItemEntity::class, ['city' => $city, 'name' => 'cape']) ?? [];
     }
 }
