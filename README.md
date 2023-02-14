@@ -59,7 +59,7 @@ changelogger clean
 * No Spec Crafting
   * Capes (028)
   * Royal Items
-  * Enchanting (and/or BM)
+  * ~~Enchanting (and/or BM)~~
 * Stone
 * Bags BM Crafting / Capes
 * Rework That there is only One Item with x- Prices
