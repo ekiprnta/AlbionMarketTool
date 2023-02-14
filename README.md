@@ -54,7 +54,7 @@ changelogger clean
 
 * ~~Tier überarbeiten~~
 * Farming
-* Revisit Profit Quotient
+* Revisit Profit Quotient -> Profit Percentage
 * Javascript überall
 * No Spec Crafting
   * Capes (028)
