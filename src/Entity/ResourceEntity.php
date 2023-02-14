@@ -7,7 +7,6 @@ namespace MZierdt\Albion\Entity;
 use Doctrine\ORM\Mapping\ChangeTrackingPolicy;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
-use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\Table;
 
 #[Entity]
@@ -51,7 +50,7 @@ class ResourceEntity extends AlbionItemEntity
 
     #[Column(type: 'string', nullable: true)]
     private ?string $bonusCity = null;
-    #[Id, Column(type: 'boolean')]
+    #[Column(type: 'boolean')]
     private bool $raw = false;
 
     public function setBonusCity(?string $bonusCity): self

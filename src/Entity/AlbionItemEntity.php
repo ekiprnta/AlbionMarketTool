@@ -5,6 +5,7 @@ namespace MZierdt\Albion\Entity;
 use DateTimeImmutable;
 use DateTimeZone;
 use Doctrine\ORM\Mapping\Column;
+use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\MappedSuperclass;
 
@@ -39,11 +40,14 @@ class AlbionItemEntity
     final public const TIER_T8_3 = 83;
     final public const TIER_T8_4 = 84;
 
-    #[Id, Column(type: 'integer', nullable: true)]
+    #[Column(type: 'integer')]
+    #[Id, GeneratedValue(strategy: 'AUTO')]
+    protected ?int $id = null;
+    #[Column(type: 'integer', nullable: true)]
     protected ?int $tier = null;
-    #[Id, Column(type: 'string', nullable: true)]
+    #[Column(type: 'string', nullable: true)]
     protected ?string $name = null;
-    #[Id, Column(type: 'string', nullable: true)]
+    #[Column(type: 'string', nullable: true)]
     protected ?string $city = null;
     #[Column(type: 'integer', nullable: true)]
     protected ?int $sellOrderPrice = 0;
@@ -61,6 +65,17 @@ class AlbionItemEntity
     public function setTier(int $tier): self
     {
         $this->tier = $tier;
+        return $this;
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function setId(?int $id): self
+    {
+        $this->id = $id;
         return $this;
     }
 
