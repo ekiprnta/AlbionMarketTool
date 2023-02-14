@@ -26,9 +26,11 @@ class CapesCraftingHelper extends Market
         /** @var MaterialEntity $heartAndSigil */
         foreach ($heartsAndSigils as $heartAndSigil) {
             if ($heartAndSigil->getTier() === 10) {
-                $tier = $heartAndSigil->getTier();
+                $newTier = $heartAndSigil->getTier();
+            } else {
+                $newTier = $tier;
             }
-            if ($heartAndSigil->getRealName() === $resourceName && $heartAndSigil->getTier() === $tier) {
+            if ($heartAndSigil->getTier() === $newTier && $heartAndSigil->getRealName() === $resourceName) {
                 return $heartAndSigil;
             }
         }
@@ -42,7 +44,7 @@ class CapesCraftingHelper extends Market
         $baseTier = (int) ($tier / 10);
         /** @var MaterialEntity $artifact */
         foreach ($artifacts as $artifact) {
-            if ($artifact->getName() === $artifactName && $artifact->getTier() === ($baseTier * 10)) {
+            if ($artifact->getTier() === ($baseTier * 10) && $artifact->getName() === $artifactName) {
                 return $artifact;
             }
         }
