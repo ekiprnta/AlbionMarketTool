@@ -24,6 +24,7 @@ class MaterialEntityTest extends TestCase
         $this->materialEntity->setBuyOrderPrice(600);
         $this->materialEntity->setBuyOrderAge(234);
         $this->materialEntity->setRealName('relic');
+        $this->materialEntity->setType('type');
 
         $this->assertEquals(40, $this->materialEntity->getTier());
         $this->assertEquals('relic', $this->materialEntity->getName());
@@ -33,6 +34,7 @@ class MaterialEntityTest extends TestCase
         $this->assertEquals(600, $this->materialEntity->getBuyOrderPrice());
         $this->assertEquals(234, $this->materialEntity->getBuyOrderAge());
         $this->assertEquals('relic', $this->materialEntity->getRealName());
+        $this->assertEquals('type', $this->materialEntity->getType());
     }
 
     protected function setUp(): void
