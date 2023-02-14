@@ -18,10 +18,24 @@ class CapesCraftingHandler
 
     public function handler(): HtmlResponse
     {
-        $cityData = $this->capesCraftingService->getCapesByCity('Martlock');
+        $cityData = [];
+        $alertMessage = null;
+        if (!empty($_GET)) {
+            $city = $_GET['itemCity'];
+            try {
+                $cityData = $this->capesCraftingService->getCapesByCity($city);
+            } catch (\Exception $exception) {
+                $alertMessage = $exception->getMessage();
+            }
+        }
 
-        dd($cityData);
-        $htmlContent = $this->twigEnvironment->render('CapesCrafting.html.twig');
+        $htmlContent = $this->twigEnvironment->render(
+            'CapesCrafting.html.twig',
+            [
+                'dataArray' => $cityData,
+                'alertMessage' => $alertMessage
+            ]
+        );
         return new HtmlResponse($htmlContent);
     }
 }
