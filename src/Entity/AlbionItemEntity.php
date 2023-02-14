@@ -163,17 +163,17 @@ class AlbionItemEntity
         return DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $dateString, new DateTimeZone('Europe/London'));
     }
 
-    public function getTier(): ?int
+    public function getTier(): int
     {
         return $this->tier;
     }
 
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }
 
-    public function getCity(): ?string
+    public function getCity(): string
     {
         return $this->city;
     }

@@ -58,4 +58,12 @@ class ItemRepository extends Repository
             ['city' => $city, 'weaponGroup' => 'accessories', 'blackMarketSellable' => false]
         ) ?? [];
     }
+
+    public function getDefaultCapesByCity(string $city): array
+    {
+        return $this->findBy(
+            ItemEntity::class,
+            ['city' => $city, 'name' => 'cape']
+        ) ?? [];
+    }
 }
