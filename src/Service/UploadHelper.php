@@ -136,4 +136,17 @@ class UploadHelper
             default => throw new \InvalidArgumentException('Wrong Tier in calculateHeartAmount ' . $tier)
         };
     }
+
+    public function calculateRealName(string $name): string
+    {
+        return match ($name) {
+            'faction_forest_token_1' => 'Treeheart',
+            'faction_highland_token_1' => 'Rockheart',
+            'faction_steppe_token_1' => 'Beastheart',
+            'faction_mountain_token_1' => 'Mountainheart',
+            'faction_swamp_token_1' => 'Vineheart',
+            'faction_caerleon_token_1' => 'Shadowheart',
+            default => throw new \InvalidArgumentException('No Heart Found in calculateRealName ' . $name)
+        };
+    }
 }
