@@ -32,24 +32,25 @@ class CapesCraftingService
 
         /** @var NoSpecEntity $noSpecEntity */
         foreach ($noSpecEntities as $noSpecEntity) {
+            $specialCape = $noSpecEntity->getSpecialCape();
             $noSpecEntity->setDefaultCape(
-                $this->ccHelper->calculateDefaultCape($noSpecEntity->getSpecialCape()->getTier(), $defaultCapes)
+                $this->ccHelper->calculateDefaultCape($specialCape->getTier(), $defaultCapes)
             );
 
             $noSpecEntity->setSecondResource(
                 $this->ccHelper->calculateSecondResource(
-                    $noSpecEntity->getSpecialCape()
+                    $specialCape
                         ->getSecondaryResource(),
-                    $noSpecEntity->getSpecialCape()
+                    $specialCape
                         ->getTier(),
                     $heartsAndSigils
                 )
             );
             $noSpecEntity->setArtifact(
                 $this->ccHelper->calculateArtifact(
-                    $noSpecEntity->getSpecialCape()
+                    $specialCape
                         ->getArtifact(),
-                    $noSpecEntity->getSpecialCape()
+                    $specialCape
                         ->getTier(),
                     $artifacts
                 )
@@ -67,14 +68,14 @@ class CapesCraftingService
                         ->getSellOrderPrice(),
                     $noSpecEntity->getSecondResource()
                         ->getSellOrderPrice(),
-                    $noSpecEntity->getSpecialCape()
+                    $specialCape
                         ->getSecondaryResourceAmount(),
                     $artifactPrice
                 )
             );
             $noSpecEntity->setProfit(
                 $this->ccHelper->calculateProfit(
-                    $noSpecEntity->getSpecialCape()
+                    $specialCape
                         ->getSellOrderPrice(),
                     $noSpecEntity->getMaterialCost()
                 )
