@@ -137,7 +137,7 @@ class UploadHelper
         };
     }
 
-    public function calculateRealName(string $name): string
+    public function calculateHeartRealName(string $name): string
     {
         return match ($name) {
             'faction_forest_token_1' => 'Treeheart',

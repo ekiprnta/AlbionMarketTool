@@ -217,6 +217,41 @@ class UploadHelperTest extends TestCase
         return [['METALBAR'], ['METALBAR_LEVEL1'], ['METALBAR_LEVEL2'], ['metalbar_level3']];
     }
 
+    /** @dataProvider provideHeartAmount */
+    public function testCalculateHeartAmount(int $heartAmount, int $tier): void
+    {
+        $this->assertEquals($heartAmount, $this->uploadHelper->calculateHeartAmount($tier));
+    }
+
+    public function provideHeartAmount(): array
+    {
+        return [
+            [1, 41],
+            [1, 52],
+            [3, 60],
+            [5, 74],
+            [10, 83],
+        ];
+    }
+
+    /** @dataProvider provideRealName */
+    public function testCalculateHeartRealName(string $heartName, string $name): void
+    {
+        $this->assertEquals($heartName, $this->uploadHelper->calculateHeartRealName($name));
+    }
+
+    public function provideRealName(): array
+    {
+        return [
+            ['Treeheart', 'faction_forest_token_1'],
+            ['Rockheart', 'faction_highland_token_1'],
+            ['Beastheart', 'faction_steppe_token_1'],
+            ['Mountainheart', 'faction_mountain_token_1'],
+            ['Vineheart', 'faction_swamp_token_1'],
+            ['Shadowheart', 'faction_caerleon_token_1'],
+        ];
+    }
+
     protected function setUp(): void
     {
         $this->tierService = $this->prophesize(TierService::class);
