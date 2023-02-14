@@ -58,8 +58,8 @@ class CapesCraftingHelper extends Market
         int $artifactCost
     ): float {
         return $this->calculateBuyOrder(
-                $primaryItemCost
-            ) + ($secondaryMaterialCost * $secondaryMaterialAmount) + $this->calculateBuyOrder($artifactCost);
+            $primaryItemCost
+        ) + ($secondaryMaterialCost * $secondaryMaterialAmount) + $this->calculateBuyOrder($artifactCost);
     }
 
     public function calculateProfit(int $specialCapePrice, float $materialCost): float

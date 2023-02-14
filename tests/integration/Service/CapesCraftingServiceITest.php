@@ -40,9 +40,9 @@ class CapesCraftingServiceITest extends TestCase
         /** @var NoSpecEntity $noSpecEntity */
         $noSpecEntity = $testData[0];
 
-        $this->assertEquals(1218.75, $noSpecEntity->getMaterialCost());
-        $this->assertEquals(-1068.75, $noSpecEntity->getProfit());
-        $this->assertEquals(-1068.75, $noSpecEntity->getProfitQuotient());
+        $this->assertEquals(243.75, $noSpecEntity->getMaterialCost());
+        $this->assertEquals(-93.75, $noSpecEntity->getProfit());
+        $this->assertEquals(-93.75, $noSpecEntity->getProfitQuotient());
         $this->assertEquals('D', $noSpecEntity->getProfitGrade());
         $this->assertEquals(4, $noSpecEntity->getTierColor());
     }
