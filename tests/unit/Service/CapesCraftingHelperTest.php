@@ -16,7 +16,9 @@ class CapesCraftingHelperTest extends TestCase
 
     private CapesCraftingHelper $ccHelper;
 
-    /** @dataProvider provideDefaultCape */
+    /**
+     * @dataProvider provideDefaultCape
+     */
     public function testCalculateDefaultCape(ItemEntity $defaultCape, int $tier): void
     {
         $data = $this->getTestDataItemEntity();
@@ -26,18 +28,12 @@ class CapesCraftingHelperTest extends TestCase
 
     private function getTestDataItemEntity(): array
     {
-        return [
-            (new ItemEntity())->setTier(41),
-            (new ItemEntity())->setTier(52),
-        ];
+        return [(new ItemEntity())->setTier(41), (new ItemEntity())->setTier(52)];
     }
 
     public function provideDefaultCape(): array
     {
-        return [
-            [(new ItemEntity())->setTier(41), 41],
-            [(new ItemEntity())->setTier(52), 52],
-        ];
+        return [[(new ItemEntity())->setTier(41), 41], [(new ItemEntity())->setTier(52), 52]];
     }
 
     public function testCalculateDefaultCapeException(): void
@@ -46,7 +42,9 @@ class CapesCraftingHelperTest extends TestCase
         $this->ccHelper->calculateDefaultCape(1, []);
     }
 
-    /** @dataProvider provideSecondResource */
+    /**
+     * @dataProvider provideSecondResource
+     */
     public function testCalculateSecondResource(MaterialEntity $defaultCape, string $resourceName, int $tier): void
     {
         $heartsAndSigils = $this->getTestDataMaterialEntity();
@@ -60,8 +58,12 @@ class CapesCraftingHelperTest extends TestCase
     private function getTestDataMaterialEntity(): array
     {
         return [
-            (new MaterialEntity())->setTier(10)->setRealName('materialA')->setName('materialA'),
-            (new MaterialEntity())->setTier(70)->setRealName('materialB')->setName('materialB'),
+            (new MaterialEntity())->setTier(10)
+                ->setRealName('materialA')
+                ->setName('materialA'),
+            (new MaterialEntity())->setTier(70)
+                ->setRealName('materialB')
+                ->setName('materialB'),
         ];
     }
 
@@ -79,7 +81,9 @@ class CapesCraftingHelperTest extends TestCase
         $this->ccHelper->calculateSecondResource('test', 1, []);
     }
 
-    /** @dataProvider provideArtifact */
+    /**
+     * @dataProvider provideArtifact
+     */
     public function testCalculateArtifact(?MaterialEntity $defaultCape, string $resourceName, int $tier): void
     {
         $data = $this->getTestDataMaterialEntity();
@@ -95,7 +99,9 @@ class CapesCraftingHelperTest extends TestCase
         ];
     }
 
-    /** @dataProvider provideMaterialCost */
+    /**
+     * @dataProvider provideMaterialCost
+     */
     public function testCalculateMaterialCost(
         int $materialCost,
         int $primaryItemCost,
@@ -116,14 +122,12 @@ class CapesCraftingHelperTest extends TestCase
 
     public function provideMaterialCost(): array
     {
-        return [
-            [1053, 50, 100, 10, 3],
-            [180, 100, 3, 10, 50],
-            [603, 3, 10, 50, 100],
-        ];
+        return [[1053, 50, 100, 10, 3], [180, 100, 3, 10, 50], [603, 3, 10, 50, 100]];
     }
 
-    /** @dataProvider provideProfit */
+    /**
+     * @dataProvider provideProfit
+     */
     public function testCalculateProfit(int $profit, int $specialCapePrice, int $materialCost): void
     {
         $this->assertEquals($profit, $this->ccHelper->calculateProfit($specialCapePrice, $materialCost));
@@ -131,10 +135,7 @@ class CapesCraftingHelperTest extends TestCase
 
     public function provideProfit(): array
     {
-        return [
-            [75, 100, 25],
-            [-25, 75, 100],
-        ];
+        return [[75, 100, 25], [-25, 75, 100]];
     }
 
     protected function setUp(): void

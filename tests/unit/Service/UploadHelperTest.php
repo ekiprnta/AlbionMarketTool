@@ -125,7 +125,7 @@ class UploadHelperTest extends TestCase
             'secondaryResource' => 'planks',
             'secondaryResourceAmount' => 12,
             'bonusCity' => 'Martlock',
-            'artifact' => null
+            'artifact' => null,
         ];
 
         $this->tierService->splitIntoTierAndName(Argument::any())->willReturn(
@@ -217,7 +217,9 @@ class UploadHelperTest extends TestCase
         return [['METALBAR'], ['METALBAR_LEVEL1'], ['METALBAR_LEVEL2'], ['metalbar_level3']];
     }
 
-    /** @dataProvider provideHeartAmount */
+    /**
+     * @dataProvider provideHeartAmount
+     */
     public function testCalculateHeartAmount(int $heartAmount, int $tier): void
     {
         $this->assertEquals($heartAmount, $this->uploadHelper->calculateHeartAmount($tier));
@@ -225,16 +227,12 @@ class UploadHelperTest extends TestCase
 
     public function provideHeartAmount(): array
     {
-        return [
-            [1, 41],
-            [1, 52],
-            [3, 60],
-            [5, 74],
-            [10, 83],
-        ];
+        return [[1, 41], [1, 52], [3, 60], [5, 74], [10, 83]];
     }
 
-    /** @dataProvider provideRealName */
+    /**
+     * @dataProvider provideRealName
+     */
     public function testCalculateHeartRealName(string $heartName, string $name): void
     {
         $this->assertEquals($heartName, $this->uploadHelper->calculateHeartRealName($name));

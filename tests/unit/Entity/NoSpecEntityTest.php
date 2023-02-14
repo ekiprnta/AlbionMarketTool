@@ -38,5 +38,4 @@ class NoSpecEntityTest extends TestCase
         $this->assertEquals('A', $noSpecEntity->getProfitGrade());
         $this->assertEquals(4, $noSpecEntity->getTierColor());
     }
-
 }

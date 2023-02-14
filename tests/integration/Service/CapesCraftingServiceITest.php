@@ -25,11 +25,15 @@ class CapesCraftingServiceITest extends TestCase
 
     public function testGetCapesByCity(): void
     {
-        $this->itemRepository->getArtifactCapesByCity('TestCity')->willReturn($this->getArtifactCapes());
-        $this->itemRepository->getDefaultCapesByCity('TestCity')->willReturn($this->getCapes());
+        $this->itemRepository->getArtifactCapesByCity('TestCity')
+            ->willReturn($this->getArtifactCapes());
+        $this->itemRepository->getDefaultCapesByCity('TestCity')
+            ->willReturn($this->getCapes());
 
-        $this->materialRepository->getHeartsAndSigilsByCity('TestCity')->willReturn($this->getHearts());
-        $this->materialRepository->getCapeArtifactsByCity('TestCity')->willReturn($this->getArtifacts());
+        $this->materialRepository->getHeartsAndSigilsByCity('TestCity')
+            ->willReturn($this->getHearts());
+        $this->materialRepository->getCapeArtifactsByCity('TestCity')
+            ->willReturn($this->getArtifacts());
 
         $testData = $this->capesCraftingService->getCapesByCity('TestCity');
 
@@ -50,29 +54,23 @@ class CapesCraftingServiceITest extends TestCase
                 ->setSecondaryResource('heart')
                 ->setSecondaryResourceAmount(10)
                 ->setArtifact('capeArtifact')
-                ->setSellOrderPrice(150)
+                ->setSellOrderPrice(150),
         ];
     }
 
     private function getCapes(): array
     {
-        return [
-            (new ItemEntity())->setTier((42))->setSellOrderPrice(200)
-        ];
+        return [(new ItemEntity())->setTier((42)) ->setSellOrderPrice(200)];
     }
 
     private function getHearts(): array
     {
-        return [
-            (new MaterialEntity())->setRealName('heart')->setTier(10)->setSellOrderPrice(100)
-        ];
+        return [(new MaterialEntity())->setRealName('heart') ->setTier(10) ->setSellOrderPrice(100)];
     }
 
     private function getArtifacts(): array
     {
-        return [
-            (new MaterialEntity())->setTier(40)->setName('capeArtifact')->setSellOrderPrice(50)
-        ];
+        return [(new MaterialEntity())->setTier(40) ->setName('capeArtifact') ->setSellOrderPrice(50)];
     }
 
     protected function setUp(): void
