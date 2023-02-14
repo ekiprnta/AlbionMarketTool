@@ -10,7 +10,7 @@ class NoSpecEntity
     private MaterialEntity $secondResource;
     private ?MaterialEntity $artifact;
 
-    private int $materialCost;
+    private float $materialCost;
     private float $profit;
 
     private float $profitQuotient;
@@ -57,12 +57,12 @@ class NoSpecEntity
         return $this->tierColor;
     }
 
-    public function getMaterialCost(): int
+    public function getMaterialCost(): float
     {
         return $this->materialCost;
     }
 
-    public function setMaterialCost(int $materialCost): void
+    public function setMaterialCost(float $materialCost): void
     {
         $this->materialCost = $materialCost;
     }

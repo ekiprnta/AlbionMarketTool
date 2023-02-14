@@ -40,9 +40,9 @@ class CapesCraftingServiceITest extends TestCase
         /** @var NoSpecEntity $noSpecEntity */
         $noSpecEntity = $testData[0];
 
-        $this->assertEquals(1250, $noSpecEntity->getMaterialCost());
-        $this->assertEquals(-1100, $noSpecEntity->getProfit());
-        $this->assertEquals(-1100, $noSpecEntity->getProfitQuotient());
+        $this->assertEquals(1218.75, $noSpecEntity->getMaterialCost());
+        $this->assertEquals(-1068.75, $noSpecEntity->getProfit());
+        $this->assertEquals(-1068.75, $noSpecEntity->getProfitQuotient());
         $this->assertEquals('D', $noSpecEntity->getProfitGrade());
         $this->assertEquals(4, $noSpecEntity->getTierColor());
     }
@@ -60,17 +60,17 @@ class CapesCraftingServiceITest extends TestCase
 
     private function getCapes(): array
     {
-        return [(new ItemEntity())->setTier((42)) ->setSellOrderPrice(200)];
+        return [(new ItemEntity())->setTier((42))->setBuyOrderPrice(200)];
     }
 
     private function getHearts(): array
     {
-        return [(new MaterialEntity())->setRealName('heart') ->setTier(10) ->setSellOrderPrice(100)];
+        return [(new MaterialEntity())->setRealName('heart')->setTier(10)->setBuyOrderPrice(100)];
     }
 
     private function getArtifacts(): array
     {
-        return [(new MaterialEntity())->setTier(40) ->setName('capeArtifact') ->setSellOrderPrice(50)];
+        return [(new MaterialEntity())->setTier(40)->setName('capeArtifact')->setBuyOrderPrice(50)];
     }
 
     protected function setUp(): void

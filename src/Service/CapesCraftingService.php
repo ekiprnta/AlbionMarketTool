@@ -59,13 +59,13 @@ class CapesCraftingService
                 $artifactPrice = 0;
             } else {
                 $artifactPrice = $noSpecEntity->getArtifact()
-                    ->getSellOrderPrice();
+                    ->getBuyOrderPrice();
             }
 
             $noSpecEntity->setMaterialCost(
                 $this->ccHelper->calculateMaterialCost(
                     $noSpecEntity->getDefaultCape()
-                        ->getSellOrderPrice(),
+                        ->getBuyOrderPrice(),
                     $noSpecEntity->getSecondResource()
                         ->getSellOrderPrice(),
                     $specialCape

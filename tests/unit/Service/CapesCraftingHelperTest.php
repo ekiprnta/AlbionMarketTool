@@ -103,7 +103,7 @@ class CapesCraftingHelperTest extends TestCase
      * @dataProvider provideMaterialCost
      */
     public function testCalculateMaterialCost(
-        int $materialCost,
+        float $materialCost,
         int $primaryItemCost,
         int $secondaryMaterialCost,
         int $secondaryMaterialAmount,
@@ -122,7 +122,7 @@ class CapesCraftingHelperTest extends TestCase
 
     public function provideMaterialCost(): array
     {
-        return [[1053, 50, 100, 10, 3], [180, 100, 3, 10, 50], [603, 3, 10, 50, 100]];
+        return [[1026.675, 50, 100, 10, 3], [175.5, 100, 3, 10, 50], [587.925, 3, 10, 50, 100]];
     }
 
     /**
