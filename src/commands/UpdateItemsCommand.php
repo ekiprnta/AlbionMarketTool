@@ -54,7 +54,7 @@ class UpdateItemsCommand extends Command
             }
         }
 
-        $output->writeln('Updating Capes...');
+        $output->writeln(PHP_EOL . 'Updating Capes...');
         $progressBar = ProgressBarService::getProgressBar($output, is_countable($capeList) ? count($capeList) : 0);
 
         foreach ($capeList as $capeStats) {
