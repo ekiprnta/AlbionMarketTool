@@ -85,25 +85,46 @@ class RefiningHelperTest extends TestCase
         return [['40', '30'], ['41', '30'], ['42', '30'], ['50', '40'], ['53', '43']];
     }
 
+    /** @dataProvider provideResourceCost */
+    public function testCalculateResourceCost(
+        float $result,
+        int $rawResourcePrice,
+        int $lowerResourcePrice,
+        int $amountRawResource,
+        float $percentage
+    ): void {
+        $this->assertEquals(
+            $result,
+            $this->refiningHelper->calculateResourceCost(
+                $rawResourcePrice,
+                $lowerResourcePrice,
+                $amountRawResource,
+                $percentage
+            )
+        );
+    }
+
+    public function provideResourceCost(): array
+    {
+        return [
+            [138.3, 50, 100, 4, 53.9],
+            [255, 50, 100, 4, 15],
+        ];
+    }
+
     /**
      * @dataProvider getProfit
      */
     public function testCalculateProfit(
+        float $expectedProfit,
         int $refinedResourcePrice,
-        int $rawResourcePrice,
-        int $lowerResourcePrice,
-        int $amountRawResource,
-        float $percentage,
-        float $expectedProfit
+        float $resourceCost
     ): void {
         $this->assertEqualsWithDelta(
             $expectedProfit,
             $this->refiningHelper->calculateProfit(
                 $refinedResourcePrice,
-                $rawResourcePrice,
-                $lowerResourcePrice,
-                $amountRawResource,
-                $percentage
+                $resourceCost
             ),
             0.00000001
         );
@@ -112,12 +133,9 @@ class RefiningHelperTest extends TestCase
     public function getProfit(): array
     {
         return [
-            [104, 56, 35, 2, 53.9, 29.472999999999985],
-            [134, 67, 104, 2, 53.9, 15.571999999999989],
-            [600, 247, 134, 3, 53.9, 157.625],
-            [2309, 777, 600, 4, 53.9, 449.5269999999998],
-            [7497, 2023, 2309, 5, 53.9, 1282.2309999999998],
-            [23564, 7498, 7497, 5, 53.9, 1293.3329999999987],
+            [-150, 10000, 9500],
+            [4750, 50000, 42000],
+            [83.5, 100, 10],
         ];
     }
 

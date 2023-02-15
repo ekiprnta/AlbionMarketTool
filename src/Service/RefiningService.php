@@ -49,16 +49,18 @@ class RefiningService
                     ->getTier()
             );
             $refiningEntity->setLowerResource($this->refiningHelper->calculateResource($lowerTier, $resources));
+
+            $resourceCost = $this->refiningHelper->calculateResourceCost(
+                $refiningEntity->getRawResource()->getSellOrderPrice(),
+                $refiningEntity->getLowerResource()->getSellOrderPrice(),
+                $refiningEntity->getAmountRawResource(),
+                $percentage
+            );
             $refiningEntity->setSingleProfit(
                 $this->refiningHelper->calculateProfit(
                     $refiningEntity->getResourceEntity()
                         ->getSellOrderPrice(),
-                    $refiningEntity->getRawResource()
-                        ->getSellOrderPrice(),
-                    $refiningEntity->getLowerResource()
-                        ->getSellOrderPrice(),
-                    $refiningEntity->getAmountRawResource(),
-                    $percentage
+                    $resourceCost
                 )
             );
             $refiningEntity->setAmount(
@@ -70,14 +72,14 @@ class RefiningService
                     $refiningEntity->getSingleProfit()
                 )
             );
-            $refiningEntity->setProfitQuotient(
-                $this->refiningHelper->calculateProfitQuotient(
-                    $refiningEntity->getProfit(),
-                    $refiningEntity->getAmount()
+            $refiningEntity->setProfitPercentage(
+                $this->refiningHelper->calculateProfitPercentage(
+                    $refiningEntity->getResourceEntity()->getSellOrderPrice(),
+                    $resourceCost
                 )
             );
             $refiningEntity->setProfitGrade(
-                $this->refiningHelper->calculateProfitGrade($refiningEntity->getProfitQuotient())
+                $this->refiningHelper->calculateProfitGrade($refiningEntity->getProfitPercentage())
             );
         }
         return $refiningArray;
