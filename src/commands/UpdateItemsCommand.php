@@ -30,7 +30,7 @@ class UpdateItemsCommand extends Command
         $message = 'successfully updated all Prices';
         try {
             $itemList = $this->configService->getItemConfig();
-            $capeList = $this->configService->getCapesConfig();
+            $capeList = $this->configService->getCapesAndRoyalConfig();
         } catch (\JsonException $jsonException) {
             $output->writeln($jsonException->getMessage());
             return self::FAILURE;

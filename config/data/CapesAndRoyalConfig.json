@@ -130,5 +130,113 @@
     "class": null,
     "weaponGroup": "accessories",
     "artifact": "capeitem_demon_bp"
+  },
+  "royal_cowl1": {
+    "id_snippet": "HEAD_CLOTH_ROYAL",
+    "primaryResource": "HEAD_CLOTH_SET1",
+    "primaryResourceAmount": 1,
+    "secondaryResource": "Royal Sigil",
+    "secondaryResourceAmount": null,
+    "bonusCity": "null",
+    "realName": "Royal Cowl",
+    "class": null,
+    "weaponGroup": "royal",
+    "artifact": null
+  },
+  "royal_cowl2": {
+    "id_snippet": "HEAD_CLOTH_ROYAL",
+    "primaryResource": "HEAD_CLOTH_SET2",
+    "primaryResourceAmount": 1,
+    "secondaryResource": "Royal Sigil",
+    "secondaryResourceAmount": null,
+    "bonusCity": "null",
+    "realName": "Royal Cowl",
+    "class": null,
+    "weaponGroup": "royal",
+    "artifact": null
+  },
+  "royal_cowl3": {
+    "id_snippet": "HEAD_CLOTH_ROYAL",
+    "primaryResource": "HEAD_CLOTH_SET3",
+    "primaryResourceAmount": 1,
+    "secondaryResource": "Royal Sigil",
+    "secondaryResourceAmount": null,
+    "bonusCity": "null",
+    "realName": "Royal Cowl",
+    "class": null,
+    "weaponGroup": "royal",
+    "artifact": null
+  },
+  "royal_robe1": {
+    "id_snippet": "ARMOR_CLOTH_ROYAL",
+    "primaryResource": "ARMOR_CLOTH_SET1",
+    "primaryResourceAmount": 1,
+    "secondaryResource": "Royal Sigil",
+    "secondaryResourceAmount": null,
+    "bonusCity": "null",
+    "realName": "Royal Robe",
+    "class": null,
+    "weaponGroup": "royal",
+    "artifact": null
+  },
+  "royal_robe2": {
+    "id_snippet": "ARMOR_CLOTH_ROYAL",
+    "primaryResource": "ARMOR_CLOTH_SET2",
+    "primaryResourceAmount": 1,
+    "secondaryResource": "Royal Sigil",
+    "secondaryResourceAmount": null,
+    "bonusCity": "null",
+    "realName": "Royal Robe",
+    "class": null,
+    "weaponGroup": "royal",
+    "artifact": null
+  },
+  "royal_robe3": {
+    "id_snippet": "ARMOR_CLOTH_ROYAL",
+    "primaryResource": "ARMOR_CLOTH_SET3",
+    "primaryResourceAmount": 1,
+    "secondaryResource": "Royal Sigil",
+    "secondaryResourceAmount": null,
+    "bonusCity": "null",
+    "realName": "Royal Robe",
+    "class": null,
+    "weaponGroup": "royal",
+    "artifact": null
+  },
+  "royal_sandals1": {
+    "id_snippet": "SHOES_CLOTH_ROYAL",
+    "primaryResource": "SHOES_CLOTH_SET1",
+    "primaryResourceAmount": 1,
+    "secondaryResource": "Royal Sigil",
+    "secondaryResourceAmount": null,
+    "bonusCity": "null",
+    "realName": "Royal Sandals",
+    "class": null,
+    "weaponGroup": "royal",
+    "artifact": null
+  },
+  "royal_sandals2": {
+    "id_snippet": "SHOES_CLOTH_ROYAL",
+    "primaryResource": "SHOES_CLOTH_SET2",
+    "primaryResourceAmount": 1,
+    "secondaryResource": "Royal Sigil",
+    "secondaryResourceAmount": null,
+    "bonusCity": "null",
+    "realName": "Royal Sandals",
+    "class": null,
+    "weaponGroup": "royal",
+    "artifact": null
+  },
+  "royal_sandals3": {
+    "id_snippet": "SHOES_CLOTH_ROYAL",
+    "primaryResource": "SHOES_CLOTH_SET3",
+    "primaryResourceAmount": 1,
+    "secondaryResource": "Royal Sigil",
+    "secondaryResourceAmount": null,
+    "bonusCity": "null",
+    "realName": "Royal Sandals",
+    "class": null,
+    "weaponGroup": "royal",
+    "artifact": null
   }
 }
