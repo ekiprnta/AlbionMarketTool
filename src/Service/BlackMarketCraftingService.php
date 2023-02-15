@@ -158,10 +158,10 @@ class BlackMarketCraftingService
                         ->getSellOrderPrice()
                 )
             );
-            $bmcEntity->setProfitQuotient(
-                $this->bmtHelper->calculateProfitQuotient($bmcEntity->getProfit(), $bmcEntity->getTotalAmount())
+            $bmcEntity->setProfitPercentage(
+                $this->bmtHelper->calculateProfitPercentage($bmcEntity->getItem()->getSellOrderPrice(), $itemCost)
             );
-            $bmcEntity->setColorGrade($this->bmtHelper->calculateProfitGrade($bmcEntity->getProfitQuotient()));
+            $bmcEntity->setColorGrade($this->bmtHelper->calculateProfitGrade($bmcEntity->getProfitPercentage()));
         }
 
         return $this->filterCalculateEntityArray($calculateEntityArray);

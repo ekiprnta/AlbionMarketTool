@@ -38,7 +38,7 @@ class Market
         };
     }
 
-    public function calculateProfitPercentage(float $turnover, int $totalCost): float
+    public function calculateProfitPercentage(float $turnover, float $totalCost): float
     {
         return round(($turnover / ($totalCost + 1)) * 100, 2);
     }

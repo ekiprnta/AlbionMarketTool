@@ -43,7 +43,7 @@ class MarketServiceTest extends TestCase
     /**
      * @dataProvider getProfitAndWeight
      */
-    public function testCalculateProfitPercentage(float $turnover, int $totalCost, float $expectedResult): void
+    public function testCalculateProfitPercentage(float $turnover, float $totalCost, float $expectedResult): void
     {
         $this->assertEqualsWithDelta(
             $expectedResult,

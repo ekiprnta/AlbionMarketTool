@@ -112,7 +112,7 @@
                         <th class="amount-col">Amount Crafted</th>
                         <th>Crafting Fee</th>
                         <th>Profit when rrr: {{ rrr }}</th>
-                        <th>Profit Quotient</th>
+                        <th>Percentage</th>
                         <th>Value</th>
                         <th>Info</th>
                     </tr>
@@ -147,7 +147,7 @@
                                 <td class="align-middle">{{ bmcEntity.totalAmount|number_format }}x</td>
                                 <td class="align-middle">{{ bmcEntity.craftingFee|number_format }}</td>
                                 <td class="align-middle">{{ bmcEntity.profit|number_format }}</td>
-                                <td class="align-middle">{{ bmcEntity.profitQuotient|number_format }}</td>
+                                <td class="align-middle">{{ bmcEntity.profitPercentage|number_format }}</td>
                                 <td class="align-middle">{{ bmcEntity.itemValue|number_format }}</td>
                                 <td class="align-middle">
                                     <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
