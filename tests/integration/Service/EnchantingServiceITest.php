@@ -46,7 +46,7 @@ class EnchantingServiceITest extends TestCase
         $this->assertEquals(702.0, $enchantingEntity->getMaterialCost());
         $this->assertEquals(798.0, $enchantingEntity->getProfit());
         $this->assertEquals(136.18, $enchantingEntity->getProfitPercentage());
-        $this->assertEquals('C', $enchantingEntity->getProfitGrade());
+        $this->assertEquals('B', $enchantingEntity->getProfitGrade());
         $this->assertEquals(7, $enchantingEntity->getTierColor());
     }
 

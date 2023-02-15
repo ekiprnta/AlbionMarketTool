@@ -65,7 +65,7 @@ class RefiningServiceITest extends TestCase
             $this->assertEquals(968, $refiningEntity->getAmount());
             $this->assertEqualsWithDelta(5169514.943999999, $refiningEntity->getProfit(), $delta);
             $this->assertEqualsWithDelta(180.76, $refiningEntity->getProfitPercentage(), $delta);
-            $this->assertEquals('B', $refiningEntity->getProfitGrade());
+            $this->assertEquals('A', $refiningEntity->getProfitGrade());
         }
     }
 

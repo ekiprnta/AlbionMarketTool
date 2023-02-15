@@ -30,9 +30,9 @@ class Market
     public function calculateProfitGrade(float $percentage): string
     {
         return match (true) {
-            $percentage >= 250 => 'S',
-            $percentage >= 200 => 'A',
-            $percentage >= 150 => 'B',
+            $percentage >= 200 => 'S',
+            $percentage >= 160 => 'A',
+            $percentage >= 130 => 'B',
             $percentage >= 100 => 'C',
             default => 'D',
         };
