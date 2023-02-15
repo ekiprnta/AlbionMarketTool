@@ -84,7 +84,7 @@ class CapesCraftingHelperTest extends TestCase
     /**
      * @dataProvider provideArtifact
      */
-    public function testCalculateArtifact(?MaterialEntity $defaultCape, string $resourceName, int $tier): void
+    public function testCalculateArtifact(?MaterialEntity $defaultCape, ?string $resourceName, int $tier): void
     {
         $data = $this->getTestDataMaterialEntity();
         $this->assertEquals($defaultCape, $this->ccHelper->calculateArtifact($resourceName, $tier, $data));
@@ -96,6 +96,7 @@ class CapesCraftingHelperTest extends TestCase
             [(new MaterialEntity())->setTier(10)->setRealName('materialA')->setName('materialA'), 'materialA', 10],
             [(new MaterialEntity())->setTier(70)->setRealName('materialB')->setName('materialB'), 'materialB', 72],
             [null, 'materialC', 70],
+            [null, null, 70],
         ];
     }
 

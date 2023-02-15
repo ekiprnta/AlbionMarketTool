@@ -20,6 +20,7 @@ class TierService
             default => null
         };
         if ($tokenTier !== null) {
+            array_pop($itemIdArray);
             return [
                 'tier' => $tokenTier,
                 'name' => implode('_', $itemIdArray)
