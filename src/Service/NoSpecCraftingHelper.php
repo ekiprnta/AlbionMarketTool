@@ -6,7 +6,7 @@ namespace MZierdt\Albion\Service;
 
 use MZierdt\Albion\Entity\MaterialEntity;
 
-class CapesCraftingHelper extends Market
+class NoSpecCraftingHelper extends Market
 {
     public function calculateDefaultItem(int $tier, array $capes)
     {

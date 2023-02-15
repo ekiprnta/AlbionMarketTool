@@ -6,7 +6,7 @@ namespace unit\Service;
 
 use MZierdt\Albion\Entity\ItemEntity;
 use MZierdt\Albion\Entity\MaterialEntity;
-use MZierdt\Albion\Service\CapesCraftingHelper;
+use MZierdt\Albion\Service\NoSpecCraftingHelper;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 
@@ -14,7 +14,7 @@ class CapesCraftingHelperTest extends TestCase
 {
     use ProphecyTrait;
 
-    private CapesCraftingHelper $ccHelper;
+    private NoSpecCraftingHelper $ccHelper;
 
     /**
      * @dataProvider provideDefaultCape
@@ -140,6 +140,6 @@ class CapesCraftingHelperTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->ccHelper = new CapesCraftingHelper();
+        $this->ccHelper = new NoSpecCraftingHelper();
     }
 }

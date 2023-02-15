@@ -36,14 +36,14 @@ use MZierdt\Albion\Service\BlackMarketCraftingHelper;
 use MZierdt\Albion\Service\BlackMarketCraftingService;
 use MZierdt\Albion\Service\BlackMarketTransportingHelper;
 use MZierdt\Albion\Service\BlackMarketTransportingService;
-use MZierdt\Albion\Service\CapesCraftingHelper;
-use MZierdt\Albion\Service\CapesCraftingService;
 use MZierdt\Albion\Service\ConfigService;
 use MZierdt\Albion\Service\EnchantingHelper;
 use MZierdt\Albion\Service\EnchantingService;
 use MZierdt\Albion\Service\GlobalDiscountService;
 use MZierdt\Albion\Service\ListDataHelper;
 use MZierdt\Albion\Service\ListDataService;
+use MZierdt\Albion\Service\NoSpecCraftingHelper;
+use MZierdt\Albion\Service\NoSpecCraftingService;
 use MZierdt\Albion\Service\RefiningHelper;
 use MZierdt\Albion\Service\RefiningService;
 use MZierdt\Albion\Service\TierService;
@@ -88,13 +88,13 @@ $serviceManager = new ServiceManager([
                     RefiningHelper::class,
                 ],
                 TierService::class => [],
-                CapesCraftingHandler::class => [Environment::class, CapesCraftingService::class],
-                CapesCraftingService::class => [
+                CapesCraftingHandler::class => [Environment::class, NoSpecCraftingService::class],
+                NoSpecCraftingService::class => [
                     ItemRepository::class,
                     MaterialRepository::class,
-                    CapesCraftingHelper::class
+                    NoSpecCraftingHelper::class
                 ],
-                CapesCraftingHelper::class => [],
+                NoSpecCraftingHelper::class => [],
                 BlackMarketTransportingHelper::class => [],
                 BlackMarketTransportingService::class => [
                     ItemRepository::class,

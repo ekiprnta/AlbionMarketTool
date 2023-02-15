@@ -8,12 +8,12 @@ use MZierdt\Albion\Entity\NoSpecEntity;
 use MZierdt\Albion\repositories\ItemRepository;
 use MZierdt\Albion\repositories\MaterialRepository;
 
-class CapesCraftingService
+class NoSpecCraftingService
 {
     public function __construct(
         private readonly ItemRepository $itemRepository,
         private readonly MaterialRepository $materialRepository,
-        private readonly CapesCraftingHelper $ccHelper
+        private readonly NoSpecCraftingHelper $ccHelper
     ) {
     }
 
