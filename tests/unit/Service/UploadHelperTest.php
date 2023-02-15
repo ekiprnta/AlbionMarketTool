@@ -220,14 +220,20 @@ class UploadHelperTest extends TestCase
     /**
      * @dataProvider provideHeartAmount
      */
-    public function testCalculateHeartAmount(int $heartAmount, int $tier): void
+    public function testCalculateHeartAmount(int $heartAmount, int $tier, string $name): void
     {
-        $this->assertEquals($heartAmount, $this->uploadHelper->calculateHeartAmount($tier));
+        $this->assertEquals($heartAmount, $this->uploadHelper->calculateHeartAndSigilAmount($tier, $name));
     }
 
     public function provideHeartAmount(): array
     {
-        return [[1, 41], [1, 52], [3, 60], [5, 74], [10, 83]];
+        return [
+            [2, 41, 'head'],
+            [1, 52, 'bla'],
+            [16, 60, 'armor'],
+            [8, 74, 'shoes'],
+            [10, 83, 'test']
+        ];
     }
 
     /**
