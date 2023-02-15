@@ -70,8 +70,8 @@ class EnchantingEntityTest extends TestCase
 
     public function testProfitQuotient(): void
     {
-        $this->enchantingEntity->setProfitQuotient(2346);
-        $this->assertEquals(2346, $this->enchantingEntity->getProfitQuotient());
+        $this->enchantingEntity->setProfitPercentage(2346);
+        $this->assertEquals(2346, $this->enchantingEntity->getProfitPercentage());
     }
 
     public function testProfitGrade(): void
