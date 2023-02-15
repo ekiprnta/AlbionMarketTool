@@ -73,7 +73,7 @@ class EnchantingService
             );
 
             $enchantingEntity->setProfitQuotient(
-                $this->enchantingHelper->calculateProfitQuotient($enchantingEntity->getProfit(), 1)
+                $this->enchantingHelper->calculateProfitPercentage($enchantingEntity->getProfit(), 1)
             );
 
             $enchantingEntity->setProfitGrade(

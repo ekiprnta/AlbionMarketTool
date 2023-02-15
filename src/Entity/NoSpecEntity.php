@@ -13,7 +13,7 @@ class NoSpecEntity
     private float $materialCost;
     private float $profit;
 
-    private float $profitQuotient;
+    private float $profitPercentage;
     private string $profitGrade;
     private int $tierColor;
 
@@ -32,14 +32,14 @@ class NoSpecEntity
         $this->profit = $profit;
     }
 
-    public function getProfitQuotient(): float
+    public function getProfitPercentage(): float
     {
-        return $this->profitQuotient;
+        return $this->profitPercentage;
     }
 
-    public function setProfitQuotient(float $profitQuotient): void
+    public function setProfitPercentage(float $profitPercentage): void
     {
-        $this->profitQuotient = $profitQuotient;
+        $this->profitPercentage = $profitPercentage;
     }
 
     public function getProfitGrade(): string

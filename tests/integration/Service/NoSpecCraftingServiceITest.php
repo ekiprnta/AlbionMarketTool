@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 
-class CapesCraftingServiceITest extends TestCase
+class NoSpecCraftingServiceITest extends TestCase
 {
     use ProphecyTrait;
 
@@ -46,7 +46,7 @@ class CapesCraftingServiceITest extends TestCase
 
         $this->assertEquals(243.75, $noSpecEntity->getMaterialCost());
         $this->assertEquals(-93.75, $noSpecEntity->getProfit());
-        $this->assertEquals(-93.75, $noSpecEntity->getProfitQuotient());
+        $this->assertEquals(61.29, $noSpecEntity->getProfitPercentage());
         $this->assertEquals('D', $noSpecEntity->getProfitGrade());
         $this->assertEquals(4, $noSpecEntity->getTierColor());
     }

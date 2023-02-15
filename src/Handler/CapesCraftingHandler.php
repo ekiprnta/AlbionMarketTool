@@ -30,7 +30,7 @@ class CapesCraftingHandler
         }
 
         $htmlContent = $this->twigEnvironment->render(
-            'CapesCrafting.html.twig',
+            'NoSpecCrafting.html.twig',
             [
                 'dataArray' => $cityData,
                 'alertMessage' => $alertMessage,

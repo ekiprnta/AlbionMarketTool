@@ -46,7 +46,7 @@
                     <th>Sell Price</th>
                     <th>MaterialCost</th>
                     <th>Profit</th>
-                    <th>Quotient</th>
+                    <th>Percentage</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -62,7 +62,7 @@
                             </td>
                             <td class="align-middle">{{ noSpecEntity.materialCost|number_format }}</td>
                             <td class="align-middle">{{ noSpecEntity.profit|number_format }}</td>
-                            <td class="align-middle">{{ noSpecEntity.profitQuotient|number_format }}</td>
+                            <td class="align-middle">{{ noSpecEntity.profitPercentage|number_format }}</td>
                         </tr>
                     {% endif %}
                 {% endfor %}
