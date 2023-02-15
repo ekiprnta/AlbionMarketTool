@@ -80,7 +80,7 @@
                     <th>Sell Price</th>
                     <th>Amount</th>
                     <th>Profit</th>
-                    <th>Amount/Profit</th>
+                    <th>Percentage</th>
                     {#                    <td>Crafting Fee</td> #}
                 </tr>
                 </thead>
@@ -98,7 +98,7 @@
                         </td>
                         <td class="align-middle">{{ refiningEntity.amount|number_format }}</td>
                         <td class="align-middle">{{ refiningEntity.profit|number_format }}</td>
-                        <td class="align-middle">{{ refiningEntity.weightAmountQuotient|number_format }}</td>
+                        <td class="align-middle">{{ refiningEntity.profitPercentage|number_format }}</td>
                         {#                        <td class="align-middle">{{ refiningEntity.craftingFee }}</td> #}
                     </tr>
                 {% endfor %}
