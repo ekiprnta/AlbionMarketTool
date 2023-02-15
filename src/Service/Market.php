@@ -27,22 +27,19 @@ class Market
         return $price * (1 - self::MARKET_SETUP);
     }
 
-    public function calculateProfitGrade(float $quotient): string
+    public function calculateProfitGrade(float $percentage): string
     {
         return match (true) {
-            $quotient >= 1800 => 'S',
-            $quotient >= 900 => 'A',
-            $quotient >= 300 => 'B',
-            $quotient >= 0 => 'C',
+            $percentage >= 200 => 'S',
+            $percentage >= 160 => 'A',
+            $percentage >= 130 => 'B',
+            $percentage >= 100 => 'C',
             default => 'D',
         };
     }
 
-    public function calculateProfitQuotient(float $profit, int $amount): float
+    public function calculateProfitPercentage(float $turnover, float $totalCost): float
     {
-        if ($profit === 0.0) {
-            return 0.0;
-        }
-        return $profit / $amount;
+        return round(($turnover / ($totalCost + 1)) * 100, 2);
     }
 }

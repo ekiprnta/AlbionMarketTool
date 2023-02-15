@@ -2,6 +2,7 @@
 
 namespace integration\Service;
 
+use MZierdt\Albion\Entity\BlackMarketCraftingEntity;
 use MZierdt\Albion\Entity\ItemEntity;
 use MZierdt\Albion\Entity\JournalEntity;
 use MZierdt\Albion\Entity\ResourceEntity;
@@ -47,28 +48,38 @@ class BlackMarketCraftingServiceITest extends TestCase
         $testData = $bmcService->getDataForCity('TestCity', 25.2, 1200, 'TestCity', 1);
 
         foreach ($testData as $bmcEntity) {
-            $this->assertEqualsWithDelta(1.4545454545455, $bmcEntity[0]->getJournalAmountPerItem(), $delta);
+            /** @var BlackMarketCraftingEntity $blackMarketCraftingEntity */
+            $blackMarketCraftingEntity = $bmcEntity[0];
+            $this->assertEqualsWithDelta(
+                1.4545454545455,
+                $blackMarketCraftingEntity->getJournalAmountPerItem(),
+                $delta
+            );
 
-            $this->assertEquals(20, $bmcEntity[0]->getTotalAmount());
-            $this->assertEquals(400, $bmcEntity[0]->getPrimResourceAmount());
-            $this->assertEquals(240, $bmcEntity[0]->getSecResourceAmount());
-            $this->assertEqualsWithDelta(29.090909090909093, $bmcEntity[0]->getJournalAmount(), $delta);
+            $this->assertEquals(20, $blackMarketCraftingEntity->getTotalAmount());
+            $this->assertEquals(400, $blackMarketCraftingEntity->getPrimResourceAmount());
+            $this->assertEquals(240, $blackMarketCraftingEntity->getSecResourceAmount());
+            $this->assertEqualsWithDelta(29.090909090909093, $blackMarketCraftingEntity->getJournalAmount(), $delta);
 
-            $this->assertEqualsWithDelta(11059.2, $bmcEntity[0]->getCraftingFee(), $delta);
-            $this->assertEqualsWithDelta(-1958.8363636364, $bmcEntity[0]->getProfitJournals(), $delta);
-            $this->assertEqualsWithDelta(1556854.4436363627, $bmcEntity[0]->getProfit(), $delta);
-            $this->assertEqualsWithDelta(77842.72218181813, $bmcEntity[0]->getProfitQuotient(), $delta);
+            $this->assertEqualsWithDelta(11059.2, $blackMarketCraftingEntity->getCraftingFee(), $delta);
+            $this->assertEqualsWithDelta(-1958.8363636364, $blackMarketCraftingEntity->getProfitJournals(), $delta);
+            $this->assertEqualsWithDelta(1556854.4436363627, $blackMarketCraftingEntity->getProfit(), $delta);
+            $this->assertEqualsWithDelta(98.76, $blackMarketCraftingEntity->getProfitPercentage(), $delta);
 
-            $this->assertEquals('S', $bmcEntity[0]->getColorGrade());
-            $this->assertEqualsWithDelta(1238400.0, $bmcEntity[0]->getFameAmount(), $delta);
-            $this->assertEquals(7, $bmcEntity[0]->getTierColor());
-            $this->assertEquals(8839840, $bmcEntity[0]->getItemValue());
+            $this->assertEquals('D', $blackMarketCraftingEntity->getColorGrade());
+            $this->assertEqualsWithDelta(1238400.0, $blackMarketCraftingEntity->getFameAmount(), $delta);
+            $this->assertEquals(7, $blackMarketCraftingEntity->getTierColor());
+            $this->assertEquals(8839840, $blackMarketCraftingEntity->getItemValue());
 
-            $this->assertEquals('3h_axe', $bmcEntity[0]->getItem()->getName());
-            $this->assertEquals('metalBar', $bmcEntity[0]->getPrimResource()->getName());
-            $this->assertEquals('planks', $bmcEntity[0]->getSecResource()->getName());
-            $this->assertEquals('journal_warrior_empty', $bmcEntity[0]->getJournalEntityEmpty()->getName());
-            $this->assertEquals('journal_warrior_full', $bmcEntity[0]->getJournalEntityFull()->getName());
+            $this->assertEquals('3h_axe', $blackMarketCraftingEntity->getItem()->getName());
+            $this->assertEquals('metalBar', $blackMarketCraftingEntity->getPrimResource()->getName());
+            $this->assertEquals('planks', $blackMarketCraftingEntity->getSecResource()->getName());
+            $this->assertEquals(
+                'journal_warrior_empty',
+                $blackMarketCraftingEntity->getJournalEntityEmpty()
+                    ->getName()
+            );
+            $this->assertEquals('journal_warrior_full', $blackMarketCraftingEntity->getJournalEntityFull()->getName());
         }
     }
 
@@ -100,28 +111,38 @@ class BlackMarketCraftingServiceITest extends TestCase
         $testData = $bmcService->getDataForCity('TestCity', 0.0, 0, 0, '', 2);
 
         foreach ($testData as $bmcEntity) {
-            $this->assertEqualsWithDelta(1.4545454545455, $bmcEntity[0]->getJournalAmountPerItem(), $delta);
+            /** @var BlackMarketCraftingEntity $blackMarketCraftingEntity */
+            $blackMarketCraftingEntity = $bmcEntity[0];
+            $this->assertEqualsWithDelta(
+                1.4545454545455,
+                $blackMarketCraftingEntity->getJournalAmountPerItem(),
+                $delta
+            );
 
-            $this->assertEquals(20, $bmcEntity[0]->getTotalAmount());
-            $this->assertEquals(400, $bmcEntity[0]->getPrimResourceAmount());
-            $this->assertEquals(240, $bmcEntity[0]->getSecResourceAmount());
-            $this->assertEqualsWithDelta(29.090909090909093, $bmcEntity[0]->getJournalAmount(), $delta);
+            $this->assertEquals(20, $blackMarketCraftingEntity->getTotalAmount());
+            $this->assertEquals(400, $blackMarketCraftingEntity->getPrimResourceAmount());
+            $this->assertEquals(240, $blackMarketCraftingEntity->getSecResourceAmount());
+            $this->assertEqualsWithDelta(29.090909090909093, $blackMarketCraftingEntity->getJournalAmount(), $delta);
 
-            $this->assertEqualsWithDelta(0, $bmcEntity[0]->getCraftingFee(), $delta);
-            $this->assertEqualsWithDelta(-1958.8363636363913, $bmcEntity[0]->getProfitJournals(), $delta);
-            $this->assertEqualsWithDelta(2522042.283636363, $bmcEntity[0]->getProfit(), $delta);
-            $this->assertEqualsWithDelta(126102.11418181816, $bmcEntity[0]->getProfitQuotient(), $delta);
+            $this->assertEqualsWithDelta(0, $blackMarketCraftingEntity->getCraftingFee(), $delta);
+            $this->assertEqualsWithDelta(-1958.8363636363913, $blackMarketCraftingEntity->getProfitJournals(), $delta);
+            $this->assertEqualsWithDelta(2522042.283636363, $blackMarketCraftingEntity->getProfit(), $delta);
+            $this->assertEqualsWithDelta(115.79, $blackMarketCraftingEntity->getProfitPercentage(), $delta);
 
-            $this->assertEquals('S', $bmcEntity[0]->getColorGrade());
-            $this->assertEqualsWithDelta(1238400.0, $bmcEntity[0]->getFameAmount(), $delta);
-            $this->assertEquals(7, $bmcEntity[0]->getTierColor());
-            $this->assertEquals(8839840, $bmcEntity[0]->getItemValue());
+            $this->assertEquals('C', $blackMarketCraftingEntity->getColorGrade());
+            $this->assertEqualsWithDelta(1238400.0, $blackMarketCraftingEntity->getFameAmount(), $delta);
+            $this->assertEquals(7, $blackMarketCraftingEntity->getTierColor());
+            $this->assertEquals(8839840, $blackMarketCraftingEntity->getItemValue());
 
-            $this->assertEquals('3h_axe', $bmcEntity[0]->getItem()->getName());
-            $this->assertEquals('metalBar', $bmcEntity[0]->getPrimResource()->getName());
-            $this->assertEquals('planks', $bmcEntity[0]->getSecResource()->getName());
-            $this->assertEquals('journal_warrior_empty', $bmcEntity[0]->getJournalEntityEmpty()->getName());
-            $this->assertEquals('journal_warrior_full', $bmcEntity[0]->getJournalEntityFull()->getName());
+            $this->assertEquals('3h_axe', $blackMarketCraftingEntity->getItem()->getName());
+            $this->assertEquals('metalBar', $blackMarketCraftingEntity->getPrimResource()->getName());
+            $this->assertEquals('planks', $blackMarketCraftingEntity->getSecResource()->getName());
+            $this->assertEquals(
+                'journal_warrior_empty',
+                $blackMarketCraftingEntity->getJournalEntityEmpty()
+                    ->getName()
+            );
+            $this->assertEquals('journal_warrior_full', $blackMarketCraftingEntity->getJournalEntityFull()->getName());
         }
     }
 

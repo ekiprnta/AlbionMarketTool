@@ -86,8 +86,16 @@ class NoSpecCraftingService
                 )
             );
 
-            $noSpecEntity->setProfitQuotient($this->ccHelper->calculateProfitQuotient($noSpecEntity->getProfit(), 1));
-            $noSpecEntity->setProfitGrade(($this->ccHelper->calculateProfitGrade($noSpecEntity->getProfitQuotient())));
+            $noSpecEntity->setProfitPercentage(
+                $this->ccHelper->calculateProfitPercentage(
+                    $noSpecEntity->getSpecialItem()
+                        ->getSellOrderPrice(),
+                    $noSpecEntity->getMaterialCost()
+                )
+            );
+            $noSpecEntity->setProfitGrade(
+                ($this->ccHelper->calculateProfitGrade($noSpecEntity->getProfitPercentage()))
+            );
         }
 
         return $noSpecEntities;

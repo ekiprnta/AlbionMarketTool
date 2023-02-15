@@ -51,12 +51,6 @@ class BlackMarketTransportingEntityTest extends TestCase
         $this->assertEquals(12.47, $this->bmtEntity->getSingleProfit());
     }
 
-    public function testWeightProfitQuotient(): void
-    {
-        $this->bmtEntity->setProfitQuotient(456.47);
-        $this->assertEquals(456.47, $this->bmtEntity->getProfitQuotient());
-    }
-
     public function testProfitGrade(): void
     {
         $this->bmtEntity->setProfitGrade('S');

@@ -51,7 +51,9 @@ class EnchantingHelper extends Market
             16 => 96,
             24 => 144,
             32 => 192,
-            default => throw new \InvalidArgumentException('Wrong Total Resource Amount in calculateMaterialAmount')
+            default => throw new \InvalidArgumentException(
+                'Wrong Total Resource Amount in calculateMaterialAmount ' . $totalResourceAmount
+            )
         };
     }
 

@@ -37,8 +37,8 @@ class RefiningServiceITest extends TestCase
             $this->assertEquals(80204.91, $refiningEntity->getSingleProfit());
             $this->assertEquals(968, $refiningEntity->getAmount());
             $this->assertEqualsWithDelta(77_638_352.88, $refiningEntity->getProfit(), $delta);
-            $this->assertEquals(80204.91, $refiningEntity->getProfitQuotient());
-            $this->assertEquals('S', $refiningEntity->getProfitGrade());
+            $this->assertEquals(-20.84, $refiningEntity->getProfitPercentage());
+            $this->assertEquals('D', $refiningEntity->getProfitGrade());
         }
     }
 
@@ -64,8 +64,8 @@ class RefiningServiceITest extends TestCase
             $this->assertEqualsWithDelta(5340.408, $refiningEntity->getSingleProfit(), $delta);
             $this->assertEquals(968, $refiningEntity->getAmount());
             $this->assertEqualsWithDelta(5169514.943999999, $refiningEntity->getProfit(), $delta);
-            $this->assertEqualsWithDelta(5340.408, $refiningEntity->getProfitQuotient(), $delta);
-            $this->assertEquals('S', $refiningEntity->getProfitGrade());
+            $this->assertEqualsWithDelta(180.76, $refiningEntity->getProfitPercentage(), $delta);
+            $this->assertEquals('A', $refiningEntity->getProfitGrade());
         }
     }
 

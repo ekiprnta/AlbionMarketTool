@@ -83,8 +83,8 @@ class BlackMarketCraftingEntityTest extends TestCase
 
     public function testWeightProfitQuotient(): void
     {
-        $this->bmcEntity->setProfitQuotient(1400.12);
-        $this->assertEquals(1400.12, $this->bmcEntity->getProfitQuotient());
+        $this->bmcEntity->setProfitPercentage(1400.12);
+        $this->assertEquals(1400.12, $this->bmcEntity->getProfitPercentage());
     }
 
     public function testColorGrade(): void

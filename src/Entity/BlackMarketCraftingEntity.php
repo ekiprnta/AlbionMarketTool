@@ -39,7 +39,7 @@ class BlackMarketCraftingEntity
     private float $fameAmount;
     private readonly int $tierColor;
     private int $itemValue;
-    private float $profitQuotient;
+    private float $profitPercentage;
 
     public function __construct(
         private readonly ItemEntity $item,
@@ -48,14 +48,14 @@ class BlackMarketCraftingEntity
         $this->tierColor = (int) ($item->getTier() / 10);
     }
 
-    public function getProfitQuotient(): float
+    public function getProfitPercentage(): float
     {
-        return $this->profitQuotient;
+        return $this->profitPercentage;
     }
 
-    public function setProfitQuotient(float $profitQuotient): void
+    public function setProfitPercentage(float $profitPercentage): void
     {
-        $this->profitQuotient = $profitQuotient;
+        $this->profitPercentage = $profitPercentage;
     }
 
     public function setJournalEntityEmpty(JournalEntity $journalEntityEmpty): void

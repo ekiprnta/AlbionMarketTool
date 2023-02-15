@@ -38,16 +38,20 @@ class RefiningHelper extends Market
         return $tier - 10;
     }
 
-    public function calculateProfit(
-        int $refinedResourcePrice,
+    public function calculateResourceCost(
         int $rawResourcePrice,
         int $lowerResourcePrice,
         int $amountRawResource,
         float $percentage
     ): float {
         $rate = (self::RRR_BASE_PERCENTAGE - $percentage) / 100;
-        $itemCost = $amountRawResource * $rawResourcePrice + $lowerResourcePrice;
-        return $this->calculateSellOrder($refinedResourcePrice) - $itemCost * $rate;
+        $resourceCost = $amountRawResource * $rawResourcePrice + $lowerResourcePrice;
+        return $rate * $resourceCost;
+    }
+
+    public function calculateProfit(int $refinedResourcePrice, float $resourceCost): float
+    {
+        return $this->calculateSellOrder($refinedResourcePrice) - $resourceCost;
     }
 
     public function calculateRefiningAmount(int $tier): int

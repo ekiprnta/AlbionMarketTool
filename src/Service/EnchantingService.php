@@ -21,6 +21,8 @@ class EnchantingService
     public function getEnchantingForCity(string $city): array
     {
         $items = $this->itemRepository->getItemsByLocation($city);
+        $items = $this->filter($items);
+
         $materials = $this->materialRepository->getMaterialsByLocation($city);
 
         $enchantingEntities = [];
@@ -72,16 +74,40 @@ class EnchantingService
                 )
             );
 
-            $enchantingEntity->setProfitQuotient(
-                $this->enchantingHelper->calculateProfitQuotient($enchantingEntity->getProfit(), 1)
+            $enchantingEntity->setProfitPercentage(
+                $this->enchantingHelper->calculateProfitPercentage(
+                    $enchantingEntity->getHigherEnchantmentItem()
+                        ->getSellOrderPrice(),
+                    $enchantingEntity->getMaterialCost() + $enchantingEntity->getItemEntity()
+                        ->getSellOrderPrice()
+                )
             );
 
             $enchantingEntity->setProfitGrade(
-                $this->enchantingHelper->calculateProfitGrade($enchantingEntity->getProfitQuotient())
+                $this->enchantingHelper->calculateProfitGrade($enchantingEntity->getProfitPercentage())
             );
 //            dump($enchantingEntity->getProfitQuotient());
         }
 
         return $enchantingEntities;
+    }
+
+    private function filter(array $items): array // TOdo better filtering
+    {
+        /** @var ItemEntity $item */
+        foreach ($items as $key => $item) {
+            if ($item->getTotalResourceAmount() === 8) {
+                $bla = 1;
+            } elseif ($item->getTotalResourceAmount() === 16) {
+                $bla = 1;
+            } elseif ($item->getTotalResourceAmount() === 24) {
+                $bla = 1;
+            } elseif ($item->getTotalResourceAmount() === 32) {
+                $bla = 1;
+            } else {
+                unset($items[$key]);
+            }
+        }
+        return $items;
     }
 }

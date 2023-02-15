@@ -11,7 +11,6 @@ class BlackMarketTransportEntity
     private int $amount;
     private float $profit;
     private float $singleProfit;
-    private float $profitQuotient;
     private string $profitGrade;
 
     private readonly int $tierColor;
@@ -72,16 +71,6 @@ class BlackMarketTransportEntity
     public function setProfitGrade(string $profitGrade): void
     {
         $this->profitGrade = $profitGrade;
-    }
-
-    public function getProfitQuotient(): float
-    {
-        return $this->profitQuotient;
-    }
-
-    public function setProfitQuotient(float $profitQuotient): void
-    {
-        $this->profitQuotient = $profitQuotient;
     }
 
     public function setProfit(float $profit): void

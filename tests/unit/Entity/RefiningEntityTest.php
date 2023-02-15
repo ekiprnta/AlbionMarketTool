@@ -64,8 +64,8 @@ class RefiningEntityTest extends TestCase
 
     public function testGetWeightAmountQuotient(): void
     {
-        $this->refiningEntity->setProfitQuotient(182.24);
-        $this->assertEquals(182.24, $this->refiningEntity->getProfitQuotient());
+        $this->refiningEntity->setProfitPercentage(182.24);
+        $this->assertEquals(182.24, $this->refiningEntity->getProfitPercentage());
     }
 
     public function testGetProfitGrade(): void
