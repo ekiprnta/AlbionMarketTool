@@ -6,7 +6,7 @@ namespace unit\Service;
 
 use MZierdt\Albion\Entity\ItemEntity;
 use MZierdt\Albion\Entity\MaterialEntity;
-use MZierdt\Albion\Service\CapesCraftingHelper;
+use MZierdt\Albion\Service\NoSpecCraftingHelper;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 
@@ -14,7 +14,7 @@ class CapesCraftingHelperTest extends TestCase
 {
     use ProphecyTrait;
 
-    private CapesCraftingHelper $ccHelper;
+    private NoSpecCraftingHelper $ccHelper;
 
     /**
      * @dataProvider provideDefaultCape
@@ -23,7 +23,7 @@ class CapesCraftingHelperTest extends TestCase
     {
         $data = $this->getTestDataItemEntity();
 
-        $this->assertEquals($defaultCape, $this->ccHelper->calculateDefaultCape($tier, $data));
+        $this->assertEquals($defaultCape, $this->ccHelper->calculateDefaultItem($tier, $data));
     }
 
     private function getTestDataItemEntity(): array
@@ -39,7 +39,7 @@ class CapesCraftingHelperTest extends TestCase
     public function testCalculateDefaultCapeException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->ccHelper->calculateDefaultCape(1, []);
+        $this->ccHelper->calculateDefaultItem(1, []);
     }
 
     /**
@@ -84,7 +84,7 @@ class CapesCraftingHelperTest extends TestCase
     /**
      * @dataProvider provideArtifact
      */
-    public function testCalculateArtifact(?MaterialEntity $defaultCape, string $resourceName, int $tier): void
+    public function testCalculateArtifact(?MaterialEntity $defaultCape, ?string $resourceName, int $tier): void
     {
         $data = $this->getTestDataMaterialEntity();
         $this->assertEquals($defaultCape, $this->ccHelper->calculateArtifact($resourceName, $tier, $data));
@@ -96,6 +96,7 @@ class CapesCraftingHelperTest extends TestCase
             [(new MaterialEntity())->setTier(10)->setRealName('materialA')->setName('materialA'), 'materialA', 10],
             [(new MaterialEntity())->setTier(70)->setRealName('materialB')->setName('materialB'), 'materialB', 72],
             [null, 'materialC', 70],
+            [null, null, 70],
         ];
     }
 
@@ -140,6 +141,6 @@ class CapesCraftingHelperTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->ccHelper = new CapesCraftingHelper();
+        $this->ccHelper = new NoSpecCraftingHelper();
     }
 }

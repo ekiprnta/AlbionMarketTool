@@ -48,6 +48,16 @@ class MaterialApiServiceTest extends TestCase
         $this->assertEquals(['a' => 'b'], $this->materialsApiService->getCapeArtifacts());
     }
 
+    public function testGetRoyalSigils(): void
+    {
+        $apiUrl = 'https://www.albion-online-data.com/api/v2/stats/prices/QUESTITEM_TOKEN_ROYAL_T4,QUESTITEM_TOKEN_ROYAL_T5,QUESTITEM_TOKEN_ROYAL_T6,QUESTITEM_TOKEN_ROYAL_T7,QUESTITEM_TOKEN_ROYAL_T8,';
+        $parameters = ['locations' => ApiService::CITY_ALL];
+        $this->httpClient->get($apiUrl, $parameters)
+            ->willReturn('{"a": "b"}');
+
+        $this->assertEquals(['a' => 'b'], $this->materialsApiService->getRoyalSigils());
+    }
+
     protected function setUp(): void
     {
         $this->httpClient = $this->prophesize(HttpClient::class);

@@ -125,15 +125,39 @@ class UploadHelper
         return $adjustedMaterials;
     }
 
-    public function calculateHeartAmount(int $tier): int
+    public function calculateHeartAndSigilAmount(int $tier, string $name): int
     {
         $tier = (int) ($tier / 10);
+
+        if (str_contains($name, 'shoes') || str_contains($name, 'head')) {
+            return match ($tier) {
+                4 => 2,
+                5 => 4,
+                6, 7, 8 => 8,
+                default => throw new \InvalidArgumentException(
+                    'Wrong Tier in calculateHeartAmount ' . $tier . ':' . $name
+                )
+            };
+        }
+        if (str_contains($name, 'armor')) {
+            return match ($tier) {
+                4 => 4,
+                5 => 8,
+                6, 7, 8 => 16,
+                default => throw new \InvalidArgumentException(
+                    'Wrong Tier in calculateHeartAmount ' . $tier . ':' . $name
+                )
+            };
+        }
+
         return match ($tier) {
             4, 5 => 1,
             6 => 3,
             7 => 5,
             8 => 10,
-            default => throw new \InvalidArgumentException('Wrong Tier in calculateHeartAmount ' . $tier)
+            default => throw new \InvalidArgumentException(
+                'Wrong Tier in calculateHeartAmount ' . $tier . ':' . $name
+            )
         };
     }
 

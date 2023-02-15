@@ -8,33 +8,38 @@ use MZierdt\Albion\Entity\NoSpecEntity;
 use MZierdt\Albion\repositories\ItemRepository;
 use MZierdt\Albion\repositories\MaterialRepository;
 
-class CapesCraftingService
+class NoSpecCraftingService
 {
     public function __construct(
         private readonly ItemRepository $itemRepository,
         private readonly MaterialRepository $materialRepository,
-        private readonly CapesCraftingHelper $ccHelper
+        private readonly NoSpecCraftingHelper $ccHelper
     ) {
     }
 
     public function getCapesByCity(string $city): array
     {
         $capes = $this->itemRepository->getArtifactCapesByCity($city);
+        $royalItems = $this->itemRepository->getRoyalItemsByCity($city);
+        $capesAndRoyalItems = array_merge($capes, $royalItems);
+
         $defaultCapes = $this->itemRepository->getDefaultCapesByCity($city);
+        $defaultArmor = $this->itemRepository->getDefaultArmor($city);
+        $defaultItems = array_merge($defaultArmor, $defaultCapes);
 
         $heartsAndSigils = $this->materialRepository->getHeartsAndSigilsByCity($city);
         $artifacts = $this->materialRepository->getCapeArtifactsByCity($city);
 
         $noSpecEntities = [];
-        foreach ($capes as $cape) {
-            $noSpecEntities[] = new NoSpecEntity($cape);
+        foreach ($capesAndRoyalItems as $item) {
+            $noSpecEntities[] = new NoSpecEntity($item);
         }
 
         /** @var NoSpecEntity $noSpecEntity */
         foreach ($noSpecEntities as $noSpecEntity) {
-            $specialCape = $noSpecEntity->getSpecialCape();
-            $noSpecEntity->setDefaultCape(
-                $this->ccHelper->calculateDefaultCape($specialCape->getTier(), $defaultCapes)
+            $specialCape = $noSpecEntity->getSpecialItem();
+            $noSpecEntity->setDefaultItem(
+                $this->ccHelper->calculateDefaultItem($specialCape->getTier(), $defaultItems)
             );
 
             $noSpecEntity->setSecondResource(
@@ -64,7 +69,7 @@ class CapesCraftingService
 
             $noSpecEntity->setMaterialCost(
                 $this->ccHelper->calculateMaterialCost(
-                    $noSpecEntity->getDefaultCape()
+                    $noSpecEntity->getDefaultItem()
                         ->getBuyOrderPrice(),
                     $noSpecEntity->getSecondResource()
                         ->getSellOrderPrice(),

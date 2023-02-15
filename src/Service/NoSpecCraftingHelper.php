@@ -6,9 +6,9 @@ namespace MZierdt\Albion\Service;
 
 use MZierdt\Albion\Entity\MaterialEntity;
 
-class CapesCraftingHelper extends Market
+class NoSpecCraftingHelper extends Market
 {
-    public function calculateDefaultCape(int $tier, array $capes)
+    public function calculateDefaultItem(int $tier, array $capes)
     {
         foreach ($capes as $cape) {
             if ($cape->getTier() === $tier) {
@@ -23,6 +23,7 @@ class CapesCraftingHelper extends Market
         int $tier,
         array $heartsAndSigils
     ): MaterialEntity {
+        $tier = (int) ($tier / 10) * 10;
         /** @var MaterialEntity $heartAndSigil */
         foreach ($heartsAndSigils as $heartAndSigil) {
             if ($heartAndSigil->getTier() === 10) {
@@ -39,8 +40,11 @@ class CapesCraftingHelper extends Market
         );
     }
 
-    public function calculateArtifact(string $artifactName, int $tier, array $artifacts): ?MaterialEntity
+    public function calculateArtifact(?string $artifactName, int $tier, array $artifacts): ?MaterialEntity
     {
+        if ($artifactName === null) {
+            return null;
+        }
         $baseTier = (int) ($tier / 10);
         /** @var MaterialEntity $artifact */
         foreach ($artifacts as $artifact) {

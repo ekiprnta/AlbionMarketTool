@@ -52,13 +52,13 @@
                 <tbody>
                 {# @var noSpecEntity \MZierdt\Albion\Entity\NoSpecEntity #}
                 {% for noSpecEntity in dataArray %}
-                    {% if noSpecEntity.specialCape.sellOrderPrice != 0 and noSpecEntity.defaultCape.buyOrderPrice != 0 and noSpecEntity.secondResource.sellOrderPrice !=0 and noSpecEntity.profit >= 0 %}
+                    {% if noSpecEntity.specialItem.sellOrderPrice != 0 and noSpecEntity.defaultItem.buyOrderPrice != 0 and noSpecEntity.secondResource.sellOrderPrice !=0 and noSpecEntity.profit >= 0 %}
                         <tr class="bg-{{ noSpecEntity.profitGrade }}">
-                            <td class="align-middle text-left tier-{{ noSpecEntity.tierColor }} tier">{{ noSpecEntity.specialCape.tier }}</td>
-                            <td class="align-middle">{{ noSpecEntity.specialCape.realName }}</td>
-                            <td class="align-middle {% if noSpecEntity.specialCape.sellOrderAge > 720 %} bg-D {% endif %}">
+                            <td class="align-middle text-left tier-{{ noSpecEntity.tierColor }} tier">{{ noSpecEntity.specialItem.tier }}</td>
+                            <td class="align-middle">{{ noSpecEntity.specialItem.realName }}</td>
+                            <td class="align-middle {% if noSpecEntity.specialItem.sellOrderAge > 720 %} bg-D {% endif %}">
                                 <a class="btn text-right w-100"
-                                   title="{{ noSpecEntity.specialCape.sellOrderAge|number_format }}min">{{ noSpecEntity.specialCape.sellOrderPrice|number_format }}</a>
+                                   title="{{ noSpecEntity.specialItem.sellOrderAge|number_format }}min">{{ noSpecEntity.specialItem.sellOrderPrice|number_format }}</a>
                             </td>
                             <td class="align-middle">{{ noSpecEntity.materialCost|number_format }}</td>
                             <td class="align-middle">{{ noSpecEntity.profit|number_format }}</td>

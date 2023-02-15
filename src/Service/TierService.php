@@ -11,6 +11,22 @@ class TierService
         $itemId = strtolower($itemId);
         $itemIdArray = explode('_', $itemId);
 
+        $tokenTier = match (end($itemIdArray)) {
+            't4' => 40,
+            't5' => 50,
+            't6' => 60,
+            't7' => 70,
+            't8' => 80,
+            default => null
+        };
+        if ($tokenTier !== null) {
+            array_pop($itemIdArray);
+            return [
+                'tier' => $tokenTier,
+                'name' => implode('_', $itemIdArray),
+            ];
+        }
+
         if ($itemIdArray[0] === 't2' || $itemIdArray[0] === 't3') {
             return [
                 'tier' => $this->tierConverter(array_shift($itemIdArray)) . '0',

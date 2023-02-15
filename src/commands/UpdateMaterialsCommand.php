@@ -27,9 +27,7 @@ class UpdateMaterialsCommand extends Command
 
         $output->writeln('Updating Materials...');
         $materials = $this->materialsApiService->getMaterials();
-
         $adjustedMaterials = $this->uploadHelper->adjustMaterials($materials, 'materials');
-
         foreach ($adjustedMaterials as $adjustedMaterial) {
             $this->materialRepository->createOrUpdate($adjustedMaterial);
         }
@@ -43,10 +41,17 @@ class UpdateMaterialsCommand extends Command
         }
 
         $output->writeln('Updating Cape Artifacts...');
-        $hearts = $this->materialsApiService->getCapeArtifacts();
-        $adjustedHearts = $this->uploadHelper->adjustMaterials($hearts, 'capeArtifacts');
-        foreach ($adjustedHearts as $adjustedHeart) {
-            $this->materialRepository->createOrUpdate($adjustedHeart);
+        $capeArtifacts = $this->materialsApiService->getCapeArtifacts();
+        $adjustedCapeArtifacts = $this->uploadHelper->adjustMaterials($capeArtifacts, 'capeArtifacts');
+        foreach ($adjustedCapeArtifacts as $adjustedCapeArtifact) {
+            $this->materialRepository->createOrUpdate($adjustedCapeArtifact);
+        }
+
+        $output->writeln('Updating Royal Sigils...');
+        $sigils = $this->materialsApiService->getRoyalSigils();
+        $adjustedSigils = $this->uploadHelper->adjustMaterials($sigils, 'heartsAndSigils');
+        foreach ($adjustedSigils as $adjustedSigil) {
+            $this->materialRepository->createOrUpdate($adjustedSigil);
         }
 
         return self::SUCCESS;

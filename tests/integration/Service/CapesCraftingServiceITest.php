@@ -9,8 +9,8 @@ use MZierdt\Albion\Entity\MaterialEntity;
 use MZierdt\Albion\Entity\NoSpecEntity;
 use MZierdt\Albion\repositories\ItemRepository;
 use MZierdt\Albion\repositories\MaterialRepository;
-use MZierdt\Albion\Service\CapesCraftingHelper;
-use MZierdt\Albion\Service\CapesCraftingService;
+use MZierdt\Albion\Service\NoSpecCraftingHelper;
+use MZierdt\Albion\Service\NoSpecCraftingService;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
@@ -19,7 +19,7 @@ class CapesCraftingServiceITest extends TestCase
 {
     use ProphecyTrait;
 
-    private CapesCraftingService $capesCraftingService;
+    private NoSpecCraftingService $capesCraftingService;
     private ItemRepository|ObjectProphecy $itemRepository;
     private MaterialRepository|ObjectProphecy $materialRepository;
 
@@ -29,6 +29,10 @@ class CapesCraftingServiceITest extends TestCase
             ->willReturn($this->getArtifactCapes());
         $this->itemRepository->getDefaultCapesByCity('TestCity')
             ->willReturn($this->getCapes());
+        $this->itemRepository->getDefaultArmor('TestCity')
+            ->willReturn([]);
+        $this->itemRepository->getRoyalItemsByCity('TestCity')
+            ->willReturn([]);
 
         $this->materialRepository->getHeartsAndSigilsByCity('TestCity')
             ->willReturn($this->getHearts());
@@ -78,10 +82,10 @@ class CapesCraftingServiceITest extends TestCase
         $this->itemRepository = $this->prophesize(ItemRepository::class);
         $this->materialRepository = $this->prophesize(MaterialRepository::class);
 
-        $this->capesCraftingService = new CapesCraftingService(
+        $this->capesCraftingService = new NoSpecCraftingService(
             $this->itemRepository->reveal(),
             $this->materialRepository->reveal(),
-            new CapesCraftingHelper()
+            new NoSpecCraftingHelper()
         );
     }
 }
