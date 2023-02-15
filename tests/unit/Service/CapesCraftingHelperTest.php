@@ -23,7 +23,7 @@ class CapesCraftingHelperTest extends TestCase
     {
         $data = $this->getTestDataItemEntity();
 
-        $this->assertEquals($defaultCape, $this->ccHelper->calculateDefaultCape($tier, $data));
+        $this->assertEquals($defaultCape, $this->ccHelper->calculateDefaultItem($tier, $data));
     }
 
     private function getTestDataItemEntity(): array
@@ -39,7 +39,7 @@ class CapesCraftingHelperTest extends TestCase
     public function testCalculateDefaultCapeException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->ccHelper->calculateDefaultCape(1, []);
+        $this->ccHelper->calculateDefaultItem(1, []);
     }
 
     /**

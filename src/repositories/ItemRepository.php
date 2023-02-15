@@ -66,4 +66,22 @@ class ItemRepository extends Repository
     {
         return $this->findBy(ItemEntity::class, ['city' => $city, 'name' => 'cape']) ?? [];
     }
+
+    public function getRoyalItemsByCity(string $city): array
+    {
+        return $this->findBy(ItemEntity::class, ['city' => $city, 'weaponGroup' => 'royal']) ?? [];
+    }
+
+    public function getDefaultArmor(string $city)
+    {
+        return $this->entityManager->getRepository(ItemEntity::class)->createQueryBuilder('i')
+            ->where('i.city = :city')
+            ->andWhere('i.name Like :name')
+            ->andWhere('i.bonusCity Not Like :bonusCity')
+            ->setParameter('city', $city)
+            ->setParameter('name', '%set%')
+            ->setParameter('bonusCity', 'Caerleon')
+            ->getQuery()
+            ->getResult() ?? [];
+    }
 }

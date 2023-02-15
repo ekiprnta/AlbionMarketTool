@@ -6,7 +6,7 @@ namespace MZierdt\Albion\Entity;
 
 class NoSpecEntity
 {
-    private ItemEntity $defaultCape;
+    private ItemEntity $defaultItem;
     private MaterialEntity $secondResource;
     private ?MaterialEntity $artifact;
 
@@ -17,9 +17,9 @@ class NoSpecEntity
     private string $profitGrade;
     private int $tierColor;
 
-    public function __construct(private readonly ItemEntity $specialCape)
+    public function __construct(private readonly ItemEntity $specialItem)
     {
-        $this->tierColor = (int) ($this->specialCape->getTier() / 10);
+        $this->tierColor = (int) ($this->specialItem->getTier() / 10);
     }
 
     public function getProfit(): float
@@ -67,14 +67,14 @@ class NoSpecEntity
         $this->materialCost = $materialCost;
     }
 
-    public function getDefaultCape(): ItemEntity
+    public function getDefaultItem(): ItemEntity
     {
-        return $this->defaultCape;
+        return $this->defaultItem;
     }
 
-    public function setDefaultCape(ItemEntity $defaultCape): void
+    public function setDefaultItem(ItemEntity $defaultItem): void
     {
-        $this->defaultCape = $defaultCape;
+        $this->defaultItem = $defaultItem;
     }
 
     public function getSecondResource(): MaterialEntity
@@ -97,8 +97,8 @@ class NoSpecEntity
         $this->artifact = $artifact;
     }
 
-    public function getSpecialCape(): ItemEntity
+    public function getSpecialItem(): ItemEntity
     {
-        return $this->specialCape;
+        return $this->specialItem;
     }
 }

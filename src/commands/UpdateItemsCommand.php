@@ -30,7 +30,7 @@ class UpdateItemsCommand extends Command
         $message = 'successfully updated all Prices';
         try {
             $itemList = $this->configService->getItemConfig();
-            $capeList = $this->configService->getCapesAndRoyalConfig();
+            $capesAndRoyalList = $this->configService->getCapesAndRoyalConfig();
         } catch (\JsonException $jsonException) {
             $output->writeln($jsonException->getMessage());
             return self::FAILURE;
@@ -43,10 +43,10 @@ class UpdateItemsCommand extends Command
             $progressBar->setMessage('Get Item:' . $itemStats['realName']);
             $progressBar->advance();
             $progressBar->display();
-            $capeData = $this->itemApiService->getItems($itemStats['id_snippet']);
+            $capeAndRoyalData = $this->itemApiService->getItems($itemStats['id_snippet']);
             $progressBar->setMessage('preparing Item' . $itemStats['realName']);
             $progressBar->display();
-            $adjustedCapes = $this->uploadHelper->adjustItems($capeData, $itemStats, true);
+            $adjustedCapes = $this->uploadHelper->adjustItems($capeAndRoyalData, $itemStats, true);
             $progressBar->setMessage('Upload Item ' . $itemStats['realName'] . ' into Database');
             $progressBar->display();
             foreach ($adjustedCapes as $adjustedItem) {
@@ -55,27 +55,33 @@ class UpdateItemsCommand extends Command
         }
 
         $output->writeln(PHP_EOL . 'Updating Capes...');
-        $progressBar = ProgressBarService::getProgressBar($output, is_countable($capeList) ? count($capeList) : 0);
+        $progressBar = ProgressBarService::getProgressBar(
+            $output,
+            is_countable($capesAndRoyalList) ? count($capesAndRoyalList) : 0
+        );
 
-        foreach ($capeList as $capeStats) {
-            $progressBar->setMessage('Get Cape:' . $capeStats['realName']);
+        foreach ($capesAndRoyalList as $capeAndRoyalStats) {
+            $progressBar->setMessage('Get Cape:' . $capeAndRoyalStats['realName']);
             $progressBar->advance();
             $progressBar->display();
-            $capeData = $this->itemApiService->getCapes($capeStats['id_snippet']);
-            $progressBar->setMessage('preparing Cape' . $capeStats['realName']);
+            $capeAndRoyalData = $this->itemApiService->getCapes($capeAndRoyalStats['id_snippet']);
+            $progressBar->setMessage('preparing Cape' . $capeAndRoyalStats['realName']);
             $progressBar->display();
-            $adjustedCapes = $this->uploadHelper->adjustItems($capeData, $capeStats, false);
-            $progressBar->setMessage('Upload Cape ' . $capeStats['realName'] . ' into Database');
+            $adjustedCapes = $this->uploadHelper->adjustItems($capeAndRoyalData, $capeAndRoyalStats, false);
+            $progressBar->setMessage('Upload Cape ' . $capeAndRoyalStats['realName'] . ' into Database');
             $progressBar->display();
-            /** @var ItemEntity $adjustedCape */
-            foreach ($adjustedCapes as $adjustedCape) {
-                if ($adjustedCape->getTier() < 40) {
+            /** @var ItemEntity $adjustedCapeAndRoyal */
+            foreach ($adjustedCapes as $adjustedCapeAndRoyal) {
+                if ($adjustedCapeAndRoyal->getTier() < 40) {
                     continue;
                 }
-                $adjustedCape->setSecondaryResourceAmount(
-                    $this->uploadHelper->calculateHeartAmount($adjustedCape->getTier())
+                $adjustedCapeAndRoyal->setSecondaryResourceAmount(
+                    $this->uploadHelper->calculateHeartAndSigilAmount(
+                        $adjustedCapeAndRoyal->getTier(),
+                        $adjustedCapeAndRoyal->getName()
+                    )
                 );
-                $this->itemRepository->createOrUpdate($adjustedCape);
+                $this->itemRepository->createOrUpdate($adjustedCapeAndRoyal);
             }
         }
 
