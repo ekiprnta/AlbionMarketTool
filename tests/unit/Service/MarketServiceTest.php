@@ -27,17 +27,27 @@ class MarketServiceTest extends TestCase
 
     public function getWeightProfitQuotient(): array
     {
-        return [[-123.23, 'D'], [123, 'C'], [250.876, 'C'], [678.12, 'B'], [900, 'A'], [1400, 'A'], [3467.09, 'S']];
+        return [
+            [99, 'D'],
+            [100, 'C'],
+            [149, 'C'],
+            [150, 'B'],
+            [199, 'B'],
+            [200, 'A'],
+            [249, 'A'],
+            [250, 'S'],
+            [1000, 'S'],
+        ];
     }
 
     /**
      * @dataProvider getProfitAndWeight
      */
-    public function testCalculateWeightProfitQuotient(float $testProfit, int $testWeight, float $expectedResult): void
+    public function testCalculateProfitPercentage(float $turnover, int $totalCost, float $expectedResult): void
     {
         $this->assertEqualsWithDelta(
             $expectedResult,
-            $this->market->calculateProfitQuotient($testProfit, $testWeight),
+            $this->market->calculateProfitPercentage($turnover, $totalCost),
             0,
             000000001
         );
@@ -46,12 +56,9 @@ class MarketServiceTest extends TestCase
     public function getProfitAndWeight(): array
     {
         return [
-            [125000, 50, 2500],
-            [125000, 2000, 62.5],
-            [18_203_859, 2700, 6742.17],
-            [9_664_554, 6900, 1400.66],
-            [125000, 25000, 5],
-            [0, 25000, 0.0],
+            [110000, 100000, 110],
+            [20000, 25000, 80],
+            [15, 10, 136.36],
         ];
     }
 }
