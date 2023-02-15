@@ -60,9 +60,9 @@ class TierServiceTest extends TestCase
                 'QUESTITEM_TOKEN_ROYAL_T5',
                 [
                     'tier' => 50,
-                    'name' => 'questitem_token_royal'
-                ]
-            ]
+                    'name' => 'questitem_token_royal',
+                ],
+            ],
         ];
     }
 

@@ -23,7 +23,7 @@ class TierService
             array_pop($itemIdArray);
             return [
                 'tier' => $tokenTier,
-                'name' => implode('_', $itemIdArray)
+                'name' => implode('_', $itemIdArray),
             ];
         }
 
@@ -37,7 +37,7 @@ class TierService
         $preTier = array_shift($itemIdArray);
         $itemName = implode('_', $itemIdArray);
 
-        if (!str_contains($itemName, '@')) {
+        if (! str_contains($itemName, '@')) {
             return [
                 'tier' => $this->tierConverter($preTier) . '0',
                 'name' => $itemName,

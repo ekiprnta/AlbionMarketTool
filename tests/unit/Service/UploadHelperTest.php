@@ -227,13 +227,7 @@ class UploadHelperTest extends TestCase
 
     public function provideHeartAmount(): array
     {
-        return [
-            [2, 41, 'head'],
-            [1, 52, 'bla'],
-            [16, 60, 'armor'],
-            [8, 74, 'shoes'],
-            [10, 83, 'test']
-        ];
+        return [[2, 41, 'head'], [1, 52, 'bla'], [16, 60, 'armor'], [8, 74, 'shoes'], [10, 83, 'test']];
     }
 
     /**

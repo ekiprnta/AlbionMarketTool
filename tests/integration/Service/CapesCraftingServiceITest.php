@@ -29,8 +29,10 @@ class CapesCraftingServiceITest extends TestCase
             ->willReturn($this->getArtifactCapes());
         $this->itemRepository->getDefaultCapesByCity('TestCity')
             ->willReturn($this->getCapes());
-        $this->itemRepository->getDefaultArmor('TestCity')->willReturn([]);
-        $this->itemRepository->getRoyalItemsByCity('TestCity')->willReturn([]);
+        $this->itemRepository->getDefaultArmor('TestCity')
+            ->willReturn([]);
+        $this->itemRepository->getRoyalItemsByCity('TestCity')
+            ->willReturn([]);
 
         $this->materialRepository->getHeartsAndSigilsByCity('TestCity')
             ->willReturn($this->getHearts());
