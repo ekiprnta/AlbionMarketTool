@@ -76,7 +76,8 @@ class BlackMarketCraftingServiceITest extends TestCase
             $this->assertEquals('planks', $blackMarketCraftingEntity->getSecResource()->getName());
             $this->assertEquals(
                 'journal_warrior_empty',
-                $blackMarketCraftingEntity->getJournalEntityEmpty()->getName()
+                $blackMarketCraftingEntity->getJournalEntityEmpty()
+                    ->getName()
             );
             $this->assertEquals('journal_warrior_full', $blackMarketCraftingEntity->getJournalEntityFull()->getName());
         }
@@ -138,7 +139,8 @@ class BlackMarketCraftingServiceITest extends TestCase
             $this->assertEquals('planks', $blackMarketCraftingEntity->getSecResource()->getName());
             $this->assertEquals(
                 'journal_warrior_empty',
-                $blackMarketCraftingEntity->getJournalEntityEmpty()->getName()
+                $blackMarketCraftingEntity->getJournalEntityEmpty()
+                    ->getName()
             );
             $this->assertEquals('journal_warrior_full', $blackMarketCraftingEntity->getJournalEntityFull()->getName());
         }

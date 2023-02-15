@@ -88,7 +88,8 @@ class NoSpecCraftingService
 
             $noSpecEntity->setProfitPercentage(
                 $this->ccHelper->calculateProfitPercentage(
-                    $noSpecEntity->getSpecialItem()->getSellOrderPrice(),
+                    $noSpecEntity->getSpecialItem()
+                        ->getSellOrderPrice(),
                     $noSpecEntity->getMaterialCost()
                 )
             );

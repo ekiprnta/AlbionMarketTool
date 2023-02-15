@@ -51,8 +51,10 @@ class RefiningService
             $refiningEntity->setLowerResource($this->refiningHelper->calculateResource($lowerTier, $resources));
 
             $resourceCost = $this->refiningHelper->calculateResourceCost(
-                $refiningEntity->getRawResource()->getSellOrderPrice(),
-                $refiningEntity->getLowerResource()->getSellOrderPrice(),
+                $refiningEntity->getRawResource()
+                    ->getSellOrderPrice(),
+                $refiningEntity->getLowerResource()
+                    ->getSellOrderPrice(),
                 $refiningEntity->getAmountRawResource(),
                 $percentage
             );
@@ -74,7 +76,8 @@ class RefiningService
             );
             $refiningEntity->setProfitPercentage(
                 $this->refiningHelper->calculateProfitPercentage(
-                    $refiningEntity->getResourceEntity()->getSellOrderPrice(),
+                    $refiningEntity->getResourceEntity()
+                        ->getSellOrderPrice(),
                     $resourceCost
                 )
             );

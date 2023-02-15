@@ -49,10 +49,8 @@ class RefiningHelper extends Market
         return $rate * $resourceCost;
     }
 
-    public function calculateProfit(
-        int $refinedResourcePrice,
-        float $resourceCost,
-    ): float {
+    public function calculateProfit(int $refinedResourcePrice, float $resourceCost): float
+    {
         return $this->calculateSellOrder($refinedResourcePrice) - $resourceCost;
     }
 

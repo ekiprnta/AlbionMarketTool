@@ -85,7 +85,9 @@ class RefiningHelperTest extends TestCase
         return [['40', '30'], ['41', '30'], ['42', '30'], ['50', '40'], ['53', '43']];
     }
 
-    /** @dataProvider provideResourceCost */
+    /**
+     * @dataProvider provideResourceCost
+     */
     public function testCalculateResourceCost(
         float $result,
         int $rawResourcePrice,
@@ -106,10 +108,7 @@ class RefiningHelperTest extends TestCase
 
     public function provideResourceCost(): array
     {
-        return [
-            [138.3, 50, 100, 4, 53.9],
-            [255, 50, 100, 4, 15],
-        ];
+        return [[138.3, 50, 100, 4, 53.9], [255, 50, 100, 4, 15]];
     }
 
     /**
@@ -122,21 +121,14 @@ class RefiningHelperTest extends TestCase
     ): void {
         $this->assertEqualsWithDelta(
             $expectedProfit,
-            $this->refiningHelper->calculateProfit(
-                $refinedResourcePrice,
-                $resourceCost
-            ),
+            $this->refiningHelper->calculateProfit($refinedResourcePrice, $resourceCost),
             0.00000001
         );
     }
 
     public function getProfit(): array
     {
-        return [
-            [-150, 10000, 9500],
-            [4750, 50000, 42000],
-            [83.5, 100, 10],
-        ];
+        return [[-150, 10000, 9500], [4750, 50000, 42000], [83.5, 100, 10]];
     }
 
     /**
