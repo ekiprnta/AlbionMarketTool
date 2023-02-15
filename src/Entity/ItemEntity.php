@@ -245,7 +245,7 @@ class ItemEntity extends AlbionItemEntity
             self::TIER_T8_2 => self::T82_FACTOR_FAME,
             self::TIER_T8_3 => self::T83_FACTOR_FAME,
             self::TIER_T8_4 => self::T84_FACTOR_FAME,
-            default => throw new \InvalidArgumentException('wrong Factor in Item Entity')
+            default => throw new \InvalidArgumentException('wrong Factor in Item Entity ' . $tier)
         };
     }
 
@@ -279,7 +279,7 @@ class ItemEntity extends AlbionItemEntity
             self::TIER_T8_2 => self::T82_NUTRITION_FACTOR,
             self::TIER_T8_3 => self::T83_NUTRITION_FACTOR,
             self::TIER_T8_4 => self::T84_NUTRITION_FACTOR,
-            default => throw new \InvalidArgumentException('wrong Nutrition Factor in Item Entity')
+            default => throw new \InvalidArgumentException('wrong Nutrition Factor in Item Entity ' . $tier)
         };
     }
 
