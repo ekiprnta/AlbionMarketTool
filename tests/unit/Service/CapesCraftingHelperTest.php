@@ -35,7 +35,7 @@ class CapesCraftingHelperTest extends TestCase
     {
         return [
             [(new ItemEntity())->setTier(41)->setName('cape'), 41, 'cape'],
-            [(new ItemEntity())->setTier(52)->setName('robe'), 52, 'robe']
+            [(new ItemEntity())->setTier(52)->setName('robe'), 52, 'robe'],
         ];
     }
 

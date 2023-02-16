@@ -82,9 +82,6 @@ class NoSpecCraftingService
                     $artifactPrice
                 )
             );
-            if ($specialItem->getRealName() === 'Undead Cape') {
-                dump([$noSpecEntity, $artifactPrice, $noSpecEntity->getArtifact()]);
-            }
 
             $noSpecEntity->setProfit(
                 $this->ccHelper->calculateProfit(
