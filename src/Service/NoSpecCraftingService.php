@@ -37,50 +37,55 @@ class NoSpecCraftingService
 
         /** @var NoSpecEntity $noSpecEntity */
         foreach ($noSpecEntities as $noSpecEntity) {
-            $specialCape = $noSpecEntity->getSpecialItem();
+            $specialItem = $noSpecEntity->getSpecialItem();
             $noSpecEntity->setDefaultItem(
-                $this->ccHelper->calculateDefaultItem($specialCape->getTier(), $defaultItems)
+                $this->ccHelper->calculateDefaultItem(
+                    $specialItem->getTier(),
+                    $specialItem->getPrimaryResource(),
+                    $defaultItems
+                )
             );
 
             $noSpecEntity->setSecondResource(
                 $this->ccHelper->calculateSecondResource(
-                    $specialCape
+                    $specialItem
                         ->getSecondaryResource(),
-                    $specialCape
+                    $specialItem
                         ->getTier(),
                     $heartsAndSigils
                 )
             );
             $noSpecEntity->setArtifact(
                 $this->ccHelper->calculateArtifact(
-                    $specialCape
+                    $specialItem
                         ->getArtifact(),
-                    $specialCape
+                    $specialItem
                         ->getTier(),
                     $artifacts
                 )
             );
             if ($noSpecEntity->getArtifact() === null) {
-                $artifactPrice = 0;
+                $artifactPrice = 1;
             } else {
                 $artifactPrice = $noSpecEntity->getArtifact()
-                    ->getBuyOrderPrice();
+                    ->getSellOrderPrice();
             }
 
             $noSpecEntity->setMaterialCost(
                 $this->ccHelper->calculateMaterialCost(
                     $noSpecEntity->getDefaultItem()
-                        ->getBuyOrderPrice(),
+                        ->getSellOrderPrice(),
                     $noSpecEntity->getSecondResource()
                         ->getSellOrderPrice(),
-                    $specialCape
+                    $specialItem
                         ->getSecondaryResourceAmount(),
                     $artifactPrice
                 )
             );
+
             $noSpecEntity->setProfit(
                 $this->ccHelper->calculateProfit(
-                    $specialCape
+                    $specialItem
                         ->getSellOrderPrice(),
                     $noSpecEntity->getMaterialCost()
                 )

@@ -16,7 +16,9 @@ class AdminHandler
 
     public function handler(): HtmlResponse
     {
-        $htmlContent = $this->twigEnvironment->render('admin.html.twig');
+        $now = new \DateTimeImmutable();
+
+        $htmlContent = $this->twigEnvironment->render('admin.html.twig',);
         return new HtmlResponse($htmlContent);
     }
 }
