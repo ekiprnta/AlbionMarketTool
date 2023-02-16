@@ -158,6 +158,7 @@ class BlackMarketCraftingService
                         ->getSellOrderPrice()
                 )
             );
+
             $bmcEntity->setProfitPercentage(
                 $this->bmtHelper->calculateProfitPercentage($bmcEntity->getItem()->getSellOrderPrice(), $itemCost)
             );
