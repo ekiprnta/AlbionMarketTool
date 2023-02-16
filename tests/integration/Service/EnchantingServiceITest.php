@@ -34,6 +34,7 @@ class EnchantingServiceITest extends TestCase
 
         $itemRepository->getItemsByLocation('TestCity')
             ->willReturn($this->getItems());
+        $itemRepository->getItemsByLocationForBM('Black Market')->willReturn($this->getItems());
         $materialRepository->getMaterialsByLocation('TestCity')
             ->willReturn($this->getMaterials());
 

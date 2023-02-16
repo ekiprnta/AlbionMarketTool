@@ -45,7 +45,8 @@
                     <th>Name</th>
                     <th>Base ItemPrice</th>
                     <th>Bm Sell Price</th>
-                    <th>MaterialCost</th>
+                    <th>Material Price</th>
+                    <th>Total Material Cost</th>
                     <th>MaterialAmount</th>
                     <th>Profit</th>
                     <th>Percentage</th>
@@ -66,6 +67,7 @@
                                 <a class="btn text-right w-100"
                                    title="{{ enchantingEntity.higherEnchantmentItem.sellOrderAge|number_format }}min">{{ enchantingEntity.higherEnchantmentItem.sellOrderPrice|number_format }}</a>
                             </td>
+                            <td class="align-middle">{{ enchantingEntity.enchantmentMaterial.buyOrderPrice|number_format }}</td>
                             <td class="align-middle">{{ enchantingEntity.materialCost|number_format }}</td>
                             <td class="align-middle">{{ enchantingEntity.materialAmount|number_format }}</td>
                             <td class="align-middle">{{ enchantingEntity.profit|number_format }}</td>
