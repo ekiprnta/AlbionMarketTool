@@ -23,6 +23,8 @@ class EnchantingService
         $items = $this->itemRepository->getItemsByLocation($city);
         $items = $this->filter($items);
 
+        $bmItems = $this->itemRepository->getItemsByLocationForBM('Black Market');
+
         $materials = $this->materialRepository->getMaterialsByLocation($city);
 
         $enchantingEntities = [];
@@ -45,7 +47,7 @@ class EnchantingService
                 $this->enchantingHelper->calculateHigherEnchantmentItem(
                     $itemEntity->getTier(),
                     $itemEntity->getName(),
-                    $items
+                    $bmItems
                 )
             );
 

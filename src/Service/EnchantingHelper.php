@@ -17,7 +17,9 @@ class EnchantingHelper extends Market
                 return $item;
             }
         }
-        throw new \InvalidArgumentException('No Higher Enchantment found in calculateHigherEnchantmentItem');
+        throw new \InvalidArgumentException(
+            'No Higher Enchantment found in calculateHigherEnchantmentItem ' . $tier . ':' . $name
+        );
     }
 
     public function calculateEnchantmentMaterial(int $tier, ?array $materials): MaterialEntity
