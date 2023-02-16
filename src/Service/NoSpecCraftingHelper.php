@@ -63,9 +63,8 @@ class NoSpecCraftingHelper extends Market
         int $secondaryMaterialAmount,
         int $artifactCost
     ): float {
-        return $this->calculateBuyOrder(
-                $primaryItemCost
-            ) + ($secondaryMaterialCost * $secondaryMaterialAmount) + $this->calculateBuyOrder($artifactCost);
+        return
+            $primaryItemCost + ($secondaryMaterialCost * $secondaryMaterialAmount) + ($artifactCost);
     }
 
     public function calculateProfit(int $specialCapePrice, float $materialCost): float

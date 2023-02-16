@@ -126,7 +126,7 @@ class CapesCraftingHelperTest extends TestCase
 
     public function provideMaterialCost(): array
     {
-        return [[1051.675, 50, 100, 10, 3], [176.25, 100, 3, 10, 50], [600.425, 3, 10, 50, 100]];
+        return [[1053, 50, 100, 10, 3], [180, 100, 3, 10, 50], [603, 3, 10, 50, 100]];
     }
 
     /**

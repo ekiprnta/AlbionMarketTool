@@ -52,7 +52,7 @@
                 <tbody>
                 {# @var noSpecEntity \MZierdt\Albion\Entity\NoSpecEntity #}
                 {% for noSpecEntity in dataArray %}
-                    {% if noSpecEntity.specialItem.sellOrderPrice != 0 and noSpecEntity.defaultItem.buyOrderPrice != 0 and noSpecEntity.secondResource.sellOrderPrice !=0 and noSpecEntity.profit >= 0 %}
+                    {% if noSpecEntity.specialItem.sellOrderPrice != 0 and noSpecEntity.defaultItem.sellOrderPrice != 0 and noSpecEntity.secondResource.sellOrderPrice !=0 and noSpecEntity.artifact.sellOrderPrice !=0 and noSpecEntity.profit >= 0 %}
                         <tr class="bg-{{ noSpecEntity.profitGrade }}">
                             <td class="align-middle text-left tier-{{ noSpecEntity.tierColor }} tier">{{ noSpecEntity.specialItem.tier }}</td>
                             <td class="align-middle">{{ noSpecEntity.specialItem.realName }}</td>
