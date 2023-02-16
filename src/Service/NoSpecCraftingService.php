@@ -39,7 +39,11 @@ class NoSpecCraftingService
         foreach ($noSpecEntities as $noSpecEntity) {
             $specialCape = $noSpecEntity->getSpecialItem();
             $noSpecEntity->setDefaultItem(
-                $this->ccHelper->calculateDefaultItem($specialCape->getTier(), $defaultItems)
+                $this->ccHelper->calculateDefaultItem(
+                    $specialCape->getTier(),
+                    $specialCape->getPrimaryResource(),
+                    $defaultItems
+                )
             );
 
             $noSpecEntity->setSecondResource(

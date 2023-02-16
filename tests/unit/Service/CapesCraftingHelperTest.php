@@ -19,27 +19,30 @@ class CapesCraftingHelperTest extends TestCase
     /**
      * @dataProvider provideDefaultCape
      */
-    public function testCalculateDefaultCape(ItemEntity $defaultCape, int $tier): void
+    public function testCalculateDefaultCape(ItemEntity $defaultCape, int $tier, string $name): void
     {
         $data = $this->getTestDataItemEntity();
 
-        $this->assertEquals($defaultCape, $this->ccHelper->calculateDefaultItem($tier, $data));
+        $this->assertEquals($defaultCape, $this->ccHelper->calculateDefaultItem($tier, $name, $data));
     }
 
     private function getTestDataItemEntity(): array
     {
-        return [(new ItemEntity())->setTier(41), (new ItemEntity())->setTier(52)];
+        return [(new ItemEntity())->setTier(41)->setName('cape'), (new ItemEntity())->setTier(52)->setName('robe')];
     }
 
     public function provideDefaultCape(): array
     {
-        return [[(new ItemEntity())->setTier(41), 41], [(new ItemEntity())->setTier(52), 52]];
+        return [
+            [(new ItemEntity())->setTier(41)->setName('cape'), 41, 'cape'],
+            [(new ItemEntity())->setTier(52)->setName('robe'), 52, 'robe']
+        ];
     }
 
     public function testCalculateDefaultCapeException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->ccHelper->calculateDefaultItem(1, []);
+        $this->ccHelper->calculateDefaultItem(1, 'cape', []);
     }
 
     /**

@@ -133,7 +133,7 @@
   },
   "royal_cowl1": {
     "id_snippet": "HEAD_CLOTH_ROYAL",
-    "primaryResource": "HEAD_CLOTH_SET1",
+    "primaryResource": "head_cloth_set1",
     "primaryResourceAmount": 1,
     "secondaryResource": "questitem_token_royal",
     "secondaryResourceAmount": null,
@@ -145,7 +145,7 @@
   },
   "royal_cowl2": {
     "id_snippet": "HEAD_CLOTH_ROYAL",
-    "primaryResource": "HEAD_CLOTH_SET2",
+    "primaryResource": "head_cloth_set2",
     "primaryResourceAmount": 1,
     "secondaryResource": "questitem_token_royal",
     "secondaryResourceAmount": null,
@@ -157,7 +157,7 @@
   },
   "royal_cowl3": {
     "id_snippet": "HEAD_CLOTH_ROYAL",
-    "primaryResource": "HEAD_CLOTH_SET3",
+    "primaryResource": "head_cloth_set3",
     "primaryResourceAmount": 1,
     "secondaryResource": "questitem_token_royal",
     "secondaryResourceAmount": null,
@@ -169,7 +169,7 @@
   },
   "royal_robe1": {
     "id_snippet": "ARMOR_CLOTH_ROYAL",
-    "primaryResource": "ARMOR_CLOTH_SET1",
+    "primaryResource": "armor_cloth_set1",
     "primaryResourceAmount": 1,
     "secondaryResource": "questitem_token_royal",
     "secondaryResourceAmount": null,
@@ -181,7 +181,7 @@
   },
   "royal_robe2": {
     "id_snippet": "ARMOR_CLOTH_ROYAL",
-    "primaryResource": "ARMOR_CLOTH_SET2",
+    "primaryResource": "armor_cloth_set2",
     "primaryResourceAmount": 1,
     "secondaryResource": "questitem_token_royal",
     "secondaryResourceAmount": null,
@@ -193,7 +193,7 @@
   },
   "royal_robe3": {
     "id_snippet": "ARMOR_CLOTH_ROYAL",
-    "primaryResource": "ARMOR_CLOTH_SET3",
+    "primaryResource": "armor_cloth_set3",
     "primaryResourceAmount": 1,
     "secondaryResource": "questitem_token_royal",
     "secondaryResourceAmount": null,
@@ -205,7 +205,7 @@
   },
   "royal_sandals1": {
     "id_snippet": "SHOES_CLOTH_ROYAL",
-    "primaryResource": "SHOES_CLOTH_SET1",
+    "primaryResource": "shoes_cloth_set1",
     "primaryResourceAmount": 1,
     "secondaryResource": "questitem_token_royal",
     "secondaryResourceAmount": null,
@@ -217,7 +217,7 @@
   },
   "royal_sandals2": {
     "id_snippet": "SHOES_CLOTH_ROYAL",
-    "primaryResource": "SHOES_CLOTH_SET2",
+    "primaryResource": "shoes_cloth_set2",
     "primaryResourceAmount": 1,
     "secondaryResource": "questitem_token_royal",
     "secondaryResourceAmount": null,
@@ -229,7 +229,7 @@
   },
   "royal_sandals3": {
     "id_snippet": "SHOES_CLOTH_ROYAL",
-    "primaryResource": "SHOES_CLOTH_SET3",
+    "primaryResource": "shoes_cloth_set3",
     "primaryResourceAmount": 1,
     "secondaryResource": "questitem_token_royal",
     "secondaryResourceAmount": null,
@@ -241,7 +241,7 @@
   },
   "royal_hood1": {
     "id_snippet": "HEAD_LEATHER_ROYAL",
-    "primaryResource": "HEAD_LEATHER_SET1",
+    "primaryResource": "head_leather_set1",
     "primaryResourceAmount": 1,
     "secondaryResource": "questitem_token_royal",
     "secondaryResourceAmount": null,
@@ -253,7 +253,7 @@
   },
   "royal_hood2": {
     "id_snippet": "HEAD_LEATHER_ROYAL",
-    "primaryResource": "HEAD_LEATHER_SET2",
+    "primaryResource": "head_leather_set2",
     "primaryResourceAmount": 1,
     "secondaryResource": "questitem_token_royal",
     "secondaryResourceAmount": null,
@@ -265,7 +265,7 @@
   },
   "royal_hood3": {
     "id_snippet": "HEAD_LEATHER_ROYAL",
-    "primaryResource": "HEAD_LEATHER_SET3",
+    "primaryResource": "head_leather_set3",
     "primaryResourceAmount": 1,
     "secondaryResource": "questitem_token_royal",
     "secondaryResourceAmount": null,
@@ -277,7 +277,7 @@
   },
   "royal_jacket1": {
     "id_snippet": "ARMOR_LEATHER_ROYAL",
-    "primaryResource": "ARMOR_LEATHER_SET1",
+    "primaryResource": "armor_leather_set1",
     "primaryResourceAmount": 1,
     "secondaryResource": "questitem_token_royal",
     "secondaryResourceAmount": null,
@@ -289,7 +289,7 @@
   },
   "royal_jacket2": {
     "id_snippet": "ARMOR_LEATHER_ROYAL",
-    "primaryResource": "ARMOR_LEATHER_SET2",
+    "primaryResource": "armor_leather_set2",
     "primaryResourceAmount": 1,
     "secondaryResource": "questitem_token_royal",
     "secondaryResourceAmount": null,
@@ -301,7 +301,7 @@
   },
   "royal_jacket3": {
     "id_snippet": "ARMOR_LEATHER_ROYAL",
-    "primaryResource": "ARMOR_LEATHER_SET3",
+    "primaryResource": "armor_leather_set3",
     "primaryResourceAmount": 1,
     "secondaryResource": "questitem_token_royal",
     "secondaryResourceAmount": null,
@@ -313,7 +313,7 @@
   },
   "royal_shoes1": {
     "id_snippet": "SHOES_LEATHER_ROYAL",
-    "primaryResource": "SHOES_LEATHER_SET1",
+    "primaryResource": "shoes_leather_set1",
     "primaryResourceAmount": 1,
     "secondaryResource": "questitem_token_royal",
     "secondaryResourceAmount": null,
@@ -325,7 +325,7 @@
   },
   "royal_shoes2": {
     "id_snippet": "SHOES_LEATHER_ROYAL",
-    "primaryResource": "SHOES_LEATHER_SET2",
+    "primaryResource": "shoes_leather_set2",
     "primaryResourceAmount": 1,
     "secondaryResource": "questitem_token_royal",
     "secondaryResourceAmount": null,
@@ -337,7 +337,7 @@
   },
   "royal_shoes3": {
     "id_snippet": "SHOES_LEATHER_ROYAL",
-    "primaryResource": "SHOES_LEATHER_SET3",
+    "primaryResource": "shoes_leather_set3",
     "primaryResourceAmount": 1,
     "secondaryResource": "questitem_token_royal",
     "secondaryResourceAmount": null,
@@ -349,7 +349,7 @@
   },
   "royal_helmet1": {
     "id_snippet": "HEAD_PLATE_ROYAL",
-    "primaryResource": "HEAD_PLATE_SET1",
+    "primaryResource": "head_plate_set1",
     "primaryResourceAmount": 1,
     "secondaryResource": "questitem_token_royal",
     "secondaryResourceAmount": null,
@@ -361,7 +361,7 @@
   },
   "royal_helmet2": {
     "id_snippet": "HEAD_PLATE_ROYAL",
-    "primaryResource": "HEAD_PLATE_SET2",
+    "primaryResource": "head_plate_set2",
     "primaryResourceAmount": 1,
     "secondaryResource": "questitem_token_royal",
     "secondaryResourceAmount": null,
@@ -373,7 +373,7 @@
   },
   "royal_helmet3": {
     "id_snippet": "HEAD_PLATE_ROYAL",
-    "primaryResource": "HEAD_PLATE_SET3",
+    "primaryResource": "head_plate_set3",
     "primaryResourceAmount": 1,
     "secondaryResource": "questitem_token_royal",
     "secondaryResourceAmount": null,
@@ -385,7 +385,7 @@
   },
   "royal_armor1": {
     "id_snippet": "ARMOR_PLATE_ROYAL",
-    "primaryResource": "ARMOR_PLATE_SET1",
+    "primaryResource": "armor_plate_set1",
     "primaryResourceAmount": 1,
     "secondaryResource": "questitem_token_royal",
     "secondaryResourceAmount": null,
@@ -397,7 +397,7 @@
   },
   "royal_armor2": {
     "id_snippet": "ARMOR_PLATE_ROYAL",
-    "primaryResource": "ARMOR_PLATE_SET2",
+    "primaryResource": "armor_plate_set2",
     "primaryResourceAmount": 1,
     "secondaryResource": "questitem_token_royal",
     "secondaryResourceAmount": null,
@@ -409,7 +409,7 @@
   },
   "royal_armor3": {
     "id_snippet": "ARMOR_PLATE_ROYAL",
-    "primaryResource": "ARMOR_PLATE_SET3",
+    "primaryResource": "armor_plate_set3",
     "primaryResourceAmount": 1,
     "secondaryResource": "questitem_token_royal",
     "secondaryResourceAmount": null,
@@ -421,7 +421,7 @@
   },
   "royal_boots1": {
     "id_snippet": "SHOES_PLATE_ROYAL",
-    "primaryResource": "SHOES_PLATE_SET1",
+    "primaryResource": "shoes_plate_set1",
     "primaryResourceAmount": 1,
     "secondaryResource": "questitem_token_royal",
     "secondaryResourceAmount": null,
@@ -433,7 +433,7 @@
   },
   "royal_boots2": {
     "id_snippet": "SHOES_PLATE_ROYAL",
-    "primaryResource": "SHOES_PLATE_SET2",
+    "primaryResource": "shoes_plate_set2",
     "primaryResourceAmount": 1,
     "secondaryResource": "questitem_token_royal",
     "secondaryResourceAmount": null,
@@ -445,7 +445,7 @@
   },
   "royal_boots3": {
     "id_snippet": "SHOES_PLATE_ROYAL",
-    "primaryResource": "SHOES_PLATE_SET3",
+    "primaryResource": "shoes_plate_set3",
     "primaryResourceAmount": 1,
     "secondaryResource": "questitem_token_royal",
     "secondaryResourceAmount": null,

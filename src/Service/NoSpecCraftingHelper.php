@@ -4,18 +4,20 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\Service;
 
+use MZierdt\Albion\Entity\ItemEntity;
 use MZierdt\Albion\Entity\MaterialEntity;
 
 class NoSpecCraftingHelper extends Market
 {
-    public function calculateDefaultItem(int $tier, array $capes)
+    public function calculateDefaultItem(int $tier, string $name, array $capesAndArmor): ItemEntity
     {
-        foreach ($capes as $cape) {
-            if ($cape->getTier() === $tier) {
-                return $cape;
+        /** @var ItemEntity $item */
+        foreach ($capesAndArmor as $item) {
+            if ($item->getTier() === $tier && $item->getName() === $name) {
+                return $item;
             }
         }
-        throw new \InvalidArgumentException('No Tier found in calculateDefaultCape ' . $tier);
+        throw new \InvalidArgumentException('No Tier found in calculateDefaultCape ' . $tier . ':' . $name);
     }
 
     public function calculateSecondResource(
@@ -62,8 +64,8 @@ class NoSpecCraftingHelper extends Market
         int $artifactCost
     ): float {
         return $this->calculateBuyOrder(
-            $primaryItemCost
-        ) + ($secondaryMaterialCost * $secondaryMaterialAmount) + $this->calculateBuyOrder($artifactCost);
+                $primaryItemCost
+            ) + ($secondaryMaterialCost * $secondaryMaterialAmount) + $this->calculateBuyOrder($artifactCost);
     }
 
     public function calculateProfit(int $specialCapePrice, float $materialCost): float
