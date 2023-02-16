@@ -18,7 +18,6 @@ class AdminHandler
     {
         $now = new \DateTimeImmutable();
 
-        dd($now);
         $htmlContent = $this->twigEnvironment->render('admin.html.twig',);
         return new HtmlResponse($htmlContent);
     }
