@@ -43,7 +43,7 @@ class ListDataServiceITest extends TestCase
         $this->resourceRepository->getRawResourcesByCity('Thetford')
             ->willReturn($resources);
 
-        $rawResources = $this->listDataService->getAllRawResources();
+        $rawResources = $this->listDataService->getResources('rawResource');
         /** @var ListDataEntity $ldEntity */
         foreach ($rawResources as $ldEntity) {
             $this->assertEquals('Fort Sterling', $ldEntity->getCheapestObjectCitySellOrder());
@@ -77,7 +77,7 @@ class ListDataServiceITest extends TestCase
         $this->resourceRepository->getResourcesByCity('Thetford')
             ->willReturn($resources);
 
-        $rawResources = $this->listDataService->getAllResources();
+        $rawResources = $this->listDataService->getResources('resource');
         /** @var ListDataEntity $ldEntity */
         foreach ($rawResources as $ldEntity) {
             $this->assertEquals('Fort Sterling', $ldEntity->getCheapestObjectCitySellOrder());

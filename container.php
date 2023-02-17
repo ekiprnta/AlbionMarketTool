@@ -20,7 +20,7 @@ use MZierdt\Albion\Handler\BlackMarketCraftingHandler;
 use MZierdt\Albion\Handler\BlackMarketTransportingHandler;
 use MZierdt\Albion\Handler\CapesCraftingHandler;
 use MZierdt\Albion\Handler\EnchantingHandler;
-use MZierdt\Albion\Handler\listDataHandler;
+use MZierdt\Albion\Handler\ListDataHandler;
 use MZierdt\Albion\Handler\RefiningHandler;
 use MZierdt\Albion\Handler\TransmutationHandler;
 use MZierdt\Albion\HttpClient;
@@ -61,7 +61,7 @@ $serviceManager = new ServiceManager([
                 MaterialsApiService::class => [HttpClient::class],
                 ResourceApiService::class => [HttpClient::class],
                 MiscApiService::class => [HttpClient::class],
-                listDataHandler::class => [
+                ListDataHandler::class => [
                     Environment::class,
                     ListDataService::class
                 ],

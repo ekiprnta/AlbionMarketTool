@@ -8,7 +8,7 @@ use Laminas\Diactoros\Response\HtmlResponse;
 use MZierdt\Albion\Service\ListDataService;
 use Twig\Environment;
 
-class listDataHandler
+class ListDataHandler
 {
     public function __construct(
         private readonly Environment $twigEnvironment,
@@ -18,12 +18,10 @@ class listDataHandler
 
     public function handler(): HtmlResponse
     {
-        $allResources = $this->listDataHandler->getAllResources();
-        $allRawResources = $this->listDataHandler->getAllRawResources();
+        $allResources = $this->listDataHandler->getResources($_GET['refined']);
 
         $htmlContent = $this->twigEnvironment->render('showData.html.twig', [
             'resources' => $allResources,
-            'rawResources' => $allRawResources,
         ]);
         return new HtmlResponse($htmlContent);
     }
