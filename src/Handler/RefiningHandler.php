@@ -3,7 +3,7 @@
 namespace MZierdt\Albion\Handler;
 
 use Laminas\Diactoros\Response\HtmlResponse;
-use MZierdt\Albion\Service\RefiningService;
+use MZierdt\Albion\AlbionMarket\RefiningService;
 use Twig\Environment;
 
 class RefiningHandler

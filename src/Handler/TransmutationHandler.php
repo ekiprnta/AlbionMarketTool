@@ -3,7 +3,7 @@
 namespace MZierdt\Albion\Handler;
 
 use Laminas\Diactoros\Response\HtmlResponse;
-use MZierdt\Albion\Service\TransmutationService;
+use MZierdt\Albion\AlbionMarket\TransmutationService;
 use Twig\Environment;
 
 class TransmutationHandler

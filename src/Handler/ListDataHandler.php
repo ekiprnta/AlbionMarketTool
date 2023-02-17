@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace MZierdt\Albion\Handler;
 
 use Laminas\Diactoros\Response\HtmlResponse;
-use MZierdt\Albion\Service\ListDataService;
+use MZierdt\Albion\AlbionMarket\ListDataService;
 use Twig\Environment;
 
 class ListDataHandler
