@@ -128,6 +128,7 @@ class UpdateBmTransportCommand extends Command
                 )
             );
             $bmtEntity->setCity($city);
+            $bmtEntity->setTierString($this->bmtService->calculateTierString($bmtEntity->getBmItem()->getTier()));
 
             $this->bmtRepository->createOrUpdate($bmtEntity);
         }

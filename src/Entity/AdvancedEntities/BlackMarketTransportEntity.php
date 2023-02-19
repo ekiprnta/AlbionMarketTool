@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace MZierdt\Albion\Entity\AdvancedEntities;
 
 use Doctrine\ORM\Mapping\ChangeTrackingPolicy;
+use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\ManyToOne;
@@ -23,6 +24,18 @@ class BlackMarketTransportEntity extends MarketEntity
     #[ManyToOne(targetEntity: ItemEntity::class, cascade: ['persist'])]
     #[JoinColumn(name: 'bmItemId', referencedColumnName: 'id', onDelete: 'CASCADE')]
     private ItemEntity $bmItem;
+    #[Column(type: 'string', nullable: true)]
+    protected ?string $tierString = null;
+
+    public function getTierString(): ?string
+    {
+        return $this->tierString;
+    }
+
+    public function setTierString(?string $tierString): void
+    {
+        $this->tierString = $tierString;
+    }
 
     public function __construct(ItemEntity $bmItem
     ) {
