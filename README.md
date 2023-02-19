@@ -65,6 +65,7 @@ changelogger clean
 * Rework That there is only One Item with x- Prices
 * Add royal sigil enchanting
 * add Artifact crafting
+* Bug: Age is not correct
 
 ## Plans
 
