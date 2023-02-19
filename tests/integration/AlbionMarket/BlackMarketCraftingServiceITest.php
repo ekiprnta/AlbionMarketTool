@@ -4,7 +4,7 @@ namespace integration\AlbionMarket;
 
 use MZierdt\Albion\AlbionMarket\BlackMarketCraftingHelper;
 use MZierdt\Albion\AlbionMarket\BlackMarketCraftingService;
-use MZierdt\Albion\Entity\AdvancedEntitites\BlackMarketCraftingEntity;
+use MZierdt\Albion\Entity\AdvancedEntities\BlackMarketCraftingEntity;
 use MZierdt\Albion\Entity\ItemEntity;
 use MZierdt\Albion\Entity\JournalEntity;
 use MZierdt\Albion\Entity\ResourceEntity;

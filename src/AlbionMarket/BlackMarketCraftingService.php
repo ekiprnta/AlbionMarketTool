@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace MZierdt\Albion\AlbionMarket;
 
 use InvalidArgumentException;
-use MZierdt\Albion\Entity\AdvancedEntitites\BlackMarketCraftingEntity;
+use MZierdt\Albion\Entity\AdvancedEntities\BlackMarketCraftingEntity;
 use MZierdt\Albion\Entity\ItemEntity;
 use MZierdt\Albion\repositories\ItemRepository;
 use MZierdt\Albion\repositories\JournalRepository;

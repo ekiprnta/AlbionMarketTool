@@ -2,7 +2,7 @@
 
 namespace unit\Entity\AdvancedEntities;
 
-use MZierdt\Albion\Entity\AdvancedEntitites\TransmutationEntity;
+use MZierdt\Albion\Entity\AdvancedEntities\TransmutationEntity;
 use MZierdt\Albion\Entity\ResourceEntity;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;

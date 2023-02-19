@@ -6,7 +6,7 @@ namespace integration\AlbionMarket;
 
 use MZierdt\Albion\AlbionMarket\NoSpecCraftingHelper;
 use MZierdt\Albion\AlbionMarket\NoSpecCraftingService;
-use MZierdt\Albion\Entity\AdvancedEntitites\NoSpecEntity;
+use MZierdt\Albion\Entity\AdvancedEntities\NoSpecEntity;
 use MZierdt\Albion\Entity\ItemEntity;
 use MZierdt\Albion\Entity\MaterialEntity;
 use MZierdt\Albion\repositories\ItemRepository;

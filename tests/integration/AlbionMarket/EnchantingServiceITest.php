@@ -6,7 +6,7 @@ namespace integration\AlbionMarket;
 
 use MZierdt\Albion\AlbionMarket\EnchantingHelper;
 use MZierdt\Albion\AlbionMarket\EnchantingService;
-use MZierdt\Albion\Entity\AdvancedEntitites\EnchantingEntity;
+use MZierdt\Albion\Entity\AdvancedEntities\EnchantingEntity;
 use MZierdt\Albion\Entity\ItemEntity;
 use MZierdt\Albion\Entity\MaterialEntity;
 use MZierdt\Albion\repositories\ItemRepository;

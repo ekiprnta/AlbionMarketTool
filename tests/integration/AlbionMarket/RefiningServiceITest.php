@@ -4,7 +4,7 @@ namespace integration\AlbionMarket;
 
 use MZierdt\Albion\AlbionMarket\RefiningHelper;
 use MZierdt\Albion\AlbionMarket\RefiningService;
-use MZierdt\Albion\Entity\AdvancedEntitites\RefiningEntity;
+use MZierdt\Albion\Entity\AdvancedEntities\RefiningEntity;
 use MZierdt\Albion\Entity\ResourceEntity;
 use MZierdt\Albion\repositories\ResourceRepository;
 use PHPUnit\Framework\TestCase;

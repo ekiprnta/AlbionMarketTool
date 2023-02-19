@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\AlbionMarket;
 
-use MZierdt\Albion\Entity\AdvancedEntitites\NoSpecEntity;
+use MZierdt\Albion\Entity\AdvancedEntities\NoSpecEntity;
 use MZierdt\Albion\repositories\ItemRepository;
 use MZierdt\Albion\repositories\MaterialRepository;
 

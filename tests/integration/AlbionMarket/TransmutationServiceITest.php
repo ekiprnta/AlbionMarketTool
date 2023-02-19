@@ -4,7 +4,7 @@ namespace integration\AlbionMarket;
 
 use MZierdt\Albion\AlbionMarket\TransmutationHelper;
 use MZierdt\Albion\AlbionMarket\TransmutationService;
-use MZierdt\Albion\Entity\AdvancedEntitites\TransmutationEntity;
+use MZierdt\Albion\Entity\AdvancedEntities\TransmutationEntity;
 use MZierdt\Albion\Entity\ResourceEntity;
 use MZierdt\Albion\repositories\ResourceRepository;
 use MZierdt\Albion\Service\ConfigService;

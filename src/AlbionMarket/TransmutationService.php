@@ -3,7 +3,7 @@
 namespace MZierdt\Albion\AlbionMarket;
 
 use InvalidArgumentException;
-use MZierdt\Albion\Entity\AdvancedEntitites\TransmutationEntity;
+use MZierdt\Albion\Entity\AdvancedEntities\TransmutationEntity;
 use MZierdt\Albion\repositories\ResourceRepository;
 use MZierdt\Albion\Service\ConfigService;
 use MZierdt\Albion\Service\GlobalDiscountService;

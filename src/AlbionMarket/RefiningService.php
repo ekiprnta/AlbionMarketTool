@@ -3,7 +3,7 @@
 namespace MZierdt\Albion\AlbionMarket;
 
 use InvalidArgumentException;
-use MZierdt\Albion\Entity\AdvancedEntitites\RefiningEntity;
+use MZierdt\Albion\Entity\AdvancedEntities\RefiningEntity;
 use MZierdt\Albion\repositories\ResourceRepository;
 
 class RefiningService

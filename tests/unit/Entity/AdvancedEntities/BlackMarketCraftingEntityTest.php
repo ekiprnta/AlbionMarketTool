@@ -2,7 +2,7 @@
 
 namespace unit\Entity\AdvancedEntities;
 
-use MZierdt\Albion\Entity\AdvancedEntitites\BlackMarketCraftingEntity;
+use MZierdt\Albion\Entity\AdvancedEntities\BlackMarketCraftingEntity;
 use MZierdt\Albion\Entity\ItemEntity;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;

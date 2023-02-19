@@ -2,7 +2,7 @@
 
 namespace MZierdt\Albion\AlbionMarket;
 
-use MZierdt\Albion\Entity\AdvancedEntitites\ListDataEntity;
+use MZierdt\Albion\Entity\AdvancedEntities\ListDataEntity;
 use MZierdt\Albion\repositories\ResourceRepository;
 
 class ListDataService

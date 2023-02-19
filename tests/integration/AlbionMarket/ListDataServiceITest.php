@@ -6,7 +6,7 @@ namespace integration\AlbionMarket;
 
 use MZierdt\Albion\AlbionMarket\ListDataHelper;
 use MZierdt\Albion\AlbionMarket\ListDataService;
-use MZierdt\Albion\Entity\AdvancedEntitites\ListDataEntity;
+use MZierdt\Albion\Entity\AdvancedEntities\ListDataEntity;
 use MZierdt\Albion\Entity\ResourceEntity;
 use MZierdt\Albion\repositories\ResourceRepository;
 use PHPUnit\Framework\TestCase;

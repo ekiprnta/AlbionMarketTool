@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace unit\AlbionMarket;
 
 use MZierdt\Albion\AlbionMarket\ListDataHelper;
-use MZierdt\Albion\Entity\AdvancedEntitites\ListDataEntity;
+use MZierdt\Albion\Entity\AdvancedEntities\ListDataEntity;
 use MZierdt\Albion\Entity\ResourceEntity;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;

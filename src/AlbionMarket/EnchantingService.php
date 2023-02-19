@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\AlbionMarket;
 
-use MZierdt\Albion\Entity\AdvancedEntitites\EnchantingEntity;
+use MZierdt\Albion\Entity\AdvancedEntities\EnchantingEntity;
 use MZierdt\Albion\Entity\ItemEntity;
 use MZierdt\Albion\repositories\ItemRepository;
 use MZierdt\Albion\repositories\MaterialRepository;

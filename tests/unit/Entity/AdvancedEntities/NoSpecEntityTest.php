@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace unit\Entity\AdvancedEntities;
 
-use MZierdt\Albion\Entity\AdvancedEntitites\NoSpecEntity;
+use MZierdt\Albion\Entity\AdvancedEntities\NoSpecEntity;
 use MZierdt\Albion\Entity\ItemEntity;
 use MZierdt\Albion\Entity\MaterialEntity;
 use PHPUnit\Framework\TestCase;

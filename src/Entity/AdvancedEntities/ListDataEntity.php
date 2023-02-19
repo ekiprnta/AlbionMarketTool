@@ -1,6 +1,6 @@
 <?php
 
-namespace MZierdt\Albion\Entity\AdvancedEntitites;
+namespace MZierdt\Albion\Entity\AdvancedEntities;
 
 use MZierdt\Albion\Entity\ItemEntity;
 use MZierdt\Albion\Entity\ResourceEntity;

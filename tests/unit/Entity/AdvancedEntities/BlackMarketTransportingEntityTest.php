@@ -2,7 +2,7 @@
 
 namespace unit\Entity\AdvancedEntities;
 
-use MZierdt\Albion\Entity\AdvancedEntitites\BlackMarketTransportEntity;
+use MZierdt\Albion\Entity\AdvancedEntities\BlackMarketTransportEntity;
 use MZierdt\Albion\Entity\ItemEntity;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
@@ -15,62 +15,37 @@ class BlackMarketTransportingEntityTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->bmtEntity = new BlackMarketTransportEntity(
-            (new ItemEntity())
-                ->setTier(71)
-                ->setName('3h_axe')
-                ->setCity('BlackMarket')
-                ->setSellOrderPrice(441992)
-                ->setBuyOrderPrice(168594)
-                ->setWeaponGroup('axe')
-                ->setRealName('greatAxe')
-                ->setPrimaryResource('metalBar')
-                ->setPrimaryResourceAmount(20)
-                ->setSecondaryResource('planks')
-                ->setSecondaryResourceAmount(12)
-                ->refreshFame()
-                ->refreshItemValue(),
-        );
+        $this->bmtEntity = new BlackMarketTransportEntity($this->getTesEntity());
     }
 
-    public function testAmount(): void
+    public function testGetBmItem(): void
     {
-        $this->bmtEntity->setAmount(5);
-        $this->assertEquals(5, $this->bmtEntity->getAmount());
+        $testItemEntity = $this->getTesEntity();
+        $this->assertEquals($testItemEntity, $this->bmtEntity->getBmItem());
     }
 
-    public function testProfit(): void
+    public function testGetCityItem(): void
     {
-        $this->bmtEntity->setProfit(5.47);
-        $this->assertEquals(5.47, $this->bmtEntity->getProfit());
+        $testItemEntity = $this->getTesEntity();
+        $this->bmtEntity->setCityItem($testItemEntity);
+        $this->assertEquals($testItemEntity, $this->bmtEntity->getCityItem());
     }
 
-    public function testSingleProfit(): void
+    private function getTesEntity(): ItemEntity
     {
-        $this->bmtEntity->setSingleProfit(12.47);
-        $this->assertEquals(12.47, $this->bmtEntity->getSingleProfit());
-    }
-
-    public function testProfitGrade(): void
-    {
-        $this->bmtEntity->setProfitGrade('S');
-        $this->assertEquals('S', $this->bmtEntity->getProfitGrade());
-    }
-
-    public function testTierColor(): void
-    {
-        $this->assertEquals('7', $this->bmtEntity->getTierColor());
-    }
-
-    public function testTotalCost(): void
-    {
-        $this->bmtEntity->setTotalCost(5);
-        $this->assertEquals(5, $this->bmtEntity->getTotalCost());
-    }
-
-    public function testProfitPercentage(): void
-    {
-        $this->bmtEntity->setProfitPercentage(130.3);
-        $this->assertEquals(130.3, $this->bmtEntity->getProfitPercentage());
+        return (new ItemEntity())
+            ->setTier(71)
+            ->setName('3h_axe')
+            ->setCity('BlackMarket')
+            ->setSellOrderPrice(441992)
+            ->setBuyOrderPrice(168594)
+            ->setWeaponGroup('axe')
+            ->setRealName('greatAxe')
+            ->setPrimaryResource('metalBar')
+            ->setPrimaryResourceAmount(20)
+            ->setSecondaryResource('planks')
+            ->setSecondaryResourceAmount(12)
+            ->refreshFame()
+            ->refreshItemValue();
     }
 }

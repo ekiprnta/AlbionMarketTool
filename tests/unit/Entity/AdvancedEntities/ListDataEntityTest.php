@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace unit\Entity\AdvancedEntities;
 
-use MZierdt\Albion\Entity\AdvancedEntitites\ListDataEntity;
+use MZierdt\Albion\Entity\AdvancedEntities\ListDataEntity;
 use MZierdt\Albion\Entity\ResourceEntity;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
