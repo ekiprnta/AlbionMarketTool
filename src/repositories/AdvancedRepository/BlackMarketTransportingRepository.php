@@ -9,12 +9,12 @@ use MZierdt\Albion\repositories\Repository;
 
 class BlackMarketTransportingRepository extends Repository
 {
-    public function getAllTransportingByCity(string $city): void
+    public function getAllTransportingByCity(string $city): array
     {
-        $this->findBy(BlackMarketTransportEntity::class, ['complete' => true, 'city' => $city]);
+        return $this->findBy(BlackMarketTransportEntity::class, ['complete' => true, 'city' => $city]);
     }
 
-    public function createOrUpdate(BlackMarketTransportEntity $bmtEntity)
+    public function createOrUpdate(BlackMarketTransportEntity $bmtEntity): void
     {
         $oldBmtEntity = $this->entityManager->getRepository(BlackMarketTransportEntity::class)->findOneBy(
             [
@@ -24,6 +24,7 @@ class BlackMarketTransportingRepository extends Repository
         );
 
         if ($oldBmtEntity !== null) {
+            $oldBmtEntity->setCity($bmtEntity->getCity());
             $oldBmtEntity->setMaterialCostSell($bmtEntity->getMaterialCostSell());
             $oldBmtEntity->setProfitSell($bmtEntity->getProfitSell());
             $oldBmtEntity->setProfitPercentageSell($bmtEntity->getProfitPercentageSell());

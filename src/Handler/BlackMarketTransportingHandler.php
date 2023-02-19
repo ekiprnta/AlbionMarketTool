@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace MZierdt\Albion\Handler;
 
 use Laminas\Diactoros\Response\HtmlResponse;
-use MZierdt\Albion\AlbionMarket\BlackMarketTransportingService;
+use MZierdt\Albion\repositories\AdvancedRepository\BlackMarketTransportingRepository;
 use Twig\Environment;
 
 class BlackMarketTransportingHandler
 {
     public function __construct(
         private readonly Environment $twigEnvironment,
-        private readonly BlackMarketTransportingService $blackMarketTransportingService,
+        private readonly BlackMarketTransportingRepository $bmtRepository,
     ) {
     }
 
@@ -25,10 +25,7 @@ class BlackMarketTransportingHandler
             $itemCity = $request['itemCity'];
             unset($request['itemCity']);
             try {
-                $cityData = $this->blackMarketTransportingService->getDataForCity(
-                    $itemCity,
-                    array_filter($request)
-                );
+                $cityData = $this->bmtRepository->getAllTransportingByCity($itemCity);
             } catch (\InvalidArgumentException $invalidArgumentException) {
                 $alertMessage = $invalidArgumentException->getMessage();
             }

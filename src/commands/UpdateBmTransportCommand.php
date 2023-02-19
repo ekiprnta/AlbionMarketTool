@@ -127,6 +127,7 @@ class UpdateBmTransportCommand extends Command
                     [$bmItem->getSellOrderPrice(), $cityItem->getSellOrderPrice(), $cityItem->getBuyOrderPrice()]
                 )
             );
+            $bmtEntity->setCity($city);
 
             $this->bmtRepository->createOrUpdate($bmtEntity);
         }

@@ -48,6 +48,9 @@ class Market
         if (in_array(null, $stats, true)) {
             return false;
         }
+        if (in_array(0, $stats, true)) {
+            return false;
+        }
         return true;
     }
 }
