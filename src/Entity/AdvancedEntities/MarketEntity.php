@@ -21,6 +21,7 @@ class MarketEntity
     protected ?int $amount;
     #[Column(type: 'string', nullable: true)]
     protected ?string $city;
+
     #[Column(type: 'float', nullable: true)]
     protected ?float $materialCostBuy = null;
     #[Column(type: 'float', nullable: true)]
