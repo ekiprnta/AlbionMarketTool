@@ -23,6 +23,7 @@ use MZierdt\Albion\AlbionMarket\RefiningHelper;
 use MZierdt\Albion\AlbionMarket\RefiningService;
 use MZierdt\Albion\AlbionMarket\TransmutationHelper;
 use MZierdt\Albion\AlbionMarket\TransmutationService;
+use MZierdt\Albion\commands\UpdateBmTransportCommand;
 use MZierdt\Albion\commands\UpdateItemsCommand;
 use MZierdt\Albion\commands\UpdateJournalsCommand;
 use MZierdt\Albion\commands\UpdateMaterialsCommand;
@@ -38,6 +39,7 @@ use MZierdt\Albion\Handler\ListDataHandler;
 use MZierdt\Albion\Handler\RefiningHandler;
 use MZierdt\Albion\Handler\TransmutationHandler;
 use MZierdt\Albion\HttpClient;
+use MZierdt\Albion\repositories\AdvancedRepository\BlackMarketTransportingRepository;
 use MZierdt\Albion\repositories\ItemRepository;
 use MZierdt\Albion\repositories\ItemRepositoryFactory;
 use MZierdt\Albion\repositories\JournalRepository;
@@ -95,12 +97,8 @@ $serviceManager = new ServiceManager([
                     NoSpecCraftingHelper::class
                 ],
                 NoSpecCraftingHelper::class => [],
-                BlackMarketTransportingHelper::class => [],
-                BlackMarketTransportingService::class => [
-                    ItemRepository::class,
-                    BlackMarketTransportingHelper::class,
-                    ConfigService::class,
-                ],
+                BlackMarketTransportingService::class => [],
+                BlackMarketTransportingRepository::class => [EntityManager::class],
                 BlackMarketTransportingHandler::class => [
                     Environment::class,
                     BlackMarketTransportingService::class
@@ -162,6 +160,12 @@ $serviceManager = new ServiceManager([
                     MaterialsApiService::class,
                     MaterialRepository::class,
                     UploadHelper::class,
+                ],
+                UpdateBmTransportCommand::class => [
+                    BlackMarketTransportingService::class,
+                    BlackMarketTransportingRepository::class,
+                    ItemRepository::class,
+                    ConfigService::class,
                 ]
             ]
         ],

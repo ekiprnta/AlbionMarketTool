@@ -17,12 +17,12 @@ class Market
 //        return $price * (1 - self::MARKET_FEE);
 //    }
 
-    protected function calculateSellOrder(float|int $price): float
+    public function calculateSellOrder(float|int $price): float
     {
         return $price * (1 - self::MARKET_FEE - self::MARKET_SETUP);
     }
 
-    protected function calculateBuyOrder(float|int $price): float
+    public function calculateBuyOrder(float|int $price): float
     {
         return $price * (1 - self::MARKET_SETUP);
     }
@@ -41,5 +41,13 @@ class Market
     public function calculateProfitPercentage(float $turnover, float $totalCost): float
     {
         return round(($turnover / ($totalCost + 1)) * 100, 2);
+    }
+
+    public function isComplete(array $stats): bool
+    {
+        if (in_array(null, $stats, true)) {
+            return false;
+        }
+        return true;
     }
 }

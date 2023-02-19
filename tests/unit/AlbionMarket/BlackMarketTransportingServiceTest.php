@@ -2,48 +2,89 @@
 
 namespace unit\AlbionMarket;
 
-use MZierdt\Albion\AlbionMarket\BlackMarketTransportingHelper;
 use MZierdt\Albion\AlbionMarket\BlackMarketTransportingService;
-use MZierdt\Albion\repositories\ItemRepository;
-use MZierdt\Albion\Service\ConfigService;
+use MZierdt\Albion\Entity\ItemEntity;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
-use Prophecy\Prophecy\ObjectProphecy;
 
 class BlackMarketTransportingServiceTest extends TestCase
 {
     use ProphecyTrait;
 
     private BlackMarketTransportingService $bmtService;
-    private ObjectProphecy|ItemRepository $itemRepository;
-    private ObjectProphecy|BlackMarketTransportingHelper $bmtHelper;
-    private ObjectProphecy|ConfigService $configService;
 
     protected function setUp(): void
     {
-        $this->itemRepository = $this->prophesize(ItemRepository::class);
-        $this->bmtHelper = $this->prophesize(BlackMarketTransportingHelper::class);
-        $this->configService = $this->prophesize(ConfigService::class);
+        $this->bmtService = new BlackMarketTransportingService();
+    }
 
-        $this->bmtService = new BlackMarketTransportingService(
-            $this->itemRepository->reveal(),
-            $this->bmtHelper->reveal(),
-            $this->configService->reveal()
+    /**
+     * @dataProvider getNameAndTierData
+     */
+    public function testCalculateCityItemException(
+        int $cityTier,
+        string $cityItem,
+        int $bmTier,
+        string $bmItem,
+    ): void {
+        $this->expectException(\RuntimeException::class);
+        $cityItem = (new ItemEntity())->setTier($cityTier)->setName($cityItem);
+        $bmItem = (new ItemEntity())->setTier($bmTier)->setName($bmItem);
+
+        $this->bmtService->calculateCityItem($bmItem, [$cityItem]);
+    }
+
+    public function getNameAndTierData(): array
+    {
+        return [[1, 'b', 2, 'a'], [1, 'b', 3, 'd'], [1, 'b', 1, 'c'], [1, 'b', 3, 'b']];
+    }
+
+    public function testCalculateCityItem(): void
+    {
+        $cityItem = (new ItemEntity())->setTier(1)->setName('b');
+        $bmItem = (new ItemEntity())->setTier(1)->setName('b');
+
+        $this->assertEquals(
+            $cityItem,
+            $this->bmtService->calculateCityItem($bmItem, [$cityItem])
         );
     }
 
     /**
-     * @dataProvider exceptionData
+     * @dataProvider getProfitData
      */
-    public function testGetDataForCityException(string $itemCity, array $tierList): void
+    public function testCalculateProfit(int $bmPrice, int $cityPrice, float $expectedResult): void
     {
-        $this->expectException(\InvalidArgumentException::class);
-
-        $this->bmtService->getDataForCity($itemCity, $tierList);
+        $this->assertEqualsWithDelta(
+            $expectedResult,
+            $this->bmtService->calculateProfit($bmPrice, $cityPrice),
+            0.0000001
+        );
     }
 
-    public function exceptionData(): array
+    public function getProfitData(): array
     {
-        return [['', ['1', '2']], ['a', []]];
+        return [[1000, 1000, -65], [2310, 1000, 1159.85], [1000, 5445, -4510]];
+    }
+
+    /**
+     * @dataProvider getAmountDat
+     */
+    public function testCalculateAmount(int $primAmount, int $secAmount, array $config, float $expectedResult): void
+    {
+        $this->assertEqualsWithDelta(
+            $expectedResult,
+            $this->bmtService->calculateAmount($primAmount, $secAmount, $config),
+            0.0000001
+        );
+    }
+
+    public function getAmountDat(): array
+    {
+        return [
+            [8, 8, ['16' => 20], 20],
+            [12, 20, ['32' => 10990], 10990],
+            [1, 99, ['100' => 2345], 2345],
+        ];
     }
 }
