@@ -5,12 +5,8 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-4">
-                    <div class="btn btn-primary" id="toggleSellBuy">Toggle Buy Or SellOrder</div>
-                </div>
-                <div class="col-8">
                     <form action="" method="get">
                         <div class="row">
-                            <div class="col-3">
                                 <div class="form-group">
                                     <label for="itemCity">Choose City to transport from</label>
                                     <select name="itemCity" id="itemCity" class="form-control">
@@ -21,15 +17,17 @@
                                         <option value="Thetford">Thetford</option>
                                     </select>
                                 </div>
-                            </div>
-                            {% include 'tierCheckbox.html.twig' %}
                         </div>
                         <div class="row">
-                            <div class="col-3">
                                 <button class="btn btn-primary" type="submit">Calculate</button>
-                            </div>
                         </div>
                     </form>
+                </div>
+                {% include 'tierCheckbox.html.twig' %}
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <div class="btn btn-primary" id="toggleSellBuy">Toggle Buy Or SellOrder</div>
                 </div>
             </div>
             <div class="row">
@@ -54,11 +52,12 @@
                     <th>Amount</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody class="sortable-body">
                 {# @var transportEntity \MZierdt\Albion\Entity\AdvancedEntities\BlackMarketTransportEntity #}
                 {% for transportEntity in dataArray %}
                     {% if transportEntity.profitSell > 0 %}
-                        <tr class="bg-{{ transportEntity.profitGradeSell }}">
+                        <tr class="bg-{{ transportEntity.profitGradeSell }} sell{{ transportEntity.tierString }}"
+                            style="display: none">
                             <td class="align-middle text-left tier-{{ transportEntity.tierColor }} tier">{{ transportEntity.bmItem.tier }}</td>
                             <td class="align-middle">{{ transportEntity.bmItem.realName }}</td>
                             <td class="align-middle {% if transportEntity.bmItem.sellOrderAge > 720 %} bg-D {% endif %}">
@@ -98,7 +97,8 @@
                 {# @var transportEntity \MZierdt\Albion\Entity\AdvancedEntities\BlackMarketTransportEntity #}
                 {% for transportEntity in dataArray %}
                     {% if transportEntity.profitBuy > 0 %}
-                        <tr class="bg-{{ transportEntity.profitGradeBuy }}">
+                        <tr class="bg-{{ transportEntity.profitGradeBuy }} buy{{ transportEntity.tierString }}"
+                            style="display: none">
                             <td class="align-middle text-left tier-{{ transportEntity.tierColor }} tier">{{ transportEntity.bmItem.tier }}</td>
                             <td class="align-middle">{{ transportEntity.bmItem.realName }}</td>
                             <td class="align-middle {% if transportEntity.bmItem.sellOrderAge > 720 %} bg-D {% endif %}">
