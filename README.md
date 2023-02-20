@@ -66,6 +66,7 @@ changelogger clean
 * Add royal sigil enchanting
 * add Artifact crafting
 * Bug: Age is not correct
+* Bug: Refining might not be correct
 
 ## Plans
 
