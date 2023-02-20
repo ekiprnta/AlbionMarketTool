@@ -54,11 +54,11 @@ changelogger clean
 
 * ~~Tier überarbeiten~~
 * Farming
-* Revisit Profit Quotient -> Profit Percentage
+* ~~Revisit Profit Quotient -> Profit Percentage~~
 * Javascript überall
 * No Spec Crafting
-  * Capes (028)
-  * Royal Items
+  * ~~Capes (028)~~
+  * ~~Royal Items~~
   * ~~Enchanting (and/or BM)~~
 * Stone
 * Bags BM Crafting / Capes
