@@ -21,11 +21,11 @@ class ItemRepository extends Repository
         if ($oldItemEntity !== null) {
             if ($itemEntity->getSellOrderPrice() !== 0) {
                 $oldItemEntity->setSellOrderPrice($itemEntity->getSellOrderPrice());
-                $oldItemEntity->setBuyOrderAge($itemEntity->getBuyOrderPrice());
+                $oldItemEntity->setSellOrderDate($itemEntity->getSellOrderDate());
             }
             if ($itemEntity->getBuyOrderPrice() !== 0) {
-                $oldItemEntity->setSellOrderAge($itemEntity->getSellOrderAge());
-                $oldItemEntity->setBuyOrderAge($itemEntity->getBuyOrderAge());
+                $oldItemEntity->setBuyOrderPrice($itemEntity->getBuyOrderPrice());
+                $oldItemEntity->setBuyOrderDate($itemEntity->getBuyOrderDate());
             }
             $this->update($oldItemEntity);
         } else {
