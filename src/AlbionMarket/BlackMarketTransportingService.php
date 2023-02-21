@@ -31,11 +31,6 @@ class BlackMarketTransportingService extends Market
         return $amountConfig[$totalAmount];
     }
 
-    public function calculateProfit(int $bmPrice, int $cityPrice): float
-    {
-        return $this->calculateSellOrder($bmPrice) - $cityPrice;
-    }
-
     public function calculateTierString(int $tier): string
     {
         return match ($tier) {

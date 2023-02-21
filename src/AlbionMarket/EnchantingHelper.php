@@ -63,9 +63,4 @@ class EnchantingHelper extends Market
     {
         return $this->calculateBuyOrder($buyOrderPrice) * $materialAmount;
     }
-
-    public function calculateProfit(int $baseItemPrice, int $enchantedItemPrice, float $materialCost): float
-    {
-        return $enchantedItemPrice - ($baseItemPrice + $materialCost);
-    }
 }

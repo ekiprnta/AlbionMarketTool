@@ -142,7 +142,7 @@ class BlackMarketCraftingService
 
             $itemCost = $this->calculateItemCost($bmcEntity, $order);
             $bmcEntity->setProfit(
-                $this->bmtHelper->calculateProfit(
+                $this->bmtHelper->calculateProfitA(
                     $bmcEntity->getTotalAmount(),
                     $bmcEntity->getItem()
                         ->getSellOrderPrice(),

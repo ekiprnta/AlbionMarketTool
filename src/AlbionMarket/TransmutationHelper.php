@@ -11,11 +11,6 @@ class TransmutationHelper extends Market
         return $tier[0] === $currentTier[0];
     }
 
-    public function calculateProfit(int $startPrice, int $endPrice, float $transmuteCost): float
-    {
-        return $endPrice - ($startPrice + $transmuteCost);
-    }
-
     private function applyGlobalDiscount(float $transmuteCost, $globalDiscount): float
     {
         return $transmuteCost * (1 - $globalDiscount);

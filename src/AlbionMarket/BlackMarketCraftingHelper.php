@@ -72,7 +72,7 @@ class BlackMarketCraftingHelper extends Market
         return $nutrition * $feeProHundredNutrition / 100;
     }
 
-    public function calculateProfit(
+    public function calculateProfitA(
         int $totalAmount,
         int $itemPrice,
         float $itemCost,

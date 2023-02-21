@@ -66,8 +66,4 @@ class NoSpecCraftingHelper extends Market
         return $primaryItemCost + ($secondaryMaterialCost * $secondaryMaterialAmount) + ($artifactCost);
     }
 
-    public function calculateProfit(int $specialCapePrice, float $materialCost): float
-    {
-        return $specialCapePrice - $materialCost;
-    }
 }

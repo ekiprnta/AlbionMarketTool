@@ -69,9 +69,9 @@ class EnchantingService
 
             $enchantingEntity->setProfit(
                 $this->enchantingHelper->calculateProfit(
-                    $itemEntity->getSellOrderPrice(),
                     $enchantingEntity->getHigherEnchantmentItem()
                         ->getSellOrderPrice(),
+                    $itemEntity->getSellOrderPrice(),
                     $enchantingEntity->getMaterialCost()
                 )
             );
