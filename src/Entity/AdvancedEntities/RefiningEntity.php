@@ -2,81 +2,38 @@
 
 namespace MZierdt\Albion\Entity\AdvancedEntities;
 
+use Doctrine\ORM\Mapping\ChangeTrackingPolicy;
+use Doctrine\ORM\Mapping\Column;
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\Table;
 use MZierdt\Albion\Entity\ResourceEntity;
 
-class RefiningEntity
+#[Entity]
+#[ChangeTrackingPolicy('DEFERRED_EXPLICIT')]
+#[Table(name: 'refining')]
+class RefiningEntity extends MarketEntity
 {
-    private int $amountRawResource;
-
+    #[ManyToOne(targetEntity: ResourceEntity::class, cascade: ['persist'])]
+    #[JoinColumn(name: 'rawResource', referencedColumnName: 'id', onDelete: 'CASCADE')]
     private ResourceEntity $rawResource;
+
+    #[ManyToOne(targetEntity: ResourceEntity::class, cascade: ['persist'])]
+    #[JoinColumn(name: 'lowerResource', referencedColumnName: 'id', onDelete: 'CASCADE')]
     private ResourceEntity $lowerResource;
 
-    private float $singleProfit;
-    private int $amount;
-    private float $profit;
+    #[ManyToOne(targetEntity: ResourceEntity::class, cascade: ['persist'])]
+    #[JoinColumn(name: 'refinedResource', referencedColumnName: 'id', onDelete: 'CASCADE')]
+    private ResourceEntity $refinedResource;
 
-    private float $profitPercentage;
-    private string $profitGrade;
-    private readonly int $tierColor;
+    #[Column(type: 'integer', nullable: true)]
+    private ?int $amountRawResource = null;
 
-    public function __construct(private readonly ResourceEntity $resourceEntity)
+    public function __construct(ResourceEntity $resourceEntity)
     {
-        $this->tierColor = (int) ($this->resourceEntity->getTier() / 10);
-    }
-
-    public function getTierColor(): int
-    {
-        return $this->tierColor;
-    }
-
-    public function getAmount(): int
-    {
-        return $this->amount;
-    }
-
-    public function setAmount(int $amount): void
-    {
-        $this->amount = $amount;
-    }
-
-    public function getProfit(): float
-    {
-        return $this->profit;
-    }
-
-    public function setProfit(float $profit): void
-    {
-        $this->profit = $profit;
-    }
-
-    public function getProfitPercentage(): float
-    {
-        return $this->profitPercentage;
-    }
-
-    public function setProfitPercentage(float $profitPercentage): void
-    {
-        $this->profitPercentage = $profitPercentage;
-    }
-
-    public function getProfitGrade(): string
-    {
-        return $this->profitGrade;
-    }
-
-    public function setProfitGrade(string $profitGrade): void
-    {
-        $this->profitGrade = $profitGrade;
-    }
-
-    public function getSingleProfit(): float
-    {
-        return $this->singleProfit;
-    }
-
-    public function setSingleProfit(float $singleProfit): void
-    {
-        $this->singleProfit = $singleProfit;
+        $this->refinedResource = $resourceEntity;
+        $this->tierColor = (int) ($resourceEntity->getTier() / 10);
     }
 
     public function getRawResource(): ResourceEntity
@@ -99,18 +56,18 @@ class RefiningEntity
         $this->lowerResource = $lowerResource;
     }
 
-    public function getAmountRawResource(): int
+    public function getAmountRawResource(): ?int
     {
         return $this->amountRawResource;
     }
 
-    public function setAmountRawResource(int $amountRawResource): void
+    public function setAmountRawResource(?int $amountRawResource): void
     {
         $this->amountRawResource = $amountRawResource;
     }
 
-    public function getResourceEntity(): ResourceEntity
+    public function getRefinedResource(): ResourceEntity
     {
-        return $this->resourceEntity;
+        return $this->refinedResource;
     }
 }

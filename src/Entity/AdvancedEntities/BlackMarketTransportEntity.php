@@ -21,9 +21,11 @@ class BlackMarketTransportEntity extends MarketEntity
     #[OneToOne(targetEntity: ItemEntity::class, cascade: ['persist'])]
     #[JoinColumn(name: 'cityItemId', referencedColumnName: 'id', onDelete: 'CASCADE')]
     private ItemEntity $cityItem;
+
     #[ManyToOne(targetEntity: ItemEntity::class, cascade: ['persist'])]
     #[JoinColumn(name: 'bmItemId', referencedColumnName: 'id', onDelete: 'CASCADE')]
     private ItemEntity $bmItem;
+
     #[Column(type: 'string', nullable: true)]
     protected ?string $tierString = null;
 
