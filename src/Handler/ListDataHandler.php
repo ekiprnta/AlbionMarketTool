@@ -18,7 +18,10 @@ class ListDataHandler
 
     public function handler(): HtmlResponse
     {
-        $allResources = $this->listDataHandler->getResources($_GET['refined']);
+        $allResources = [];
+        if (! empty($_GET)) {
+            $allResources = $this->listDataHandler->getResources($_GET['refined']);
+        }
 
         $htmlContent = $this->twigEnvironment->render('showData.html.twig', [
             'resources' => $allResources,
