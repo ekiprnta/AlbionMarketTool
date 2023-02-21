@@ -51,12 +51,12 @@ class AlbionItemEntity
     protected ?string $city = null;
     #[Column(type: 'integer', nullable: true)]
     protected ?int $sellOrderPrice = 0;
-    #[Column(type: 'integer', nullable: true)]
-    protected ?int $sellOrderAge = null;
+    #[Column(type: 'datetime_immutable', nullable: true)]
+    protected ?DateTimeImmutable $sellOrderDate = null;
     #[Column(type: 'integer', nullable: true)]
     protected ?int $buyOrderPrice = 0;
-    #[Column(type: 'integer', nullable: true)]
-    protected ?int $buyOrderAge = null;
+    #[Column(type: 'datetime_immutable', nullable: true)]
+    protected ?DateTimeImmutable $buyOrderDate = null;
     #[Column(type: 'string', nullable: true)]
     protected ?string $realName = null;
     #[Column(type: 'string', nullable: true)]
@@ -109,9 +109,9 @@ class AlbionItemEntity
         return $this;
     }
 
-    public function setSellOrderAge(int $age): self
+    public function setSellOrderDate(DateTimeImmutable $sellOrderDate): self
     {
-        $this->sellOrderAge = $age;
+        $this->sellOrderDate = $sellOrderDate;
         return $this;
     }
 
@@ -121,21 +121,21 @@ class AlbionItemEntity
         return $this;
     }
 
-    public function setBuyOrderAge(int $age): self
+    public function setBuyOrderDate(DateTimeImmutable $buyOrderDate): self
     {
-        $this->buyOrderAge = $age;
+        $this->buyOrderDate = $buyOrderDate;
         return $this;
     }
 
-    public function calculateBuyOrderAge(?string $dateString): self
+    public function calculateBuyOrderDate(?string $dateString): self
     {
-        $this->buyOrderAge = $this->calculateAge($dateString);
+        $this->buyOrderDate = $this->calculateDateTimeImmutable($dateString);
         return $this;
     }
 
-    public function calculateSellOrderAge(?string $dateString): self
+    public function calculateSellOrderDate(?string $dateString): self
     {
-        $this->sellOrderAge = $this->calculateAge($dateString);
+        $this->sellOrderDate = $this->calculateDateTimeImmutable($dateString);
         return $this;
     }
 
@@ -183,9 +183,9 @@ class AlbionItemEntity
         return $this->sellOrderPrice;
     }
 
-    public function getSellOrderAge(): ?int
+    public function getSellOrderDate(): ?DateTimeImmutable
     {
-        return $this->sellOrderAge;
+        return $this->sellOrderDate;
     }
 
     public function getBuyOrderPrice(): int
@@ -193,9 +193,9 @@ class AlbionItemEntity
         return $this->buyOrderPrice;
     }
 
-    public function getBuyOrderAge(): ?int
+    public function getBuyOrderDate(): ?DateTimeImmutable
     {
-        return $this->buyOrderAge;
+        return $this->buyOrderDate;
     }
 
     public function getRealName(): ?string
