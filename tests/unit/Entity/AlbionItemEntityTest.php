@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace unit\Entity;
 
+use DateTimeImmutable;
 use MZierdt\Albion\Entity\AlbionItemEntity;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -17,14 +18,16 @@ class AlbionItemEntityTest extends TestCase
 
     public function testSetSellOrderAge(): void
     {
-        $this->entity->setSellOrderAge(10);
-        $this->assertEquals(10, $this->entity->getSellOrderAge());
+        $date = DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '1970-03-22 12:12:12');
+        $this->entity->setSellOrderDate($date);
+        $this->assertEquals($date, $this->entity->getSellOrderDate());
     }
 
     public function testSetBuyOrderAge(): void
     {
-        $this->entity->setBuyOrderAge(10);
-        $this->assertEquals(10, $this->entity->getBuyOrderAge());
+        $date = DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '1970-03-22 12:12:12');
+        $this->entity->setBuyOrderDate($date);
+        $this->assertEquals($date, $this->entity->getBuyOrderDate());
     }
 
     public function testGetId(): void
@@ -45,8 +48,11 @@ class AlbionItemEntityTest extends TestCase
         $albionItemEntity->method('getCurrentTime')
             ->willReturn($now);
 
-        $albionItemEntity->calculateBuyOrderAge('2023-02-08T10:00:00');
-        $this->assertEquals(540, $albionItemEntity->getBuyOrderAge());
+        $albionItemEntity->calculateBuyOrderDate('2023-02-08T10:00:00');
+        $this->assertEquals(
+            DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '2023-02-08 11:00:00'),
+            $albionItemEntity->getBuyOrderDate()
+        );
     }
 
     public function testCalculateSellOrderAge(): void
@@ -61,8 +67,11 @@ class AlbionItemEntityTest extends TestCase
         $albionItemEntity->method('getCurrentTime')
             ->willReturn($now);
 
-        $albionItemEntity->calculateSellOrderAge(null);
-        $this->assertEquals(24947, $albionItemEntity->getSellOrderAge());
+        $albionItemEntity->calculateSellOrderDate(null);
+        $this->assertEquals(
+            DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '1970-03-22 12:12:12'),
+            $albionItemEntity->getSellOrderDate()
+        );
     }
 
     protected function setUp(): void

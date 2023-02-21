@@ -6,9 +6,10 @@ namespace MZierdt\Albion\Handler;
 
 use Laminas\Diactoros\Response\HtmlResponse;
 use MZierdt\Albion\AlbionMarket\NoSpecCraftingService;
+use MZierdt\Albion\Service\TimeService;
 use Twig\Environment;
 
-class CapesCraftingHandler
+class NoSpecCraftingHandler
 {
     public function __construct(
         private readonly Environment $twigEnvironment,
@@ -34,6 +35,7 @@ class CapesCraftingHandler
             [
                 'dataArray' => $cityData,
                 'alertMessage' => $alertMessage,
+                'timeThreshold' => TimeService::getFiveDaysAgo(new \DateTimeImmutable()),
             ]
         );
         return new HtmlResponse($htmlContent);

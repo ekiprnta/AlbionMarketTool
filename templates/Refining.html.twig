@@ -90,9 +90,9 @@
                     <tr class="bg-{{ refiningEntity.profitGrade }}">
                         <td class="align-middle text-left tier-{{ refiningEntity.tierColor }} tier">{{ refiningEntity.resourceEntity.tier }}</td>
                         <td class="align-middle">{{ refiningEntity.resourceEntity.realName }}</td>
-                        <td class="align-middle {% if refiningEntity.resourceEntity.sellOrderAge > 720 %} bg-D {% endif %}">
+                        <td class="align-middle {% if refiningEntity.resourceEntity.sellOrderDate < timeThreshold %} bg-D {% endif %}">
                             <a class="btn text-right w-100"
-                               title="{{ refiningEntity.resourceEntity.sellOrderAge|number_format }}min">
+                               title="{{ refiningEntity.resourceEntity.sellOrderDate|date('d.m H:i') }}min">
                                 {{ refiningEntity.resourceEntity.sellOrderPrice|number_format }}
                             </a>
                         </td>

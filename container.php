@@ -33,9 +33,9 @@ use MZierdt\Albion\factories\TwigEnvironmentFactory;
 use MZierdt\Albion\Handler\AdminHandler;
 use MZierdt\Albion\Handler\BlackMarketCraftingHandler;
 use MZierdt\Albion\Handler\BlackMarketTransportingHandler;
-use MZierdt\Albion\Handler\CapesCraftingHandler;
 use MZierdt\Albion\Handler\EnchantingHandler;
 use MZierdt\Albion\Handler\ListDataHandler;
+use MZierdt\Albion\Handler\NoSpecCraftingHandler;
 use MZierdt\Albion\Handler\RefiningHandler;
 use MZierdt\Albion\Handler\TransmutationHandler;
 use MZierdt\Albion\HttpClient;
@@ -90,7 +90,7 @@ $serviceManager = new ServiceManager([
                     RefiningHelper::class,
                 ],
                 TierService::class => [],
-                CapesCraftingHandler::class => [Environment::class, NoSpecCraftingService::class],
+                NoSpecCraftingHandler::class => [Environment::class, NoSpecCraftingService::class],
                 NoSpecCraftingService::class => [
                     ItemRepository::class,
                     MaterialRepository::class,

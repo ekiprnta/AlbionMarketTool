@@ -20,11 +20,11 @@ class ResourceRepository extends Repository
         if ($oldResourceEntity !== null) {
             if ($resourceEntity->getSellOrderPrice() !== 0) {
                 $oldResourceEntity->setSellOrderPrice($resourceEntity->getSellOrderPrice());
-                $oldResourceEntity->setBuyOrderAge($resourceEntity->getBuyOrderPrice());
+                $oldResourceEntity->setSellOrderDate($resourceEntity->getSellOrderDate());
             }
             if ($resourceEntity->getBuyOrderPrice() !== 0) {
-                $oldResourceEntity->setSellOrderAge($resourceEntity->getSellOrderAge());
-                $oldResourceEntity->setBuyOrderAge($resourceEntity->getBuyOrderAge());
+                $oldResourceEntity->setBuyOrderDate($resourceEntity->getBuyOrderDate());
+                $oldResourceEntity->setBuyOrderDate($resourceEntity->getBuyOrderDate());
             }
             $this->update($oldResourceEntity);
         } else {

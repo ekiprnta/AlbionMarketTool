@@ -1,5 +1,11 @@
 <!-- CHANGELOGGER -->
 
+## [0.10.2] - 2023-02-21
+
+### Bug fix (1 change)
+
+- Age is not correct calculated (props m-zierdt)
+
 ## [0.10.1] - 2023-02-17
 
 ### Feature change (1 change)
