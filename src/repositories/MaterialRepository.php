@@ -21,11 +21,11 @@ class MaterialRepository extends Repository
         if ($oldMaterialEntity !== null) {
             if ($materialEntity->getSellOrderPrice() !== 0) {
                 $oldMaterialEntity->setSellOrderPrice($materialEntity->getSellOrderPrice());
-                $oldMaterialEntity->setBuyOrderPrice($materialEntity->getBuyOrderPrice());
+                $oldMaterialEntity->setSellOrderDate($materialEntity->getSellOrderDate());
             }
             if ($materialEntity->getBuyOrderPrice() !== 0) {
-                $oldMaterialEntity->setSellOrderAge($materialEntity->getSellOrderAge());
-                $oldMaterialEntity->setBuyOrderAge($materialEntity->getBuyOrderAge());
+                $oldMaterialEntity->setBuyOrderPrice($materialEntity->getBuyOrderPrice());
+                $oldMaterialEntity->setBuyOrderDate($materialEntity->getBuyOrderDate());
             }
             $this->update($oldMaterialEntity);
         } else {
