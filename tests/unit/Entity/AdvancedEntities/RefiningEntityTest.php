@@ -30,7 +30,7 @@ class RefiningEntityTest extends TestCase
 
     public function testGetResourceEntity(): void
     {
-        $this->assertEquals($this->resourceEntity, $this->refiningEntity->getResourceEntity());
+        $this->assertEquals($this->resourceEntity, $this->refiningEntity->getRefinedResource());
     }
 
     public function testGetTierColor(): void
