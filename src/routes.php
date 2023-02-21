@@ -3,9 +3,9 @@
 use MZierdt\Albion\Handler\AdminHandler;
 use MZierdt\Albion\Handler\BlackMarketCraftingHandler;
 use MZierdt\Albion\Handler\BlackMarketTransportingHandler;
-use MZierdt\Albion\Handler\CapesCraftingHandler;
 use MZierdt\Albion\Handler\EnchantingHandler;
 use MZierdt\Albion\Handler\ListDataHandler;
+use MZierdt\Albion\Handler\NoSpecCraftingHandler;
 use MZierdt\Albion\Handler\RefiningHandler;
 use MZierdt\Albion\Handler\TransmutationHandler;
 use Twig\Environment;
@@ -22,7 +22,7 @@ $dispatcher = FastRoute\simpleDispatcher(
         $r->addRoute(['GET', 'POST'], '/resource/transmutation', $serviceManager->get(TransmutationHandler::class));
         $r->addRoute(['GET', 'POST'], '/blackmarket/crafting', $serviceManager->get(BlackMarketCraftingHandler::class));
         $r->addRoute(['GET', 'POST'], '/noSpec/enchanting', $serviceManager->get(EnchantingHandler::class));
-        $r->addRoute(['GET', 'POST'], '/noSpec/crafting', $serviceManager->get(CapesCraftingHandler::class));
+        $r->addRoute(['GET', 'POST'], '/noSpec/crafting', $serviceManager->get(NoSpecCraftingHandler::class));
         $r->addRoute(
             ['GET', 'POST'],
             '/blackmarket/transporting',

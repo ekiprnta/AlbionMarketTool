@@ -8,7 +8,7 @@ use Laminas\Diactoros\Response\HtmlResponse;
 use MZierdt\Albion\Service\NoSpecCraftingService;
 use Twig\Environment;
 
-class CapesCraftingHandler
+class NoSpecCraftingHandler
 {
     public function __construct(
         private readonly Environment $twigEnvironment,
@@ -20,7 +20,7 @@ class CapesCraftingHandler
     {
         $cityData = [];
         $alertMessage = null;
-        if (! empty($_GET)) {
+        if (!empty($_GET)) {
             $city = $_GET['itemCity'];
             try {
                 $cityData = $this->capesCraftingService->getCapesByCity($city);
@@ -28,12 +28,15 @@ class CapesCraftingHandler
                 $alertMessage = $exception->getMessage();
             }
         }
+        $now = new \DateTimeImmutable();
+        $fewDaysAgo = $now->modify('-5 days');
 
         $htmlContent = $this->twigEnvironment->render(
             'NoSpecCrafting.html.twig',
             [
                 'dataArray' => $cityData,
                 'alertMessage' => $alertMessage,
+                'timeThreshold' => $fewDaysAgo,
             ]
         );
         return new HtmlResponse($htmlContent);
