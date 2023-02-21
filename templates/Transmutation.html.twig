@@ -55,15 +55,15 @@
                             <td class="align-middle text-left tier tier-{{ transmutationEntity.endTierColor }}"> {{ transmutationEntity.endResource.tier }}</td>
                             <td class="align-middle text-right"> {{ transmutationEntity.resourceType }}</td>
                             <td class="align-middle text-right"> {{ transmutationEntity.profit|number_format }}</td>
-                            <td class="align-middle {% if transmutationEntity.startResource.sellOrderAge > 720 %} bg-D {% endif %}">
+                            <td class="align-middle {% if transmutationEntity.startResource.sellOrderDate < timeThreshold %} bg-D {% endif %}">
                                 <a class="btn text-right w-100"
-                                   title="{{ transmutationEntity.startResource.sellOrderAge|number_format }}min">
+                                   title="{{ transmutationEntity.startResource.sellOrderDate|date('d.m H:i') }}min">
                                     {{ transmutationEntity.startResource.sellOrderPrice|number_format }}
                                 </a>
                             </td>
-                            <td class="align-middle {% if transmutationEntity.endResource.sellOrderAge > 720 %} bg-D {% endif %}">
+                            <td class="align-middle {% if transmutationEntity.endResource.sellOrderDate < timeThreshold %} bg-D {% endif %}">
                                 <a class="btn text-right w-100"
-                                   title="{{ transmutationEntity.endResource.sellOrderAge|number_format }}min">
+                                   title="{{ transmutationEntity.endResource.sellOrderDate|date('d.m H:i') }}min">
                                     {{ transmutationEntity.endResource.sellOrderPrice|number_format }}
                                 </a>
                             </td>

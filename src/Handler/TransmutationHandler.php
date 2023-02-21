@@ -19,7 +19,7 @@ class TransmutationHandler
         $cityData = [];
         $alertMessage = null;
 
-        if (! empty($_GET)) {
+        if (!empty($_GET)) {
             $city = $_GET['city'];
             try {
                 $cityData = $this->transmutationService->getTransmutationByCity($city);
@@ -28,10 +28,13 @@ class TransmutationHandler
             }
 //            dd($cityData);
         }
+        $now = new \DateTimeImmutable();
+        $fewDaysAgo = $now->modify('-5 days');
 
         $htmlContent = $this->twigEnvironment->render('Transmutation.html.twig', [
             'dataArray' => $cityData,
             'alertMessage' => $alertMessage,
+            'timeThreshold' => $fewDaysAgo,
         ]);
         return new HtmlResponse($htmlContent);
     }
