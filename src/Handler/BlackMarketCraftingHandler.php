@@ -7,6 +7,7 @@ namespace MZierdt\Albion\Handler;
 use InvalidArgumentException;
 use Laminas\Diactoros\Response\HtmlResponse;
 use MZierdt\Albion\Service\BlackMarketCraftingService;
+use MZierdt\Albion\Service\TimeService;
 use Twig\Environment;
 
 class BlackMarketCraftingHandler
@@ -39,15 +40,14 @@ class BlackMarketCraftingHandler
                 $alertMessage = $invalidArgumentExceptionException->getMessage();
             }
         }
-        $now = new \DateTimeImmutable();
-        $fewDaysAgo = $now->modify('-5 days');
+
 
         $htmlContent = $this->twigEnvironment->render('BlackMarketCrafting.html.twig', [
             'dataArray' => $cityData,
             'infoService' => $this->blackMarketCraftingService,
             'alertMessage' => $alertMessage,
             'rates' => $this->blackMarketCraftingService->getCraftingRates(),
-            'timeThreshold' => $fewDaysAgo,
+            'timeThreshold' => TimeService::getFiveDaysAgo(new \DateTimeImmutable()),
         ]);
         return new HtmlResponse($htmlContent);
     }

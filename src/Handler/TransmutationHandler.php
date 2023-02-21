@@ -3,6 +3,7 @@
 namespace MZierdt\Albion\Handler;
 
 use Laminas\Diactoros\Response\HtmlResponse;
+use MZierdt\Albion\Service\TimeService;
 use MZierdt\Albion\Service\TransmutationService;
 use Twig\Environment;
 
@@ -28,13 +29,11 @@ class TransmutationHandler
             }
 //            dd($cityData);
         }
-        $now = new \DateTimeImmutable();
-        $fewDaysAgo = $now->modify('-5 days');
 
         $htmlContent = $this->twigEnvironment->render('Transmutation.html.twig', [
             'dataArray' => $cityData,
             'alertMessage' => $alertMessage,
-            'timeThreshold' => $fewDaysAgo,
+            'timeThreshold' => TimeService::getFiveDaysAgo(new \DateTimeImmutable()),
         ]);
         return new HtmlResponse($htmlContent);
     }
