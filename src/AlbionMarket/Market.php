@@ -27,6 +27,11 @@ class Market
         return $price * (1 - self::MARKET_SETUP);
     }
 
+    public function calculateProfit(int $sellPrice, float|int $materialCost, float $fee = 0.0): float
+    {
+        return $this->calculateSellOrder($sellPrice) - ($materialCost + $fee);
+    }
+
     public function calculateProfitGrade(float $percentage): string
     {
         return match (true) {

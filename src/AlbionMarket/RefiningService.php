@@ -39,13 +39,16 @@ class RefiningService
         /** @var RefiningEntity $refiningEntity */
         foreach ($refiningArray as $refiningEntity) {
             $refiningEntity->setAmountRawResource(
-                $this->refiningHelper->calculateAmountRawResource($refiningEntity->getResourceEntity()->getTier())
+                $this->refiningHelper->calculateAmountRawResource($refiningEntity->getRefinedResource()->getTier())
             );
             $refiningEntity->setRawResource(
-                $this->refiningHelper->calculateResource($refiningEntity->getResourceEntity()->getTier(), $rawResources)
+                $this->refiningHelper->calculateResource(
+                    $refiningEntity->getRefinedResource()->getTier(),
+                    $rawResources
+                )
             );
             $lowerTier = $this->refiningHelper->calculateLowerResourceTier(
-                $refiningEntity->getResourceEntity()
+                $refiningEntity->getRefinedResource()
                     ->getTier()
             );
             $refiningEntity->setLowerResource($this->refiningHelper->calculateResource($lowerTier, $resources));
@@ -60,13 +63,13 @@ class RefiningService
             );
             $refiningEntity->setSingleProfit(
                 $this->refiningHelper->calculateProfit(
-                    $refiningEntity->getResourceEntity()
+                    $refiningEntity->getRefinedResource()
                         ->getSellOrderPrice(),
                     $resourceCost
                 )
             );
             $refiningEntity->setAmount(
-                $this->refiningHelper->calculateRefiningAmount($refiningEntity->getResourceEntity()->getTier())
+                $this->refiningHelper->calculateRefiningAmount($refiningEntity->getRefinedResource()->getTier())
             );
             $refiningEntity->setProfit(
                 $this->refiningHelper->calculateTotalProfit(
@@ -76,7 +79,7 @@ class RefiningService
             );
             $refiningEntity->setProfitPercentage(
                 $this->refiningHelper->calculateProfitPercentage(
-                    $refiningEntity->getResourceEntity()
+                    $refiningEntity->getRefinedResource()
                         ->getSellOrderPrice(),
                     $resourceCost
                 )
