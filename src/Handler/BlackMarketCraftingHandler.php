@@ -39,12 +39,15 @@ class BlackMarketCraftingHandler
                 $alertMessage = $invalidArgumentExceptionException->getMessage();
             }
         }
+        $now = new \DateTimeImmutable();
+        $fewDaysAgo = $now->modify('-5 days');
 
         $htmlContent = $this->twigEnvironment->render('BlackMarketCrafting.html.twig', [
             'dataArray' => $cityData,
             'infoService' => $this->blackMarketCraftingService,
             'alertMessage' => $alertMessage,
             'rates' => $this->blackMarketCraftingService->getCraftingRates(),
+            'timeThreshold' => $fewDaysAgo,
         ]);
         return new HtmlResponse($htmlContent);
     }

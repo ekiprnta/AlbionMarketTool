@@ -118,30 +118,30 @@
                     </tr>
                     </thead>
                     <tbody class="text-right">
-                    {# @var bmcEntity \MZierdt\Albion\Entity\BlackMarketCraftingEntity #}
+                    {# @var bmcEntity \MZierdt\Albion\Entity\BlackMaerketCraftingEntity #}
                     {% for bmcEntity in weaponGroup %}
                         {% if bmcEntity.item.sellOrderPrice != 0  and bmcEntity.item.buyOrderPrice !=0 %}
                             <tr class="bg-{{ bmcEntity.colorGrade }} bg-{{ bmcEntity.item.getPrice }}">
                                 <td class="align-middle text-left tier-{{ bmcEntity.tierColor }} tier">{{ bmcEntity.item.tier }}</td>
                                 <td class="align-middle">{{ bmcEntity.item.realName }}</td>
-                                <td class="align-middle {% if bmcEntity.primResource.buyOrderAge > 720 %} bg-D {% endif %}">
+                                <td class="align-middle {% if bmcEntity.primResource.buyOrderDate < timeThreshold %} bg-D {% endif %}">
                                     <a class="btn text-right w-100"
-                                       title="{{ bmcEntity.primResource.buyOrderAge|number_format }}min">
+                                       title="{{ bmcEntity.primResource.buyOrderDate|date('d.m H:i') }}min">
                                         {{ bmcEntity.primResource.buyOrderPrice|number_format }}
                                     </a>
                                 </td>
                                 <td class="align-middle">{{ bmcEntity.primResourceAmount|number_format }}x</td>
-                                <td class="align-middle {% if bmcEntity.secResource.buyOrderAge > 720 %}bg-D{% endif %}">
+                                <td class="align-middle {% if bmcEntity.secResource.buyOrderDate < timeThreshold %}bg-D{% endif %}">
                                     <a class="btn text-right w-100"
-                                       title="{% if bmcEntity.secResource.buyOrderAge < 10000 %}{{ bmcEntity.secResource.buyOrderAge|number_format }}min{% endif %}">
+                                       title="{{ bmcEntity.secResource.buyOrderDate|date('d.m H:i') }}min">
                                         {{ bmcEntity.secResource.sellOrderPrice|number_format }}
                                     </a>
                                 </td>
                                 <td class="align-middle">{{ bmcEntity.secResourceAmount|number_format }}x</td>
                                 <td class="align-middle">{{ bmcEntity.journalAmount|round(1,'ceil') }}x</td>
-                                <td class="align-middle {% if bmcEntity.item.sellOrderAge > 10000 %}bg-D{% endif %}">
+                                <td class="align-middle {% if bmcEntity.item.sellOrderDate < timeThreshold %}bg-D{% endif %}">
                                     <a class="btn text-right w-100"
-                                       title="{{ bmcEntity.item.sellOrderAge|number_format }}min">
+                                       title="{{ bmcEntity.item.sellOrderDate|date('d.m H:i') }}min">
                                         {{ bmcEntity.item.sellOrderPrice|number_format }}
                                     </a>
                                 </td>
