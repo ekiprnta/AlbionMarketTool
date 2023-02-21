@@ -20,7 +20,7 @@ class EnchantingHandler
     {
         $cityData = [];
         $alertMessage = null;
-        if (! empty($_GET)) {
+        if (!empty($_GET)) {
             $city = $_GET['itemCity'];
             try {
                 $cityData = $this->enchantingService->getEnchantingForCity($city);
@@ -28,10 +28,13 @@ class EnchantingHandler
                 $alertMessage = $exception->getMessage();
             } // TODo get avg amount and build better Quotient
         }
+        $now = new \DateTimeImmutable();
+        $fewDaysAgo = $now->modify('-5 days');
 
         $htmlContent = $this->environment->render('Enchanting.html.twig', [
             'dataArray' => $cityData,
             'alertMessage' => $alertMessage,
+            'timeThreshold' => $fewDaysAgo,
         ]);
         return new HtmlResponse($htmlContent);
     }

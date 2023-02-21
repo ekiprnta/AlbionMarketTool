@@ -59,13 +59,13 @@
                         <tr class="bg-{{ enchantingEntity.profitGrade }}">
                             <td class="align-middle text-left tier-{{ enchantingEntity.tierColor }} tier">{{ enchantingEntity.itemEntity.tier }}</td>
                             <td class="align-middle">{{ enchantingEntity.itemEntity.realName }}</td>
-                            <td class="align-middle {% if enchantingEntity.itemEntity.sellOrderAge > 720 %} bg-D {% endif %}">
+                            <td class="align-middle {% if enchantingEntity.itemEntity.sellOrderDate < timeThreshold %} bg-D {% endif %}">
                                 <a class="btn text-right w-100"
-                                   title="{{ enchantingEntity.itemEntity.sellOrderAge|number_format }}min">{{ enchantingEntity.itemEntity.sellOrderPrice|number_format }}</a>
+                                   title="{{ enchantingEntity.itemEntity.sellOrderDate|date('d.m H:i') }}min">{{ enchantingEntity.itemEntity.sellOrderPrice|number_format }}</a>
                             </td>
-                            <td class="align-middle {% if enchantingEntity.higherEnchantmentItem.sellOrderAge > 720 %} bg-D {% endif %}">
+                            <td class="align-middle {% if enchantingEntity.higherEnchantmentItem.sellOrderDate < timeThreshold %} bg-D {% endif %}">
                                 <a class="btn text-right w-100"
-                                   title="{{ enchantingEntity.higherEnchantmentItem.sellOrderAge|number_format }}min">{{ enchantingEntity.higherEnchantmentItem.sellOrderPrice|number_format }}</a>
+                                   title="{{ enchantingEntity.higherEnchantmentItem.sellOrderDate|date('d.m H:i') }}min">{{ enchantingEntity.higherEnchantmentItem.sellOrderPrice|number_format }}</a>
                             </td>
                             <td class="align-middle">{{ enchantingEntity.enchantmentMaterial.buyOrderPrice|number_format }}</td>
                             <td class="align-middle">{{ enchantingEntity.materialCost|number_format }}</td>
