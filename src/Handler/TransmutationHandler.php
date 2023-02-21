@@ -20,7 +20,7 @@ class TransmutationHandler
         $cityData = [];
         $alertMessage = null;
 
-        if (!empty($_GET)) {
+        if (! empty($_GET)) {
             $city = $_GET['city'];
             try {
                 $cityData = $this->transmutationService->getTransmutationByCity($city);

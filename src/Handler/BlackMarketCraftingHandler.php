@@ -41,7 +41,6 @@ class BlackMarketCraftingHandler
             }
         }
 
-
         $htmlContent = $this->twigEnvironment->render('BlackMarketCrafting.html.twig', [
             'dataArray' => $cityData,
             'infoService' => $this->blackMarketCraftingService,
