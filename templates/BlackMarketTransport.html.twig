@@ -60,13 +60,13 @@
                             style="display: none">
                             <td class="align-middle text-left tier-{{ transportEntity.tierColor }} tier">{{ transportEntity.bmItem.tier }}</td>
                             <td class="align-middle">{{ transportEntity.bmItem.realName }}</td>
-                            <td class="align-middle {% if transportEntity.bmItem.sellOrderAge > 720 %} bg-D {% endif %}">
+                            <td class="align-middle {% if transportEntity.bmItem.sellOrderDate < timeThreshold %} bg-D {% endif %}">
                                 <a class="btn text-right w-100"
-                                   title="{{ transportEntity.bmItem.sellOrderAge|number_format }}min">{{ transportEntity.bmItem.sellOrderPrice|number_format }}</a>
+                                   title="{{ transportEntity.bmItem.sellOrderDate|date('d.m H:i') }}min">{{ transportEntity.bmItem.sellOrderPrice|number_format }}</a>
                             </td>
-                            <td class="align-middle {% if transportEntity.cityItem.sellOrderAge > 720 %} bg-D {% endif %}">
+                            <td class="align-middle {% if transportEntity.cityItem.sellOrderDate < timeThreshold %} bg-D {% endif %}">
                                 <a class="btn text-right w-100"
-                                   title="{{ transportEntity.cityItem.sellOrderAge|number_format }}min">{{ transportEntity.cityItem.sellOrderPrice|number_format }}</a>
+                                   title="{{ transportEntity.cityItem.sellOrderDate|date('d.m H:i') }}min">{{ transportEntity.cityItem.sellOrderPrice|number_format }}</a>
                             </td>
                             <td class="align-middle">{{ transportEntity.profitSell|number_format }}</td>
                             <td class="align-middle">{{ transportEntity.profitPercentageSell|number_format }}</td>
@@ -101,13 +101,13 @@
                             style="display: none">
                             <td class="align-middle text-left tier-{{ transportEntity.tierColor }} tier">{{ transportEntity.bmItem.tier }}</td>
                             <td class="align-middle">{{ transportEntity.bmItem.realName }}</td>
-                            <td class="align-middle {% if transportEntity.bmItem.sellOrderAge > 720 %} bg-D {% endif %}">
+                            <td class="align-middle {% if transportEntity.bmItem.sellOrderDate < timeThreshold %} bg-D {% endif %}">
                                 <a class="btn text-right w-100"
-                                   title="{{ transportEntity.bmItem.sellOrderAge|number_format }}min">{{ transportEntity.bmItem.sellOrderPrice|number_format }}</a>
+                                   title="{{ transportEntity.bmItem.sellOrderDate|date('d.m H:i') }}min">{{ transportEntity.bmItem.sellOrderPrice|number_format }}</a>
                             </td>
-                            <td class="align-middle {% if transportEntity.cityItem.buyOrderAge > 720 %} bg-D {% endif %}">
+                            <td class="align-middle {% if transportEntity.cityItem.buyOrderDate < timeThreshold %} bg-D {% endif %}">
                                 <a class="btn text-right w-100"
-                                   title="{{ transportEntity.cityItem.buyOrderAge|number_format }}min">{{ transportEntity.cityItem.buyOrderPrice|number_format }}</a>
+                                   title="{{ transportEntity.cityItem.buyOrderDate|date('d.m H:i') }}min">{{ transportEntity.cityItem.buyOrderPrice|number_format }}</a>
                             </td>
                             <td class="align-middle">{{ transportEntity.profitBuy|number_format }}</td>
                             <td class="align-middle">{{ transportEntity.profitPercentageBuy|number_format }}</td>

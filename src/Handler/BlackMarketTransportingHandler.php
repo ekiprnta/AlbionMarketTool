@@ -6,6 +6,7 @@ namespace MZierdt\Albion\Handler;
 
 use Laminas\Diactoros\Response\HtmlResponse;
 use MZierdt\Albion\repositories\AdvancedRepository\BlackMarketTransportingRepository;
+use MZierdt\Albion\Service\TimeService;
 use Twig\Environment;
 
 class BlackMarketTransportingHandler
@@ -34,6 +35,7 @@ class BlackMarketTransportingHandler
         $htmlContent = $this->twigEnvironment->render('BlackMarketTransport.html.twig', [
             'dataArray' => $cityData,
             'alertMessage' => $alertMessage,
+            'timeThreshold' => TimeService::getFiveDaysAgo(new \DateTimeImmutable())
         ]);
         return new HtmlResponse($htmlContent);
     }
