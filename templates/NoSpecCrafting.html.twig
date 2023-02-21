@@ -56,9 +56,9 @@
                         <tr class="bg-{{ noSpecEntity.profitGrade }}">
                             <td class="align-middle text-left tier-{{ noSpecEntity.tierColor }} tier">{{ noSpecEntity.specialItem.tier }}</td>
                             <td class="align-middle">{{ noSpecEntity.specialItem.realName }}</td>
-                            <td class="align-middle {% if noSpecEntity.specialItem.sellOrderAge > 720 %} bg-D {% endif %}">
+                            <td class="align-middle {% if noSpecEntity.specialItem.sellOrderDate < timeThreshold %} bg-D {% endif %}">
                                 <a class="btn text-right w-100"
-                                   title="{{ noSpecEntity.specialItem.sellOrderAge|number_format }}min">{{ noSpecEntity.specialItem.sellOrderPrice|number_format }}</a>
+                                   title="{{ noSpecEntity.specialItem.sellOrderDate|date('d.m H:i') }}min">{{ noSpecEntity.specialItem.sellOrderPrice|number_format }}</a>
                             </td>
                             <td class="align-middle">{{ noSpecEntity.materialCost|number_format }}</td>
                             <td class="align-middle">{{ noSpecEntity.profit|number_format }}</td>

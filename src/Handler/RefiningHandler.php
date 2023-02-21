@@ -4,6 +4,7 @@ namespace MZierdt\Albion\Handler;
 
 use Laminas\Diactoros\Response\HtmlResponse;
 use MZierdt\Albion\Service\RefiningService;
+use MZierdt\Albion\Service\TimeService;
 use Twig\Environment;
 
 class RefiningHandler
@@ -34,6 +35,7 @@ class RefiningHandler
             'dataArray' => $cityData,
             'alertMessage' => $alertMessage,
             'rates' => $this->refiningService->getRefiningRates(),
+            'timeThreshold' => TimeService::getFiveDaysAgo(new \DateTimeImmutable()),
         ]);
         return new HtmlResponse($htmlContent);
     }

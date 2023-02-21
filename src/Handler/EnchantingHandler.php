@@ -6,6 +6,7 @@ namespace MZierdt\Albion\Handler;
 
 use Laminas\Diactoros\Response\HtmlResponse;
 use MZierdt\Albion\Service\EnchantingService;
+use MZierdt\Albion\Service\TimeService;
 use Twig\Environment;
 
 class EnchantingHandler
@@ -32,6 +33,7 @@ class EnchantingHandler
         $htmlContent = $this->environment->render('Enchanting.html.twig', [
             'dataArray' => $cityData,
             'alertMessage' => $alertMessage,
+            'timeThreshold' => TimeService::getFiveDaysAgo(new \DateTimeImmutable()),
         ]);
         return new HtmlResponse($htmlContent);
     }
