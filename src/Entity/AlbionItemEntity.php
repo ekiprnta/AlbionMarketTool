@@ -139,15 +139,15 @@ class AlbionItemEntity
         return $this;
     }
 
-    private function calculateAge(?string $dateString): int
-    {
-        $priceDate = $this->calculateDateTimeImmutable($dateString);
-
-        $now = $this->getCurrentTime();
-
-        $dateDiff = date_diff($now, $priceDate);
-        return $dateDiff->d * 24 * 60 + $dateDiff->h * 60 + $dateDiff->i;
-    }
+//    private function calculateAge(?string $dateString): int
+//    {
+//        $priceDate = $this->calculateDateTimeImmutable($dateString);
+//
+//        $now = $this->getCurrentTime();
+//
+//        $dateDiff = date_diff($now, $priceDate);
+//        return $dateDiff->d * 24 * 60 + $dateDiff->h * 60 + $dateDiff->i;
+//    }
 
     public function getCurrentTime(): DateTimeImmutable
     {
