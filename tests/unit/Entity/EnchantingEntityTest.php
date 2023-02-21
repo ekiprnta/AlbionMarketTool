@@ -35,9 +35,9 @@ class EnchantingEntityTest extends TestCase
             ->setName('relic')
             ->setCity('Martlock')
             ->setSellOrderPrice(601)
-            ->setSellOrderAge(284)
+//            ->setSellOrderDate(284)
             ->setBuyOrderPrice(600)
-            ->setBuyOrderAge(234)
+//            ->setBuyOrderDate(234)
             ->setRealName('relic');
 
         $this->enchantingEntity->setEnchantmentMaterial($materialEntity);

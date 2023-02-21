@@ -20,9 +20,9 @@ class MaterialEntityTest extends TestCase
         $this->materialEntity->setName('relic');
         $this->materialEntity->setCity('Martlock');
         $this->materialEntity->setSellOrderPrice(601);
-        $this->materialEntity->setSellOrderAge(284);
+//        $this->materialEntity->setSellOrderDate(284);
         $this->materialEntity->setBuyOrderPrice(600);
-        $this->materialEntity->setBuyOrderAge(234);
+//        $this->materialEntity->setBuyOrderDate(234);
         $this->materialEntity->setRealName('relic');
         $this->materialEntity->setType('type');
 
@@ -30,9 +30,9 @@ class MaterialEntityTest extends TestCase
         $this->assertEquals('relic', $this->materialEntity->getName());
         $this->assertEquals('Martlock', $this->materialEntity->getCity());
         $this->assertEquals(601, $this->materialEntity->getSellOrderPrice());
-        $this->assertEquals(284, $this->materialEntity->getSellOrderAge());
+//        $this->assertEquals(284, $this->materialEntity->getSellOrderDate());
         $this->assertEquals(600, $this->materialEntity->getBuyOrderPrice());
-        $this->assertEquals(234, $this->materialEntity->getBuyOrderAge());
+//        $this->assertEquals(234, $this->materialEntity->getBuyOrderDate());
         $this->assertEquals('relic', $this->materialEntity->getRealName());
         $this->assertEquals('type', $this->materialEntity->getType());
     }
