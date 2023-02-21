@@ -19,7 +19,7 @@ class RefiningHandler
         $cityData = [];
         $alertMessage = null;
 
-        if (! empty($_GET)) {
+        if (!empty($_GET)) {
             $request = $_GET;
             $itemCity = $request['itemCity'];
             $percentage = (float) $request['rrr'];
@@ -29,11 +29,14 @@ class RefiningHandler
                 $alertMessage = $invalidArgumentException->getMessage();
             }
         }
+        $now = new \DateTimeImmutable();
+        $fewDaysAgo = $now->modify('-5 days');
 
         $htmlContent = $this->twigEnvironment->render('Refining.html.twig', [
             'dataArray' => $cityData,
             'alertMessage' => $alertMessage,
             'rates' => $this->refiningService->getRefiningRates(),
+            'timeThreshold' => $fewDaysAgo,
         ]);
         return new HtmlResponse($htmlContent);
     }
