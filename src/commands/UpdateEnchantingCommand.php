@@ -10,6 +10,7 @@ use MZierdt\Albion\Entity\ItemEntity;
 use MZierdt\Albion\repositories\AdvancedRepository\EnchantingRepository;
 use MZierdt\Albion\repositories\ItemRepository;
 use MZierdt\Albion\repositories\MaterialRepository;
+use MZierdt\Albion\Service\ProgressBarService;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -33,7 +34,30 @@ class UpdateEnchantingCommand extends Command
 
         $city = 'Fort Sterling';
         $output->writeln('Updating Enchanting from ' . $city . '...');
+        $this->updateCalculations($city, $bmItems, $output);
 
+        $city = 'Lymhurst';
+        $output->writeln(PHP_EOL . 'Updating Enchanting from ' . $city . '...');
+        $this->updateCalculations($city, $bmItems, $output);
+
+        $city = 'Bridgewatch';
+        $output->writeln(PHP_EOL . 'Updating Enchanting from ' . $city . '...');
+        $this->updateCalculations($city, $bmItems, $output);
+
+        $city = 'Martlock';
+        $output->writeln(PHP_EOL . 'Updating Enchanting from ' . $city . '...');
+        $this->updateCalculations($city, $bmItems, $output);
+
+        $city = 'Thetford';
+        $output->writeln(PHP_EOL . 'Updating Enchanting from ' . $city . '...');
+        $this->updateCalculations($city, $bmItems, $output);
+
+        $output->writeln(PHP_EOL . 'Done');
+        return self::SUCCESS;
+    }
+
+    private function updateCalculations(string $city, array $bmItems, OutputInterface $output): void
+    {
         $items = $this->itemRepository->getItemsByLocation($city);
         $items = $this->enchantingService->filterItems($items);
         $materials = $this->materialRepository->getMaterialsByLocation($city);
@@ -46,9 +70,19 @@ class UpdateEnchantingCommand extends Command
                 $enchantingEntities[] = new EnchantingEntity($item);
             }
         }
+        $progressBar = ProgressBarService::getProgressBar($output, count($enchantingEntities));
 
         /** @var EnchantingEntity $enchantingEntity */
         foreach ($enchantingEntities as $enchantingEntity) {
+            $message = sprintf(
+                'Update refiningEntity: %s from %s',
+                $enchantingEntity->getBaseItem()->getRealName(),
+                $city
+            );
+            $progressBar->setMessage($message);
+            $progressBar->advance();
+            $progressBar->display();
+
             $baseItem = $enchantingEntity->getBaseItem();
 
             $enchantingEntity->setBaseEnchantment($this->enchantingService->getEnchantment($baseItem->getTier()));
@@ -119,7 +153,5 @@ class UpdateEnchantingCommand extends Command
 
             $this->enchantingRepository->createOrUpdate($enchantingEntity);
         }
-
-        return self::SUCCESS;
     }
 }
