@@ -114,7 +114,7 @@ $serviceManager = new ServiceManager([
                 ],
                 TransmutationHandler::class => [
                     Environment::class,
-                    TransmutationServiceOldToDel::class,
+                    TransmutationRepository::class,
                 ],
                 TransmutationServiceOldToDel::class => [
                     ResourceRepository::class,
