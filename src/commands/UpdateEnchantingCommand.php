@@ -153,5 +153,7 @@ class UpdateEnchantingCommand extends Command
 
             $this->enchantingRepository->createOrUpdate($enchantingEntity);
         }
+        $progressBar->setMessage('Update in ' . $city . ' finished');
+        $progressBar->finish();
     }
 }
