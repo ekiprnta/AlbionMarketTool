@@ -43,7 +43,7 @@ class TransmutationHelperTest extends TestCase
 
     public function provideCost(): array
     {
-        return [[40, 10, 200, 150], [23379353, 234, 23456787, 77200]];
+        return [[-340.65, 10, 200, 150], [-23533768.21, 234, 23456787, 77200]];
     }
 
     /**

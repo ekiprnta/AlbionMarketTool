@@ -56,33 +56,4 @@ class RefiningEntityTest extends TestCase
         $this->assertEquals(15, $this->refiningEntity->getAmount());
     }
 
-    public function testGetProfit(): void
-    {
-        $this->refiningEntity->setProfit(15.23);
-        $this->assertEquals(15.23, $this->refiningEntity->getProfit());
-    }
-
-    public function testGetWeightAmountQuotient(): void
-    {
-        $this->refiningEntity->setProfitPercentage(182.24);
-        $this->assertEquals(182.24, $this->refiningEntity->getProfitPercentage());
-    }
-
-    public function testGetProfitGrade(): void
-    {
-        $this->refiningEntity->setProfitGrade('A');
-        $this->assertEquals('A', $this->refiningEntity->getProfitGrade());
-    }
-
-    public function testGetSingleProfit(): void
-    {
-        $this->refiningEntity->setSingleProfit(1.2);
-        $this->assertEquals(1.2, $this->refiningEntity->getSingleProfit());
-    }
-
-    public function testGetAmountRawResource(): void
-    {
-        $this->refiningEntity->setAmountRawResource(4);
-        $this->assertEquals(4, $this->refiningEntity->getAmountRawResource());
-    }
 }

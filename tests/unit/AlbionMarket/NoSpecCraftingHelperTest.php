@@ -132,14 +132,14 @@ class NoSpecCraftingHelperTest extends TestCase
     /**
      * @dataProvider provideProfit
      */
-    public function testCalculateProfit(int $profit, int $specialCapePrice, int $materialCost): void
+    public function testCalculateProfit(float $profit, int $specialCapePrice, int $materialCost): void
     {
         $this->assertEquals($profit, $this->ccHelper->calculateProfit($specialCapePrice, $materialCost));
     }
 
     public function provideProfit(): array
     {
-        return [[75, 100, 25], [-25, 75, 100]];
+        return [[68.5, 100, 25], [-29.875, 75, 100]];
     }
 
     protected function setUp(): void

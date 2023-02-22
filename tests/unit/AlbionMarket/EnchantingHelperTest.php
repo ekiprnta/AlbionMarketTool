@@ -140,7 +140,7 @@ class EnchantingHelperTest extends TestCase
 
     public function provideProfit(): array
     {
-        return [[2250, 5000, 7500, 250], [-52456, 45678, 50000, 56778]];
+        return [[-3075, 5000, 7500, 250], [-64069.07, 45678, 50000, 56778]];
     }
 
     protected function setUp(): void

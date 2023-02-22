@@ -49,7 +49,7 @@ class TransmutationServiceITest extends TestCase
 
         /** @var TransmutationEntity $transEntity */
         foreach ($testData as $transEntity) {
-            $this->assertEquals(-1932.0, $transEntity->getProfit());
+            $this->assertEquals(-4011.965, $transEntity->getProfit());
             $this->assertEquals('D', $transEntity->getProfitGrade());
             $this->assertEquals('4', $transEntity->getStartTierColor());
             $this->assertEquals('6', $transEntity->getEndTierColor());

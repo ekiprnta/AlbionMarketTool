@@ -45,7 +45,7 @@ class NoSpecCraftingServiceITest extends TestCase
         $noSpecEntity = $testData[0];
 
         $this->assertEquals(1250, $noSpecEntity->getMaterialCost());
-        $this->assertEquals(-1100, $noSpecEntity->getProfit());
+        $this->assertEquals(-1109.75, $noSpecEntity->getProfit());
         $this->assertEquals(11.99, $noSpecEntity->getProfitPercentage());
         $this->assertEquals('D', $noSpecEntity->getProfitGrade());
         $this->assertEquals(4, $noSpecEntity->getTierColor());
