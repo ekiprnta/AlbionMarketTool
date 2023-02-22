@@ -22,7 +22,7 @@ class EnchantingRepository extends Repository
         $oldEnchantingEntity = $this->entityManager->getRepository(EnchantingEntity::class)->findOneBy(
             [
                 'city' => $enchantingEntity->getCity(),
-                'refinedResource' => $enchantingEntity->getRefinedResource(),
+                'baseItem' => $enchantingEntity->getBaseItem(),
             ]
         );
 
