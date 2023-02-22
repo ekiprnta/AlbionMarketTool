@@ -8,6 +8,7 @@ use MZierdt\Albion\AlbionMarket\RefiningService;
 use MZierdt\Albion\Entity\AdvancedEntities\RefiningEntity;
 use MZierdt\Albion\repositories\AdvancedRepository\RefiningRepository;
 use MZierdt\Albion\repositories\ResourceRepository;
+use MZierdt\Albion\Service\ProgressBarService;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -31,6 +32,10 @@ class UpdateRefiningCommand extends Command
 
         $resources = $this->resourceRepository->getResourcesByBonusCity($city);
         $rawResources = $this->resourceRepository->getRawResourcesByBonusCity($city);
+        $progressBar = ProgressBarService::getProgressBar(
+            $output,
+            is_countable($resources) ? count($resources) - 1 : 0
+        );
 
         $refiningArray = [];
         foreach ($resources as $resource) {
@@ -40,6 +45,15 @@ class UpdateRefiningCommand extends Command
         }
         /** @var RefiningEntity $refiningEntity */
         foreach ($refiningArray as $refiningEntity) {
+            $message = sprintf(
+                'Update refiningEntity: %s from %s',
+                $refiningEntity->getRefinedResource()->getRealName(),
+                $city
+            );
+            $progressBar->setMessage($message);
+            $progressBar->advance();
+            $progressBar->display();
+
             $refiningEntity->setAmountRawResource(
                 $this->refiningService->calculateAmountRawResource($refiningEntity->getRefinedResource()->getTier())
             );
