@@ -20,7 +20,6 @@ use MZierdt\Albion\AlbionMarket\NoSpecCraftingHelper;
 use MZierdt\Albion\AlbionMarket\NoSpecCraftingService;
 use MZierdt\Albion\AlbionMarket\RefiningService;
 use MZierdt\Albion\AlbionMarket\TransmutationService;
-use MZierdt\Albion\AlbionMarket\TransmutationServiceOldToDel;
 use MZierdt\Albion\commands\UpdateBmTransportCommand;
 use MZierdt\Albion\commands\UpdateItemsCommand;
 use MZierdt\Albion\commands\UpdateJournalsCommand;
@@ -40,6 +39,7 @@ use MZierdt\Albion\Handler\RefiningHandler;
 use MZierdt\Albion\Handler\TransmutationHandler;
 use MZierdt\Albion\HttpClient;
 use MZierdt\Albion\repositories\AdvancedRepository\BlackMarketTransportingRepository;
+use MZierdt\Albion\repositories\AdvancedRepository\EnchantingRepository;
 use MZierdt\Albion\repositories\AdvancedRepository\RefiningRepository;
 use MZierdt\Albion\repositories\AdvancedRepository\TransmutationRepository;
 use MZierdt\Albion\repositories\ItemRepository;
@@ -130,6 +130,9 @@ $serviceManager = new ServiceManager([
                 EnchantingHelper::class => [],
                 AdminHandler::class => [
                     Environment::class,
+                ],
+                EnchantingRepository::class => [
+                    EntityManager::class,
                 ],
                 GlobalDiscountService::class => [
                     MiscApiService::class
