@@ -82,4 +82,14 @@ class RefiningService extends Market
     {
         return $Amount * $singleProfit;
     }
+
+    public function getRefiningRates(): array
+    {
+        return [
+            'No City Bonus No Focus' => 15.2,
+            'No City Bonus Focus' => 43.5,
+            'City Bonus No Focus' => 36.7,
+            'City Bonus Focus' => 53.9,
+        ];
+    }
 }
