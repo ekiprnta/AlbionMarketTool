@@ -68,9 +68,10 @@ class UpdateRefiningCommand extends Command
         }
         /** @var RefiningEntity $refiningEntity */
         foreach ($refiningArray as $refiningEntity) {
+            $refinedResource = $refiningEntity->getRefinedResource();
             $message = sprintf(
                 'Update refiningEntity: %s from %s',
-                $refiningEntity->getRefinedResource()->getRealName(),
+                $refinedResource->getRealName(),
                 $city
             );
             $progressBar->setMessage($message);
@@ -78,37 +79,39 @@ class UpdateRefiningCommand extends Command
             $progressBar->display();
 
             $refiningEntity->setAmountRawResource(
-                $this->refiningService->calculateAmountRawResource($refiningEntity->getRefinedResource()->getTier())
+                $this->refiningService->calculateAmountRawResource($refinedResource->getTier())
             );
             $refiningEntity->setRawResource(
                 $this->refiningService->calculateResource(
-                    $refiningEntity->getRefinedResource()->getTier(),
+                    $refinedResource->getTier(),
                     $rawResources
                 )
             );
             $lowerTier = $this->refiningService->calculateLowerResourceTier(
-                $refiningEntity->getRefinedResource()->getTier()
+                $refinedResource->getTier()
             );
             $refiningEntity->setLowerResource($this->refiningService->calculateResource($lowerTier, $resources));
 
             // Sell is the calculation with Focus
+            $rawResource = $refiningEntity->getRawResource();
+            $lowerResource = $refiningEntity->getLowerResource();
             $refiningEntity->setMaterialCostSell(
                 $this->refiningService->calculateResourceCost(
-                    $refiningEntity->getRawResource()->getBuyOrderPrice(),
-                    $refiningEntity->getLowerResource()->getBuyOrderPrice(),
+                    $rawResource->getBuyOrderPrice(),
+                    $lowerResource->getBuyOrderPrice(),
                     $refiningEntity->getAmountRawResource(),
                     53.9
                 )
             );
             $refiningEntity->setProfitSell(
                 $this->refiningService->calculateProfit(
-                    $refiningEntity->getRefinedResource()->getSellOrderPrice(),
+                    $refinedResource->getSellOrderPrice(),
                     $refiningEntity->getMaterialCostSell()
                 )
             );
             $refiningEntity->setProfitPercentageSell(
                 $this->refiningService->calculateProfitPercentage(
-                    $refiningEntity->getRefinedResource()->getSellOrderPrice(),
+                    $refinedResource->getSellOrderPrice(),
                     $refiningEntity->getMaterialCostSell()
                 )
             );
@@ -119,21 +122,21 @@ class UpdateRefiningCommand extends Command
             //Buy is the calculation without Focus
             $refiningEntity->setMaterialCostBuy(
                 $this->refiningService->calculateResourceCost(
-                    $refiningEntity->getRawResource()->getBuyOrderPrice(),
-                    $refiningEntity->getLowerResource()->getBuyOrderPrice(),
+                    $rawResource->getBuyOrderPrice(),
+                    $lowerResource->getBuyOrderPrice(),
                     $refiningEntity->getAmountRawResource(),
                     36.7
                 )
             );
             $refiningEntity->setProfitBuy(
                 $this->refiningService->calculateProfit(
-                    $refiningEntity->getRefinedResource()->getSellOrderPrice(),
+                    $refinedResource->getSellOrderPrice(),
                     $refiningEntity->getMaterialCostBuy()
                 )
             );
             $refiningEntity->setProfitPercentageBuy(
                 $this->refiningService->calculateProfitPercentage(
-                    $refiningEntity->getRefinedResource()->getSellOrderPrice(),
+                    $refinedResource->getSellOrderPrice(),
                     $refiningEntity->getMaterialCostBuy()
                 )
             );
@@ -144,12 +147,14 @@ class UpdateRefiningCommand extends Command
             $refiningEntity->setComplete(
                 $this->refiningService->isComplete(
                     [
-                        $refiningEntity->getRefinedResource()->getSellOrderPrice(),
-                        $refiningEntity->getLowerResource()->getBuyOrderPrice(),
-                        $refiningEntity->getRawResource()->getBuyOrderPrice()
+                        $refinedResource->getSellOrderPrice(),
+                        $lowerResource->getBuyOrderPrice(),
+                        $rawResource->getBuyOrderPrice()
                     ]
                 )
             );
+
+            $refiningEntity->setAmount($this->refiningService->calculateRefiningAmount($refinedResource->getTier()));
             $refiningEntity->setCity($city);
 
             $this->refiningRepository->createOrUpdate($refiningEntity);

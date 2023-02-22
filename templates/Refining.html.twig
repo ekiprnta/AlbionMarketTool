@@ -20,19 +20,6 @@
                                 </div>
                             </div>
                             {#                            <div class="col-2"> #}
-                            {#                                <label for="percentage"> #}
-                            {#                                    Resource Return Rate* #}
-                            {#                                </label> #}
-                            {#                                <input class="form-control" #}
-                            {#                                       id="percentage" #}
-                            {#                                       max="100" #}
-                            {#                                       min="0" #}
-                            {#                                       name="rrr" #}
-                            {#                                       step="0.1" #}
-                            {#                                       type="number" #}
-                            {#                                       placeholder="Default 53.9%"> #}
-                            {#                            </div> #}
-                            {#                            <div class="col-2"> #}
                             {#                                <label for="craftingFee"> #}
                             {#                                    Crafting Fee / 100 Nutrition #}
                             {#                                </label> #}
@@ -80,7 +67,8 @@
                     <th>Lower Resource</th>
                     <th>Profit</th>
                     <th>Percentage</th>
-                    {#                    <th>Amount</th> #}
+                    <th>Amount</th>
+                    <th>Total Profit</th>
                     {#                    <td>Crafting Fee</td> #}
                 </tr>
                 </thead>
@@ -110,6 +98,8 @@
                         </td>
                         <td class="align-middle">{{ refiningEntity.profitSell|number_format }}</td>
                         <td class="align-middle">{{ refiningEntity.profitPercentageSell|number_format }}</td>
+                        <td class="align-middle">{{ refiningEntity.amount|number_format }}</td>
+                        <td class="align-middle">{{ (refiningEntity.amount * refiningEntity.profitSell)|number_format }}</td>
                         {#                        <td class="align-middle">{{ refiningEntity.craftingFee }}</td> #}
                     </tr>
                 {% endfor %}
@@ -132,7 +122,8 @@
                     <th>Lower Resource</th>
                     <th>Profit</th>
                     <th>Percentage</th>
-                    {#                    <th>Amount</th> #}
+                    <th>Amount</th>
+                    <th>Total Profit</th>
                     {#                    <td>Crafting Fee</td> #}
                 </tr>
                 </thead>
@@ -162,6 +153,8 @@
                         </td>
                         <td class="align-middle">{{ refiningEntity.profitBuy|number_format }}</td>
                         <td class="align-middle">{{ refiningEntity.profitPercentageBuy|number_format }}</td>
+                        <td class="align-middle">{{ refiningEntity.amount|number_format }}</td>
+                        <td class="align-middle">{{ (refiningEntity.amount * refiningEntity.profitBuy)|number_format }}</td>
                         {#                        <td class="align-middle">{{ refiningEntity.craftingFee }}</td> #}
                     </tr>
                 {% endfor %}
