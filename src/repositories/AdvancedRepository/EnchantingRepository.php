@@ -13,7 +13,7 @@ class EnchantingRepository extends Repository
     {
         return $this->findBy(EnchantingEntity::class, [
             'complete' => true,
-            'city' => $city
+            'city' => $city,
         ]);
     }
 

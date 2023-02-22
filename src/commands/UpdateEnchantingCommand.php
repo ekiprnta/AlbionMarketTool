@@ -65,7 +65,7 @@ class UpdateEnchantingCommand extends Command
         $enchantingEntities = [];
         /** @var ItemEntity $item */
         foreach ($items as $item) {
-            if (!($item->getTier() === 30 || $item->getTier() === 20) &&
+            if (! ($item->getTier() === 30 || $item->getTier() === 20) &&
                 $this->enchantingService->getEnchantment($item->getTier()) < 3) {
                 $enchantingEntities[] = new EnchantingEntity($item);
             }
@@ -76,7 +76,8 @@ class UpdateEnchantingCommand extends Command
         foreach ($enchantingEntities as $enchantingEntity) {
             $message = sprintf(
                 'Update refiningEntity: %s from %s',
-                $enchantingEntity->getBaseItem()->getRealName(),
+                $enchantingEntity->getBaseItem()
+                    ->getRealName(),
                 $city
             );
             $progressBar->setMessage($message);
@@ -106,18 +107,21 @@ class UpdateEnchantingCommand extends Command
             $enchantingEntity->setMaterialCostBuy(
                 $this->enchantingService->calculateTotalMaterialCost(
                     $enchantingEntity->getMaterialAmount(),
-                    $enchantingEntity->getEnchantmentMaterial()->getBuyOrderPrice()
+                    $enchantingEntity->getEnchantmentMaterial()
+                        ->getBuyOrderPrice()
                 )
             );
             $enchantingEntity->setProfitSell(
                 $this->enchantingService->calculateProfit(
-                    $enchantingEntity->getHigherEnchantmentItem()->getSellOrderPrice(),
+                    $enchantingEntity->getHigherEnchantmentItem()
+                        ->getSellOrderPrice(),
                     $baseItem->getSellOrderPrice() + $enchantingEntity->getMaterialCostBuy()
                 )
             );
             $enchantingEntity->setProfitPercentageSell(
                 $this->enchantingService->calculateProfitPercentage(
-                    $enchantingEntity->getHigherEnchantmentItem()->getSellOrderPrice(),
+                    $enchantingEntity->getHigherEnchantmentItem()
+                        ->getSellOrderPrice(),
                     $baseItem->getSellOrderPrice() + $enchantingEntity->getMaterialCostBuy()
                 )
             );
@@ -127,13 +131,15 @@ class UpdateEnchantingCommand extends Command
 
             $enchantingEntity->setProfitBuy(
                 $this->enchantingService->calculateProfit(
-                    $enchantingEntity->getHigherEnchantmentItem()->getSellOrderPrice(),
+                    $enchantingEntity->getHigherEnchantmentItem()
+                        ->getSellOrderPrice(),
                     $baseItem->getBuyOrderPrice() + $enchantingEntity->getMaterialCostBuy()
                 )
             );
             $enchantingEntity->setProfitPercentageBuy(
                 $this->enchantingService->calculateProfitPercentage(
-                    $enchantingEntity->getHigherEnchantmentItem()->getSellOrderPrice(),
+                    $enchantingEntity->getHigherEnchantmentItem()
+                        ->getSellOrderPrice(),
                     $baseItem->getBuyOrderPrice() + $enchantingEntity->getMaterialCostBuy()
                 )
             );
@@ -143,10 +149,12 @@ class UpdateEnchantingCommand extends Command
 
             $enchantingEntity->setComplete(
                 $this->enchantingService->isComplete([
-                    $enchantingEntity->getHigherEnchantmentItem()->getSellOrderPrice(),
+                    $enchantingEntity->getHigherEnchantmentItem()
+                        ->getSellOrderPrice(),
                     $baseItem->getSellOrderPrice(),
                     $baseItem->getBuyOrderPrice(),
-                    $enchantingEntity->getEnchantmentMaterial()->getBuyOrderPrice(),
+                    $enchantingEntity->getEnchantmentMaterial()
+                        ->getBuyOrderPrice(),
                 ])
             );
             $enchantingEntity->setCity($city);
