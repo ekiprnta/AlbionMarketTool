@@ -4,70 +4,39 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\Entity\AdvancedEntities;
 
+use Doctrine\ORM\Mapping\ChangeTrackingPolicy;
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\Table;
 use MZierdt\Albion\Entity\ItemEntity;
 use MZierdt\Albion\Entity\MaterialEntity;
 
-class NoSpecEntity
+#[Entity]
+#[ChangeTrackingPolicy('DEFERRED_EXPLICIT')]
+#[Table(name: 'noSpec')]
+class NoSpecEntity extends MarketEntity
 {
+    #[ManyToOne(targetEntity: ItemEntity::class, cascade: ['persist'])]
+    #[JoinColumn(name: 'defaultItem', referencedColumnName: 'id', onDelete: 'CASCADE')]
     private ItemEntity $defaultItem;
+
+    #[ManyToOne(targetEntity: ItemEntity::class, cascade: ['persist'])]
+    #[JoinColumn(name: 'specialItem', referencedColumnName: 'id', onDelete: 'CASCADE')]
+    private ItemEntity $specialItem;
+
+    #[ManyToOne(targetEntity: MaterialEntity::class, cascade: ['persist'])]
+    #[JoinColumn(name: 'secondResource', referencedColumnName: 'id', onDelete: 'CASCADE')]
     private MaterialEntity $secondResource;
+
+    #[ManyToOne(targetEntity: MaterialEntity::class, cascade: ['persist'])]
+    #[JoinColumn(name: 'artifact', referencedColumnName: 'id', onDelete: 'CASCADE')]
     private ?MaterialEntity $artifact;
 
-    private float $materialCost;
-    private float $profit;
-
-    private float $profitPercentage;
-    private string $profitGrade;
-    private int $tierColor;
-
-    public function __construct(private readonly ItemEntity $specialItem)
+    public function __construct(ItemEntity $specialItem)
     {
-        $this->tierColor = (int) ($this->specialItem->getTier() / 10);
-    }
-
-    public function getProfit(): float
-    {
-        return $this->profit;
-    }
-
-    public function setProfit(float $profit): void
-    {
-        $this->profit = $profit;
-    }
-
-    public function getProfitPercentage(): float
-    {
-        return $this->profitPercentage;
-    }
-
-    public function setProfitPercentage(float $profitPercentage): void
-    {
-        $this->profitPercentage = $profitPercentage;
-    }
-
-    public function getProfitGrade(): string
-    {
-        return $this->profitGrade;
-    }
-
-    public function setProfitGrade(string $profitGrade): void
-    {
-        $this->profitGrade = $profitGrade;
-    }
-
-    public function getTierColor(): int
-    {
-        return $this->tierColor;
-    }
-
-    public function getMaterialCost(): float
-    {
-        return $this->materialCost;
-    }
-
-    public function setMaterialCost(float $materialCost): void
-    {
-        $this->materialCost = $materialCost;
+        $this->specialItem = $specialItem;
+        $this->tierColor = (int) ($specialItem->getTier() / 10);
     }
 
     public function getDefaultItem(): ItemEntity
