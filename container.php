@@ -19,7 +19,7 @@ use MZierdt\Albion\AlbionMarket\ListDataService;
 use MZierdt\Albion\AlbionMarket\NoSpecCraftingHelper;
 use MZierdt\Albion\AlbionMarket\NoSpecCraftingService;
 use MZierdt\Albion\AlbionMarket\RefiningService;
-use MZierdt\Albion\AlbionMarket\TransmutationHelper;
+use MZierdt\Albion\AlbionMarket\TransmutationService;
 use MZierdt\Albion\AlbionMarket\TransmutationServiceOldToDel;
 use MZierdt\Albion\commands\UpdateBmTransportCommand;
 use MZierdt\Albion\commands\UpdateItemsCommand;
@@ -116,13 +116,7 @@ $serviceManager = new ServiceManager([
                     Environment::class,
                     TransmutationRepository::class,
                 ],
-                TransmutationServiceOldToDel::class => [
-                    ResourceRepository::class,
-                    TransmutationHelper::class,
-                    ConfigService::class,
-                    GlobalDiscountService::class,
-                ],
-                TransmutationHelper::class => [],
+                TransmutationService::class => [],
                 EnchantingHandler::class => [
                     Environment::class,
                     EnchantingService::class
@@ -175,7 +169,7 @@ $serviceManager = new ServiceManager([
                     ResourceRepository::class,
                 ],
                 UpdateTransmutationCommand::class => [
-                    TransmutationHelper::class,
+                    TransmutationService::class,
                     TransmutationRepository::class,
                     ResourceRepository::class,
                     ConfigService::class,

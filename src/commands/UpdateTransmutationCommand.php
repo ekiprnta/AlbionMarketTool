@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\commands;
 
-use MZierdt\Albion\AlbionMarket\TransmutationHelper;
+use MZierdt\Albion\AlbionMarket\TransmutationService;
 use MZierdt\Albion\Entity\AdvancedEntities\TransmutationEntity;
 use MZierdt\Albion\repositories\AdvancedRepository\TransmutationRepository;
 use MZierdt\Albion\repositories\ResourceRepository;
@@ -20,7 +20,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class UpdateTransmutationCommand extends Command
 {
     public function __construct(
-        private readonly TransmutationHelper $transmutationService,
+        private readonly TransmutationService $transmutationService,
         private readonly TransmutationRepository $transmutationRepository,
         private readonly ResourceRepository $resourceRepository,
         private readonly ConfigService $configService,

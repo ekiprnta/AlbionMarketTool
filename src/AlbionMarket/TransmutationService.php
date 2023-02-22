@@ -4,7 +4,7 @@ namespace MZierdt\Albion\AlbionMarket;
 
 use MZierdt\Albion\Entity\ResourceEntity;
 
-class TransmutationHelper extends Market
+class TransmutationService extends Market
 {
     private function sameTier(string $currentTier, string $tier): bool
     {
