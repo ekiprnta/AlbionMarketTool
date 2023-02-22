@@ -29,7 +29,7 @@ class BlackMarketCraftingEntity extends MarketEntity
     private ResourceEntity $secResource;
 
     #[ManyToOne(targetEntity: ItemEntity::class, cascade: ['persist'])]
-    #[JoinColumn(name: 'Item', referencedColumnName: 'id', onDelete: 'CASCADE')]
+    #[JoinColumn(name: 'item', referencedColumnName: 'id', onDelete: 'CASCADE')]
     private ItemEntity $item;
 
     #[ManyToOne(targetEntity: JournalEntity::class, cascade: ['persist'])]

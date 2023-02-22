@@ -18,6 +18,7 @@ use MZierdt\Albion\AlbionMarket\ListDataService;
 use MZierdt\Albion\AlbionMarket\NoSpecCraftingService;
 use MZierdt\Albion\AlbionMarket\RefiningService;
 use MZierdt\Albion\AlbionMarket\TransmutationService;
+use MZierdt\Albion\commands\UpdateBmCraftingCommand;
 use MZierdt\Albion\commands\UpdateBmTransportCommand;
 use MZierdt\Albion\commands\UpdateEnchantingCommand;
 use MZierdt\Albion\commands\UpdateItemsCommand;
@@ -187,6 +188,14 @@ $serviceManager = new ServiceManager([
                     NoSpecRepository::class,
                     ItemRepository::class,
                     MaterialRepository::class,
+                ],
+                UpdateBmCraftingCommand::class => [
+                    BlackMarketCraftingHelper::class,
+                    BlackMarketCraftingRepository::class,
+                    ItemRepository::class,
+                    ResourceRepository::class,
+                    JournalRepository::class,
+                    ConfigService::class,
                 ]
             ]
         ],

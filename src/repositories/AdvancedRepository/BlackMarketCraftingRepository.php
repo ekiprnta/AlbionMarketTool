@@ -22,7 +22,7 @@ class BlackMarketCraftingRepository extends Repository
         $oldRefiningEntity = $this->entityManager->getRepository(BlackMarketCraftingEntity::class)->findOneBy(
             [
                 'city' => $blackMarketCraftingEntity->getCity(),
-                'Item' => $blackMarketCraftingEntity->getItem(),
+                'item' => $blackMarketCraftingEntity->getItem(),
             ]
         );
 

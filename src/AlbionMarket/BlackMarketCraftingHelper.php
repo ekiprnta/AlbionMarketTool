@@ -43,11 +43,9 @@ class BlackMarketCraftingHelper extends Market
 
     public function calculateTotalAmount(
         int $tier,
-        int $primResourceAmount,
-        int $secResourceAmount,
+        int $totalAmount,
         array $blackMarketSellAmount
     ): int {
-        $totalAmount = (string) ($primResourceAmount + $secResourceAmount);
         return $blackMarketSellAmount[$tier][$totalAmount];
     }
 
@@ -126,5 +124,15 @@ class BlackMarketCraftingHelper extends Market
     ): float {
         return $primResourcePrice * $primResourceAmount +
             $secResourcePrice * $secResourceAmount;
+    }
+
+    public function calculateMaterialCost(
+        float|int $resourceCost,
+        int $journalPrice,
+        float $journalAmountPerItem,
+        float $percentage
+    ): float {
+        $rate = (self::RRR_BASE_PERCENTAGE - $percentage) / 100;
+        return $resourceCost * $rate + $journalPrice * $journalAmountPerItem;
     }
 }
