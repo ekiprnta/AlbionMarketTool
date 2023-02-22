@@ -172,7 +172,7 @@ class BlackMarketCraftingService
     private function filterCalculateEntityArray(array $calculateEntityArray): array
     {
         $array = [];
-        /** @var BlackMarketCraftingEntity $calculateEntity */
+        /** var BlackMarketCraftingEntity $calculateEntity */
         foreach ($calculateEntityArray as $calculateEntity) {
             $array[$calculateEntity->getItem()->getWeaponGroup() . '_' . $calculateEntity->getItem()->getRealName(
             )][] = $calculateEntity;

@@ -197,7 +197,7 @@ class UpdateBmCraftingCommand extends Command
                     $primResourceCostBuy + $secResourceCostBuy,
                     $bmcEntity->getJournalEntityEmpty()->getBuyOrderPrice(),
                     $bmcEntity->getJournalAmountPerItem(),
-                    47.9
+                    24.8
                 )
             );
             $bmcEntity->setProfitBuy(
