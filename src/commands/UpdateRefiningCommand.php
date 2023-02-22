@@ -25,11 +25,33 @@ class UpdateRefiningCommand extends Command
         parent::__construct();
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $city = 'Fort Sterling';
         $output->writeln('Updating Refining from ' . $city . '...');
+        $this->updateCalculations($city, $output);
 
+        $city = 'Lymhurst';
+        $output->writeln(PHP_EOL . 'Updating Refining from ' . $city . '...');
+        $this->updateCalculations($city, $output);
+
+        $city = 'Bridgewatch';
+        $output->writeln(PHP_EOL . 'Updating Refining from ' . $city . '...');
+        $this->updateCalculations($city, $output);
+
+        $city = 'Martlock';
+        $output->writeln(PHP_EOL . 'Updating Refining from ' . $city . '...');
+        $this->updateCalculations($city, $output);
+
+        $city = 'Thetford';
+        $output->writeln(PHP_EOL . 'Updating Refining from ' . $city . '...');
+        $this->updateCalculations($city, $output);
+
+        return self::SUCCESS;
+    }
+
+    private function updateCalculations(string $city, OutputInterface $output): void
+    {
         $resources = $this->resourceRepository->getResourcesByBonusCity($city);
         $rawResources = $this->resourceRepository->getRawResourcesByBonusCity($city);
         $progressBar = ProgressBarService::getProgressBar(
@@ -131,7 +153,5 @@ class UpdateRefiningCommand extends Command
 
             $this->refiningRepository->createOrUpdate($refiningEntity);
         }
-
-        return self::SUCCESS;
     }
 }

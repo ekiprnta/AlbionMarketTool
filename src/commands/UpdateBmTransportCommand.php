@@ -27,7 +27,7 @@ class UpdateBmTransportCommand extends Command
         parent::__construct();
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $bmItems = $this->itemRepository->getItemsByLocationForBM('BLack Market');
         try {
