@@ -23,34 +23,10 @@ class TransmutationEntityTest extends TestCase
         $this->assertEquals('cloth', $this->transEntity->getResourceType());
     }
 
-    public function testGetStartTierColor(): void
-    {
-        $this->transEntity->setStartTierColor('4');
-        $this->assertEquals('4', $this->transEntity->getStartTierColor());
-    }
-
     public function testGetEndTierColor(): void
     {
         $this->transEntity->setEndTierColor('4');
         $this->assertEquals('4', $this->transEntity->getEndTierColor());
-    }
-
-    public function testGetTransmutePrice(): void
-    {
-        $this->transEntity->setTransmutePrice(55007.35);
-        $this->assertEquals(55007.35, $this->transEntity->getTransmutePrice());
-    }
-
-    public function testGetProfit(): void
-    {
-        $this->transEntity->setProfit(120000);
-        $this->assertEquals(120000, $this->transEntity->getProfit());
-    }
-
-    public function testGetProfitGrade(): void
-    {
-        $this->transEntity->setProfitGrade('A');
-        $this->assertEquals('A', $this->transEntity->getProfitGrade());
     }
 
     public function testGetStartResource(): void
