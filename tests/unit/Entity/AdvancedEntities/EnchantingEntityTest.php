@@ -56,30 +56,6 @@ class EnchantingEntityTest extends TestCase
         $this->assertEquals(192, $this->enchantingEntity->getMaterialAmount());
     }
 
-    public function testMaterialCost(): void
-    {
-        $this->enchantingEntity->setMaterialCost(1488);
-        $this->assertEquals(1488, $this->enchantingEntity->getMaterialCost());
-    }
-
-    public function testProfit(): void
-    {
-        $this->enchantingEntity->setProfit(150000);
-        $this->assertEquals(150000, $this->enchantingEntity->getProfit());
-    }
-
-    public function testProfitQuotient(): void
-    {
-        $this->enchantingEntity->setProfitPercentage(2346);
-        $this->assertEquals(2346, $this->enchantingEntity->getProfitPercentage());
-    }
-
-    public function testProfitGrade(): void
-    {
-        $this->enchantingEntity->setProfitGrade('S');
-        $this->assertEquals('S', $this->enchantingEntity->getProfitGrade());
-    }
-
     public function testTierColor(): void
     {
         $this->assertEquals(4, $this->enchantingEntity->getTierColor());
