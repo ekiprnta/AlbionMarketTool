@@ -69,6 +69,7 @@ changelogger clean
 * Split up Items CronJobs
 * Update Profit Quotient
 * Show all Transportable Items and their respective City
+* Tier Select in Enchanting
 
 ## Plans
 
