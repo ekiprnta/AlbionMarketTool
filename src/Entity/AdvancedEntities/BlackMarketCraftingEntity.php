@@ -21,21 +21,21 @@ use MZierdt\Albion\factories\ResourceEntityFactory;
 class BlackMarketCraftingEntity extends MarketEntity
 {
     #[ManyToOne(targetEntity: ResourceEntity::class, cascade: ['persist'])]
-    #[JoinColumn(name: 'startResource', referencedColumnName: 'id', onDelete: 'CASCADE')]
+    #[JoinColumn(name: 'primResource', referencedColumnName: 'id', onDelete: 'CASCADE')]
     private ResourceEntity $primResource;
 
     #[ManyToOne(targetEntity: ResourceEntity::class, cascade: ['persist'])]
-    #[JoinColumn(name: 'startResource', referencedColumnName: 'id', onDelete: 'CASCADE')]
+    #[JoinColumn(name: 'secResource', referencedColumnName: 'id', onDelete: 'CASCADE')]
     private ResourceEntity $secResource;
 
-    #[ManyToOne(targetEntity: ResourceEntity::class, cascade: ['persist'])]
-    #[JoinColumn(name: 'startResource', referencedColumnName: 'id', onDelete: 'CASCADE')]
+    #[ManyToOne(targetEntity: ItemEntity::class, cascade: ['persist'])]
+    #[JoinColumn(name: 'Item', referencedColumnName: 'id', onDelete: 'CASCADE')]
     private ItemEntity $item;
 
-    #[ManyToOne(targetEntity: ResourceEntity::class, cascade: ['persist'])]
+    #[ManyToOne(targetEntity: JournalEntity::class, cascade: ['persist'])]
     #[JoinColumn(name: 'startResource', referencedColumnName: 'id', onDelete: 'CASCADE')]
     private JournalEntity $journalEntityEmpty;
-    #[ManyToOne(targetEntity: ResourceEntity::class, cascade: ['persist'])]
+    #[ManyToOne(targetEntity: JournalEntity::class, cascade: ['persist'])]
     #[JoinColumn(name: 'startResource', referencedColumnName: 'id', onDelete: 'CASCADE')]
     private JournalEntity $journalEntityFull;
 
