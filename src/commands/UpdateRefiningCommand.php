@@ -147,5 +147,7 @@ class UpdateRefiningCommand extends Command
 
             $this->refiningRepository->createOrUpdate($refiningEntity);
         }
+        $progressBar->setMessage('Update in ' . $city . ' finished');
+        $progressBar->finish();
     }
 }

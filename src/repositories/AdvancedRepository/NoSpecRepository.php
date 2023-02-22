@@ -22,6 +22,7 @@ class NoSpecRepository extends Repository
     {
         $oldNoSpeEntity = $this->entityManager->getRepository(NoSpecEntity::class)->findOneBy([
             'city' => $noSpecEntity->getCity(),
+            'specialItem' => $noSpecEntity->getSpecialItem(),
         ]);
 
         if ($oldNoSpeEntity !== null) {

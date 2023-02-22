@@ -24,6 +24,7 @@ use MZierdt\Albion\commands\UpdateEnchantingCommand;
 use MZierdt\Albion\commands\UpdateItemsCommand;
 use MZierdt\Albion\commands\UpdateJournalsCommand;
 use MZierdt\Albion\commands\UpdateMaterialsCommand;
+use MZierdt\Albion\commands\UpdateNoSpecCraftingCommand;
 use MZierdt\Albion\commands\UpdateRefiningCommand;
 use MZierdt\Albion\commands\UpdateResourcesCommand;
 use MZierdt\Albion\commands\UpdateTransmutationCommand;
@@ -182,6 +183,12 @@ $serviceManager = new ServiceManager([
                     EnchantingRepository::class,
                     ItemRepository::class,
                     MaterialRepository::class
+                ],
+                UpdateNoSpecCraftingCommand::class => [
+                    NoSpecCraftingHelper::class,
+                    NoSpecRepository::class,
+                    ItemRepository::class,
+                    MaterialRepository::class,
                 ]
             ]
         ],
