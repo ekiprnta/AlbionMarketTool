@@ -20,13 +20,14 @@ use MZierdt\Albion\AlbionMarket\NoSpecCraftingHelper;
 use MZierdt\Albion\AlbionMarket\NoSpecCraftingService;
 use MZierdt\Albion\AlbionMarket\RefiningService;
 use MZierdt\Albion\AlbionMarket\TransmutationHelper;
-use MZierdt\Albion\AlbionMarket\TransmutationService;
+use MZierdt\Albion\AlbionMarket\TransmutationServiceOldToDel;
 use MZierdt\Albion\commands\UpdateBmTransportCommand;
 use MZierdt\Albion\commands\UpdateItemsCommand;
 use MZierdt\Albion\commands\UpdateJournalsCommand;
 use MZierdt\Albion\commands\UpdateMaterialsCommand;
 use MZierdt\Albion\commands\UpdateRefiningCommand;
 use MZierdt\Albion\commands\UpdateResourcesCommand;
+use MZierdt\Albion\commands\UpdateTransmutationCommand;
 use MZierdt\Albion\factories\EntityManagerFactory;
 use MZierdt\Albion\factories\TwigEnvironmentFactory;
 use MZierdt\Albion\Handler\AdminHandler;
@@ -113,9 +114,9 @@ $serviceManager = new ServiceManager([
                 ],
                 TransmutationHandler::class => [
                     Environment::class,
-                    TransmutationService::class,
+                    TransmutationServiceOldToDel::class,
                 ],
-                TransmutationService::class => [
+                TransmutationServiceOldToDel::class => [
                     ResourceRepository::class,
                     TransmutationHelper::class,
                     ConfigService::class,
@@ -172,6 +173,13 @@ $serviceManager = new ServiceManager([
                     RefiningService::class,
                     RefiningRepository::class,
                     ResourceRepository::class,
+                ],
+                UpdateTransmutationCommand::class => [
+                    TransmutationHelper::class,
+                    TransmutationRepository::class,
+                    ResourceRepository::class,
+                    ConfigService::class,
+                    GlobalDiscountService::class
                 ]
             ]
         ],
