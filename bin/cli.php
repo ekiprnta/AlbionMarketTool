@@ -4,6 +4,7 @@
 declare(strict_types=1);
 
 use MZierdt\Albion\commands\UpdateBmTransportCommand;
+use MZierdt\Albion\commands\UpdateEnchantingCommand;
 use MZierdt\Albion\commands\UpdateItemsCommand;
 use MZierdt\Albion\commands\UpdateJournalsCommand;
 use MZierdt\Albion\commands\UpdateMaterialsCommand;
@@ -24,4 +25,5 @@ $app->add($container->get(UpdateMaterialsCommand::class));
 $app->add($container->get(UpdateBmTransportCommand::class));
 $app->add($container->get(UpdateRefiningCommand::class));
 $app->add($container->get(UpdateTransmutationCommand::class));
+$app->add($container->get(UpdateEnchantingCommand::class));
 $app->run();

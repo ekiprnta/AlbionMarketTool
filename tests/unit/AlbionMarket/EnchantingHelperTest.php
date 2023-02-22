@@ -114,7 +114,7 @@ class EnchantingHelperTest extends TestCase
     {
         $this->assertEquals(
             $expectedCost,
-            $this->enchantingHelper->calculateMaterialCost($materialAmount, $buyOrderPrice)
+            $this->enchantingHelper->calculateTotalMaterialCost($materialAmount, $buyOrderPrice)
         );
     }
 
