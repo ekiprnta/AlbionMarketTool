@@ -38,6 +38,7 @@ use MZierdt\Albion\Handler\NoSpecCraftingHandler;
 use MZierdt\Albion\Handler\RefiningHandler;
 use MZierdt\Albion\Handler\TransmutationHandler;
 use MZierdt\Albion\HttpClient;
+use MZierdt\Albion\repositories\AdvancedRepository\BlackMarketCraftingRepository;
 use MZierdt\Albion\repositories\AdvancedRepository\BlackMarketTransportingRepository;
 use MZierdt\Albion\repositories\AdvancedRepository\EnchantingRepository;
 use MZierdt\Albion\repositories\AdvancedRepository\NoSpecRepository;
@@ -92,6 +93,9 @@ $serviceManager = new ServiceManager([
                 NoSpecCraftingHandler::class => [Environment::class, NoSpecRepository::class],
                 NoSpecCraftingService::class => [],
                 NoSpecRepository::class => [
+                    EntityManager::class,
+                ],
+                BlackMarketCraftingRepository::class => [
                     EntityManager::class,
                 ],
                 BlackMarketTransportingService::class => [],
