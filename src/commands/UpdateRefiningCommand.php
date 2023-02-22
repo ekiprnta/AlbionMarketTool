@@ -35,9 +35,9 @@ class UpdateRefiningCommand extends Command
         $output->writeln(PHP_EOL . 'Updating Refining from ' . $city . '...');
         $this->updateCalculations($city, $output);
 
-        $city = 'Bridgewatch';
-        $output->writeln(PHP_EOL . 'Updating Refining from ' . $city . '...');
-        $this->updateCalculations($city, $output);
+//        $city = 'Bridgewatch'; Stoneblock is different so special is needed
+//        $output->writeln(PHP_EOL . 'Updating Refining from ' . $city . '...');
+//        $this->updateCalculations($city, $output);
 
         $city = 'Martlock';
         $output->writeln(PHP_EOL . 'Updating Refining from ' . $city . '...');
@@ -47,6 +47,7 @@ class UpdateRefiningCommand extends Command
         $output->writeln(PHP_EOL . 'Updating Refining from ' . $city . '...');
         $this->updateCalculations($city, $output);
 
+        $output->writeln(PHP_EOL . 'Done');
         return self::SUCCESS;
     }
 
