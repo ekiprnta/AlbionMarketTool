@@ -12,22 +12,21 @@ use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\Table;
 use MZierdt\Albion\Entity\ItemEntity;
 use MZierdt\Albion\Entity\MaterialEntity;
-use MZierdt\Albion\Entity\ResourceEntity;
 
 #[Entity]
 #[ChangeTrackingPolicy('DEFERRED_EXPLICIT')]
 #[Table(name: 'enchanting')]
 class EnchantingEntity extends MarketEntity
 {
-    #[ManyToOne(targetEntity: ResourceEntity::class, cascade: ['persist'])]
+    #[ManyToOne(targetEntity: ItemEntity::class, cascade: ['persist'])]
     #[JoinColumn(name: 'higherEnchantmentItem', referencedColumnName: 'id', onDelete: 'CASCADE')]
     private ItemEntity $higherEnchantmentItem;
 
-    #[ManyToOne(targetEntity: ResourceEntity::class, cascade: ['persist'])]
+    #[ManyToOne(targetEntity: MaterialEntity::class, cascade: ['persist'])]
     #[JoinColumn(name: 'enchantmentMaterial', referencedColumnName: 'id', onDelete: 'CASCADE')]
     private MaterialEntity $enchantmentMaterial;
 
-    #[ManyToOne(targetEntity: ResourceEntity::class, cascade: ['persist'])]
+    #[ManyToOne(targetEntity: ItemEntity::class, cascade: ['persist'])]
     #[JoinColumn(name: 'baseItem', referencedColumnName: 'id', onDelete: 'CASCADE')]
     private ItemEntity $baseItem;
 
