@@ -68,6 +68,7 @@ changelogger clean
 * ~~Bug: Age is not correct~~
 * Split up Items CronJobs
 * Update Profit Quotient
+* Show all Transportable Items and their respective City
 
 ## Plans
 
