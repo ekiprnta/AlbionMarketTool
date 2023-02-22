@@ -12,7 +12,6 @@ use MZierdt\Albion\AlbionDataAPI\ResourceApiService;
 use MZierdt\Albion\AlbionMarket\BlackMarketCraftingHelper;
 use MZierdt\Albion\AlbionMarket\BlackMarketCraftingService;
 use MZierdt\Albion\AlbionMarket\BlackMarketTransportingService;
-use MZierdt\Albion\AlbionMarket\EnchantingHelper;
 use MZierdt\Albion\AlbionMarket\EnchantingService;
 use MZierdt\Albion\AlbionMarket\ListDataHelper;
 use MZierdt\Albion\AlbionMarket\ListDataService;
@@ -123,12 +122,7 @@ $serviceManager = new ServiceManager([
                     EnchantingService::class
                 ],
                 TransmutationRepository::class => [EntityManager::class],
-                EnchantingService::class => [
-                    MaterialRepository::class,
-                    ItemRepository::class,
-                    EnchantingHelper::class
-                ],
-                EnchantingHelper::class => [],
+                EnchantingService::class => [],
                 AdminHandler::class => [
                     Environment::class,
                 ],
@@ -180,7 +174,7 @@ $serviceManager = new ServiceManager([
                     GlobalDiscountService::class
                 ],
                 UpdateEnchantingCommand::class => [
-                    EnchantingHelper::class,
+                    EnchantingService::class,
                     EnchantingRepository::class,
                     ItemRepository::class,
                     MaterialRepository::class

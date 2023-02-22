@@ -4,97 +4,67 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\AlbionMarket;
 
-use MZierdt\Albion\Entity\AdvancedEntities\EnchantingEntity;
 use MZierdt\Albion\Entity\ItemEntity;
-use MZierdt\Albion\repositories\ItemRepository;
-use MZierdt\Albion\repositories\MaterialRepository;
+use MZierdt\Albion\Entity\MaterialEntity;
 
-class EnchantingService
+class EnchantingService extends Market
 {
-    public function __construct(
-        private readonly MaterialRepository $materialRepository,
-        private readonly ItemRepository $itemRepository,
-        private readonly EnchantingHelper $enchantingHelper,
-    ) {
-    }
-
-    public function getEnchantingForCity(string $city): array
+    public function calculateHigherEnchantmentItem(int $tier, string $name, array $items): ItemEntity
     {
-        $items = $this->itemRepository->getItemsByLocation($city);
-        $items = $this->filter($items);
-
-        $bmItems = $this->itemRepository->getItemsByLocationForBM('Black Market');
-
-        $materials = $this->materialRepository->getMaterialsByLocation($city);
-
-        $enchantingEntities = [];
         /** @var ItemEntity $item */
         foreach ($items as $item) {
-            if (! ($item->getTier() === 30 || $item->getTier() === 20) && $this->enchantingHelper->getEnchantment(
-                $item->getTier()
-            ) < 3) {
-                $enchantingEntities[] = new EnchantingEntity($item);
+            if ($item->getName() === $name && $item->getTier() === ($tier + 1)) {
+                return $item;
             }
         }
-
-        /** @var EnchantingEntity $enchantingEntity */
-        foreach ($enchantingEntities as $enchantingEntity) {
-            $itemEntity = $enchantingEntity->getBaseItem();
-
-            $enchantingEntity->setBaseEnchantment($this->enchantingHelper->getEnchantment($itemEntity->getTier()));
-
-            $enchantingEntity->setHigherEnchantmentItem(
-                $this->enchantingHelper->calculateHigherEnchantmentItem(
-                    $itemEntity->getTier(),
-                    $itemEntity->getName(),
-                    $bmItems
-                )
-            );
-
-            $enchantingEntity->setEnchantmentMaterial(
-                $this->enchantingHelper->calculateEnchantmentMaterial($itemEntity->getTier(), $materials)
-            );
-
-            $enchantingEntity->setMaterialAmount(
-                $this->enchantingHelper->calculateMaterialAmount($itemEntity->getTotalResourceAmount())
-            );
-
-            $enchantingEntity->setMaterialCost(
-                $this->enchantingHelper->calculateMaterialCost(
-                    $enchantingEntity->getMaterialAmount(),
-                    $enchantingEntity->getEnchantmentMaterial()
-                        ->getBuyOrderPrice()
-                )
-            );
-
-            $enchantingEntity->setProfit(
-                $this->enchantingHelper->calculateProfit(
-                    $enchantingEntity->getHigherEnchantmentItem()
-                        ->getSellOrderPrice(),
-                    $itemEntity->getSellOrderPrice(),
-                    $enchantingEntity->getMaterialCost()
-                )
-            );
-
-            $enchantingEntity->setProfitPercentage(
-                $this->enchantingHelper->calculateProfitPercentage(
-                    $enchantingEntity->getHigherEnchantmentItem()
-                        ->getSellOrderPrice(),
-                    $enchantingEntity->getMaterialCost() + $enchantingEntity->getBaseItem()
-                        ->getSellOrderPrice()
-                )
-            );
-
-            $enchantingEntity->setProfitGrade(
-                $this->enchantingHelper->calculateProfitGrade($enchantingEntity->getProfitPercentage())
-            );
-//            dump($enchantingEntity->getProfitQuotient());
-        }
-
-        return $enchantingEntities;
+        throw new \InvalidArgumentException(
+            'No Higher Enchantment found in calculateHigherEnchantmentItem ' . $tier . ':' . $name
+        );
     }
 
-    private function filter(array $items): array // TOdo better filtering
+    public function calculateEnchantmentMaterial(int $tier, ?array $materials): MaterialEntity
+    {
+        $enchantment = $this->getEnchantment($tier);
+        $type = match ($enchantment) {
+            0 => 'rune',
+            1 => 'soul',
+            2 => 'relic',
+            default => throw new \InvalidArgumentException('Cannot find Material in calculateEnchantmentMaterial')
+        };
+
+        /** @var MaterialEntity $material */
+        foreach ($materials as $material) {
+            if ($material->getName() === $type && $material->getTier() / 10 === (int) ($tier / 10)) {
+                return $material;
+            }
+        }
+        throw new \InvalidArgumentException('No Material found in calculateEnchantmentMaterial');
+    }
+
+    public function getEnchantment(int $tier): int
+    {
+        return (int) substr((string) $tier, -1);
+    }
+
+    public function calculateMaterialAmount(int $totalResourceAmount): int
+    {
+        return match ($totalResourceAmount) {
+            8 => 48,
+            16 => 96,
+            24 => 144,
+            32 => 192,
+            default => throw new \InvalidArgumentException(
+                'Wrong Total Resource Amount in calculateMaterialAmount ' . $totalResourceAmount
+            )
+        };
+    }
+
+    public function calculateTotalMaterialCost(int $buyOrderPrice, int $materialAmount): float
+    {
+        return $this->calculateBuyOrder($buyOrderPrice) * $materialAmount;
+    }
+
+    public function filterItems(array $items): array // TOdo better filtering
     {
         /** @var ItemEntity $item */
         foreach ($items as $key => $item) {

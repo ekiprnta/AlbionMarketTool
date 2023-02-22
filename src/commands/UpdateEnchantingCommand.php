@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\commands;
 
-use MZierdt\Albion\AlbionMarket\EnchantingHelper;
+use MZierdt\Albion\AlbionMarket\EnchantingService;
 use MZierdt\Albion\Entity\AdvancedEntities\EnchantingEntity;
 use MZierdt\Albion\Entity\ItemEntity;
 use MZierdt\Albion\repositories\AdvancedRepository\EnchantingRepository;
@@ -20,7 +20,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class UpdateEnchantingCommand extends Command
 {
     public function __construct(
-        private readonly EnchantingHelper $enchantingService,
+        private readonly EnchantingService $enchantingService,
         private readonly EnchantingRepository $enchantingRepository,
         private readonly ItemRepository $itemRepository,
         private readonly MaterialRepository $materialRepository,

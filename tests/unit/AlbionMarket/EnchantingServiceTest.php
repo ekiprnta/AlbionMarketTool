@@ -4,24 +4,24 @@ declare(strict_types=1);
 
 namespace unit\AlbionMarket;
 
-use MZierdt\Albion\AlbionMarket\EnchantingHelper;
+use MZierdt\Albion\AlbionMarket\EnchantingService;
 use MZierdt\Albion\Entity\ItemEntity;
 use MZierdt\Albion\Entity\MaterialEntity;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 
-class EnchantingHelperTest extends TestCase
+class EnchantingServiceTest extends TestCase
 {
     use ProphecyTrait;
 
-    private EnchantingHelper $enchantingHelper;
+    private EnchantingService $enchantingService;
 
     /**
      * @dataProvider provideEnchantments
      */
     public function testGetEnchantment(int $enchantment, int $tier): void
     {
-        $this->assertEquals($enchantment, $this->enchantingHelper->getEnchantment($tier));
+        $this->assertEquals($enchantment, $this->enchantingService->getEnchantment($tier));
     }
 
     public function provideEnchantments(): array
@@ -36,7 +36,7 @@ class EnchantingHelperTest extends TestCase
 
         $this->assertEquals(
             $expectedItemEntity,
-            $this->enchantingHelper->calculateHigherEnchantmentItem(70, '2h_axe', $this->getItems())
+            $this->enchantingService->calculateHigherEnchantmentItem(70, '2h_axe', $this->getItems())
         );
     }
 
@@ -53,7 +53,7 @@ class EnchantingHelperTest extends TestCase
     public function testCalculateHigherEnchantmentItemException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->enchantingHelper->calculateHigherEnchantmentItem(70, '2_axe', []);
+        $this->enchantingService->calculateHigherEnchantmentItem(70, '2_axe', []);
     }
 
     /**
@@ -63,7 +63,7 @@ class EnchantingHelperTest extends TestCase
     {
         $this->assertEquals(
             $expectedMaterial,
-            $this->enchantingHelper->calculateEnchantmentMaterial($tier, $this->getMaterials())
+            $this->enchantingService->calculateEnchantmentMaterial($tier, $this->getMaterials())
         );
     }
 
@@ -91,7 +91,7 @@ class EnchantingHelperTest extends TestCase
     public function testCalculateEnchantmentMaterialException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->enchantingHelper->calculateEnchantmentMaterial(70, []);
+        $this->enchantingService->calculateEnchantmentMaterial(70, []);
     }
 
     /**
@@ -99,7 +99,7 @@ class EnchantingHelperTest extends TestCase
      */
     public function testCalculateMaterialAmount(int $materialAmount, int $resourceAmount): void
     {
-        $this->assertEquals($materialAmount, $this->enchantingHelper->calculateMaterialAmount($resourceAmount));
+        $this->assertEquals($materialAmount, $this->enchantingService->calculateMaterialAmount($resourceAmount));
     }
 
     public function provideTotalAmount(): array
@@ -114,7 +114,7 @@ class EnchantingHelperTest extends TestCase
     {
         $this->assertEquals(
             $expectedCost,
-            $this->enchantingHelper->calculateTotalMaterialCost($materialAmount, $buyOrderPrice)
+            $this->enchantingService->calculateTotalMaterialCost($materialAmount, $buyOrderPrice)
         );
     }
 
@@ -134,7 +134,7 @@ class EnchantingHelperTest extends TestCase
     ): void {
         $this->assertEquals(
             $expectedCost,
-            $this->enchantingHelper->calculateProfit($baseItemPrice, $enchantedItemPrice, $materialCost)
+            $this->enchantingService->calculateProfit($baseItemPrice, $enchantedItemPrice, $materialCost)
         );
     }
 
@@ -145,6 +145,6 @@ class EnchantingHelperTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->enchantingHelper = new EnchantingHelper();
+        $this->enchantingService = new EnchantingService();
     }
 }
