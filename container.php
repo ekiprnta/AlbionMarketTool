@@ -89,7 +89,7 @@ $serviceManager = new ServiceManager([
                 ],
                 RefiningService::class => [],
                 TierService::class => [],
-                NoSpecCraftingHandler::class => [Environment::class, NoSpecCraftingService::class],
+                NoSpecCraftingHandler::class => [Environment::class, NoSpecRepository::class],
                 NoSpecCraftingService::class => [],
                 NoSpecRepository::class => [
                     EntityManager::class,

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace MZierdt\Albion\Handler;
 
 use Laminas\Diactoros\Response\HtmlResponse;
-use MZierdt\Albion\AlbionMarket\NoSpecCraftingService;
+use MZierdt\Albion\repositories\AdvancedRepository\NoSpecRepository;
 use MZierdt\Albion\Service\TimeService;
 use Twig\Environment;
 
@@ -13,7 +13,7 @@ class NoSpecCraftingHandler
 {
     public function __construct(
         private readonly Environment $twigEnvironment,
-        private readonly NoSpecCraftingService $capesCraftingService,
+        private readonly NoSpecRepository $noSpecRepository,
     ) {
     }
 
@@ -24,7 +24,7 @@ class NoSpecCraftingHandler
         if (! empty($_GET)) {
             $city = $_GET['itemCity'];
             try {
-                $cityData = $this->capesCraftingService->getCapesByCity($city);
+                $cityData = $this->noSpecRepository->getAllNoSpecCraftingByCity($city);
             } catch (\Exception $exception) {
                 $alertMessage = $exception->getMessage();
             }
