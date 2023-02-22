@@ -54,7 +54,68 @@ class UpdateRefiningCommand extends Command
             );
             $refiningEntity->setLowerResource($this->refiningService->calculateResource($lowerTier, $resources));
 
-            $refiningEntity->setMaterialCostSell($this);
+            // Sell is the calculation with Focus
+            $refiningEntity->setMaterialCostSell(
+                $this->refiningService->calculateResourceCost(
+                    $refiningEntity->getRawResource()->getBuyOrderPrice(),
+                    $refiningEntity->getLowerResource()->getBuyOrderPrice(),
+                    $refiningEntity->getAmountRawResource(),
+                    53.9
+                )
+            );
+            $refiningEntity->setProfitSell(
+                $this->refiningService->calculateProfit(
+                    $refiningEntity->getRefinedResource()->getSellOrderPrice(),
+                    $refiningEntity->getMaterialCostSell()
+                )
+            );
+            $refiningEntity->setProfitPercentageSell(
+                $this->refiningService->calculateProfitPercentage(
+                    $refiningEntity->getRefinedResource()->getSellOrderPrice(),
+                    $refiningEntity->getMaterialCostSell()
+                )
+            );
+            $refiningEntity->setProfitGradeSell(
+                $this->refiningService->calculateProfitGrade($refiningEntity->getProfitPercentageSell())
+            );
+
+            //Buy is the calculation without Focus
+            $refiningEntity->setMaterialCostBuy(
+                $this->refiningService->calculateResourceCost(
+                    $refiningEntity->getRawResource()->getBuyOrderPrice(),
+                    $refiningEntity->getLowerResource()->getBuyOrderPrice(),
+                    $refiningEntity->getAmountRawResource(),
+                    36.7
+                )
+            );
+            $refiningEntity->setProfitBuy(
+                $this->refiningService->calculateProfit(
+                    $refiningEntity->getRefinedResource()->getSellOrderPrice(),
+                    $refiningEntity->getMaterialCostBuy()
+                )
+            );
+            $refiningEntity->setProfitPercentageBuy(
+                $this->refiningService->calculateProfitPercentage(
+                    $refiningEntity->getRefinedResource()->getSellOrderPrice(),
+                    $refiningEntity->getMaterialCostBuy()
+                )
+            );
+            $refiningEntity->setProfitGradeBuy(
+                $this->refiningService->calculateProfitGrade($refiningEntity->getProfitPercentageSell())
+            );
+
+            $refiningEntity->setComplete(
+                $this->refiningService->isComplete(
+                    [
+                        $refiningEntity->getRefinedResource()->getSellOrderPrice(),
+                        $refiningEntity->getLowerResource()->getBuyOrderPrice(),
+                        $refiningEntity->getRawResource()->getBuyOrderPrice()
+                    ]
+                )
+            );
+            $refiningEntity->setCity($city);
+
+            $this->refiningRepository->createOrUpdate($refiningEntity);
         }
     }
 }
