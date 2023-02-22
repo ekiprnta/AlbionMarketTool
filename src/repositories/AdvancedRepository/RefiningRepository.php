@@ -11,6 +11,10 @@ class RefiningRepository extends Repository
 {
     public function getAllRefiningByCity(string $city): array
     {
+        if ($city === 'Bridgewatch') {
+            throw new \InvalidArgumentException('Bridgewatch is currently not Supported');
+        }
+
         return $this->findBy(RefiningEntity::class, ['complete' => true, 'city' => $city]);
     }
 
