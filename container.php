@@ -40,6 +40,7 @@ use MZierdt\Albion\Handler\TransmutationHandler;
 use MZierdt\Albion\HttpClient;
 use MZierdt\Albion\repositories\AdvancedRepository\BlackMarketTransportingRepository;
 use MZierdt\Albion\repositories\AdvancedRepository\RefiningRepository;
+use MZierdt\Albion\repositories\AdvancedRepository\TransmutationRepository;
 use MZierdt\Albion\repositories\ItemRepository;
 use MZierdt\Albion\repositories\ItemRepositoryFactory;
 use MZierdt\Albion\repositories\JournalRepository;
@@ -125,6 +126,7 @@ $serviceManager = new ServiceManager([
                     Environment::class,
                     EnchantingService::class
                 ],
+                TransmutationRepository::class => [EntityManager::class],
                 EnchantingService::class => [
                     MaterialRepository::class,
                     ItemRepository::class,
