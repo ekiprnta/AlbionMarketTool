@@ -34,11 +34,8 @@ class TransmutationEntity extends MarketEntity
     #[Column(type: 'float', nullable: true)]
     private ?float $transmutationPrice = null;
 
-    public function __construct(
-        string $pathName,
-        array $transmutationPath,
-        string $resourceType
-    ) {
+    public function __construct(string $pathName, array $transmutationPath, string $resourceType)
+    {
         $this->pathName = $pathName;
         $this->transmutationPath = $transmutationPath;
         $this->resourceType = $resourceType;

@@ -13,7 +13,7 @@ class TransmutationRepository extends Repository
     {
         return $this->findBy(TransmutationEntity::class, [
             'complete' => true,
-            'city' => $city
+            'city' => $city,
         ]);
     }
 
@@ -22,7 +22,7 @@ class TransmutationRepository extends Repository
         $oldTransmutationEntity = $this->entityManager->getRepository(TransmutationEntity::class)->findOneBy([
             'city' => $transmutationEntity->getCity(),
             'resourceType' => $transmutationEntity->getResourceType(),
-            'pathName' => $transmutationEntity->getPathName()
+            'pathName' => $transmutationEntity->getPathName(),
         ]);
 
         if ($oldTransmutationEntity !== null) {
@@ -40,9 +40,7 @@ class TransmutationRepository extends Repository
 
             $this->update($oldTransmutationEntity);
         } else {
-            dump(1);
             $this->update($transmutationEntity);
         }
     }
-
 }

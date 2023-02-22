@@ -25,7 +25,6 @@ class UpdateTransmutationCommand extends Command
         private readonly ResourceRepository $resourceRepository,
         private readonly ConfigService $configService,
         private readonly GlobalDiscountService $discountService,
-
     ) {
         parent::__construct();
     }
@@ -116,17 +115,20 @@ class UpdateTransmutationCommand extends Command
             );
 
             $transEntity->setMaterialCostSell(
-                $transEntity->getStartResource()->getSellOrderPrice() + $transEntity->getTransmutationPrice()
+                $transEntity->getStartResource()
+                    ->getSellOrderPrice() + $transEntity->getTransmutationPrice()
             );
             $transEntity->setProfitSell(
                 $this->transmutationService->calculateProfit(
-                    $transEntity->getEndResource()->getBuyOrderPrice(),
+                    $transEntity->getEndResource()
+                        ->getBuyOrderPrice(),
                     $transEntity->getMaterialCostSell()
                 )
             );
             $transEntity->setProfitPercentageSell(
                 $this->transmutationService->calculateProfitPercentage(
-                    $transEntity->getEndResource()->getSellOrderPrice(),
+                    $transEntity->getEndResource()
+                        ->getSellOrderPrice(),
                     $transEntity->getMaterialCostSell()
                 )
             );
@@ -135,17 +137,20 @@ class UpdateTransmutationCommand extends Command
             );
 
             $transEntity->setMaterialCostBuy(
-                $transEntity->getStartResource()->getBuyOrderPrice() + $transEntity->getTransmutationPrice()
+                $transEntity->getStartResource()
+                    ->getBuyOrderPrice() + $transEntity->getTransmutationPrice()
             );
             $transEntity->setProfitBuy(
                 $this->transmutationService->calculateProfit(
-                    $transEntity->getEndResource()->getSellOrderPrice(),
+                    $transEntity->getEndResource()
+                        ->getSellOrderPrice(),
                     $transEntity->getMaterialCostBuy()
                 )
             );
             $transEntity->setProfitPercentageBuy(
                 $this->transmutationService->calculateProfitPercentage(
-                    $transEntity->getEndResource()->getSellOrderPrice(),
+                    $transEntity->getEndResource()
+                        ->getSellOrderPrice(),
                     $transEntity->getMaterialCostBuy()
                 )
             );
@@ -158,9 +163,12 @@ class UpdateTransmutationCommand extends Command
 
             $transEntity->setComplete(
                 $this->transmutationService->isComplete([
-                    $transEntity->getEndResource()->getSellOrderPrice(),
-                    $transEntity->getStartResource()->getSellOrderPrice(),
-                    $transEntity->getStartResource()->getBuyOrderPrice(),
+                    $transEntity->getEndResource()
+                        ->getSellOrderPrice(),
+                    $transEntity->getStartResource()
+                        ->getSellOrderPrice(),
+                    $transEntity->getStartResource()
+                        ->getBuyOrderPrice(),
                     $transEntity->getTransmutationPrice(),
                 ])
             );
