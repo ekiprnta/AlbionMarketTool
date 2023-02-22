@@ -31,6 +31,8 @@ class TransmutationEntity extends MarketEntity
     private ?string $resourceType = null;
     #[Column(type: 'integer', nullable: true)]
     private ?int $endTierColor = null;
+    #[Column(type: 'float', nullable: true)]
+    private ?float $transmutationPrice = null;
 
     public function __construct(
         string $pathName,
@@ -40,6 +42,16 @@ class TransmutationEntity extends MarketEntity
         $this->pathName = $pathName;
         $this->transmutationPath = $transmutationPath;
         $this->resourceType = $resourceType;
+    }
+
+    public function getTransmutationPrice(): ?float
+    {
+        return $this->transmutationPrice;
+    }
+
+    public function setTransmutationPrice(?float $transmutationPrice): void
+    {
+        $this->transmutationPrice = $transmutationPrice;
     }
 
     public function getResourceType(): string
