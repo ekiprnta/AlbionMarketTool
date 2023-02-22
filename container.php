@@ -119,7 +119,7 @@ $serviceManager = new ServiceManager([
                 TransmutationService::class => [],
                 EnchantingHandler::class => [
                     Environment::class,
-                    EnchantingService::class
+                    EnchantingRepository::class
                 ],
                 TransmutationRepository::class => [EntityManager::class],
                 EnchantingService::class => [],
