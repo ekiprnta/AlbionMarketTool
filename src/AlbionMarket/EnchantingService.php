@@ -39,7 +39,7 @@ class EnchantingService
 
         /** @var EnchantingEntity $enchantingEntity */
         foreach ($enchantingEntities as $enchantingEntity) {
-            $itemEntity = $enchantingEntity->getItemEntity();
+            $itemEntity = $enchantingEntity->getBaseItem();
 
             $enchantingEntity->setBaseEnchantment($this->enchantingHelper->getEnchantment($itemEntity->getTier()));
 
@@ -80,7 +80,7 @@ class EnchantingService
                 $this->enchantingHelper->calculateProfitPercentage(
                     $enchantingEntity->getHigherEnchantmentItem()
                         ->getSellOrderPrice(),
-                    $enchantingEntity->getMaterialCost() + $enchantingEntity->getItemEntity()
+                    $enchantingEntity->getMaterialCost() + $enchantingEntity->getBaseItem()
                         ->getSellOrderPrice()
                 )
             );

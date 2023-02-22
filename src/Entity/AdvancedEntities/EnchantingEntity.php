@@ -4,71 +4,42 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\Entity\AdvancedEntities;
 
+use Doctrine\ORM\Mapping\ChangeTrackingPolicy;
+use Doctrine\ORM\Mapping\Column;
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\Table;
 use MZierdt\Albion\Entity\ItemEntity;
 use MZierdt\Albion\Entity\MaterialEntity;
+use MZierdt\Albion\Entity\ResourceEntity;
 
-class EnchantingEntity
+#[Entity]
+#[ChangeTrackingPolicy('DEFERRED_EXPLICIT')]
+#[Table(name: 'enchanting')]
+class EnchantingEntity extends MarketEntity
 {
+    #[ManyToOne(targetEntity: ResourceEntity::class, cascade: ['persist'])]
+    #[JoinColumn(name: 'higherEnchantmentItem', referencedColumnName: 'id', onDelete: 'CASCADE')]
     private ItemEntity $higherEnchantmentItem;
+
+    #[ManyToOne(targetEntity: ResourceEntity::class, cascade: ['persist'])]
+    #[JoinColumn(name: 'enchantmentMaterial', referencedColumnName: 'id', onDelete: 'CASCADE')]
     private MaterialEntity $enchantmentMaterial;
-    private int $baseEnchantment;
-    private int $materialAmount;
 
-    private float $materialCost;
-    private float $profit;
+    #[ManyToOne(targetEntity: ResourceEntity::class, cascade: ['persist'])]
+    #[JoinColumn(name: 'baseItem', referencedColumnName: 'id', onDelete: 'CASCADE')]
+    private ItemEntity $baseItem;
 
-    private float $profitPercentage;
-    private string $profitGrade;
-    private readonly int $tierColor;
+    #[Column(type: 'integer', nullable: true)]
+    private ?int $baseEnchantment;
+    #[Column(type: 'integer', nullable: true)]
+    private ?int $materialAmount;
 
-    public function __construct(private readonly ItemEntity $itemEntity)
+    public function __construct(ItemEntity $baseItem)
     {
-        $this->tierColor = (int) ($this->itemEntity->getTier() / 10);
-    }
-
-    public function getProfitPercentage(): float
-    {
-        return $this->profitPercentage;
-    }
-
-    public function setProfitPercentage(float $profitPercentage): void
-    {
-        $this->profitPercentage = $profitPercentage;
-    }
-
-    public function getProfitGrade(): string
-    {
-        return $this->profitGrade;
-    }
-
-    public function setProfitGrade(string $profitGrade): void
-    {
-        $this->profitGrade = $profitGrade;
-    }
-
-    public function getTierColor(): int
-    {
-        return $this->tierColor;
-    }
-
-    public function getProfit(): float
-    {
-        return $this->profit;
-    }
-
-    public function setProfit(float $profit): void
-    {
-        $this->profit = $profit;
-    }
-
-    public function getMaterialCost(): float
-    {
-        return $this->materialCost;
-    }
-
-    public function setMaterialCost(float $materialCost): void
-    {
-        $this->materialCost = $materialCost;
+        $this->baseItem = $baseItem;
+        $this->tierColor = (int) ($baseItem->getTier() / 10);
     }
 
     public function getMaterialAmount(): int
@@ -101,9 +72,9 @@ class EnchantingEntity
         $this->higherEnchantmentItem = $higherEnchantmentItem;
     }
 
-    public function getItemEntity(): ItemEntity
+    public function getBaseItem(): ItemEntity
     {
-        return $this->itemEntity;
+        return $this->baseItem;
     }
 
     public function getBaseEnchantment(): int

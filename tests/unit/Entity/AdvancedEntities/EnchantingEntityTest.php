@@ -19,7 +19,7 @@ class EnchantingEntityTest extends TestCase
 
     public function testItemEntity(): void
     {
-        $this->assertEquals($this->itemEntity, $this->enchantingEntity->getItemEntity());
+        $this->assertEquals($this->itemEntity, $this->enchantingEntity->getBaseItem());
     }
 
     public function testHigherEnchantmentItem(): void
