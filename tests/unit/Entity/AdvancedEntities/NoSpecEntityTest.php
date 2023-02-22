@@ -23,19 +23,11 @@ class NoSpecEntityTest extends TestCase
         $noSpecEntity->setDefaultItem($cape);
         $noSpecEntity->setSecondResource($materialEntity);
         $noSpecEntity->setArtifact($materialEntity);
-        $noSpecEntity->setMaterialCost(10000);
-        $noSpecEntity->setProfit(420);
-        $noSpecEntity->setProfitPercentage(12.5);
-        $noSpecEntity->setProfitGrade('A');
 
         $this->assertEquals(41, $noSpecEntity->getSpecialItem()->getTier());
         $this->assertEquals(41, $noSpecEntity->getDefaultItem()->getTier());
         $this->assertEquals('material', $noSpecEntity->getSecondResource()->getName());
         $this->assertEquals('material', $noSpecEntity->getArtifact()->getName());
-        $this->assertEquals(10000, $noSpecEntity->getMaterialCost());
-        $this->assertEquals(420, $noSpecEntity->getProfit());
-        $this->assertEquals(12.5, $noSpecEntity->getProfitPercentage());
-        $this->assertEquals('A', $noSpecEntity->getProfitGrade());
         $this->assertEquals(4, $noSpecEntity->getTierColor());
     }
 }
