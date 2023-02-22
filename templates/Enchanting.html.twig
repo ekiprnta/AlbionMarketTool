@@ -28,6 +28,11 @@
                     </form>
                 </div>
             </div>
+            <div class="row mt-3">
+                <div class="col-4">
+                    <div class="btn btn-primary" id="toggleSellBuy">Toggle Buy and Buy Order</div>
+                </div>
+            </div>
             <div class="row">
                 {% if alertMessage is not null %}
                     <div class="alert alert-danger standard-alert">{{ alertMessage }}</div>
@@ -35,9 +40,9 @@
             </div>
         </div>
     </div>
-    <div class="card mt-3">
+    <div class="card mt-3" id="resourceSell">
         <div class="card-body">
-            <div class="card-title"><h3>Profit</h3></div>
+            <div class="card-title"><h3>Profit Insta Buy</h3></div>
             <table class="table table-sm table-bordered sortTable">
                 <thead>
                 <tr>
@@ -55,23 +60,67 @@
                 <tbody>
                 {# @var enchantingEntity \MZierdt\Albion\Entity\EnchantingEntity #}
                 {% for enchantingEntity in dataArray %}
-                    {% if enchantingEntity.itemEntity.sellOrderPrice != 0 and enchantingEntity.higherEnchantmentItem.sellOrderPrice != 0 and enchantingEntity.enchantmentMaterial.buyOrderPrice !=0  and enchantingEntity.profit >= 0 %}
-                        <tr class="bg-{{ enchantingEntity.profitGrade }}">
-                            <td class="align-middle text-left tier-{{ enchantingEntity.tierColor }} tier">{{ enchantingEntity.itemEntity.tier }}</td>
-                            <td class="align-middle">{{ enchantingEntity.itemEntity.realName }}</td>
-                            <td class="align-middle {% if enchantingEntity.itemEntity.sellOrderDate < timeThreshold %} bg-D {% endif %}">
+                    {% if enchantingEntity.ProfitSell > 0 %}
+                        <tr class="bg-{{ enchantingEntity.profitGradeSell }}">
+                            <td class="align-middle text-left tier-{{ enchantingEntity.tierColor }} tier">{{ enchantingEntity.baseItem.tier }}</td>
+                            <td class="align-middle">{{ enchantingEntity.baseItem.realName }}</td>
+                            <td class="align-middle {% if enchantingEntity.baseItem.sellOrderDate < timeThreshold %} bg-D {% endif %}">
                                 <a class="btn text-right w-100"
-                                   title="{{ enchantingEntity.itemEntity.sellOrderDate|date('d.m H:i') }}min">{{ enchantingEntity.itemEntity.sellOrderPrice|number_format }}</a>
+                                   title="{{ enchantingEntity.baseItem.sellOrderDate|date('d.m H:i') }}min">{{ enchantingEntity.baseItem.sellOrderPrice|number_format }}</a>
                             </td>
                             <td class="align-middle {% if enchantingEntity.higherEnchantmentItem.sellOrderDate < timeThreshold %} bg-D {% endif %}">
                                 <a class="btn text-right w-100"
                                    title="{{ enchantingEntity.higherEnchantmentItem.sellOrderDate|date('d.m H:i') }}min">{{ enchantingEntity.higherEnchantmentItem.sellOrderPrice|number_format }}</a>
                             </td>
                             <td class="align-middle">{{ enchantingEntity.enchantmentMaterial.buyOrderPrice|number_format }}</td>
-                            <td class="align-middle">{{ enchantingEntity.materialCost|number_format }}</td>
+                            <td class="align-middle">{{ enchantingEntity.materialCostBuy|number_format }}</td>
                             <td class="align-middle">{{ enchantingEntity.materialAmount|number_format }}</td>
-                            <td class="align-middle">{{ enchantingEntity.profit|number_format }}</td>
-                            <td class="align-middle">{{ enchantingEntity.profitPercentage|number_format }}</td>
+                            <td class="align-middle">{{ enchantingEntity.profitSell|number_format }}</td>
+                            <td class="align-middle">{{ enchantingEntity.profitPercentageSell|number_format }}</td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card mt-3" style="display: none" id="resourceBuy">
+        <div class="card-body">
+            <div class="card-title"><h3>Profit Buy Order</h3></div>
+            <table class="table table-sm table-bordered sortTable">
+                <thead>
+                <tr>
+                    <th>Tier</th>
+                    <th>Name</th>
+                    <th>Base ItemPrice</th>
+                    <th>Bm Sell Price</th>
+                    <th>Material Price</th>
+                    <th>Total Material Cost</th>
+                    <th>MaterialAmount</th>
+                    <th>Profit</th>
+                    <th>Percentage</th>
+                </tr>
+                </thead>
+                <tbody>
+                {# @var enchantingEntity \MZierdt\Albion\Entity\EnchantingEntity #}
+                {% for enchantingEntity in dataArray %}
+                    {% if enchantingEntity.ProfitBuy > 0 %}
+                        <tr class="bg-{{ enchantingEntity.profitGradeBuy }}">
+                            <td class="align-middle text-left tier-{{ enchantingEntity.tierColor }} tier">{{ enchantingEntity.baseItem.tier }}</td>
+                            <td class="align-middle">{{ enchantingEntity.baseItem.realName }}</td>
+                            <td class="align-middle {% if enchantingEntity.baseItem.buyOrderDate < timeThreshold %} bg-D {% endif %}">
+                                <a class="btn text-right w-100"
+                                   title="{{ enchantingEntity.baseItem.buyOrderDate|date('d.m H:i') }}min">{{ enchantingEntity.baseItem.buyOrderPrice|number_format }}</a>
+                            </td>
+                            <td class="align-middle {% if enchantingEntity.higherEnchantmentItem.sellOrderDate < timeThreshold %} bg-D {% endif %}">
+                                <a class="btn text-right w-100"
+                                   title="{{ enchantingEntity.higherEnchantmentItem.sellOrderDate|date('d.m H:i') }}min">{{ enchantingEntity.higherEnchantmentItem.sellOrderPrice|number_format }}</a>
+                            </td>
+                            <td class="align-middle">{{ enchantingEntity.enchantmentMaterial.buyOrderPrice|number_format }}</td>
+                            <td class="align-middle">{{ enchantingEntity.materialCostBuy|number_format }}</td>
+                            <td class="align-middle">{{ enchantingEntity.materialAmount|number_format }}</td>
+                            <td class="align-middle">{{ enchantingEntity.profitBuy|number_format }}</td>
+                            <td class="align-middle">{{ enchantingEntity.profitPercentageBuy|number_format }}</td>
                         </tr>
                     {% endif %}
                 {% endfor %}
