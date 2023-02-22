@@ -4,105 +4,65 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\AlbionMarket;
 
-use MZierdt\Albion\Entity\AdvancedEntities\NoSpecEntity;
-use MZierdt\Albion\repositories\ItemRepository;
-use MZierdt\Albion\repositories\MaterialRepository;
+use MZierdt\Albion\Entity\ItemEntity;
+use MZierdt\Albion\Entity\MaterialEntity;
 
-class NoSpecCraftingService
+class NoSpecCraftingService extends Market
 {
-    public function __construct(
-        private readonly ItemRepository $itemRepository,
-        private readonly MaterialRepository $materialRepository,
-        private readonly NoSpecCraftingHelper $ccHelper
-    ) {
+    public function calculateDefaultItem(int $tier, string $name, array $capesAndArmor): ItemEntity
+    {
+        /** @var ItemEntity $item */
+        foreach ($capesAndArmor as $item) {
+            if ($item->getTier() === $tier && $item->getName() === $name) {
+                return $item;
+            }
+        }
+        throw new \InvalidArgumentException('No Tier found in calculateDefaultCape ' . $tier . ':' . $name);
     }
 
-    public function getCapesByCity(string $city): array
-    {
-        $capes = $this->itemRepository->getArtifactCapesByCity($city);
-        $royalItems = $this->itemRepository->getRoyalItemsByCity($city);
-        $capesAndRoyalItems = array_merge($capes, $royalItems);
-
-        $defaultCapes = $this->itemRepository->getDefaultCapesByCity($city);
-        $defaultArmor = $this->itemRepository->getDefaultArmor($city);
-        $defaultItems = array_merge($defaultArmor, $defaultCapes);
-
-        $heartsAndSigils = $this->materialRepository->getHeartsAndSigilsByCity($city);
-        $artifacts = $this->materialRepository->getCapeArtifactsByCity($city);
-
-        $noSpecEntities = [];
-        foreach ($capesAndRoyalItems as $item) {
-            $noSpecEntities[] = new NoSpecEntity($item);
-        }
-
-        /** @var NoSpecEntity $noSpecEntity */
-        foreach ($noSpecEntities as $noSpecEntity) {
-            $specialItem = $noSpecEntity->getSpecialItem();
-            $noSpecEntity->setDefaultItem(
-                $this->ccHelper->calculateDefaultItem(
-                    $specialItem->getTier(),
-                    $specialItem->getPrimaryResource(),
-                    $defaultItems
-                )
-            );
-
-            $noSpecEntity->setSecondResource(
-                $this->ccHelper->calculateSecondResource(
-                    $specialItem
-                        ->getSecondaryResource(),
-                    $specialItem
-                        ->getTier(),
-                    $heartsAndSigils
-                )
-            );
-            $noSpecEntity->setArtifact(
-                $this->ccHelper->calculateArtifact(
-                    $specialItem
-                        ->getArtifact(),
-                    $specialItem
-                        ->getTier(),
-                    $artifacts
-                )
-            );
-            if ($noSpecEntity->getArtifact() === null) {
-                $artifactPrice = 1;
+    public function calculateSecondResource(
+        string $resourceName,
+        int $tier,
+        array $heartsAndSigils
+    ): MaterialEntity {
+        $tier = (int) ($tier / 10) * 10;
+        /** @var MaterialEntity $heartAndSigil */
+        foreach ($heartsAndSigils as $heartAndSigil) {
+            if ($heartAndSigil->getTier() === 10) {
+                $newTier = $heartAndSigil->getTier();
             } else {
-                $artifactPrice = $noSpecEntity->getArtifact()
-                    ->getSellOrderPrice();
+                $newTier = $tier;
             }
-
-            $noSpecEntity->setMaterialCost(
-                $this->ccHelper->calculateMaterialCost(
-                    $noSpecEntity->getDefaultItem()
-                        ->getSellOrderPrice(),
-                    $noSpecEntity->getSecondResource()
-                        ->getSellOrderPrice(),
-                    $specialItem
-                        ->getSecondaryResourceAmount(),
-                    $artifactPrice
-                )
-            );
-
-            $noSpecEntity->setProfit(
-                $this->ccHelper->calculateProfit(
-                    $specialItem
-                        ->getSellOrderPrice(),
-                    $noSpecEntity->getMaterialCost()
-                )
-            );
-
-            $noSpecEntity->setProfitPercentage(
-                $this->ccHelper->calculateProfitPercentage(
-                    $noSpecEntity->getSpecialItem()
-                        ->getSellOrderPrice(),
-                    $noSpecEntity->getMaterialCost()
-                )
-            );
-            $noSpecEntity->setProfitGrade(
-                ($this->ccHelper->calculateProfitGrade($noSpecEntity->getProfitPercentage()))
-            );
+            if ($heartAndSigil->getTier() === $newTier && $heartAndSigil->getRealName() === $resourceName) {
+                return $heartAndSigil;
+            }
         }
+        throw new \InvalidArgumentException(
+            'No Material found in calculateSecondResource ' . $tier . ':' . $resourceName
+        );
+    }
 
-        return $noSpecEntities;
+    public function calculateArtifact(?string $artifactName, int $tier, array $artifacts): ?MaterialEntity
+    {
+        if ($artifactName === null) {
+            return null;
+        }
+        $baseTier = (int) ($tier / 10);
+        /** @var MaterialEntity $artifact */
+        foreach ($artifacts as $artifact) {
+            if ($artifact->getTier() === ($baseTier * 10) && $artifact->getName() === $artifactName) {
+                return $artifact;
+            }
+        }
+        return null;
+    }
+
+    public function calculateMaterialCost(
+        int $primaryItemCost,
+        int $secondaryMaterialCost,
+        int $secondaryMaterialAmount,
+        int $artifactCost
+    ): float {
+        return $primaryItemCost + ($secondaryMaterialCost * $secondaryMaterialAmount) + ($artifactCost);
     }
 }

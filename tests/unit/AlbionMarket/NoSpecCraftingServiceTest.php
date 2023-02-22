@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace unit\AlbionMarket;
 
-use MZierdt\Albion\AlbionMarket\NoSpecCraftingHelper;
+use MZierdt\Albion\AlbionMarket\NoSpecCraftingService;
 use MZierdt\Albion\Entity\ItemEntity;
 use MZierdt\Albion\Entity\MaterialEntity;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 
-class NoSpecCraftingHelperTest extends TestCase
+class NoSpecCraftingServiceTest extends TestCase
 {
     use ProphecyTrait;
 
-    private NoSpecCraftingHelper $ccHelper;
+    private NoSpecCraftingService $noSpecCraftingService;
 
     /**
      * @dataProvider provideDefaultCape
@@ -23,7 +23,7 @@ class NoSpecCraftingHelperTest extends TestCase
     {
         $data = $this->getTestDataItemEntity();
 
-        $this->assertEquals($defaultCape, $this->ccHelper->calculateDefaultItem($tier, $name, $data));
+        $this->assertEquals($defaultCape, $this->noSpecCraftingService->calculateDefaultItem($tier, $name, $data));
     }
 
     private function getTestDataItemEntity(): array
@@ -42,7 +42,7 @@ class NoSpecCraftingHelperTest extends TestCase
     public function testCalculateDefaultCapeException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->ccHelper->calculateDefaultItem(1, 'cape', []);
+        $this->noSpecCraftingService->calculateDefaultItem(1, 'cape', []);
     }
 
     /**
@@ -54,7 +54,7 @@ class NoSpecCraftingHelperTest extends TestCase
 
         $this->assertEquals(
             $defaultCape,
-            $this->ccHelper->calculateSecondResource($resourceName, $tier, $heartsAndSigils)
+            $this->noSpecCraftingService->calculateSecondResource($resourceName, $tier, $heartsAndSigils)
         );
     }
 
@@ -81,7 +81,7 @@ class NoSpecCraftingHelperTest extends TestCase
     public function testCalculateSecondResourceException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->ccHelper->calculateSecondResource('test', 1, []);
+        $this->noSpecCraftingService->calculateSecondResource('test', 1, []);
     }
 
     /**
@@ -90,7 +90,7 @@ class NoSpecCraftingHelperTest extends TestCase
     public function testCalculateArtifact(?MaterialEntity $defaultCape, ?string $resourceName, int $tier): void
     {
         $data = $this->getTestDataMaterialEntity();
-        $this->assertEquals($defaultCape, $this->ccHelper->calculateArtifact($resourceName, $tier, $data));
+        $this->assertEquals($defaultCape, $this->noSpecCraftingService->calculateArtifact($resourceName, $tier, $data));
     }
 
     public function provideArtifact(): array
@@ -115,7 +115,7 @@ class NoSpecCraftingHelperTest extends TestCase
     ): void {
         $this->assertEquals(
             $materialCost,
-            $this->ccHelper->calculateMaterialCost(
+            $this->noSpecCraftingService->calculateMaterialCost(
                 $primaryItemCost,
                 $secondaryMaterialCost,
                 $secondaryMaterialAmount,
@@ -134,7 +134,7 @@ class NoSpecCraftingHelperTest extends TestCase
      */
     public function testCalculateProfit(float $profit, int $specialCapePrice, int $materialCost): void
     {
-        $this->assertEquals($profit, $this->ccHelper->calculateProfit($specialCapePrice, $materialCost));
+        $this->assertEquals($profit, $this->noSpecCraftingService->calculateProfit($specialCapePrice, $materialCost));
     }
 
     public function provideProfit(): array
@@ -144,6 +144,6 @@ class NoSpecCraftingHelperTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->ccHelper = new NoSpecCraftingHelper();
+        $this->noSpecCraftingService = new NoSpecCraftingService();
     }
 }

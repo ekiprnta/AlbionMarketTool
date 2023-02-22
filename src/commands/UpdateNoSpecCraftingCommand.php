@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\commands;
 
-use MZierdt\Albion\AlbionMarket\NoSpecCraftingHelper;
+use MZierdt\Albion\AlbionMarket\NoSpecCraftingService;
 use MZierdt\Albion\Entity\AdvancedEntities\NoSpecEntity;
 use MZierdt\Albion\repositories\AdvancedRepository\NoSpecRepository;
 use MZierdt\Albion\repositories\ItemRepository;
@@ -19,7 +19,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class UpdateNoSpecCraftingCommand extends Command
 {
     public function __construct(
-        private readonly NoSpecCraftingHelper $noSpecCraftingService,
+        private readonly NoSpecCraftingService $noSpecCraftingService,
         private readonly NoSpecRepository $noSpecRepository,
         private readonly ItemRepository $itemRepository,
         private readonly MaterialRepository $materialRepository,
