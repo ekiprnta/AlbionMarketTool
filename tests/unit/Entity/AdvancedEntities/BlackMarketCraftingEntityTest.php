@@ -47,20 +47,20 @@ class BlackMarketCraftingEntityTest extends TestCase
 
     public function testPrimResourceAmount(): void
     {
-        $this->bmcEntity->setPrimResourceAmount(16);
-        $this->assertEquals(16, $this->bmcEntity->getPrimResourceAmount());
+        $this->bmcEntity->setPrimResourceTotalAmount(16);
+        $this->assertEquals(16, $this->bmcEntity->getPrimResourceTotalAmount());
     }
 
     public function testSecResourceAmount(): void
     {
-        $this->bmcEntity->setSecResourceAmount(20);
-        $this->assertEquals(20, $this->bmcEntity->getSecResourceAmount());
+        $this->bmcEntity->setSecResourceTotalAmount(20);
+        $this->assertEquals(20, $this->bmcEntity->getSecResourceTotalAmount());
     }
 
     public function testJournalAmount(): void
     {
-        $this->bmcEntity->setJournalAmount(35);
-        $this->assertEquals(35, $this->bmcEntity->getJournalAmount());
+        $this->bmcEntity->setJournalTotalAmount(35);
+        $this->assertEquals(35, $this->bmcEntity->getJournalTotalAmount());
     }
 
     public function testCraftingFee(): void

@@ -103,21 +103,21 @@ class BlackMarketCraftingService
                 )
             );
 
-            $bmcEntity->setPrimResourceAmount(
+            $bmcEntity->setPrimResourceTotalAmount(
                 $this->bmtHelper->calculateResourceAmount(
                     $bmcEntity->getTotalAmount(),
                     $bmcEntity->getItem()
                         ->getPrimaryResourceAmount()
                 )
             );
-            $bmcEntity->setSecResourceAmount(
+            $bmcEntity->setSecResourceTotalAmount(
                 $this->bmtHelper->calculateResourceAmount(
                     $bmcEntity->getTotalAmount(),
                     $bmcEntity->getItem()
                         ->getSecondaryResourceAmount()
                 )
             );
-            $bmcEntity->setJournalAmount(
+            $bmcEntity->setJournalTotalAmount(
                 $this->bmtHelper->calculateJournalAmount(
                     $bmcEntity->getTotalAmount(),
                     $bmcEntity->getJournalAmountPerItem()
@@ -136,7 +136,7 @@ class BlackMarketCraftingService
                         ->getBuyOrderPrice(),
                     $bmcEntity->getJournalEntityFull()
                         ->getSellOrderPrice(),
-                    $bmcEntity->getJournalAmount()
+                    $bmcEntity->getJournalTotalAmount()
                 )
             );
 

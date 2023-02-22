@@ -4,61 +4,66 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\Entity\AdvancedEntities;
 
+use Doctrine\ORM\Mapping\ChangeTrackingPolicy;
+use Doctrine\ORM\Mapping\Column;
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\Table;
 use MZierdt\Albion\Entity\ItemEntity;
 use MZierdt\Albion\Entity\JournalEntity;
 use MZierdt\Albion\Entity\ResourceEntity;
 use MZierdt\Albion\factories\ResourceEntityFactory;
 
-/*
- * beide Resourcen
- * Item
- * Preis
- * Journal
- * Gewicht
- * AMount
- * Profit
- * Etc
- *
- */
-class BlackMarketCraftingEntity
+#[Entity]
+#[ChangeTrackingPolicy('DEFERRED_EXPLICIT')]
+#[Table(name: 'bmCrafting')]
+class BlackMarketCraftingEntity extends MarketEntity
 {
+    #[ManyToOne(targetEntity: ResourceEntity::class, cascade: ['persist'])]
+    #[JoinColumn(name: 'startResource', referencedColumnName: 'id', onDelete: 'CASCADE')]
     private ResourceEntity $primResource;
+
+    #[ManyToOne(targetEntity: ResourceEntity::class, cascade: ['persist'])]
+    #[JoinColumn(name: 'startResource', referencedColumnName: 'id', onDelete: 'CASCADE')]
     private ResourceEntity $secResource;
 
+    #[ManyToOne(targetEntity: ResourceEntity::class, cascade: ['persist'])]
+    #[JoinColumn(name: 'startResource', referencedColumnName: 'id', onDelete: 'CASCADE')]
+    private ItemEntity $item;
+
+    #[ManyToOne(targetEntity: ResourceEntity::class, cascade: ['persist'])]
+    #[JoinColumn(name: 'startResource', referencedColumnName: 'id', onDelete: 'CASCADE')]
     private JournalEntity $journalEntityEmpty;
+    #[ManyToOne(targetEntity: ResourceEntity::class, cascade: ['persist'])]
+    #[JoinColumn(name: 'startResource', referencedColumnName: 'id', onDelete: 'CASCADE')]
     private JournalEntity $journalEntityFull;
-    private float $journalAmountPerItem;
 
-    private int $totalAmount;
-    private int $primResourceAmount;
-    private int $secResourceAmount;
-    private float $journalAmount;
+    #[Column(type: 'float', nullable: true)]
+    private ?float $fameAmount;
+    #[Column(type: 'float', nullable: true)]
+    private ?float $journalAmountPerItem;
+    #[Column(type: 'integer', nullable: true)]
+    private ?int $itemValue;
 
-    private float $craftingFee;
-    private float $profitJournals;
-    private float $profit;
-    private string $colorGrade;
+    #[Column(type: 'integer', nullable: true)]
+    private ?int $primResourceTotalAmount;
+    #[Column(type: 'integer', nullable: true)]
+    private ?int $secResourceTotalAmount;
+    #[Column(type: 'float', nullable: true)]
+    private ?float $journalTotalAmount;
 
-    private float $fameAmount;
-    private readonly int $tierColor;
-    private int $itemValue;
-    private float $profitPercentage;
+    #[Column(type: 'float', nullable: true)]
+    private ?float $craftingFee;
+    #[Column(type: 'float', nullable: true)]
+    private ?float $profitJournals;
 
     public function __construct(
-        private readonly ItemEntity $item,
+        ItemEntity $item,
     ) {
+        $this->item = $item;
         $this->secResource = ResourceEntityFactory::getEmptyResourceEntity();
         $this->tierColor = (int) ($item->getTier() / 10);
-    }
-
-    public function getProfitPercentage(): float
-    {
-        return $this->profitPercentage;
-    }
-
-    public function setProfitPercentage(float $profitPercentage): void
-    {
-        $this->profitPercentage = $profitPercentage;
     }
 
     public function setJournalEntityEmpty(JournalEntity $journalEntityEmpty): void
@@ -86,11 +91,6 @@ class BlackMarketCraftingEntity
         $this->secResource = $secResource;
     }
 
-    public function getTierColor(): int
-    {
-        return $this->tierColor;
-    }
-
     public function setItemValue(int $itemValue): void
     {
         $this->itemValue = $itemValue;
@@ -111,16 +111,6 @@ class BlackMarketCraftingEntity
         $this->fameAmount = $fameAmount;
     }
 
-    public function getColorGrade(): string
-    {
-        return $this->colorGrade;
-    }
-
-    public function setColorGrade(string $colorGrade): void
-    {
-        $this->colorGrade = $colorGrade;
-    }
-
     public function getProfitJournals(): float
     {
         return $this->profitJournals;
@@ -129,16 +119,6 @@ class BlackMarketCraftingEntity
     public function setProfitJournals(float $profitJournals): void
     {
         $this->profitJournals = $profitJournals;
-    }
-
-    public function getProfit(): float
-    {
-        return $this->profit;
-    }
-
-    public function setProfit(float $profit): void
-    {
-        $this->profit = $profit;
     }
 
     public function getCraftingFee(): float
@@ -151,24 +131,19 @@ class BlackMarketCraftingEntity
         $this->craftingFee = $craftingFee;
     }
 
-    public function getTotalAmount(): int
+    public function getPrimResourceTotalAmount(): int
     {
-        return $this->totalAmount;
+        return $this->primResourceTotalAmount;
     }
 
-    public function getPrimResourceAmount(): int
+    public function getSecResourceTotalAmount(): int
     {
-        return $this->primResourceAmount;
+        return $this->secResourceTotalAmount;
     }
 
-    public function getSecResourceAmount(): int
+    public function getJournalTotalAmount(): float
     {
-        return $this->secResourceAmount;
-    }
-
-    public function getJournalAmount(): float
-    {
-        return $this->journalAmount;
+        return $this->journalTotalAmount;
     }
 
     public function getItem(): ItemEntity
@@ -201,23 +176,18 @@ class BlackMarketCraftingEntity
         return $this->journalAmountPerItem;
     }
 
-    public function setTotalAmount(int $totalAmount): void
+    public function setPrimResourceTotalAmount(int $primResourceTotalAmount): void
     {
-        $this->totalAmount = $totalAmount;
+        $this->primResourceTotalAmount = $primResourceTotalAmount;
     }
 
-    public function setPrimResourceAmount(int $primResourceAmount): void
+    public function setSecResourceTotalAmount(int $secResourceTotalAmount): void
     {
-        $this->primResourceAmount = $primResourceAmount;
+        $this->secResourceTotalAmount = $secResourceTotalAmount;
     }
 
-    public function setSecResourceAmount(int $secResourceAmount): void
+    public function setJournalTotalAmount(float $journalTotalAmount): void
     {
-        $this->secResourceAmount = $secResourceAmount;
-    }
-
-    public function setJournalAmount(float $journalAmount): void
-    {
-        $this->journalAmount = $journalAmount;
+        $this->journalTotalAmount = $journalTotalAmount;
     }
 }

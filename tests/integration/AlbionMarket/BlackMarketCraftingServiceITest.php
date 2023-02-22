@@ -57,9 +57,13 @@ class BlackMarketCraftingServiceITest extends TestCase
             );
 
             $this->assertEquals(20, $blackMarketCraftingEntity->getTotalAmount());
-            $this->assertEquals(400, $blackMarketCraftingEntity->getPrimResourceAmount());
-            $this->assertEquals(240, $blackMarketCraftingEntity->getSecResourceAmount());
-            $this->assertEqualsWithDelta(29.090909090909093, $blackMarketCraftingEntity->getJournalAmount(), $delta);
+            $this->assertEquals(400, $blackMarketCraftingEntity->getPrimResourceTotalAmount());
+            $this->assertEquals(240, $blackMarketCraftingEntity->getSecResourceTotalAmount());
+            $this->assertEqualsWithDelta(
+                29.090909090909093,
+                $blackMarketCraftingEntity->getJournalTotalAmount(),
+                $delta
+            );
 
             $this->assertEqualsWithDelta(11059.2, $blackMarketCraftingEntity->getCraftingFee(), $delta);
             $this->assertEqualsWithDelta(-1958.8363636364, $blackMarketCraftingEntity->getProfitJournals(), $delta);
@@ -120,9 +124,13 @@ class BlackMarketCraftingServiceITest extends TestCase
             );
 
             $this->assertEquals(20, $blackMarketCraftingEntity->getTotalAmount());
-            $this->assertEquals(400, $blackMarketCraftingEntity->getPrimResourceAmount());
-            $this->assertEquals(240, $blackMarketCraftingEntity->getSecResourceAmount());
-            $this->assertEqualsWithDelta(29.090909090909093, $blackMarketCraftingEntity->getJournalAmount(), $delta);
+            $this->assertEquals(400, $blackMarketCraftingEntity->getPrimResourceTotalAmount());
+            $this->assertEquals(240, $blackMarketCraftingEntity->getSecResourceTotalAmount());
+            $this->assertEqualsWithDelta(
+                29.090909090909093,
+                $blackMarketCraftingEntity->getJournalTotalAmount(),
+                $delta
+            );
 
             $this->assertEqualsWithDelta(0, $blackMarketCraftingEntity->getCraftingFee(), $delta);
             $this->assertEqualsWithDelta(-1958.8363636363913, $blackMarketCraftingEntity->getProfitJournals(), $delta);
