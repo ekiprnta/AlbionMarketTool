@@ -23,7 +23,6 @@ class UpdateNoSpecCraftingCommand extends Command
         private readonly NoSpecRepository $noSpecRepository,
         private readonly ItemRepository $itemRepository,
         private readonly MaterialRepository $materialRepository,
-
     ) {
         parent::__construct();
     }

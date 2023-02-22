@@ -9,7 +9,6 @@ use MZierdt\Albion\repositories\Repository;
 
 class NoSpecRepository extends Repository
 {
-
     public function getAllNoSpecCraftingByCity(string $city): array
     {
         return $this->findBy(NoSpecEntity::class, [
