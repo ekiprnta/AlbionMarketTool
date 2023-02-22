@@ -40,6 +40,7 @@ use MZierdt\Albion\Handler\TransmutationHandler;
 use MZierdt\Albion\HttpClient;
 use MZierdt\Albion\repositories\AdvancedRepository\BlackMarketTransportingRepository;
 use MZierdt\Albion\repositories\AdvancedRepository\EnchantingRepository;
+use MZierdt\Albion\repositories\AdvancedRepository\NoSpecRepository;
 use MZierdt\Albion\repositories\AdvancedRepository\RefiningRepository;
 use MZierdt\Albion\repositories\AdvancedRepository\TransmutationRepository;
 use MZierdt\Albion\repositories\ItemRepository;
@@ -95,6 +96,9 @@ $serviceManager = new ServiceManager([
                     NoSpecCraftingHelper::class
                 ],
                 NoSpecCraftingHelper::class => [],
+                NoSpecRepository::class => [
+                    EntityManager::class,
+                ],
                 BlackMarketTransportingService::class => [],
                 BlackMarketTransportingRepository::class => [EntityManager::class],
                 BlackMarketTransportingHandler::class => [
