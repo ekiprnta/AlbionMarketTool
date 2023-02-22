@@ -3,7 +3,7 @@
 namespace integration\AlbionMarket;
 
 use MZierdt\Albion\AlbionMarket\TransmutationHelper;
-use MZierdt\Albion\AlbionMarket\TransmutationService;
+use MZierdt\Albion\AlbionMarket\TransmutationServiceOldToDel;
 use MZierdt\Albion\Entity\AdvancedEntities\TransmutationEntity;
 use MZierdt\Albion\Entity\ResourceEntity;
 use MZierdt\Albion\repositories\ResourceRepository;
@@ -27,7 +27,7 @@ class TransmutationServiceITest extends TestCase
         /** @var GlobalDiscountService|ObjectProphecy $discountService */
         $discountService = $this->prophesize(GlobalDiscountService::class);
 
-        $transmutationService = new TransmutationService(
+        $transmutationService = new TransmutationServiceOldToDel(
             $resourceRepository->reveal(),
             $transmutationHelper,
             $configService->reveal(),

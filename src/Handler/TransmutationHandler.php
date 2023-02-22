@@ -3,7 +3,7 @@
 namespace MZierdt\Albion\Handler;
 
 use Laminas\Diactoros\Response\HtmlResponse;
-use MZierdt\Albion\AlbionMarket\TransmutationService;
+use MZierdt\Albion\AlbionMarket\TransmutationServiceOldToDel;
 use MZierdt\Albion\Service\TimeService;
 use Twig\Environment;
 
@@ -11,7 +11,7 @@ class TransmutationHandler
 {
     public function __construct(
         private readonly Environment $twigEnvironment,
-        private readonly TransmutationService $transmutationService,
+        private readonly TransmutationServiceOldToDel $transmutationService,
     ) {
     }
 

@@ -8,7 +8,7 @@ use MZierdt\Albion\repositories\ResourceRepository;
 use MZierdt\Albion\Service\ConfigService;
 use MZierdt\Albion\Service\GlobalDiscountService;
 
-class TransmutationService
+class TransmutationServiceOldToDel
 {
     public function __construct(
         private readonly ResourceRepository $resourceRepository,
