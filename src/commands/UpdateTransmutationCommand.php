@@ -10,6 +10,7 @@ use MZierdt\Albion\repositories\AdvancedRepository\TransmutationRepository;
 use MZierdt\Albion\repositories\ResourceRepository;
 use MZierdt\Albion\Service\ConfigService;
 use MZierdt\Albion\Service\GlobalDiscountService;
+use MZierdt\Albion\Service\ProgressBarService;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -51,10 +52,45 @@ class UpdateTransmutationCommand extends Command
 
         $city = 'Fort Sterling';
         $output->writeln('Updating Transmutation from ' . $city . '...');
+        $this->updateCalculations($transmutationEntityList, $city, $transmutationCost, $globalDiscount, $output);
 
+        $city = 'Lymhurst';
+        $output->writeln(PHP_EOL . 'Updating Transmutation from ' . $city . '...');
+        $this->updateCalculations($transmutationEntityList, $city, $transmutationCost, $globalDiscount, $output);
+
+        $city = 'Bridgewatch';
+        $output->writeln(PHP_EOL . 'Updating Transmutation from ' . $city . '...');
+        $this->updateCalculations($transmutationEntityList, $city, $transmutationCost, $globalDiscount, $output);
+
+        $city = 'Martlock';
+        $output->writeln(PHP_EOL . 'Updating Transmutation from ' . $city . '...');
+        $this->updateCalculations($transmutationEntityList, $city, $transmutationCost, $globalDiscount, $output);
+
+        $city = 'Thetford';
+        $output->writeln(PHP_EOL . 'Updating Transmutation from ' . $city . '...');
+        $this->updateCalculations($transmutationEntityList, $city, $transmutationCost, $globalDiscount, $output);
+
+        $output->writeln('Done');
+        return self::SUCCESS;
+    }
+
+    private function updateCalculations(
+        array $transmutationEntityList,
+        string $city,
+        array $transmutationCost,
+        float $globalDiscount,
+        OutputInterface $output,
+    ): void {
+        $progressBar = ProgressBarService::getProgressBar($output, (count($transmutationEntityList)));
+
+        $resources = $this->resourceRepository->getRawResourcesByCity($city);
         /** @var TransmutationEntity $transEntity */
         foreach ($transmutationEntityList as $transEntity) {
-            $resources = $this->resourceRepository->getRawResourcesByCity($city);
+            $message = sprintf('Update transmutationEntity: %s from %s', $transEntity->getPathName(), $city);
+            $progressBar->setMessage($message);
+            $progressBar->advance();
+            $progressBar->display();
+
             [$startTier, $endTier] = $this->transmutationService->calculateStartAndEnd($transEntity->getPathName());
             $transEntity->setStartResource(
                 $this->transmutationService->calculateResource(
@@ -132,7 +168,7 @@ class UpdateTransmutationCommand extends Command
 
             $this->transmutationRepository->createOrUpdate($transEntity);
         }
-
-        return self::SUCCESS;
+        $progressBar->setMessage('Update in ' . $city . ' finished');
+        $progressBar->finish();
     }
 }

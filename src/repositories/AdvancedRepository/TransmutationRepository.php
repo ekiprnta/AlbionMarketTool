@@ -21,11 +21,26 @@ class TransmutationRepository extends Repository
     {
         $oldTransmutationEntity = $this->entityManager->getRepository(TransmutationEntity::class)->findOneBy([
             'city' => $transmutationEntity->getCity(),
+            'resourceType' => $transmutationEntity->getResourceType(),
+            'pathName' => $transmutationEntity->getPathName()
         ]);
 
         if ($oldTransmutationEntity !== null) {
+            $oldTransmutationEntity->setMaterialCostSell($transmutationEntity->getMaterialCostSell());
+            $oldTransmutationEntity->setProfitSell($transmutationEntity->getProfitSell());
+            $oldTransmutationEntity->setProfitPercentageSell($transmutationEntity->getProfitPercentageSell());
+            $oldTransmutationEntity->setProfitGradeSell($transmutationEntity->getProfitGradeSell());
+
+            $oldTransmutationEntity->setMaterialCostBuy($transmutationEntity->getMaterialCostBuy());
+            $oldTransmutationEntity->setProfitBuy($transmutationEntity->getProfitBuy());
+            $oldTransmutationEntity->setProfitPercentageBuy($transmutationEntity->getProfitPercentageBuy());
+            $oldTransmutationEntity->setProfitGradeBuy($transmutationEntity->getProfitGradeBuy());
+
+            $oldTransmutationEntity->setComplete($transmutationEntity->isComplete());
+
             $this->update($oldTransmutationEntity);
         } else {
+            dump(1);
             $this->update($transmutationEntity);
         }
     }
