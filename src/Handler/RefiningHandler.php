@@ -20,7 +20,7 @@ class RefiningHandler
         $cityData = [];
         $alertMessage = null;
 
-        if (!empty($_GET)) {
+        if (! empty($_GET)) {
             $request = $_GET;
             $itemCity = $request['itemCity'];
             try {

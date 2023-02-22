@@ -39,8 +39,8 @@ class BlackMarketTransportEntity extends MarketEntity
         $this->tierString = $tierString;
     }
 
-    public function __construct(ItemEntity $bmItem
-    ) {
+    public function __construct(ItemEntity $bmItem)
+    {
         $this->bmItem = $bmItem;
         $this->tierColor = (int) ($bmItem->getTier() / 10);
     }

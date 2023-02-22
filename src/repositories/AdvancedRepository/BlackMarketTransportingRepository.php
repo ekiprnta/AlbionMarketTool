@@ -11,7 +11,10 @@ class BlackMarketTransportingRepository extends Repository
 {
     public function getAllTransportingByCity(string $city): array
     {
-        return $this->findBy(BlackMarketTransportEntity::class, ['complete' => true, 'city' => $city]);
+        return $this->findBy(BlackMarketTransportEntity::class, [
+            'complete' => true,
+            'city' => $city,
+        ]);
     }
 
     public function createOrUpdate(BlackMarketTransportEntity $bmtEntity): void

@@ -55,10 +55,7 @@ class UpdateRefiningCommand extends Command
     {
         $resources = $this->resourceRepository->getResourcesByBonusCity($city);
         $rawResources = $this->resourceRepository->getRawResourcesByBonusCity($city);
-        $progressBar = ProgressBarService::getProgressBar(
-            $output,
-            is_countable($resources) ? count($resources) - 1 : 0
-        );
+        $progressBar = ProgressBarService::getProgressBar($output, (count($resources) - 1));
 
         $refiningArray = [];
         foreach ($resources as $resource) {
@@ -69,11 +66,7 @@ class UpdateRefiningCommand extends Command
         /** @var RefiningEntity $refiningEntity */
         foreach ($refiningArray as $refiningEntity) {
             $refinedResource = $refiningEntity->getRefinedResource();
-            $message = sprintf(
-                'Update refiningEntity: %s from %s',
-                $refinedResource->getRealName(),
-                $city
-            );
+            $message = sprintf('Update refiningEntity: %s from %s', $refinedResource->getRealName(), $city);
             $progressBar->setMessage($message);
             $progressBar->advance();
             $progressBar->display();
@@ -82,14 +75,9 @@ class UpdateRefiningCommand extends Command
                 $this->refiningService->calculateAmountRawResource($refinedResource->getTier())
             );
             $refiningEntity->setRawResource(
-                $this->refiningService->calculateResource(
-                    $refinedResource->getTier(),
-                    $rawResources
-                )
+                $this->refiningService->calculateResource($refinedResource->getTier(), $rawResources)
             );
-            $lowerTier = $this->refiningService->calculateLowerResourceTier(
-                $refinedResource->getTier()
-            );
+            $lowerTier = $this->refiningService->calculateLowerResourceTier($refinedResource->getTier());
             $refiningEntity->setLowerResource($this->refiningService->calculateResource($lowerTier, $resources));
 
             // Sell is the calculation with Focus
@@ -149,7 +137,7 @@ class UpdateRefiningCommand extends Command
                     [
                         $refinedResource->getSellOrderPrice(),
                         $lowerResource->getBuyOrderPrice(),
-                        $rawResource->getBuyOrderPrice()
+                        $rawResource->getBuyOrderPrice(),
                     ]
                 )
             );

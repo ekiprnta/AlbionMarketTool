@@ -35,7 +35,7 @@ class BlackMarketTransportingHandler
         $htmlContent = $this->twigEnvironment->render('BlackMarketTransport.html.twig', [
             'dataArray' => $cityData,
             'alertMessage' => $alertMessage,
-            'timeThreshold' => TimeService::getFiveDaysAgo(new \DateTimeImmutable())
+            'timeThreshold' => TimeService::getFiveDaysAgo(new \DateTimeImmutable()),
         ]);
         return new HtmlResponse($htmlContent);
     }

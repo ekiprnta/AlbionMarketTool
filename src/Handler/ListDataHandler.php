@@ -19,7 +19,7 @@ class ListDataHandler
     public function handler(): HtmlResponse
     {
         $allResources = [];
-        if (!empty($_GET)) {
+        if (! empty($_GET)) {
             $allResources = $this->listDataHandler->getResources($_GET['refined']);
         }
 

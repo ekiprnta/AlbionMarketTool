@@ -28,8 +28,10 @@ class BlackMarketTransportingServiceTest extends TestCase
         string $bmItem,
     ): void {
         $this->expectException(\RuntimeException::class);
-        $cityItem = (new ItemEntity())->setTier($cityTier)->setName($cityItem);
-        $bmItem = (new ItemEntity())->setTier($bmTier)->setName($bmItem);
+        $cityItem = (new ItemEntity())->setTier($cityTier)
+            ->setName($cityItem);
+        $bmItem = (new ItemEntity())->setTier($bmTier)
+            ->setName($bmItem);
 
         $this->bmtService->calculateCityItem($bmItem, [$cityItem]);
     }
@@ -41,13 +43,12 @@ class BlackMarketTransportingServiceTest extends TestCase
 
     public function testCalculateCityItem(): void
     {
-        $cityItem = (new ItemEntity())->setTier(1)->setName('b');
-        $bmItem = (new ItemEntity())->setTier(1)->setName('b');
+        $cityItem = (new ItemEntity())->setTier(1)
+            ->setName('b');
+        $bmItem = (new ItemEntity())->setTier(1)
+            ->setName('b');
 
-        $this->assertEquals(
-            $cityItem,
-            $this->bmtService->calculateCityItem($bmItem, [$cityItem])
-        );
+        $this->assertEquals($cityItem, $this->bmtService->calculateCityItem($bmItem, [$cityItem]));
     }
 
     /**

@@ -15,7 +15,10 @@ class RefiningRepository extends Repository
             throw new \InvalidArgumentException('Bridgewatch is currently not Supported');
         }
 
-        return $this->findBy(RefiningEntity::class, ['complete' => true, 'city' => $city]);
+        return $this->findBy(RefiningEntity::class, [
+            'complete' => true,
+            'city' => $city,
+        ]);
     }
 
     public function createOrUpdate(RefiningEntity $refiningEntity): void

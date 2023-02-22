@@ -68,7 +68,7 @@ class UpdateBmTransportCommand extends Command
         array $amountConfig
     ): void {
         $cityItems = $this->itemRepository->getItemsByLocationForBM($city);
-        $progressBar = ProgressBarService::getProgressBar($output, is_countable($cityItems) ? count($cityItems) : 0);
+        $progressBar = ProgressBarService::getProgressBar($output, count($cityItems));
         $bmtEntities = [];
         foreach ($bmItems as $bmItem) {
             $bmtEntities[] = new BlackMarketTransportEntity($bmItem);

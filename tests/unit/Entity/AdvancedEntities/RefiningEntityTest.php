@@ -55,5 +55,4 @@ class RefiningEntityTest extends TestCase
         $this->refiningEntity->setAmount(15);
         $this->assertEquals(15, $this->refiningEntity->getAmount());
     }
-
 }
