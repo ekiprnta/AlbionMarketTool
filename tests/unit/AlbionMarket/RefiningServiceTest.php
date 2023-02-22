@@ -2,7 +2,7 @@
 
 namespace unit\AlbionMarket;
 
-use MZierdt\Albion\AlbionMarket\RefiningHelper;
+use MZierdt\Albion\AlbionMarket\RefiningService;
 use MZierdt\Albion\AlbionMarket\RefiningService;
 use MZierdt\Albion\repositories\ResourceRepository;
 use PHPUnit\Framework\TestCase;
@@ -15,12 +15,12 @@ class RefiningServiceTest extends TestCase
 
     private RefiningService $refiningService;
     private ObjectProphecy|ResourceRepository $resourceRepository;
-    private ObjectProphecy|RefiningHelper $refiningHelper;
+    private ObjectProphecy|RefiningService $refiningHelper;
 
     protected function setUp(): void
     {
         $this->resourceRepository = $this->prophesize(ResourceRepository::class);
-        $this->refiningHelper = $this->prophesize(RefiningHelper::class);
+        $this->refiningHelper = $this->prophesize(RefiningService::class);
 
         $this->refiningService = new RefiningService(
             $this->resourceRepository->reveal(),

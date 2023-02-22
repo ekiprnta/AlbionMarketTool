@@ -2,7 +2,7 @@
 
 namespace integration\AlbionMarket;
 
-use MZierdt\Albion\AlbionMarket\RefiningHelper;
+use MZierdt\Albion\AlbionMarket\RefiningService;
 use MZierdt\Albion\AlbionMarket\RefiningService;
 use MZierdt\Albion\Entity\AdvancedEntities\RefiningEntity;
 use MZierdt\Albion\Entity\ResourceEntity;
@@ -25,7 +25,7 @@ class RefiningServiceITest extends TestCase
         $resourceRepo->getRawResourcesByBonusCity('TestCity')
             ->willReturn($this->getRawResources());
 
-        $refiningService = new RefiningService($resourceRepo->reveal(), new RefiningHelper());
+        $refiningService = new RefiningService($resourceRepo->reveal(), new RefiningService());
 
         $delta = 0.00001;
         $testData = $refiningService->getRefiningForCity('TestCity', 500);
@@ -52,7 +52,7 @@ class RefiningServiceITest extends TestCase
         $resourceRepo->getRawResourcesByBonusCity('TestCity')
             ->willReturn($this->getRawResources());
 
-        $refiningService = new RefiningService($resourceRepo->reveal(), new RefiningHelper());
+        $refiningService = new RefiningService($resourceRepo->reveal(), new RefiningService());
 
         $delta = 0.00001;
         $testData = $refiningService->getRefiningForCity('TestCity', 0);

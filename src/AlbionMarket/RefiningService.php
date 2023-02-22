@@ -2,102 +2,84 @@
 
 namespace MZierdt\Albion\AlbionMarket;
 
-use InvalidArgumentException;
-use MZierdt\Albion\Entity\AdvancedEntities\RefiningEntity;
-use MZierdt\Albion\repositories\ResourceRepository;
+use MZierdt\Albion\Entity\ResourceEntity;
 
-class RefiningService
+class RefiningService extends Market
 {
-    private const RRR_BONUS_CITY_NO_FOCUS = 36.7;
-    private const RRR_BONUS_CITY_FOCUS = 53.9;
-    private const RRR_NO_BONUS_CITY_NO_FOCUS = 15.2;
-    private const RRR_NO_BONUS_CITY_FOCUS = 43.5;
-
-    public function __construct(
-        private readonly ResourceRepository $resourceRepository,
-        private readonly RefiningHelper $refiningHelper,
-    ) {
+    public function calculateAmountRawResource(int $tier): int
+    {
+        $baseTier = (int) ($tier / 10);
+        return match ($baseTier) {
+            3, 4 => 2,
+            5 => 3,
+            6 => 4,
+            7, 8 => 5,
+            default => 0,
+        };
     }
 
-    public function getRefiningForCity(string $itemCity, float $percentage): array
+    public function calculateResource(int $tier, array $rawResources): ResourceEntity
     {
-        if (empty($itemCity)) {
-            throw new InvalidArgumentException('Please select a city');
-        }
-        if (empty($percentage)) {
-            $percentage = self::RRR_BONUS_CITY_FOCUS;
-        }
-        $resources = $this->resourceRepository->getResourcesByBonusCity($itemCity);
-        $rawResources = $this->resourceRepository->getRawResourcesByBonusCity($itemCity);
-
-        $refiningArray = [];
-        foreach ($resources as $resource) {
-            if ($resource->getTier() !== 20) {
-                $refiningArray[] = new RefiningEntity($resource);
+        /** @var ResourceEntity $rawResource */
+        foreach ($rawResources as $rawResource) {
+            if ($rawResource->getTier() === $tier) {
+                return $rawResource;
             }
         }
-        /** @var RefiningEntity $refiningEntity */
-        foreach ($refiningArray as $refiningEntity) {
-            $refiningEntity->setAmountRawResource(
-                $this->refiningHelper->calculateAmountRawResource($refiningEntity->getRefinedResource()->getTier())
-            );
-            $refiningEntity->setRawResource(
-                $this->refiningHelper->calculateResource(
-                    $refiningEntity->getRefinedResource()->getTier(),
-                    $rawResources
-                )
-            );
-            $lowerTier = $this->refiningHelper->calculateLowerResourceTier(
-                $refiningEntity->getRefinedResource()
-                    ->getTier()
-            );
-            $refiningEntity->setLowerResource($this->refiningHelper->calculateResource($lowerTier, $resources));
-
-            $resourceCost = $this->refiningHelper->calculateResourceCost(
-                $refiningEntity->getRawResource()
-                    ->getSellOrderPrice(),
-                $refiningEntity->getLowerResource()
-                    ->getSellOrderPrice(),
-                $refiningEntity->getAmountRawResource(),
-                $percentage
-            );
-            $refiningEntity->setSingleProfit(
-                $this->refiningHelper->calculateProfit(
-                    $refiningEntity->getRefinedResource()
-                        ->getSellOrderPrice(),
-                    $resourceCost
-                )
-            );
-            $refiningEntity->setAmount(
-                $this->refiningHelper->calculateRefiningAmount($refiningEntity->getRefinedResource()->getTier())
-            );
-            $refiningEntity->setProfit(
-                $this->refiningHelper->calculateTotalProfit(
-                    $refiningEntity->getAmount(),
-                    $refiningEntity->getSingleProfit()
-                )
-            );
-            $refiningEntity->setProfitPercentage(
-                $this->refiningHelper->calculateProfitPercentage(
-                    $refiningEntity->getRefinedResource()
-                        ->getSellOrderPrice(),
-                    $resourceCost
-                )
-            );
-            $refiningEntity->setProfitGrade(
-                $this->refiningHelper->calculateProfitGrade($refiningEntity->getProfitPercentage())
-            );
-        }
-        return $refiningArray;
+        throw new \InvalidArgumentException('No Resource found for Tier: ' . $tier . ' in RefiningHelper.php');
     }
 
-    public function getRefiningRates(): array
+    public function calculateLowerResourceTier(int $tier): int
     {
-        return [
-            'No City Bonus No Focus' => self::RRR_NO_BONUS_CITY_NO_FOCUS,
-            'No City Bonus Focus' => self::RRR_NO_BONUS_CITY_FOCUS,
-            'City Bonus No Focus' => self::RRR_BONUS_CITY_NO_FOCUS,
-            'City Bonus Focus' => self::RRR_BONUS_CITY_FOCUS,
-        ];
+        $baseTier = (int) ($tier / 10);
+        if ($baseTier === 4) {
+            return 30;
+        }
+        return $tier - 10;
+    }
+
+    public function calculateResourceCost(
+        int $rawResourcePrice,
+        int $lowerResourcePrice,
+        int $amountRawResource,
+        float $percentage
+    ): float {
+        $rate = (self::RRR_BASE_PERCENTAGE - $percentage) / 100;
+        $resourceCost = $amountRawResource * $rawResourcePrice + $lowerResourcePrice;
+        return $rate * $resourceCost;
+    }
+
+    public function calculateRefiningAmount(int $tier): int
+    {
+        return match ($tier) {
+            30 => 968,
+            40 => 10000,
+            41, 50 => 5000,
+            42 => 3333,
+            43 => 2000,
+            44 => 968,
+            51, 60 => 3000,
+            52 => 1765,
+            53 => 1035,
+            54 => 566,
+            61, 70 => 1667,
+            62 => 1000,
+            63 => 566,
+            64 => 319,
+            71, 80 => 968,
+            72 => 556,
+            73 => 319,
+            74 => 180,
+            81 => 545,
+            82 => 316,
+            83 => 180,
+            84 => 101,
+            default => throw new \InvalidArgumentException('Wrong tier for Refining Amount: ' . $tier . '(Amount)'),
+        };
+    }
+
+    public function calculateTotalProfit(int $Amount, float $singleProfit): float
+    {
+        return $Amount * $singleProfit;
     }
 }

@@ -11,7 +11,6 @@ use MZierdt\Albion\AlbionDataAPI\MiscApiService;
 use MZierdt\Albion\AlbionDataAPI\ResourceApiService;
 use MZierdt\Albion\AlbionMarket\BlackMarketCraftingHelper;
 use MZierdt\Albion\AlbionMarket\BlackMarketCraftingService;
-use MZierdt\Albion\AlbionMarket\BlackMarketTransportingHelper;
 use MZierdt\Albion\AlbionMarket\BlackMarketTransportingService;
 use MZierdt\Albion\AlbionMarket\EnchantingHelper;
 use MZierdt\Albion\AlbionMarket\EnchantingService;
@@ -19,7 +18,6 @@ use MZierdt\Albion\AlbionMarket\ListDataHelper;
 use MZierdt\Albion\AlbionMarket\ListDataService;
 use MZierdt\Albion\AlbionMarket\NoSpecCraftingHelper;
 use MZierdt\Albion\AlbionMarket\NoSpecCraftingService;
-use MZierdt\Albion\AlbionMarket\RefiningHelper;
 use MZierdt\Albion\AlbionMarket\RefiningService;
 use MZierdt\Albion\AlbionMarket\TransmutationHelper;
 use MZierdt\Albion\AlbionMarket\TransmutationService;
@@ -27,6 +25,7 @@ use MZierdt\Albion\commands\UpdateBmTransportCommand;
 use MZierdt\Albion\commands\UpdateItemsCommand;
 use MZierdt\Albion\commands\UpdateJournalsCommand;
 use MZierdt\Albion\commands\UpdateMaterialsCommand;
+use MZierdt\Albion\commands\UpdateRefiningCommand;
 use MZierdt\Albion\commands\UpdateResourcesCommand;
 use MZierdt\Albion\factories\EntityManagerFactory;
 use MZierdt\Albion\factories\TwigEnvironmentFactory;
@@ -40,6 +39,7 @@ use MZierdt\Albion\Handler\RefiningHandler;
 use MZierdt\Albion\Handler\TransmutationHandler;
 use MZierdt\Albion\HttpClient;
 use MZierdt\Albion\repositories\AdvancedRepository\BlackMarketTransportingRepository;
+use MZierdt\Albion\repositories\AdvancedRepository\RefiningRepository;
 use MZierdt\Albion\repositories\ItemRepository;
 use MZierdt\Albion\repositories\ItemRepositoryFactory;
 use MZierdt\Albion\repositories\JournalRepository;
@@ -84,11 +84,7 @@ $serviceManager = new ServiceManager([
                     BlackMarketCraftingHelper::class,
                     ConfigService::class
                 ],
-                RefiningHelper::class => [],
-                RefiningService::class => [
-                    ResourceRepository::class,
-                    RefiningHelper::class,
-                ],
+                RefiningService::class => [],
                 TierService::class => [],
                 NoSpecCraftingHandler::class => [Environment::class, NoSpecCraftingService::class],
                 NoSpecCraftingService::class => [
@@ -109,7 +105,10 @@ $serviceManager = new ServiceManager([
                 ],
                 RefiningHandler::class => [
                     Environment::class,
-                    RefiningService::class,
+                    RefiningRepository::class,
+                ],
+                RefiningRepository::class => [
+                    EntityManager::class,
                 ],
                 TransmutationHandler::class => [
                     Environment::class,
@@ -166,6 +165,11 @@ $serviceManager = new ServiceManager([
                     BlackMarketTransportingRepository::class,
                     ItemRepository::class,
                     ConfigService::class,
+                ],
+                UpdateRefiningCommand::class => [
+                    RefiningService::class,
+                    RefiningRepository::class,
+                    ResourceRepository::class,
                 ]
             ]
         ],

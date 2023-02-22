@@ -2,7 +2,7 @@
 
 namespace unit\AlbionMarket;
 
-use MZierdt\Albion\AlbionMarket\RefiningHelper;
+use MZierdt\Albion\AlbionMarket\RefiningService;
 use MZierdt\Albion\Entity\ResourceEntity;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
@@ -12,11 +12,11 @@ class RefiningHelperTest extends TestCase
 {
     use ProphecyTrait;
 
-    private RefiningHelper $refiningHelper;
+    private RefiningService $refiningHelper;
 
     protected function setUp(): void
     {
-        $this->refiningHelper = new RefiningHelper();
+        $this->refiningHelper = new RefiningService();
     }
 
     /**

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\commands;
 
-use MZierdt\Albion\AlbionMarket\RefiningHelper;
+use MZierdt\Albion\AlbionMarket\RefiningService;
 use MZierdt\Albion\Entity\AdvancedEntities\RefiningEntity;
 use MZierdt\Albion\repositories\AdvancedRepository\RefiningRepository;
 use MZierdt\Albion\repositories\ResourceRepository;
@@ -17,7 +17,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class UpdateRefiningCommand extends Command
 {
     public function __construct(
-        private readonly RefiningHelper $refiningService,
+        private readonly RefiningService $refiningService,
         private readonly RefiningRepository $refiningRepository,
         private readonly ResourceRepository $resourceRepository,
     ) {
@@ -117,5 +117,7 @@ class UpdateRefiningCommand extends Command
 
             $this->refiningRepository->createOrUpdate($refiningEntity);
         }
+
+        return self::SUCCESS;
     }
 }
