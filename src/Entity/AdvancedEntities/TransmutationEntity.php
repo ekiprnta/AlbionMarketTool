@@ -2,33 +2,49 @@
 
 namespace MZierdt\Albion\Entity\AdvancedEntities;
 
+use Doctrine\ORM\Mapping\ChangeTrackingPolicy;
+use Doctrine\ORM\Mapping\Column;
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\Table;
 use MZierdt\Albion\Entity\ResourceEntity;
 
-class TransmutationEntity
+#[Entity]
+#[ChangeTrackingPolicy('DEFERRED_EXPLICIT')]
+#[Table(name: 'transmutation')]
+class TransmutationEntity extends MarketEntity
 {
-    private float $profit;
-    private string $profitGrade;
-    private int $startTierColor;
-    private int $endTierColor;
+    #[ManyToOne(targetEntity: ResourceEntity::class, cascade: ['persist'])]
+    #[JoinColumn(name: 'startResource', referencedColumnName: 'id', onDelete: 'CASCADE')]
     private ResourceEntity $startResource;
+
+    #[ManyToOne(targetEntity: ResourceEntity::class, cascade: ['persist'])]
+    #[JoinColumn(name: 'endResource', referencedColumnName: 'id', onDelete: 'CASCADE')]
     private ResourceEntity $endResource;
-    private float $transmutePrice;
+
+    #[Column(type: 'string', nullable: true)]
+    private ?string $pathName = null;
+    #[Column(type: 'simple_array', nullable: true)]
+    private ?array $transmutationPath = null;
+    #[Column(type: 'string', nullable: true)]
+    private ?string $resourceType = null;
+    #[Column(type: 'integer', nullable: true)]
+    private ?int $endTierColor = null;
 
     public function __construct(
-        private readonly string $pathName,
-        private readonly array $transmutationPath,
-        private readonly string $resourceType,
+        string $pathName,
+        array $transmutationPath,
+        string $resourceType
     ) {
+        $this->pathName = $pathName;
+        $this->transmutationPath = $transmutationPath;
+        $this->resourceType = $resourceType;
     }
 
     public function getResourceType(): string
     {
         return $this->resourceType;
-    }
-
-    public function setStartTierColor(int $startTierColor): void
-    {
-        $this->startTierColor = $startTierColor;
     }
 
     public function setEndTierColor(int $endTierColor): void
@@ -46,11 +62,6 @@ class TransmutationEntity
         $this->endResource = $endResource;
     }
 
-    public function setTransmutePrice(float $transmutePrice): void
-    {
-        $this->transmutePrice = $transmutePrice;
-    }
-
     public function getPathName(): string
     {
         return $this->pathName;
@@ -66,31 +77,6 @@ class TransmutationEntity
         return $this->endTierColor;
     }
 
-    public function setProfit(float $profit): void
-    {
-        $this->profit = $profit;
-    }
-
-    public function getProfitGrade(): string
-    {
-        return $this->profitGrade;
-    }
-
-    public function setProfitGrade(string $profitGrade): void
-    {
-        $this->profitGrade = $profitGrade;
-    }
-
-    public function getStartTierColor(): int
-    {
-        return $this->startTierColor;
-    }
-
-    public function getProfit(): float
-    {
-        return $this->profit;
-    }
-
     public function getStartResource(): ResourceEntity
     {
         return $this->startResource;
@@ -99,10 +85,5 @@ class TransmutationEntity
     public function getEndResource(): ResourceEntity
     {
         return $this->endResource;
-    }
-
-    public function getTransmutePrice(): float
-    {
-        return $this->transmutePrice;
     }
 }
