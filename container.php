@@ -9,7 +9,6 @@ use MZierdt\Albion\AlbionDataAPI\ItemApiService;
 use MZierdt\Albion\AlbionDataAPI\MaterialsApiService;
 use MZierdt\Albion\AlbionDataAPI\MiscApiService;
 use MZierdt\Albion\AlbionDataAPI\ResourceApiService;
-use MZierdt\Albion\AlbionMarket\BlackMarketCraftingHelper;
 use MZierdt\Albion\AlbionMarket\BlackMarketCraftingService;
 use MZierdt\Albion\AlbionMarket\BlackMarketTransportingService;
 use MZierdt\Albion\AlbionMarket\EnchantingService;
@@ -80,15 +79,8 @@ $serviceManager = new ServiceManager([
                 UploadHelper::class => [
                     TierService::class
                 ],
-                BlackMarketCraftingHelper::class => [],
+                BlackMarketCraftingService::class => [],
                 ConfigService::class => [],
-                BlackMarketCraftingService::class => [
-                    ItemRepository::class,
-                    ResourceRepository::class,
-                    JournalRepository::class,
-                    BlackMarketCraftingHelper::class,
-                    ConfigService::class
-                ],
                 RefiningService::class => [],
                 TierService::class => [],
                 NoSpecCraftingHandler::class => [Environment::class, NoSpecRepository::class],
@@ -103,10 +95,11 @@ $serviceManager = new ServiceManager([
                 BlackMarketTransportingRepository::class => [EntityManager::class],
                 BlackMarketTransportingHandler::class => [
                     Environment::class,
-                    BlackMarketTransportingRepository::class
+                    BlackMarketTransportingRepository::class,
                 ],
                 BlackMarketCraftingHandler::class => [
                     Environment::class,
+                    BlackMarketCraftingRepository::class,
                     BlackMarketCraftingService::class,
                 ],
                 RefiningHandler::class => [
@@ -190,7 +183,7 @@ $serviceManager = new ServiceManager([
                     MaterialRepository::class,
                 ],
                 UpdateBmCraftingCommand::class => [
-                    BlackMarketCraftingHelper::class,
+                    BlackMarketCraftingService::class,
                     BlackMarketCraftingRepository::class,
                     ItemRepository::class,
                     ResourceRepository::class,

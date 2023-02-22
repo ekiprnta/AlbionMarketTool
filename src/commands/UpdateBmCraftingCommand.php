@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\commands;
 
-use MZierdt\Albion\AlbionMarket\BlackMarketCraftingHelper;
+use MZierdt\Albion\AlbionMarket\BlackMarketCraftingService;
 use MZierdt\Albion\Entity\AdvancedEntities\BlackMarketCraftingEntity;
 use MZierdt\Albion\Entity\ItemEntity;
 use MZierdt\Albion\repositories\AdvancedRepository\BlackMarketCraftingRepository;
@@ -23,7 +23,7 @@ class UpdateBmCraftingCommand extends Command
 {
 
     public function __construct(
-        private readonly BlackMarketCraftingHelper $blackMarketCraftingService,
+        private readonly BlackMarketCraftingService $blackMarketCraftingService,
         private readonly BlackMarketCraftingRepository $blackMarketCraftingRepository,
         private readonly ItemRepository $itemRepository,
         private readonly ResourceRepository $resourceRepository,
@@ -162,6 +162,7 @@ class UpdateBmCraftingCommand extends Command
                 )
             );
 
+            //Focus
             $primResource = $bmcEntity->getPrimResource();
             $secResource = $bmcEntity->getSecResource();
             $primResourceCostSell = $primResource->getSellOrderPrice() * $itemEntity->getPrimaryResourceAmount();
@@ -190,6 +191,7 @@ class UpdateBmCraftingCommand extends Command
                 $this->blackMarketCraftingService->calculateProfitGrade($bmcEntity->getProfitPercentageSell())
             );
 
+            //No Focus
             $primResourceCostBuy = $primResource->getBuyOrderPrice() * $itemEntity->getPrimaryResourceAmount();
             $secResourceCostBuy = $secResource->getBuyOrderPrice() * $itemEntity->getSecondaryResourceAmount();
             $bmcEntity->setMaterialCostBuy(
