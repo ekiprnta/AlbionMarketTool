@@ -41,6 +41,7 @@ use MZierdt\Albion\HttpClient;
 use MZierdt\Albion\repositories\AdvancedRepository\BlackMarketCraftingRepository;
 use MZierdt\Albion\repositories\AdvancedRepository\BlackMarketTransportingRepository;
 use MZierdt\Albion\repositories\AdvancedRepository\EnchantingRepository;
+use MZierdt\Albion\repositories\AdvancedRepository\ListDataRepository;
 use MZierdt\Albion\repositories\AdvancedRepository\NoSpecRepository;
 use MZierdt\Albion\repositories\AdvancedRepository\RefiningRepository;
 use MZierdt\Albion\repositories\AdvancedRepository\TransmutationRepository;
@@ -78,6 +79,9 @@ $serviceManager = new ServiceManager([
                 ListDataHelper::class => [],
                 UploadHelper::class => [
                     TierService::class
+                ],
+                ListDataRepository::class => [
+                    EntityManager::class,
                 ],
                 BlackMarketCraftingService::class => [],
                 ConfigService::class => [],
