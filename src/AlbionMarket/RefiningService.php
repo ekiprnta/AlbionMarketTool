@@ -7,7 +7,6 @@ use MZierdt\Albion\Entity\ResourceEntity;
 
 class RefiningService extends Market
 {
-
     public function calculateAmountRawResource(int $tier): int
     {
         $baseTier = (int) ($tier / 10);
@@ -97,12 +96,8 @@ class RefiningService extends Market
         string $city
     ): RefiningEntity {
         $refinedResource = $refiningEntity->getRefinedResource();
-        $refiningEntity->setAmountRawResource(
-            $this->calculateAmountRawResource($refinedResource->getTier())
-        );
-        $refiningEntity->setRawResource(
-            $this->calculateResource($refinedResource->getTier(), $rawResources)
-        );
+        $refiningEntity->setAmountRawResource($this->calculateAmountRawResource($refinedResource->getTier()));
+        $refiningEntity->setRawResource($this->calculateResource($refinedResource->getTier(), $rawResources));
         $lowerTier = $this->calculateLowerResourceTier($refinedResource->getTier());
         $refiningEntity->setLowerResource($this->calculateResource($lowerTier, $resources));
 
@@ -118,10 +113,7 @@ class RefiningService extends Market
             )
         );
         $refiningEntity->setProfitSell(
-            $this->calculateProfit(
-                $refinedResource->getSellOrderPrice(),
-                $refiningEntity->getMaterialCostSell()
-            )
+            $this->calculateProfit($refinedResource->getSellOrderPrice(), $refiningEntity->getMaterialCostSell())
         );
         $refiningEntity->setProfitPercentageSell(
             $this->calculateProfitPercentage(
@@ -143,10 +135,7 @@ class RefiningService extends Market
             )
         );
         $refiningEntity->setProfitBuy(
-            $this->calculateProfit(
-                $refinedResource->getSellOrderPrice(),
-                $refiningEntity->getMaterialCostBuy()
-            )
+            $this->calculateProfit($refinedResource->getSellOrderPrice(), $refiningEntity->getMaterialCostBuy())
         );
         $refiningEntity->setProfitPercentageBuy(
             $this->calculateProfitPercentage(
@@ -154,9 +143,7 @@ class RefiningService extends Market
                 $refiningEntity->getMaterialCostBuy()
             )
         );
-        $refiningEntity->setProfitGradeBuy(
-            $this->calculateProfitGrade($refiningEntity->getProfitPercentageBuy())
-        );
+        $refiningEntity->setProfitGradeBuy($this->calculateProfitGrade($refiningEntity->getProfitPercentageBuy()));
 
         $refiningEntity->setComplete(
             $this->isComplete(

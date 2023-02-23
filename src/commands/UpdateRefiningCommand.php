@@ -67,7 +67,8 @@ class UpdateRefiningCommand extends Command
         foreach ($refiningArray as $refiningEntity) {
             $message = sprintf(
                 'Update refiningEntity: %s from %s',
-                $refiningEntity->getRefinedResource()->getRealName(),
+                $refiningEntity->getRefinedResource()
+                    ->getRealName(),
                 $city
             );
             $progressBar->setMessage($message);
@@ -87,5 +88,4 @@ class UpdateRefiningCommand extends Command
         $progressBar->setMessage('Update in ' . $city . ' finished');
         $progressBar->finish();
     }
-
 }
