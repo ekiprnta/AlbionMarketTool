@@ -9,10 +9,24 @@ use MZierdt\Albion\AlbionDataAPI\ItemApiService;
 use MZierdt\Albion\AlbionDataAPI\MaterialsApiService;
 use MZierdt\Albion\AlbionDataAPI\MiscApiService;
 use MZierdt\Albion\AlbionDataAPI\ResourceApiService;
+use MZierdt\Albion\AlbionMarket\BlackMarketCraftingService;
+use MZierdt\Albion\AlbionMarket\BlackMarketTransportingService;
+use MZierdt\Albion\AlbionMarket\EnchantingService;
+use MZierdt\Albion\AlbionMarket\ListDataHelper;
+use MZierdt\Albion\AlbionMarket\NoSpecCraftingService;
+use MZierdt\Albion\AlbionMarket\RefiningService;
+use MZierdt\Albion\AlbionMarket\TransmutationService;
+use MZierdt\Albion\commands\UpdateBmCraftingCommand;
+use MZierdt\Albion\commands\UpdateBmTransportCommand;
+use MZierdt\Albion\commands\UpdateEnchantingCommand;
 use MZierdt\Albion\commands\UpdateItemsCommand;
 use MZierdt\Albion\commands\UpdateJournalsCommand;
+use MZierdt\Albion\commands\UpdateListDataCommand;
 use MZierdt\Albion\commands\UpdateMaterialsCommand;
+use MZierdt\Albion\commands\UpdateNoSpecCraftingCommand;
+use MZierdt\Albion\commands\UpdateRefiningCommand;
 use MZierdt\Albion\commands\UpdateResourcesCommand;
+use MZierdt\Albion\commands\UpdateTransmutationCommand;
 use MZierdt\Albion\factories\EntityManagerFactory;
 use MZierdt\Albion\factories\TwigEnvironmentFactory;
 use MZierdt\Albion\Handler\AdminHandler;
@@ -24,6 +38,13 @@ use MZierdt\Albion\Handler\NoSpecCraftingHandler;
 use MZierdt\Albion\Handler\RefiningHandler;
 use MZierdt\Albion\Handler\TransmutationHandler;
 use MZierdt\Albion\HttpClient;
+use MZierdt\Albion\repositories\AdvancedRepository\BlackMarketCraftingRepository;
+use MZierdt\Albion\repositories\AdvancedRepository\BlackMarketTransportingRepository;
+use MZierdt\Albion\repositories\AdvancedRepository\EnchantingRepository;
+use MZierdt\Albion\repositories\AdvancedRepository\ListDataRepository;
+use MZierdt\Albion\repositories\AdvancedRepository\NoSpecRepository;
+use MZierdt\Albion\repositories\AdvancedRepository\RefiningRepository;
+use MZierdt\Albion\repositories\AdvancedRepository\TransmutationRepository;
 use MZierdt\Albion\repositories\ItemRepository;
 use MZierdt\Albion\repositories\ItemRepositoryFactory;
 use MZierdt\Albion\repositories\JournalRepository;
@@ -32,23 +53,9 @@ use MZierdt\Albion\repositories\MaterialRepository;
 use MZierdt\Albion\repositories\MaterialRepositoryFactory;
 use MZierdt\Albion\repositories\ResourceRepository;
 use MZierdt\Albion\repositories\ResourceRepositoryFactory;
-use MZierdt\Albion\Service\BlackMarketCraftingHelper;
-use MZierdt\Albion\Service\BlackMarketCraftingService;
-use MZierdt\Albion\Service\BlackMarketTransportingHelper;
-use MZierdt\Albion\Service\BlackMarketTransportingService;
 use MZierdt\Albion\Service\ConfigService;
-use MZierdt\Albion\Service\EnchantingHelper;
-use MZierdt\Albion\Service\EnchantingService;
 use MZierdt\Albion\Service\GlobalDiscountService;
-use MZierdt\Albion\Service\ListDataHelper;
-use MZierdt\Albion\Service\ListDataService;
-use MZierdt\Albion\Service\NoSpecCraftingHelper;
-use MZierdt\Albion\Service\NoSpecCraftingService;
-use MZierdt\Albion\Service\RefiningHelper;
-use MZierdt\Albion\Service\RefiningService;
 use MZierdt\Albion\Service\TierService;
-use MZierdt\Albion\Service\TransmutationHelper;
-use MZierdt\Albion\Service\TransmutationService;
 use MZierdt\Albion\Service\UploadHelper;
 use Twig\Environment;
 
@@ -63,79 +70,61 @@ $serviceManager = new ServiceManager([
                 MiscApiService::class => [HttpClient::class],
                 ListDataHandler::class => [
                     Environment::class,
-                    ListDataService::class
-                ],
-                ListDataService::class => [
-                    ResourceRepository::class,
-                    ListDataHelper::class
+                    ListDataRepository::class
                 ],
                 ListDataHelper::class => [],
                 UploadHelper::class => [
                     TierService::class
                 ],
-                BlackMarketCraftingHelper::class => [],
+                ListDataRepository::class => [
+                    EntityManager::class,
+                ],
+                BlackMarketCraftingService::class => [],
                 ConfigService::class => [],
-                BlackMarketCraftingService::class => [
-                    ItemRepository::class,
-                    ResourceRepository::class,
-                    JournalRepository::class,
-                    BlackMarketCraftingHelper::class,
-                    ConfigService::class
-                ],
-                RefiningHelper::class => [],
-                RefiningService::class => [
-                    ResourceRepository::class,
-                    RefiningHelper::class,
-                ],
+                RefiningService::class => [],
                 TierService::class => [],
-                NoSpecCraftingHandler::class => [Environment::class, NoSpecCraftingService::class],
-                NoSpecCraftingService::class => [
-                    ItemRepository::class,
-                    MaterialRepository::class,
-                    NoSpecCraftingHelper::class
+                NoSpecCraftingHandler::class => [Environment::class, NoSpecRepository::class],
+                NoSpecCraftingService::class => [],
+                NoSpecRepository::class => [
+                    EntityManager::class,
                 ],
-                NoSpecCraftingHelper::class => [],
-                BlackMarketTransportingHelper::class => [],
-                BlackMarketTransportingService::class => [
-                    ItemRepository::class,
-                    BlackMarketTransportingHelper::class,
-                    ConfigService::class,
+                BlackMarketCraftingRepository::class => [
+                    EntityManager::class,
                 ],
+                BlackMarketTransportingService::class => [],
+                BlackMarketTransportingRepository::class => [EntityManager::class],
                 BlackMarketTransportingHandler::class => [
                     Environment::class,
-                    BlackMarketTransportingService::class
+                    BlackMarketTransportingRepository::class,
                 ],
                 BlackMarketCraftingHandler::class => [
                     Environment::class,
+                    BlackMarketCraftingRepository::class,
                     BlackMarketCraftingService::class,
                 ],
                 RefiningHandler::class => [
                     Environment::class,
-                    RefiningService::class,
+                    RefiningRepository::class,
+                ],
+                RefiningRepository::class => [
+                    EntityManager::class,
                 ],
                 TransmutationHandler::class => [
                     Environment::class,
-                    TransmutationService::class,
+                    TransmutationRepository::class,
                 ],
-                TransmutationService::class => [
-                    ResourceRepository::class,
-                    TransmutationHelper::class,
-                    ConfigService::class,
-                    GlobalDiscountService::class,
-                ],
-                TransmutationHelper::class => [],
+                TransmutationService::class => [],
                 EnchantingHandler::class => [
                     Environment::class,
-                    EnchantingService::class
+                    EnchantingRepository::class
                 ],
-                EnchantingService::class => [
-                    MaterialRepository::class,
-                    ItemRepository::class,
-                    EnchantingHelper::class
-                ],
-                EnchantingHelper::class => [],
+                TransmutationRepository::class => [EntityManager::class],
+                EnchantingService::class => [],
                 AdminHandler::class => [
                     Environment::class,
+                ],
+                EnchantingRepository::class => [
+                    EntityManager::class,
                 ],
                 GlobalDiscountService::class => [
                     MiscApiService::class
@@ -162,6 +151,49 @@ $serviceManager = new ServiceManager([
                     MaterialsApiService::class,
                     MaterialRepository::class,
                     UploadHelper::class,
+                ],
+                UpdateBmTransportCommand::class => [
+                    BlackMarketTransportingService::class,
+                    BlackMarketTransportingRepository::class,
+                    ItemRepository::class,
+                    ConfigService::class,
+                ],
+                UpdateRefiningCommand::class => [
+                    RefiningService::class,
+                    RefiningRepository::class,
+                    ResourceRepository::class,
+                ],
+                UpdateTransmutationCommand::class => [
+                    TransmutationService::class,
+                    TransmutationRepository::class,
+                    ResourceRepository::class,
+                    ConfigService::class,
+                    GlobalDiscountService::class
+                ],
+                UpdateEnchantingCommand::class => [
+                    EnchantingService::class,
+                    EnchantingRepository::class,
+                    ItemRepository::class,
+                    MaterialRepository::class
+                ],
+                UpdateNoSpecCraftingCommand::class => [
+                    NoSpecCraftingService::class,
+                    NoSpecRepository::class,
+                    ItemRepository::class,
+                    MaterialRepository::class,
+                ],
+                UpdateBmCraftingCommand::class => [
+                    BlackMarketCraftingService::class,
+                    BlackMarketCraftingRepository::class,
+                    ItemRepository::class,
+                    ResourceRepository::class,
+                    JournalRepository::class,
+                    ConfigService::class,
+                ],
+                UpdateListDataCommand::class => [
+                    ListDataHelper::class,
+                    ListDataRepository::class,
+                    ResourceRepository::class,
                 ]
             ]
         ],

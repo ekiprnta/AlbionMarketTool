@@ -19,31 +19,18 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-2">
-                                <label for="percentage">
-                                    Resource Return Rate*
-                                </label>
-                                <input class="form-control"
-                                       id="percentage"
-                                       max="100"
-                                       min="0"
-                                       name="rrr"
-                                       step="0.1"
-                                       type="number"
-                                       placeholder="Default 53.9%">
-                            </div>
-                            <div class="col-2">
-                                <label for="craftingFee">
-                                    Crafting Fee / 100 Nutrition
-                                </label>
-                                <input class="form-control"
-                                       id="craftingFee"
-                                       max="9999"
-                                       min="0"
-                                       name="craftingFee"
-                                       step="1"
-                                       type="number">
-                            </div>
+                            {#                            <div class="col-2"> #}
+                            {#                                <label for="craftingFee"> #}
+                            {#                                    Crafting Fee / 100 Nutrition #}
+                            {#                                </label> #}
+                            {#                                <input class="form-control" #}
+                            {#                                       id="craftingFee" #}
+                            {#                                       max="9999" #}
+                            {#                                       min="0" #}
+                            {#                                       name="craftingFee" #}
+                            {#                                       step="1" #}
+                            {#                                       type="number"> #}
+                            {#                            </div> #}
                         </div>
                         <div class="row">
                             <div class="col-3">
@@ -54,10 +41,8 @@
                 </div>
             </div>
             <div class="row mt-3">
-                <div class="d-flex">
-                    {% for name,rate in rates %}
-                        <small class="badge badge-secondary standard-badge">*{{ name }}: {{ rate }}%</small>
-                    {% endfor %}
+                <div class="col-4">
+                    <div class="btn btn-primary" id="toggleSellBuy">Toggle Focus or no Focus</div>
                 </div>
             </div>
             <div class="row mt-3">
@@ -67,38 +52,109 @@
             </div>
         </div>
     </div>
-    <div class="card mt-3">
+    <div class="card mt-3" id="resourceSell">
         <div class="card-body">
             <div class="card-title">
-                <h3> ?PH Resource</h3>
+                <h3>Refining with Focus (53.9%)</h3>
             </div>
             <table class="table table-sm table-bordered align-middle sortTable">
                 <thead class="thead-default">
                 <tr>
                     <th>Tier</th>
                     <th>Name</th>
-                    <th>Sell Price</th>
-                    <th>Amount</th>
+                    <th>Refined Price</th>
+                    <th>Raw Material</th>
+                    <th>Lower Resource</th>
                     <th>Profit</th>
                     <th>Percentage</th>
+                    <th>Amount</th>
+                    <th>Total Profit</th>
                     {#                    <td>Crafting Fee</td> #}
                 </tr>
                 </thead>
                 <tbody class="text-right">
                 {# @var refiningEntity \MZierdt\Albion\Entity\RefiningEntity #}
                 {% for refiningEntity in dataArray %}
-                    <tr class="bg-{{ refiningEntity.profitGrade }}">
-                        <td class="align-middle text-left tier-{{ refiningEntity.tierColor }} tier">{{ refiningEntity.resourceEntity.tier }}</td>
-                        <td class="align-middle">{{ refiningEntity.resourceEntity.realName }}</td>
-                        <td class="align-middle {% if refiningEntity.resourceEntity.sellOrderDate < timeThreshold %} bg-D {% endif %}">
+                    <tr class="bg-{{ refiningEntity.profitGradeSell }}">
+                        <td class="align-middle text-left tier-{{ refiningEntity.tierColor }} tier">{{ refiningEntity.refinedResource.tier }}</td>
+                        <td class="align-middle">{{ refiningEntity.refinedResource.realName }}</td>
+                        <td class="align-middle {% if refiningEntity.refinedResource.sellOrderDate < timeThreshold %} bg-D {% endif %}">
                             <a class="btn text-right w-100"
-                               title="{{ refiningEntity.resourceEntity.sellOrderDate|date('d.m H:i') }}min">
-                                {{ refiningEntity.resourceEntity.sellOrderPrice|number_format }}
+                               title="{{ refiningEntity.refinedResource.sellOrderDate|date('d.m H:i') }}min">
+                                {{ refiningEntity.refinedResource.sellOrderPrice|number_format }}
                             </a>
                         </td>
+                        <td class="align-middle {% if refiningEntity.rawResource.buyOrderDate < timeThreshold %} bg-D {% endif %}">
+                            <a class="btn text-right w-100"
+                               title="{{ refiningEntity.rawResource.buyOrderDate|date('d.m H:i') }}min">
+                                {{ refiningEntity.rawResource.buyOrderPrice|number_format }}
+                            </a>
+                        </td>
+                        <td class="align-middle {% if refiningEntity.lowerResource.buyOrderDate < timeThreshold %} bg-D {% endif %}">
+                            <a class="btn text-right w-100"
+                               title="{{ refiningEntity.lowerResource.buyOrderDate|date('d.m H:i') }}min">
+                                {{ refiningEntity.lowerResource.buyOrderPrice|number_format }}
+                            </a>
+                        </td>
+                        <td class="align-middle">{{ refiningEntity.profitSell|number_format }}</td>
+                        <td class="align-middle">{{ refiningEntity.profitPercentageSell|number_format }}</td>
                         <td class="align-middle">{{ refiningEntity.amount|number_format }}</td>
-                        <td class="align-middle">{{ refiningEntity.profit|number_format }}</td>
-                        <td class="align-middle">{{ refiningEntity.profitPercentage|number_format }}</td>
+                        <td class="align-middle">{{ (refiningEntity.amount * refiningEntity.profitSell)|number_format }}</td>
+                        {#                        <td class="align-middle">{{ refiningEntity.craftingFee }}</td> #}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card mt-3" style="display: none" id="resourceBuy">
+        <div class="card-body">
+            <div class="card-title">
+                <h3>Refining without Focus (36.7%)</h3>
+            </div>
+            <table class="table table-sm table-bordered align-middle sortTable">
+                <thead class="thead-default">
+                <tr>
+                    <th>Tier</th>
+                    <th>Name</th>
+                    <th>Refined Price</th>
+                    <th>Raw Material</th>
+                    <th>Lower Resource</th>
+                    <th>Profit</th>
+                    <th>Percentage</th>
+                    <th>Amount</th>
+                    <th>Total Profit</th>
+                    {#                    <td>Crafting Fee</td> #}
+                </tr>
+                </thead>
+                <tbody class="text-right">
+                {# @var refiningEntity \MZierdt\Albion\Entity\RefiningEntity #}
+                {% for refiningEntity in dataArray %}
+                    <tr class="bg-{{ refiningEntity.profitGradeBuy }}">
+                        <td class="align-middle text-left tier-{{ refiningEntity.tierColor }} tier">{{ refiningEntity.refinedResource.tier }}</td>
+                        <td class="align-middle">{{ refiningEntity.refinedResource.realName }}</td>
+                        <td class="align-middle {% if refiningEntity.refinedResource.sellOrderDate < timeThreshold %} bg-D {% endif %}">
+                            <a class="btn text-right w-100"
+                               title="{{ refiningEntity.refinedResource.sellOrderDate|date('d.m H:i') }}min">
+                                {{ refiningEntity.refinedResource.sellOrderPrice|number_format }}
+                            </a>
+                        </td>
+                        <td class="align-middle {% if refiningEntity.rawResource.buyOrderDate < timeThreshold %} bg-D {% endif %}">
+                            <a class="btn text-right w-100"
+                               title="{{ refiningEntity.rawResource.buyOrderDate|date('d.m H:i') }}min">
+                                {{ refiningEntity.rawResource.buyOrderPrice|number_format }}
+                            </a>
+                        </td>
+                        <td class="align-middle {% if refiningEntity.lowerResource.buyOrderDate < timeThreshold %} bg-D {% endif %}">
+                            <a class="btn text-right w-100"
+                               title="{{ refiningEntity.lowerResource.buyOrderDate|date('d.m H:i') }}min">
+                                {{ refiningEntity.lowerResource.buyOrderPrice|number_format }}
+                            </a>
+                        </td>
+                        <td class="align-middle">{{ refiningEntity.profitBuy|number_format }}</td>
+                        <td class="align-middle">{{ refiningEntity.profitPercentageBuy|number_format }}</td>
+                        <td class="align-middle">{{ refiningEntity.amount|number_format }}</td>
+                        <td class="align-middle">{{ (refiningEntity.amount * refiningEntity.profitBuy)|number_format }}</td>
                         {#                        <td class="align-middle">{{ refiningEntity.craftingFee }}</td> #}
                     </tr>
                 {% endfor %}

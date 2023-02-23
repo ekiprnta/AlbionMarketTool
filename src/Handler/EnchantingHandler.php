@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace MZierdt\Albion\Handler;
 
 use Laminas\Diactoros\Response\HtmlResponse;
-use MZierdt\Albion\Service\EnchantingService;
+use MZierdt\Albion\repositories\AdvancedRepository\EnchantingRepository;
 use MZierdt\Albion\Service\TimeService;
 use Twig\Environment;
 
@@ -13,7 +13,7 @@ class EnchantingHandler
 {
     public function __construct(
         private readonly Environment $environment,
-        private readonly EnchantingService $enchantingService,
+        private readonly EnchantingRepository $enchantingRepository,
     ) {
     }
 
@@ -24,7 +24,7 @@ class EnchantingHandler
         if (! empty($_GET)) {
             $city = $_GET['itemCity'];
             try {
-                $cityData = $this->enchantingService->getEnchantingForCity($city);
+                $cityData = $this->enchantingRepository->getAllEnchantingByCity($city);
             } catch (\Exception $exception) {
                 $alertMessage = $exception->getMessage();
             } // TODo get avg amount and build better Quotient

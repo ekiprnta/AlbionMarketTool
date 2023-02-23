@@ -5,14 +5,15 @@ declare(strict_types=1);
 namespace MZierdt\Albion\Handler;
 
 use Laminas\Diactoros\Response\HtmlResponse;
-use MZierdt\Albion\Service\BlackMarketTransportingService;
+use MZierdt\Albion\repositories\AdvancedRepository\BlackMarketTransportingRepository;
+use MZierdt\Albion\Service\TimeService;
 use Twig\Environment;
 
 class BlackMarketTransportingHandler
 {
     public function __construct(
         private readonly Environment $twigEnvironment,
-        private readonly BlackMarketTransportingService $blackMarketTransportingService,
+        private readonly BlackMarketTransportingRepository $bmtRepository,
     ) {
     }
 
@@ -25,10 +26,7 @@ class BlackMarketTransportingHandler
             $itemCity = $request['itemCity'];
             unset($request['itemCity']);
             try {
-                $cityData = $this->blackMarketTransportingService->getDataForCity(
-                    $itemCity,
-                    array_filter($request)
-                );
+                $cityData = $this->bmtRepository->getAllTransportingByCity($itemCity);
             } catch (\InvalidArgumentException $invalidArgumentException) {
                 $alertMessage = $invalidArgumentException->getMessage();
             }
@@ -37,6 +35,7 @@ class BlackMarketTransportingHandler
         $htmlContent = $this->twigEnvironment->render('BlackMarketTransport.html.twig', [
             'dataArray' => $cityData,
             'alertMessage' => $alertMessage,
+            'timeThreshold' => TimeService::getFiveDaysAgo(new \DateTimeImmutable()),
         ]);
         return new HtmlResponse($htmlContent);
     }

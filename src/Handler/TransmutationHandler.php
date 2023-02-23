@@ -3,15 +3,15 @@
 namespace MZierdt\Albion\Handler;
 
 use Laminas\Diactoros\Response\HtmlResponse;
+use MZierdt\Albion\repositories\AdvancedRepository\TransmutationRepository;
 use MZierdt\Albion\Service\TimeService;
-use MZierdt\Albion\Service\TransmutationService;
 use Twig\Environment;
 
 class TransmutationHandler
 {
     public function __construct(
         private readonly Environment $twigEnvironment,
-        private readonly TransmutationService $transmutationService,
+        private readonly TransmutationRepository $transmutationRepository,
     ) {
     }
 
@@ -23,7 +23,7 @@ class TransmutationHandler
         if (! empty($_GET)) {
             $city = $_GET['city'];
             try {
-                $cityData = $this->transmutationService->getTransmutationByCity($city);
+                $cityData = $this->transmutationRepository->getAllTransmutationByCity($city);
             } catch (\InvalidArgumentException $invalidArgumentException) {
                 $alertMessage = $invalidArgumentException->getMessage();
             }

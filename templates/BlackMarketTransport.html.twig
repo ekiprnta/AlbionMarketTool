@@ -4,10 +4,9 @@
     <div class="card mt-3">
         <div class="card-body">
             <div class="row">
-                <div class="col-10">
+                <div class="col-4">
                     <form action="" method="get">
                         <div class="row">
-                            <div class="col-3">
                                 <div class="form-group">
                                     <label for="itemCity">Choose City to transport from</label>
                                     <select name="itemCity" id="itemCity" class="form-control">
@@ -18,15 +17,17 @@
                                         <option value="Thetford">Thetford</option>
                                     </select>
                                 </div>
-                            </div>
-                            {% include 'tierCheckbox.html.twig' %}
                         </div>
-                        <div class="row">
-                            <div class="col-3">
-                                <button class="btn btn-primary" type="submit">Calculate</button>
-                            </div>
+                        <div class="row mt-3">
+                            <button class="btn btn-primary" type="submit">Calculate</button>
                         </div>
                     </form>
+                </div>
+                {% include 'tierCheckbox.html.twig' %}
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <div class="btn btn-primary" id="toggleSellBuy">Toggle Buy Or SellOrder</div>
                 </div>
             </div>
             <div class="row">
@@ -36,9 +37,9 @@
             </div>
         </div>
     </div>
-    <div class="card mt-3">
+    <div class="card mt-3" id="resourceSell">
         <div class="card-body">
-            <div class="card-title"><h3>Profit</h3></div>
+            <div class="card-title"><h3>Transport Insta Buy</h3></div>
             <table class="table table-sm table-bordered sortTable">
                 <thead>
                 <tr>
@@ -47,30 +48,69 @@
                     <th>Bm Price</th>
                     <th>City Price</th>
                     <th>Item Profit</th>
-                    <th>Profit</th>
                     <th>Percentage</th>
-                    <th>TotalCost</th>
+                    <th>Amount</th>
+                </tr>
+                </thead>
+                <tbody class="sortable-body">
+                {# @var transportEntity \MZierdt\Albion\Entity\AdvancedEntities\BlackMarketTransportEntity #}
+                {% for transportEntity in dataArray %}
+                    {% if transportEntity.profitSell > 0 %}
+                        <tr class="bg-{{ transportEntity.profitGradeSell }} sell{{ transportEntity.tierString }}"
+                            style="display: none">
+                            <td class="align-middle text-left tier-{{ transportEntity.tierColor }} tier">{{ transportEntity.bmItem.tier }}</td>
+                            <td class="align-middle">{{ transportEntity.bmItem.realName }}</td>
+                            <td class="align-middle {% if transportEntity.bmItem.sellOrderDate < timeThreshold %} bg-D {% endif %}">
+                                <a class="btn text-right w-100"
+                                   title="{{ transportEntity.bmItem.sellOrderDate|date('d.m H:i') }}min">{{ transportEntity.bmItem.sellOrderPrice|number_format }}</a>
+                            </td>
+                            <td class="align-middle {% if transportEntity.cityItem.sellOrderDate < timeThreshold %} bg-D {% endif %}">
+                                <a class="btn text-right w-100"
+                                   title="{{ transportEntity.cityItem.sellOrderDate|date('d.m H:i') }}min">{{ transportEntity.cityItem.sellOrderPrice|number_format }}</a>
+                            </td>
+                            <td class="align-middle">{{ transportEntity.profitSell|number_format }}</td>
+                            <td class="align-middle">{{ transportEntity.profitPercentageSell|number_format }}</td>
+                            <td class="align-middle">{{ transportEntity.amount|number_format }}</td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card mt-3" style="display: none" id="resourceBuy">
+        <div class="card-body">
+            <div class="card-title"><h3>Transport buy order</h3></div>
+            <table class="table table-sm table-bordered sortTable">
+                <thead>
+                <tr>
+                    <th>Tier</th>
+                    <th>Name</th>
+                    <th>Bm Price</th>
+                    <th>City Price</th>
+                    <th>Item Profit</th>
+                    <th>Percentage</th>
                     <th>Amount</th>
                 </tr>
                 </thead>
                 <tbody>
+                {# @var transportEntity \MZierdt\Albion\Entity\AdvancedEntities\BlackMarketTransportEntity #}
                 {% for transportEntity in dataArray %}
-                    {% if transportEntity.bmItem.sellOrderPrice != 0 and transportEntity.cityItem.sellOrderPrice != 0 and transportEntity.profit >= 0 %}
-                        <tr class="bg-{{ transportEntity.profitGrade }}">
+                    {% if transportEntity.profitBuy > 0 %}
+                        <tr class="bg-{{ transportEntity.profitGradeBuy }} buy{{ transportEntity.tierString }}"
+                            style="display: none">
                             <td class="align-middle text-left tier-{{ transportEntity.tierColor }} tier">{{ transportEntity.bmItem.tier }}</td>
                             <td class="align-middle">{{ transportEntity.bmItem.realName }}</td>
-                            <td class="align-middle {% if transportEntity.bmItem.sellOrderAge > 720 %} bg-D {% endif %}">
+                            <td class="align-middle {% if transportEntity.bmItem.sellOrderDate < timeThreshold %} bg-D {% endif %}">
                                 <a class="btn text-right w-100"
-                                   title="{{ transportEntity.bmItem.sellOrderAge|number_format }}min">{{ transportEntity.bmItem.sellOrderPrice|number_format }}</a>
+                                   title="{{ transportEntity.bmItem.sellOrderDate|date('d.m H:i') }}min">{{ transportEntity.bmItem.sellOrderPrice|number_format }}</a>
                             </td>
-                            <td class="align-middle {% if transportEntity.cityItem.sellOrderAge > 720 %} bg-D {% endif %}">
+                            <td class="align-middle {% if transportEntity.cityItem.buyOrderDate < timeThreshold %} bg-D {% endif %}">
                                 <a class="btn text-right w-100"
-                                   title="{{ transportEntity.cityItem.sellOrderAge|number_format }}min">{{ transportEntity.cityItem.sellOrderPrice|number_format }}</a>
+                                   title="{{ transportEntity.cityItem.buyOrderDate|date('d.m H:i') }}min">{{ transportEntity.cityItem.buyOrderPrice|number_format }}</a>
                             </td>
-                            <td class="align-middle">{{ transportEntity.singleProfit|number_format }}</td>
-                            <td class="align-middle">{{ transportEntity.profit|number_format }}</td>
-                            <td class="align-middle">{{ transportEntity.profitPercentage|number_format }}</td>
-                            <td class="align-middle">{{ transportEntity.totalCost|number_format }}</td>
+                            <td class="align-middle">{{ transportEntity.profitBuy|number_format }}</td>
+                            <td class="align-middle">{{ transportEntity.profitPercentageBuy|number_format }}</td>
                             <td class="align-middle">{{ transportEntity.amount|number_format }}</td>
                         </tr>
                     {% endif %}

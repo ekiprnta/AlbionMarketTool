@@ -30,4 +30,21 @@ class Repository
         $this->entityManager->remove($entity);
         $this->entityManager->flush($entity);
     }
+
+    protected function updateClass(mixed $entity, mixed $oldEntity)
+    {
+        $oldEntity->setMaterialCostSell($entity->getMaterialCostSell());
+        $oldEntity->setProfitSell($entity->getProfitSell());
+        $oldEntity->setProfitPercentageSell($entity->getProfitPercentageSell());
+        $oldEntity->setProfitGradeSell($entity->getProfitGradeSell());
+
+        $oldEntity->setMaterialCostBuy($entity->getMaterialCostBuy());
+        $oldEntity->setProfitBuy($entity->getProfitBuy());
+        $oldEntity->setProfitPercentageBuy($entity->getProfitPercentageBuy());
+        $oldEntity->setProfitGradeBuy($entity->getProfitGradeBuy());
+
+        $oldEntity->setComplete($entity->isComplete());
+
+        return $oldEntity;
+    }
 }

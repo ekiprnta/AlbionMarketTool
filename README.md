@@ -54,17 +54,23 @@ changelogger clean
 
 * ~~Tier überarbeiten~~
 * Farming
-* Revisit Profit Quotient -> Profit Percentage
+* ~~Revisit Profit Quotient -> Profit Percentage~~
 * Javascript überall
 * No Spec Crafting
-  * Capes (028)
-  * Royal Items
+  * ~~Capes (028)~~
+  * ~~Royal Items~~
   * ~~Enchanting (and/or BM)~~
 * Stone
 * Bags BM Crafting / Capes
 * Rework That there is only One Item with x- Prices
-* Add royal sigil enchanting
+* ~~Add royal sigil enchanting~~
 * add Artifact crafting
+* ~~Bug: Age is not correct~~
+* Split up Items CronJobs
+* Update Profit Quotient Grading
+* Show all Transportable Items and their respective City
+* Tier Select in Enchanting
+* Codeception
 
 ## Plans
 

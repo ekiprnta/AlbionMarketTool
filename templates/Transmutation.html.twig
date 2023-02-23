@@ -25,15 +25,20 @@
                 </div>
             </form>
         </div>
+        <div class="row mt-3">
+            <div class="col-4">
+                <div class="btn btn-primary" id="toggleSellBuy">Toggle Buy and Buy Order</div>
+            </div>
+        </div>
+        <div class="row">
+            {% if alertMessage is not null %}
+                <div class="alert alert-danger standard-alert">{{ alertMessage }}</div>
+            {% endif %}
+        </div>
     </div>
-    <div class="row">
-        {% if alertMessage is not null %}
-            <div class="alert alert-danger standard-alert">{{ alertMessage }}</div>
-        {% endif %}
-    </div>
-    <div class="card mt-3">
+    <div class="card mt-3" id="resourceSell">
         <div class="card-body">
-            <div class="card-title"><h3>Profit</h3></div>
+            <div class="card-title"><h3>Profit Insta Buy</h3></div>
             <table class="table table-sm table-bordered sortTable">
                 <thead>
                 <tr>
@@ -44,17 +49,18 @@
                     <th>Start Resource</th>
                     <th>End Resource</th>
                     <th>TransmuteCost</th>
+                    <th>Percentage</th>
                 </tr>
                 </thead>
                 <tbody>
                 {# @var transmutationEntity \MZierdt\Albion\Entity\TransmutationEntity #}
                 {% for transmutationEntity in dataArray %}
-                    {% if transmutationEntity.profit >0 %}
-                        <tr class="bg-{{ transmutationEntity.profitGrade }}">
-                            <td class="align-middle text-left tier tier-{{ transmutationEntity.startTierColor }}"> {{ transmutationEntity.startResource.tier }}</td>
+                    {% if transmutationEntity.profitSell >0 %}
+                        <tr class="bg-{{ transmutationEntity.profitGradeSell }}">
+                            <td class="align-middle text-left tier tier-{{ transmutationEntity.tierColor }}"> {{ transmutationEntity.startResource.tier }}</td>
                             <td class="align-middle text-left tier tier-{{ transmutationEntity.endTierColor }}"> {{ transmutationEntity.endResource.tier }}</td>
                             <td class="align-middle text-right"> {{ transmutationEntity.resourceType }}</td>
-                            <td class="align-middle text-right"> {{ transmutationEntity.profit|number_format }}</td>
+                            <td class="align-middle text-right"> {{ transmutationEntity.profitSell|number_format }}</td>
                             <td class="align-middle {% if transmutationEntity.startResource.sellOrderDate < timeThreshold %} bg-D {% endif %}">
                                 <a class="btn text-right w-100"
                                    title="{{ transmutationEntity.startResource.sellOrderDate|date('d.m H:i') }}min">
@@ -67,7 +73,54 @@
                                     {{ transmutationEntity.endResource.sellOrderPrice|number_format }}
                                 </a>
                             </td>
-                            <td class="align-middle text-right"> {{ transmutationEntity.transmutePrice|number_format }}</td>
+                            <td class="align-middle text-right"> {{ transmutationEntity.transmutationPrice|number_format }}</td>
+                            <td class="align-middle text-right"> {{ transmutationEntity.profitPercentageSell|number_format }}</td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card mt-3" style="display: none;" id="resourceBuy">
+        <div class="card-body">
+            <div class="card-title"><h3>Profit Buy Order</h3></div>
+            <table class="table table-sm table-bordered sortTable">
+                <thead>
+                <tr>
+                    <th>StartTier</th>
+                    <th>EndTierPath</th>
+                    <th>Typ</th>
+                    <th>Profit</th>
+                    <th>Start Resource</th>
+                    <th>End Resource</th>
+                    <th>TransmuteCost</th>
+                    <th>Percentage</th>
+                </tr>
+                </thead>
+                <tbody>
+                {# @var transmutationEntity \MZierdt\Albion\Entity\TransmutationEntity #}
+                {% for transmutationEntity in dataArray %}
+                    {% if transmutationEntity.profitBuy >0 %}
+                        <tr class="bg-{{ transmutationEntity.profitGradeBuy }}">
+                            <td class="align-middle text-left tier tier-{{ transmutationEntity.tierColor }}"> {{ transmutationEntity.startResource.tier }}</td>
+                            <td class="align-middle text-left tier tier-{{ transmutationEntity.endTierColor }}"> {{ transmutationEntity.endResource.tier }}</td>
+                            <td class="align-middle text-right"> {{ transmutationEntity.resourceType }}</td>
+                            <td class="align-middle text-right"> {{ transmutationEntity.profitBuy|number_format }}</td>
+                            <td class="align-middle {% if transmutationEntity.startResource.sellOrderDate < timeThreshold %} bg-D {% endif %}">
+                                <a class="btn text-right w-100"
+                                   title="{{ transmutationEntity.startResource.sellOrderDate|date('d.m H:i') }}min">
+                                    {{ transmutationEntity.startResource.sellOrderPrice|number_format }}
+                                </a>
+                            </td>
+                            <td class="align-middle {% if transmutationEntity.endResource.sellOrderDate < timeThreshold %} bg-D {% endif %}">
+                                <a class="btn text-right w-100"
+                                   title="{{ transmutationEntity.endResource.sellOrderDate|date('d.m H:i') }}min">
+                                    {{ transmutationEntity.endResource.sellOrderPrice|number_format }}
+                                </a>
+                            </td>
+                            <td class="align-middle text-right"> {{ transmutationEntity.transmutationPrice|number_format }}</td>
+                            <td class="align-middle text-right"> {{ transmutationEntity.profitPercentageBuy|number_format }}</td>
                         </tr>
                     {% endif %}
                 {% endfor %}
