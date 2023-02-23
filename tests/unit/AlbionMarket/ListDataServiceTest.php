@@ -10,11 +10,11 @@ use MZierdt\Albion\Entity\ResourceEntity;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 
-class ListDataHelperTest extends TestCase
+class ListDataServiceTest extends TestCase
 {
     use ProphecyTrait;
 
-    private ListDataHelper $listDataHelper;
+    private ListDataHelper $listDataService;
 
     /**
      * @dataProvider provideItemObjects
@@ -25,7 +25,7 @@ class ListDataHelperTest extends TestCase
         array $resources
     ): void {
         $ldEntity = new ListDataEntity($startResource);
-        $this->assertEquals($result, $this->listDataHelper->calculateSameItemObject($ldEntity, $resources));
+        $this->assertEquals($result, $this->listDataService->calculateSameItemObject($ldEntity, $resources));
     }
 
     public function provideItemObjects(): array
@@ -53,7 +53,7 @@ class ListDataHelperTest extends TestCase
     ): void {
         $this->assertEquals(
             $result,
-            $this->listDataHelper->calculateCheapestCity($fsPrice, $lymPrice, $bwPrice, $mlPrice, $thPrice)
+            $this->listDataService->calculateCheapestCity($fsPrice, $lymPrice, $bwPrice, $mlPrice, $thPrice)
         );
     }
 
@@ -81,7 +81,7 @@ class ListDataHelperTest extends TestCase
     ): void {
         $this->assertEquals(
             $result,
-            $this->listDataHelper->calculateMostExpensiveCity($fsPrice, $lymPrice, $bwPrice, $mlPrice, $thPrice)
+            $this->listDataService->calculateMostExpensiveCity($fsPrice, $lymPrice, $bwPrice, $mlPrice, $thPrice)
         );
     }
 
@@ -98,6 +98,6 @@ class ListDataHelperTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->listDataHelper = new ListDataHelper();
+        $this->listDataService = new ListDataHelper();
     }
 }

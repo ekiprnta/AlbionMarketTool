@@ -13,7 +13,6 @@ use MZierdt\Albion\AlbionMarket\BlackMarketCraftingService;
 use MZierdt\Albion\AlbionMarket\BlackMarketTransportingService;
 use MZierdt\Albion\AlbionMarket\EnchantingService;
 use MZierdt\Albion\AlbionMarket\ListDataHelper;
-use MZierdt\Albion\AlbionMarket\ListDataService;
 use MZierdt\Albion\AlbionMarket\NoSpecCraftingService;
 use MZierdt\Albion\AlbionMarket\RefiningService;
 use MZierdt\Albion\AlbionMarket\TransmutationService;
@@ -71,11 +70,7 @@ $serviceManager = new ServiceManager([
                 MiscApiService::class => [HttpClient::class],
                 ListDataHandler::class => [
                     Environment::class,
-                    ListDataService::class
-                ],
-                ListDataService::class => [
-                    ResourceRepository::class,
-                    ListDataHelper::class
+                    ListDataRepository::class
                 ],
                 ListDataHelper::class => [],
                 UploadHelper::class => [

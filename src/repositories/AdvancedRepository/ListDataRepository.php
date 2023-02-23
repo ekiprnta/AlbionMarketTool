@@ -9,10 +9,9 @@ use MZierdt\Albion\repositories\Repository;
 
 class ListDataRepository extends Repository
 {
-    public function getAllRefiningByCity(string $city): array
+    public function getAllRefiningByType(string $city): array
     {
         return $this->findBy(ListDataEntity::class, [
-            'complete' => true,
             'city' => $city,
         ]);
     }

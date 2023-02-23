@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace MZierdt\Albion\Handler;
 
 use Laminas\Diactoros\Response\HtmlResponse;
-use MZierdt\Albion\AlbionMarket\ListDataService;
+use MZierdt\Albion\repositories\AdvancedRepository\ListDataRepository;
 use Twig\Environment;
 
 class ListDataHandler
 {
     public function __construct(
         private readonly Environment $twigEnvironment,
-        private readonly ListDataService $listDataHandler,
+        private readonly ListDataRepository $listDataRepository,
     ) {
     }
 
@@ -20,10 +20,10 @@ class ListDataHandler
     {
         $allResources = [];
         if (! empty($_GET)) {
-            $allResources = $this->listDataHandler->getResources($_GET['refined']);
+            $allResources = $this->listDataRepository->getAllRefiningByType($_GET['refined']);
         }
 
-        $htmlContent = $this->twigEnvironment->render('showData.html.twig', [
+        $htmlContent = $this->twigEnvironment->render('listData.html.twig', [
             'resources' => $allResources,
         ]);
         return new HtmlResponse($htmlContent);

@@ -35,6 +35,7 @@ class UpdateListDataCommand extends Command
         $martlockResources = $this->resourceRepository->getRawResourcesByCity('Martlock');
         $thetfordResources = $this->resourceRepository->getRawResourcesByCity('Thetford');
         $this->getListDataEntities(
+            $type,
             $fortSterlingResources,
             $lymhurstResources,
             $bridgewatchResources,
@@ -51,6 +52,7 @@ class UpdateListDataCommand extends Command
         $martlockRawResources = $this->resourceRepository->getResourcesByCity('Martlock');
         $thetfordRawResources = $this->resourceRepository->getResourcesByCity('Thetford');
         $this->getListDataEntities(
+            $type,
             $fortSterlingRawResources,
             $lymhurstRawResources,
             $bridgewatchRawResources,
@@ -64,6 +66,7 @@ class UpdateListDataCommand extends Command
     }
 
     private function getListDataEntities(
+        string $type,
         array $fortSterlingResources,
         array $lymhurstResources,
         array $bridgewatchResources,
@@ -158,6 +161,7 @@ class UpdateListDataCommand extends Command
                         ->getBuyOrderPrice()
                 )
             );
+            $listDataEntity->setType($type);
 
             $this->listDataRepository->createOrUpdate($listDataEntity);
         }

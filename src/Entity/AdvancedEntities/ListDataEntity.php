@@ -52,7 +52,11 @@ class ListDataEntity
     #[Column(type: 'string', nullable: true)]
     private ?string $mostExpensiveObjectCityBuyOrder;
 
-    private readonly int $tierColor;
+    #[Column(type: 'string', nullable: true)]
+    private ?string $type;
+
+    #[Column(type: 'integer', nullable: true)]
+    private readonly ?int $tierColor;
 
     public function __construct(ResourceEntity $fortsterlingObject)
     {
@@ -60,47 +64,57 @@ class ListDataEntity
         $this->tierColor = (int) ($fortsterlingObject->getTier() / 10);
     }
 
-    public function getTierColor(): int
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(?string $type): void
+    {
+        $this->type = $type;
+    }
+
+    public function getTierColor(): ?int
     {
         return $this->tierColor;
     }
 
-    public function getCheapestObjectCityBuyOrder(): string
+    public function getCheapestObjectCityBuyOrder(): ?string
     {
         return $this->cheapestObjectCityBuyOrder;
     }
 
-    public function setCheapestObjectCityBuyOrder(string $cheapestObjectCityBuyOrder): void
+    public function setCheapestObjectCityBuyOrder(?string $cheapestObjectCityBuyOrder): void
     {
         $this->cheapestObjectCityBuyOrder = $cheapestObjectCityBuyOrder;
     }
 
-    public function getMostExpensiveObjectCityBuyOrder(): string
+    public function getMostExpensiveObjectCityBuyOrder(): ?string
     {
         return $this->mostExpensiveObjectCityBuyOrder;
     }
 
-    public function setMostExpensiveObjectCityBuyOrder(string $mostExpensiveObjectCityBuyOrder): void
+    public function setMostExpensiveObjectCityBuyOrder(?string $mostExpensiveObjectCityBuyOrder): void
     {
         $this->mostExpensiveObjectCityBuyOrder = $mostExpensiveObjectCityBuyOrder;
     }
 
-    public function getCheapestObjectCitySellOrder(): string
+    public function getCheapestObjectCitySellOrder(): ?string
     {
         return $this->cheapestObjectCitySellOrder;
     }
 
-    public function setCheapestObjectCitySellOrder(string $cheapestObjectCitySellOrder): void
+    public function setCheapestObjectCitySellOrder(?string $cheapestObjectCitySellOrder): void
     {
         $this->cheapestObjectCitySellOrder = $cheapestObjectCitySellOrder;
     }
 
-    public function getMostExpensiveObjectCitySellOrder(): string
+    public function getMostExpensiveObjectCitySellOrder(): ?string
     {
         return $this->mostExpensiveObjectCitySellOrder;
     }
 
-    public function setMostExpensiveObjectCitySellOrder(string $mostExpensiveObjectCitySellOrder): void
+    public function setMostExpensiveObjectCitySellOrder(?string $mostExpensiveObjectCitySellOrder): void
     {
         $this->mostExpensiveObjectCitySellOrder = $mostExpensiveObjectCitySellOrder;
     }
