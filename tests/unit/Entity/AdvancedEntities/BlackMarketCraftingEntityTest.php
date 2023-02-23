@@ -93,7 +93,8 @@ class BlackMarketCraftingEntityTest extends TestCase
     {
         $this->bmcEntity->setJournalEntityEmpty((new JournalEntity())->setTier(40)->setFillStatus('empty'));
         $this->assertEquals(
-            (new JournalEntity())->setTier(40)->setFillStatus('empty'),
+            (new JournalEntity())->setTier(40)
+                ->setFillStatus('empty'),
             $this->bmcEntity->getJournalEntityEmpty()
         );
     }
@@ -102,7 +103,8 @@ class BlackMarketCraftingEntityTest extends TestCase
     {
         $this->bmcEntity->setJournalEntityFull((new JournalEntity())->setTier(40)->setFillStatus('full'));
         $this->assertEquals(
-            (new JournalEntity())->setTier(40)->setFillStatus('full'),
+            (new JournalEntity())->setTier(40)
+                ->setFillStatus('full'),
             $this->bmcEntity->getJournalEntityFull()
         );
     }
@@ -111,7 +113,8 @@ class BlackMarketCraftingEntityTest extends TestCase
     {
         $this->bmcEntity->setPrimResource((new ResourceEntity())->setTier(40)->setRealName('Leather'));
         $this->assertEquals(
-            (new ResourceEntity())->setTier(40)->setRealName('Leather'),
+            (new ResourceEntity())->setTier(40)
+                ->setRealName('Leather'),
             $this->bmcEntity->getPrimResource()
         );
     }
@@ -120,7 +123,8 @@ class BlackMarketCraftingEntityTest extends TestCase
     {
         $this->bmcEntity->setSecResource((new ResourceEntity())->setTier(40)->setRealName('Leather'));
         $this->assertEquals(
-            (new ResourceEntity())->setTier(40)->setRealName('Leather'),
+            (new ResourceEntity())->setTier(40)
+                ->setRealName('Leather'),
             $this->bmcEntity->getSecResource()
         );
     }

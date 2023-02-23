@@ -35,14 +35,18 @@ class AlbionItemEntityTest extends TestCase
         $this->assertEquals(1, $this->entity->getId());
     }
 
-    /** @dataProvider provideDates */
+    /**
+     * @dataProvider provideDates
+     */
     public function testCalculateBuyOrderAge(DateTimeImmutable $result, ?string $date): void
     {
         $this->entity->calculateBuyOrderDate($date);
         $this->assertEquals($result, $this->entity->getBuyOrderDate());
     }
 
-    /** @dataProvider provideDates */
+    /**
+     * @dataProvider provideDates
+     */
     public function testCalculateSellOrderAge(DateTimeImmutable $result, ?string $date): void
     {
         $this->entity->calculateSellOrderDate($date);

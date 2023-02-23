@@ -31,24 +31,20 @@ class TransmutationEntityTest extends TestCase
 
     public function testGetStartResource(): void
     {
-        $this->transEntity->setStartResource(
-            (new ResourceEntity())->setTier(10)->setCity('TestCity')
-
-        );
+        $this->transEntity->setStartResource((new ResourceEntity())->setTier(10)->setCity('TestCity'));
         $this->assertEquals(
-            (new ResourceEntity())->setTier(10)->setCity('TestCity'),
-
+            (new ResourceEntity())->setTier(10)
+                ->setCity('TestCity'),
             $this->transEntity->getStartResource()
         );
     }
 
     public function testGetEndResource(): void
     {
-        $this->transEntity->setEndResource(
-            (new ResourceEntity())->setTier(10)->setCity('TestCity')
-        );
+        $this->transEntity->setEndResource((new ResourceEntity())->setTier(10)->setCity('TestCity'));
         $this->assertEquals(
-            (new ResourceEntity())->setTier(10)->setCity('TestCity'),
+            (new ResourceEntity())->setTier(10)
+                ->setCity('TestCity'),
             $this->transEntity->getEndResource()
         );
     }
