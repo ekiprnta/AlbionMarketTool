@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\AlbionMarket;
 
+use MZierdt\Albion\Entity\AdvancedEntities\EnchantingEntity;
 use MZierdt\Albion\Entity\ItemEntity;
 use MZierdt\Albion\Entity\MaterialEntity;
 
@@ -81,5 +82,89 @@ class EnchantingService extends Market
             }
         }
         return $items;
+    }
+
+    public function calculateEnchantingEntity(
+        EnchantingEntity $enchantingEntity,
+        array $bmItems,
+        array $materials,
+        string $city
+    ): EnchantingEntity {
+        $baseItem = $enchantingEntity->getBaseItem();
+
+        $enchantingEntity->setBaseEnchantment($this->getEnchantment($baseItem->getTier()));
+
+        $enchantingEntity->setHigherEnchantmentItem(
+            $this->calculateHigherEnchantmentItem(
+                $baseItem->getTier(),
+                $baseItem->getName(),
+                $bmItems
+            )
+        );
+
+        $enchantingEntity->setEnchantmentMaterial(
+            $this->calculateEnchantmentMaterial($baseItem->getTier(), $materials)
+        );
+
+        $enchantingEntity->setMaterialAmount(
+            $this->calculateMaterialAmount($baseItem->getTotalResourceAmount())
+        );
+
+        $enchantingEntity->setMaterialCostBuy(
+            $this->calculateTotalMaterialCost(
+                $enchantingEntity->getMaterialAmount(),
+                $enchantingEntity->getEnchantmentMaterial()
+                    ->getBuyOrderPrice()
+            )
+        );
+        $enchantingEntity->setProfitSell(
+            $this->calculateProfit(
+                $enchantingEntity->getHigherEnchantmentItem()
+                    ->getSellOrderPrice(),
+                $baseItem->getSellOrderPrice() + $enchantingEntity->getMaterialCostBuy()
+            )
+        );
+        $enchantingEntity->setProfitPercentageSell(
+            $this->calculateProfitPercentage(
+                $enchantingEntity->getHigherEnchantmentItem()
+                    ->getSellOrderPrice(),
+                $baseItem->getSellOrderPrice() + $enchantingEntity->getMaterialCostBuy()
+            )
+        );
+        $enchantingEntity->setProfitGradeSell(
+            $this->calculateProfitGrade($enchantingEntity->getProfitPercentageSell())
+        );
+
+        $enchantingEntity->setProfitBuy(
+            $this->calculateProfit(
+                $enchantingEntity->getHigherEnchantmentItem()
+                    ->getSellOrderPrice(),
+                $baseItem->getBuyOrderPrice() + $enchantingEntity->getMaterialCostBuy()
+            )
+        );
+        $enchantingEntity->setProfitPercentageBuy(
+            $this->calculateProfitPercentage(
+                $enchantingEntity->getHigherEnchantmentItem()
+                    ->getSellOrderPrice(),
+                $baseItem->getBuyOrderPrice() + $enchantingEntity->getMaterialCostBuy()
+            )
+        );
+        $enchantingEntity->setProfitGradeBuy(
+            $this->calculateProfitGrade($enchantingEntity->getProfitPercentageBuy())
+        );
+
+        $enchantingEntity->setComplete(
+            $this->isComplete([
+                $enchantingEntity->getHigherEnchantmentItem()
+                    ->getSellOrderPrice(),
+                $baseItem->getSellOrderPrice(),
+                $baseItem->getBuyOrderPrice(),
+                $enchantingEntity->getEnchantmentMaterial()
+                    ->getBuyOrderPrice(),
+            ])
+        );
+        $enchantingEntity->setCity($city);
+
+        return $enchantingEntity;
     }
 }
