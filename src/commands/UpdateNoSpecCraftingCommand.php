@@ -74,112 +74,27 @@ class UpdateNoSpecCraftingCommand extends Command
         $progressBar = ProgressBarService::getProgressBar($output, count($noSpecEntities));
         /** @var NoSpecEntity $noSpecEntity */
         foreach ($noSpecEntities as $noSpecEntity) {
-            $specialItem = $noSpecEntity->getSpecialItem();
-            $message = sprintf('Update NoSpecEntity: %s from %s', $specialItem->getRealName(), $city);
+            $message = sprintf(
+                'Update NoSpecEntity: %s from %s',
+                $noSpecEntity->getSpecialItem()->getRealName(),
+                $city
+            );
             $progressBar->setMessage($message);
             $progressBar->advance();
             $progressBar->display();
 
-            $noSpecEntity->setDefaultItem(
-                $this->noSpecCraftingService->calculateDefaultItem(
-                    $specialItem->getTier(),
-                    $specialItem->getPrimaryResource(),
-                    $defaultItems
-                )
+            $this->noSpecCraftingService->calculateNoSpecEntity(
+                $noSpecEntity,
+                $defaultItems,
+                $heartsAndSigils,
+                $artifacts,
+                $city
             );
-
-            $noSpecEntity->setSecondResource(
-                $this->noSpecCraftingService->calculateSecondResource(
-                    $specialItem
-                        ->getSecondaryResource(),
-                    $specialItem
-                        ->getTier(),
-                    $heartsAndSigils
-                )
-            );
-            $noSpecEntity->setArtifact(
-                $this->noSpecCraftingService->calculateArtifact(
-                    $specialItem
-                        ->getArtifact(),
-                    $specialItem
-                        ->getTier(),
-                    $artifacts
-                )
-            );
-            if ($noSpecEntity->getArtifact() === null) {
-                $artifactPrice = 1;
-            } else {
-                $artifactPrice = $noSpecEntity->getArtifact()
-                    ->getBuyOrderPrice();
-            }
-
-            $defaultItem = $noSpecEntity->getDefaultItem();
-            $secondResource = $noSpecEntity->getSecondResource();
-            $noSpecEntity->setMaterialCostSell(
-                $this->noSpecCraftingService->calculateMaterialCost(
-                    $defaultItem->getSellOrderPrice(),
-                    $secondResource->getSellOrderPrice(),
-                    $specialItem->getSecondaryResourceAmount(),
-                    $artifactPrice
-                )
-            );
-            $noSpecEntity->setProfitSell(
-                $this->noSpecCraftingService->calculateProfit(
-                    $specialItem->getSellOrderPrice(),
-                    $noSpecEntity->getMaterialCostSell()
-                )
-            );
-            $noSpecEntity->setProfitPercentageSell(
-                $this->noSpecCraftingService->calculateProfitPercentage(
-                    $specialItem->getSellOrderPrice(),
-                    $noSpecEntity->getMaterialCostSell()
-                )
-            );
-            $noSpecEntity->setProfitGradeSell(
-                $this->noSpecCraftingService->calculateProfitGrade($noSpecEntity->getProfitPercentageSell())
-            );
-
-            $noSpecEntity->setMaterialCostBuy(
-                $this->noSpecCraftingService->calculateMaterialCost(
-                    $defaultItem->getBuyOrderPrice(),
-                    $secondResource->getBuyOrderPrice(),
-                    $specialItem->getSecondaryResourceAmount(),
-                    $artifactPrice
-                )
-            );
-            $noSpecEntity->setProfitBuy(
-                $this->noSpecCraftingService->calculateProfit(
-                    $specialItem->getSellOrderPrice(),
-                    $noSpecEntity->getMaterialCostBuy()
-                )
-            );
-            $noSpecEntity->setProfitPercentageBuy(
-                $this->noSpecCraftingService->calculateProfitPercentage(
-                    $specialItem->getSellOrderPrice(),
-                    $noSpecEntity->getMaterialCostBuy()
-                )
-            );
-            $noSpecEntity->setProfitGradeBuy(
-                $this->noSpecCraftingService->calculateProfitGrade($noSpecEntity->getProfitPercentageBuy())
-            );
-
-            $noSpecEntity->setComplete(
-                $this->noSpecCraftingService->isComplete(
-                    [
-                        $specialItem->getSellOrderPrice(),
-                        $defaultItem->getSellOrderPrice(),
-                        $defaultItem->getBuyOrderPrice(),
-                        $secondResource->getSellOrderPrice(),
-                        $secondResource->getBuyOrderPrice(),
-                        $artifactPrice,
-                    ]
-                )
-            );
-            $noSpecEntity->setCity($city);
 
             $this->noSpecRepository->createOrUpdate($noSpecEntity);
         }
         $progressBar->setMessage('Update in ' . $city . ' finished');
         $progressBar->finish();
     }
+
 }
