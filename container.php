@@ -22,6 +22,7 @@ use MZierdt\Albion\commands\UpdateBmTransportCommand;
 use MZierdt\Albion\commands\UpdateEnchantingCommand;
 use MZierdt\Albion\commands\UpdateItemsCommand;
 use MZierdt\Albion\commands\UpdateJournalsCommand;
+use MZierdt\Albion\commands\UpdateListDataCommand;
 use MZierdt\Albion\commands\UpdateMaterialsCommand;
 use MZierdt\Albion\commands\UpdateNoSpecCraftingCommand;
 use MZierdt\Albion\commands\UpdateRefiningCommand;
@@ -193,6 +194,11 @@ $serviceManager = new ServiceManager([
                     ResourceRepository::class,
                     JournalRepository::class,
                     ConfigService::class,
+                ],
+                UpdateListDataCommand::class => [
+                    ListDataHelper::class,
+                    ListDataRepository::class,
+                    ResourceRepository::class,
                 ]
             ]
         ],
