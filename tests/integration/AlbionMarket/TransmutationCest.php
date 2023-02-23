@@ -21,7 +21,7 @@ class TransmutationCest extends TestCase
         $transmutationCost = [
             50 => ['tier' => 1180],
             60 => ['tier' => 1760],
-            61 => ['tier' => 3521, 'enchantment' => 2640]
+            61 => ['tier' => 3521, 'enchantment' => 2640],
         ];
         $refiningEntity = $transmutationService->calculateTransmutationEntity(
             $baseTransmutationEntity,

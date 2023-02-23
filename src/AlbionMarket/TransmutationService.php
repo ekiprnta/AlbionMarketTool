@@ -62,18 +62,10 @@ class TransmutationService extends Market
         string $city
     ): TransmutationEntity {
         $transEntity->setStartResource(
-            $this->calculateResource(
-                $resources,
-                (int) $startTier,
-                $transEntity->getResourceType()
-            )
+            $this->calculateResource($resources, (int) $startTier, $transEntity->getResourceType())
         );
         $transEntity->setEndResource(
-            $this->calculateResource(
-                $resources,
-                (int) $endTier,
-                $transEntity->getResourceType()
-            )
+            $this->calculateResource($resources, (int) $endTier, $transEntity->getResourceType())
         );
         $transEntity->setTransmutationPrice(
             $this->calculateTransmutationPrice(
@@ -102,9 +94,7 @@ class TransmutationService extends Market
                 $transEntity->getMaterialCostSell()
             )
         );
-        $transEntity->setProfitGradeSell(
-            $this->calculateProfitGrade($transEntity->getProfitPercentageSell())
-        );
+        $transEntity->setProfitGradeSell($this->calculateProfitGrade($transEntity->getProfitPercentageSell()));
 
         $transEntity->setMaterialCostBuy(
             $transEntity->getStartResource()
@@ -124,9 +114,7 @@ class TransmutationService extends Market
                 $transEntity->getMaterialCostBuy()
             )
         );
-        $transEntity->setProfitGradeBuy(
-            $this->calculateProfitGrade($transEntity->getProfitPercentageBuy())
-        );
+        $transEntity->setProfitGradeBuy($this->calculateProfitGrade($transEntity->getProfitPercentageBuy()));
 
         $transEntity->setTierColor((int) ($transEntity->getStartResource()->getTier() / 10));
         $transEntity->setEndTierColor((int) ($transEntity->getEndResource()->getTier() / 10));
