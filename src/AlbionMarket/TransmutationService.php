@@ -2,6 +2,7 @@
 
 namespace MZierdt\Albion\AlbionMarket;
 
+use MZierdt\Albion\Entity\AdvancedEntities\TransmutationEntity;
 use MZierdt\Albion\Entity\ResourceEntity;
 
 class TransmutationService extends Market
@@ -49,5 +50,88 @@ class TransmutationService extends Market
             }
         }
         return null;
+    }
+
+    public function calculateTransmutationEntity(
+        TransmutationEntity $transEntity,
+        array $resources,
+        mixed $startTier,
+        mixed $endTier,
+        array $transmutationCost,
+        float $globalDiscount,
+        string $city
+    ): TransmutationEntity {
+        $transEntity->setStartResource(
+            $this->calculateResource($resources, (int) $startTier, $transEntity->getResourceType())
+        );
+        $transEntity->setEndResource(
+            $this->calculateResource($resources, (int) $endTier, $transEntity->getResourceType())
+        );
+        $transEntity->setTransmutationPrice(
+            $this->calculateTransmutationPrice(
+                $transEntity->getTransmutationPath(),
+                $startTier,
+                $transmutationCost,
+                $globalDiscount
+            )
+        );
+
+        $transEntity->setMaterialCostSell(
+            $transEntity->getStartResource()
+                ->getSellOrderPrice() + $transEntity->getTransmutationPrice()
+        );
+        $transEntity->setProfitSell(
+            $this->calculateProfit(
+                $transEntity->getEndResource()
+                    ->getSellOrderPrice(),
+                $transEntity->getMaterialCostSell()
+            )
+        );
+        $transEntity->setProfitPercentageSell(
+            $this->calculateProfitPercentage(
+                $transEntity->getEndResource()
+                    ->getSellOrderPrice(),
+                $transEntity->getMaterialCostSell()
+            )
+        );
+        $transEntity->setProfitGradeSell($this->calculateProfitGrade($transEntity->getProfitPercentageSell()));
+
+        $transEntity->setMaterialCostBuy(
+            $transEntity->getStartResource()
+                ->getBuyOrderPrice() + $transEntity->getTransmutationPrice()
+        );
+        $transEntity->setProfitBuy(
+            $this->calculateProfit(
+                $transEntity->getEndResource()
+                    ->getSellOrderPrice(),
+                $transEntity->getMaterialCostBuy()
+            )
+        );
+        $transEntity->setProfitPercentageBuy(
+            $this->calculateProfitPercentage(
+                $transEntity->getEndResource()
+                    ->getSellOrderPrice(),
+                $transEntity->getMaterialCostBuy()
+            )
+        );
+        $transEntity->setProfitGradeBuy($this->calculateProfitGrade($transEntity->getProfitPercentageBuy()));
+
+        $transEntity->setTierColor((int) ($transEntity->getStartResource()->getTier() / 10));
+        $transEntity->setEndTierColor((int) ($transEntity->getEndResource()->getTier() / 10));
+
+        $transEntity->setComplete(
+            $this->isComplete([
+                $transEntity->getEndResource()
+                    ->getSellOrderPrice(),
+                $transEntity->getStartResource()
+                    ->getSellOrderPrice(),
+                $transEntity->getStartResource()
+                    ->getBuyOrderPrice(),
+                $transEntity->getTransmutationPrice(),
+            ])
+        );
+        $transEntity->setCity($city);
+
+        return $transEntity;
     }
 }

@@ -91,88 +91,15 @@ class UpdateTransmutationCommand extends Command
             $progressBar->display();
 
             [$startTier, $endTier] = $this->transmutationService->calculateStartAndEnd($transEntity->getPathName());
-            $transEntity->setStartResource(
-                $this->transmutationService->calculateResource(
-                    $resources,
-                    (int) $startTier,
-                    $transEntity->getResourceType()
-                )
+            $this->transmutationService->calculateTransmutationEntity(
+                $transEntity,
+                $resources,
+                $startTier,
+                $endTier,
+                $transmutationCost,
+                $globalDiscount,
+                $city
             );
-            $transEntity->setEndResource(
-                $this->transmutationService->calculateResource(
-                    $resources,
-                    (int) $endTier,
-                    $transEntity->getResourceType()
-                )
-            );
-            $transEntity->setTransmutationPrice(
-                $this->transmutationService->calculateTransmutationPrice(
-                    $transEntity->getTransmutationPath(),
-                    $startTier,
-                    $transmutationCost,
-                    $globalDiscount
-                )
-            );
-
-            $transEntity->setMaterialCostSell(
-                $transEntity->getStartResource()
-                    ->getSellOrderPrice() + $transEntity->getTransmutationPrice()
-            );
-            $transEntity->setProfitSell(
-                $this->transmutationService->calculateProfit(
-                    $transEntity->getEndResource()
-                        ->getBuyOrderPrice(),
-                    $transEntity->getMaterialCostSell()
-                )
-            );
-            $transEntity->setProfitPercentageSell(
-                $this->transmutationService->calculateProfitPercentage(
-                    $transEntity->getEndResource()
-                        ->getSellOrderPrice(),
-                    $transEntity->getMaterialCostSell()
-                )
-            );
-            $transEntity->setProfitGradeSell(
-                $this->transmutationService->calculateProfitGrade($transEntity->getProfitPercentageSell())
-            );
-
-            $transEntity->setMaterialCostBuy(
-                $transEntity->getStartResource()
-                    ->getBuyOrderPrice() + $transEntity->getTransmutationPrice()
-            );
-            $transEntity->setProfitBuy(
-                $this->transmutationService->calculateProfit(
-                    $transEntity->getEndResource()
-                        ->getSellOrderPrice(),
-                    $transEntity->getMaterialCostBuy()
-                )
-            );
-            $transEntity->setProfitPercentageBuy(
-                $this->transmutationService->calculateProfitPercentage(
-                    $transEntity->getEndResource()
-                        ->getSellOrderPrice(),
-                    $transEntity->getMaterialCostBuy()
-                )
-            );
-            $transEntity->setProfitGradeBuy(
-                $this->transmutationService->calculateProfitGrade($transEntity->getProfitPercentageBuy())
-            );
-
-            $transEntity->setTierColor((int) ($transEntity->getStartResource()->getTier() / 10));
-            $transEntity->setEndTierColor((int) ($transEntity->getEndResource()->getTier() / 10));
-
-            $transEntity->setComplete(
-                $this->transmutationService->isComplete([
-                    $transEntity->getEndResource()
-                        ->getSellOrderPrice(),
-                    $transEntity->getStartResource()
-                        ->getSellOrderPrice(),
-                    $transEntity->getStartResource()
-                        ->getBuyOrderPrice(),
-                    $transEntity->getTransmutationPrice(),
-                ])
-            );
-            $transEntity->setCity($city);
 
             $this->transmutationRepository->createOrUpdate($transEntity);
         }
