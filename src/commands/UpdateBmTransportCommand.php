@@ -75,7 +75,6 @@ class UpdateBmTransportCommand extends Command
         }
         /** @var BlackMarketTransportEntity $bmtEntity */
         foreach ($bmtEntities as $bmtEntity) {
-
             $message = sprintf('Update bmtEntity: %s from %s', $bmtEntity->getBmItem()->getRealName(), $city);
             $progressBar->setMessage($message);
             $progressBar->advance();

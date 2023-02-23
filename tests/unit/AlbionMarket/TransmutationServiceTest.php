@@ -109,11 +109,7 @@ class TransmutationServiceTest extends TestCase
 
     public function provideTransmutationPrice(): array
     {
-        return [
-            [21426, [50, 60, 61, 62, 63]],
-            [2940, [50, 51]],
-            [5580, [50, 60, 61]]
-        ];
+        return [[21426, [50, 60, 61, 62, 63]], [2940, [50, 51]], [5580, [50, 60, 61]]];
     }
 
     /**

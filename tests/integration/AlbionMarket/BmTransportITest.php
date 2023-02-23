@@ -34,7 +34,12 @@ class BmTransportITest extends TestCase
         $bmtEntity = $bmtService->calculateBmtEntity(
             $baseBmtEntity,
             $this->getItems(),
-            [8 => 100, 16 => 100, 24 => 25, 32 => 20],
+            [
+                8 => 100,
+                16 => 100,
+                24 => 25,
+                32 => 20,
+            ],
             'TestCity'
         );
 
