@@ -76,11 +76,7 @@ class NoSpecCraftingService extends Market
     ): NoSpecEntity {
         $specialItem = $noSpecEntity->getSpecialItem();
         $noSpecEntity->setDefaultItem(
-            $this->calculateDefaultItem(
-                $specialItem->getTier(),
-                $specialItem->getPrimaryResource(),
-                $defaultItems
-            )
+            $this->calculateDefaultItem($specialItem->getTier(), $specialItem->getPrimaryResource(), $defaultItems)
         );
 
         $noSpecEntity->setSecondResource(
@@ -93,13 +89,7 @@ class NoSpecCraftingService extends Market
             )
         );
         $noSpecEntity->setArtifact(
-            $this->calculateArtifact(
-                $specialItem
-                    ->getArtifact(),
-                $specialItem
-                    ->getTier(),
-                $artifacts
-            )
+            $this->calculateArtifact($specialItem->getArtifact(), $specialItem->getTier(), $artifacts)
         );
         if ($noSpecEntity->getArtifact() === null) {
             $artifactPrice = 1;
@@ -119,10 +109,7 @@ class NoSpecCraftingService extends Market
             )
         );
         $noSpecEntity->setProfitSell(
-            $this->calculateProfit(
-                $specialItem->getSellOrderPrice(),
-                $noSpecEntity->getMaterialCostSell()
-            )
+            $this->calculateProfit($specialItem->getSellOrderPrice(), $noSpecEntity->getMaterialCostSell())
         );
         $noSpecEntity->setProfitPercentageSell(
             $this->calculateProfitPercentage(
@@ -130,9 +117,7 @@ class NoSpecCraftingService extends Market
                 $noSpecEntity->getMaterialCostSell()
             )
         );
-        $noSpecEntity->setProfitGradeSell(
-            $this->calculateProfitGrade($noSpecEntity->getProfitPercentageSell())
-        );
+        $noSpecEntity->setProfitGradeSell($this->calculateProfitGrade($noSpecEntity->getProfitPercentageSell()));
 
         $noSpecEntity->setMaterialCostBuy(
             $this->calculateMaterialCost(
@@ -143,20 +128,12 @@ class NoSpecCraftingService extends Market
             )
         );
         $noSpecEntity->setProfitBuy(
-            $this->calculateProfit(
-                $specialItem->getSellOrderPrice(),
-                $noSpecEntity->getMaterialCostBuy()
-            )
+            $this->calculateProfit($specialItem->getSellOrderPrice(), $noSpecEntity->getMaterialCostBuy())
         );
         $noSpecEntity->setProfitPercentageBuy(
-            $this->calculateProfitPercentage(
-                $specialItem->getSellOrderPrice(),
-                $noSpecEntity->getMaterialCostBuy()
-            )
+            $this->calculateProfitPercentage($specialItem->getSellOrderPrice(), $noSpecEntity->getMaterialCostBuy())
         );
-        $noSpecEntity->setProfitGradeBuy(
-            $this->calculateProfitGrade($noSpecEntity->getProfitPercentageBuy())
-        );
+        $noSpecEntity->setProfitGradeBuy($this->calculateProfitGrade($noSpecEntity->getProfitPercentageBuy()));
 
         $noSpecEntity->setComplete(
             $this->isComplete(

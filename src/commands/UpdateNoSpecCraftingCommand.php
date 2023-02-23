@@ -76,7 +76,8 @@ class UpdateNoSpecCraftingCommand extends Command
         foreach ($noSpecEntities as $noSpecEntity) {
             $message = sprintf(
                 'Update NoSpecEntity: %s from %s',
-                $noSpecEntity->getSpecialItem()->getRealName(),
+                $noSpecEntity->getSpecialItem()
+                    ->getRealName(),
                 $city
             );
             $progressBar->setMessage($message);
@@ -96,5 +97,4 @@ class UpdateNoSpecCraftingCommand extends Command
         $progressBar->setMessage('Update in ' . $city . ' finished');
         $progressBar->finish();
     }
-
 }

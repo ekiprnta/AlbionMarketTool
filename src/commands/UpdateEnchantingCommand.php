@@ -91,5 +91,4 @@ class UpdateEnchantingCommand extends Command
         $progressBar->setMessage('Update in ' . $city . ' finished');
         $progressBar->finish();
     }
-
 }
