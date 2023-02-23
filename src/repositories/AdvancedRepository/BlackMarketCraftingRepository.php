@@ -19,27 +19,21 @@ class BlackMarketCraftingRepository extends Repository
 
     public function createOrUpdate(BlackMarketCraftingEntity $blackMarketCraftingEntity): void
     {
-        $oldRefiningEntity = $this->entityManager->getRepository(BlackMarketCraftingEntity::class)->findOneBy(
+        $oldBlackMarketCraftingEntity = $this->entityManager->getRepository(
+            BlackMarketCraftingEntity::class
+        )->findOneBy(
             [
                 'city' => $blackMarketCraftingEntity->getCity(),
                 'item' => $blackMarketCraftingEntity->getItem(),
             ]
         );
 
-        if ($oldRefiningEntity !== null) {
-            $oldRefiningEntity->setMaterialCostSell($blackMarketCraftingEntity->getMaterialCostSell());
-            $oldRefiningEntity->setProfitSell($blackMarketCraftingEntity->getProfitSell());
-            $oldRefiningEntity->setProfitPercentageSell($blackMarketCraftingEntity->getProfitPercentageSell());
-            $oldRefiningEntity->setProfitGradeSell($blackMarketCraftingEntity->getProfitGradeSell());
-
-            $oldRefiningEntity->setMaterialCostSell($blackMarketCraftingEntity->getMaterialCostSell());
-            $oldRefiningEntity->setProfitSell($blackMarketCraftingEntity->getProfitSell());
-            $oldRefiningEntity->setProfitPercentageSell($blackMarketCraftingEntity->getProfitPercentageSell());
-            $oldRefiningEntity->setProfitGradeSell($blackMarketCraftingEntity->getProfitGradeSell());
-
-            $blackMarketCraftingEntity->setComplete($blackMarketCraftingEntity->isComplete());
-
-            $this->update($oldRefiningEntity);
+        if ($oldBlackMarketCraftingEntity !== null) {
+            $oldBlackMarketCraftingEntity = $this->updateClass(
+                $blackMarketCraftingEntity,
+                $oldBlackMarketCraftingEntity
+            );
+            $this->update($oldBlackMarketCraftingEntity);
         } else {
             $this->update($blackMarketCraftingEntity);
         }

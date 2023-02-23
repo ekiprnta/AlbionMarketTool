@@ -31,17 +31,7 @@ class RefiningRepository extends Repository
         );
 
         if ($oldRefiningEntity !== null) {
-            $oldRefiningEntity->setMaterialCostSell($refiningEntity->getMaterialCostSell());
-            $oldRefiningEntity->setProfitSell($refiningEntity->getProfitSell());
-            $oldRefiningEntity->setProfitPercentageSell($refiningEntity->getProfitPercentageSell());
-            $oldRefiningEntity->setProfitGradeSell($refiningEntity->getProfitGradeSell());
-
-            $oldRefiningEntity->setMaterialCostSell($refiningEntity->getMaterialCostSell());
-            $oldRefiningEntity->setProfitSell($refiningEntity->getProfitSell());
-            $oldRefiningEntity->setProfitPercentageSell($refiningEntity->getProfitPercentageSell());
-            $oldRefiningEntity->setProfitGradeSell($refiningEntity->getProfitGradeSell());
-
-            $refiningEntity->setComplete($refiningEntity->isComplete());
+            $oldRefiningEntity = $this->updateClass($refiningEntity, $oldRefiningEntity);
 
             $this->update($oldRefiningEntity);
         } else {

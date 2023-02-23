@@ -25,18 +25,7 @@ class NoSpecRepository extends Repository
         ]);
 
         if ($oldNoSpeEntity !== null) {
-            $oldNoSpeEntity->setMaterialCostSell($noSpecEntity->getMaterialCostSell());
-            $oldNoSpeEntity->setProfitSell($noSpecEntity->getProfitSell());
-            $oldNoSpeEntity->setProfitPercentageSell($noSpecEntity->getProfitPercentageSell());
-            $oldNoSpeEntity->setProfitGradeSell($noSpecEntity->getProfitGradeSell());
-
-            $oldNoSpeEntity->setMaterialCostBuy($noSpecEntity->getMaterialCostBuy());
-            $oldNoSpeEntity->setProfitBuy($noSpecEntity->getProfitBuy());
-            $oldNoSpeEntity->setProfitPercentageBuy($noSpecEntity->getProfitPercentageBuy());
-            $oldNoSpeEntity->setProfitGradeBuy($noSpecEntity->getProfitGradeBuy());
-
-            $oldNoSpeEntity->setComplete($noSpecEntity->isComplete());
-
+            $oldNoSpeEntity = $this->updateClass($noSpecEntity, $oldNoSpeEntity);
             $this->update($oldNoSpeEntity);
         } else {
             $this->update($noSpecEntity);

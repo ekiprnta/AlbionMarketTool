@@ -26,18 +26,7 @@ class TransmutationRepository extends Repository
         ]);
 
         if ($oldTransmutationEntity !== null) {
-            $oldTransmutationEntity->setMaterialCostSell($transmutationEntity->getMaterialCostSell());
-            $oldTransmutationEntity->setProfitSell($transmutationEntity->getProfitSell());
-            $oldTransmutationEntity->setProfitPercentageSell($transmutationEntity->getProfitPercentageSell());
-            $oldTransmutationEntity->setProfitGradeSell($transmutationEntity->getProfitGradeSell());
-
-            $oldTransmutationEntity->setMaterialCostBuy($transmutationEntity->getMaterialCostBuy());
-            $oldTransmutationEntity->setProfitBuy($transmutationEntity->getProfitBuy());
-            $oldTransmutationEntity->setProfitPercentageBuy($transmutationEntity->getProfitPercentageBuy());
-            $oldTransmutationEntity->setProfitGradeBuy($transmutationEntity->getProfitGradeBuy());
-
-            $oldTransmutationEntity->setComplete($transmutationEntity->isComplete());
-
+            $oldTransmutationEntity = $this->updateClass($transmutationEntity, $oldTransmutationEntity);
             $this->update($oldTransmutationEntity);
         } else {
             $this->update($transmutationEntity);

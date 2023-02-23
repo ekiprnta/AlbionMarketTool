@@ -27,18 +27,7 @@ class EnchantingRepository extends Repository
         );
 
         if ($oldEnchantingEntity !== null) {
-            $oldEnchantingEntity->setMaterialCostSell($enchantingEntity->getMaterialCostSell());
-            $oldEnchantingEntity->setProfitSell($enchantingEntity->getProfitSell());
-            $oldEnchantingEntity->setProfitPercentageSell($enchantingEntity->getProfitPercentageSell());
-            $oldEnchantingEntity->setProfitGradeSell($enchantingEntity->getProfitGradeSell());
-
-            $oldEnchantingEntity->setMaterialCostSell($enchantingEntity->getMaterialCostSell());
-            $oldEnchantingEntity->setProfitSell($enchantingEntity->getProfitSell());
-            $oldEnchantingEntity->setProfitPercentageSell($enchantingEntity->getProfitPercentageSell());
-            $oldEnchantingEntity->setProfitGradeSell($enchantingEntity->getProfitGradeSell());
-
-            $enchantingEntity->setComplete($enchantingEntity->isComplete());
-
+            $oldEnchantingEntity = $this->updateClass($enchantingEntity, $oldEnchantingEntity);
             $this->update($oldEnchantingEntity);
         } else {
             $this->update($enchantingEntity);

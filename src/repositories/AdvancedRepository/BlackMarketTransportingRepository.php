@@ -27,19 +27,7 @@ class BlackMarketTransportingRepository extends Repository
         );
 
         if ($oldBmtEntity !== null) {
-            $oldBmtEntity->setCity($bmtEntity->getCity());
-            $oldBmtEntity->setMaterialCostSell($bmtEntity->getMaterialCostSell());
-            $oldBmtEntity->setProfitSell($bmtEntity->getProfitSell());
-            $oldBmtEntity->setProfitPercentageSell($bmtEntity->getProfitPercentageSell());
-            $oldBmtEntity->setProfitGradeSell($bmtEntity->getProfitGradeSell());
-
-            $oldBmtEntity->setMaterialCostBuy($bmtEntity->getMaterialCostBuy());
-            $oldBmtEntity->setProfitBuy($bmtEntity->getProfitBuy());
-            $oldBmtEntity->setProfitPercentageBuy($bmtEntity->getProfitPercentageBuy());
-            $oldBmtEntity->setProfitGradeBuy($bmtEntity->getProfitGradeBuy());
-
-            $oldBmtEntity->setComplete($bmtEntity->isComplete());
-
+            $oldBmtEntity = $this->updateClass($bmtEntity, $oldBmtEntity);
             $this->update($oldBmtEntity);
         } else {
             $this->update($bmtEntity);
