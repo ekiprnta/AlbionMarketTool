@@ -34,7 +34,7 @@ class BlackMarketCraftingService extends Market
 
     public function calculateJournalAmountPerItem(float $fame, int $fameToFill): float
     {
-        return $fame / $fameToFill;
+        return round($fame / $fameToFill, 2);
     }
 
     public function calculateFameAmount(int $totalAmount, float $fame): float
