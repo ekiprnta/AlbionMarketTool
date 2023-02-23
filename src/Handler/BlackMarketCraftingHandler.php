@@ -27,9 +27,7 @@ class BlackMarketCraftingHandler
         if (! empty($_GET)) {
             $itemCity = $_GET['itemCity'];
             try {
-                $cityData = $this->blackMarketCraftingRepository->getAllBmCraftingByCity(
-                    $itemCity,
-                );
+                $cityData = $this->blackMarketCraftingRepository->getAllBmCraftingByCity($itemCity,);
             } catch (InvalidArgumentException $invalidArgumentExceptionException) {
                 $alertMessage = $invalidArgumentExceptionException->getMessage();
             }

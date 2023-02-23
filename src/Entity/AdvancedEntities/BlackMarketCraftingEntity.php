@@ -58,9 +58,8 @@ class BlackMarketCraftingEntity extends MarketEntity
     #[Column(type: 'float', nullable: true)]
     private ?float $profitJournals;
 
-    public function __construct(
-        ItemEntity $item,
-    ) {
+    public function __construct(ItemEntity $item)
+    {
         $this->item = $item;
         $this->secResource = ResourceEntityFactory::getEmptyResourceEntity();
         $this->tierColor = (int) ($item->getTier() / 10);

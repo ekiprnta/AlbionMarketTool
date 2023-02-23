@@ -171,7 +171,7 @@ class UpdateNoSpecCraftingCommand extends Command
                         $defaultItem->getBuyOrderPrice(),
                         $secondResource->getSellOrderPrice(),
                         $secondResource->getBuyOrderPrice(),
-                        $artifactPrice
+                        $artifactPrice,
                     ]
                 )
             );

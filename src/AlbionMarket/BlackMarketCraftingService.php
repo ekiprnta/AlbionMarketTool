@@ -41,11 +41,8 @@ class BlackMarketCraftingService extends Market
         return $totalAmount * $fame * self::PREMIUM_FACTOR;
     }
 
-    public function calculateTotalAmount(
-        int $tier,
-        int $totalAmount,
-        array $blackMarketSellAmount
-    ): int {
+    public function calculateTotalAmount(int $tier, int $totalAmount, array $blackMarketSellAmount): int
+    {
         return $blackMarketSellAmount[$tier][$totalAmount];
     }
 

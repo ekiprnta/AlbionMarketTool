@@ -21,7 +21,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 #[AsCommand(name: 'market:bmCrafting', description: 'Update Calculations for blackmarket/crafting')]
 class UpdateBmCraftingCommand extends Command
 {
-
     public function __construct(
         private readonly BlackMarketCraftingService $blackMarketCraftingService,
         private readonly BlackMarketCraftingRepository $blackMarketCraftingRepository,
@@ -104,11 +103,7 @@ class UpdateBmCraftingCommand extends Command
                 $this->blackMarketCraftingService->calculateJournal($itemEntity->getTier(), 'full', $journals)
             );
             $bmcEntity->setJournalEntityEmpty(
-                $this->blackMarketCraftingService->calculateJournal(
-                    $itemEntity->getTier(),
-                    'empty',
-                    $journals
-                )
+                $this->blackMarketCraftingService->calculateJournal($itemEntity->getTier(), 'empty', $journals)
             );
             $bmcEntity->setJournalAmountPerItem(
                 $this->blackMarketCraftingService->calculateJournalAmountPerItem(
@@ -146,10 +141,7 @@ class UpdateBmCraftingCommand extends Command
                 )
             );
             $bmcEntity->setFameAmount(
-                $this->blackMarketCraftingService->calculateFameAmount(
-                    $totalAmount,
-                    $itemEntity->getFame()
-                )
+                $this->blackMarketCraftingService->calculateFameAmount($totalAmount, $itemEntity->getFame())
             );
 
             $bmcEntity->setProfitJournals(
@@ -170,7 +162,8 @@ class UpdateBmCraftingCommand extends Command
             $bmcEntity->setMaterialCostSell(
                 $this->blackMarketCraftingService->calculateMaterialCost(
                     $primResourceCostSell + $secResourceCostSell,
-                    $bmcEntity->getJournalEntityEmpty()->getBuyOrderPrice(),
+                    $bmcEntity->getJournalEntityEmpty()
+                        ->getBuyOrderPrice(),
                     $bmcEntity->getJournalAmountPerItem(),
                     47.9
                 )
@@ -197,7 +190,8 @@ class UpdateBmCraftingCommand extends Command
             $bmcEntity->setMaterialCostBuy(
                 $this->blackMarketCraftingService->calculateMaterialCost(
                     $primResourceCostBuy + $secResourceCostBuy,
-                    $bmcEntity->getJournalEntityEmpty()->getBuyOrderPrice(),
+                    $bmcEntity->getJournalEntityEmpty()
+                        ->getBuyOrderPrice(),
                     $bmcEntity->getJournalAmountPerItem(),
                     24.8
                 )
@@ -225,8 +219,10 @@ class UpdateBmCraftingCommand extends Command
                     $primResource->getBuyOrderPrice(),
                     $secResource->getSellOrderPrice(),
                     $secResource->getBuyOrderPrice(),
-                    $bmcEntity->getJournalEntityFull()->getSellOrderPrice(),
-                    $bmcEntity->getJournalEntityEmpty()->getBuyOrderPrice()
+                    $bmcEntity->getJournalEntityFull()
+                        ->getSellOrderPrice(),
+                    $bmcEntity->getJournalEntityEmpty()
+                        ->getBuyOrderPrice(),
                 ])
             );
             $bmcEntity->setCity($city);

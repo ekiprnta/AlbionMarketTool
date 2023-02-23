@@ -155,11 +155,8 @@ class BlackMarketCraftingServiceTest extends TestCase
     /**
      * @dataProvider getTotalAmount
      */
-    public function testCalculateTotalAmount(
-        int $expectedResult,
-        int $tier,
-        int $totalAmount,
-    ): void {
+    public function testCalculateTotalAmount(int $expectedResult, int $tier, int $totalAmount): void
+    {
         $bmSells = [
             '20' => ['32' => 2000],
             '61' => ['16' => 750],
