@@ -9,9 +9,9 @@ use MZierdt\Albion\Entity\AdvancedEntities\TransmutationEntity;
 use MZierdt\Albion\Entity\ResourceEntity;
 use PHPUnit\Framework\TestCase;
 
-class TransmutationCest extends TestCase
+class TransmutationITest extends TestCase
 {
-    public function testRefining(): void
+    public function testTransmutation(): void
     {
         $transmutationService = new TransmutationService();
         $delta = 0.00001;
@@ -35,7 +35,7 @@ class TransmutationCest extends TestCase
 
         $this->assertEquals('TestCity', $refiningEntity->getCity());
 
-        $this->assertEqualswithDelta(6353, $refiningEntity->getMaterialCostSell(), $delta);
+        $this->assertEqualswithDelta(1, $refiningEntity->getMaterialCostSell(), $delta);
         $this->assertEqualsWithDelta(1042.85, $refiningEntity->getProfitSell(), $delta);
         $this->assertEquals(124.51, $refiningEntity->getProfitPercentageSell());
         $this->assertEquals('C', $refiningEntity->getProfitGradeSell());

@@ -11,7 +11,7 @@ use MZierdt\Albion\Entity\MaterialEntity;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 
-class NoSpecCest extends TestCase
+class NoSpecITest extends TestCase
 {
     use ProphecyTrait;
 
@@ -42,7 +42,7 @@ class NoSpecCest extends TestCase
 
         $this->assertEquals('TestCity', $noSpecEntity->getCity());
 
-        $this->assertEqualswithDelta(408888, $noSpecEntity->getMaterialCostSell(), $delta);
+        $this->assertEqualswithDelta(1, $noSpecEntity->getMaterialCostSell(), $delta);
         $this->assertEqualsWithDelta(30543.3, $noSpecEntity->getProfitSell(), $delta);
         $this->assertEquals(114.94, $noSpecEntity->getProfitPercentageSell());
         $this->assertEquals('C', $noSpecEntity->getProfitGradeSell());

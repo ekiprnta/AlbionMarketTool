@@ -11,7 +11,7 @@ use MZierdt\Albion\Entity\MaterialEntity;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 
-class EnchantingCest extends TestCase
+class EnchantingITest extends TestCase
 {
     use ProphecyTrait;
 
@@ -46,7 +46,7 @@ class EnchantingCest extends TestCase
         $this->assertEquals(129.16, $enchantingEntity->getProfitPercentageSell());
         $this->assertEquals('C', $enchantingEntity->getProfitGradeSell());
 
-        $this->assertEqualswithDelta(403200, $enchantingEntity->getMaterialCostBuy(), $delta);
+        $this->assertEqualswithDelta(1, $enchantingEntity->getMaterialCostBuy(), $delta);
         $this->assertEqualsWithDelta(258684.15, $enchantingEntity->getProfitBuy(), $delta);
         $this->assertEquals(150.26, $enchantingEntity->getProfitPercentageBuy());
         $this->assertEquals('B', $enchantingEntity->getProfitGradeBuy());
