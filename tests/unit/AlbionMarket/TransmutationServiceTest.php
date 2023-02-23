@@ -102,14 +102,18 @@ class TransmutationServiceTest extends TestCase
         ];
         $this->assertEqualsWithDelta(
             $result,
-            $this->tranService->calculateTransmutationPrice($transmutationPath, '4', $transmutationCost, 0.00),
+            $this->tranService->calculateTransmutationPrice($transmutationPath, '40', $transmutationCost, 0.00),
             0.00001
         );
     }
 
     public function provideTransmutationPrice(): array
     {
-        return [[21426, [50, 60, 61, 62, 63]], [2940, [50, 51]], [5580, [50, 60, 61]]];
+        return [
+            [21426, [50, 60, 61, 62, 63]],
+            [2940, [50, 51]],
+            [5580, [50, 60, 61]]
+        ];
     }
 
     /**
@@ -125,7 +129,15 @@ class TransmutationServiceTest extends TestCase
     public function provideResourceTier(): array
     {
         [$resourceA, $resourceB] = $this->getResources();
-        return [[$resourceA, 71], [$resourceB, 60], [null, 52]];
+        return [[$resourceA, 71], [$resourceB, 60]];
+    }
+
+    public function testCalculateResourceException(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $resources = $this->getResources();
+
+        $this->tranService->calculateResource($resources, 52, 'metalBar');
     }
 
     protected function setUp(): void
