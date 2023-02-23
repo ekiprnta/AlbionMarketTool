@@ -10,7 +10,7 @@ use MZierdt\Albion\Entity\ResourceEntity;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 
-class RefiningCest extends TestCase
+class RefiningITest extends TestCase
 {
     use ProphecyTrait;
 

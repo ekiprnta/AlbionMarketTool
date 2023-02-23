@@ -11,7 +11,7 @@ use MZierdt\Albion\Entity\MaterialEntity;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 
-class EnchantingCest extends TestCase
+class EnchantingITest extends TestCase
 {
     use ProphecyTrait;
 
@@ -34,21 +34,21 @@ class EnchantingCest extends TestCase
 
         $enchantingEntity = $enchantingService->calculateEnchantingEntity(
             $baseEnchantingEntity,
-            $this->getMaterials(),
             $this->getItems(),
+            $this->getMaterials(),
             'TestCity'
         );
 
         $this->assertEquals('TestCity', $enchantingEntity->getCity());
 
         $this->assertEqualswithDelta(null, $enchantingEntity->getMaterialCostSell(), $delta);
-        $this->assertEqualsWithDelta(154332.15, $enchantingEntity->getProfitSell(), $delta);
-        $this->assertEquals(129.16, $enchantingEntity->getProfitPercentageSell());
-        $this->assertEquals('C', $enchantingEntity->getProfitGradeSell());
+        $this->assertEqualsWithDelta(164412.15, $enchantingEntity->getProfitSell(), $delta);
+        $this->assertEquals(130.94, $enchantingEntity->getProfitPercentageSell());
+        $this->assertEquals('B', $enchantingEntity->getProfitGradeSell());
 
-        $this->assertEqualswithDelta(403200, $enchantingEntity->getMaterialCostBuy(), $delta);
-        $this->assertEqualsWithDelta(258684.15, $enchantingEntity->getProfitBuy(), $delta);
-        $this->assertEquals(150.26, $enchantingEntity->getProfitPercentageBuy());
+        $this->assertEqualswithDelta(393120, $enchantingEntity->getMaterialCostBuy(), $delta);
+        $this->assertEqualsWithDelta(268764.15, $enchantingEntity->getProfitBuy(), $delta);
+        $this->assertEquals(152.67, $enchantingEntity->getProfitPercentageBuy());
         $this->assertEquals('B', $enchantingEntity->getProfitGradeBuy());
 
         $this->assertEquals(7, $enchantingEntity->getTierColor());

@@ -65,7 +65,7 @@ class TransmutationServiceTest extends TestCase
     public function testCalculateTransmutationPrice(float $result, array $transmutationPath): void
     {
         $transmutationCost = [
-            '5' => [
+            '50' => [
                 'tier' => 1180,
             ],
             '51' => [
@@ -84,7 +84,7 @@ class TransmutationServiceTest extends TestCase
                 'enchantment' => 70440,
                 'tier' => 93921,
             ],
-            '6' => [
+            '60' => [
                 'tier' => 1760,
             ],
             '61' => [
@@ -102,14 +102,14 @@ class TransmutationServiceTest extends TestCase
         ];
         $this->assertEqualsWithDelta(
             $result,
-            $this->tranService->calculateTransmutationPrice($transmutationPath, '4', $transmutationCost, 0.01),
+            $this->tranService->calculateTransmutationPrice($transmutationPath, '40', $transmutationCost, 0.00),
             0.00001
         );
     }
 
     public function provideTransmutationPrice(): array
     {
-        return [[21211.74, [5, 6, 61, 62, 63]], [2910.6, [5, 51]], [5524.2, [5, 6, 61]]];
+        return [[21426, [50, 60, 61, 62, 63]], [2940, [50, 51]], [5580, [50, 60, 61]]];
     }
 
     /**
@@ -125,7 +125,15 @@ class TransmutationServiceTest extends TestCase
     public function provideResourceTier(): array
     {
         [$resourceA, $resourceB] = $this->getResources();
-        return [[$resourceA, 71], [$resourceB, 60], [null, 52]];
+        return [[$resourceA, 71], [$resourceB, 60]];
+    }
+
+    public function testCalculateResourceException(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $resources = $this->getResources();
+
+        $this->tranService->calculateResource($resources, 52, 'metalBar');
     }
 
     protected function setUp(): void

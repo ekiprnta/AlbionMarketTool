@@ -11,7 +11,7 @@ use MZierdt\Albion\Entity\MaterialEntity;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 
-class NoSpecCest extends TestCase
+class NoSpecITest extends TestCase
 {
     use ProphecyTrait;
 
@@ -27,6 +27,7 @@ class NoSpecCest extends TestCase
             ->setPrimaryResourceAmount(1)
             ->setSecondaryResource('Beastheart')
             ->setSecondaryResourceAmount(5)
+            ->setArtifact('capeitem_fw_bridgewatch_bp')
             ->setSellOrderPrice(469980)
             ->setBuyOrderPrice(154442);
 
@@ -84,7 +85,7 @@ class NoSpecCest extends TestCase
     private function getArtifacts(): array
     {
         $artifact = (new MaterialEntity())
-            ->setTier(71)
+            ->setTier(70)
             ->setName('capeitem_fw_bridgewatch_bp')
             ->setSellOrderPrice(112000)
             ->setBuyOrderPrice(85000);

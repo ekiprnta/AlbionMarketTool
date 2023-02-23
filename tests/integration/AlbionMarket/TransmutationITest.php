@@ -9,14 +9,14 @@ use MZierdt\Albion\Entity\AdvancedEntities\TransmutationEntity;
 use MZierdt\Albion\Entity\ResourceEntity;
 use PHPUnit\Framework\TestCase;
 
-class TransmutationCest extends TestCase
+class TransmutationITest extends TestCase
 {
-    public function testRefining(): void
+    public function testTransmutation(): void
     {
         $transmutationService = new TransmutationService();
         $delta = 0.00001;
 
-        $baseTransmutationEntity = new TransmutationEntity('40to61', [50, 60], 'leather');
+        $baseTransmutationEntity = new TransmutationEntity('40to61', [50, 60, 61], 'leather');
 
         $transmutationCost = [
             50 => ['tier' => 1180],
@@ -37,12 +37,12 @@ class TransmutationCest extends TestCase
 
         $this->assertEqualswithDelta(6353, $refiningEntity->getMaterialCostSell(), $delta);
         $this->assertEqualsWithDelta(1042.85, $refiningEntity->getProfitSell(), $delta);
-        $this->assertEquals(124.51, $refiningEntity->getProfitPercentageSell());
+        $this->assertEquals(124.49, $refiningEntity->getProfitPercentageSell());
         $this->assertEquals('C', $refiningEntity->getProfitGradeSell());
 
         $this->assertEqualswithDelta(5763, $refiningEntity->getMaterialCostBuy(), $delta);
         $this->assertEqualsWithDelta(1632.85, $refiningEntity->getProfitBuy(), $delta);
-        $this->assertEquals(137.25, $refiningEntity->getProfitPercentageBuy());
+        $this->assertEquals(137.23, $refiningEntity->getProfitPercentageBuy());
         $this->assertEquals('B', $refiningEntity->getProfitGradeBuy());
 
         $this->assertEquals(4, $refiningEntity->getTierColor());
@@ -53,13 +53,13 @@ class TransmutationCest extends TestCase
     {
         $refinedA = (new ResourceEntity())
             ->setTier(61)
-            ->setName('leather')
+            ->setRealName('leather')
             ->setCity('TestCity')
             ->setSellOrderPrice(7910)
             ->setBuyOrderPrice(7878);
         $refinedB = (new ResourceEntity())
             ->setTier(40)
-            ->setName('leather')
+            ->setRealName('leather')
             ->setCity('TestCity')
             ->setSellOrderPrice(773)
             ->setBuyOrderPrice(183);
