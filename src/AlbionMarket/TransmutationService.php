@@ -35,7 +35,7 @@ class TransmutationService extends Market
                 $cost += $this->applyGlobalDiscount($transmutationCost[$transmutationStep]['enchantment'], $discount);
             } else {
                 $cost += $this->applyGlobalDiscount($transmutationCost[$transmutationStep]['tier'], $discount);
-                ++$currentTier;
+                $currentTier += 10;
             }
         }
         return $cost;
@@ -49,7 +49,7 @@ class TransmutationService extends Market
                 return $resource;
             }
         }
-        return null;
+        throw new \InvalidArgumentException('Wrong Resources in calculateResource ' . $tier . ':' . $name);
     }
 
     public function calculateTransmutationEntity(
@@ -75,7 +75,6 @@ class TransmutationService extends Market
                 $globalDiscount
             )
         );
-
         $transEntity->setMaterialCostSell(
             $transEntity->getStartResource()
                 ->getSellOrderPrice() + $transEntity->getTransmutationPrice()

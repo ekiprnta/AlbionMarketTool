@@ -27,6 +27,7 @@ class NoSpecITest extends TestCase
             ->setPrimaryResourceAmount(1)
             ->setSecondaryResource('Beastheart')
             ->setSecondaryResourceAmount(5)
+            ->setArtifact('capeitem_fw_bridgewatch_bp')
             ->setSellOrderPrice(469980)
             ->setBuyOrderPrice(154442);
 
@@ -42,7 +43,7 @@ class NoSpecITest extends TestCase
 
         $this->assertEquals('TestCity', $noSpecEntity->getCity());
 
-        $this->assertEqualswithDelta(1, $noSpecEntity->getMaterialCostSell(), $delta);
+        $this->assertEqualswithDelta(408888, $noSpecEntity->getMaterialCostSell(), $delta);
         $this->assertEqualsWithDelta(30543.3, $noSpecEntity->getProfitSell(), $delta);
         $this->assertEquals(114.94, $noSpecEntity->getProfitPercentageSell());
         $this->assertEquals('C', $noSpecEntity->getProfitGradeSell());
@@ -84,7 +85,7 @@ class NoSpecITest extends TestCase
     private function getArtifacts(): array
     {
         $artifact = (new MaterialEntity())
-            ->setTier(71)
+            ->setTier(70)
             ->setName('capeitem_fw_bridgewatch_bp')
             ->setSellOrderPrice(112000)
             ->setBuyOrderPrice(85000);
