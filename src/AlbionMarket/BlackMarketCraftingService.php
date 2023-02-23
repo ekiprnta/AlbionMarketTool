@@ -2,6 +2,7 @@
 
 namespace MZierdt\Albion\AlbionMarket;
 
+use MZierdt\Albion\Entity\AdvancedEntities\BlackMarketCraftingEntity;
 use MZierdt\Albion\Entity\JournalEntity;
 use MZierdt\Albion\Entity\ResourceEntity;
 use MZierdt\Albion\factories\ResourceEntityFactory;
@@ -141,5 +142,162 @@ class BlackMarketCraftingService extends Market
             'City Bonus No Focus' => 24.8,
             'City Bonus Focus' => 47.9,
         ];
+    }
+
+    public function calculateBmcEntity(
+        BlackMarketCraftingEntity $bmcEntity,
+        array $resources,
+        array $journals,
+        array $bmSells,
+        string $city
+    ): BlackMarketCraftingEntity {
+        $itemEntity = $bmcEntity->getItem();
+        $bmcEntity->setPrimResource(
+            $this->calculateResource(
+                $itemEntity
+                    ->getPrimaryResource(),
+                $itemEntity
+                    ->getTier(),
+                $resources
+            )
+        );
+        $bmcEntity->setSecResource(
+            $this->calculateResource(
+                $itemEntity
+                    ->getSecondaryResource(),
+                $itemEntity
+                    ->getTier(),
+                $resources
+            )
+        );
+        $bmcEntity->setJournalEntityFull(
+            $this->calculateJournal($itemEntity->getTier(), 'full', $journals)
+        );
+        $bmcEntity->setJournalEntityEmpty(
+            $this->calculateJournal($itemEntity->getTier(), 'empty', $journals)
+        );
+        $bmcEntity->setJournalAmountPerItem(
+            $this->calculateJournalAmountPerItem(
+                $itemEntity
+                    ->getFame(),
+                $bmcEntity->getJournalEntityEmpty()
+                    ->getFameToFill()
+            )
+        );
+
+        $bmcEntity->setAmount(
+            $this->calculateTotalAmount(
+                $itemEntity->getTier(),
+                $itemEntity->getTotalResourceAmount(),
+                $bmSells
+            )
+        );
+        $totalAmount = $bmcEntity->getAmount();
+        $bmcEntity->setPrimResourceTotalAmount(
+            $this->calculateResourceAmount(
+                $totalAmount,
+                $itemEntity->getPrimaryResourceAmount()
+            )
+        );
+        $bmcEntity->setSecResourceTotalAmount(
+            $this->calculateResourceAmount(
+                $totalAmount,
+                $itemEntity->getSecondaryResourceAmount()
+            )
+        );
+        $bmcEntity->setJournalTotalAmount(
+            $this->calculateJournalAmount(
+                $totalAmount,
+                $bmcEntity->getJournalAmountPerItem()
+            )
+        );
+        $bmcEntity->setFameAmount(
+            $this->calculateFameAmount($totalAmount, $itemEntity->getFame())
+        );
+
+        $bmcEntity->setProfitJournals(
+            $this->calculateProfitJournals(
+                $bmcEntity->getJournalEntityEmpty()
+                    ->getBuyOrderPrice(),
+                $bmcEntity->getJournalEntityFull()
+                    ->getSellOrderPrice(),
+                $bmcEntity->getJournalTotalAmount()
+            )
+        );
+
+        //Focus
+        $primResource = $bmcEntity->getPrimResource();
+        $secResource = $bmcEntity->getSecResource();
+        $primResourceCostSell = $primResource->getBuyOrderPrice() * $itemEntity->getPrimaryResourceAmount();
+        $secResourceCostSell = $secResource->getBuyOrderPrice() * $itemEntity->getSecondaryResourceAmount();
+        $bmcEntity->setMaterialCostSell(
+            $this->calculateMaterialCost(
+                $primResourceCostSell + $secResourceCostSell,
+                $bmcEntity->getJournalEntityEmpty()
+                    ->getBuyOrderPrice(),
+                $bmcEntity->getJournalAmountPerItem(),
+                47.9
+            )
+        );
+        $bmcEntity->setProfitSell(
+            $this->calculateProfit(
+                $itemEntity->getSellOrderPrice(),
+                $bmcEntity->getMaterialCostSell()
+            )
+        );
+        $bmcEntity->setProfitPercentageSell(
+            $this->calculateProfitPercentage(
+                $itemEntity->getSellOrderPrice(),
+                $bmcEntity->getMaterialCostSell()
+            )
+        );
+        $bmcEntity->setProfitGradeSell(
+            $this->calculateProfitGrade($bmcEntity->getProfitPercentageSell())
+        );
+
+        //No Focus
+        $primResourceCostBuy = $primResource->getBuyOrderPrice() * $itemEntity->getPrimaryResourceAmount();
+        $secResourceCostBuy = $secResource->getBuyOrderPrice() * $itemEntity->getSecondaryResourceAmount();
+        $bmcEntity->setMaterialCostBuy(
+            $this->calculateMaterialCost(
+                $primResourceCostBuy + $secResourceCostBuy,
+                $bmcEntity->getJournalEntityEmpty()
+                    ->getBuyOrderPrice(),
+                $bmcEntity->getJournalAmountPerItem(),
+                24.8
+            )
+        );
+        $bmcEntity->setProfitBuy(
+            $this->calculateProfit(
+                $itemEntity->getSellOrderPrice(),
+                $bmcEntity->getMaterialCostBuy()
+            )
+        );
+        $bmcEntity->setProfitPercentageBuy(
+            $this->calculateProfitPercentage(
+                $itemEntity->getSellOrderPrice(),
+                $bmcEntity->getMaterialCostBuy()
+            )
+        );
+        $bmcEntity->setProfitGradeBuy(
+            $this->calculateProfitGrade($bmcEntity->getProfitPercentageBuy())
+        );
+
+        $bmcEntity->setComplete(
+            $this->isComplete([
+                $itemEntity->getSellOrderPrice(),
+                $primResource->getSellOrderPrice(),
+                $primResource->getBuyOrderPrice(),
+                $secResource->getSellOrderPrice(),
+                $secResource->getBuyOrderPrice(),
+                $bmcEntity->getJournalEntityFull()
+                    ->getSellOrderPrice(),
+                $bmcEntity->getJournalEntityEmpty()
+                    ->getBuyOrderPrice(),
+            ])
+        );
+        $bmcEntity->setCity($city);
+
+        return $bmcEntity;
     }
 }
