@@ -55,4 +55,10 @@ class RefiningEntityTest extends TestCase
         $this->refiningEntity->setAmount(15);
         $this->assertEquals(15, $this->refiningEntity->getAmount());
     }
+
+    public function testGetAmountRawResource(): void
+    {
+        $this->refiningEntity->setAmountRawResource(15);
+        $this->assertEquals(15, $this->refiningEntity->getAmountRawResource());
+    }
 }

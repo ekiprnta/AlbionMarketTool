@@ -85,4 +85,10 @@ class ListDataEntityTest extends TestCase
             ->setBuyOrderPrice(12235);
         $this->listDataEntity = new ListDataEntity($this->resource);
     }
+
+    public function testGetType(): void
+    {
+        $this->listDataEntity->setType('abc');
+        $this->assertEquals('abc', $this->listDataEntity->getType());
+    }
 }

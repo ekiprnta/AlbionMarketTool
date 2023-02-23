@@ -32,32 +32,12 @@ class TransmutationEntityTest extends TestCase
     public function testGetStartResource(): void
     {
         $this->transEntity->setStartResource(
-            new ResourceEntity([
-                'tier' => '20',
-                'name' => 'cloth',
-                'city' => 'Fort Sterling',
-                'realName' => 'cloth',
-                'sellOrderPrice' => '27',
-                'sellOrderPriceDate' => '2022-12-08 10:45:00',
-                'buyOrderPrice' => '26',
-                'buyOrderPriceDate' => '2022-12-08 10:45:00',
-                'bonusCity' => 'Lymhurst',
-                'amountInStorage' => null,
-            ])
+            (new ResourceEntity())->setTier(10)->setCity('TestCity')
+
         );
         $this->assertEquals(
-            new ResourceEntity([
-                'tier' => '20',
-                'name' => 'cloth',
-                'city' => 'Fort Sterling',
-                'realName' => 'cloth',
-                'sellOrderPrice' => '27',
-                'sellOrderPriceDate' => '2022-12-08 10:45:00',
-                'buyOrderPrice' => '26',
-                'buyOrderPriceDate' => '2022-12-08 10:45:00',
-                'bonusCity' => 'Lymhurst',
-                'amountInStorage' => null,
-            ]),
+            (new ResourceEntity())->setTier(10)->setCity('TestCity'),
+
             $this->transEntity->getStartResource()
         );
     }
@@ -65,32 +45,10 @@ class TransmutationEntityTest extends TestCase
     public function testGetEndResource(): void
     {
         $this->transEntity->setEndResource(
-            new ResourceEntity([
-                'tier' => '20',
-                'name' => 'cloth',
-                'city' => 'Fort Sterling',
-                'realName' => 'cloth',
-                'sellOrderPrice' => '27',
-                'sellOrderPriceDate' => '2022-12-08 10:45:00',
-                'buyOrderPrice' => '26',
-                'buyOrderPriceDate' => '2022-12-08 10:45:00',
-                'bonusCity' => 'Lymhurst',
-                'amountInStorage' => null,
-            ])
+            (new ResourceEntity())->setTier(10)->setCity('TestCity')
         );
         $this->assertEquals(
-            new ResourceEntity([
-                'tier' => '20',
-                'name' => 'cloth',
-                'city' => 'Fort Sterling',
-                'realName' => 'cloth',
-                'sellOrderPrice' => '27',
-                'sellOrderPriceDate' => '2022-12-08 10:45:00',
-                'buyOrderPrice' => '26',
-                'buyOrderPriceDate' => '2022-12-08 10:45:00',
-                'bonusCity' => 'Lymhurst',
-                'amountInStorage' => null,
-            ]),
+            (new ResourceEntity())->setTier(10)->setCity('TestCity'),
             $this->transEntity->getEndResource()
         );
     }
@@ -103,5 +61,11 @@ class TransmutationEntityTest extends TestCase
     public function testGetTransmutationPath(): void
     {
         $this->assertEquals(['50', '60', '61', '62'], $this->transEntity->getTransmutationPath());
+    }
+
+    public function testGetTransmutationPrice(): void
+    {
+        $this->transEntity->setTransmutationPrice(124.5);
+        $this->assertEquals(124.5, $this->transEntity->getTransmutationPrice());
     }
 }

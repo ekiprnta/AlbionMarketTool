@@ -48,4 +48,10 @@ class BlackMarketTransportingEntityTest extends TestCase
             ->refreshFame()
             ->refreshItemValue();
     }
+
+    public function testGetTierString(): void
+    {
+        $this->bmtEntity->setTierString('forty');
+        $this->assertEquals('forty', $this->bmtEntity->getTierString());
+    }
 }
