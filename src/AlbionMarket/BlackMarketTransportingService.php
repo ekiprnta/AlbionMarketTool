@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\AlbionMarket;
 
+use MZierdt\Albion\Entity\AdvancedEntities\BlackMarketTransportEntity;
 use MZierdt\Albion\Entity\AlbionItemEntity;
 use MZierdt\Albion\Entity\ItemEntity;
 
@@ -63,5 +64,63 @@ class BlackMarketTransportingService extends Market
             AlbionItemEntity::TIER_T8_4 => 'eightyFour',
             default => throw new \InvalidArgumentException('Cannot find correct Tier in calculateTierString ' . $tier)
         };
+    }
+
+    public function calculateBmtEntity(
+        BlackMarketTransportEntity $bmtEntity,
+        array $cityItems,
+        $amountConfig1,
+        string $city
+    ): BlackMarketTransportEntity {
+        $bmItem = $bmtEntity->getBmItem();
+        $bmtEntity->setCityItem($this->calculateCityItem($bmItem, $cityItems));
+        $cityItem = $bmtEntity->getCityItem();
+        $bmtEntity->setAmount(
+            $this->calculateAmount(
+                $cityItem
+                    ->getPrimaryResourceAmount(),
+                $cityItem
+                    ->getSecondaryResourceAmount(),
+                $amountConfig1
+            )
+        );
+        $bmtEntity->setMaterialCostSell($cityItem->getSellOrderPrice());
+        $bmtEntity->setProfitSell(
+            $this->calculateProfit(
+                $bmItem->getSellOrderPrice(),
+                (int) $bmtEntity->getMaterialCostSell()
+            )
+        );
+        $bmtEntity->setProfitPercentageSell(
+            $this->calculateProfitPercentage(
+                $bmItem->getSellOrderPrice(),
+                $cityItem->getSellOrderPrice()
+            )
+        );
+        $bmtEntity->setProfitGradeSell(
+            $this->calculateProfitGrade($bmtEntity->getProfitPercentageSell())
+        );
+
+        $cityItemPrice = $cityItem->getBuyOrderPrice();
+        $bmtEntity->setMaterialCostBuy($this->calculateBuyOrder($cityItemPrice));
+        $bmtEntity->setProfitBuy(
+            $this->calculateProfit($bmItem->getBuyOrderPrice(), (int) $bmtEntity->getMaterialCostBuy())
+        );
+        $bmtEntity->setProfitPercentageBuy(
+            $this->calculateProfitPercentage($bmItem->getBuyOrderPrice(), $cityItemPrice)
+        );
+        $bmtEntity->setProfitGradeBuy(
+            $this->calculateProfitGrade($bmtEntity->getProfitPercentageBuy())
+        );
+
+        $bmtEntity->setComplete(
+            $this->isComplete(
+                [$bmItem->getSellOrderPrice(), $cityItem->getSellOrderPrice(), $cityItem->getBuyOrderPrice()]
+            )
+        );
+        $bmtEntity->setCity($city);
+        $bmtEntity->setTierString($this->calculateTierString($bmtEntity->getBmItem()->getTier()));
+
+        return $bmtEntity;
     }
 }

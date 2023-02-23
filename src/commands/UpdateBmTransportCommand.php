@@ -75,60 +75,18 @@ class UpdateBmTransportCommand extends Command
         }
         /** @var BlackMarketTransportEntity $bmtEntity */
         foreach ($bmtEntities as $bmtEntity) {
-            $bmItem = $bmtEntity->getBmItem();
 
-            $message = sprintf('Update bmtEntity: %s from %s', $bmItem->getRealName(), $city);
+            $message = sprintf('Update bmtEntity: %s from %s', $bmtEntity->getBmItem()->getRealName(), $city);
             $progressBar->setMessage($message);
             $progressBar->advance();
             $progressBar->display();
 
-            $bmtEntity->setCityItem($this->bmtService->calculateCityItem($bmItem, $cityItems));
-            $cityItem = $bmtEntity->getCityItem();
-            $bmtEntity->setAmount(
-                $this->bmtService->calculateAmount(
-                    $cityItem
-                        ->getPrimaryResourceAmount(),
-                    $cityItem
-                        ->getSecondaryResourceAmount(),
-                    $amountConfig[$bmItem->getTier()]
-                )
+            $this->bmtService->calculateBmtEntity(
+                $bmtEntity,
+                $cityItems,
+                $amountConfig[$bmtEntity->getBmItem()->getTier()],
+                $city
             );
-            $bmtEntity->setMaterialCostSell($cityItem->getSellOrderPrice());
-            $bmtEntity->setProfitSell(
-                $this->bmtService->calculateProfit(
-                    $bmItem->getSellOrderPrice(),
-                    (int) $bmtEntity->getMaterialCostSell()
-                )
-            );
-            $bmtEntity->setProfitPercentageSell(
-                $this->bmtService->calculateProfitPercentage(
-                    $bmItem->getSellOrderPrice(),
-                    $cityItem->getSellOrderPrice()
-                )
-            );
-            $bmtEntity->setProfitGradeSell(
-                $this->bmtService->calculateProfitGrade($bmtEntity->getProfitPercentageSell())
-            );
-
-            $cityItemPrice = $cityItem->getBuyOrderPrice();
-            $bmtEntity->setMaterialCostBuy($this->bmtService->calculateBuyOrder($cityItemPrice));
-            $bmtEntity->setProfitBuy(
-                $this->bmtService->calculateProfit($bmItem->getBuyOrderPrice(), (int) $bmtEntity->getMaterialCostBuy())
-            );
-            $bmtEntity->setProfitPercentageBuy(
-                $this->bmtService->calculateProfitPercentage($bmItem->getBuyOrderPrice(), $cityItemPrice)
-            );
-            $bmtEntity->setProfitGradeBuy(
-                $this->bmtService->calculateProfitGrade($bmtEntity->getProfitPercentageBuy())
-            );
-
-            $bmtEntity->setComplete(
-                $this->bmtService->isComplete(
-                    [$bmItem->getSellOrderPrice(), $cityItem->getSellOrderPrice(), $cityItem->getBuyOrderPrice()]
-                )
-            );
-            $bmtEntity->setCity($city);
-            $bmtEntity->setTierString($this->bmtService->calculateTierString($bmtEntity->getBmItem()->getTier()));
 
             $this->bmtRepository->createOrUpdate($bmtEntity);
         }
