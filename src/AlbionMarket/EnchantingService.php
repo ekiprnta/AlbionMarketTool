@@ -95,20 +95,14 @@ class EnchantingService extends Market
         $enchantingEntity->setBaseEnchantment($this->getEnchantment($baseItem->getTier()));
 
         $enchantingEntity->setHigherEnchantmentItem(
-            $this->calculateHigherEnchantmentItem(
-                $baseItem->getTier(),
-                $baseItem->getName(),
-                $bmItems
-            )
+            $this->calculateHigherEnchantmentItem($baseItem->getTier(), $baseItem->getName(), $bmItems)
         );
 
         $enchantingEntity->setEnchantmentMaterial(
             $this->calculateEnchantmentMaterial($baseItem->getTier(), $materials)
         );
 
-        $enchantingEntity->setMaterialAmount(
-            $this->calculateMaterialAmount($baseItem->getTotalResourceAmount())
-        );
+        $enchantingEntity->setMaterialAmount($this->calculateMaterialAmount($baseItem->getTotalResourceAmount()));
 
         $enchantingEntity->setMaterialCostBuy(
             $this->calculateTotalMaterialCost(
