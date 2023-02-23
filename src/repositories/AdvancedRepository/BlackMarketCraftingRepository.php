@@ -12,7 +12,7 @@ class BlackMarketCraftingRepository extends Repository
     public function getAllBmCraftingByCity(string $city): array
     {
         return $this->findBy(BlackMarketCraftingEntity::class, [
-            'complete' => true,
+//            'complete' =>true,
             'city' => $city,
         ]);
     }

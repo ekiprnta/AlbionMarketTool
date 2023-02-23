@@ -157,8 +157,8 @@ class UpdateBmCraftingCommand extends Command
             //Focus
             $primResource = $bmcEntity->getPrimResource();
             $secResource = $bmcEntity->getSecResource();
-            $primResourceCostSell = $primResource->getSellOrderPrice() * $itemEntity->getPrimaryResourceAmount();
-            $secResourceCostSell = $secResource->getSellOrderPrice() * $itemEntity->getSecondaryResourceAmount();
+            $primResourceCostSell = $primResource->getBuyOrderPrice() * $itemEntity->getPrimaryResourceAmount();
+            $secResourceCostSell = $secResource->getBuyOrderPrice() * $itemEntity->getSecondaryResourceAmount();
             $bmcEntity->setMaterialCostSell(
                 $this->blackMarketCraftingService->calculateMaterialCost(
                     $primResourceCostSell + $secResourceCostSell,
