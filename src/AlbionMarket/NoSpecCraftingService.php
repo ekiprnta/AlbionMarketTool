@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\AlbionMarket;
 
+use MZierdt\Albion\Entity\AdvancedEntities\NoSpecEntity;
 use MZierdt\Albion\Entity\ItemEntity;
 use MZierdt\Albion\Entity\MaterialEntity;
 
@@ -64,5 +65,90 @@ class NoSpecCraftingService extends Market
         int $artifactCost
     ): float {
         return $primaryItemCost + ($secondaryMaterialCost * $secondaryMaterialAmount) + ($artifactCost);
+    }
+
+    public function calculateNoSpecEntity(
+        NoSpecEntity $noSpecEntity,
+        array $defaultItems,
+        array $heartsAndSigils,
+        array $artifacts,
+        string $city
+    ): NoSpecEntity {
+        $specialItem = $noSpecEntity->getSpecialItem();
+        $noSpecEntity->setDefaultItem(
+            $this->calculateDefaultItem($specialItem->getTier(), $specialItem->getPrimaryResource(), $defaultItems)
+        );
+
+        $noSpecEntity->setSecondResource(
+            $this->calculateSecondResource(
+                $specialItem
+                    ->getSecondaryResource(),
+                $specialItem
+                    ->getTier(),
+                $heartsAndSigils
+            )
+        );
+        $noSpecEntity->setArtifact(
+            $this->calculateArtifact($specialItem->getArtifact(), $specialItem->getTier(), $artifacts)
+        );
+        if ($noSpecEntity->getArtifact() === null) {
+            $artifactPrice = 1;
+        } else {
+            $artifactPrice = $noSpecEntity->getArtifact()
+                ->getBuyOrderPrice();
+        }
+
+        $defaultItem = $noSpecEntity->getDefaultItem();
+        $secondResource = $noSpecEntity->getSecondResource();
+        $noSpecEntity->setMaterialCostSell(
+            $this->calculateMaterialCost(
+                $defaultItem->getSellOrderPrice(),
+                $secondResource->getSellOrderPrice(),
+                $specialItem->getSecondaryResourceAmount(),
+                $artifactPrice
+            )
+        );
+        $noSpecEntity->setProfitSell(
+            $this->calculateProfit($specialItem->getSellOrderPrice(), $noSpecEntity->getMaterialCostSell())
+        );
+        $noSpecEntity->setProfitPercentageSell(
+            $this->calculateProfitPercentage(
+                $specialItem->getSellOrderPrice(),
+                $noSpecEntity->getMaterialCostSell()
+            )
+        );
+        $noSpecEntity->setProfitGradeSell($this->calculateProfitGrade($noSpecEntity->getProfitPercentageSell()));
+
+        $noSpecEntity->setMaterialCostBuy(
+            $this->calculateMaterialCost(
+                $defaultItem->getBuyOrderPrice(),
+                $secondResource->getBuyOrderPrice(),
+                $specialItem->getSecondaryResourceAmount(),
+                $artifactPrice
+            )
+        );
+        $noSpecEntity->setProfitBuy(
+            $this->calculateProfit($specialItem->getSellOrderPrice(), $noSpecEntity->getMaterialCostBuy())
+        );
+        $noSpecEntity->setProfitPercentageBuy(
+            $this->calculateProfitPercentage($specialItem->getSellOrderPrice(), $noSpecEntity->getMaterialCostBuy())
+        );
+        $noSpecEntity->setProfitGradeBuy($this->calculateProfitGrade($noSpecEntity->getProfitPercentageBuy()));
+
+        $noSpecEntity->setComplete(
+            $this->isComplete(
+                [
+                    $specialItem->getSellOrderPrice(),
+                    $defaultItem->getSellOrderPrice(),
+                    $defaultItem->getBuyOrderPrice(),
+                    $secondResource->getSellOrderPrice(),
+                    $secondResource->getBuyOrderPrice(),
+                    $artifactPrice,
+                ]
+            )
+        );
+        $noSpecEntity->setCity($city);
+
+        return $noSpecEntity;
     }
 }
