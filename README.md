@@ -67,9 +67,10 @@ changelogger clean
 * add Artifact crafting
 * ~~Bug: Age is not correct~~
 * Split up Items CronJobs
-* Update Profit Quotient
+* Update Profit Quotient Grading
 * Show all Transportable Items and their respective City
 * Tier Select in Enchanting
+* Codeception
 
 ## Plans
 

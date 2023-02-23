@@ -46,10 +46,10 @@
   },
   "scripts": {
     "stan": "phpstan analyse -c phpstan.neon",
-    "stan5": "vendor/bin/phpstan analyze -l 5 src",
-    "stan4": "vendor/bin/phpstan analyze -l 4 src",
-    "stan6": "vendor/bin/phpstan analyze -l 6 src",
-    "ecs": "vendor/bin/ecs --fix",
+    "ecs": [
+      "vendor/bin/ecs --fix",
+      "chown 1000 . -R"
+    ],
     "rector": "vendor/bin/rector process src",
     "phpunit": "vendor/bin/phpunit",
     "migrate": "bin/doctrine orm:schema-tool:update --force --complete"
