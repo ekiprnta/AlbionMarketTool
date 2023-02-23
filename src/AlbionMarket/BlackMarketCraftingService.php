@@ -153,29 +153,13 @@ class BlackMarketCraftingService extends Market
     ): BlackMarketCraftingEntity {
         $itemEntity = $bmcEntity->getItem();
         $bmcEntity->setPrimResource(
-            $this->calculateResource(
-                $itemEntity
-                    ->getPrimaryResource(),
-                $itemEntity
-                    ->getTier(),
-                $resources
-            )
+            $this->calculateResource($itemEntity->getPrimaryResource(), $itemEntity->getTier(), $resources)
         );
         $bmcEntity->setSecResource(
-            $this->calculateResource(
-                $itemEntity
-                    ->getSecondaryResource(),
-                $itemEntity
-                    ->getTier(),
-                $resources
-            )
+            $this->calculateResource($itemEntity->getSecondaryResource(), $itemEntity->getTier(), $resources)
         );
-        $bmcEntity->setJournalEntityFull(
-            $this->calculateJournal($itemEntity->getTier(), 'full', $journals)
-        );
-        $bmcEntity->setJournalEntityEmpty(
-            $this->calculateJournal($itemEntity->getTier(), 'empty', $journals)
-        );
+        $bmcEntity->setJournalEntityFull($this->calculateJournal($itemEntity->getTier(), 'full', $journals));
+        $bmcEntity->setJournalEntityEmpty($this->calculateJournal($itemEntity->getTier(), 'empty', $journals));
         $bmcEntity->setJournalAmountPerItem(
             $this->calculateJournalAmountPerItem(
                 $itemEntity
@@ -186,34 +170,19 @@ class BlackMarketCraftingService extends Market
         );
 
         $bmcEntity->setAmount(
-            $this->calculateTotalAmount(
-                $itemEntity->getTier(),
-                $itemEntity->getTotalResourceAmount(),
-                $bmSells
-            )
+            $this->calculateTotalAmount($itemEntity->getTier(), $itemEntity->getTotalResourceAmount(), $bmSells)
         );
         $totalAmount = $bmcEntity->getAmount();
         $bmcEntity->setPrimResourceTotalAmount(
-            $this->calculateResourceAmount(
-                $totalAmount,
-                $itemEntity->getPrimaryResourceAmount()
-            )
+            $this->calculateResourceAmount($totalAmount, $itemEntity->getPrimaryResourceAmount())
         );
         $bmcEntity->setSecResourceTotalAmount(
-            $this->calculateResourceAmount(
-                $totalAmount,
-                $itemEntity->getSecondaryResourceAmount()
-            )
+            $this->calculateResourceAmount($totalAmount, $itemEntity->getSecondaryResourceAmount())
         );
         $bmcEntity->setJournalTotalAmount(
-            $this->calculateJournalAmount(
-                $totalAmount,
-                $bmcEntity->getJournalAmountPerItem()
-            )
+            $this->calculateJournalAmount($totalAmount, $bmcEntity->getJournalAmountPerItem())
         );
-        $bmcEntity->setFameAmount(
-            $this->calculateFameAmount($totalAmount, $itemEntity->getFame())
-        );
+        $bmcEntity->setFameAmount($this->calculateFameAmount($totalAmount, $itemEntity->getFame()));
 
         $bmcEntity->setProfitJournals(
             $this->calculateProfitJournals(
@@ -240,20 +209,12 @@ class BlackMarketCraftingService extends Market
             )
         );
         $bmcEntity->setProfitSell(
-            $this->calculateProfit(
-                $itemEntity->getSellOrderPrice(),
-                $bmcEntity->getMaterialCostSell()
-            )
+            $this->calculateProfit($itemEntity->getSellOrderPrice(), $bmcEntity->getMaterialCostSell())
         );
         $bmcEntity->setProfitPercentageSell(
-            $this->calculateProfitPercentage(
-                $itemEntity->getSellOrderPrice(),
-                $bmcEntity->getMaterialCostSell()
-            )
+            $this->calculateProfitPercentage($itemEntity->getSellOrderPrice(), $bmcEntity->getMaterialCostSell())
         );
-        $bmcEntity->setProfitGradeSell(
-            $this->calculateProfitGrade($bmcEntity->getProfitPercentageSell())
-        );
+        $bmcEntity->setProfitGradeSell($this->calculateProfitGrade($bmcEntity->getProfitPercentageSell()));
 
         //No Focus
         $primResourceCostBuy = $primResource->getBuyOrderPrice() * $itemEntity->getPrimaryResourceAmount();
@@ -268,20 +229,12 @@ class BlackMarketCraftingService extends Market
             )
         );
         $bmcEntity->setProfitBuy(
-            $this->calculateProfit(
-                $itemEntity->getSellOrderPrice(),
-                $bmcEntity->getMaterialCostBuy()
-            )
+            $this->calculateProfit($itemEntity->getSellOrderPrice(), $bmcEntity->getMaterialCostBuy())
         );
         $bmcEntity->setProfitPercentageBuy(
-            $this->calculateProfitPercentage(
-                $itemEntity->getSellOrderPrice(),
-                $bmcEntity->getMaterialCostBuy()
-            )
+            $this->calculateProfitPercentage($itemEntity->getSellOrderPrice(), $bmcEntity->getMaterialCostBuy())
         );
-        $bmcEntity->setProfitGradeBuy(
-            $this->calculateProfitGrade($bmcEntity->getProfitPercentageBuy())
-        );
+        $bmcEntity->setProfitGradeBuy($this->calculateProfitGrade($bmcEntity->getProfitPercentageBuy()));
 
         $bmcEntity->setComplete(
             $this->isComplete([

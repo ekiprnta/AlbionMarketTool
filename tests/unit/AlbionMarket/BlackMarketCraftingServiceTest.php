@@ -383,7 +383,9 @@ class BlackMarketCraftingServiceTest extends TestCase
         ], $this->bmcService->getCraftingRates());
     }
 
-    /** @dataProvider provideMaterials */
+    /**
+     * @dataProvider provideMaterials
+     */
     public function testCalculateMaterialCost(
         float $result,
         int $resourceCost,
@@ -400,9 +402,6 @@ class BlackMarketCraftingServiceTest extends TestCase
 
     public function provideMaterials(): array
     {
-        return [
-            [36050, 50000, 10000, 1, 47.9],
-            [287475.23, 532180, 7041, 1.45, 47.9]
-        ];
+        return [[36050, 50000, 10000, 1, 47.9], [287475.23, 532180, 7041, 1.45, 47.9]];
     }
 }

@@ -38,7 +38,11 @@ class BmCraftingITest extends TestCase
             $baseRefiningEntity,
             $this->getResources(),
             $this->getJournals(),
-            [71 => [32 => 50]],
+            [
+                71 => [
+                    32 => 50,
+                ],
+            ],
             'TestCity'
         );
 
