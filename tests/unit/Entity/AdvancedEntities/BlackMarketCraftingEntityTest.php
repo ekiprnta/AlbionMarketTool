@@ -39,11 +39,6 @@ class BlackMarketCraftingEntityTest extends TestCase
         $this->assertEquals(0.002, $this->bmcEntity->getJournalAmountPerItem());
     }
 
-    public function testTotalAmount(): void
-    {
-        $this->bmcEntity->setTotalAmount(128);
-        $this->assertEquals(128, $this->bmcEntity->getTotalAmount());
-    }
 
     public function testPrimResourceAmount(): void
     {
@@ -73,24 +68,6 @@ class BlackMarketCraftingEntityTest extends TestCase
     {
         $this->bmcEntity->setProfitJournals(12.3);
         $this->assertEquals(12.3, $this->bmcEntity->getProfitJournals());
-    }
-
-    public function testProfit(): void
-    {
-        $this->bmcEntity->setProfit(210023.3);
-        $this->assertEquals(210023.3, $this->bmcEntity->getProfit());
-    }
-
-    public function testWeightProfitQuotient(): void
-    {
-        $this->bmcEntity->setProfitPercentage(1400.12);
-        $this->assertEquals(1400.12, $this->bmcEntity->getProfitPercentage());
-    }
-
-    public function testColorGrade(): void
-    {
-        $this->bmcEntity->setColorGrade('D');
-        $this->assertEquals('D', $this->bmcEntity->getColorGrade());
     }
 
     public function testFameAmount(): void

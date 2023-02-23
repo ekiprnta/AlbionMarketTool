@@ -159,7 +159,6 @@ class BlackMarketCraftingServiceTest extends TestCase
         int $expectedResult,
         int $tier,
         int $totalAmount,
-        int $secResourceAmount,
     ): void {
         $bmSells = [
             '20' => ['32' => 2000],
@@ -175,7 +174,7 @@ class BlackMarketCraftingServiceTest extends TestCase
 
     public function getTotalAmount(): array
     {
-        return [[2000, 20, 12, 20], [750, 61, 8, 8], [1, 83, 8, 0]];
+        return [[2000, 20, 32], [750, 61, 16], [1, 83, 8]];
     }
 
     /**
