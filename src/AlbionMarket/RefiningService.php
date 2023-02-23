@@ -2,6 +2,7 @@
 
 namespace MZierdt\Albion\AlbionMarket;
 
+use MZierdt\Albion\Entity\AdvancedEntities\RefiningEntity;
 use MZierdt\Albion\Entity\ResourceEntity;
 
 class RefiningService extends Market
@@ -78,11 +79,6 @@ class RefiningService extends Market
         };
     }
 
-    public function calculateTotalProfit(int $Amount, float $singleProfit): float
-    {
-        return $Amount * $singleProfit;
-    }
-
     public function getRefiningRates(): array
     {
         return [
@@ -91,5 +87,77 @@ class RefiningService extends Market
             'City Bonus No Focus' => 36.7,
             'City Bonus Focus' => 53.9,
         ];
+    }
+
+    public function calculateRefiningEntity(
+        RefiningEntity $refiningEntity,
+        array $rawResources,
+        array $resources,
+        string $city
+    ): RefiningEntity {
+        $refinedResource = $refiningEntity->getRefinedResource();
+        $refiningEntity->setAmountRawResource($this->calculateAmountRawResource($refinedResource->getTier()));
+        $refiningEntity->setRawResource($this->calculateResource($refinedResource->getTier(), $rawResources));
+        $lowerTier = $this->calculateLowerResourceTier($refinedResource->getTier());
+        $refiningEntity->setLowerResource($this->calculateResource($lowerTier, $resources));
+
+        // Sell is the calculation with Focus
+        $rawResource = $refiningEntity->getRawResource();
+        $lowerResource = $refiningEntity->getLowerResource();
+        $refiningEntity->setMaterialCostSell(
+            $this->calculateResourceCost(
+                $rawResource->getBuyOrderPrice(),
+                $lowerResource->getBuyOrderPrice(),
+                $refiningEntity->getAmountRawResource(),
+                53.9
+            )
+        );
+        $refiningEntity->setProfitSell(
+            $this->calculateProfit($refinedResource->getSellOrderPrice(), $refiningEntity->getMaterialCostSell())
+        );
+        $refiningEntity->setProfitPercentageSell(
+            $this->calculateProfitPercentage(
+                $refinedResource->getSellOrderPrice(),
+                $refiningEntity->getMaterialCostSell()
+            )
+        );
+        $refiningEntity->setProfitGradeSell(
+            $this->calculateProfitGrade($refiningEntity->getProfitPercentageSell())
+        );
+
+        //Buy is the calculation without Focus
+        $refiningEntity->setMaterialCostBuy(
+            $this->calculateResourceCost(
+                $rawResource->getBuyOrderPrice(),
+                $lowerResource->getBuyOrderPrice(),
+                $refiningEntity->getAmountRawResource(),
+                36.7
+            )
+        );
+        $refiningEntity->setProfitBuy(
+            $this->calculateProfit($refinedResource->getSellOrderPrice(), $refiningEntity->getMaterialCostBuy())
+        );
+        $refiningEntity->setProfitPercentageBuy(
+            $this->calculateProfitPercentage(
+                $refinedResource->getSellOrderPrice(),
+                $refiningEntity->getMaterialCostBuy()
+            )
+        );
+        $refiningEntity->setProfitGradeBuy($this->calculateProfitGrade($refiningEntity->getProfitPercentageBuy()));
+
+        $refiningEntity->setComplete(
+            $this->isComplete(
+                [
+                    $refinedResource->getSellOrderPrice(),
+                    $lowerResource->getBuyOrderPrice(),
+                    $rawResource->getBuyOrderPrice(),
+                ]
+            )
+        );
+
+        $refiningEntity->setAmount($this->calculateRefiningAmount($refinedResource->getTier()));
+        $refiningEntity->setCity($city);
+
+        return $refiningEntity;
     }
 }

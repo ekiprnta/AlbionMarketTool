@@ -166,14 +166,6 @@ class RefiningServiceTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider getTotalProfit
-     */
-    public function testCalculateTotalProfit(int $amount, float $singleProfit, float $expectedProfit): void
-    {
-        $this->assertEquals($expectedProfit, $this->refiningService->calculateTotalProfit($amount, $singleProfit));
-    }
-
     public function getTotalProfit(): array
     {
         return [[5, 1250, 6250.0], [3, 36.67, 110.01], [25, 25, 625.0]];

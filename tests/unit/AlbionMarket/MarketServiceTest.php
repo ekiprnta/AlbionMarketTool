@@ -37,6 +37,7 @@ class MarketServiceTest extends TestCase
             [199, 'A'],
             [200, 'S'],
             [1000, 'S'],
+            [80.84, 'D'],
         ];
     }
 
