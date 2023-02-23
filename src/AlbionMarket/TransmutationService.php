@@ -60,7 +60,7 @@ class TransmutationService extends Market
         array $transmutationCost,
         float $globalDiscount,
         string $city
-    ): void {
+    ): TransmutationEntity {
         $transEntity->setStartResource(
             $this->calculateResource(
                 $resources,
@@ -91,7 +91,7 @@ class TransmutationService extends Market
         $transEntity->setProfitSell(
             $this->calculateProfit(
                 $transEntity->getEndResource()
-                    ->getBuyOrderPrice(),
+                    ->getSellOrderPrice(),
                 $transEntity->getMaterialCostSell()
             )
         );
@@ -143,5 +143,7 @@ class TransmutationService extends Market
             ])
         );
         $transEntity->setCity($city);
+
+        return $transEntity;
     }
 }
