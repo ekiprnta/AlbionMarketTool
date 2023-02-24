@@ -83,18 +83,12 @@ class ListDataService extends Market
         array $thetfordResources,
         string $type
     ): ListDataEntity {
-        $listDataEntity->setLymhurstObject(
-            $this->calculateSameItemObject($listDataEntity, $lymhurstResources)
-        );
+        $listDataEntity->setLymhurstObject($this->calculateSameItemObject($listDataEntity, $lymhurstResources));
         $listDataEntity->setBridgewatchObject(
             $this->calculateSameItemObject($listDataEntity, $bridgewatchResources)
         );
-        $listDataEntity->setMartlockObject(
-            $this->calculateSameItemObject($listDataEntity, $martlockResources)
-        );
-        $listDataEntity->setThetfordObject(
-            $this->calculateSameItemObject($listDataEntity, $thetfordResources)
-        );
+        $listDataEntity->setMartlockObject($this->calculateSameItemObject($listDataEntity, $martlockResources));
+        $listDataEntity->setThetfordObject($this->calculateSameItemObject($listDataEntity, $thetfordResources));
 
         $fortsterlingResource = $listDataEntity->getFortsterlingObject();
         $lymhurstResource = $listDataEntity->getLymhurstObject();
