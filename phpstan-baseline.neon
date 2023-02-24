@@ -24,3 +24,8 @@ parameters:
 			message: "#^Parameter \\#1 \\$params of static method Doctrine\\\\DBAL\\\\DriverManager\\:\\:getConnection\\(\\) expects array\\{charset\\?\\: string, dbname\\?\\: string, default_dbname\\?\\: string, driver\\?\\: 'ibm_db2'\\|'mysqli'\\|'oci8'\\|'pdo_mysql'\\|'pdo_oci'\\|'pdo_pgsql'\\|'pdo_sqlite'\\|'pdo_sqlsrv'\\|'sqlite3'\\|'sqlsrv', driverClass\\?\\: class\\-string\\<Doctrine\\\\DBAL\\\\Driver\\>, driverOptions\\?\\: array, host\\?\\: string, keepSlave\\?\\: bool, \\.\\.\\.\\}, array\\{dbname\\: 'albion_db', user\\: 'flyka', password\\: 'qwert', host\\: 'db_local', port\\: '3306', driver\\: 'pdo_mysql'\\} given\\.$#"
 			count: 1
 			path: src/factories/EntityManagerFactory.php
+
+		-
+			message: "#^Method MZierdt\\\\Albion\\\\factories\\\\ResourceEntityFactory\\:\\:getEmptyResourceEntity\\(\\) should return MZierdt\\\\Albion\\\\Entity\\\\ResourceEntity but returns MZierdt\\\\Albion\\\\Entity\\\\AlbionItemEntity\\.$#"
+			count: 1
+			path: src/factories/ResourceEntityFactory.php

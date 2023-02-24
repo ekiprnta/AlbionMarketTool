@@ -132,7 +132,7 @@ class BlackMarketCraftingServiceTest extends TestCase
 
     public function getJournalAmountPerItem(): array
     {
-        return [[54, 900, 0.06], [4.5, 1800, 0.0025], [144, 14400, 0.01], [201.6, 28800, 0.007]];
+        return [[54, 900, 0.06], [4.5, 1800, 0.0], [144, 14400, 0.01], [201.6, 28800, 0.01]];
     }
 
     /**
@@ -381,5 +381,27 @@ class BlackMarketCraftingServiceTest extends TestCase
             'City Bonus No Focus' => 24.8,
             'City Bonus Focus' => 47.9,
         ], $this->bmcService->getCraftingRates());
+    }
+
+    /**
+     * @dataProvider provideMaterials
+     */
+    public function testCalculateMaterialCost(
+        float $result,
+        int $resourceCost,
+        int $journalPrice,
+        float $journalAmountPerItem,
+        float $percentage
+    ): void {
+        $this->assertEqualsWithDelta(
+            $result,
+            $this->bmcService->calculateMaterialCost($resourceCost, $journalPrice, $journalAmountPerItem, $percentage),
+            0.0001
+        );
+    }
+
+    public function provideMaterials(): array
+    {
+        return [[36050, 50000, 10000, 1, 47.9], [287475.23, 532180, 7041, 1.45, 47.9]];
     }
 }

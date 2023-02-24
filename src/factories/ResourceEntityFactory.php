@@ -8,6 +8,8 @@ class ResourceEntityFactory
 {
     public static function getEmptyResourceEntity(): ResourceEntity
     {
-        return new ResourceEntity();
+        return (new ResourceEntity())
+            ->setBuyOrderPrice(1)
+            ->setSellOrderPrice(1);
     }
 }
