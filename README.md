@@ -71,6 +71,7 @@ changelogger clean
 * Show all Transportable Items and their respective City
 * Tier Select in Enchanting
 * Codeception
+* add 10% and 20% Crafting Bonus
 
 ## Plans
 
