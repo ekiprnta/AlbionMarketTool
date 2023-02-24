@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace unit\AlbionMarket;
 
-use MZierdt\Albion\AlbionMarket\ListDataHelper;
+use MZierdt\Albion\AlbionMarket\ListDataService;
 use MZierdt\Albion\Entity\AdvancedEntities\ListDataEntity;
 use MZierdt\Albion\Entity\ResourceEntity;
 use PHPUnit\Framework\TestCase;
@@ -14,7 +14,7 @@ class ListDataServiceTest extends TestCase
 {
     use ProphecyTrait;
 
-    private ListDataHelper $listDataService;
+    private ListDataService $listDataService;
 
     /**
      * @dataProvider provideItemObjects
@@ -98,6 +98,6 @@ class ListDataServiceTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->listDataService = new ListDataHelper();
+        $this->listDataService = new ListDataService();
     }
 }

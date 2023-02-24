@@ -3,122 +3,156 @@
 namespace MZierdt\Albion\AlbionMarket;
 
 use MZierdt\Albion\Entity\AdvancedEntities\ListDataEntity;
-use MZierdt\Albion\repositories\ResourceRepository;
+use MZierdt\Albion\Entity\ResourceEntity;
 
-class ListDataService
+class ListDataService extends Market
 {
-    public function __construct(
-        private readonly ResourceRepository $resourceRepository,
-        private readonly ListDataHelper $listDataHelper,
-    ) {
-    }
-
-    public function getResources(string $type): array
+    public function calculateSameItemObject(ListDataEntity $ldEntity, array $cityObjects): ResourceEntity|null
     {
-        if ($type === 'rawResource') {
-            $fortSterlingItems = $this->resourceRepository->getRawResourcesByCity('Fort Sterling');
-            $lymhurstItems = $this->resourceRepository->getRawResourcesByCity('Lymhurst');
-            $bridgewatchItems = $this->resourceRepository->getRawResourcesByCity('Bridgewatch');
-            $martlockItems = $this->resourceRepository->getRawResourcesByCity('Martlock');
-            $thetfordItems = $this->resourceRepository->getRawResourcesByCity('Thetford');
-        } else {
-            if ($type === 'resource') {
-                $fortSterlingItems = $this->resourceRepository->getResourcesByCity('Fort Sterling');
-                $lymhurstItems = $this->resourceRepository->getResourcesByCity('Lymhurst');
-                $bridgewatchItems = $this->resourceRepository->getResourcesByCity('Bridgewatch');
-                $martlockItems = $this->resourceRepository->getResourcesByCity('Martlock');
-                $thetfordItems = $this->resourceRepository->getResourcesByCity('Thetford');
-            } else {
-                throw new \InvalidArgumentException('Wrong Type int getResources ' . $type);
+        /** @var ResourceEntity $cityObject */
+        foreach ($cityObjects as $cityObject) {
+            if ($cityObject->getTier() === $ldEntity->getFortsterlingObject()->getTier() &&
+                $cityObject->getName() === $ldEntity->getFortsterlingObject()
+                    ->getName()
+            ) {
+                return $cityObject;
             }
         }
-
-        return $this->getListDataEntities(
-            $fortSterlingItems,
-            $lymhurstItems,
-            $bridgewatchItems,
-            $martlockItems,
-            $thetfordItems
-        );
+        return null;
     }
 
-    private function getListDataEntities(
-        array $fortSterlingItems,
-        array $lymhurstItems,
-        array $bridgewatchItems,
-        array $martlockItems,
-        array $thetfordItems
-    ): array {
-        $allItems = [];
-        foreach ($fortSterlingItems as $fortSterlingItem) {
-            $allItems[] = new ListDataEntity($fortSterlingItem);
+    public function calculateCheapestCity(
+        int $fortSterlingPrice,
+        int $lymhurstPrice,
+        int $bridgewatchPrice,
+        int $martlockPrice,
+        int $thetfordPrice
+    ): string {
+        $cheapestPrice = $fortSterlingPrice;
+        $city = 'Fort Sterling';
+        if ($cheapestPrice > $lymhurstPrice) {
+            $cheapestPrice = $lymhurstPrice;
+            $city = 'Lymhurst';
         }
-
-        /** @var ListDataEntity $item */
-        foreach ($allItems as $item) {
-            $item->setLymhurstObject($this->listDataHelper->calculateSameItemObject($item, $lymhurstItems));
-            $item->setBridgewatchObject($this->listDataHelper->calculateSameItemObject($item, $bridgewatchItems));
-            $item->setMartlockObject($this->listDataHelper->calculateSameItemObject($item, $martlockItems));
-            $item->setThetfordObject($this->listDataHelper->calculateSameItemObject($item, $thetfordItems));
-
-            $item->setCheapestObjectCitySellOrder(
-                $this->listDataHelper->calculateCheapestCity(
-                    $item->getFortsterlingObject()
-                        ->getSellOrderPrice(),
-                    $item->getLymhurstObject()
-                        ->getSellOrderPrice(),
-                    $item->getBridgewatchObject()
-                        ->getSellOrderPrice(),
-                    $item->getMartlockObject()
-                        ->getSellOrderPrice(),
-                    $item->getThetfordObject()
-                        ->getSellOrderPrice()
-                )
-            );
-            $item->setCheapestObjectCityBuyOrder(
-                $this->listDataHelper->calculateCheapestCity(
-                    $item->getFortsterlingObject()
-                        ->getBuyOrderPrice(),
-                    $item->getLymhurstObject()
-                        ->getBuyOrderPrice(),
-                    $item->getBridgewatchObject()
-                        ->getBuyOrderPrice(),
-                    $item->getMartlockObject()
-                        ->getBuyOrderPrice(),
-                    $item->getThetfordObject()
-                        ->getBuyOrderPrice()
-                )
-            );
-            $item->setMostExpensiveObjectCitySellOrder(
-                $this->listDataHelper->calculateMostExpensiveCity(
-                    $item->getFortsterlingObject()
-                        ->getSellOrderPrice(),
-                    $item->getLymhurstObject()
-                        ->getSellOrderPrice(),
-                    $item->getBridgewatchObject()
-                        ->getSellOrderPrice(),
-                    $item->getMartlockObject()
-                        ->getSellOrderPrice(),
-                    $item->getThetfordObject()
-                        ->getSellOrderPrice()
-                )
-            );
-            $item->setMostExpensiveObjectCityBuyOrder(
-                $this->listDataHelper->calculateMostExpensiveCity(
-                    $item->getFortsterlingObject()
-                        ->getBuyOrderPrice(),
-                    $item->getLymhurstObject()
-                        ->getBuyOrderPrice(),
-                    $item->getBridgewatchObject()
-                        ->getBuyOrderPrice(),
-                    $item->getMartlockObject()
-                        ->getBuyOrderPrice(),
-                    $item->getThetfordObject()
-                        ->getBuyOrderPrice()
-                )
-            );
+        if ($cheapestPrice > $bridgewatchPrice) {
+            $cheapestPrice = $bridgewatchPrice;
+            $city = 'Bridgewatch';
         }
+        if ($cheapestPrice > $martlockPrice) {
+            $cheapestPrice = $martlockPrice;
+            $city = 'Martlock';
+        }
+        if ($cheapestPrice > $thetfordPrice) {
+            $city = 'Thetford';
+        }
+        return $city;
+    }
 
-        return $allItems;
+    public function calculateMostExpensiveCity(
+        int $fortSterlingPrice,
+        int $lymhurstPrice,
+        int $bridgewatchPrice,
+        int $martlockPrice,
+        int $thetfordPrice
+    ): string {
+        $cheapestPrice = $fortSterlingPrice;
+        $city = 'Fort Sterling';
+        if ($cheapestPrice < $lymhurstPrice) {
+            $cheapestPrice = $lymhurstPrice;
+            $city = 'Lymhurst';
+        }
+        if ($cheapestPrice < $bridgewatchPrice) {
+            $cheapestPrice = $bridgewatchPrice;
+            $city = 'Bridgewatch';
+        }
+        if ($cheapestPrice < $martlockPrice) {
+            $cheapestPrice = $martlockPrice;
+            $city = 'Martlock';
+        }
+        if ($cheapestPrice < $thetfordPrice) {
+            $city = 'Thetford';
+        }
+        return $city;
+    }
+
+    public function calculateListDataEntity(
+        ListDataEntity $listDataEntity,
+        array $lymhurstResources,
+        array $bridgewatchResources,
+        array $martlockResources,
+        array $thetfordResources,
+        string $type
+    ): ListDataEntity {
+        $listDataEntity->setLymhurstObject($this->calculateSameItemObject($listDataEntity, $lymhurstResources));
+        $listDataEntity->setBridgewatchObject(
+            $this->calculateSameItemObject($listDataEntity, $bridgewatchResources)
+        );
+        $listDataEntity->setMartlockObject($this->calculateSameItemObject($listDataEntity, $martlockResources));
+        $listDataEntity->setThetfordObject($this->calculateSameItemObject($listDataEntity, $thetfordResources));
+
+        $fortsterlingResource = $listDataEntity->getFortsterlingObject();
+        $lymhurstResource = $listDataEntity->getLymhurstObject();
+        $bridgewatchResource = $listDataEntity->getBridgewatchObject();
+        $martlockResource = $listDataEntity->getMartlockObject();
+        $thetfordResource = $listDataEntity->getThetfordObject();
+        $listDataEntity->setCheapestObjectCitySellOrder(
+            $this->calculateCheapestCity(
+                $fortsterlingResource
+                    ->getSellOrderPrice(),
+                $lymhurstResource
+                    ->getSellOrderPrice(),
+                $bridgewatchResource
+                    ->getSellOrderPrice(),
+                $martlockResource
+                    ->getSellOrderPrice(),
+                $thetfordResource
+                    ->getSellOrderPrice()
+            )
+        );
+        $listDataEntity->setCheapestObjectCityBuyOrder(
+            $this->calculateCheapestCity(
+                $fortsterlingResource
+                    ->getBuyOrderPrice(),
+                $lymhurstResource
+                    ->getBuyOrderPrice(),
+                $bridgewatchResource
+                    ->getBuyOrderPrice(),
+                $martlockResource
+                    ->getBuyOrderPrice(),
+                $thetfordResource
+                    ->getBuyOrderPrice()
+            )
+        );
+        $listDataEntity->setMostExpensiveObjectCitySellOrder(
+            $this->calculateMostExpensiveCity(
+                $fortsterlingResource
+                    ->getSellOrderPrice(),
+                $lymhurstResource
+                    ->getSellOrderPrice(),
+                $bridgewatchResource
+                    ->getSellOrderPrice(),
+                $martlockResource
+                    ->getSellOrderPrice(),
+                $thetfordResource
+                    ->getSellOrderPrice()
+            )
+        );
+        $listDataEntity->setMostExpensiveObjectCityBuyOrder(
+            $this->calculateMostExpensiveCity(
+                $fortsterlingResource
+                    ->getBuyOrderPrice(),
+                $lymhurstResource
+                    ->getBuyOrderPrice(),
+                $bridgewatchResource
+                    ->getBuyOrderPrice(),
+                $martlockResource
+                    ->getBuyOrderPrice(),
+                $thetfordResource
+                    ->getBuyOrderPrice()
+            )
+        );
+        $listDataEntity->setType($type);
+
+        return $listDataEntity;
     }
 }
