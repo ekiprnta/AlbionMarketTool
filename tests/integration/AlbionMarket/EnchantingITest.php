@@ -36,6 +36,7 @@ class EnchantingITest extends TestCase
             $baseEnchantingEntity,
             $this->getItems(),
             $this->getMaterials(),
+            [72 => [32 => 20]],
             'TestCity'
         );
 

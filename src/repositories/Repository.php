@@ -33,6 +33,7 @@ class Repository
 
     protected function updateClass(mixed $entity, mixed $oldEntity)
     {
+        $oldEntity->setAmount($entity->getAmount());
         $oldEntity->setMaterialCostSell($entity->getMaterialCostSell());
         $oldEntity->setProfitSell($entity->getProfitSell());
         $oldEntity->setProfitPercentageSell($entity->getProfitPercentageSell());

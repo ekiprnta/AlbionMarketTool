@@ -174,7 +174,8 @@ $serviceManager = new ServiceManager([
                     EnchantingService::class,
                     EnchantingRepository::class,
                     ItemRepository::class,
-                    MaterialRepository::class
+                    MaterialRepository::class,
+                    ConfigService::class
                 ],
                 UpdateNoSpecCraftingCommand::class => [
                     NoSpecCraftingService::class,
