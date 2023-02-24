@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\commands;
 
-use MZierdt\Albion\AlbionMarket\ListDataHelper;
+use MZierdt\Albion\AlbionMarket\ListDataService;
 use MZierdt\Albion\Entity\AdvancedEntities\ListDataEntity;
 use MZierdt\Albion\repositories\AdvancedRepository\ListDataRepository;
 use MZierdt\Albion\repositories\ResourceRepository;
@@ -18,7 +18,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class UpdateListDataCommand extends Command
 {
     public function __construct(
-        private readonly ListDataHelper $listDataService,
+        private readonly ListDataService $listDataService,
         private readonly ListDataRepository $listDataRepository,
         private readonly ResourceRepository $resourceRepository,
     ) {
