@@ -87,81 +87,14 @@ class UpdateListDataCommand extends Command
             $progressBar->advance();
             $progressBar->display();
 
-            $listDataEntity->setLymhurstObject(
-                $this->listDataService->calculateSameItemObject($listDataEntity, $lymhurstResources)
+            $this->listDataService->calculateListDataEntity(
+                $listDataEntity,
+                $lymhurstResources,
+                $bridgewatchResources,
+                $martlockResources,
+                $thetfordResources,
+                $type
             );
-            $listDataEntity->setBridgewatchObject(
-                $this->listDataService->calculateSameItemObject($listDataEntity, $bridgewatchResources)
-            );
-            $listDataEntity->setMartlockObject(
-                $this->listDataService->calculateSameItemObject($listDataEntity, $martlockResources)
-            );
-            $listDataEntity->setThetfordObject(
-                $this->listDataService->calculateSameItemObject($listDataEntity, $thetfordResources)
-            );
-
-            $fortsterlingResource = $listDataEntity->getFortsterlingObject();
-            $lymhurstResource = $listDataEntity->getLymhurstObject();
-            $bridgewatchResource = $listDataEntity->getBridgewatchObject();
-            $martlockResource = $listDataEntity->getMartlockObject();
-            $thetfordResource = $listDataEntity->getThetfordObject();
-            $listDataEntity->setCheapestObjectCitySellOrder(
-                $this->listDataService->calculateCheapestCity(
-                    $fortsterlingResource
-                        ->getSellOrderPrice(),
-                    $lymhurstResource
-                        ->getSellOrderPrice(),
-                    $bridgewatchResource
-                        ->getSellOrderPrice(),
-                    $martlockResource
-                        ->getSellOrderPrice(),
-                    $thetfordResource
-                        ->getSellOrderPrice()
-                )
-            );
-            $listDataEntity->setCheapestObjectCityBuyOrder(
-                $this->listDataService->calculateCheapestCity(
-                    $fortsterlingResource
-                        ->getBuyOrderPrice(),
-                    $lymhurstResource
-                        ->getBuyOrderPrice(),
-                    $bridgewatchResource
-                        ->getBuyOrderPrice(),
-                    $martlockResource
-                        ->getBuyOrderPrice(),
-                    $thetfordResource
-                        ->getBuyOrderPrice()
-                )
-            );
-            $listDataEntity->setMostExpensiveObjectCitySellOrder(
-                $this->listDataService->calculateMostExpensiveCity(
-                    $fortsterlingResource
-                        ->getSellOrderPrice(),
-                    $lymhurstResource
-                        ->getSellOrderPrice(),
-                    $bridgewatchResource
-                        ->getSellOrderPrice(),
-                    $martlockResource
-                        ->getSellOrderPrice(),
-                    $thetfordResource
-                        ->getSellOrderPrice()
-                )
-            );
-            $listDataEntity->setMostExpensiveObjectCityBuyOrder(
-                $this->listDataService->calculateMostExpensiveCity(
-                    $fortsterlingResource
-                        ->getBuyOrderPrice(),
-                    $lymhurstResource
-                        ->getBuyOrderPrice(),
-                    $bridgewatchResource
-                        ->getBuyOrderPrice(),
-                    $martlockResource
-                        ->getBuyOrderPrice(),
-                    $thetfordResource
-                        ->getBuyOrderPrice()
-                )
-            );
-            $listDataEntity->setType($type);
 
             $this->listDataRepository->createOrUpdate($listDataEntity);
         }
