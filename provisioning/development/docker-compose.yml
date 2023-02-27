@@ -71,6 +71,20 @@ services:
       - MYSQL_USER=flyka
       - MYSQL_DATABASE=albion_db
 
+  cron:
+    build: ./cron
+    restart: always
+    volumes:
+      - ../../:/app
+    #      - reports:/app/public/reports:rw
+    depends_on:
+      #      - memcached
+      - db_local
+    environment:
+      APPLICATION_ENV: development
+    working_dir: /app
+
+
 
 volumes:
   db_data_local:
