@@ -72,7 +72,7 @@ class UpdateEnchantingCommand extends Command
         $enchantingEntities = [];
         /** @var ItemEntity $item */
         foreach ($items as $item) {
-            if (!($item->getTier() === 30 || $item->getTier() === 20) &&
+            if (! ($item->getTier() === 30 || $item->getTier() === 20) &&
                 $this->enchantingService->getEnchantment($item->getTier()) < 3) {
                 $enchantingEntities[] = new EnchantingEntity($item);
             }
