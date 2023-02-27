@@ -10,6 +10,7 @@ use MZierdt\Albion\Entity\ItemEntity;
 use MZierdt\Albion\repositories\AdvancedRepository\EnchantingRepository;
 use MZierdt\Albion\repositories\ItemRepository;
 use MZierdt\Albion\repositories\MaterialRepository;
+use MZierdt\Albion\Service\ConfigService;
 use MZierdt\Albion\Service\ProgressBarService;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -24,6 +25,7 @@ class UpdateEnchantingCommand extends Command
         private readonly EnchantingRepository $enchantingRepository,
         private readonly ItemRepository $itemRepository,
         private readonly MaterialRepository $materialRepository,
+        private readonly ConfigService $configService,
     ) {
         parent::__construct();
     }
@@ -31,33 +33,38 @@ class UpdateEnchantingCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $bmItems = $this->itemRepository->getItemsByLocationForBM('Black Market');
+        $bmSellAmount = $this->configService->getBlackMarketSells();
 
         $city = 'Fort Sterling';
         $output->writeln('Updating Enchanting from ' . $city . '...');
-        $this->updateCalculations($city, $bmItems, $output);
+        $this->updateCalculations($city, $bmItems, $bmSellAmount, $output);
 
         $city = 'Lymhurst';
         $output->writeln(PHP_EOL . 'Updating Enchanting from ' . $city . '...');
-        $this->updateCalculations($city, $bmItems, $output);
+        $this->updateCalculations($city, $bmItems, $bmSellAmount, $output);
 
         $city = 'Bridgewatch';
         $output->writeln(PHP_EOL . 'Updating Enchanting from ' . $city . '...');
-        $this->updateCalculations($city, $bmItems, $output);
+        $this->updateCalculations($city, $bmItems, $bmSellAmount, $output);
 
         $city = 'Martlock';
         $output->writeln(PHP_EOL . 'Updating Enchanting from ' . $city . '...');
-        $this->updateCalculations($city, $bmItems, $output);
+        $this->updateCalculations($city, $bmItems, $bmSellAmount, $output);
 
         $city = 'Thetford';
         $output->writeln(PHP_EOL . 'Updating Enchanting from ' . $city . '...');
-        $this->updateCalculations($city, $bmItems, $output);
+        $this->updateCalculations($city, $bmItems, $bmSellAmount, $output);
 
         $output->writeln(PHP_EOL . 'Done');
         return self::SUCCESS;
     }
 
-    private function updateCalculations(string $city, array $bmItems, OutputInterface $output): void
-    {
+    private function updateCalculations(
+        string $city,
+        array $bmItems,
+        array $bmSellsConfig,
+        OutputInterface $output
+    ): void {
         $items = $this->itemRepository->getItemsByLocation($city);
         $items = $this->enchantingService->filterItems($items);
         $materials = $this->materialRepository->getMaterialsByLocation($city);
@@ -84,7 +91,13 @@ class UpdateEnchantingCommand extends Command
             $progressBar->advance();
             $progressBar->display();
 
-            $this->enchantingService->calculateEnchantingEntity($enchantingEntity, $bmItems, $materials, $city);
+            $this->enchantingService->calculateEnchantingEntity(
+                $enchantingEntity,
+                $bmItems,
+                $materials,
+                $bmSellsConfig,
+                $city
+            );
 
             $this->enchantingRepository->createOrUpdate($enchantingEntity);
         }

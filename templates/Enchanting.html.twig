@@ -55,6 +55,7 @@
                     <th>MaterialAmount</th>
                     <th>Profit</th>
                     <th>Percentage</th>
+                    <th>Amount</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -77,6 +78,7 @@
                             <td class="align-middle">{{ enchantingEntity.materialAmount|number_format }}</td>
                             <td class="align-middle">{{ enchantingEntity.profitSell|number_format }}</td>
                             <td class="align-middle">{{ enchantingEntity.profitPercentageSell|number_format }}</td>
+                            <td class="align-middle">{{ enchantingEntity.amount|number_format }}</td>
                         </tr>
                     {% endif %}
                 {% endfor %}
@@ -99,6 +101,7 @@
                     <th>MaterialAmount</th>
                     <th>Profit</th>
                     <th>Percentage</th>
+                    <th>Amount</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -121,6 +124,7 @@
                             <td class="align-middle">{{ enchantingEntity.materialAmount|number_format }}</td>
                             <td class="align-middle">{{ enchantingEntity.profitBuy|number_format }}</td>
                             <td class="align-middle">{{ enchantingEntity.profitPercentageBuy|number_format }}</td>
+                            <td class="align-middle">{{ enchantingEntity.amount|number_format }}</td>
                         </tr>
                     {% endif %}
                 {% endfor %}

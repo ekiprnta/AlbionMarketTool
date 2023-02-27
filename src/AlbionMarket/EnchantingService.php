@@ -88,6 +88,7 @@ class EnchantingService extends Market
         EnchantingEntity $enchantingEntity,
         array $bmItems,
         array $materials,
+        array $bmSellsConfig,
         string $city
     ): EnchantingEntity {
         $baseItem = $enchantingEntity->getBaseItem();
@@ -111,16 +112,17 @@ class EnchantingService extends Market
                     ->getBuyOrderPrice()
             )
         );
+        $higherEnchantmentItem = $enchantingEntity->getHigherEnchantmentItem();
         $enchantingEntity->setProfitSell(
             $this->calculateProfit(
-                $enchantingEntity->getHigherEnchantmentItem()
+                $higherEnchantmentItem
                     ->getSellOrderPrice(),
                 $baseItem->getSellOrderPrice() + $enchantingEntity->getMaterialCostBuy()
             )
         );
         $enchantingEntity->setProfitPercentageSell(
             $this->calculateProfitPercentage(
-                $enchantingEntity->getHigherEnchantmentItem()
+                $higherEnchantmentItem
                     ->getSellOrderPrice(),
                 $baseItem->getSellOrderPrice() + $enchantingEntity->getMaterialCostBuy()
             )
@@ -131,14 +133,14 @@ class EnchantingService extends Market
 
         $enchantingEntity->setProfitBuy(
             $this->calculateProfit(
-                $enchantingEntity->getHigherEnchantmentItem()
+                $higherEnchantmentItem
                     ->getSellOrderPrice(),
                 $baseItem->getBuyOrderPrice() + $enchantingEntity->getMaterialCostBuy()
             )
         );
         $enchantingEntity->setProfitPercentageBuy(
             $this->calculateProfitPercentage(
-                $enchantingEntity->getHigherEnchantmentItem()
+                $higherEnchantmentItem
                     ->getSellOrderPrice(),
                 $baseItem->getBuyOrderPrice() + $enchantingEntity->getMaterialCostBuy()
             )
@@ -149,7 +151,7 @@ class EnchantingService extends Market
 
         $enchantingEntity->setComplete(
             $this->isComplete([
-                $enchantingEntity->getHigherEnchantmentItem()
+                $higherEnchantmentItem
                     ->getSellOrderPrice(),
                 $baseItem->getSellOrderPrice(),
                 $baseItem->getBuyOrderPrice(),
@@ -158,7 +160,19 @@ class EnchantingService extends Market
             ])
         );
         $enchantingEntity->setCity($city);
+        $enchantingEntity->setAmount(
+            $this->calculateAmount(
+                $higherEnchantmentItem->getTier(),
+                $higherEnchantmentItem->getTotalResourceAmount(),
+                $bmSellsConfig
+            )
+        );
 
         return $enchantingEntity;
+    }
+
+    public function calculateAmount(int $tier, int $resourceAmount, array $bmSellsConfig): int
+    {
+        return $bmSellsConfig[$tier][$resourceAmount];
     }
 }

@@ -79,44 +79,44 @@
                     {#                    <th>Crafting Fee</th> #}
                     <th>Profit</th>
                     <th>Percentage</th>
-                    <th>Value</th>
+                    <th>MaterialCost</th>
                 </tr>
                 </thead>
                 <tbody class="text-right">
                 {# @var bmcEntity \MZierdt\Albion\Entity\BlackMaerketCraftingEntity #}
                 {% for bmcEntity in dataArray %}
-                    {#                    {% if bmcEntity.item.sellOrderPrice != 0  and bmcEntity.item.buyOrderPrice !=0 %} #}
-                    <tr class="bg-{{ bmcEntity.profitGradeSell }}">
-                        <td class="align-middle text-left tier-{{ bmcEntity.tierColor }} tier">{{ bmcEntity.item.tier }}</td>
-                        <td class="align-middle">{{ bmcEntity.item.realName }}</td>
-                        <td class="align-middle {% if bmcEntity.primResource.sellOrderDate < timeThreshold %} bg-D {% endif %}">
-                            <a class="btn text-right w-100"
-                               title="{{ bmcEntity.primResource.sellOrderDate|date('d.m H:i') }}min">
-                                {{ bmcEntity.primResource.sellOrderPrice|number_format }}
-                            </a>
-                        </td>
-                        <td class="align-middle">{{ bmcEntity.primResourceTotalAmount|number_format }}x</td>
-                        <td class="align-middle {% if bmcEntity.secResource.sellOrderDate < timeThreshold %}bg-D{% endif %}">
-                            <a class="btn text-right w-100"
-                               title="{{ bmcEntity.secResource.sellOrderDate|date('d.m H:i') }}min">
-                                {{ bmcEntity.secResource.sellOrderPrice|number_format }}
-                            </a>
-                        </td>
-                        <td class="align-middle">{{ bmcEntity.secResourceTotalAmount|number_format }}x</td>
-                        <td class="align-middle">{{ bmcEntity.journalTotalAmount|round(1,'ceil') }}x</td>
-                        <td class="align-middle {% if bmcEntity.item.sellOrderDate < timeThreshold %}bg-D{% endif %}">
-                            <a class="btn text-right w-100"
-                               title="{{ bmcEntity.item.sellOrderDate|date('d.m H:i') }}min">
-                                {{ bmcEntity.item.sellOrderPrice|number_format }}
-                            </a>
-                        </td>
-                        <td class="align-middle">{{ bmcEntity.amount|number_format }}x</td>
-                        {#                            <td class="align-middle">{{ bmcEntity.craftingFee|number_format }}</td> #}
-                        <td class="align-middle">{{ bmcEntity.profitSell|number_format }}</td>
-                        <td class="align-middle">{{ bmcEntity.profitPercentageSell|number_format }}</td>
-                        <td class="align-middle">{{ (bmcEntity.amount * bmcEntity.profitSell)|number_format }}</td>
-                    </tr>
-                    {#                    {% endif %} #}
+                    {% if    bmcEntity.profitSell > 0 %}
+                        <tr class="bg-{{ bmcEntity.profitGradeSell }}">
+                            <td class="align-middle text-left tier-{{ bmcEntity.tierColor }} tier">{{ bmcEntity.item.tier }}</td>
+                            <td class="align-middle">{{ bmcEntity.item.realName }}</td>
+                            <td class="align-middle {% if bmcEntity.primResource.sellOrderDate < timeThreshold %} bg-D {% endif %}">
+                                <a class="btn text-right w-100"
+                                   title="{{ bmcEntity.primResource.sellOrderDate|date('d.m H:i') }}min">
+                                    {{ bmcEntity.primResource.sellOrderPrice|number_format }}
+                                </a>
+                            </td>
+                            <td class="align-middle">{{ bmcEntity.primResourceTotalAmount|number_format }}x</td>
+                            <td class="align-middle {% if bmcEntity.secResource.sellOrderDate < timeThreshold %}bg-D{% endif %}">
+                                <a class="btn text-right w-100"
+                                   title="{{ bmcEntity.secResource.sellOrderDate|date('d.m H:i') }}min">
+                                    {{ bmcEntity.secResource.sellOrderPrice|number_format }}
+                                </a>
+                            </td>
+                            <td class="align-middle">{{ bmcEntity.secResourceTotalAmount|number_format }}x</td>
+                            <td class="align-middle">{{ bmcEntity.journalTotalAmount|round(1,'ceil') }}x</td>
+                            <td class="align-middle {% if bmcEntity.item.sellOrderDate < timeThreshold %}bg-D{% endif %}">
+                                <a class="btn text-right w-100"
+                                   title="{{ bmcEntity.item.sellOrderDate|date('d.m H:i') }}min">
+                                    {{ bmcEntity.item.sellOrderPrice|number_format }}
+                                </a>
+                            </td>
+                            <td class="align-middle">{{ bmcEntity.amount|number_format }}x</td>
+                            {#                            <td class="align-middle">{{ bmcEntity.craftingFee|number_format }}</td> #}
+                            <td class="align-middle">{{ bmcEntity.profitSell|number_format }}</td>
+                            <td class="align-middle">{{ bmcEntity.profitPercentageSell|number_format }}</td>
+                            <td class="align-middle">{{ (bmcEntity.amount * bmcEntity.materialCostSell)|number_format }}</td>
+                        </tr>
+                    {% endif %}
                 {% endfor %}
                 </tbody>
             </table>
@@ -142,44 +142,44 @@
                     {#                    <th>Crafting Fee</th> #}
                     <th>Profit</th>
                     <th>Percentage</th>
-                    <th>Value</th>
+                    <th>MaterialCost</th>
                 </tr>
                 </thead>
                 <tbody class="text-right">
                 {# @var bmcEntity \MZierdt\Albion\Entity\BlackMaerketCraftingEntity #}
                 {% for bmcEntity in dataArray %}
-                    {#                    {% if bmcEntity.item.sellOrderPrice != 0  and bmcEntity.item.buyOrderPrice !=0 %} #}
-                    <tr class="bg-{{ bmcEntity.profitGradeBuy }}">
-                        <td class="align-middle text-left tier-{{ bmcEntity.tierColor }} tier">{{ bmcEntity.item.tier }}</td>
-                        <td class="align-middle">{{ bmcEntity.item.realName }}</td>
-                        <td class="align-middle {% if bmcEntity.primResource.buyOrderDate < timeThreshold %} bg-D {% endif %}">
-                            <a class="btn text-right w-100"
-                               title="{{ bmcEntity.primResource.buyOrderDate|date('d.m H:i') }}min">
-                                {{ bmcEntity.primResource.buyOrderPrice|number_format }}
-                            </a>
-                        </td>
-                        <td class="align-middle">{{ bmcEntity.primResourceTotalAmount|number_format }}x</td>
-                        <td class="align-middle {% if bmcEntity.secResource.buyOrderDate < timeThreshold %}bg-D{% endif %}">
-                            <a class="btn text-right w-100"
-                               title="{{ bmcEntity.secResource.buyOrderDate|date('d.m H:i') }}min">
-                                {{ bmcEntity.secResource.buyOrderPrice|number_format }}
-                            </a>
-                        </td>
-                        <td class="align-middle">{{ bmcEntity.secResourceTotalAmount|number_format }}x</td>
-                        <td class="align-middle">{{ bmcEntity.journalTotalAmount|round(1,'ceil') }}x</td>
-                        <td class="align-middle {% if bmcEntity.item.sellOrderDate < timeThreshold %}bg-D{% endif %}">
-                            <a class="btn text-right w-100"
-                               title="{{ bmcEntity.item.sellOrderDate|date('d.m H:i') }}min">
-                                {{ bmcEntity.item.sellOrderPrice|number_format }}
-                            </a>
-                        </td>
-                        <td class="align-middle">{{ bmcEntity.amount|number_format }}x</td>
-                        {#                            <td class="align-middle">{{ bmcEntity.craftingFee|number_format }}</td> #}
-                        <td class="align-middle">{{ bmcEntity.profitBuy|number_format }}</td>
-                        <td class="align-middle">{{ bmcEntity.profitPercentageBuy|number_format }}</td>
-                        <td class="align-middle">{{ (bmcEntity.amount * bmcEntity.profitBuy)|number_format }}</td>
-                    </tr>
-                    {#                    {% endif %} #}
+                    {% if    bmcEntity.profitBuy > 0 %}
+                        <tr class="bg-{{ bmcEntity.profitGradeBuy }}">
+                            <td class="align-middle text-left tier-{{ bmcEntity.tierColor }} tier">{{ bmcEntity.item.tier }}</td>
+                            <td class="align-middle">{{ bmcEntity.item.realName }}</td>
+                            <td class="align-middle {% if bmcEntity.primResource.buyOrderDate < timeThreshold %} bg-D {% endif %}">
+                                <a class="btn text-right w-100"
+                                   title="{{ bmcEntity.primResource.buyOrderDate|date('d.m H:i') }}min">
+                                    {{ bmcEntity.primResource.buyOrderPrice|number_format }}
+                                </a>
+                            </td>
+                            <td class="align-middle">{{ bmcEntity.primResourceTotalAmount|number_format }}x</td>
+                            <td class="align-middle {% if bmcEntity.secResource.buyOrderDate < timeThreshold %}bg-D{% endif %}">
+                                <a class="btn text-right w-100"
+                                   title="{{ bmcEntity.secResource.buyOrderDate|date('d.m H:i') }}min">
+                                    {{ bmcEntity.secResource.buyOrderPrice|number_format }}
+                                </a>
+                            </td>
+                            <td class="align-middle">{{ bmcEntity.secResourceTotalAmount|number_format }}x</td>
+                            <td class="align-middle">{{ bmcEntity.journalTotalAmount|round(1,'ceil') }}x</td>
+                            <td class="align-middle {% if bmcEntity.item.sellOrderDate < timeThreshold %}bg-D{% endif %}">
+                                <a class="btn text-right w-100"
+                                   title="{{ bmcEntity.item.sellOrderDate|date('d.m H:i') }}min">
+                                    {{ bmcEntity.item.sellOrderPrice|number_format }}
+                                </a>
+                            </td>
+                            <td class="align-middle">{{ bmcEntity.amount|number_format }}x</td>
+                            {#                            <td class="align-middle">{{ bmcEntity.craftingFee|number_format }}</td> #}
+                            <td class="align-middle">{{ bmcEntity.profitBuy|number_format }}</td>
+                            <td class="align-middle">{{ bmcEntity.profitPercentageBuy|number_format }}</td>
+                            <td class="align-middle">{{ (bmcEntity.amount * bmcEntity.materialCostBuy)|number_format }}</td>
+                        </tr>
+                    {% endif %}
                 {% endfor %}
                 </tbody>
             </table>

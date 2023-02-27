@@ -73,6 +73,7 @@ changelogger clean
 * Codeception
 * add 10% and 20% Crafting Bonus
 * Luxury Goods
+* Amount for RoyalItesm /Capes
 
 ## Plans
 

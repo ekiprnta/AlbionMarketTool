@@ -50,6 +50,9 @@
                     <div class="alert alert-danger standard-alert">{{ alertMessage }}</div>
                 {% endif %}
             </div>
+            <div class="row mt-3">
+                Amount = FullSpec and 30k Focus
+            </div>
         </div>
     </div>
     <div class="card mt-3" id="resourceSell">
@@ -69,6 +72,7 @@
                     <th>Percentage</th>
                     <th>Amount</th>
                     <th>Total Profit</th>
+                    <th>Material Cost</th>
                     {#                    <td>Crafting Fee</td> #}
                 </tr>
                 </thead>
@@ -100,6 +104,7 @@
                         <td class="align-middle">{{ refiningEntity.profitPercentageSell|number_format }}</td>
                         <td class="align-middle">{{ refiningEntity.amount|number_format }}</td>
                         <td class="align-middle">{{ (refiningEntity.amount * refiningEntity.profitSell)|number_format }}</td>
+                        <td class="align-middle">{{ (refiningEntity.amount * refiningEntity.materialCostSell)|number_format }}</td>
                         {#                        <td class="align-middle">{{ refiningEntity.craftingFee }}</td> #}
                     </tr>
                 {% endfor %}
@@ -124,6 +129,7 @@
                     <th>Percentage</th>
                     <th>Amount</th>
                     <th>Total Profit</th>
+                    <th>MaterialCost</th>
                     {#                    <td>Crafting Fee</td> #}
                 </tr>
                 </thead>
@@ -155,6 +161,7 @@
                         <td class="align-middle">{{ refiningEntity.profitPercentageBuy|number_format }}</td>
                         <td class="align-middle">{{ refiningEntity.amount|number_format }}</td>
                         <td class="align-middle">{{ (refiningEntity.amount * refiningEntity.profitBuy)|number_format }}</td>
+                        <td class="align-middle">{{ (refiningEntity.amount * refiningEntity.materialCostBuy)|number_format }}</td>
                         {#                        <td class="align-middle">{{ refiningEntity.craftingFee }}</td> #}
                     </tr>
                 {% endfor %}
