@@ -149,7 +149,9 @@ class EnchantingServiceTest extends TestCase
         $this->enchantingService = new EnchantingService();
     }
 
-    /** @dataProvider provideAmount */
+    /**
+     * @dataProvider provideAmount
+     */
     public function testCalculateAmount(int $result, int $tier, int $resourceAmount): void
     {
         $config = [
@@ -164,11 +166,6 @@ class EnchantingServiceTest extends TestCase
 
     public function provideAmount(): array
     {
-        return [
-            [100, 52, 16],
-            [1, 84, 32],
-            [1000, 40, 24],
-            [750, 61, 8],
-        ];
+        return [[100, 52, 16], [1, 84, 32], [1000, 40, 24], [750, 61, 8]];
     }
 }
