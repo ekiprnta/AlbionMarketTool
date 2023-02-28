@@ -31,7 +31,7 @@ class AlbionItemEntityTest extends TestCase
 
     public function testGetId(): void
     {
-        $this->entity->setId(2);
+        $this->entity->setId(1);
         $this->assertEquals(1, $this->entity->getId());
     }
 
