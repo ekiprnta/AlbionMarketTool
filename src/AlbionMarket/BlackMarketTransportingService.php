@@ -96,7 +96,7 @@ class BlackMarketTransportingService extends Market
         $cityItemPrice = $cityItem->getBuyOrderPrice();
         $bmtEntity->setMaterialCostBuy($this->calculateBuyOrder($cityItemPrice));
         $bmtEntity->setProfitBuy(
-            $this->calculateProfit($bmItem->getBuyOrderPrice(), (int) $bmtEntity->getMaterialCostBuy())
+            $this->calculateProfit($bmItem->getSellOrderPrice(), (int) $bmtEntity->getMaterialCostBuy())
         );
         $bmtEntity->setProfitPercentageBuy(
             $this->calculateProfitPercentage($bmItem->getBuyOrderPrice(), $cityItemPrice)
