@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace MZierdt\Albion\repositories;
 
+use MZierdt\Albion\Entity\AlbionItemEntity;
 use MZierdt\Albion\Entity\ItemEntity;
 
 class ItemRepository extends Repository
 {
-    public function createOrUpdate(ItemEntity $itemEntity): void
+    public function createOrUpdate(ItemEntity|AlbionItemEntity $itemEntity): void
     {
         $oldItemEntity = $this->entityManager->getRepository(ItemEntity::class)->findOneBy(
             [
