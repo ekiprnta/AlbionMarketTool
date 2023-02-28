@@ -27,7 +27,7 @@ class UpdateBmCraftingCommand extends Command
         private readonly ItemRepository $itemRepository,
         private readonly ResourceRepository $resourceRepository,
         private readonly JournalRepository $journalRepository,
-        private readonly ConfigService $configService,
+        private readonly ConfigService $configService
     ) {
         parent::__construct();
     }
