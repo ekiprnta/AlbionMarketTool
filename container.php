@@ -16,6 +16,7 @@ use MZierdt\Albion\AlbionMarket\ListDataService;
 use MZierdt\Albion\AlbionMarket\NoSpecCraftingService;
 use MZierdt\Albion\AlbionMarket\RefiningService;
 use MZierdt\Albion\AlbionMarket\TransmutationService;
+use MZierdt\Albion\commands\TestCommandDeleteLater;
 use MZierdt\Albion\commands\UpdateBmCraftingCommand;
 use MZierdt\Albion\commands\UpdateBmTransportCommand;
 use MZierdt\Albion\commands\UpdateEnchantingCommand;
@@ -195,7 +196,8 @@ $serviceManager = new ServiceManager([
                     ListDataService::class,
                     ListDataRepository::class,
                     ResourceRepository::class,
-                ]
+                ],
+                TestCommandDeleteLater::class => [],
             ]
         ],
     ],

@@ -3,6 +3,7 @@
 
 declare(strict_types=1);
 
+use MZierdt\Albion\commands\TestCommandDeleteLater;
 use MZierdt\Albion\commands\UpdateBmCraftingCommand;
 use MZierdt\Albion\commands\UpdateBmTransportCommand;
 use MZierdt\Albion\commands\UpdateEnchantingCommand;
@@ -32,4 +33,5 @@ $app->add($container->get(UpdateTransmutationCommand::class));
 $app->add($container->get(UpdateEnchantingCommand::class));
 $app->add($container->get(UpdateNoSpecCraftingCommand::class));
 $app->add($container->get(UpdateListDataCommand::class));
+$app->add($container->get(TestCommandDeleteLater::class));
 $app->run();
