@@ -198,7 +198,7 @@ $serviceManager = new ServiceManager([
                     ListDataRepository::class,
                     ResourceRepository::class,
                 ],
-                TestCommandDeleteLater::class => [],
+                TestCommandDeleteLater::class => [ItemRepository::class],
                 CronCommand::class => [],
             ]
         ],

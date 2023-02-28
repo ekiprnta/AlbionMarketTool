@@ -72,19 +72,16 @@ services:
       - MYSQL_DATABASE=albion_db
 
   cron:
+    tty: true # Enables debugging capabilities when attached to this container.
     build: ./cron
-    restart: always
     volumes:
       - ../../:/app
-    #      - reports:/app/public/reports:rw
-    depends_on:
-      #      - memcached
-      - db_local
+    restart: always
     environment:
       APPLICATION_ENV: development
+    depends_on:
+      - db_local
     working_dir: /app
-
-
 
 volumes:
   db_data_local:
