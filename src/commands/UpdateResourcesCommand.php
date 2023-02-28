@@ -14,7 +14,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-#[AsCommand(name: 'update:resource', description: 'update Prices of Resource')]
+#[AsCommand(name: 'update:resources', description: 'update Prices of Resource')]
 class UpdateResourcesCommand extends Command
 {
     public function __construct(

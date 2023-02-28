@@ -10,7 +10,6 @@ use Cron\Job\ShellJob;
 use Cron\Report\CronReport;
 use Cron\Resolver\ArrayResolver;
 use Cron\Schedule\CrontabSchedule;
-use integration\AlbionMarket\BmTransportITest;
 use ReflectionClass;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -31,17 +30,17 @@ class CronCommand extends Command
     public function __construct()
     {
         $this->cliCommands = [
-            UpdateItemsCommand::class => '30 */1 * * *',
-            UpdateMaterialsCommand::class => '30 */1 * * *',
-            UpdateResourcesCommand::class => '30 */1 * * *',
-            UpdateJournalsCommand::class => '30 */1 * * *',
-            UpdateBmCraftingCommand::class => '5 */1 * * *',
-            BmTransportITest::class => '5 */1 * * *',
-            UpdateRefiningCommand::class => '5 */1 * * *',
-            UpdateTransmutationCommand::class => '5 */1 * * *',
-            UpdateNoSpecCraftingCommand::class => '5 */1 * * *',
-            UpdateEnchantingCommand::class => '5 */1 * * *',
-            UpdateListDataCommand::class => '5 */1 * * *',
+//            UpdateItemsCommand::class => '30 */1 * * *',
+//            UpdateMaterialsCommand::class => '30 */1 * * *',
+//            UpdateResourcesCommand::class => '30 */1 * * *',
+//            UpdateJournalsCommand::class => '30 */1 * * *',
+//            UpdateBmCraftingCommand::class => '5 */1 * * *',
+//            BmTransportITest::class => '5 */1 * * *',
+//            UpdateRefiningCommand::class => '5 */1 * * *',
+//            UpdateTransmutationCommand::class => '5 */1 * * *',
+//            UpdateNoSpecCraftingCommand::class => '5 */1 * * *',
+//            UpdateEnchantingCommand::class => '5 */1 * * *',
+//            UpdateListDataCommand::class => '5 */1 * * *',
             TestCommandDeleteLater::class => '* * * * *',
         ];
         parent::__construct();
