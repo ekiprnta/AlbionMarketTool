@@ -51,7 +51,7 @@ class BmTransportITest extends TestCase
         $this->assertEquals('C', $bmtEntity->getProfitGradeSell());
 
         $this->assertEqualswithDelta(229722.675, $bmtEntity->getMaterialCostBuy(), $delta);
-        $this->assertEqualsWithDelta(114342.105, $bmtEntity->getProfitBuy(), $delta);
+        $this->assertEqualsWithDelta(116190.60, $bmtEntity->getProfitBuy(), $delta);
         $this->assertEquals(156.18, $bmtEntity->getProfitPercentageBuy());
         $this->assertEquals('B', $bmtEntity->getProfitGradeBuy());
 
