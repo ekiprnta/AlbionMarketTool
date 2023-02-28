@@ -25,7 +25,6 @@ class TestCommandDeleteLater extends Command
         $entity = (new ItemEntity())
             ->setTier(99)
             ->setName($name)
-            ->setWeaponGroup('testWeapon')
             ->setCity('TestCity');
 
         $this->itemRepository->createOrUpdate($entity);

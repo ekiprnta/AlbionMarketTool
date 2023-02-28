@@ -12,7 +12,6 @@ class ItemRepository extends Repository
     {
         $oldItemEntity = $this->entityManager->getRepository(ItemEntity::class)->findOneBy(
             [
-                'weaponGroup' => $itemEntity->getWeaponGroup(),
                 'tier' => $itemEntity->getTier(),
                 'name' => $itemEntity->getName(),
                 'city' => $itemEntity->getCity(),
