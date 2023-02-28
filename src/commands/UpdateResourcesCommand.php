@@ -9,10 +9,12 @@ use MZierdt\Albion\repositories\ResourceRepository;
 use MZierdt\Albion\Service\ConfigService;
 use MZierdt\Albion\Service\ProgressBarService;
 use MZierdt\Albion\Service\UploadHelper;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[AsCommand(name: 'update:resource', description: 'update Prices of Resource')]
 class UpdateResourcesCommand extends Command
 {
     public function __construct(
@@ -85,12 +87,5 @@ class UpdateResourcesCommand extends Command
 
         $output->writeln(PHP_EOL . $message);
         return self::SUCCESS;
-    }
-
-    protected function configure()
-    {
-        $this->setName('update:resources');
-        $this->setDescription('update Prices of Resources');
-        $this->setHelp('updates Prices of Resources');
     }
 }

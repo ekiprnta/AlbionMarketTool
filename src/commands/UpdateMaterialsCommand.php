@@ -7,10 +7,12 @@ namespace MZierdt\Albion\commands;
 use MZierdt\Albion\AlbionDataAPI\MaterialsApiService;
 use MZierdt\Albion\repositories\MaterialRepository;
 use MZierdt\Albion\Service\UploadHelper;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[AsCommand(name: 'update:materials', description: 'update Prices of Materials')]
 class UpdateMaterialsCommand extends Command
 {
     public function __construct(
@@ -55,12 +57,5 @@ class UpdateMaterialsCommand extends Command
         }
 
         return self::SUCCESS;
-    }
-
-    protected function configure(): void
-    {
-        $this->setName('update:materials');
-        $this->setDescription('update Prices of Materials');
-        $this->setHelp('updates Prices of Materials');
     }
 }
