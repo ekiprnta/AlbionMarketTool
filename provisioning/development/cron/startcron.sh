@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
 # cat /var/spool/cron/crontabs/root
+#https://gitlab.mehrkanal.com/mehrkanal/dashboard/-/blob/develop/provisioning/development/cron/startcron.sh
+#https://stackoverflow.com/questions/4880290/how-do-i-create-a-crontab-through-a-script
+#https://www.cyberciti.biz/faq/linux-show-what-cron-jobs-are-setup
 
 echo "\
     * * * * * cd /app && /usr/local/bin/php bin/cli.php cron:execute > /cron_output
