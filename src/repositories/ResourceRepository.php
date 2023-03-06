@@ -15,15 +15,17 @@ class ResourceRepository extends Repository
                 'tier' => $resourceEntity->getTier(),
                 'name' => $resourceEntity->getName(),
                 'city' => $resourceEntity->getCity(),
+                'raw' => $resourceEntity->isRaw(),
             ]
         );
+
         if ($oldResourceEntity !== null) {
             if ($resourceEntity->getSellOrderPrice() !== 0) {
                 $oldResourceEntity->setSellOrderPrice($resourceEntity->getSellOrderPrice());
                 $oldResourceEntity->setSellOrderDate($resourceEntity->getSellOrderDate());
             }
             if ($resourceEntity->getBuyOrderPrice() !== 0) {
-                $oldResourceEntity->setBuyOrderDate($resourceEntity->getBuyOrderDate());
+                $oldResourceEntity->setBuyOrderPrice($resourceEntity->getBuyOrderPrice());
                 $oldResourceEntity->setBuyOrderDate($resourceEntity->getBuyOrderDate());
             }
             $this->update($oldResourceEntity);

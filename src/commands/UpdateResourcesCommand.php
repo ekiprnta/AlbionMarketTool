@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace MZierdt\Albion\commands;
 
 use MZierdt\Albion\AlbionDataAPI\ResourceApiService;
+use MZierdt\Albion\Entity\ResourceEntity;
 use MZierdt\Albion\repositories\ResourceRepository;
 use MZierdt\Albion\Service\ConfigService;
 use MZierdt\Albion\Service\ProgressBarService;
@@ -52,6 +53,8 @@ class UpdateResourcesCommand extends Command
             $adjustedResources = $this->uploadHelper->adjustResources($resourcesData, $resourceStats);
             $progressBar->setMessage('Upload Resource ' . $resourceStats['realName'] . ' into Database');
             $progressBar->display();
+
+            /** @var ResourceEntity $adjustedResource */
             foreach ($adjustedResources as $adjustedResource) {
                 $this->resourceRepository->createOrUpdate($adjustedResource);
             }
