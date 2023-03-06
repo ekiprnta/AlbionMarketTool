@@ -29,11 +29,11 @@ class UpdateListDataCommand extends Command
     {
         $type = 'Resources';
         $output->writeln('Updating ListData ' . $type . '...');
-        $fortSterlingResources = $this->resourceRepository->getRawResourcesByCity('Fort Sterling');
-        $lymhurstResources = $this->resourceRepository->getRawResourcesByCity('Lymhurst');
-        $bridgewatchResources = $this->resourceRepository->getRawResourcesByCity('Bridgewatch');
-        $martlockResources = $this->resourceRepository->getRawResourcesByCity('Martlock');
-        $thetfordResources = $this->resourceRepository->getRawResourcesByCity('Thetford');
+        $fortSterlingResources = $this->resourceRepository->getResourcesByCity('Fort Sterling');
+        $lymhurstResources = $this->resourceRepository->getResourcesByCity('Lymhurst');
+        $bridgewatchResources = $this->resourceRepository->getResourcesByCity('Bridgewatch');
+        $martlockResources = $this->resourceRepository->getResourcesByCity('Martlock');
+        $thetfordResources = $this->resourceRepository->getResourcesByCity('Thetford');
         $this->getListDataEntities(
             $type,
             $fortSterlingResources,
@@ -46,11 +46,11 @@ class UpdateListDataCommand extends Command
 
         $type = 'Raw Resources';
         $output->writeln(PHP_EOL . 'Updating ListData ' . $type . '...');
-        $fortSterlingRawResources = $this->resourceRepository->getResourcesByCity('Fort Sterling');
-        $lymhurstRawResources = $this->resourceRepository->getResourcesByCity('Lymhurst');
-        $bridgewatchRawResources = $this->resourceRepository->getResourcesByCity('Bridgewatch');
-        $martlockRawResources = $this->resourceRepository->getResourcesByCity('Martlock');
-        $thetfordRawResources = $this->resourceRepository->getResourcesByCity('Thetford');
+        $fortSterlingRawResources = $this->resourceRepository->getRawResourcesByCity('Fort Sterling');
+        $lymhurstRawResources = $this->resourceRepository->getRawResourcesByCity('Lymhurst');
+        $bridgewatchRawResources = $this->resourceRepository->getRawResourcesByCity('Bridgewatch');
+        $martlockRawResources = $this->resourceRepository->getRawResourcesByCity('Martlock');
+        $thetfordRawResources = $this->resourceRepository->getRawResourcesByCity('Thetford');
         $this->getListDataEntities(
             $type,
             $fortSterlingRawResources,
