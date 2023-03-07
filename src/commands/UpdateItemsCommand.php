@@ -10,10 +10,12 @@ use MZierdt\Albion\repositories\ItemRepository;
 use MZierdt\Albion\Service\ConfigService;
 use MZierdt\Albion\Service\ProgressBarService;
 use MZierdt\Albion\Service\UploadHelper;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[AsCommand(name: 'update:items', description: 'update Prices of Items')]
 class UpdateItemsCommand extends Command
 {
     public function __construct(
@@ -87,12 +89,5 @@ class UpdateItemsCommand extends Command
 
         $output->writeln(PHP_EOL . $message);
         return self::SUCCESS;
-    }
-
-    protected function configure(): void
-    {
-        $this->setName('update:items');
-        $this->setDescription('update Prices of Items');
-        $this->setHelp('updates Prices of Items');
     }
 }

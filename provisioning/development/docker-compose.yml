@@ -71,6 +71,17 @@ services:
       - MYSQL_USER=flyka
       - MYSQL_DATABASE=albion_db
 
+  cron:
+    tty: true # Enables debugging capabilities when attached to this container.
+    build: ./cron
+    volumes:
+      - ../../:/app
+    restart: always
+    environment:
+      APPLICATION_ENV: development
+    depends_on:
+      - db_local
+    working_dir: /app
 
 volumes:
   db_data_local:
