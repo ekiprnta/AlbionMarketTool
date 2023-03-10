@@ -194,48 +194,8 @@ class BlackMarketCraftingService extends Market
             )
         );
 
-        //Focus
         $primResource = $bmcEntity->getPrimResource();
         $secResource = $bmcEntity->getSecResource();
-        $primResourceCostSell = $primResource->getBuyOrderPrice() * $itemEntity->getPrimaryResourceAmount();
-        $secResourceCostSell = $secResource->getBuyOrderPrice() * $itemEntity->getSecondaryResourceAmount();
-        $bmcEntity->setMaterialCostSell(
-            $this->calculateMaterialCost(
-                $primResourceCostSell + $secResourceCostSell,
-                $bmcEntity->getJournalEntityEmpty()
-                    ->getBuyOrderPrice(),
-                $bmcEntity->getJournalAmountPerItem(),
-                47.9
-            )
-        );
-        $bmcEntity->setProfitSell(
-            $this->calculateProfit($itemEntity->getSellOrderPrice(), $bmcEntity->getMaterialCostSell())
-        );
-        $bmcEntity->setProfitPercentageSell(
-            $this->calculateProfitPercentage($itemEntity->getSellOrderPrice(), $bmcEntity->getMaterialCostSell())
-        );
-        $bmcEntity->setProfitGradeSell($this->calculateProfitGrade($bmcEntity->getProfitPercentageSell()));
-
-        //No Focus
-        $primResourceCostBuy = $primResource->getBuyOrderPrice() * $itemEntity->getPrimaryResourceAmount();
-        $secResourceCostBuy = $secResource->getBuyOrderPrice() * $itemEntity->getSecondaryResourceAmount();
-        $bmcEntity->setMaterialCostBuy(
-            $this->calculateMaterialCost(
-                $primResourceCostBuy + $secResourceCostBuy,
-                $bmcEntity->getJournalEntityEmpty()
-                    ->getBuyOrderPrice(),
-                $bmcEntity->getJournalAmountPerItem(),
-                24.8
-            )
-        );
-        $bmcEntity->setProfitBuy(
-            $this->calculateProfit($itemEntity->getSellOrderPrice(), $bmcEntity->getMaterialCostBuy())
-        );
-        $bmcEntity->setProfitPercentageBuy(
-            $this->calculateProfitPercentage($itemEntity->getSellOrderPrice(), $bmcEntity->getMaterialCostBuy())
-        );
-        $bmcEntity->setProfitGradeBuy($this->calculateProfitGrade($bmcEntity->getProfitPercentageBuy()));
-
         $bmcEntity->setComplete(
             $this->isComplete([
                 $itemEntity->getSellOrderPrice(),
