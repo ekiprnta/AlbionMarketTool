@@ -74,6 +74,7 @@ changelogger clean
 * add 10% and 20% Crafting Bonus
 * Luxury Goods
 * Amount for RoyalItesm /Capes
+* No Buy Order security ( 10% from sellOrder)
 
 ## Plans
 
