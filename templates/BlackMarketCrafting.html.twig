@@ -91,6 +91,7 @@
                     <th>Profit</th>
                     <th>Percentage</th>
                     <th>MaterialCost</th>
+                    <th>WeaponGroup</th>
                 </tr>
                 </thead>
                 <tbody class="text-right">
@@ -126,6 +127,7 @@
                             <td class="align-middle">{{ bmcEntity.profitSell|number_format }}</td>
                             <td class="align-middle">{{ bmcEntity.profitPercentageSell|number_format }}</td>
                             <td class="align-middle">{{ (bmcEntity.amount * bmcEntity.materialCostSell)|number_format }}</td>
+                            <td class="align-middle">{{ bmcEntity.item.weaponGroup }}</td>
                         </tr>
                     {% endif %}
                 {% endfor %}
@@ -154,6 +156,7 @@
                     <th>Profit</th>
                     <th>Percentage</th>
                     <th>MaterialCost</th>
+                    <th>WeaponGroup</th>
                 </tr>
                 </thead>
                 <tbody class="text-right">
@@ -189,6 +192,7 @@
                             <td class="align-middle">{{ bmcEntity.profitBuy|number_format }}</td>
                             <td class="align-middle">{{ bmcEntity.profitPercentageBuy|number_format }}</td>
                             <td class="align-middle">{{ (bmcEntity.amount * bmcEntity.materialCostBuy)|number_format }}</td>
+                            <td class="align-middle">{{ bmcEntity.item.weaponGroup }}</td>
                         </tr>
                     {% endif %}
                 {% endfor %}

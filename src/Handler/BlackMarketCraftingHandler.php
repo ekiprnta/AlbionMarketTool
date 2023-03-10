@@ -7,7 +7,6 @@ namespace MZierdt\Albion\Handler;
 use InvalidArgumentException;
 use Laminas\Diactoros\Response\HtmlResponse;
 use MZierdt\Albion\AlbionMarket\BlackMarketCraftingService;
-use MZierdt\Albion\AlbionMarket\CraftingService;
 use MZierdt\Albion\repositories\AdvancedRepository\BlackMarketCraftingRepository;
 use MZierdt\Albion\Service\TimeService;
 use Twig\Environment;

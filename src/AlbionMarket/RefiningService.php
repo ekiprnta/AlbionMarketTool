@@ -101,7 +101,6 @@ class RefiningService extends Market
         $lowerTier = $this->calculateLowerResourceTier($refinedResource->getTier());
         $refiningEntity->setLowerResource($this->calculateResource($lowerTier, $resources));
 
-
         $rawResource = $refiningEntity->getRawResource();
         $lowerResource = $refiningEntity->getLowerResource();
         $refiningEntity->setComplete(
@@ -137,10 +136,7 @@ class RefiningService extends Market
             )
         );
         $refiningEntity->setProfitSell(
-            $this->calculateProfit(
-                $refinedResource->getSellOrderPrice(),
-                $refiningEntity->getMaterialCostSell()
-            )
+            $this->calculateProfit($refinedResource->getSellOrderPrice(), $refiningEntity->getMaterialCostSell())
         );
         $refiningEntity->setProfitPercentageSell(
             $this->calculateProfitPercentage(

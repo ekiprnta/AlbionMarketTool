@@ -210,20 +210,12 @@ class BlackMarketCraftingService extends Market
             )
         );
         $bmcEntity->setProfitSell(
-            $this->calculateProfit(
-                $itemEntity->getSellOrderPrice(),
-                $bmcEntity->getMaterialCostSell()
-            )
+            $this->calculateProfit($itemEntity->getSellOrderPrice(), $bmcEntity->getMaterialCostSell())
         );
         $bmcEntity->setProfitPercentageSell(
-            $this->calculateProfitPercentage(
-                $itemEntity->getSellOrderPrice(),
-                $bmcEntity->getMaterialCostSell()
-            )
+            $this->calculateProfitPercentage($itemEntity->getSellOrderPrice(), $bmcEntity->getMaterialCostSell())
         );
-        $bmcEntity->setProfitGradeSell(
-            $this->calculateProfitGrade($bmcEntity->getProfitPercentageSell())
-        );
+        $bmcEntity->setProfitGradeSell($this->calculateProfitGrade($bmcEntity->getProfitPercentageSell()));
 
         $primResourceCostBuy = $primResource->getBuyOrderPrice() * $itemEntity->getPrimaryResourceAmount();
         $secResourceCostBuy = $secResource->getBuyOrderPrice() * $itemEntity->getSecondaryResourceAmount();
@@ -237,20 +229,12 @@ class BlackMarketCraftingService extends Market
             )
         );
         $bmcEntity->setProfitBuy(
-            $this->calculateProfit(
-                $itemEntity->getSellOrderPrice(),
-                $bmcEntity->getMaterialCostBuy()
-            )
+            $this->calculateProfit($itemEntity->getSellOrderPrice(), $bmcEntity->getMaterialCostBuy())
         );
         $bmcEntity->setProfitPercentageBuy(
-            $this->calculateProfitPercentage(
-                $itemEntity->getSellOrderPrice(),
-                $bmcEntity->getMaterialCostBuy()
-            )
+            $this->calculateProfitPercentage($itemEntity->getSellOrderPrice(), $bmcEntity->getMaterialCostBuy())
         );
-        $bmcEntity->setProfitGradeBuy(
-            $this->calculateProfitGrade($bmcEntity->getProfitPercentageBuy())
-        );
+        $bmcEntity->setProfitGradeBuy($this->calculateProfitGrade($bmcEntity->getProfitPercentageBuy()));
         return $bmcEntity;
     }
 }
