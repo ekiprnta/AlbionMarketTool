@@ -34,17 +34,19 @@ class RefiningITest extends TestCase
             'TestCity'
         );
 
+        $refiningService->calculateProfitByPercentage($refiningEntity, 53.9);
+
         $this->assertEquals('TestCity', $refiningEntity->getCity());
 
-        $this->assertEqualswithDelta(19815.163, $refiningEntity->getMaterialCostSell(), $delta);
-        $this->assertEqualsWithDelta(751.097, $refiningEntity->getProfitSell(), $delta);
-        $this->assertEquals(111, $refiningEntity->getProfitPercentageSell());
+        $this->assertEqualswithDelta(20814.15, $refiningEntity->getMaterialCostSell(), $delta);
+        $this->assertEqualsWithDelta(-247.89, $refiningEntity->getProfitSell(), $delta);
+        $this->assertEquals(105.67, $refiningEntity->getProfitPercentageSell());
         $this->assertEquals('C', $refiningEntity->getProfitGradeSell());
 
-        $this->assertEqualswithDelta(27208.239, $refiningEntity->getMaterialCostBuy(), $delta);
-        $this->assertEqualsWithDelta(-6641.979, $refiningEntity->getProfitBuy(), $delta);
-        $this->assertEquals(80.84, $refiningEntity->getProfitPercentageBuy());
-        $this->assertEquals('D', $refiningEntity->getProfitGradeBuy());
+        $this->assertEqualswithDelta(19815.163, $refiningEntity->getMaterialCostBuy(), $delta);
+        $this->assertEqualsWithDelta(751.097, $refiningEntity->getProfitBuy(), $delta);
+        $this->assertEquals(111, $refiningEntity->getProfitPercentageBuy());
+        $this->assertEquals('C', $refiningEntity->getProfitGradeBuy());
 
         $this->assertEquals(968, $refiningEntity->getAmount());
         $this->assertEquals(7, $refiningEntity->getTierColor());
