@@ -68,33 +68,9 @@ class BlackMarketCraftingService extends Market
         return $nutrition * $feeProHundredNutrition / 100;
     }
 
-    public function calculateProfitA(
-        int $totalAmount,
-        int $itemPrice,
-        float $itemCost,
-        float $percentage,
-        float $craftingFee,
-        float $profitJournals,
-    ): float {
-        $profit = $this->calculateProfitByPercentage($totalAmount, $itemPrice, $itemCost, $percentage);
-
-        return $profit - $craftingFee + $profitJournals;
-    }
-
     public function calculateProfitJournals(int $emptyJournalPrice, int $fullJournalPrice, float $journalAmount): float
     {
         return ($this->calculateSellOrder($fullJournalPrice) - $emptyJournalPrice) * $journalAmount;
-    }
-
-    private function calculateProfitByPercentage(
-        int $totalAmount,
-        int $itemPrice,
-        float $itemCost,
-        float $percentage
-    ): float {
-        $rate = (self::RRR_BASE_PERCENTAGE - $percentage) / 100;
-        $itemSellPrice = $this->calculateSellOrder($itemPrice);
-        return ($itemSellPrice - ($itemCost * $rate)) * $totalAmount;
     }
 
     public function calculateItemValue(int $totalAmount, int $price): int
@@ -211,6 +187,70 @@ class BlackMarketCraftingService extends Market
         );
         $bmcEntity->setCity($city);
 
+        return $bmcEntity;
+    }
+
+    public function calculateProfitByPercentage(
+        BlackMarketCraftingEntity $bmcEntity,
+        float $percentage
+    ): BlackMarketCraftingEntity {
+        $itemEntity = $bmcEntity->getItem();
+
+        $primResource = $bmcEntity->getPrimResource();
+        $secResource = $bmcEntity->getSecResource();
+        $primResourceCostSell = $primResource->getSellOrderPrice() * $itemEntity->getPrimaryResourceAmount();
+        $secResourceCostSell = $secResource->getSellOrderPrice() * $itemEntity->getSecondaryResourceAmount();
+        $bmcEntity->setMaterialCostSell(
+            $this->calculateMaterialCost(
+                $primResourceCostSell + $secResourceCostSell,
+                $bmcEntity->getJournalEntityEmpty()
+                    ->getBuyOrderPrice(),
+                $bmcEntity->getJournalAmountPerItem(),
+                $percentage
+            )
+        );
+        $bmcEntity->setProfitSell(
+            $this->calculateProfit(
+                $itemEntity->getSellOrderPrice(),
+                $bmcEntity->getMaterialCostSell()
+            )
+        );
+        $bmcEntity->setProfitPercentageSell(
+            $this->calculateProfitPercentage(
+                $itemEntity->getSellOrderPrice(),
+                $bmcEntity->getMaterialCostSell()
+            )
+        );
+        $bmcEntity->setProfitGradeSell(
+            $this->calculateProfitGrade($bmcEntity->getProfitPercentageSell())
+        );
+
+        $primResourceCostBuy = $primResource->getBuyOrderPrice() * $itemEntity->getPrimaryResourceAmount();
+        $secResourceCostBuy = $secResource->getBuyOrderPrice() * $itemEntity->getSecondaryResourceAmount();
+        $bmcEntity->setMaterialCostBuy(
+            $this->calculateMaterialCost(
+                $primResourceCostBuy + $secResourceCostBuy,
+                $bmcEntity->getJournalEntityEmpty()
+                    ->getBuyOrderPrice(),
+                $bmcEntity->getJournalAmountPerItem(),
+                $percentage
+            )
+        );
+        $bmcEntity->setProfitBuy(
+            $this->calculateProfit(
+                $itemEntity->getSellOrderPrice(),
+                $bmcEntity->getMaterialCostBuy()
+            )
+        );
+        $bmcEntity->setProfitPercentageBuy(
+            $this->calculateProfitPercentage(
+                $itemEntity->getSellOrderPrice(),
+                $bmcEntity->getMaterialCostBuy()
+            )
+        );
+        $bmcEntity->setProfitGradeBuy(
+            $this->calculateProfitGrade($bmcEntity->getProfitPercentageBuy())
+        );
         return $bmcEntity;
     }
 }

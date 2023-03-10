@@ -121,4 +121,56 @@ class RefiningService extends Market
 
         return $refiningEntity;
     }
+
+    public function calculateProfitByPercentage(RefiningEntity $refiningEntity, float $percentage): RefiningEntity
+    {
+        $refinedResource = $refiningEntity->getRefinedResource();
+
+        $rawResource = $refiningEntity->getRawResource();
+        $lowerResource = $refiningEntity->getLowerResource();
+        $refiningEntity->setMaterialCostSell(
+            $this->calculateResourceCost(
+                $rawResource->getSellOrderPrice(),
+                $lowerResource->getSellOrderPrice(),
+                $refiningEntity->getAmountRawResource(),
+                $percentage
+            )
+        );
+        $refiningEntity->setProfitSell(
+            $this->calculateProfit(
+                $refinedResource->getSellOrderPrice(),
+                $refiningEntity->getMaterialCostSell()
+            )
+        );
+        $refiningEntity->setProfitPercentageSell(
+            $this->calculateProfitPercentage(
+                $refinedResource->getSellOrderPrice(),
+                $refiningEntity->getMaterialCostSell()
+            )
+        );
+        $refiningEntity->setProfitGradeSell(
+            $this->calculateProfitGrade($refiningEntity->getProfitPercentageSell())
+        );
+
+        $refiningEntity->setMaterialCostBuy(
+            $this->calculateResourceCost(
+                $rawResource->getBuyOrderPrice(),
+                $lowerResource->getBuyOrderPrice(),
+                $refiningEntity->getAmountRawResource(),
+                $percentage
+            )
+        );
+        $refiningEntity->setProfitBuy(
+            $this->calculateProfit($refinedResource->getSellOrderPrice(), $refiningEntity->getMaterialCostBuy())
+        );
+        $refiningEntity->setProfitPercentageBuy(
+            $this->calculateProfitPercentage(
+                $refinedResource->getSellOrderPrice(),
+                $refiningEntity->getMaterialCostBuy()
+            )
+        );
+        $refiningEntity->setProfitGradeBuy($this->calculateProfitGrade($refiningEntity->getProfitPercentageBuy()));
+
+        return $refiningEntity;
+    }
 }
