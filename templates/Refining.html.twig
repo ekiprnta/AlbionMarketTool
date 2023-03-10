@@ -100,16 +100,16 @@
                                 {{ refiningEntity.refinedResource.sellOrderPrice|number_format }}
                             </a>
                         </td>
-                        <td class="align-middle {% if refiningEntity.rawResource.buyOrderDate < timeThreshold %} bg-D {% endif %}">
+                        <td class="align-middle {% if refiningEntity.rawResource.sellOrderDate < timeThreshold %} bg-D {% endif %}">
                             <a class="btn text-right w-100"
-                               title="{{ refiningEntity.rawResource.buyOrderDate|date('d.m H:i') }}min">
-                                {{ refiningEntity.rawResource.buyOrderPrice|number_format }}
+                               title="{{ refiningEntity.rawResource.sellOrderDate|date('d.m H:i') }}min">
+                                {{ refiningEntity.rawResource.sellOrderPrice|number_format }}
                             </a>
                         </td>
-                        <td class="align-middle {% if refiningEntity.lowerResource.buyOrderDate < timeThreshold %} bg-D {% endif %}">
+                        <td class="align-middle {% if refiningEntity.lowerResource.sellOrderDate < timeThreshold %} bg-D {% endif %}">
                             <a class="btn text-right w-100"
-                               title="{{ refiningEntity.lowerResource.buyOrderDate|date('d.m H:i') }}min">
-                                {{ refiningEntity.lowerResource.buyOrderPrice|number_format }}
+                               title="{{ refiningEntity.lowerResource.sellOrderDate|date('d.m H:i') }}min">
+                                {{ refiningEntity.lowerResource.sellOrderPrice|number_format }}
                             </a>
                         </td>
                         <td class="align-middle">{{ refiningEntity.profitSell|number_format }}</td>

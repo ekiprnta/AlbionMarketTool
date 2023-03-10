@@ -109,10 +109,11 @@ $serviceManager = new ServiceManager([
                     BlackMarketCraftingRepository::class,
                     BlackMarketCraftingService::class,
                     RefiningRepository::class,
+                    RefiningService::class,
                 ],
                 RefiningHandler::class => [
                     Environment::class,
-                    RefiningRepository::class,
+                    CraftingService::class,
                 ],
                 RefiningRepository::class => [
                     EntityManager::class,

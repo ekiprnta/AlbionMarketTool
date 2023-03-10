@@ -3,7 +3,7 @@
 namespace MZierdt\Albion\Handler;
 
 use Laminas\Diactoros\Response\HtmlResponse;
-use MZierdt\Albion\repositories\AdvancedRepository\RefiningRepository;
+use MZierdt\Albion\AlbionMarket\CraftingService;
 use MZierdt\Albion\Service\TimeService;
 use Twig\Environment;
 
@@ -11,7 +11,7 @@ class RefiningHandler
 {
     public function __construct(
         private readonly Environment $twigEnvironment,
-        private readonly RefiningRepository $refiningRepository,
+        private readonly CraftingService $craftingService,
     ) {
     }
 
@@ -23,8 +23,9 @@ class RefiningHandler
         if (! empty($_GET)) {
             $request = $_GET;
             $itemCity = $request['itemCity'];
+            $percentage = (float) $request['rrr'];
             try {
-                $cityData = $this->refiningRepository->getAllRefiningByCity($itemCity);
+                $cityData = $this->craftingService->getAllRefiningByCity($itemCity, $percentage);
             } catch (\InvalidArgumentException $invalidArgumentException) {
                 $alertMessage = $invalidArgumentException->getMessage();
             }

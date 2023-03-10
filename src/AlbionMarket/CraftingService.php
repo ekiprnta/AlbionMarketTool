@@ -5,16 +5,17 @@ declare(strict_types=1);
 namespace MZierdt\Albion\AlbionMarket;
 
 use MZierdt\Albion\Entity\AdvancedEntities\BlackMarketCraftingEntity;
-use MZierdt\Albion\Entity\AdvancedEntities\MarketEntity;
+use MZierdt\Albion\Entity\AdvancedEntities\RefiningEntity;
 use MZierdt\Albion\repositories\AdvancedRepository\BlackMarketCraftingRepository;
 use MZierdt\Albion\repositories\AdvancedRepository\RefiningRepository;
 
-class CraftingService extends MarketEntity
+class CraftingService extends Market
 {
     public function __construct(
         private readonly BlackMarketCraftingRepository $blackMarketCraftingRepository,
         private readonly BlackMarketCraftingService $blackMarketCraftingService,
         private readonly RefiningRepository $refiningRepository,
+        private readonly RefiningService $refiningService,
     ) {
     }
 
@@ -88,6 +89,63 @@ class CraftingService extends MarketEntity
         }
 
         return $bmCraftingEntities;
+    }
+
+    public function getAllRefiningByCity(string $itemCity, float $percentage): array
+    {
+        $refiningEntities = $this->refiningRepository->getAllRefiningByCity($itemCity);
+
+        /** @var RefiningEntity $refiningEntity */
+        foreach ($refiningEntities as $refiningEntity) {
+            $refinedResource = $refiningEntity->getRefinedResource();
+
+            $rawResource = $refiningEntity->getRawResource();
+            $lowerResource = $refiningEntity->getLowerResource();
+            $refiningEntity->setMaterialCostSell(
+                $this->refiningService->calculateResourceCost(
+                    $rawResource->getSellOrderPrice(),
+                    $lowerResource->getSellOrderPrice(),
+                    $refiningEntity->getAmountRawResource(),
+                    $percentage
+                )
+            );
+            $refiningEntity->setProfitSell(
+                $this->refiningService->calculateProfit(
+                    $refinedResource->getSellOrderPrice(),
+                    $refiningEntity->getMaterialCostSell()
+                )
+            );
+            $refiningEntity->setProfitPercentageSell(
+                $this->refiningService->calculateProfitPercentage(
+                    $refinedResource->getSellOrderPrice(),
+                    $refiningEntity->getMaterialCostSell()
+                )
+            );
+            $refiningEntity->setProfitGradeSell(
+                $this->calculateProfitGrade($refiningEntity->getProfitPercentageSell())
+            );
+
+            $refiningEntity->setMaterialCostBuy(
+                $this->refiningService->calculateResourceCost(
+                    $rawResource->getBuyOrderPrice(),
+                    $lowerResource->getBuyOrderPrice(),
+                    $refiningEntity->getAmountRawResource(),
+                    $percentage
+                )
+            );
+            $refiningEntity->setProfitBuy(
+                $this->calculateProfit($refinedResource->getSellOrderPrice(), $refiningEntity->getMaterialCostBuy())
+            );
+            $refiningEntity->setProfitPercentageBuy(
+                $this->calculateProfitPercentage(
+                    $refinedResource->getSellOrderPrice(),
+                    $refiningEntity->getMaterialCostBuy()
+                )
+            );
+            $refiningEntity->setProfitGradeBuy($this->calculateProfitGrade($refiningEntity->getProfitPercentageBuy()));
+        }
+
+        return $refiningEntities;
     }
 
 }
