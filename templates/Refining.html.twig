@@ -20,16 +20,13 @@
                                 </div>
                             </div>
                             <div class="col-2">
-                                <label for="percentage">
-                                    Resource Return Rate*
-                                </label>
-                                <input class="form-control"
-                                       id="percentage"
-                                       max="100"
-                                       min="0"
-                                       name="rrr"
-                                       step="0.1"
-                                       type="number">
+                                <label for="percentage">Resource Return Rate *</label>
+                                <input name="rrr" type="number" list="percentageOptions" class="form-control"
+                                       id="percentage" placeholder="Default Value 53.9%" step="0.1">
+                                <datalist id="percentageOptions">
+                                    <option value="36.7">36.7% - Base Refining</option>
+                                    <option value="53.9">53.9% - Focus Refining</option>
+                                </datalist>
                             </div>
                             {#                            <div class="col-2"> #}
                             {#                                <label for="craftingFee"> #}

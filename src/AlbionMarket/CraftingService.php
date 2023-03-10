@@ -93,6 +93,10 @@ class CraftingService extends Market
 
     public function getAllRefiningByCity(string $itemCity, float $percentage): array
     {
+        if (empty($percentage)) {
+            $percentage = 53.9;
+        }
+
         $refiningEntities = $this->refiningRepository->getAllRefiningByCity($itemCity);
 
         /** @var RefiningEntity $refiningEntity */
