@@ -35,33 +35,38 @@ class UpdateBmCraftingCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $bmSells = $this->configService->getBlackMarketSells();
+        $bonusResources = $this->resourceRepository->getBonusResources();
 
         $city = 'Fort Sterling';
         $output->writeln('Updating BlackMarketCrafting from ' . $city . '...');
-        $this->updateCalculations($city, $bmSells, $output);
+        $this->updateCalculations($city, $bmSells, $bonusResources, $output);
 
         $city = 'Lymhurst';
         $output->writeln(PHP_EOL . 'Updating BlackMarketCrafting from ' . $city . '...');
-        $this->updateCalculations($city, $bmSells, $output);
+        $this->updateCalculations($city, $bmSells, $bonusResources, $output);
 
         $city = 'Bridgewatch';
         $output->writeln(PHP_EOL . 'Updating BlackMarketCrafting from ' . $city . '...');
-        $this->updateCalculations($city, $bmSells, $output);
+        $this->updateCalculations($city, $bmSells, $bonusResources, $output);
 
         $city = 'Martlock';
         $output->writeln(PHP_EOL . 'Updating BlackMarketCrafting from ' . $city . '...');
-        $this->updateCalculations($city, $bmSells, $output);
+        $this->updateCalculations($city, $bmSells, $bonusResources, $output);
 
         $city = 'Thetford';
         $output->writeln(PHP_EOL . 'Updating BlackMarketCrafting from ' . $city . '...');
-        $this->updateCalculations($city, $bmSells, $output);
+        $this->updateCalculations($city, $bmSells, $bonusResources, $output);
 
         $output->writeln(PHP_EOL . 'Done');
         return self::SUCCESS;
     }
 
-    private function updateCalculations(string $city, array $bmSells, OutputInterface $output): void
-    {
+    private function updateCalculations(
+        string $city,
+        array $bmSells,
+        array $bonusResources,
+        OutputInterface $output
+    ): void {
         $items = $this->itemRepository->getBlackMarketItemsFromCity($city);
         $resources = $this->resourceRepository->getResourcesByCity($city);
         $journals = $this->journalRepository->getJournalsFromCity($city);
@@ -80,9 +85,23 @@ class UpdateBmCraftingCommand extends Command
             $progressBar->advance();
             $progressBar->display();
 
-            $this->blackMarketCraftingService->calculateBmcEntity($bmcEntity, $resources, $journals, $bmSells, $city);
-
-            $this->blackMarketCraftingRepository->createOrUpdate($bmcEntity);
+            $bmcEntityResources = $this->blackMarketCraftingService->calculateBmcEntity(
+                $bmcEntity,
+                $resources,
+                $journals,
+                $bmSells,
+                $city
+            );
+            $this->blackMarketCraftingRepository->createOrUpdate($bmcEntityResources);
+            $bmcEntityBonusResources = $this->blackMarketCraftingService->calculateBmcEntity(
+                $bmcEntity,
+                $bonusResources,
+                $journals,
+                $bmSells,
+                $city
+            );
+            $bmcEntityBonusResources->setBonusResource(true);
+            $this->blackMarketCraftingRepository->createOrUpdate($bmcEntityBonusResources);
         }
         $progressBar->setMessage('Update in ' . $city . ' finished');
         $progressBar->finish();

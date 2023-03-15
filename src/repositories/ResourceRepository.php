@@ -67,4 +67,14 @@ class ResourceRepository extends Repository
             'city' => $city,
         ]) ?? [];
     }
+
+    public function getBonusResources()
+    {
+        return $this->entityManager->getRepository(ResourceEntity::class)
+            ->createQueryBuilder('r')
+            ->where('r.city = r.bonusCity')
+            ->andWhere('r.raw = false')
+            ->getQuery()
+            ->getResult();
+    }
 }

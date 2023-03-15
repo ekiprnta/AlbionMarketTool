@@ -26,6 +26,7 @@ class BlackMarketCraftingRepository extends Repository
             [
                 'city' => $blackMarketCraftingEntity->getCity(),
                 'item' => $blackMarketCraftingEntity->getItem(),
+                'bonusResource' => $blackMarketCraftingEntity->isBonusResource(),
             ]
         );
 
