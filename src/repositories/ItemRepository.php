@@ -84,4 +84,13 @@ class ItemRepository extends Repository
             ->getQuery()
             ->getResult() ?? [];
     }
+
+    public function getAccessoires(): array
+    {
+        return $this->findBy(ItemEntity::class, [
+            'city' => 'Black Market',
+            'blackMarketSellable' => true,
+            'weaponGroup' => 'accessories'
+        ]) ?? [];
+    }
 }
