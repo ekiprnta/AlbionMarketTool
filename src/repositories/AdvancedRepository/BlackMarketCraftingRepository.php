@@ -9,11 +9,12 @@ use MZierdt\Albion\repositories\Repository;
 
 class BlackMarketCraftingRepository extends Repository
 {
-    public function getAllBmCraftingByCity(string $city): array
+    public function getAllBmCraftingByCity(string $city, int $bonusResource): array
     {
         return $this->findBy(BlackMarketCraftingEntity::class, [
             'complete' => true,
             'city' => $city,
+            'bonusResource' => $bonusResource,
         ]);
     }
 
