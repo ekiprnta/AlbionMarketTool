@@ -30,7 +30,7 @@ class BlackMarketCraftingHandler
             $itemCity = $_GET['itemCity'];
             $percentage = (float) $_GET['rrr'];
             $bonusResource = true;
-            if (empty ($_GET['bonusResource'])) {
+            if (empty($_GET['bonusResource'])) {
                 $bonusResource = false;
             }
             if (empty($percentage)) {
