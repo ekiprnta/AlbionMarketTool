@@ -57,12 +57,25 @@ class BlackMarketCraftingEntity extends MarketEntity
     private ?float $craftingFee;
     #[Column(type: 'float', nullable: true)]
     private ?float $profitJournals;
+    #[Column(type: 'boolean')]
+    private bool $bonusResource = false;
 
     public function __construct(ItemEntity $item)
     {
         $this->item = $item;
         $this->secResource = ResourceEntityFactory::getEmptyResourceEntity();
         $this->tierColor = (int) ($item->getTier() / 10);
+    }
+
+    public function isBonusResource(): bool
+    {
+        return $this->bonusResource;
+    }
+
+    public function setBonusResource(bool $bonusResource): self
+    {
+        $this->bonusResource = $bonusResource;
+        return $this;
     }
 
     public function setJournalEntityEmpty(JournalEntity $journalEntityEmpty): void
