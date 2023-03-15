@@ -90,7 +90,7 @@ class ItemRepository extends Repository
         return $this->findBy(ItemEntity::class, [
             'city' => 'Black Market',
             'blackMarketSellable' => true,
-            'weaponGroup' => 'accessories'
+            'weaponGroup' => 'accessories',
         ]) ?? [];
     }
 }
