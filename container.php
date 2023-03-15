@@ -29,6 +29,7 @@ use MZierdt\Albion\commands\UpdateMaterialsCommand;
 use MZierdt\Albion\commands\UpdateNoSpecCraftingCommand;
 use MZierdt\Albion\commands\UpdateRefiningCommand;
 use MZierdt\Albion\commands\UpdateResourcesCommand;
+use MZierdt\Albion\commands\UpdateRoyalItemsCommand;
 use MZierdt\Albion\commands\UpdateTransmutationCommand;
 use MZierdt\Albion\factories\EntityManagerFactory;
 use MZierdt\Albion\factories\TwigEnvironmentFactory;
@@ -202,6 +203,12 @@ $serviceManager = new ServiceManager([
                 ],
                 TestCommandDeleteLater::class => [ItemRepository::class],
                 CronCommand::class => [],
+                UpdateRoyalItemsCommand::class => [
+                    ItemApiService::class,
+                    ItemRepository::class,
+                    ConfigService::class,
+                    UploadHelper::class,
+                ]
             ]
         ],
     ],
