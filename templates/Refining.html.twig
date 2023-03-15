@@ -19,6 +19,15 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="col-2">
+                                <label for="percentage">Resource Return Rate *</label>
+                                <input name="rrr" type="number" list="percentageOptions" class="form-control"
+                                       id="percentage" placeholder="Default Value 53.9%" step="0.1">
+                                <datalist id="percentageOptions">
+                                    <option value="36.7">36.7% - Base Refining</option>
+                                    <option value="53.9">53.9% - Focus Refining</option>
+                                </datalist>
+                            </div>
                             {#                            <div class="col-2"> #}
                             {#                                <label for="craftingFee"> #}
                             {#                                    Crafting Fee / 100 Nutrition #}
@@ -42,7 +51,7 @@
             </div>
             <div class="row mt-3">
                 <div class="col-4">
-                    <div class="btn btn-primary" id="toggleSellBuy">Toggle Focus or no Focus</div>
+                    <div class="btn btn-primary" id="toggleSellBuy">Toggle Buy or Sell Order</div>
                 </div>
             </div>
             <div class="row mt-3">
@@ -58,7 +67,7 @@
     <div class="card mt-3" id="resourceSell">
         <div class="card-body">
             <div class="card-title">
-                <h3>Refining with Focus (53.9%)</h3>
+                <h3>Refining Insta Buy</h3>
             </div>
             <table class="table table-sm table-bordered align-middle sortTable">
                 <thead class="thead-default">
@@ -88,16 +97,16 @@
                                 {{ refiningEntity.refinedResource.sellOrderPrice|number_format }}
                             </a>
                         </td>
-                        <td class="align-middle {% if refiningEntity.rawResource.buyOrderDate < timeThreshold %} bg-D {% endif %}">
+                        <td class="align-middle {% if refiningEntity.rawResource.sellOrderDate < timeThreshold %} bg-D {% endif %}">
                             <a class="btn text-right w-100"
-                               title="{{ refiningEntity.rawResource.buyOrderDate|date('d.m H:i') }}min">
-                                {{ refiningEntity.rawResource.buyOrderPrice|number_format }}
+                               title="{{ refiningEntity.rawResource.sellOrderDate|date('d.m H:i') }}min">
+                                {{ refiningEntity.rawResource.sellOrderPrice|number_format }}
                             </a>
                         </td>
-                        <td class="align-middle {% if refiningEntity.lowerResource.buyOrderDate < timeThreshold %} bg-D {% endif %}">
+                        <td class="align-middle {% if refiningEntity.lowerResource.sellOrderDate < timeThreshold %} bg-D {% endif %}">
                             <a class="btn text-right w-100"
-                               title="{{ refiningEntity.lowerResource.buyOrderDate|date('d.m H:i') }}min">
-                                {{ refiningEntity.lowerResource.buyOrderPrice|number_format }}
+                               title="{{ refiningEntity.lowerResource.sellOrderDate|date('d.m H:i') }}min">
+                                {{ refiningEntity.lowerResource.sellOrderPrice|number_format }}
                             </a>
                         </td>
                         <td class="align-middle">{{ refiningEntity.profitSell|number_format }}</td>
@@ -115,7 +124,7 @@
     <div class="card mt-3" style="display: none" id="resourceBuy">
         <div class="card-body">
             <div class="card-title">
-                <h3>Refining without Focus (36.7%)</h3>
+                <h3>Refining buy order</h3>
             </div>
             <table class="table table-sm table-bordered align-middle sortTable">
                 <thead class="thead-default">

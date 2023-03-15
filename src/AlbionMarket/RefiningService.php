@@ -101,15 +101,38 @@ class RefiningService extends Market
         $lowerTier = $this->calculateLowerResourceTier($refinedResource->getTier());
         $refiningEntity->setLowerResource($this->calculateResource($lowerTier, $resources));
 
-        // Sell is the calculation with Focus
+        $rawResource = $refiningEntity->getRawResource();
+        $lowerResource = $refiningEntity->getLowerResource();
+        $refiningEntity->setComplete(
+            $this->isComplete(
+                [
+                    $refinedResource->getSellOrderPrice(),
+                    $lowerResource->getBuyOrderPrice(),
+                    $lowerResource->getSellOrderPrice(),
+                    $rawResource->getBuyOrderPrice(),
+                    $rawResource->getSellOrderPrice(),
+                ]
+            )
+        );
+
+        $refiningEntity->setAmount($this->calculateRefiningAmount($refinedResource->getTier()));
+        $refiningEntity->setCity($city);
+
+        return $refiningEntity;
+    }
+
+    public function calculateProfitByPercentage(RefiningEntity $refiningEntity, float $percentage): RefiningEntity
+    {
+        $refinedResource = $refiningEntity->getRefinedResource();
+
         $rawResource = $refiningEntity->getRawResource();
         $lowerResource = $refiningEntity->getLowerResource();
         $refiningEntity->setMaterialCostSell(
             $this->calculateResourceCost(
-                $rawResource->getBuyOrderPrice(),
-                $lowerResource->getBuyOrderPrice(),
+                $rawResource->getSellOrderPrice(),
+                $lowerResource->getSellOrderPrice(),
                 $refiningEntity->getAmountRawResource(),
-                53.9
+                $percentage
             )
         );
         $refiningEntity->setProfitSell(
@@ -125,13 +148,12 @@ class RefiningService extends Market
             $this->calculateProfitGrade($refiningEntity->getProfitPercentageSell())
         );
 
-        //Buy is the calculation without Focus
         $refiningEntity->setMaterialCostBuy(
             $this->calculateResourceCost(
                 $rawResource->getBuyOrderPrice(),
                 $lowerResource->getBuyOrderPrice(),
                 $refiningEntity->getAmountRawResource(),
-                36.7
+                $percentage
             )
         );
         $refiningEntity->setProfitBuy(
@@ -144,19 +166,6 @@ class RefiningService extends Market
             )
         );
         $refiningEntity->setProfitGradeBuy($this->calculateProfitGrade($refiningEntity->getProfitPercentageBuy()));
-
-        $refiningEntity->setComplete(
-            $this->isComplete(
-                [
-                    $refinedResource->getSellOrderPrice(),
-                    $lowerResource->getBuyOrderPrice(),
-                    $rawResource->getBuyOrderPrice(),
-                ]
-            )
-        );
-
-        $refiningEntity->setAmount($this->calculateRefiningAmount($refinedResource->getTier()));
-        $refiningEntity->setCity($city);
 
         return $refiningEntity;
     }

@@ -74,6 +74,8 @@ changelogger clean
 * add 10% and 20% Crafting Bonus
 * Luxury Goods
 * Amount for RoyalItesm /Capes
+* No Buy Order security ( 10% from sellOrder)
+* Hovering over (BLack Market Resource or No SPec shows dropdown)
 
 ## Plans
 

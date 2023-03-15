@@ -13,9 +13,11 @@ use Twig\Environment;
 
 class BlackMarketCraftingHandler
 {
+    private const FOCUS_RETURN_RATE = 47.9;
+
     public function __construct(
         private readonly Environment $twigEnvironment,
-        private readonly BlackMarketCraftingRepository $blackMarketCraftingRepository,
+        private readonly BlackMarketCraftingRepository $bmcRepository,
         private readonly BlackMarketCraftingService $blackMarketCraftingService,
     ) {
     }
@@ -26,10 +28,17 @@ class BlackMarketCraftingHandler
         $alertMessage = null;
         if (! empty($_GET)) {
             $itemCity = $_GET['itemCity'];
+            $percentage = (float) $_GET['rrr'];
+            if (empty($percentage)) {
+                $percentage = self::FOCUS_RETURN_RATE;
+            }
             try {
-                $cityData = $this->blackMarketCraftingRepository->getAllBmCraftingByCity($itemCity,);
+                $cityData = $this->bmcRepository->getAllBmCraftingByCity($itemCity);
             } catch (InvalidArgumentException $invalidArgumentExceptionException) {
                 $alertMessage = $invalidArgumentExceptionException->getMessage();
+            }
+            foreach ($cityData as $bmcEntity) {
+                $this->blackMarketCraftingService->calculateProfitByPercentage($bmcEntity, $percentage);
             }
         }
 

@@ -19,6 +19,17 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="col-2">
+                                <label for="percentage">Resource Return Rate *</label>
+                                <input name="rrr" type="number" list="percentageOptions" class="form-control"
+                                       id="percentage" placeholder="Default Value 47.9%" step="0.1">
+                                <datalist id="percentageOptions">
+                                    <option value="24.8">24.8% - Base Crafting</option>
+                                    <option value="47.9">47.9% - Fokus Crafting</option>
+                                    <option value="30">30% - 10% Bonus on Base Crafting</option>
+                                    <option value="50.4">50.4% - 10%Bonus on Focus Crafting</option>
+                                </datalist>
+                            </div>
                             {#                            <div class="col-2"> #}
                             {#                                <label for="craftingFee"> #}
                             {#                                    Crafting Fee / 100 Nutrition #}
@@ -49,7 +60,7 @@
             </div>
             <div class="row mt-3">
                 <div class="col-4">
-                    <div class="btn btn-primary" id="toggleSellBuy">Toggle Focus</div>
+                    <div class="btn btn-primary" id="toggleSellBuy">Toggle Buy or Sell Order</div>
                 </div>
             </div>
             <div class="row mt-3">
@@ -62,7 +73,7 @@
     <div class="card mt-3" id="resourceSell">
         <div class="card-body">
             <div class="card-title">
-                <h3> Profit with Focus (47.9%)</h3>
+                <h3>Crafting Insta Buy</h3>
             </div>
             <table class="table table-sm table-bordered align-middle sortTable">
                 <thead class="thead-default">
@@ -80,6 +91,7 @@
                     <th>Profit</th>
                     <th>Percentage</th>
                     <th>MaterialCost</th>
+                    <th>WeaponGroup</th>
                 </tr>
                 </thead>
                 <tbody class="text-right">
@@ -115,6 +127,7 @@
                             <td class="align-middle">{{ bmcEntity.profitSell|number_format }}</td>
                             <td class="align-middle">{{ bmcEntity.profitPercentageSell|number_format }}</td>
                             <td class="align-middle">{{ (bmcEntity.amount * bmcEntity.materialCostSell)|number_format }}</td>
+                            <td class="align-middle">{{ bmcEntity.item.weaponGroup }}</td>
                         </tr>
                     {% endif %}
                 {% endfor %}
@@ -125,7 +138,7 @@
     <div class="card mt-3" style="display: none;" id="resourceBuy">
         <div class="card-body">
             <div class="card-title">
-                <h3> Profit without Focus (24.8%)</h3>
+                <h3>Crafting buy Order</h3>
             </div>
             <table class="table table-sm table-bordered align-middle sortTable">
                 <thead class="thead-default">
@@ -143,6 +156,7 @@
                     <th>Profit</th>
                     <th>Percentage</th>
                     <th>MaterialCost</th>
+                    <th>WeaponGroup</th>
                 </tr>
                 </thead>
                 <tbody class="text-right">
@@ -178,6 +192,7 @@
                             <td class="align-middle">{{ bmcEntity.profitBuy|number_format }}</td>
                             <td class="align-middle">{{ bmcEntity.profitPercentageBuy|number_format }}</td>
                             <td class="align-middle">{{ (bmcEntity.amount * bmcEntity.materialCostBuy)|number_format }}</td>
+                            <td class="align-middle">{{ bmcEntity.item.weaponGroup }}</td>
                         </tr>
                     {% endif %}
                 {% endfor %}

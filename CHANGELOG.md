@@ -1,5 +1,34 @@
 <!-- CHANGELOGGER -->
 
+## [0.11.0] - 2023-03-07
+
+### New feature (1 change)
+
+- Add Cronjobs (props m-zierdt)
+
+### Feature change (3 changes)
+
+- Every Calculation is done by a command (props m-zierdt)
+- Frontend data is no longer calculated (from db) (props m-zierdt)
+- Standardize Templates (props m-zierdt)
+
+### Bug fix (4 changes)
+
+- Age is not correct calculated (props m-zierdt)
+- bmTransport now uses correct Price for bmItem (props m-zierdt)
+- Buy order Price for resource now Updates (props m-zierdt)
+- Switched Resources in List Data (props m-zierdt)
+
+### Performance improvement (7 changes)
+
+- Add Test for Refining (props m-zierdt)
+- Add Test for Transmutation (props m-zierdt)
+- Add Test for Enchanting (props m-zierdt)
+- Add Test for NoSpec (props m-zierdt)
+- Add Test for bmTransport (props m-zierdt)
+- Add Test for bmCrafting (props m-zierdt)
+- Add Test for ListData (props m-zierdt)
+
 ## [0.10.2] - 2023-02-21
 
 ### Bug fix (1 change)
