@@ -102,7 +102,6 @@
                 <tbody class="text-right">
                 {# @var bmcEntity \MZierdt\Albion\Entity\BlackMaerketCraftingEntity #}
                 {% for bmcEntity in dataArray %}
-                    {% if    bmcEntity.profitSell > 0 %}
                         <tr class="bg-{{ bmcEntity.profitGradeSell }}">
                             <td class="align-middle text-left tier-{{ bmcEntity.tierColor }} tier">{{ bmcEntity.item.tier }}</td>
                             <td class="align-middle">{{ bmcEntity.item.realName }}</td>
@@ -134,7 +133,6 @@
                             <td class="align-middle">{{ (bmcEntity.amount * bmcEntity.materialCostSell)|number_format }}</td>
                             <td class="align-middle">{{ bmcEntity.item.weaponGroup }}</td>
                         </tr>
-                    {% endif %}
                 {% endfor %}
                 </tbody>
             </table>
@@ -167,7 +165,6 @@
                 <tbody class="text-right">
                 {# @var bmcEntity \MZierdt\Albion\Entity\BlackMaerketCraftingEntity #}
                 {% for bmcEntity in dataArray %}
-                    {% if    bmcEntity.profitBuy > 0 %}
                         <tr class="bg-{{ bmcEntity.profitGradeBuy }}">
                             <td class="align-middle text-left tier-{{ bmcEntity.tierColor }} tier">{{ bmcEntity.item.tier }}</td>
                             <td class="align-middle">{{ bmcEntity.item.realName }}</td>
@@ -199,7 +196,6 @@
                             <td class="align-middle">{{ (bmcEntity.amount * bmcEntity.materialCostBuy)|number_format }}</td>
                             <td class="align-middle">{{ bmcEntity.item.weaponGroup }}</td>
                         </tr>
-                    {% endif %}
                 {% endfor %}
                 </tbody>
             </table>
