@@ -29,11 +29,15 @@ class BlackMarketCraftingHandler
         if (! empty($_GET)) {
             $itemCity = $_GET['itemCity'];
             $percentage = (float) $_GET['rrr'];
+            $bonusResource = true;
+            if (empty ($_GET['bonusResource'])) {
+                $bonusResource = false;
+            }
             if (empty($percentage)) {
                 $percentage = self::FOCUS_RETURN_RATE;
             }
             try {
-                $cityData = $this->bmcRepository->getAllBmCraftingByCity($itemCity);
+                $cityData = $this->bmcRepository->getAllBmCraftingByCity($itemCity, $bonusResource);
             } catch (InvalidArgumentException $invalidArgumentExceptionException) {
                 $alertMessage = $invalidArgumentExceptionException->getMessage();
             }
