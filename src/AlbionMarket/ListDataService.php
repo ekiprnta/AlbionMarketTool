@@ -97,58 +97,38 @@ class ListDataService extends Market
         $thetfordResource = $listDataEntity->getThetfordObject();
         $listDataEntity->setCheapestObjectCitySellOrder(
             $this->calculateCheapestCity(
-                $fortsterlingResource
-                    ->getSellOrderPrice(),
-                $lymhurstResource
-                    ->getSellOrderPrice(),
-                $bridgewatchResource
-                    ->getSellOrderPrice(),
-                $martlockResource
-                    ->getSellOrderPrice(),
-                $thetfordResource
-                    ->getSellOrderPrice()
+                $fortsterlingResource->getSellOrderPrice(),
+                $lymhurstResource->getSellOrderPrice(),
+                $bridgewatchResource->getSellOrderPrice(),
+                $martlockResource->getSellOrderPrice(),
+                $thetfordResource->getSellOrderPrice()
             )
         );
         $listDataEntity->setCheapestObjectCityBuyOrder(
             $this->calculateCheapestCity(
-                $fortsterlingResource
-                    ->getBuyOrderPrice(),
-                $lymhurstResource
-                    ->getBuyOrderPrice(),
-                $bridgewatchResource
-                    ->getBuyOrderPrice(),
-                $martlockResource
-                    ->getBuyOrderPrice(),
-                $thetfordResource
-                    ->getBuyOrderPrice()
+                $fortsterlingResource->getBuyOrderPrice(),
+                $lymhurstResource->getBuyOrderPrice(),
+                $bridgewatchResource->getBuyOrderPrice(),
+                $martlockResource->getBuyOrderPrice(),
+                $thetfordResource->getBuyOrderPrice()
             )
         );
         $listDataEntity->setMostExpensiveObjectCitySellOrder(
             $this->calculateMostExpensiveCity(
-                $fortsterlingResource
-                    ->getSellOrderPrice(),
-                $lymhurstResource
-                    ->getSellOrderPrice(),
-                $bridgewatchResource
-                    ->getSellOrderPrice(),
-                $martlockResource
-                    ->getSellOrderPrice(),
-                $thetfordResource
-                    ->getSellOrderPrice()
+                $fortsterlingResource->getSellOrderPrice(),
+                $lymhurstResource->getSellOrderPrice(),
+                $bridgewatchResource->getSellOrderPrice(),
+                $martlockResource->getSellOrderPrice(),
+                $thetfordResource->getSellOrderPrice()
             )
         );
         $listDataEntity->setMostExpensiveObjectCityBuyOrder(
             $this->calculateMostExpensiveCity(
-                $fortsterlingResource
-                    ->getBuyOrderPrice(),
-                $lymhurstResource
-                    ->getBuyOrderPrice(),
-                $bridgewatchResource
-                    ->getBuyOrderPrice(),
-                $martlockResource
-                    ->getBuyOrderPrice(),
-                $thetfordResource
-                    ->getBuyOrderPrice()
+                $fortsterlingResource->getBuyOrderPrice(),
+                $lymhurstResource->getBuyOrderPrice(),
+                $bridgewatchResource->getBuyOrderPrice(),
+                $martlockResource->getBuyOrderPrice(),
+                $thetfordResource->getBuyOrderPrice()
             )
         );
         $listDataEntity->setType($type);
