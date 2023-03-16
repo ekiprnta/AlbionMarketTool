@@ -45,7 +45,7 @@ class Market
 
     public function calculateProfitPercentage(float $turnover, float $totalCost): float
     {
-        return round(($turnover / ($totalCost + 1)) * 100, 2);
+        return round(($this->calculateBuyOrder($turnover) / ($totalCost + 1)) * 100, 2);
     }
 
     public function isComplete(array $stats): bool
