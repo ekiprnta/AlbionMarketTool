@@ -4,6 +4,7 @@ namespace MZierdt\Albion\AlbionMarket;
 
 use MZierdt\Albion\Entity\AdvancedEntities\BlackMarketCraftingEntity;
 use MZierdt\Albion\Entity\JournalEntity;
+use MZierdt\Albion\Entity\MaterialEntity;
 use MZierdt\Albion\Entity\ResourceEntity;
 use MZierdt\Albion\factories\ResourceEntityFactory;
 
@@ -192,7 +193,8 @@ class BlackMarketCraftingService extends Market
 
     public function calculateProfitByPercentage(
         BlackMarketCraftingEntity $bmcEntity,
-        float $percentage
+        float $percentage,
+        MaterialEntity $tome,
     ): BlackMarketCraftingEntity {
         $itemEntity = $bmcEntity->getItem();
 
@@ -200,15 +202,30 @@ class BlackMarketCraftingService extends Market
         $secResource = $bmcEntity->getSecResource();
         $primResourceCostSell = $primResource->getSellOrderPrice() * $itemEntity->getPrimaryResourceAmount();
         $secResourceCostSell = $secResource->getSellOrderPrice() * $itemEntity->getSecondaryResourceAmount();
-        $bmcEntity->setMaterialCostSell(
-            $this->calculateMaterialCost(
-                $primResourceCostSell + $secResourceCostSell,
-                $bmcEntity->getJournalEntityEmpty()
-                    ->getBuyOrderPrice(),
-                $bmcEntity->getJournalAmountPerItem(),
-                $percentage
-            )
-        );
+
+        if ($bmcEntity->getItem()->getName() === 'bag_insight') {
+            $bmcEntity->setMaterialCostSell(
+                $tome->getBuyOrderPrice() +
+                $this->calculateMaterialCost(
+                    $primResourceCostSell + $secResourceCostSell,
+                    $bmcEntity->getJournalEntityEmpty()
+                        ->getBuyOrderPrice(),
+                    $bmcEntity->getJournalAmountPerItem(),
+                    $percentage
+                )
+            );
+        } else {
+            $bmcEntity->setMaterialCostSell(
+                $this->calculateMaterialCost(
+                    $primResourceCostSell + $secResourceCostSell,
+                    $bmcEntity->getJournalEntityEmpty()
+                        ->getBuyOrderPrice(),
+                    $bmcEntity->getJournalAmountPerItem(),
+                    $percentage
+                )
+            );
+        }
+
         $bmcEntity->setProfitSell(
             $this->calculateProfit($itemEntity->getSellOrderPrice(), $bmcEntity->getMaterialCostSell())
         );
@@ -219,15 +236,30 @@ class BlackMarketCraftingService extends Market
 
         $primResourceCostBuy = $primResource->getBuyOrderPrice() * $itemEntity->getPrimaryResourceAmount();
         $secResourceCostBuy = $secResource->getBuyOrderPrice() * $itemEntity->getSecondaryResourceAmount();
-        $bmcEntity->setMaterialCostBuy(
-            $this->calculateMaterialCost(
-                $primResourceCostBuy + $secResourceCostBuy,
-                $bmcEntity->getJournalEntityEmpty()
-                    ->getBuyOrderPrice(),
-                $bmcEntity->getJournalAmountPerItem(),
-                $percentage
-            )
-        );
+
+        if ($bmcEntity->getItem()->getName() === 'bag_insight') {
+            $bmcEntity->setMaterialCostBuy(
+                $this->calculateMaterialCost(
+                    $tome->getBuyOrderPrice() +
+                    $primResourceCostBuy + $secResourceCostBuy,
+                    $bmcEntity->getJournalEntityEmpty()
+                        ->getBuyOrderPrice(),
+                    $bmcEntity->getJournalAmountPerItem(),
+                    $percentage
+                )
+            );
+        } else {
+            $bmcEntity->setMaterialCostBuy(
+                $this->calculateMaterialCost(
+                    $primResourceCostBuy + $secResourceCostBuy,
+                    $bmcEntity->getJournalEntityEmpty()
+                        ->getBuyOrderPrice(),
+                    $bmcEntity->getJournalAmountPerItem(),
+                    $percentage
+                )
+            );
+        }
+
         $bmcEntity->setProfitBuy(
             $this->calculateProfit($itemEntity->getSellOrderPrice(), $bmcEntity->getMaterialCostBuy())
         );

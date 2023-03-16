@@ -8,6 +8,7 @@ use MZierdt\Albion\AlbionMarket\BlackMarketCraftingService;
 use MZierdt\Albion\Entity\AdvancedEntities\BlackMarketCraftingEntity;
 use MZierdt\Albion\Entity\ItemEntity;
 use MZierdt\Albion\Entity\JournalEntity;
+use MZierdt\Albion\Entity\MaterialEntity;
 use MZierdt\Albion\Entity\ResourceEntity;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
@@ -16,7 +17,7 @@ class BmCraftingITest extends TestCase
 {
     use ProphecyTrait;
 
-    public function testRefining(): void
+    public function testBmCrafting(): void
     {
         $bmcService = new BlackMarketCraftingService();
         $delta = 0.00001;
@@ -46,7 +47,9 @@ class BmCraftingITest extends TestCase
             'TestCity'
         );
 
-        $bmcService->calculateProfitByPercentage($bmcEntity, 47.9);
+        $tome = (new MaterialEntity())->setBuyOrderPrice(17999);
+
+        $bmcService->calculateProfitByPercentage($bmcEntity, 47.9, $tome);
 
         $this->assertEquals('TestCity', $bmcEntity->getCity());
         $this->assertEquals(3096000, $bmcEntity->getFameAmount());
