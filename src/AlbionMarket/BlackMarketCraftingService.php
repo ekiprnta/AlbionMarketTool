@@ -69,7 +69,7 @@ class BlackMarketCraftingService extends Market
         return $nutrition * $feeProHundredNutrition / 100;
     }
 
-    public function calculateProfitJournals(int $emptyJournalPrice, int $fullJournalPrice, float $journalAmount): float
+    public function calculateProfitJournals(int $fullJournalPrice, int $emptyJournalPrice, float $journalAmount): float
     {
         return ($this->calculateSellOrder($fullJournalPrice) - $emptyJournalPrice) * $journalAmount;
     }
@@ -127,7 +127,8 @@ class BlackMarketCraftingService extends Market
         array $journals,
         array $bmSells,
         string $city
-    ): BlackMarketCraftingEntity {
+    ): BlackMarketCraftingEntity
+    {
         $itemEntity = $bmcEntity->getItem();
         $bmcEntity->setPrimResource(
             $this->calculateResource($itemEntity->getPrimaryResource(), $itemEntity->getTier(), $resources)
@@ -137,12 +138,12 @@ class BlackMarketCraftingService extends Market
         );
         $bmcEntity->setJournalEntityFull($this->calculateJournal($itemEntity->getTier(), 'full', $journals));
         $bmcEntity->setJournalEntityEmpty($this->calculateJournal($itemEntity->getTier(), 'empty', $journals));
+
+        $journalEntityEmpty = $bmcEntity->getJournalEntityEmpty();
         $bmcEntity->setJournalAmountPerItem(
             $this->calculateJournalAmountPerItem(
-                $itemEntity
-                    ->getFame(),
-                $bmcEntity->getJournalEntityEmpty()
-                    ->getFameToFill()
+                $itemEntity->getFame(),
+                $journalEntityEmpty->getFameToFill()
             )
         );
 
@@ -161,12 +162,11 @@ class BlackMarketCraftingService extends Market
         );
         $bmcEntity->setFameAmount($this->calculateFameAmount($totalAmount, $itemEntity->getFame()));
 
+        $journalEntityFull = $bmcEntity->getJournalEntityFull();
         $bmcEntity->setProfitJournals(
             $this->calculateProfitJournals(
-                $bmcEntity->getJournalEntityEmpty()
-                    ->getBuyOrderPrice(),
-                $bmcEntity->getJournalEntityFull()
-                    ->getSellOrderPrice(),
+                $journalEntityFull->getSellOrderPrice(),
+                $this->calculateBuyOrder($journalEntityEmpty->getBuyOrderPrice()),
                 $bmcEntity->getJournalTotalAmount()
             )
         );
@@ -180,10 +180,8 @@ class BlackMarketCraftingService extends Market
                 $primResource->getBuyOrderPrice(),
                 $secResource->getSellOrderPrice(),
                 $secResource->getBuyOrderPrice(),
-                $bmcEntity->getJournalEntityFull()
-                    ->getSellOrderPrice(),
-                $bmcEntity->getJournalEntityEmpty()
-                    ->getBuyOrderPrice(),
+                $journalEntityFull->getSellOrderPrice(),
+                $journalEntityEmpty->getBuyOrderPrice(),
             ])
         );
         $bmcEntity->setCity($city);
@@ -195,7 +193,8 @@ class BlackMarketCraftingService extends Market
         BlackMarketCraftingEntity $bmcEntity,
         float $percentage,
         MaterialEntity $tome,
-    ): BlackMarketCraftingEntity {
+    ): BlackMarketCraftingEntity
+    {
         $itemEntity = $bmcEntity->getItem();
 
         $primResource = $bmcEntity->getPrimResource();
@@ -203,13 +202,15 @@ class BlackMarketCraftingService extends Market
         $primResourceCostSell = $primResource->getSellOrderPrice() * $itemEntity->getPrimaryResourceAmount();
         $secResourceCostSell = $secResource->getSellOrderPrice() * $itemEntity->getSecondaryResourceAmount();
 
+        $journalPriceEmpty = $this->calculateBuyOrder($bmcEntity->getJournalEntityEmpty()->getBuyOrderPrice());
+        $tomePrice = $this->calculateBuyOrder($tome->getBuyOrderPrice());
+
         if ($bmcEntity->getItem()->getName() === 'bag_insight') {
             $bmcEntity->setMaterialCostSell(
-                $tome->getBuyOrderPrice() +
+                $tomePrice +
                 $this->calculateMaterialCost(
                     $primResourceCostSell + $secResourceCostSell,
-                    $bmcEntity->getJournalEntityEmpty()
-                        ->getBuyOrderPrice(),
+                    $journalPriceEmpty,
                     $bmcEntity->getJournalAmountPerItem(),
                     $percentage
                 )
@@ -218,8 +219,7 @@ class BlackMarketCraftingService extends Market
             $bmcEntity->setMaterialCostSell(
                 $this->calculateMaterialCost(
                     $primResourceCostSell + $secResourceCostSell,
-                    $bmcEntity->getJournalEntityEmpty()
-                        ->getBuyOrderPrice(),
+                    $journalPriceEmpty,
                     $bmcEntity->getJournalAmountPerItem(),
                     $percentage
                 )
@@ -234,16 +234,19 @@ class BlackMarketCraftingService extends Market
         );
         $bmcEntity->setProfitGradeSell($this->calculateProfitGrade($bmcEntity->getProfitPercentageSell()));
 
-        $primResourceCostBuy = $primResource->getBuyOrderPrice() * $itemEntity->getPrimaryResourceAmount();
-        $secResourceCostBuy = $secResource->getBuyOrderPrice() * $itemEntity->getSecondaryResourceAmount();
+        $primResourceCostBuy = $this->calculateBuyOrder(
+                $primResource->getBuyOrderPrice()
+            ) * $itemEntity->getPrimaryResourceAmount();
+        $secResourceCostBuy = $this->calculateBuyOrder(
+                $secResource->getBuyOrderPrice()
+            ) * $itemEntity->getSecondaryResourceAmount();
 
         if ($bmcEntity->getItem()->getName() === 'bag_insight') {
             $bmcEntity->setMaterialCostBuy(
                 $this->calculateMaterialCost(
-                    $tome->getBuyOrderPrice() +
+                    $tomePrice +
                     $primResourceCostBuy + $secResourceCostBuy,
-                    $bmcEntity->getJournalEntityEmpty()
-                        ->getBuyOrderPrice(),
+                    $journalPriceEmpty,
                     $bmcEntity->getJournalAmountPerItem(),
                     $percentage
                 )
@@ -252,8 +255,7 @@ class BlackMarketCraftingService extends Market
             $bmcEntity->setMaterialCostBuy(
                 $this->calculateMaterialCost(
                     $primResourceCostBuy + $secResourceCostBuy,
-                    $bmcEntity->getJournalEntityEmpty()
-                        ->getBuyOrderPrice(),
+                    $journalPriceEmpty,
                     $bmcEntity->getJournalAmountPerItem(),
                     $percentage
                 )

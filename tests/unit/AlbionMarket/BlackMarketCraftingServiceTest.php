@@ -292,7 +292,7 @@ class BlackMarketCraftingServiceTest extends TestCase
     ): void {
         $this->assertEqualsWithDelta(
             $expectedResult,
-            $this->bmcService->calculateProfitJournals($emptyJournalPrice, $fullJournalPrice, $journalAmount,),
+            $this->bmcService->calculateProfitJournals($fullJournalPrice, $emptyJournalPrice, $journalAmount,),
             0.00000001
         );
     }
