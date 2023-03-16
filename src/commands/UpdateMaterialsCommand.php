@@ -63,6 +63,7 @@ class UpdateMaterialsCommand extends Command
             $this->materialRepository->createOrUpdate($adjustedTome);
         }
 
+        $output->writeln($message);
         return self::SUCCESS;
     }
 }

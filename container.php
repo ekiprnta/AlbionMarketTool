@@ -11,7 +11,6 @@ use MZierdt\Albion\AlbionDataAPI\MiscApiService;
 use MZierdt\Albion\AlbionDataAPI\ResourceApiService;
 use MZierdt\Albion\AlbionMarket\BlackMarketCraftingService;
 use MZierdt\Albion\AlbionMarket\BlackMarketTransportingService;
-use MZierdt\Albion\AlbionMarket\CraftingService;
 use MZierdt\Albion\AlbionMarket\EnchantingService;
 use MZierdt\Albion\AlbionMarket\ListDataService;
 use MZierdt\Albion\AlbionMarket\NoSpecCraftingService;
@@ -104,6 +103,7 @@ $serviceManager = new ServiceManager([
                     Environment::class,
                     BlackMarketCraftingRepository::class,
                     BlackMarketCraftingService::class,
+                    MaterialRepository::class,
                 ],
                 RefiningHandler::class => [
                     Environment::class,

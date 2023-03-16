@@ -47,4 +47,10 @@ class MaterialRepository extends Repository
     {
         return $this->findBy(MaterialEntity::class, ['city' => $city, 'type' => 'capeArtifacts']) ?? [];
     }
+
+    public function getTomesByCity(string $city): ?MaterialEntity
+    {
+        $tomes = $this->findBy(MaterialEntity::class, ['city' => $city, 'type' => 'tomes']);
+        return $tomes[0];
+    }
 }
