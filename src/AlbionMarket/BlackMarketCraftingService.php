@@ -69,8 +69,11 @@ class BlackMarketCraftingService extends Market
         return $nutrition * $feeProHundredNutrition / 100;
     }
 
-    public function calculateProfitJournals(int $fullJournalPrice, int $emptyJournalPrice, float $journalAmount): float
-    {
+    public function calculateProfitJournals(
+        int $fullJournalPrice,
+        float $emptyJournalPrice,
+        float $journalAmount
+    ): float {
         return ($this->calculateSellOrder($fullJournalPrice) - $emptyJournalPrice) * $journalAmount;
     }
 
@@ -103,7 +106,7 @@ class BlackMarketCraftingService extends Market
 
     public function calculateMaterialCost(
         float|int $resourceCost,
-        int $journalPrice,
+        float $journalPrice,
         float $journalAmountPerItem,
         float $percentage
     ): float {

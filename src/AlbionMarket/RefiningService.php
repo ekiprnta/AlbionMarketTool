@@ -40,8 +40,8 @@ class RefiningService extends Market
     }
 
     public function calculateResourceCost(
-        int $rawResourcePrice,
-        int $lowerResourcePrice,
+        float|int $rawResourcePrice,
+        float|int $lowerResourcePrice,
         int $amountRawResource,
         float $percentage
     ): float {

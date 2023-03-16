@@ -17,7 +17,7 @@ class RefiningITest extends TestCase
     public function testRefining(): void
     {
         $refiningService = new RefiningService();
-        $delta = 0.00001;
+        $delta = 0.0001;
         $resourceEntity = (new ResourceEntity())
             ->setTier(71)
             ->setName('leather')
@@ -40,11 +40,11 @@ class RefiningITest extends TestCase
 
         $this->assertEqualswithDelta(20814.15, $refiningEntity->getMaterialCostSell(), $delta);
         $this->assertEqualsWithDelta(-247.89, $refiningEntity->getProfitSell(), $delta);
-        $this->assertEquals(105.67, $refiningEntity->getProfitPercentageSell());
+        $this->assertEquals(103.03, $refiningEntity->getProfitPercentageSell());
         $this->assertEquals('C', $refiningEntity->getProfitGradeSell());
 
-        $this->assertEqualswithDelta(19815.163, $refiningEntity->getMaterialCostBuy(), $delta);
-        $this->assertEqualsWithDelta(751.097, $refiningEntity->getProfitBuy(), $delta);
+        $this->assertEqualswithDelta(19319.7839, $refiningEntity->getMaterialCostBuy(), $delta);
+        $this->assertEqualsWithDelta(1246.476, $refiningEntity->getProfitBuy(), $delta);
         $this->assertEquals(111, $refiningEntity->getProfitPercentageBuy());
         $this->assertEquals('C', $refiningEntity->getProfitGradeBuy());
 

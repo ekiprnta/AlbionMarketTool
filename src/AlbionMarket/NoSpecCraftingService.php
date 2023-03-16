@@ -62,7 +62,7 @@ class NoSpecCraftingService extends Market
         float $primaryItemCost,
         float $secondaryMaterialCost,
         int $secondaryMaterialAmount,
-        int $artifactCost
+        float $artifactCost
     ): float {
         return $primaryItemCost + ($secondaryMaterialCost * $secondaryMaterialAmount) + ($artifactCost);
     }

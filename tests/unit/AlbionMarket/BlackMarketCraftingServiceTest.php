@@ -388,8 +388,8 @@ class BlackMarketCraftingServiceTest extends TestCase
      */
     public function testCalculateMaterialCost(
         float $result,
-        int $resourceCost,
-        int $journalPrice,
+        float $resourceCost,
+        float $journalPrice,
         float $journalAmountPerItem,
         float $percentage
     ): void {

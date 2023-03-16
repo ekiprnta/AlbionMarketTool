@@ -110,18 +110,18 @@ class EnchantingServiceTest extends TestCase
     /**
      * @dataProvider provideMaterialCost
      */
-    public function testCalculateMaterialCost(float $expectedCost, int $materialAmount, int $buyOrderPrice): void
+    public function testCalculateMaterialCost(float $expectedCost, int $materialAmount, float $materialPrice): void
     {
         $this->assertEqualsWithDelta(
             $expectedCost,
-            $this->enchantingService->calculateTotalMaterialCost($materialAmount, $buyOrderPrice),
+            $this->enchantingService->calculateTotalMaterialCost($materialPrice, $materialAmount),
             0.00001
         );
     }
 
     public function provideMaterialCost(): array
     {
-        return [[1638, 48, 35], [112320, 96, 1200], [62478, 144, 445], [1310.4, 192, 7]];
+        return [[1680, 48, 35], [115200, 96, 1200], [64080, 144, 445], [1344, 192, 7]];
     }
 
     /**

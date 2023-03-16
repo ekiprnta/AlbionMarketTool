@@ -29,7 +29,7 @@ class Market
 
     public function calculateProfit(int $sellPrice, float|int $materialCost, float $fee = 0.0): float
     {
-        return $this->calculateSellOrder($sellPrice) - ($materialCost + $fee);
+        return round($this->calculateSellOrder($sellPrice) - ($materialCost + $fee), 3);
     }
 
     public function calculateProfitGrade(float $percentage): string

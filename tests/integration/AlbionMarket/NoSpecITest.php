@@ -43,13 +43,13 @@ class NoSpecITest extends TestCase
 
         $this->assertEquals('TestCity', $noSpecEntity->getCity());
 
-        $this->assertEqualswithDelta(408888, $noSpecEntity->getMaterialCostSell(), $delta);
-        $this->assertEqualsWithDelta(30543.3, $noSpecEntity->getProfitSell(), $delta);
-        $this->assertEquals(114.94, $noSpecEntity->getProfitPercentageSell());
+        $this->assertEqualswithDelta(406763, $noSpecEntity->getMaterialCostSell(), $delta);
+        $this->assertEqualsWithDelta(32668.3, $noSpecEntity->getProfitSell(), $delta);
+        $this->assertEquals(112.65, $noSpecEntity->getProfitPercentageSell());
         $this->assertEquals('C', $noSpecEntity->getProfitGradeSell());
 
-        $this->assertEqualswithDelta(357077, $noSpecEntity->getMaterialCostBuy(), $delta);
-        $this->assertEqualsWithDelta(82354.3, $noSpecEntity->getProfitBuy(), $delta);
+        $this->assertEqualswithDelta(348150.075, $noSpecEntity->getMaterialCostBuy(), $delta);
+        $this->assertEqualsWithDelta(91281.225, $noSpecEntity->getProfitBuy(), $delta);
         $this->assertEquals(131.62, $noSpecEntity->getProfitPercentageBuy());
         $this->assertEquals('B', $noSpecEntity->getProfitGradeBuy());
 
