@@ -8,6 +8,7 @@ use InvalidArgumentException;
 use Laminas\Diactoros\Response\HtmlResponse;
 use MZierdt\Albion\AlbionMarket\BlackMarketCraftingService;
 use MZierdt\Albion\Entity\AdvancedEntities\BlackMarketCraftingEntity;
+use MZierdt\Albion\Entity\MaterialEntity;
 use MZierdt\Albion\repositories\AdvancedRepository\BlackMarketCraftingRepository;
 use MZierdt\Albion\repositories\MaterialRepository;
 use MZierdt\Albion\Service\TimeService;
@@ -28,6 +29,7 @@ class BlackMarketCraftingHandler
     public function handler(): HtmlResponse
     {
         $cityData = [];
+        $tome = new MaterialEntity();
         $alertMessage = null;
         if (! empty($_GET)) {
             $itemCity = $_GET['itemCity'];
