@@ -124,9 +124,9 @@ class RefiningService extends Market
     public function calculateProfitByPercentage(RefiningEntity $refiningEntity, float $percentage): RefiningEntity
     {
         $refinedResource = $refiningEntity->getRefinedResource();
-
         $rawResource = $refiningEntity->getRawResource();
         $lowerResource = $refiningEntity->getLowerResource();
+
         $refiningEntity->setMaterialCostSell(
             $this->calculateResourceCost(
                 $rawResource->getSellOrderPrice(),
@@ -150,8 +150,8 @@ class RefiningService extends Market
 
         $refiningEntity->setMaterialCostBuy(
             $this->calculateResourceCost(
-                $rawResource->getBuyOrderPrice(),
-                $lowerResource->getBuyOrderPrice(),
+                $this->calculateBuyOrder($rawResource->getBuyOrderPrice()),
+                $this->calculateBuyOrder($lowerResource->getBuyOrderPrice()),
                 $refiningEntity->getAmountRawResource(),
                 $percentage
             )
