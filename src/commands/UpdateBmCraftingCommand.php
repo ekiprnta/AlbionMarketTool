@@ -68,12 +68,15 @@ class UpdateBmCraftingCommand extends Command
         OutputInterface $output
     ): void {
         $items = $this->itemRepository->getBlackMarketItemsFromCity($city);
+        $accessoires = $this->itemRepository->getAccessoires();
+        $allItems = array_merge($items, $accessoires);
+
         $resources = $this->resourceRepository->getResourcesByCity($city);
         $journals = $this->journalRepository->getJournalsFromCity($city);
 
         $calculateEntityArray = [];
         /** @var ItemEntity $item */
-        foreach ($items as $item) {
+        foreach ($allItems as $item) {
             $calculateEntityArray[] = new BlackMarketCraftingEntity($item);
         }
         $progressBar = ProgressBarService::getProgressBar($output, count($calculateEntityArray));
@@ -93,6 +96,7 @@ class UpdateBmCraftingCommand extends Command
                 $city
             );
             $this->blackMarketCraftingRepository->createOrUpdate($bmcEntityResources);
+
             $bmcEntityBonusResources = $this->blackMarketCraftingService->calculateBmcEntity(
                 $bmcEntity,
                 $bonusResources,

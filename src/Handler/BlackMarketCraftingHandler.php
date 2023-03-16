@@ -7,6 +7,7 @@ namespace MZierdt\Albion\Handler;
 use InvalidArgumentException;
 use Laminas\Diactoros\Response\HtmlResponse;
 use MZierdt\Albion\AlbionMarket\BlackMarketCraftingService;
+use MZierdt\Albion\Entity\AdvancedEntities\BlackMarketCraftingEntity;
 use MZierdt\Albion\repositories\AdvancedRepository\BlackMarketCraftingRepository;
 use MZierdt\Albion\Service\TimeService;
 use Twig\Environment;
@@ -41,6 +42,7 @@ class BlackMarketCraftingHandler
             } catch (InvalidArgumentException $invalidArgumentExceptionException) {
                 $alertMessage = $invalidArgumentExceptionException->getMessage();
             }
+            /** @var BlackMarketCraftingEntity $bmcEntity */
             foreach ($cityData as $bmcEntity) {
                 $this->blackMarketCraftingService->calculateProfitByPercentage($bmcEntity, $percentage);
             }

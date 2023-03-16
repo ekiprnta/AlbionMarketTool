@@ -56,7 +56,7 @@ changelogger clean
 * Farming
 * ~~Revisit Profit Quotient -> Profit Percentage~~
 * Javascript überall
-* No Spec Crafting
+* ~~No Spec Crafting~~
   * ~~Capes (028)~~
   * ~~Royal Items~~
   * ~~Enchanting (and/or BM)~~
@@ -66,12 +66,12 @@ changelogger clean
 * ~~Add royal sigil enchanting~~
 * add Artifact crafting
 * ~~Bug: Age is not correct~~
-* Split up Items CronJobs
+* ~~Split up Items CronJobs~~
 * Update Profit Quotient Grading
 * Show all Transportable Items and their respective City
 * Tier Select in Enchanting
 * Codeception
-* add 10% and 20% Crafting Bonus
+* ~~add 10% and 20% Crafting Bonus~~
 * Luxury Goods
 * Amount for RoyalItesm /Capes
 * No Buy Order security ( 10% from sellOrder)
