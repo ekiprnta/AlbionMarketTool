@@ -90,7 +90,7 @@ class NoSpecCraftingService extends Market
             $this->calculateArtifact($specialItem->getArtifact(), $specialItem->getTier(), $artifacts)
         );
         if ($noSpecEntity->getArtifact() === null) {
-            $artifactPrice = -1;
+            $artifactPrice = 0;
         } else {
             $artifactPrice = $this->calculateBuyOrder($noSpecEntity->getArtifact()->getBuyOrderPrice());
         }
