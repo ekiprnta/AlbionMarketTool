@@ -56,6 +56,13 @@ class UpdateMaterialsCommand extends Command
             $this->materialRepository->createOrUpdate($adjustedSigil);
         }
 
+        $output->writeln('Updating Tomes...');
+        $tomes = $this->materialsApiService->getTomesOfInsight();
+        $adjustedTomes = $this->uploadHelper->adjustMaterials($tomes, 'tomes');
+        foreach ($adjustedTomes as $adjustedTome) {
+            $this->materialRepository->createOrUpdate($adjustedTome);
+        }
+
         return self::SUCCESS;
     }
 }
