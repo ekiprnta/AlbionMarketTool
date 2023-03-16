@@ -15,6 +15,7 @@ use MZierdt\Albion\commands\UpdateMaterialsCommand;
 use MZierdt\Albion\commands\UpdateNoSpecCraftingCommand;
 use MZierdt\Albion\commands\UpdateRefiningCommand;
 use MZierdt\Albion\commands\UpdateResourcesCommand;
+use MZierdt\Albion\commands\UpdateRoyalItemsCommand;
 use MZierdt\Albion\commands\UpdateTransmutationCommand;
 use Symfony\Component\Console\Application;
 
@@ -24,6 +25,7 @@ $container = require __DIR__ . '/../container.php';
 $app = new Application('Albion Market Tool');
 
 $app->add($container->get(UpdateItemsCommand::class));
+$app->add($container->get(UpdateRoyalItemsCommand::class));
 $app->add($container->get(UpdateJournalsCommand::class));
 $app->add($container->get(UpdateResourcesCommand::class));
 $app->add($container->get(UpdateMaterialsCommand::class));
