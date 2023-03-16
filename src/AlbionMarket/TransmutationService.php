@@ -82,16 +82,10 @@ class TransmutationService extends Market
             $startResource->getSellOrderPrice() + $transEntity->getTransmutationPrice()
         );
         $transEntity->setProfitSell(
-            $this->calculateProfit(
-                $endResource->getSellOrderPrice(),
-                $transEntity->getMaterialCostSell()
-            )
+            $this->calculateProfit($endResource->getSellOrderPrice(), $transEntity->getMaterialCostSell())
         );
         $transEntity->setProfitPercentageSell(
-            $this->calculateProfitPercentage(
-                $endResource->getSellOrderPrice(),
-                $transEntity->getMaterialCostSell()
-            )
+            $this->calculateProfitPercentage($endResource->getSellOrderPrice(), $transEntity->getMaterialCostSell())
         );
         $transEntity->setProfitGradeSell($this->calculateProfitGrade($transEntity->getProfitPercentageSell()));
 
@@ -99,16 +93,10 @@ class TransmutationService extends Market
             $this->calculateBuyOrder($startResource->getBuyOrderPrice()) + $transEntity->getTransmutationPrice()
         );
         $transEntity->setProfitBuy(
-            $this->calculateProfit(
-                $endResource->getSellOrderPrice(),
-                $transEntity->getMaterialCostBuy()
-            )
+            $this->calculateProfit($endResource->getSellOrderPrice(), $transEntity->getMaterialCostBuy())
         );
         $transEntity->setProfitPercentageBuy(
-            $this->calculateProfitPercentage(
-                $endResource->getSellOrderPrice(),
-                $transEntity->getMaterialCostBuy()
-            )
+            $this->calculateProfitPercentage($endResource->getSellOrderPrice(), $transEntity->getMaterialCostBuy())
         );
         $transEntity->setProfitGradeBuy($this->calculateProfitGrade($transEntity->getProfitPercentageBuy()));
 

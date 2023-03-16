@@ -130,8 +130,7 @@ class BlackMarketCraftingService extends Market
         array $journals,
         array $bmSells,
         string $city
-    ): BlackMarketCraftingEntity
-    {
+    ): BlackMarketCraftingEntity {
         $itemEntity = $bmcEntity->getItem();
         $bmcEntity->setPrimResource(
             $this->calculateResource($itemEntity->getPrimaryResource(), $itemEntity->getTier(), $resources)
@@ -144,10 +143,7 @@ class BlackMarketCraftingService extends Market
 
         $journalEntityEmpty = $bmcEntity->getJournalEntityEmpty();
         $bmcEntity->setJournalAmountPerItem(
-            $this->calculateJournalAmountPerItem(
-                $itemEntity->getFame(),
-                $journalEntityEmpty->getFameToFill()
-            )
+            $this->calculateJournalAmountPerItem($itemEntity->getFame(), $journalEntityEmpty->getFameToFill())
         );
 
         $bmcEntity->setAmount(
@@ -196,8 +192,7 @@ class BlackMarketCraftingService extends Market
         BlackMarketCraftingEntity $bmcEntity,
         float $percentage,
         MaterialEntity $tome,
-    ): BlackMarketCraftingEntity
-    {
+    ): BlackMarketCraftingEntity {
         $itemEntity = $bmcEntity->getItem();
 
         $primResource = $bmcEntity->getPrimResource();

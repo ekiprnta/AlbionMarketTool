@@ -104,11 +104,7 @@ class BlackMarketTransportingService extends Market
 
         $bmtEntity->setComplete(
             $this->isComplete(
-                [
-                    $bmItem->getSellOrderPrice(),
-                    $cityItem->getSellOrderPrice(),
-                    $cityItem->getBuyOrderPrice()
-                ]
+                [$bmItem->getSellOrderPrice(), $cityItem->getSellOrderPrice(), $cityItem->getBuyOrderPrice()]
             )
         );
         $bmtEntity->setCity($city);
