@@ -75,12 +75,11 @@ class BlackMarketTransportingService extends Market
         $bmItem = $bmtEntity->getBmItem();
         $bmtEntity->setCityItem($this->calculateCityItem($bmItem, $cityItems));
         $cityItem = $bmtEntity->getCityItem();
+
         $bmtEntity->setAmount(
             $this->calculateAmount(
-                $cityItem
-                    ->getPrimaryResourceAmount(),
-                $cityItem
-                    ->getSecondaryResourceAmount(),
+                $cityItem->getPrimaryResourceAmount(),
+                $cityItem->getSecondaryResourceAmount(),
                 $amountConfig1
             )
         );
@@ -93,7 +92,7 @@ class BlackMarketTransportingService extends Market
         );
         $bmtEntity->setProfitGradeSell($this->calculateProfitGrade($bmtEntity->getProfitPercentageSell()));
 
-        $cityItemPrice = $cityItem->getBuyOrderPrice();
+        $cityItemPrice = $this->calculateBuyOrder($cityItem->getBuyOrderPrice());
         $bmtEntity->setMaterialCostBuy($this->calculateBuyOrder($cityItemPrice));
         $bmtEntity->setProfitBuy(
             $this->calculateProfit($bmItem->getSellOrderPrice(), (int) $bmtEntity->getMaterialCostBuy())
@@ -105,7 +104,11 @@ class BlackMarketTransportingService extends Market
 
         $bmtEntity->setComplete(
             $this->isComplete(
-                [$bmItem->getSellOrderPrice(), $cityItem->getSellOrderPrice(), $cityItem->getBuyOrderPrice()]
+                [
+                    $bmItem->getSellOrderPrice(),
+                    $cityItem->getSellOrderPrice(),
+                    $cityItem->getBuyOrderPrice()
+                ]
             )
         );
         $bmtEntity->setCity($city);
