@@ -59,10 +59,10 @@ class NoSpecCraftingService extends Market
     }
 
     public function calculateMaterialCost(
-        int $primaryItemCost,
-        int $secondaryMaterialCost,
+        float $primaryItemCost,
+        float $secondaryMaterialCost,
         int $secondaryMaterialAmount,
-        int $artifactCost
+        float $artifactCost
     ): float {
         return $primaryItemCost + ($secondaryMaterialCost * $secondaryMaterialAmount) + ($artifactCost);
     }
@@ -81,10 +81,8 @@ class NoSpecCraftingService extends Market
 
         $noSpecEntity->setSecondResource(
             $this->calculateSecondResource(
-                $specialItem
-                    ->getSecondaryResource(),
-                $specialItem
-                    ->getTier(),
+                $specialItem->getSecondaryResource(),
+                $specialItem->getTier(),
                 $heartsAndSigils
             )
         );
@@ -92,10 +90,9 @@ class NoSpecCraftingService extends Market
             $this->calculateArtifact($specialItem->getArtifact(), $specialItem->getTier(), $artifacts)
         );
         if ($noSpecEntity->getArtifact() === null) {
-            $artifactPrice = 1;
+            $artifactPrice = 0;
         } else {
-            $artifactPrice = $noSpecEntity->getArtifact()
-                ->getBuyOrderPrice();
+            $artifactPrice = $this->calculateBuyOrder($noSpecEntity->getArtifact()->getBuyOrderPrice());
         }
 
         $defaultItem = $noSpecEntity->getDefaultItem();
@@ -121,8 +118,8 @@ class NoSpecCraftingService extends Market
 
         $noSpecEntity->setMaterialCostBuy(
             $this->calculateMaterialCost(
-                $defaultItem->getBuyOrderPrice(),
-                $secondResource->getBuyOrderPrice(),
+                $this->calculateBuyOrder($defaultItem->getBuyOrderPrice()),
+                $this->calculateBuyOrder($secondResource->getBuyOrderPrice()),
                 $specialItem->getSecondaryResourceAmount(),
                 $artifactPrice
             )

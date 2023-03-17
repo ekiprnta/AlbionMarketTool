@@ -76,6 +76,7 @@ changelogger clean
 * Amount for RoyalItesm /Capes
 * No Buy Order security ( 10% from sellOrder)
 * Hovering over (BLack Market Resource or No SPec shows dropdown)
+* Bug Enchanting
 
 ## Plans
 

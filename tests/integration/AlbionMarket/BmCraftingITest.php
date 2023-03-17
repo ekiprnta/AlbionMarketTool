@@ -55,13 +55,13 @@ class BmCraftingITest extends TestCase
         $this->assertEquals(3096000, $bmcEntity->getFameAmount());
         $this->assertEqualsWithDelta(1.45, $bmcEntity->getJournalAmountPerItem(), $delta);
 
-        $this->assertEqualswithDelta(287475.23, $bmcEntity->getMaterialCostSell(), $delta);
-        $this->assertEqualsWithDelta(58437.37, $bmcEntity->getProfitSell(), $delta);
-        $this->assertEquals(128.69, $bmcEntity->getProfitPercentageSell());
+        $this->assertEqualswithDelta(287219.99375, $bmcEntity->getMaterialCostSell(), $delta);
+        $this->assertEqualsWithDelta(58692.606, $bmcEntity->getProfitSell(), $delta);
+        $this->assertEquals(125.59, $bmcEntity->getProfitPercentageSell());
         $this->assertEquals('C', $bmcEntity->getProfitGradeSell());
 
-        $this->assertEqualswithDelta(259537.126, $bmcEntity->getMaterialCostBuy(), $delta);
-        $this->assertEqualsWithDelta(86375.474, $bmcEntity->getProfitBuy(), $delta);
+        $this->assertEqualswithDelta(253048.69785, $bmcEntity->getMaterialCostBuy(), $delta);
+        $this->assertEqualsWithDelta(92863.902, $bmcEntity->getProfitBuy(), $delta);
         $this->assertEquals(142.55, $bmcEntity->getProfitPercentageBuy());
         $this->assertEquals('B', $bmcEntity->getProfitGradeBuy());
 

@@ -292,7 +292,7 @@ class BlackMarketCraftingServiceTest extends TestCase
     ): void {
         $this->assertEqualsWithDelta(
             $expectedResult,
-            $this->bmcService->calculateProfitJournals($emptyJournalPrice, $fullJournalPrice, $journalAmount,),
+            $this->bmcService->calculateProfitJournals($fullJournalPrice, $emptyJournalPrice, $journalAmount,),
             0.00000001
         );
     }
@@ -388,8 +388,8 @@ class BlackMarketCraftingServiceTest extends TestCase
      */
     public function testCalculateMaterialCost(
         float $result,
-        int $resourceCost,
-        int $journalPrice,
+        float $resourceCost,
+        float $journalPrice,
         float $journalAmountPerItem,
         float $percentage
     ): void {

@@ -75,57 +75,39 @@ class TransmutationService extends Market
                 $globalDiscount
             )
         );
+        $startResource = $transEntity->getStartResource();
+        $endResource = $transEntity->getEndResource();
+
         $transEntity->setMaterialCostSell(
-            $transEntity->getStartResource()
-                ->getSellOrderPrice() + $transEntity->getTransmutationPrice()
+            $startResource->getSellOrderPrice() + $transEntity->getTransmutationPrice()
         );
         $transEntity->setProfitSell(
-            $this->calculateProfit(
-                $transEntity->getEndResource()
-                    ->getSellOrderPrice(),
-                $transEntity->getMaterialCostSell()
-            )
+            $this->calculateProfit($endResource->getSellOrderPrice(), $transEntity->getMaterialCostSell())
         );
         $transEntity->setProfitPercentageSell(
-            $this->calculateProfitPercentage(
-                $transEntity->getEndResource()
-                    ->getSellOrderPrice(),
-                $transEntity->getMaterialCostSell()
-            )
+            $this->calculateProfitPercentage($endResource->getSellOrderPrice(), $transEntity->getMaterialCostSell())
         );
         $transEntity->setProfitGradeSell($this->calculateProfitGrade($transEntity->getProfitPercentageSell()));
 
         $transEntity->setMaterialCostBuy(
-            $transEntity->getStartResource()
-                ->getBuyOrderPrice() + $transEntity->getTransmutationPrice()
+            $this->calculateBuyOrder($startResource->getBuyOrderPrice()) + $transEntity->getTransmutationPrice()
         );
         $transEntity->setProfitBuy(
-            $this->calculateProfit(
-                $transEntity->getEndResource()
-                    ->getSellOrderPrice(),
-                $transEntity->getMaterialCostBuy()
-            )
+            $this->calculateProfit($endResource->getSellOrderPrice(), $transEntity->getMaterialCostBuy())
         );
         $transEntity->setProfitPercentageBuy(
-            $this->calculateProfitPercentage(
-                $transEntity->getEndResource()
-                    ->getSellOrderPrice(),
-                $transEntity->getMaterialCostBuy()
-            )
+            $this->calculateProfitPercentage($endResource->getSellOrderPrice(), $transEntity->getMaterialCostBuy())
         );
         $transEntity->setProfitGradeBuy($this->calculateProfitGrade($transEntity->getProfitPercentageBuy()));
 
-        $transEntity->setTierColor((int) ($transEntity->getStartResource()->getTier() / 10));
-        $transEntity->setEndTierColor((int) ($transEntity->getEndResource()->getTier() / 10));
+        $transEntity->setTierColor((int) ($startResource->getTier() / 10));
+        $transEntity->setEndTierColor((int) ($endResource->getTier() / 10));
 
         $transEntity->setComplete(
             $this->isComplete([
-                $transEntity->getEndResource()
-                    ->getSellOrderPrice(),
-                $transEntity->getStartResource()
-                    ->getSellOrderPrice(),
-                $transEntity->getStartResource()
-                    ->getBuyOrderPrice(),
+                $endResource->getSellOrderPrice(),
+                $startResource->getSellOrderPrice(),
+                $startResource->getBuyOrderPrice(),
                 $transEntity->getTransmutationPrice(),
             ])
         );

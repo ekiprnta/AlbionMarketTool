@@ -48,12 +48,12 @@ class EnchantingITest extends TestCase
 
         $this->assertEqualswithDelta(null, $enchantingEntity->getMaterialCostSell(), $delta);
         $this->assertEqualsWithDelta(164412.15, $enchantingEntity->getProfitSell(), $delta);
-        $this->assertEquals(130.94, $enchantingEntity->getProfitPercentageSell());
-        $this->assertEquals('B', $enchantingEntity->getProfitGradeSell());
+        $this->assertEquals(127.66, $enchantingEntity->getProfitPercentageSell());
+        $this->assertEquals('C', $enchantingEntity->getProfitGradeSell());
 
         $this->assertEqualswithDelta(393120, $enchantingEntity->getMaterialCostBuy(), $delta);
-        $this->assertEqualsWithDelta(268764.15, $enchantingEntity->getProfitBuy(), $delta);
-        $this->assertEquals(152.67, $enchantingEntity->getProfitPercentageBuy());
+        $this->assertEqualsWithDelta(274654.475, $enchantingEntity->getProfitBuy(), $delta);
+        $this->assertEquals(150.26, $enchantingEntity->getProfitPercentageBuy());
         $this->assertEquals('B', $enchantingEntity->getProfitGradeBuy());
 
         $this->assertEquals(7, $enchantingEntity->getTierColor());

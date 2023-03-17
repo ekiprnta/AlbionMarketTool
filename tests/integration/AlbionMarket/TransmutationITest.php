@@ -37,12 +37,12 @@ class TransmutationITest extends TestCase
 
         $this->assertEqualswithDelta(6353, $refiningEntity->getMaterialCostSell(), $delta);
         $this->assertEqualsWithDelta(1042.85, $refiningEntity->getProfitSell(), $delta);
-        $this->assertEquals(124.49, $refiningEntity->getProfitPercentageSell());
+        $this->assertEquals(121.38, $refiningEntity->getProfitPercentageSell());
         $this->assertEquals('C', $refiningEntity->getProfitGradeSell());
 
-        $this->assertEqualswithDelta(5763, $refiningEntity->getMaterialCostBuy(), $delta);
-        $this->assertEqualsWithDelta(1632.85, $refiningEntity->getProfitBuy(), $delta);
-        $this->assertEquals(137.23, $refiningEntity->getProfitPercentageBuy());
+        $this->assertEqualswithDelta(5758.425, $refiningEntity->getMaterialCostBuy(), $delta);
+        $this->assertEqualsWithDelta(1637.425, $refiningEntity->getProfitBuy(), $delta);
+        $this->assertEquals(133.91, $refiningEntity->getProfitPercentageBuy());
         $this->assertEquals('B', $refiningEntity->getProfitGradeBuy());
 
         $this->assertEquals(4, $refiningEntity->getTierColor());

@@ -56,6 +56,6 @@ class MarketServiceTest extends TestCase
 
     public function getProfitAndWeight(): array
     {
-        return [[110000, 100000, 110], [20000, 25000, 80], [15, 10, 136.36]];
+        return [[110000, 100000, 107.25], [20000, 25000, 78], [15, 10, 132.95]];
     }
 }
