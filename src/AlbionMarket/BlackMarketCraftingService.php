@@ -233,7 +233,7 @@ class BlackMarketCraftingService extends Market
         $bmcEntity->setProfitGradeSell($this->calculateProfitGrade($bmcEntity->getProfitPercentageSell()));
 
         $primResourceCostBuy = $this->calculateBuyOrder(
-            $primResource->getBuyOrderPrice()
+                $primResource->getBuyOrderPrice()
             ) * $itemEntity->getPrimaryResourceAmount();
         $secResourceCostBuy = $this->calculateBuyOrder(
                 $secResource->getBuyOrderPrice()
