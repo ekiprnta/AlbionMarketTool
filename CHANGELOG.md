@@ -1,5 +1,18 @@
 <!-- CHANGELOGGER -->
 
+## [0.11.1] - 2023-03-19
+
+### Feature change (2 changes)
+
+- No you are able to change rrr (props m-zierdt)
+- Split Item COmmands (props m-zierdt)
+
+### New feature (3 changes)
+
+- Now you can choose to use Resource from their bonus city (props m-zierdt)
+- Add Bags and Capes to Crafting (props m-zierdt)
+- Add Marketfee to every market calculation (props m-zierdt)
+
 ## [0.11.0] - 2023-03-07
 
 ### New feature (1 change)
