@@ -233,11 +233,11 @@ class BlackMarketCraftingService extends Market
         $bmcEntity->setProfitGradeSell($this->calculateProfitGrade($bmcEntity->getProfitPercentageSell()));
 
         $primResourceCostBuy = $this->calculateBuyOrder(
-                $primResource->getBuyOrderPrice()
-            ) * $itemEntity->getPrimaryResourceAmount();
+            $primResource->getBuyOrderPrice()
+        ) * $itemEntity->getPrimaryResourceAmount();
         $secResourceCostBuy = $this->calculateBuyOrder(
-                $secResource->getBuyOrderPrice()
-            ) * $itemEntity->getSecondaryResourceAmount();
+            $secResource->getBuyOrderPrice()
+        ) * $itemEntity->getSecondaryResourceAmount();
 
         if ($bmcEntity->getItem()->getName() === 'bag_insight') {
             $bmcEntity->setMaterialCostBuy(
