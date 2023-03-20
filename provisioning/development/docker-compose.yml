@@ -4,7 +4,9 @@ services:
 
   php-fpm:
     tty: true # Enables debugging capabilities when attached to this container.
-    image: registry.mehrkanal.com/docker/phpx/fpm:8.1-dev
+    build: ./php
+    #    image: php:81-fpm
+    #    image: registry.mehrkanal.com/docker/phpx/fpm:8.1-dev
     volumes:
       - ../../:/app
       - $SSH_AUTH_SOCK:$SSH_AUTH_SOCK
@@ -16,20 +18,6 @@ services:
     depends_on:
       - db_local
     working_dir: /app
-
-  node:
-    build: ./node
-    volumes:
-      - ../../:/app
-    ports:
-      - '3000:3000'
-      - '3001:3001'
-    links:
-      - nginx
-    working_dir: /app
-    entrypoint: [ 'tail', '-f', '/dev/null' ]
-    extra_hosts:
-      - 'packageserver-mehrkanal.testmk2.com:192.168.8.30'
 
   phpmyadmin_local:
     image: phpmyadmin/phpmyadmin
