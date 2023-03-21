@@ -1,76 +1,41 @@
-version: '3.7'
+version: '3'
 
 services:
-
-  php-fpm:
-    tty: true # Enables debugging capabilities when attached to this container.
-    build: ./php
-    #    image: php:81-fpm
-    #    image: registry.mehrkanal.com/docker/phpx/fpm:8.1-dev
-    volumes:
-      - ../../:/app
-      - $SSH_AUTH_SOCK:$SSH_AUTH_SOCK
-    restart: always
-    environment:
-      SSH_AUTH_SOCK: $SSH_AUTH_SOCK
-      SSH_AGENT_PID: $SSH_AGENT_PID
-      APPLICATION_ENV: development
-    depends_on:
-      - db_local
-    working_dir: /app
-
-  phpmyadmin_local:
-    image: phpmyadmin/phpmyadmin
-    restart: always
-    depends_on:
-      - db_local
-    environment:
-      PMA_HOSTS: db_local
-      PMA_PORT: 3307
-    ports:
-      - 8081:80
-
   nginx:
     image: nginx:latest
     ports:
-      - '8080:80'
+      - "8080:80"
     volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      #      - ./public:/var/www/proj
       - ../../:/app/:ro
-      - ./nginx/vhost.conf:/etc/nginx/conf.d/default.conf:ro
-    environment:
-      - NGINX_HOST=foobar.com
-      - NGINX_PORT=80
     depends_on:
       - php-fpm
-    links:
-      - php-fpm
 
-  db_local:
-    #    https://hub.docker.com/_/mariadb
-    image: mariadb:10.7
-    ports:
-      - '3307:3306'
-    volumes:
-      - db_data_local:/var/lib/mysql
-      - ./albion_db.sql:/docker-entrypoint-initdb.d/init.sql
-    environment:
-      - MYSQL_ROOT_PASSWORD=zuiop
-      - MYSQL_PASSWORD=qwert
-      - MYSQL_USER=flyka
-      - MYSQL_DATABASE=albion_db
-
-  cron:
-    tty: true # Enables debugging capabilities when attached to this container.
-    build: ./cron
+  php-fpm:
+    build:
+      context: .
+      dockerfile: Dockerfile-php-fpm
     volumes:
       - ../../:/app
-    restart: always
     environment:
-      APPLICATION_ENV: development
-    depends_on:
-      - db_local
+      - PHP_FPM_PM=dynamic
+      - PHP_FPM_PM_MAX_CHILDREN=5
+      - PHP_FPM_PM_START_SERVERS=2
+      - PHP_FPM_PM_MIN_SPARE_SERVERS=1
+      - PHP_FPM_PM_MAX_SPARE_SERVERS=3
     working_dir: /app
 
-volumes:
-  db_data_local:
-  db_data_test:
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: db
+      PMA_USER: root
+      PMA_PASSWORD: example
+
+  db:
+    image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: example
