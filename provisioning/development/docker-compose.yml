@@ -48,17 +48,17 @@ services:
       - "3307:3306"
     restart: always
 
-#  cron:
-#    tty: true # Enables debugging capabilities when attached to this container.
-#    build: ./cron
-#    volumes:
-#      - ../../:/app
-#    restart: always
-#    environment:
-#      APPLICATION_ENV: development
-#    depends_on:
-#      - db_local
-#    working_dir: /app
+  cron:
+    tty: true # Enables debugging capabilities when attached to this container.
+    build: ./cron
+    volumes:
+      - ../../:/app
+    restart: always
+    environment:
+      APPLICATION_ENV: development
+    depends_on:
+      - db_local
+    working_dir: /app
 
 
 volumes:
