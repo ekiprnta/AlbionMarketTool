@@ -1,4 +1,4 @@
-FROM registry.mehrkanal.com/docker/phpx/fpm:8.1-dev
+FROM php:8.1-fpm-alpine
 
 RUN apt-get update && apt-get install cron -y && apt-get clean && \
     apt-get autoclean && \
