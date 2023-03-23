@@ -83,3 +83,5 @@ changelogger clean
 + make dir for Git stuff
 + add Git Entities Repository
 + improve the Frontend with Jquery
+
+php fpm
